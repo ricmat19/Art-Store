@@ -1,0 +1,235 @@
+body{
+    color: #000000;
+}
+
+.center{
+    text-align: center;
+}
+
+.grid{
+    display: grid;
+}
+
+.navbar{
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 150px));
+}
+
+.main-body{
+    animation: transitionIn 1000ms;
+}
+
+.nav-toggle{
+    display: none;
+}
+
+.nav-toggle:checked ~ nav{
+    display: block;
+}
+
+.menu-toggle{
+    display: none;
+    cursor: pointer;
+}
+
+@media (max-width: 785px){
+
+    .menu-toggle{
+        display: grid;
+    }
+
+    .navbar{
+        display: none;
+    }
+}
+
+a{
+    color: #000000;
+    font-family: 'Grandstander', cursive;
+}
+
+hr{
+    margin: 0 150px;
+}
+
+button{
+    font-family: 'Grandstander', cursive;
+    padding: 5px 20px;
+    margin: 5px;
+    font-size: 15px;
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+}
+
+a:hover{
+    color: rgb(212, 0, 28);
+}
+
+.subtitle-div{
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 150px));
+}
+
+.subtitle-anchor{
+    text-decoration: none;
+}
+
+.subtitle{
+    font-family: 'Grandstander', cursive;
+    text-align: center;
+    font-size: 25px;
+}
+
+.image-title{
+    font-family: 'Grandstander', cursive;
+    text-align: center;
+    font-size: 25px;
+    margin: 5px;
+}
+
+.thumbnail-menu{
+    display: grid;
+    justify-content: center;
+    text-align: center;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 29rem));
+    gap: 30px;
+    padding: 50px 0px;
+}
+
+.comic-menu, .personal-menu{
+    text-align: center;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 13rem));
+    gap: 30px;
+    padding: 50px 0;
+}
+
+.comic-item, .personal-item{
+    text-align: center;
+}
+
+.comic-thumbnail, .personal-thumbnail{
+    border: solid black 5px;
+    border-radius: 20px;
+    height: 200px;
+    width: 200px;
+}
+
+.thumbnail-footer{
+    text-align: center;
+    display: grid;
+    grid-template-columns: auto auto;
+    padding: 5px 0 20px 0;
+}
+
+.menu-item{
+    text-align: center;
+}
+
+.menu-image{
+    border: solid black 5px;
+    border-radius: 20px;
+    width: 100%;
+}
+
+.icon{
+    font-size: 30px;
+    padding: 0 10px;
+}
+
+.footer-pad{
+    padding: 20px;
+}
+
+.big-image{
+    border: solid black 5px;
+    border-radius: 20px;
+    height: 400px;
+    width: 400px;
+}
+
+.image-thumbnail{
+    border: solid black 5px;
+    border-radius: 20px;
+    height: 100px;
+    width: 100px;
+}
+
+.comic-details, .print-details, .profile-info, .personal-details{
+    margin: 20px 200px;
+    text-align: center;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(410px, 500px));
+}
+
+.about-info{
+    text-align: justify;
+    justify-content: center;
+    font-family: cursive;
+    font-size: 14px;
+}
+
+.form-div{
+    display: grid;
+    justify-content: center;
+    padding: 40px;
+}
+
+.contact-form{
+    display: grid;
+    justify-content: center;
+    border: solid black 5px;
+    border-radius: 20px;
+    padding: 40px;
+    grid-template-columns: repeat(1, minmax(0px, 800px));
+}
+
+.subject-line{
+    display: grid;
+    grid-template-columns: 75px auto;
+    margin: 15px 0;
+}
+
+input{
+    border: solid black 4px;
+    border-radius: 10px;
+    padding: 5px;
+    outline: none;
+}
+
+textarea{
+    border: solid black 4px;
+    border-radius: 10px;
+    padding: 5px;
+    outline: none
+}
+
+.form-button-div{
+    text-align: right;
+}
+
+label{
+    font-family: 'Grandstander';
+    display: grid;
+    align-content: center;
+}
+
+.profile-image-div{
+    display: grid;
+    align-content: center;
+}
+
+@keyframes transitionIn{
+    from{
+        opacity: 0;
+    }
+
+    to{
+        opacity: 1;
+    }
+}
