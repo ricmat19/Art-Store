@@ -2,6 +2,10 @@ body{
     color: #000000;
 }
 
+a{
+    text-decoration: none;
+}
+
 .center{
     text-align: center;
 }
@@ -14,6 +18,9 @@ body{
     display: grid;
     justify-content: center;
     grid-template-columns: repeat(auto-fit, minmax(50px, 150px));
+}
+.active{
+    color: rgb(212, 0, 28);
 }
 
 .main-body{
