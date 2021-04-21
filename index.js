@@ -1,26 +1,16 @@
-//insures that the .env file is only run in a development environment and not a produciton environment
-if(process.env.NODE_ENV !== 'production'){
-    //requires the the .env file configuration be run first hiding all info hidden via the .env file
-    require('dotenv').config();
-}
+const express = require('express');
+const app = express();
+const path = require('path');
+const hbs = require('express-handlebars');
+const homeRouter = require('./routes/home');
 
-const http = require('http');
-const fs = require('fs');
-const port = 3000;
+app.engine('handlebars', hbs({ext: 'handlebars', defaultLayout: 'defaultLayout', layoutsDir: __dirname + '/views/layouts/'}));
+app.set('view engine', 'handlebars');
 
-const server = http.createServer(function(req, res){
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    fs.readFile('index.html', function(error, data){
-        if(error){
-            res.writeHead(404);
-            res.write('Error:File Not Found');
-        }else{
-            res.write(data); 
-        }
-        res.end();
-    });
-});
+app.use(express.static('public'));
 
-server.listen(port, function(){
+app.listen(3000, function(){
     console.log("Server Running...");
 })
+
+app.use('/', homeRouter);
