@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/personalworks', (req, res) => {
-    res.render('personalWorks', {title: 'Personal Works', condition: false});
+router.get('/personal-works', (req, res) => {
+    res.render('personal-works', {title: 'Personal Works', condition: false});
 })
 
 module.exports = router;

@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/:personalWorkId', (req, res) => {
-    res.render('personalWork', {title: 'PersonalWorkId', condition: false});
+router.get('/personal-work', (req, res) => {
+    res.render('personal-work', {title: 'Personal Work', condition: false});
 })
 
 module.exports = router;

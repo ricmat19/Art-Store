@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/:printId', (req, res) => {
-    res.render('printId', {title: 'PrintId', condition: false});
+router.get('/print', (req, res) => {
+    res.render('print', {title: 'Print', condition: false});
 })
 
 module.exports = router;
