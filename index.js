@@ -1,32 +1,30 @@
 const express = require('express');
 const app = express();
-const path = require('path');
 const hbs = require('express-handlebars');
+const database = require("./database")
 const homeRouter = require('./routes/home');
 const aboutRouter = require('./routes/about');
-const comicRouter = require('./routes/comic');
-const comicsRouter = require('./routes/comics');
+const collectionRouter = require('./routes/collection');
 const contactRouter = require('./routes/contact');
-const personalWorkRouter = require('./routes/personal-work');
-const personalWorksRouter = require('./routes/personal-works');
-const printRouter = require('./routes/print');
-const printsRouter = require('./routes/prints');
+
+//insures that the .env file is only run in a development environment and not a production environment
+if(process.env.NODE_ENV !== 'production'){
+    //requires the the .env file configuration be run first hiding all info hidden via the .env file
+    require('dotenv').config();
+}
 
 app.engine('handlebars', hbs({ext: 'handlebars', defaultLayout: 'defaultLayout', layoutsDir: __dirname + '/views/layouts/'}));
 app.set('view engine', 'handlebars');
 
-app.use(express.static('public'));
+app.use(express.static('public')); 
 
 app.listen(3000, function(){
     console.log("Server Running...");
 })
 
+// app.use(database.query); 
+
 app.use(homeRouter);
 app.use(aboutRouter);
-app.use(comicRouter);
-app.use(comicsRouter);
+app.use(collectionRouter);
 app.use(contactRouter);
-app.use(personalWorkRouter);
-app.use(personalWorksRouter);
-app.use(printRouter);
-app.use(printsRouter);
