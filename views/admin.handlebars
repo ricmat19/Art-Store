@@ -1,0 +1,86 @@
+<div class="main-body">
+    <div class="center">
+        <h1 class="subtitle">ADMIN</h1>
+    </div>
+    <div class="admin-item-div">
+        <div class="admin-image-div">
+            <div class="image">
+                <div class="big-image-div">
+                    <img class="big-image" src="../images/Funny - Animal - Bug - 1.PNG" alt="item-image">
+                </div>
+            </div>
+        </div>
+        <form action="/routes/admin.js" method="POST">
+            <h1 class="form-title">Create</h1>
+            <div class="admin-form">
+                <label>Title</label>
+                <input type="text" name="name" class="form-control" required>
+            </div>
+            <div class="admin-form">
+                <div>
+                    <label class="radio-label">Type:</label>
+                </div>
+                <div class="radio-div">
+                    <label class="radio">Comic</label>
+                    <input type = "radio" name = "product" required>
+                    <label class="radio">Print</label>
+                    <input type = "radio" name = "product">
+                    <label class="radio">Personal</label>
+                    <input type = "radio" name = "product">
+                </div>
+            </div>
+            <div class="admin-form">
+                <label>Price</label>
+                <input type="text" name="name" class="form-control" required>
+            </div>
+            <div class="admin-form">
+                <label>Info</label>
+            <textarea name="message" rows="5" required></textarea>
+            </div>
+            <div class="form-button-div text-center">
+                <button type="submit" class="btn form-button">Submit</button>
+            </div>
+        </form>
+    </div>
+    <hr>
+    <div class="admin-item-div">
+        <div class="admin-image-div">
+            <div class="image">
+                <div class="big-image-div">
+                    <img class="big-image" src="../images/Funny - Animal - Bug - 1.PNG" alt="admin-image">
+                </div>
+            </div>
+        </div>
+        <form action="/routes/admin.js" method="POST">
+            <h1 class="form-title">Edit</h1>
+            <div class="admin-form">
+                <label>Title</label>
+                <input type="text" name="name" class="form-control" required>
+            </div>
+            <div class="admin-form">
+                <div>
+                    <label class="radio-label">Type:</label>
+                </div>
+                <div class="radio-div">
+                    <label class="radio">Comic</label>
+                    <input type = "radio" name = "product" required>
+                    <label class="radio">Print</label>
+                    <input type = "radio" name = "product">
+                    <label class="radio">Personal</label>
+                    <input type = "radio" name = "product">
+                </div>
+            </div>
+            <div class="admin-form">
+                <label>Price</label>
+                <input type="text" name="name" class="form-control" required>
+            </div>
+            <div class="admin-form">
+                <label>Info</label>
+                <textarea name="message" rows="5" required></textarea>
+            </div>
+            <div class="form-button-div text-center">
+                <button type="submit" class="btn form-button">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
