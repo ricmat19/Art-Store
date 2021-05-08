@@ -9,11 +9,11 @@ if(process.env.NODE_ENV !== 'production'){
 }
 
 const pool = new Pool({
-    user: "postgres",
-    password: process.env.DB_PW,
-    host: "localhost",
-    port: 5432,
-    database: "store",
+    user: process.env.PGUSER,
+    password: process.env.PGPASSWORD,
+    host: process.env.PGHOST,
+    port: process.env.PGPORT,
+    database: process.env.PGDATABASE,
     max: 20,
     connectionTimeoutMillis: 0,
     idleTimeoutMillis: 0

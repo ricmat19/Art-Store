@@ -12,7 +12,9 @@ router.post('/admin', async(req, res) => {
     try{
         const {title, product, price, info} = req.body;
 
-        const newComic = await db.query("INSERT INTO collection title = $1 product = $2 price = $3 info = $4 RETURNING *", [title, product, price, info]);
+        const newComic = await db.query("INSERT INTO collection (title, product, price, info) values ($1, $2, $3, $4) RETURNING *", [title, product, price, info]);
+
+        console.log(newComic);
     }catch(err){
         console.log(err);
     }

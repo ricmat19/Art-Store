@@ -17,8 +17,6 @@ app.listen(3000, function(){
     console.log("Server Running..."); 
 })
 
-app.use(db.query); 
-
 app.use(adminRouter);
 app.use(homeRouter);
 app.use(aboutRouter);

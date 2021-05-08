@@ -6,8 +6,8 @@ const db = require("../database");
 router.get('/collection/comics', async(req, res) => {
 
     try{
-        const { id } = req.params;
-        const item = await db.query("SELECT * FROM collection", [id]);
+        const comicCollection = await db.query(`SELECT * FROM collection WHERE PRODUCT=$1`, ['comic']);
+        console.log(comicCollection.rows);
     }catch(err){
         console.log(err);
     }
@@ -15,56 +15,66 @@ router.get('/collection/comics', async(req, res) => {
     res.render('comics', {title: 'Comics', condition: false});
 })
 
-router.get('/collection/comics/:id', (req, res) => {
+router.get('/collection/comic/:id', async (req, res) => {
+
+    try{
+        const comic = await db.query(`SELECT * FROM collection WHERE product=$1 AND id=$2`, ['comic', req.params.id]);
+        console.log(comic.rows);
+    }catch(err){
+        console.log(err);
+    }
+
     res.render('comic', {title: 'Comic', condition: false});
 })
 
-router.get('/collection/comics/:id', async(req, res) => {
-    try{
-        const {id} = req.params;
-        const item = await db.query("SELECT * FROM collection WHERE id = $2", [product, id]);
-        console.log(item)
-    }catch(err){
-        console.log("Comic:" + err);
-    }
-})
-
 //Prints
-router.get('/collection/prints', (req, res) => {
+router.get('/collection/prints', async(req, res) => {
+
+    try{
+        const printCollection = await db.query(`SELECT * FROM collection WHERE PRODUCT=$1`, ['print']);
+        console.log(printCollection.rows);
+    }catch(err){
+        console.log(err);
+    }
+
     res.render('prints', {title: 'Prints', condition: false});
 })
 
-router.get('/collection/prints/:id', (req, res) => {
-    res.render('print', {title: 'Print', condition: false});
-})
+router.get('/collection/print/:id', async(req, res) => {
 
-router.get('/collection/prints/:id', async(req, res) => {
     try{
-        const {id} = req.params;
-        const item = await db.query("SELECT * FROM collection WHERE product = $1 id = $2", [product, id]);
-        console.log(item)
+        const print = await db.query(`SELECT * FROM collection WHERE product=$1 AND id=$2`, ['print', req.params.id]);
+        console.log(print.rows);
     }catch(err){
         console.log(err);
     }
+
+    res.render('print', {title: 'Print', condition: false});
 })
 
 //Personal Works
-router.get('/collection/personal-works', (req, res) => {
-    res.render('personal-works', {title: 'Personal Works', condition: false});
-})
+router.get('/collection/personal-works', async(req, res) => {
 
-router.get('/collection/personal-works/:id', (req, res) => {
-    res.render('print', {title: 'Print', condition: false});
-})
-
-router.get('/collection/personal-works/:id', async(req, res) => {
     try{
-        const {id} = req.params;
-        const item = await pool.query("SELECT * FROM collection WHERE product = $1 id = $2", [product, id]);
-        console.log(item)
+        const personalCollection = await db.query(`SELECT * FROM collection WHERE PRODUCT=$1`, ['personal-work']);
+        console.log(personalCollection.rows);
     }catch(err){
         console.log(err);
     }
+
+    res.render('personal-works', {title: 'Personal Works', condition: false});
+})
+
+router.get('/collection/personal-work/:id', async(req, res) => {
+
+    try{
+        const personal = await db.query(`SELECT * FROM collection WHERE product=$1 AND id=$2`, ['personal-work', req.params.id]);
+        console.log(personal.rows);
+    }catch(err){
+        console.log(err);
+    }
+
+    res.render('personal-works', {title: 'Personal Work', condition: false});
 })
 
 module.exports = router;
