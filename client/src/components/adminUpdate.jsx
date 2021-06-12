@@ -1,6 +1,34 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
+import {useParams} from "react-router-dom";
+import CollectionAPI from '../apis/collectionAPI';
+import {CollectionContext} from '../context/collectionContext';
 
-const AdminUpdateC = () => {
+const AdminUpdateC = (props) => {
+
+    const {id} = useParams();
+    const {collection} = useContext(CollectionContext);
+    const [title, setTitle] = useState("");
+    const [product, setProduct] = useState("");
+    const [price, setPrice] = useState("");
+    const [info, setInfo] = useState("");
+
+    useEffect(() => {
+        const fetchData = async (req, res) => {
+            try{
+                const response = await CollectionAPI.get(`/admin/collection/${id}`);
+                console.log(response.data.data.collection);
+                setTitle(response.data.data.collection.title);
+                setProduct(response.data.data.collection.product)
+                setPrice(response.data.data.collection.price)
+                setInfo(response.data.data.collection.info)
+            }catch(err){
+                console.log(err);
+            }
+        }
+
+        fetchData();
+    }, []);
+
     return(
         <div>
             <div className="main-body">
@@ -21,32 +49,43 @@ const AdminUpdateC = () => {
                             <h1 className="form-title">Update</h1>
                         </div>
                         <div className="admin-form">
-                            <label>Title</label>
-                            <input type="text" name="name" className="form-control" required/>
+                            <label htmlFor="title">Title</label>
+                            <input value={title} onChange={e => setTitle(e.target.value)} type="text" name="name" className="form-control" required/>
                         </div>
                         <div className="admin-form">
                             <div>
-                                <label className="radio-label">Type:</label>
+                                <label htmlFor="product" className="radio-label">Type:</label>
                             </div>
                             <div className="radio-div">
-                                <label className="radio">Comic</label>
-                                <input type = "radio" name = "product" required/>
-                                <label className="radio">Print</label>
-                                <input type = "radio" name = "product"/>
-                                <label className="radio">Personal</label>
-                                <input type = "radio" name = "product"/>
+                                <div>
+                                    <label className="radio">Comic</label>
+                                    <input value={product} onChange={e => setProduct("comic")} type = "radio" name = "product" required/>
+                                </div>
+                                <div>
+                                    <label className="radio">Print</label>
+                                    <input value={product} onChange={e => setProduct("print")} type = "radio" name = "product"/>
+                                </div>
+                                <div>
+                                    <label className="radio">Personal</label>
+                                    <input value={product} onChange={e => setProduct("personal")} type = "radio" name = "product"/>
+                                </div>
                             </div>
                         </div>
                         <div className="admin-form">
-                            <label>Price</label>
-                            <input type="text" name="name" className="form-control" required/>
+                            <label htmlFor="price">Price</label>
+                            <input value={price} onChange={e => setPrice(e.target.value)} type="text" name="name" className="form-control" required/>
                         </div>
                         <div className="admin-form">
-                            <label>Info</label>
-                            <textarea name="message" rows="5" required></textarea>
+                            <label htmlFor="info">Info</label>
+                            <textarea value={info} onChange={e => setInfo(e.target.value)} name="message" rows="5" required></textarea>
                         </div>
-                        <div className="form-button-div text-center">
-                            <button type="submit" className="btn form-button">Submit</button>
+                        <div className="admin-form">
+                                <div></div>
+                            <div className="text-center">
+                                <div>
+                                    <button type="submit" className="btn form-button">Submit</button>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -56,3 +95,6 @@ const AdminUpdateC = () => {
 }
 
 export default AdminUpdateC;
+
+
+          

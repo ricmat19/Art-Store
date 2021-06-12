@@ -3,8 +3,9 @@ const app = express();
 const morgan = require("morgan");
 const cors = require("cors");
 // const hbs = require('express-handlebars');
+const adminCollectionRouter = require('./routes/adminCollection');
 const adminCreateRouter = require('./routes/adminCreate');
-const adminEditRouter = require('./routes/adminEdit');
+const adminUpdateRouter = require('./routes/adminUpdate');
 const collectionRouter = require('./routes/collection');
 // const homeRouter = require('./routes/home');
 // const aboutRouter = require('./routes/about');
@@ -28,6 +29,7 @@ app.use(express.json());
 //Middleware: Logging
 app.use(morgan("dev"));
 
+app.use(adminCollectionRouter);
 app.use(adminCreateRouter);
-app.use(adminEditRouter);
+app.use(adminUpdateRouter);
 app.use(collectionRouter); 

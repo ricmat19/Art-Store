@@ -244,6 +244,11 @@ textarea{
     text-align: right;
 }
 
+.admin-collection-button-div{
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
 label{
     font-family: 'Grandstander';
     display: grid;
@@ -260,6 +265,14 @@ label{
 }
 
 .radio-div{
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+.delete{
+    background-color: rgb(212, 0, 28);
+    border-color: rgb(212, 0, 28);
+    color: white;
     text-align: left;
 }
 

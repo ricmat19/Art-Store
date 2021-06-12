@@ -1,20 +1,20 @@
 import React, {useContext, useEffect} from 'react';
-import {useParams} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 import CollectionAPI from '../apis/collectionAPI';
 import {CollectionContext} from '../context/collectionContext';
 
-const CollectionC = (props) => {
+const AdminCollectionC = (props) => {
 
-    const {product} = useParams();
     const {collection, setCollection} = useContext(CollectionContext);
-    console.log(product);
+
+    let history = useHistory();
 
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
-                const response = await CollectionAPI.get(`/collection/${product}`);
+                const response = await CollectionAPI.get(`/admin/collection`);
                 setCollection(response.data.data.collection);
-                console.log(response.data.data.collection);
+                console.log(response);
             }catch(err){
                 console.log(err);
             }
@@ -22,6 +22,25 @@ const CollectionC = (props) => {
 
         fetchData();
     }, []);
+
+    const handleDelete = async (id) => {
+        try{
+            const response = await CollectionAPI.delete(`/admin/delete/${id}`);
+            setCollection(collection.filter(item => {
+               return item.id !== id;
+            }))
+        }catch(err){
+            console.log(err);
+        }
+    }
+
+    const handleUpdate = async (id) => {
+        try{
+            history.push(`/admin/collection/${id}`)
+        }catch(err){
+            console.log(err);
+        }
+    }
 
     return(
         <div>
@@ -44,6 +63,16 @@ const CollectionC = (props) => {
                                         <div className="Price">{item.price}</div>
                                     </div>
                                 </a>
+                                <div className="admin-form">
+                                    <div className="admin-collection-button-div text-center">
+                                        <div>
+                                            <button onClick={() => handleDelete(item.id)} className="btn form-button delete">Delete</button>
+                                        </div>
+                                        <div>
+                                            <button onClick={() => handleUpdate(item.id)} type="submit" className="btn form-button">Update</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         );
                     })}
@@ -53,4 +82,4 @@ const CollectionC = (props) => {
     )
 }
 
-export default CollectionC;
+export default AdminCollectionC;

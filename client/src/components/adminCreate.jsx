@@ -1,6 +1,32 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import CollectionAPI from "../apis/collectionAPI";
+import {CollectionContext} from '../context/collectionContext';
 
-const AdminCreateC = () => {
+const AdminCreateC = (props) => {
+    const{createItem} = useContext(CollectionContext);
+
+    const [title, setTitle] = useState("");
+    const [type, setType] = useState("");
+    const [price, setPrice] = useState("");
+    const [info, setInfo] = useState("");
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        try{
+            const response = await CollectionAPI.post("/admin/create", {
+                title: title,
+                product: type,
+                price: price,
+                info: info
+            })
+            
+            createItem(response.data.data.collection);
+
+        }catch(err){
+
+        }
+    }
+
     return(
         <div>
             <div className="main-body">
@@ -22,31 +48,37 @@ const AdminCreateC = () => {
                         </div>
                         <div className="admin-form">
                             <label>Title</label>
-                            <input type="text" name="name" className="form-control" required/>
+                            <input value={title} onChange={e => setTitle(e.target.value)} type="text" name="name" className="form-control" required/>
                         </div>
                         <div className="admin-form">
                             <div>
                                 <label className="radio-label">Type:</label>
                             </div>
                             <div className="radio-div">
-                                <label className="radio">Comic</label>
-                                <input type = "radio" name = "product" required/>
-                                <label className="radio">Print</label>
-                                <input type = "radio" name = "product"/>
-                                <label className="radio">Personal</label>
-                                <input type = "radio" name = "product"/>
+                                <div>
+                                    <label className="radio">Comic</label>
+                                    <input value={type} onChange={e => setType("comic")} type = "radio" name = "product" required/>
+                                </div>
+                                <div>
+                                    <label className="radio">Print</label>
+                                    <input value={type} onChange={e => setType("print")} type = "radio" name = "product"/>
+                                </div>
+                                <div>
+                                    <label className="radio">Personal</label>
+                                    <input value={type} onChange={e => setType("personal")} type = "radio" name = "product"/>
+                                </div>
                             </div>
                         </div>
                         <div className="admin-form">
                             <label>Price</label>
-                            <input type="text" name="name" className="form-control" required/>
+                            <input value={price} onChange={e => setPrice(e.target.value)} type="text" name="name" className="form-control" required/>
                         </div>
                         <div className="admin-form">
                             <label>Info</label>
-                        <textarea name="message" rows="5" required></textarea>
+                        <textarea value={info} onChange={e => setInfo(e.target.value)} name="message" rows="5" required></textarea>
                         </div>
                         <div className="form-button-div text-center">
-                            <button type="submit" className="btn form-button">Submit</button>
+                            <button onClick={handleSubmit} type="submit" className="btn form-button">Submit</button>
                         </div>
                     </form>
                 </div>
