@@ -2,6 +2,10 @@ body{
     color: #000000;
 }
 
+.h1{
+    font-weight: 100;
+}
+
 a{
     text-decoration: none;
 }
@@ -57,7 +61,7 @@ textarea{
 
 a{
     color: #000000;
-    font-family: 'Grandstander', cursive;
+    font-family: 'Rajdhani', cursive;
 }
 
 hr{
@@ -69,13 +73,12 @@ hr{
 }
 
 button{
-    font-family: 'Grandstander', cursive;
+    font-family: 'Rajdhani', cursive;
     padding: 5px 20px;
     margin: 5px;
     font-size: 15px;
     background-color: black;
     color: white;
-    border-radius: 10px;
 }
 
 a:hover{
@@ -93,19 +96,19 @@ a:hover{
 }
 
 .subtitle{
-    font-family: 'Grandstander', cursive;
+    font-family: 'Rajdhani', cursive;
     text-align: center;
     font-size: 25px;
 }
 
 .form-title{
-    font-family: 'Grandstander', cursive;
+    font-family: 'Rajdhani', cursive;
     text-align: center;
     font-size: 20px;
 }
 
 .image-title{
-    font-family: 'Grandstander', cursive;
+    font-family: 'Rajdhani', cursive;
     text-align: center;
     font-size: 25px;
     margin: 5px;
@@ -137,8 +140,8 @@ a:hover{
 
 /*  */
 .collection-thumbnail{
-    border: solid black 5px;
-    border-radius: 20px;
+    border-style: none;
+    background: rgb(243, 243, 243);
     height: 200px;
     width: 200px;
 }
@@ -155,8 +158,8 @@ a:hover{
 }
 
 .menu-image{
-    border: solid black 5px;
-    border-radius: 20px;
+    border-style: none;
+    background: rgb(243, 243, 243);
     width: 100%;
 }
 
@@ -170,15 +173,15 @@ a:hover{
 }
 
 .big-image{
-    border: solid black 5px;
-    border-radius: 20px;
+    border-style: none;
+    background: rgb(243, 243, 243);
     height: 400px;
     width: 400px;
 }
 
 .image-thumbnail{
-    border: solid black 5px;
-    border-radius: 20px;
+    border-style: none;
+    background: rgb(243, 243, 243);
     height: 100px;
     width: 100px;
 }
@@ -208,8 +211,8 @@ a:hover{
 .contact-form{
     display: grid;
     justify-content: center;
-    border: solid black 5px;
-    border-radius: 20px;
+    border-style: none;
+    background: rgb(243, 243, 243);
     padding: 40px;
     grid-template-columns: repeat(1, minmax(0px, 800px));
 }
@@ -227,15 +230,13 @@ a:hover{
 }
 
 input{
-    border: solid black 4px;
-    border-radius: 10px;
+    border-style: none;
     padding: 5px;
     outline: none;
 }
 
 textarea{
-    border: solid black 4px;
-    border-radius: 10px;
+    border-style: none;
     padding: 5px;
     outline: none
 }
@@ -250,13 +251,13 @@ textarea{
 }
 
 label{
-    font-family: 'Grandstander';
+    font-family: 'Rajdhani';
     display: grid;
     align-content: center;
 }
 
 .radio{
-    font-family: 'Grandstander';
+    font-family: 'Rajdhani';
     display: inline;
 }
 
