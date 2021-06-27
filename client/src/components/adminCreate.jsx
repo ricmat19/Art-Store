@@ -31,7 +31,7 @@ const AdminCreateC = (props) => {
         <div>
             <div className="main-body">
                 <div className="center">
-                    <h1 className="subtitle">ADMIN</h1>
+                    <p className="nav-title">admin</p>
                 </div>
                 <div className="admin-item-div">
                     <div className="admin-image-div">

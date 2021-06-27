@@ -46,9 +46,9 @@ const AdminCollectionC = (props) => {
         <div>
             <div className="main-body">
                 <div className="center subtitle-div">
-                    <a className="subtitle-anchor" href="/collection/comic"><h1 className="subtitle">COMICS</h1></a>
-                    <a className="subtitle-anchor" href="/collection/print"><h1 className="subtitle">PRINTS</h1></a>
-                    <a className="subtitle-anchor" href="/collection/personal-work"><h1 className="subtitle">PERSONAL</h1></a>
+                    <a className="subtitle-anchor" href="/collection/comic"><p className="nav-title">comics</p></a>
+                    <a className="subtitle-anchor" href="/collection/print"><p className="nav-title">prints</p></a>
+                    <a className="subtitle-anchor" href="/collection/personal-work"><p className="nav-title">personal</p></a>
                 </div>
                 <div className="collection-menu">
                     {collection && collection.map(item => {

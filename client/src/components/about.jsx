@@ -5,7 +5,7 @@ const AboutC = () => {
         <div>
             <div className="main-body">
                 <div className="center">
-                    <h1 className="subtitle">ABOUT</h1>
+                    <p className="nav-title">about</p>
                 </div>
                 <div className="profile-info">
                     <div className="profile-image-div">

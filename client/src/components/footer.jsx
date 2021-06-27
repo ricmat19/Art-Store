@@ -6,9 +6,9 @@ const FooterC = () => {
             <hr/>
             <footer>
                 <div className="center footer-pad">
-                    <a href="https://www.instagram.com/"><i className="icon fab fa-instagram"></i></a>
-                    <a href="https://twitter.com/?lang=en"><i className="icon fab fa-twitter"></i></a>
-                    <a href="https://www.facebook.com/"><i className="icon fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/arthouse_19/" target="_blank"><i class="icon fab fa-instagram ig-logo"></i></a>
+                    <a href="https://twitter.com/House19Art" target="_blank"><i class="icon fab fa-twitter twitter-logo"></i></a>
+                    <a href="https://www.youtube.com/channel/UCaem2HqM0PPak4fvf-uxlnQ" target="_blank"><i class="icon fab fa-youtube youtube-logo"></i></a>
                 </div>
             </footer>
         </div>

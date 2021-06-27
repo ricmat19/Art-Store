@@ -1,13 +1,41 @@
 body{
     color: #000000;
+    font-family: 'Rajdhani';
 }
 
-.h1{
-    font-weight: 100;
+h1{
+    font-weight: normal;
+}
+
+.nav-title, .subtitle{
+    font-size: 20px;
+    text-align: center;
 }
 
 a{
     text-decoration: none;
+}
+
+a:hover{
+    color: rgb(212, 0, 28);
+}
+
+.ig-logo:hover{
+    background: linear-gradient(#405DE6, #5B51D8, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45, #FFDC80);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.twitter-logo:hover{
+    background: #1DA1F2;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.youtube-logo:hover{
+    background: #FF0000;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .center{
@@ -61,7 +89,6 @@ textarea{
 
 a{
     color: #000000;
-    font-family: 'Rajdhani', cursive;
 }
 
 hr{
@@ -73,16 +100,12 @@ hr{
 }
 
 button{
-    font-family: 'Rajdhani', cursive;
     padding: 5px 20px;
     margin: 5px;
     font-size: 15px;
     background-color: black;
     color: white;
-}
-
-a:hover{
-    color: rgb(212, 0, 28);
+    font-family: 'Rajdhani';
 }
 
 .subtitle-div{
@@ -95,20 +118,12 @@ a:hover{
     text-decoration: none;
 }
 
-.subtitle{
-    font-family: 'Rajdhani', cursive;
-    text-align: center;
-    font-size: 25px;
-}
-
 .form-title{
-    font-family: 'Rajdhani', cursive;
     text-align: center;
     font-size: 20px;
 }
 
 .image-title{
-    font-family: 'Rajdhani', cursive;
     text-align: center;
     font-size: 25px;
     margin: 5px;
@@ -198,7 +213,6 @@ a:hover{
 .about-info{
     text-align: justify;
     justify-content: center;
-    font-family: cursive;
     font-size: 14px;
 }
 
@@ -251,13 +265,11 @@ textarea{
 }
 
 label{
-    font-family: 'Rajdhani';
     display: grid;
     align-content: center;
 }
 
 .radio{
-    font-family: 'Rajdhani';
     display: inline;
 }
 
