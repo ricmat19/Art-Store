@@ -7,8 +7,6 @@ router.get("/collection/:product", async(req, res) => {
 
     try{
         const collection = await db.query("SELECT * FROM collection WHERE PRODUCT=$1", [req.params.product]);
-        console.log(req.params.product);
-        console.log(collection);
         res.status(200).json({
             status: "success",
             results: collection.rows.length,
@@ -22,11 +20,10 @@ router.get("/collection/:product", async(req, res) => {
 })
 
 //Get a specific collection item
-router.get('/collection/:product/:id', async (req, res) => {
+router.get('/collection/:id', async (req, res) => {
 
     try{
-        const product = await db.query(`SELECT * FROM collection WHERE product=$1 AND id=$2`, [req.params.product, req.params.id]);
-        console.log(product);
+        const product = await db.query(`SELECT * FROM collection WHERE id=$1`, [req.params.id]);
         res.status(201).json({
             status: "success",
             results: product.rows.length,

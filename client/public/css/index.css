@@ -210,6 +210,10 @@ button{
     grid-template-columns: repeat(auto-fit, minmax(410px, 500px));
 }
 
+.admin-item-div{
+    background: rgb(243, 243, 243);
+}
+
 .about-info{
     text-align: justify;
     justify-content: center;

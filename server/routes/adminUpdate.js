@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require("../db");
 
 //Get a specific collection item for update
-router.get('admin/collection/:id', async (req, res) => {
+router.get('admin/update/:id', async (req, res) => {
 
     try{
         const product = await db.query(`SELECT * FROM collection WHERE id=$1`, [req.params.id]);

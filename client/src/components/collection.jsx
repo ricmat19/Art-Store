@@ -7,7 +7,6 @@ const CollectionC = (props) => {
 
     const {product} = useParams();
     const {collection, setCollection} = useContext(CollectionContext);
-    console.log(product);
 
     useEffect(() => {
         const fetchData = async (req, res) => {
@@ -35,7 +34,7 @@ const CollectionC = (props) => {
                     {collection && collection.map(item => {
                         return(
                             <div key={item.id}>
-                                <a href="/collection/comic">
+                                <a href="/collection/comic/:id">
                                     <div className="collection-item">
                                         <img className="collection-thumbnail" src="" alt="thumbnail"/>
                                     </div>
