@@ -7,11 +7,13 @@ const AdminCreateC = (props) => {
 
     const [title, setTitle] = useState("");
     const [type, setType] = useState("");
+    const [images, setImages] = useState("");
     const [price, setPrice] = useState("");
     const [info, setInfo] = useState("");
 
     const titleInput = useRef(null);
     const typeInput = useRef(null);
+    const imagesInput = useRef(null);
     const priceInput = useRef(null);
     const infoInput = useRef(null);
 
@@ -21,6 +23,7 @@ const AdminCreateC = (props) => {
             const response = await CollectionAPI.post("/admin/create", {
                 title: title,
                 product: type,
+                images: images,
                 price: price,
                 info: info
             })
@@ -28,6 +31,8 @@ const AdminCreateC = (props) => {
             createItem(response.data.data.collection);
 
             titleInput.current.value = "";
+            typeInput.current.value = null;
+            imagesInput.current.value = null;
             priceInput.current.value = "";
             infoInput.current.value = "";
 
@@ -50,7 +55,7 @@ const AdminCreateC = (props) => {
                             </div>
                         </div>
                     </div>
-                    <form action="/routes/admin.js" method="POST">
+                    <form action="/routes/admin.js" method="POST" encType="multipart/form-data">
                         <div className="admin-form">
                             <label></label>
                             <h1 className="form-title">Create</h1>
@@ -79,12 +84,16 @@ const AdminCreateC = (props) => {
                             </div>
                         </div>
                         <div className="admin-form">
+                            <label>Images</label>
+                            <input value={images} ref={imagesInput} onChange={e => setImages(e.target.value)} type="file" name="images" className="form-control" required multiple/>
+                        </div>
+                        <div className="admin-form">
                             <label>Price</label>
                             <input value={price} ref={priceInput} onChange={e => setPrice(e.target.value)} type="text" name="name" className="form-control" required/>
                         </div>
                         <div className="admin-form">
                             <label>Info</label>
-                        <textarea value={info} ref={infoInput} onChange={e => setInfo(e.target.value)} name="message" rows="5" required></textarea>
+                            <textarea value={info} ref={infoInput} onChange={e => setInfo(e.target.value)} name="message" rows="5" required></textarea>
                         </div>
                         <div className="form-button-div text-center">
                             <button onClick={handleSubmit} type="submit" className="btn form-button">Submit</button>

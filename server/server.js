@@ -23,4 +23,4 @@ app.use(morgan("dev"));
 app.use(adminCollectionRouter);
 app.use(adminCreateRouter);
 app.use(adminUpdateRouter);
-app.use(collectionRouter); 
+app.use(collectionRouter);  
