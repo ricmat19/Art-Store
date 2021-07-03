@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from 'react';
-import {useParams} from "react-router-dom";
+import {useParams, useHistory} from "react-router-dom";
 import CollectionAPI from '../apis/collectionAPI';
 import {CollectionContext} from '../context/collectionContext';
 
@@ -8,12 +8,13 @@ const CollectionC = (props) => {
     const {product} = useParams();
     const {collection, setCollection} = useContext(CollectionContext);
 
+    let history = useHistory();
+
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
                 const response = await CollectionAPI.get(`/collection/${product}`);
                 setCollection(response.data.data.collection);
-                console.log(response.data.data.collection);
             }catch(err){
                 console.log(err);
             }
@@ -21,6 +22,14 @@ const CollectionC = (props) => {
 
         fetchData();
     }, []);
+
+    const displayItem = async (product, id) => {
+        try{
+            history.push(`/collection/${product}/${id}`)
+        }catch(err){
+            console.log(err);
+        }
+    }
 
     return(
         <div>
@@ -33,16 +42,14 @@ const CollectionC = (props) => {
                 <div className="collection-menu">
                     {collection && collection.map(item => {
                         return(
-                            <div key={item.id}>
-                                <a href="/collection/:product/:id">
-                                    <div className="collection-item">
-                                        <img className="collection-thumbnail" src="" alt="thumbnail"/>
-                                    </div>
-                                    <div className="collection-thumbnail-footer">
-                                        <div className="Title">{item.title}</div>
-                                        <div className="Price">{item.price}</div>
-                                    </div>
-                                </a>
+                            <div key={item.id} onClick={() => displayItem(item.product, item.id)}>
+                                <div className="collection-item">
+                                    <img className="collection-thumbnail" src="" alt="thumbnail"/>
+                                </div>
+                                <div className="collection-thumbnail-footer">
+                                    <div className="Title">{item.title}</div>
+                                    <div className="Price">{item.price}</div>
+                                </div>
                             </div>
                         );
                     })}

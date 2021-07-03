@@ -20,7 +20,7 @@ router.get("/collection/:product", async(req, res) => {
 })
 
 //Get a specific collection item
-router.get('/collection/:id', async (req, res) => {
+router.get('/collection/:product/:id', async (req, res) => {
 
     try{
         const product = await db.query(`SELECT * FROM collection WHERE id=$1`, [req.params.id]);

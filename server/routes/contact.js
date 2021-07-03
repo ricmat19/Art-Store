@@ -30,7 +30,7 @@ let transporter = nodemailer.createTransport({
 })
 
 let mailOptions = {
-    from: req.body.EMAIL,
+    from: req.body.email,
     to: process.env.EMAIL, 
     subject: req.body.subject,
     html: output
