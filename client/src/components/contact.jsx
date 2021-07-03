@@ -1,6 +1,28 @@
-import React from 'react';
+import React, {useState} from 'react';
+import CollectionAPI from "../apis/collectionAPI";
 
 const ContactC = () => {
+
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [subject, setSubject] = useState("");
+    const [message, setMessage] = useState("");
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        try{
+            const response = await CollectionAPI.post("/contact", {
+                name: name,
+                email: email,
+                subject: subject,
+                message: message
+            })
+             
+        }catch(err){
+
+        }
+    }
+
     return(
         <div>
             <div className="main-body">
@@ -8,25 +30,25 @@ const ContactC = () => {
                     <p className="nav-title">contact</p>
                 </div>
                 <div className="form-div">
-                    <form className="contact-form">
+                    <form className="contact-form" method="POST" action="/contact">
                         <div className="subject-line">
                             <label className="form-label">name</label>
-                            <input type="text" name="name" className="form-control"/>
+                            <input type="text" onChange={e => setName(e.target.value)} name="name" className="form-control"/>
                         </div>
                         <div className="subject-line">
                             <label className="form-label">email</label>
-                            <input type="email" name="email" className="form-control" required/>
+                            <input type="email" onChange={e => setEmail(e.target.value)} name="email" className="form-control" required/>
                         </div>
                         <div className="subject-line">
                             <label className="form-label">subject</label>
-                            <input type="text" name="subject" className="form-control" required/>
+                            <input type="text" onChange={e => setSubject(e.target.value)} name="subject" className="form-control" required/>
                         </div>
                         <div className="subject-line">
                             <label className="form-label">message</label>
-                            <textarea name="message" rows="10" required></textarea>
+                            <textarea name="message" onChange={e => setMessage(e.target.value)} rows="10" required></textarea>
                         </div>
                         <div className="form-button-div text-center">
-                            <button type="submit" className="btn form-button">submit</button>
+                            <button onClick={handleSubmit} type="submit" className="btn form-button">submit</button>
                         </div>
                     </form>
                 </div>

@@ -10,7 +10,7 @@ const HeaderC = () => {
                 </label>
                 <nav className="navbar">
                     <a href="/"><p className="nav-title">home</p></a>
-                    <a href="/collection/comics"><p className="nav-title">store</p></a>
+                    <a href="/collection/comic"><p className="nav-title">store</p></a>
                     <a href="/about"><p className="nav-title">info</p></a>
                     <a href="/contact"><p className="nav-title">contact</p></a>
                     <a href=""><p className="nav-title">signin</p></a>

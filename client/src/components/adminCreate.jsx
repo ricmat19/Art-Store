@@ -37,7 +37,7 @@ const AdminCreateC = (props) => {
             infoInput.current.value = "";
 
         }catch(err){
-
+            console.log(err);
         }
     }
 
