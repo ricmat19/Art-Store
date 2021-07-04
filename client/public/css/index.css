@@ -20,6 +20,50 @@ a:hover{
     color: rgb(212, 0, 28);
 }
 
+.inactive-modal{
+    background-color: rgb(243, 243, 243);
+    position: fixed;
+    right: 11px;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.active-modal{
+    background-color: rgb(243, 243, 243);
+    position: fixed;
+    right: 11px;
+}
+
+.navbar{
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 150px));
+}
+
+.cart-icon{
+    padding-top: 3px;
+}
+
+.cart-modal{
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    width: 250px;
+    float: right;
+    gap: 20px;
+    padding: 10px;
+}
+
+.cart-quantity{
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 5px;
+}
+
+.totalPrice{
+    text-align: right;
+    padding: 0 10px;
+}
+
 .ig-logo:hover{
     background: linear-gradient(#405DE6, #5B51D8, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45, #FFDC80);
     -webkit-background-clip: text;
@@ -50,11 +94,6 @@ textarea{
     resize: none;
 }
 
-.navbar{
-    display: grid;
-    justify-content: center;
-    grid-template-columns: repeat(auto-fit, minmax(50px, 150px));
-}
 .active{
     color: rgb(212, 0, 28);
 }
@@ -129,13 +168,13 @@ button{
     margin: 5px;
 }
 
-.thumbnail-menu{
+.home-menu{
     display: grid;
     justify-content: center;
     text-align: center;
-    grid-template-columns: repeat(auto-fit, minmax(15rem, 29rem));
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 20rem));
     gap: 30px;
-    padding: 50px 0px;
+    padding: 50px 200px;
 }
 
 /*  */
@@ -145,15 +184,17 @@ button{
     justify-content: center;
     grid-template-columns: repeat(auto-fit, minmax(13rem, 13rem));
     gap: 30px;
-    padding: 50px 0;
+    padding: 50px 200px;
 }
 
-/*  */
+.collection-item-div{
+    cursor: pointer;
+}
+
 .collection-item{
     text-align: center;
 }
 
-/*  */
 .collection-thumbnail{
     border-style: none;
     background: rgb(243, 243, 243);
@@ -199,15 +240,39 @@ button{
     background: rgb(243, 243, 243);
     height: 100px;
     width: 100px;
+    margin: 0 5px;
 }
 
-/*  */
-.item-details, .profile-info, .admin-item-div{
+.item-details, .profile-info, .admin-item-div, .image-div{
     margin: 20px 200px;
     text-align: center;
     display: grid;
     justify-content: center;
     grid-template-columns: repeat(auto-fit, minmax(410px, 500px));
+}
+
+
+.big-image-div{
+    justify-content: center;
+}
+
+.info-div{
+    margin: 20px 0;
+    padding: 20px 50px;
+    text-align:left;
+    justify-content: center;
+    background-color: rgb(243, 243, 243);
+}
+
+.no-margin{
+    margin: 0;
+    padding: 3px 0;
+}
+
+.info-detail-div{
+    display: grid;
+    grid-template-columns: 75px auto;
+    margin: 10px 0;
 }
 
 .admin-item-div{
@@ -239,6 +304,11 @@ button{
     display: grid;
     grid-template-columns: 75px auto;
     margin: 15px 0;
+}
+
+.quantity-div{
+    display: grid;
+    grid-template-columns: 75px auto;
 }
 
 .admin-form{

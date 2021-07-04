@@ -2,8 +2,8 @@ import React from 'react';
 
 const HeaderC = () => {
     return(
-        <div>
-            <div className="center">
+        <div className="navbar-div">
+            <div>
                 <input type="checkbox" id="nav-toggle" className="nav-toggle"/>
                 <label className="nav-toggle-label">
                     <a className="menu-toggle"><h1>menu</h1></a>

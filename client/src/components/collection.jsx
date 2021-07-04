@@ -42,9 +42,9 @@ const CollectionC = (props) => {
                 <div className="collection-menu">
                     {collection && collection.map(item => {
                         return(
-                            <div key={item.id} onClick={() => displayItem(item.product, item.id)}>
+                            <div className="collection-item-div" key={item.id} onClick={() => displayItem(item.product, item.id)}>
                                 <div className="collection-item">
-                                    <img className="collection-thumbnail" src="" alt="thumbnail"/>
+                                    <img className="collection-thumbnail" src="../../logo512.png" alt="thumbnail"/>
                                 </div>
                                 <div className="collection-thumbnail-footer">
                                     <div className="Title">{item.title}</div>
