@@ -4,6 +4,7 @@ import Home from "./routes/home";
 import About from "./routes/about";
 import Product from "./routes/collection";
 import Item from "./routes/itemDetails";
+import Cart from "./routes/cart";
 import Contact from "./routes/contact";
 import AdminCollection from "./routes/adminCollection";
 import AdminCreate from "./routes/adminCreate";
@@ -21,6 +22,7 @@ const App = () =>{
                     <Route exact path="/about" component={About}/>
                     <Route exact path="/collection/:product" component={Product}/>
                     <Route exact path="/collection/:product/:id" component={Item}/>
+                    <Route export path="/cart" component={Cart}/>
                     <Route exact path="/contact" component={Contact}/>
                     <Route exact path="/admin/collection" component={AdminCollection}/>
                     <Route exact path="/admin/create" component={AdminCreate}/>

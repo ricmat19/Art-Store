@@ -59,6 +59,84 @@ a:hover{
     gap: 5px;
 }
 
+.cart-table{
+    margin: 0 15%;
+}
+
+.table-headers p{
+    padding: 0 20px;
+}
+
+.table-headers, .cart-item-details{
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 1fr 100px minmax(50px, 100px);
+    padding: 0 20px;
+}
+
+.cart-item-details{
+    padding: 20px;
+    align-items: center;
+    height: 50px;
+}
+
+.cart-item-info{
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: 50px 50px 1fr;
+    height: 50px;
+}
+
+.cart-item-qty{
+    padding: 5px;
+    background-color: rgb(243, 243, 243);
+    text-align: center;
+}
+
+.item-qty-input{
+    width: 75px;
+}
+
+.cart-item-price{
+    text-align: right;
+    padding: 0 20px;
+}
+
+.cart-item-thumbnail{
+    height: 50px;
+    width: 50px;
+}
+
+.cart-item-title{
+    padding: 0 20px;
+}
+
+.subtotal-div{
+    padding: 20px 40px;
+}
+
+.table-hr, .item-hr{
+    margin: 0;
+}
+
+.align-center{
+    text-align: center;
+}
+
+.align-right{
+    text-align: right;
+}
+
+.subtotal-div span{
+    padding-left: 15px;
+}
+
+.cart-button{
+    padding: 0 35px;
+    margin: 0;
+}
+
 .totalPrice{
     text-align: right;
     padding: 0 10px;
