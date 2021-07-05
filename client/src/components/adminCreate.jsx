@@ -7,7 +7,7 @@ const AdminCreateC = (props) => {
 
     const [title, setTitle] = useState("");
     const [type, setType] = useState("");
-    const [images, setImages] = useState("");
+    const [images, setImages] = useState([]);
     const [price, setPrice] = useState("");
     const [info, setInfo] = useState("");
 
@@ -28,11 +28,12 @@ const AdminCreateC = (props) => {
                 info: info
             })
             
+            console.log(response);
             createItem(response.data.data.collection);
 
             titleInput.current.value = "";
-            typeInput.current.value = null;
-            imagesInput.current.value = null;
+            typeInput.current.value = "";
+            imagesInput.current.value = [];
             priceInput.current.value = "";
             infoInput.current.value = "";
 

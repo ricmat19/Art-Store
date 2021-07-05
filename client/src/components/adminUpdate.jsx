@@ -6,7 +6,7 @@ import {CollectionContext} from '../context/collectionContext';
 const AdminUpdateC = (props) => {
 
     const {id} = useParams();
-    const {collection} = useContext(CollectionContext);
+    const {collection, setCollection} = useContext(CollectionContext);
     const [title, setTitle] = useState("");
     const [product, setProduct] = useState("");
     const [price, setPrice] = useState("");
@@ -15,12 +15,12 @@ const AdminUpdateC = (props) => {
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
-                const response = await CollectionAPI.get(`/admin/collection/${id}`);
-                console.log(response.data.data.collection);
-                setTitle(response.data.data.collection.title);
-                setProduct(response.data.data.collection.product)
-                setPrice(response.data.data.collection.price)
-                setInfo(response.data.data.collection.info)
+                const response = await CollectionAPI.get(`/admin/update/${id}`);
+                // console.log(response);
+                // setTitle(response.data.data.collection.title);
+                // setProduct(response.data.data.collection.product);
+                // setPrice(response.data.data.collection.price);
+                // setInfo(response.data.data.collection.info);
             }catch(err){
                 console.log(err);
             }

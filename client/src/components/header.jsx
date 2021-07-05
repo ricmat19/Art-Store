@@ -12,13 +12,17 @@ const HeaderC = () => {
         signinClass = "signin-bg signin-active";
     }
 
-    const signinModal = (e) => {
+    const signinShow = (e) => {
         setActive(true);
+    }
+
+    const signinNoShow = (e) => {
+        setActive(false);
     }
 
     return(
         <div className="navbar-div">
-            <div className={signinClass}>
+            <div className={signinClass} onClick={e => signinNoShow()}>
                 <div className="signin-content">
                     <h1 className="signin-header">welcome</h1>
                     <div className="signin-input">
@@ -48,7 +52,7 @@ const HeaderC = () => {
                     <a href="/collection/comic"><p className="nav-title">store</p></a>
                     <a href="/about"><p className="nav-title">info</p></a>
                     <a href="/contact"><p className="nav-title">contact</p></a>
-                    <a onClick={signinModal} href=""><p className="nav-title">signin</p></a>
+                    <p className="nav-title pointer" onClick={signinShow}>signin</p>
                 </nav>
             </div>
             <hr/>

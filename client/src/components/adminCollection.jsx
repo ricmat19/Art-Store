@@ -36,7 +36,7 @@ const AdminCollectionC = (props) => {
 
     const handleUpdate = async (id) => {
         try{
-            history.push(`/admin/collection/${id}`)
+            history.push(`/admin/update/${id}`)
         }catch(err){
             console.log(err);
         }

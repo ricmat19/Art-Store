@@ -20,6 +20,19 @@ a:hover{
     color: rgb(212, 0, 28);
 }
 
+.pointer{
+    cursor: pointer;
+}
+
+.display-none{
+    display: none;
+}
+
+.pointer:hover{
+    cursor: pointer;
+    color: rgb(212, 0, 28);
+}
+
 .inactive-modal{
     background-color: rgb(243, 243, 243);
     position: fixed;
@@ -65,7 +78,7 @@ a:hover{
     align-items: center;
     visibility: hidden;
     opacity: 0;
-    transition: visibility 0s opacity 0, 5s;
+    transition: visibility 0s, opacity 0.5s;
 }
 
 .signin-active{
@@ -141,7 +154,7 @@ a:hover{
 }
 
 .item-qty-input{
-    width: 75px;
+    width: 70px;
 }
 
 .cart-item-price{
@@ -467,6 +480,8 @@ label{
     display: grid;
     align-content: center;
 }
+
+
 
 .radio{
     display: inline;

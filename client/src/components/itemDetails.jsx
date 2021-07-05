@@ -1,10 +1,12 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { useParams } from 'react-router';
 import collectionAPI from '../apis/collectionAPI';
+import { CollectionContext } from '../context/collectionContext';
 
 const ItemDetailsC = (props) => {
 
     const {product, id} = useParams();
+    const {selectedItem, setSelectedItem} = useContext(CollectionContext);
 
     const [title, setTitle] = useState("");
     const [images, setImages] = useState("");
@@ -15,10 +17,7 @@ const ItemDetailsC = (props) => {
         const fetchData = async (req, res) => {
             try{
                 const response = await collectionAPI.get(`/collection/${product}/${id}`);
-                setTitle(response.data.data.product.title);
-                setImages(response.data.data.product.images);
-                setPrice(response.data.data.product.price);
-                setInfo(response.data.data.product.info);
+                setSelectedItem(response.data.data.product);
             }catch(err){
                 console.log(err);
             }
@@ -44,7 +43,7 @@ const ItemDetailsC = (props) => {
                 <div className="item-images">
                     <div className="image-div">
                         <div className="big-image-div">
-                            <img className="big-image" src="../../logo512.png" alt="main"/>
+                            <img className="big-image" src={selectedItem && selectedItem.images} alt="main"/>
                         </div>
                         <div className="image-thumbnails">
                             <img className="image-thumbnail" src="../../logo512.png" alt="thumbnail"/>
@@ -55,20 +54,20 @@ const ItemDetailsC = (props) => {
                 </div>
                 <div>
                     <div className="info-div">
-                        <h1 className="image-title">Title{product.title}</h1>
+                        <h1 className="image-title">{selectedItem && selectedItem.title}</h1>
                         <div className="info-detail-div">
                             <label>price</label>
-                            <p className="no-margin">$0.00{product.price}</p>
+                            <p className="no-margin">{selectedItem && selectedItem.price}</p>
                         </div>
                         <div className="info-detail-div">
                             <label>info</label>
-                            <p className="no-margin">Test Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos nemo incidunt voluptas quae illo consectetur nihil quia aliquid tenetur esse. Cum, quia! Optio, est. Fuga at aliquam accusamus maiores necessitatibus. {product.info}</p>
+                            <p className="no-margin">{selectedItem && selectedItem.info}</p>
                         </div>
                     </div>
                     <div className="info-div">
                     <div className="info-detail-div">
                             <label>quantity</label>
-                            <input type="number" name="quantity"/>
+                            <input type="number" name="quantity" placeholder="0"/>
                         </div>
                     </div>
                     <div className="cart-options">

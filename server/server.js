@@ -23,6 +23,10 @@ app.use(express.json());
 //Middleware: Logging
 app.use(morgan("dev"));
 
+app.get('s3URL', (req, res) =>{
+    
+})
+
 app.use(adminCollectionRouter);
 app.use(adminCreateRouter);
 app.use(adminUpdateRouter);
