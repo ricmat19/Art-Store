@@ -66,7 +66,7 @@ a:hover{
     padding: 10px;
 }
 
-.signin-bg{
+.sign-bg{
     display: grid;
     position: fixed;
     top: 0;
@@ -81,35 +81,42 @@ a:hover{
     transition: visibility 0s, opacity 0.5s;
 }
 
-.signin-active{
+.sign-active{
     visibility: visible;
     opacity: 1;
 }
 
-.signin-content{
+.sign-content{
     display: grid;
     background-color: rgb(243, 243, 243);
     gap: 10px;
-    width: 350px;
-    padding: 10px;
+    padding: 20px;
     text-align: center;
+    min-width: 330px;
 }
 
-.signin-header{
+.sign-header{
     margin: 5px;
 }
 
-.signin-input{
+.forgot-input-div{
     display: grid;
-    gap: 10px;
+    gap: 5px;
 }
 
-.signin-content input{
-    width: 330px;
+.name-input-div{
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 5px;
 }
 
-.signin-footer span{
+.sign-footer span{
     padding: 5px;
+}
+
+.modal-input-div{
+    display: grid;
+    margin: 5px 0;
 }
 
 .cart-quantity{
