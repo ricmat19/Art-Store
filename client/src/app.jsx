@@ -24,7 +24,7 @@ const App = () =>{
                     <Route exact path="/collection/:product/:id" component={Item}/>
                     <Route export path="/cart" component={Cart}/>
                     <Route exact path="/contact" component={Contact}/>
-                    <Route exact path="/admin/collection" component={AdminCollection}/>
+                    <Route exact path="/admin/collection/:product" component={AdminCollection}/>
                     <Route exact path="/admin/create" component={AdminCreate}/>
                     <Route exact path="/admin/update/:id" component={AdminUpdate}/>
                 </Router>

@@ -3,10 +3,10 @@ const router = express.Router();
 const db = require("../db");
 
 //Get all collection items
-router.get("/admin/collection", async(req, res) => {
+router.get("/admin/collection/:product", async(req, res) => {
 
     try{
-        const collection = await db.query("SELECT * FROM collection");
+        const collection = await db.query("SELECT * FROM collection WHERE PRODUCT=$1", [req.params.product]);
         console.log(collection);
         res.status(200).json({
             status: "success",

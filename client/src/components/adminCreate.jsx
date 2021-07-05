@@ -90,7 +90,7 @@ const AdminCreateC = (props) => {
                         </div>
                         <div className="admin-form">
                             <label>Price</label>
-                            <input value={price} ref={priceInput} onChange={e => setPrice(e.target.value)} type="text" name="name" className="form-control" required/>
+                            <input value={price} ref={priceInput} onChange={e => setPrice(e.target.value)} type="number" name="price" className="form-control" required/>
                         </div>
                         <div className="admin-form">
                             <label>Info</label>

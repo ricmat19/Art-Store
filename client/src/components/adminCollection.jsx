@@ -5,6 +5,7 @@ import {CollectionContext} from '../context/collectionContext';
 
 const AdminCollectionC = (props) => {
 
+    const {product} = useParams();
     const {collection, setCollection} = useContext(CollectionContext);
 
     let history = useHistory();
@@ -12,7 +13,7 @@ const AdminCollectionC = (props) => {
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
-                const response = await CollectionAPI.get(`/admin/collection`);
+                const response = await CollectionAPI.get(`/admin/collection/${product}`);
                 setCollection(response.data.data.collection);
                 console.log(response);
             }catch(err){
@@ -46,9 +47,9 @@ const AdminCollectionC = (props) => {
         <div>
             <div className="main-body">
                 <div className="center subtitle-div">
-                    <a className="subtitle-anchor" href="/collection/comic"><p className="nav-title">comics</p></a>
-                    <a className="subtitle-anchor" href="/collection/print"><p className="nav-title">prints</p></a>
-                    <a className="subtitle-anchor" href="/collection/personal"><p className="nav-title">personal</p></a>
+                    <a className="subtitle-anchor" href="/admin/collection/comic"><p className="nav-title">comics</p></a>
+                    <a className="subtitle-anchor" href="/admin/collection/print"><p className="nav-title">prints</p></a>
+                    <a className="subtitle-anchor" href="/admin/collection/personal"><p className="nav-title">personal</p></a>
                 </div>
                 <div className="collection-menu">
                     {collection && collection.map(item => {
