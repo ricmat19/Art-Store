@@ -7,19 +7,19 @@ const HomeC = () => {
                 <a href="collection/comic">
                     <div className="menu-item">
                         <img className="menu-image" src="../../logo512.png" alt="comics"/>
-                        <h1>Comics</h1>
+                        <p className="title">Comics</p>
                     </div>
                 </a>
                 <a href="collection/print">
                     <div className="menu-item">
                         <img className="menu-image" src="../../logo512.png" alt="prints"/>
-                        <h1>Prints</h1>
+                        <p className="title">Prints</p>
                     </div>
                 </a>
                 <a href="collection/personal">
                     <div className="menu-item">
                         <img className="menu-image" src="../../logo512.png" alt="personal works"/>
-                        <h1>Personal Works</h1>
+                        <p className="title">Personal Works</p>
                     </div>
                 </a>
             </div>

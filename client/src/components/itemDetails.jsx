@@ -54,7 +54,7 @@ const ItemDetailsC = (props) => {
                 </div>
                 <div>
                     <div className="info-div">
-                        <h1 className="image-title">{selectedItem && selectedItem.title}</h1>
+                        <p className="title">{selectedItem && selectedItem.title}</p>
                         <div className="info-detail-div">
                             <label>price</label>
                             <p className="no-margin">{selectedItem && selectedItem.price}</p>

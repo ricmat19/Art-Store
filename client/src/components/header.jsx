@@ -61,7 +61,7 @@ const HeaderC = () => {
 
             <div className={signUpClass} onClick={e => signUpNoShow()}>
                 <div className="sign-content">
-                    <h1 className="sign-header">Create Account</h1>
+                    <p className="sign-header title">Create Account</p>
                     <div className="sign-input">
                         <div className="name-input-div">
                             <input type="text" placeholder="First Name"/>
@@ -88,7 +88,7 @@ const HeaderC = () => {
 
             <div className={signInClass} onClick={e => signInNoShow()}>
                 <div className="sign-content">
-                    <h1 className="sign-header">welcome</h1>
+                    <p className="sign-header title">welcome</p>
                     <div>
                         <div className="modal-input-div">
                             <input type="text" placeholder="Email"></input>
@@ -109,7 +109,7 @@ const HeaderC = () => {
 
             <div className={resetClass} onClick={e => resetNoShow()}>
                 <div className="sign-content">
-                    <h1 className="sign-header">Reset Password</h1>
+                    <p className="sign-header title">Reset Password</p>
                     <div className="sign-input">
                         <div className="forgot-input-div">
                             <input type="text" placeholder="Email"/>
@@ -126,15 +126,15 @@ const HeaderC = () => {
 
             <div>
                 <input type="checkbox" id="nav-toggle" className="nav-toggle"/>
-                <label className="nav-toggle-label">
-                    <a className="menu-toggle"><h1>menu</h1></a>
+                <label className="title nav-toggle-label">
+                    <a className="menu-toggle"><p className="title">menu</p></a>
                 </label>
                 <nav className="navbar">
-                    <a href="/"><p className="nav-title">home</p></a>
-                    <a href="/collection/comic"><p className="nav-title">store</p></a>
-                    <a href="/about"><p className="nav-title">info</p></a>
-                    <a href="/contact"><p className="nav-title">contact</p></a>
-                    <p className="nav-title pointer" onClick={signInShow}>sign in</p>
+                    <a href="/"><p className="title">home</p></a>
+                    <a href="/collection/comic"><p className="title">store</p></a>
+                    <a href="/about"><p className="title">info</p></a>
+                    <a href="/contact"><p className="title">contact</p></a>
+                    <p className="title pointer" onClick={signInShow}>sign in</p>
                 </nav>
             </div>
             <hr/>

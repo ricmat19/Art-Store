@@ -6,7 +6,7 @@ const CartC = () => {
     return(
         <div className="main-body">
             <div className="center">
-                <p className="nav-title">Shopping Cart</p>
+                <p className="title">Shopping Cart</p>
             </div>
             <div className="cart-table">
                 <div className="table-headers">
@@ -23,7 +23,7 @@ const CartC = () => {
                     <span>$0.00</span>
                 </div>
                 <div className="align-right cart-button">
-                    <button>Checkout</button>
+                    <a href="/checkout"><button>Checkout</button></a>
                 </div>
 
             </div>

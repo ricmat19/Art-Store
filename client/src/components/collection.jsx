@@ -35,9 +35,9 @@ const CollectionC = (props) => {
         <div>
             <div className="main-body">
                 <div className="center subtitle-div">
-                    <a className="subtitle-anchor" href="/collection/comic"><p className="nav-title">comics</p></a>
-                    <a className="subtitle-anchor" href="/collection/print"><p className="nav-title">print</p></a>
-                    <a className="subtitle-anchor" href="/collection/personal"><p className="nav-title">personal</p></a>
+                    <a className="subtitle-anchor" href="/collection/comic"><p className="title">comics</p></a>
+                    <a className="subtitle-anchor" href="/collection/print"><p className="title">print</p></a>
+                    <a className="subtitle-anchor" href="/collection/personal"><p className="title">personal</p></a>
                 </div>
                 <div className="collection-menu">
                     {collection && collection.map(item => {

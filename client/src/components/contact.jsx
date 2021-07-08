@@ -38,7 +38,7 @@ const ContactC = () => {
         <div>
             <div className="main-body">
                 <div className="center">
-                    <p className="nav-title">contact</p>
+                    <p className="title">contact</p>
                 </div>
                 <div className="form-div">
                     <form className="contact-form" method="POST" action="/contact">

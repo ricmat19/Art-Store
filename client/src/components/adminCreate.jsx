@@ -46,7 +46,7 @@ const AdminCreateC = (props) => {
         <div>
             <div className="main-body">
                 <div className="center">
-                    <p className="nav-title">admin</p>
+                    <p className="title">admin</p>
                 </div>
                 <div className="admin-item-div">
                     <div className="admin-image-div">
@@ -58,42 +58,42 @@ const AdminCreateC = (props) => {
                     </div>
                     <form action="/routes/admin.js" method="POST" encType="multipart/form-data">
                         <div className="admin-form">
-                            <label></label>
-                            <h1 className="form-title">Create</h1>
+                            <label className="title"></label>
+                            <p className="title">Create</p>
                         </div>
                         <div className="admin-form">
-                            <label>Title</label>
+                            <label className="title">Title</label>
                             <input value={title} ref={titleInput} onChange={e => setTitle(e.target.value)} type="text" name="name" className="form-control" required/>
                         </div>
                         <div className="admin-form">
                             <div>
-                                <label className="radio-label">Type:</label>
+                                <label className="title radio-label">Type:</label>
                             </div>
                             <div className="radio-div">
                                 <div>
-                                    <label className="radio">Comic</label>
+                                    <label className="title radio">Comic</label>
                                     <input value={type} ref={typeInput} onChange={e => setType("comic")} type = "radio" name = "product" required/>
                                 </div>
                                 <div>
-                                    <label className="radio">Print</label>
+                                    <label className="title radio">Print</label>
                                     <input value={type} ref={typeInput} onChange={e => setType("print")} type = "radio" name = "product"/>
                                 </div>
                                 <div>
-                                    <label className="radio">Personal</label>
+                                    <label className="title radio">Personal</label>
                                     <input value={type} ref={typeInput} onChange={e => setType("personal")} type = "radio" name = "product"/>
                                 </div>
                             </div>
                         </div>
                         <div className="admin-form">
-                            <label>Images</label>
+                            <label className="title">Images</label>
                             <input value={images} ref={imagesInput} onChange={e => setImages(e.target.value)} type="file" name="images" className="form-control" required multiple/>
                         </div>
                         <div className="admin-form">
-                            <label>Price</label>
+                            <label className="title">Price</label>
                             <input value={price} ref={priceInput} onChange={e => setPrice(e.target.value)} type="number" name="price" className="form-control" required/>
                         </div>
                         <div className="admin-form">
-                            <label>Info</label>
+                            <label className="title">Info</label>
                             <textarea value={info} ref={infoInput} onChange={e => setInfo(e.target.value)} name="message" rows="5" required></textarea>
                         </div>
                         <div className="form-button-div text-center">
