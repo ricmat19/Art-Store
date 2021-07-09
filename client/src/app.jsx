@@ -6,6 +6,7 @@ import Product from "./routes/collection";
 import Item from "./routes/itemDetails";
 import Cart from "./routes/cart";
 import Checkout from "./routes/checkout";
+import Shipping from "./routes/shipping";
 import Contact from "./routes/contact";
 import AdminCollection from "./routes/adminCollection";
 import AdminCreate from "./routes/adminCreate";
@@ -25,6 +26,7 @@ const App = () =>{
                     <Route exact path="/collection/:product/:id" component={Item}/>
                     <Route export path="/cart" component={Cart}/>
                     <Route export path="/checkout" component={Checkout}/>
+                    <Route export path="/shipping" component={Shipping}/>
                     <Route exact path="/contact" component={Contact}/>
                     <Route exact path="/admin/collection/:product" component={AdminCollection}/>
                     <Route exact path="/admin/create" component={AdminCreate}/>

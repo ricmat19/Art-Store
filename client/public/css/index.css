@@ -395,7 +395,7 @@ button{
     margin: 0 5px;
 }
 
-.item-details, .profile-info, .admin-item-div, .image-div, .checkout-div{
+.item-details, .profile-info, .admin-item-div, .image-div, .checkout-div, .shipping-div{
     margin: 20px 200px;
     text-align: center;
     display: grid;
@@ -407,7 +407,7 @@ button{
     margin: 20px 200px;
 }
 
-.checkout-div{
+.checkout-div, .shipping-div{
     margin: 20px 150px;
 }
 
