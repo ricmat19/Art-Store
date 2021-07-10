@@ -86,7 +86,7 @@ const CheckoutC = () => {
                             <input type="tel" placeholder="phone (optional)"/>
                         </div>
                         <div className="two-column-div">
-                            <a href="/shipping"><button>continue to shipping</button></a>
+                            <button><a href="/shipping">continue to shipping</a></button>
                             <a href="/cart"><p>return to cart</p></a>
                         </div>
                     </div>

@@ -23,7 +23,7 @@ const CartC = () => {
                     <span>$0.00</span>
                 </div>
                 <div className="align-right cart-button">
-                    <a href="/checkout"><button>Checkout</button></a>
+                    <button><a href="/checkout">Checkout</a></button>
                 </div>
 
             </div>

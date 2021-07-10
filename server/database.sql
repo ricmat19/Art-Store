@@ -8,3 +8,10 @@ CREATE TABLE collection(
     price MONEY,
     info VARCHAR(300)
 );
+
+CREATE TABLE users(
+    email VARCHAR(50) PRIMARY KEY,
+    password VARCHAR(50),
+    firstName VARCHAR(100),
+    lastName VARCHAR(100)
+);

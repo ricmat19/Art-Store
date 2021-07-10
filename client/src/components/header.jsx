@@ -1,14 +1,19 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
+import CollectionAPI from "../apis/collectionAPI";
+import {CollectionContext} from '../context/collectionContext';
 
-const HeaderC = () => {
+const HeaderC = (props) => {
+
+    const{createUser} = useContext(CollectionContext);
 
     const [signUpActive, setSignUpActive] = useState(false);
-    const [signInActive, setSignInActive] = useState(false);
-    const [resetActive, setResetActive] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [rePassword, setRePassword] = useState("");
+    const [firstname, setFirstName] = useState("");
+    const [lastname, setLastName] = useState("");
 
-    let signInClass = "";
     let signUpClass = "";
-    let resetClass = "";
 
     if(signUpActive === false){
         signUpClass = "sign-bg";
@@ -16,77 +21,112 @@ const HeaderC = () => {
         signUpClass = "sign-bg sign-active";
     }
 
-    if(signInActive === false){
-        signInClass = "sign-bg";
-    }else{
-        signInClass = "sign-bg sign-active";
-    }
-
-    if(resetActive === false){
-        resetClass = "sign-bg";
-    }else{
-        resetClass = "sign-bg sign-active";
-    }
-
     const signUpShow = (e) => {
         setSignUpActive(true);
-        setSignInActive(false);
+        // setSignInActive(false);
     }
 
-    const signInShow = (e) => {
-        setSignInActive(true);
-        setSignUpActive(false);
-        setResetActive(false);
+    // const signUpNoShow = (e) => {
+    //     setSignUpActive(false);
+    // }
+
+    
+    const handleSignup = async (e) => {
+        e.preventDefault()
+        try{
+         
+            const response = await CollectionAPI.post("/signup", {
+                firstname: firstname,
+                lastname: lastname,
+                email: email,
+                password: password
+            })
+            
+            createUser(response.data.data.user);
+
+        }catch(err){
+            console.log(err);
+        }
     }
 
-    const resetShow = (e) => {
-        setResetActive(true);
-        setSignInActive(false);
-    }
 
-    const signUpNoShow = (e) => {
-        setSignUpActive(false);
-    }
 
-    const signInNoShow = (e) => {
-        setSignInActive(false);
-    }
 
-    const resetNoShow = (e) => {
-        setResetActive(false);
-    }
+
+
+    // const [signInActive, setSignInActive] = useState(false);
+    // const [resetActive, setResetActive] = useState(false);
+
+    // let signInClass = "";
+    // let resetClass = "";
+
+
+
+    // if(signInActive === false){
+    //     signInClass = "sign-bg";
+    // }else{
+    //     signInClass = "sign-bg sign-active";
+    // }
+
+    // if(resetActive === false){
+    //     resetClass = "sign-bg";
+    // }else{
+    //     resetClass = "sign-bg sign-active";
+    // }
+
+
+
+    // const signInShow = (e) => {
+    //     setSignInActive(true);
+    //     setSignUpActive(false);
+    //     setResetActive(false);
+    // }
+
+    // const resetShow = (e) => {
+    //     setResetActive(true);
+    //     setSignInActive(false);
+    // }
+
+    // const signInNoShow = (e) => {
+    //     setSignInActive(false);
+    // }
+
+    // const resetNoShow = (e) => {
+    //     setResetActive(false);
+    // }
 
     return(
         <div className="navbar-div">
-
-            <div className={signUpClass} onClick={e => signUpNoShow()}>
+ {/* onClick={e => signUpNoShow()} */}
+            <form className={signUpClass}>
                 <div className="sign-content">
                     <p className="sign-header title">Create Account</p>
                     <div className="sign-input">
                         <div className="name-input-div">
-                            <input type="text" placeholder="First Name"/>
-                            <input type="text" placeholder="Last Name"/>
+                            <input type="text" value={firstname} name="firstname" placeholder="First Name" onChange={(e) => {setFirstName(e.target.value)}}/>
+                            <input type="text" value={lastname} name="lastname" placeholder="Last Name" onChange={(e) => {setLastName(e.target.value)}}/>
                         </div>
                         <div className="modal-input-div">
-                            <input type="email" placeholder="Email"/>
+                            <input type="email" value={email} name="email" placeholder="Email" onChange={(e) => {setEmail(e.target.value)}}/>
                         </div>
                         <div className="modal-input-div">
-                            <input type="password" placeholder="Create Password"/>
+                            <input type="password" value={password} name="password" placeholder="Create Password" onChange={(e) => {setPassword(e.target.value)}}/>
                         </div>
                         <div className="modal-input-div">
-                            <input type="password" placeholder="Re-type Password"/>
+                            <input type="password" name="re-password" placeholder="Re-type Password" onChange={(e) => {setRePassword(e.target.value)}}/>
                         </div>
                     </div>
                     <div>
-                        <button>Create Account</button>
+                        <button onClick={handleSignup} type="submit" className="btn form-button">Create Account</button>
                     </div>
                     <div className="sign-footer">
-                    <a href="" onClick={e => signInShow()}><span>Already have an account?Sign In</span></a>
+                    {/* onClick={e => signInShow()} */}
+                    <a href=""><span>Already have an account?Sign In</span></a>
                     </div>
                 </div>
-            </div>
+            </form>
 
-            <div className={signInClass} onClick={e => signInNoShow()}>
+            {/* <form className={signInClass} onClick={e => signInNoShow()}>
                 <div className="sign-content">
                     <p className="sign-header title">welcome</p>
                     <div>
@@ -105,9 +145,9 @@ const HeaderC = () => {
                         <a href="" onClick={e => resetShow()}><span>create account</span></a>
                     </div>
                 </div>
-            </div>
+            </form>
 
-            <div className={resetClass} onClick={e => resetNoShow()}>
+            <form className={resetClass} onClick={e => resetNoShow()}>
                 <div className="sign-content">
                     <p className="sign-header title">Reset Password</p>
                     <div className="sign-input">
@@ -122,7 +162,7 @@ const HeaderC = () => {
                     <a href="" onClick={e => signInShow()}><span>Back to signin in</span></a>
                     </div>
                 </div>
-            </div>
+            </form> */}
 
             <div>
                 <input type="checkbox" id="nav-toggle" className="nav-toggle"/>
@@ -134,7 +174,7 @@ const HeaderC = () => {
                     <a href="/collection/comic"><p className="title">store</p></a>
                     <a href="/about"><p className="title">info</p></a>
                     <a href="/contact"><p className="title">contact</p></a>
-                    <p className="title pointer" onClick={signInShow}>sign in</p>
+                    <p className="title pointer" onClick={signUpShow}>sign in</p>
                 </nav>
             </div>
             <hr/>

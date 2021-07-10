@@ -20,6 +20,10 @@ a:hover{
     color: rgb(212, 0, 28);
 }
 
+button a, button a:hover{
+    color: white;
+}
+
 .pointer{
     cursor: pointer;
 }

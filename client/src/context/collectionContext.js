@@ -6,9 +6,14 @@ export const CollectionContextProvider = props => {
 
     const [collection, setCollection] = useState([]);
     const [selectedItem, setSelectedItem] = useState(null);
+    const [user, setUser]  = useState(null);
 
     const createItem = (item) => {
         setCollection([...collection, item])
+    }
+
+    const createUser = (newUser) => {
+        setUser([...user, newUser])
     }
 
     return(
@@ -16,7 +21,9 @@ export const CollectionContextProvider = props => {
             collection: collection, 
             setCollection: setCollection, createItem,
             selectedItem: selectedItem,
-            setSelectedItem: setSelectedItem
+            setSelectedItem: setSelectedItem,
+            user: user,
+            setUser: setUser, createUser
         }}>
             {props.children}
         </CollectionContext.Provider>

@@ -28,7 +28,6 @@ const AdminCreateC = (props) => {
                 info: info
             })
             
-            console.log(response);
             createItem(response.data.data.collection);
 
             titleInput.current.value = "";
