@@ -202,7 +202,7 @@ button a, button a:hover{
     padding: 20px 40px;
 }
 
-.table-hr, .item-hr{
+.table-hr, .item-hr, .shipping-hr{
     margin: 0;
 }
 
@@ -555,6 +555,27 @@ label{
     grid-template-columns: auto auto auto;
     margin: 5px 0;
     gap: 10px;
+}
+
+.shipping-selection-div{
+    background-color: rgb(243, 243, 243);
+    padding: 40px;
+}
+
+.shipping-options-div{
+    background-color: white;
+    padding: 0 10px;
+    gap: 10px;
+}
+
+.shipping-option{
+    display: grid;
+    grid-template-columns: 30px auto auto;
+    align-items: center;
+}
+
+.shipping-button{
+    align-items: center;
 }
 
 .checkout-address-div, .checkout-suite-div, .checkout-phone-div, .checkout-email-div{
