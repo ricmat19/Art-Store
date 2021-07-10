@@ -161,7 +161,7 @@ button a, button a:hover{
 }
 
 .cart-item-details{
-    padding: 20px;
+    padding: 10px 0;
     align-items: center;
     height: 50px;
 }
@@ -180,13 +180,21 @@ button a, button a:hover{
     text-align: center;
 }
 
+.order-item-details{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: 1fr minmax(50px, 100px);
+    padding: 10px 0;
+    height: 50px;
+}
+
 .item-qty-input{
     width: 70px;
 }
 
 .cart-item-price{
     text-align: right;
-    padding: 0 20px;
 }
 
 .cart-item-thumbnail{
@@ -400,7 +408,6 @@ button{
 }
 
 .item-details, .profile-info, .admin-item-div, .image-div, .checkout-div, .shipping-div{
-    margin: 20px 200px;
     text-align: center;
     display: grid;
     justify-content: center;
@@ -589,7 +596,7 @@ label{
 }
 
 .order-summary{
-    padding: 40px;
+    padding: 0 40px;
 }
 
 .checkout-hr{

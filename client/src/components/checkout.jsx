@@ -1,10 +1,11 @@
 import React from 'react';
+import OrderSummaryC from './orderSummary';
 
 const CheckoutC = () => {
 
     return(
         <div className="main-body checkout-div">
-            <form className="checkout-info" method="POST" action="/shipping">
+            <form className="checkout-info" method="POST">
                 <p className="title">express checkout</p>
                 <div className="express-checkout-button-div">
                     <button>PayPal</button>
@@ -94,7 +95,7 @@ const CheckoutC = () => {
             </form>
             <div className="order-summary">
                 <div>
-                    {/* <OrderSummaryC/> */}
+                    <OrderSummaryC/>
                 </div>
                 <hr className="checkout-hr"/>
                 <div className="two-column-div checkout-discount">

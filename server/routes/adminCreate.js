@@ -12,14 +12,14 @@ const storageEngine = multer.diskStorage({
     }
 })
 
-const upload = multer({storage: storageEngine});
+const upload = multer({storage: multer.memoryStorage()});
 
 router.get('/admin', async(req, res) => {
-    res.render('admin', {title: 'Admin', condition: false});
+    res.render('admin', {title: 'Admin', condition: false}); 
 })
 
 //Create a collection item
-router.post('/admin/create', upload.array('images', 5), async(req, res) => {
+router.post('/admin/create', upload.single('images'), async(req, res) => {
     try{
         const newItem = await db.query("INSERT INTO collection (title, product, images, price, info) values ($1, $2, $3, $4, $5) RETURNING *", [req.body.title, req.body.product, req.body.images, req.body.price, req.body.info]);
         res.status(201).json({

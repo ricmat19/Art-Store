@@ -1,4 +1,5 @@
 import React from 'react';
+import OrderSummaryC from './orderSummary';
 
 const ShippingC = () => {
 
@@ -35,7 +36,7 @@ const ShippingC = () => {
             </div>
             <div className="order-summary">
                 <div>
-                    {/* <OrderSummaryC/> */}
+                    <OrderSummaryC/>
                 </div>
                 <hr className="checkout-hr"/>
                 <div className="two-column-div checkout-discount">
