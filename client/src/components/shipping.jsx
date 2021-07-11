@@ -7,12 +7,19 @@ const ShippingC = () => {
         <div className="main-body shipping-div">
             <div className="shipping-selection-div">
                 <div className="shipping-info-div">
-                    <div className="email-div">
+                    <div className="shipping-info">
+                        <p className="align-left">contact</p>
+                        <p className="align-left">test@test.com</p>
+                        <a className="align-right" href=""><p>change</p></a>
                     </div>
-                    <div className="shipping-address-div">
+                    <hr className="shipping-hr"/>
+                    <div className="shipping-info">
+                        <p className="align-left">ship to</p>
+                        <p className="align-left">100 sw 111 ave Atlanta GA 11111, United States</p>
+                        <a className="align-right" href=""><p>change</p></a>
                     </div>
                 </div>
-                <hr className="shipping-hr"/>
+
                 <div className="shipping-method-selection-div">
                     <p>shipping method</p>
                     <div className="shipping-options-div">
