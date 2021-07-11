@@ -16,27 +16,21 @@ const AdminCreateC = (props) => {
     const priceInput = useRef(null);
     const infoInput = useRef(null);
 
+    //insures that the .env file is only run in a development environment and not a production environment
+    if(process.env.NODE_ENV !== 'production'){
+        //requires the the .env file configuration be run first hiding all info hidden via the .env file
+        require('dotenv').config();
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         try{
-
-            // const {url} = await fetch("/s3Url").then(res => res.json());
-            // console.log(url);
-
-            // fetch({
-            //     method: "PUT",
-            //     headers: {"Content-Type": "multipart/form-data"},
-            //     body: images
-            // })
-
-            // const imageUrl = url.split('?')[0];
-            // console.log(imageUrl);
 
             const response = await CollectionAPI.post("/admin/create", {
                 title: title,
                 product: type,
                 images: images,
-                price: price,
+                price: price,                
                 info: info
             })
 
@@ -96,7 +90,7 @@ const AdminCreateC = (props) => {
                         </div>
                         <div className="admin-form">
                             <label className="">Images</label>
-                            <input  type="file" onChange={e => setImages(e.target.file)} name="images" className="form-control" required/>
+                            <input  type="file" onChange={e => setImages(e.target.files[0])} name="images" className="form-control" required/>
                         </div>
                         <div className="admin-form">
                             <label className="">Price</label>

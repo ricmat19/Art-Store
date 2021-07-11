@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const morgan = require("morgan");
 const cors = require("cors");
-const {generateUploadURL} = require("./s3");
 const adminCollectionRouter = require('./routes/adminCollection');
 const adminCreateRouter = require('./routes/adminCreate');
 const adminUpdateRouter = require('./routes/adminUpdate');
@@ -23,11 +22,6 @@ app.use(express.json());
 
 //Middleware: Logging
 app.use(morgan("dev"));
-
-app.get('/s3URL', (req, res) =>{
-    const url = generateUploadURL();
-    res.send({url});
-})
 
 app.use(adminCollectionRouter);
 app.use(adminCreateRouter);

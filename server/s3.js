@@ -1,4 +1,5 @@
-const AWS = require ('aws-sdk');
+const fs = require('fs')
+const S3 = require ('aws-sdk/clients/s3');
 const crypto = require('crypto');
 const {promisify} = require('util');
 const randomBytes = promisify(crypto.randomBytes);
@@ -15,26 +16,21 @@ const bucketName = process.env.S3NAME;
 const accessKeyId = process.env.S3KEY;
 const secretAccessKey = process.env.S3SECRETKEY;
 
-const s3 = new AWS.S3({
+const s3 = new S3({
     region,
     accessKeyId,
     secretAccessKey,
     signatureVersion: 'v4'
 })
 
-async function generateUploadURL(){
+module.exports = function uploadFile(file){
+    const fileStream = fs.createReadStream(file.path);
 
-    const rawBytes = await randomBytes(16);
-    const imageName= rawBytes.toString('hex');
-
-    const params = ({
+    const uploadParams = {
         Bucket: bucketName,
-        Key: imageName,
-        Expires: 60
-    })
+        Body: fileStream,
+        Key: file.filename
+    }
 
-    const uploadURL = await s3.getSignedUrlPromise('putObject', params);
-    return uploadURL;
-}
-
-module.exports = generateUploadURL();
+    return s3.upload(uploadParams).promise();
+};
