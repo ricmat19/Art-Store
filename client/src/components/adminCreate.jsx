@@ -1,9 +1,11 @@
+import axios from 'axios';
 import React, { useContext, useState, useRef} from 'react';
 import CollectionAPI from "../apis/collectionAPI";
 import {CollectionContext} from '../context/collectionContext';
 
 const AdminCreateC = (props) => {
-    const{createItem} = useContext(CollectionContext);
+
+    const{createItem, setCreateItem} = useContext(CollectionContext);
 
     const [title, setTitle] = useState("");
     const [type, setType] = useState("");
@@ -26,15 +28,21 @@ const AdminCreateC = (props) => {
         e.preventDefault()
         try{
 
+            let formData = new FormData();
+            formData.append('images', images);
+
+            console.log(formData)
+            axios.post("https://httpbin.org/anything", formData).then(res => console.log(res));
+
             const response = await CollectionAPI.post("/admin/create", {
                 title: title,
                 product: type,
-                images: images,
+                images: formData,
                 price: price,                
                 info: info
             })
 
-            createItem(response.data.data.newItem);
+            setCreateItem(response.data.data.newItem);
 
             titleInput.current.value = "";
             typeInput.current.value = "";
@@ -60,7 +68,7 @@ const AdminCreateC = (props) => {
                             </div>
                         </div>
                     </div>
-                    <form action="/routes/admin.js" method="POST" encType="multipart/form-data">
+                    <form action="/admin/create" method="POST" encType="multipart/form-data">
                         <div className="admin-form">
                             <label className=""></label>
                             <p className="">Create</p>
