@@ -13,7 +13,7 @@ const storageEngine = multer.diskStorage({
     }
 })
 
-const upload = multer({storage: multer.memoryStorage()});
+const upload = multer({dest: 'images/'});
 
 router.get('/admin', async(req, res) => {
     res.render('admin', {title: 'Admin', condition: false}); 
@@ -23,17 +23,18 @@ router.get('/admin', async(req, res) => {
 router.post('/admin/create', upload.single('images'), async(req, res) => {
     try{
         const file = req.file;
-        console.log("File: " + file);
-        // const result = await uploadFile(file);
-        // console.log(result);
-        // const newItem = await db.query("INSERT INTO collection (title, product, images, price, info) values ($1, $2, $3, $4, $5) RETURNING *", [req.body.title, req.body.product, req.body.images, req.body.price, req.body.info]);
-        // res.status(201).json({
-        //     status: "success",
-        //     results: newItem.rows.length,
-        //     data:{
-        //         newItem: newItem.rows[0]
-        //     }
-        // })
+        console.log(req.file);
+        const result = await uploadFile(file);
+        console.log(result);
+        const newItem = await db.query("INSERT INTO collection (title, product, images, price, info) values ($1, $2, $3, $4, $5) RETURNING *", [req.body.title, req.body.product, req.body.images, req.body.price, req.body.info]);
+        res.status(201).json({
+            status: "success",
+            results: newItem.rows.length,
+            data:{
+                newItem: newItem.rows[0]
+            }
+        })
+        // res.send({imagePath: `/images/${result.key}`})
     }catch(err){
         console.log(err);
     }

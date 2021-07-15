@@ -1,11 +1,10 @@
-import axios from 'axios';
 import React, { useContext, useState, useRef} from 'react';
 import CollectionAPI from "../apis/collectionAPI";
 import {CollectionContext} from '../context/collectionContext';
 
 const AdminCreateC = (props) => {
 
-    const{createItem, setCreateItem} = useContext(CollectionContext);
+    const{createItem} = useContext(CollectionContext);
 
     const [title, setTitle] = useState("");
     const [type, setType] = useState("");
@@ -29,20 +28,32 @@ const AdminCreateC = (props) => {
         try{
 
             let formData = new FormData();
+            
+            formData.append('title', title);
+            formData.append('product', type);
             formData.append('images', images);
+            formData.append('price', price);
+            formData.append('info', info);
 
-            console.log(formData)
-            axios.post("https://httpbin.org/anything", formData).then(res => console.log(res));
+            const response = await CollectionAPI.post(
+                "/admin/create",
+                formData,
+                {
+                    headers: {"Content-Type": "multipart/form-data"}
+                }
+            )
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
 
-            const response = await CollectionAPI.post("/admin/create", {
-                title: title,
-                product: type,
-                images: formData,
-                price: price,                
-                info: info
-            })
+            // const response = await CollectionAPI.post("/admin/create",{
+            //         title: title,
+            //         product: type,
+            //         images: images,
+            //         price: price,                
+            //         info: info
+            // })
 
-            setCreateItem(response.data.data.newItem);
+            createItem(response);
 
             titleInput.current.value = "";
             typeInput.current.value = "";
