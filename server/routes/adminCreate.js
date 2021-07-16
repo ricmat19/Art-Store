@@ -2,16 +2,10 @@ const express = require('express');
 const router = express.Router();
 const db = require("../db");
 const multer = require('multer');
-const uploadFile = require("../s3");
-
-const storageEngine = multer.diskStorage({
-    destination: (req, file, callback) =>{
-        callback(null, '../images')
-    },
-    filename: (req, file, callback) => {
-        callback(null, file.originalname)
-    }
-})
+const {uploadFile} = require("../s3");
+const fs = require('fs');
+const util = require('util');
+const unlinkFile = util.promisify(fs.unlink);
 
 const upload = multer({dest: 'images/'});
 
@@ -25,8 +19,9 @@ router.post('/admin/create', upload.single('images'), async(req, res) => {
         const file = req.file;
         console.log(req.file);
         const result = await uploadFile(file);
+        await unlinkFile(file.path);
         console.log(result);
-        const newItem = await db.query("INSERT INTO collection (title, product, images, price, info) values ($1, $2, $3, $4, $5) RETURNING *", [req.body.title, req.body.product, req.body.images, req.body.price, req.body.info]);
+        const newItem = await db.query("INSERT INTO collection (title, product, imagekey, price, info) values ($1, $2, $3, $4, $5) RETURNING *", [req.body.title, req.body.product, result.key, req.body.price, req.body.info]);
         res.status(201).json({
             status: "success",
             results: newItem.rows.length,
@@ -34,7 +29,8 @@ router.post('/admin/create', upload.single('images'), async(req, res) => {
                 newItem: newItem.rows[0]
             }
         })
-        // res.send({imagePath: `/images/${result.key}`})
+
+        // res.send({imagePath: `/collection/${newItem.rows[0].product}/${newItem.rows[0].imagekey}`})
     }catch(err){
         console.log(err);
     }

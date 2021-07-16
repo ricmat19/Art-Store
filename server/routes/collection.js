@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require("../db");
+const {getFileStream} = require("../s3");
 
 //Get all collection items of a certain type
 router.get("/collection/:product", async(req, res) => {
@@ -31,6 +32,13 @@ router.get('/collection/:product/:id', async (req, res) => {
                 product: product.rows[0]
             }
         })
+
+        const imageKey = (product.rows[0].imagekey)
+        console.log(imageKey);
+
+        // const readStream = getFileStream(imageKey);
+        // readStream.pipe(res);
+
     }catch(err){
         console.log(err);
     }
