@@ -4,9 +4,12 @@ import {CollectionContext} from '../context/collectionContext';
 
 const HeaderC = (props) => {
 
-    const{createUser} = useContext(CollectionContext);
+    const {createUser} = useContext(CollectionContext);
 
     const [signUpActive, setSignUpActive] = useState(false);
+    const [signInActive, setSignInActive] = useState(false);
+    const [resetActive, setResetActive] = useState(false);
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [rePassword, setRePassword] = useState("");
@@ -20,23 +23,9 @@ const HeaderC = (props) => {
     const rePasswordInput = useRef(null);
 
     let signUpClass = "";
+    let signInClass = "";
+    let resetClass = "";
 
-    if(signUpActive === false){
-        signUpClass = "sign-bg";
-    }else{
-        signUpClass = "sign-bg sign-active";
-    }
-
-    const signUpShow = (e) => {
-        setSignUpActive(true);
-        // setSignInActive(false);
-    }
-
-    // const signUpNoShow = (e) => {
-    //     setSignUpActive(false);
-    // }
-
-    
     const handleSignup = async (e) => {
         e.preventDefault()
         try{
@@ -75,51 +64,50 @@ const HeaderC = (props) => {
         }
     }  
 
+    const handleReset = async (e) => {
+        e.preventDefault()
+        try{
+         
+        }catch(err){
+            console.log(err);
+        }
+    }
 
+    if(signInActive === false){
+        signInClass = "sign-bg";
+    }else{
+        signInClass = "sign-bg sign-active";
+    }
 
+    if(signUpActive === false){
+        signUpClass = "sign-bg";
+    }else{
+        signUpClass = "sign-bg sign-active";
+    }
 
+    if(resetActive === false){
+        resetClass = "sign-bg";
+    }else{
+        resetClass = "sign-bg sign-active";
+    }
 
+    const signInShow = (e) => {
+        setSignInActive(true);
+        setSignUpActive(false);
+        setResetActive(false);
+    }
 
-    // const [signInActive, setSignInActive] = useState(false);
-    // const [resetActive, setResetActive] = useState(false);
+    const resetShow = (e) => {
+        setResetActive(true);
+        setSignUpActive(false);
+        setSignInActive(false);
+    }
 
-    // let signInClass = "";
-    // let resetClass = "";
-
-
-
-    // if(signInActive === false){
-    //     signInClass = "sign-bg";
-    // }else{
-    //     signInClass = "sign-bg sign-active";
-    // }
-
-    // if(resetActive === false){
-    //     resetClass = "sign-bg";
-    // }else{
-    //     resetClass = "sign-bg sign-active";
-    // }
-
-
-
-    // const signInShow = (e) => {
-    //     setSignInActive(true);
-    //     setSignUpActive(false);
-    //     setResetActive(false);
-    // }
-
-    // const resetShow = (e) => {
-    //     setResetActive(true);
-    //     setSignInActive(false);
-    // }
-
-    // const signInNoShow = (e) => {
-    //     setSignInActive(false);
-    // }
-
-    // const resetNoShow = (e) => {
-    //     setResetActive(false);
-    // }
+    const signUpShow = (e) => {
+        setSignUpActive(true);
+        setSignInActive(false);        
+        setResetActive(false);
+    }
 
     return(
         <div className="navbar-div">
@@ -146,13 +134,14 @@ const HeaderC = (props) => {
                         <button onClick={handleSignup} type="submit" className="btn form-button">Create Account</button>
                     </div>
                     <div className="sign-footer">
-                    {/* onClick={e => signInShow()} */}
-                    <a href=""><span>Already have an account?Sign In</span></a>
+
+                    <a href="" onClick={e => signInShow()}><span>Already have an account?Sign In</span></a>
                     </div>
                 </div>
             </form>
 
-            {/* <form className={signInClass} onClick={e => signInNoShow()}>
+            <form className={signInClass}>
+            {/* onClick={e => signInNoShow()} */}
                 <div className="sign-content">
                     <p className="sign-header title">welcome</p>
                     <div>
@@ -167,13 +156,14 @@ const HeaderC = (props) => {
                         <button>sign in</button>
                     </div>
                     <div className="sign-footer">
-                        <a href="" onClick={e => signUpShow()}><span>forgot password?</span></a>
-                        <a href="" onClick={e => resetShow()}><span>create account</span></a>
+                        <a href="" onClick={e => resetShow()}><span>forgot password?</span></a>
+                        <a href="" onClick={e => signUpShow() }><span>create account</span></a>
                     </div>
                 </div>
             </form>
 
-            <form className={resetClass} onClick={e => resetNoShow()}>
+            <form className={resetClass}>
+            {/* onClick={e => resetNoShow()} */}
                 <div className="sign-content">
                     <p className="sign-header title">Reset Password</p>
                     <div className="sign-input">
@@ -188,7 +178,7 @@ const HeaderC = (props) => {
                     <a href="" onClick={e => signInShow()}><span>Back to signin in</span></a>
                     </div>
                 </div>
-            </form> */}
+            </form>
 
             <div>
                 <input type="checkbox" id="nav-toggle" className="nav-toggle"/>
@@ -200,7 +190,7 @@ const HeaderC = (props) => {
                     <a href="/collection/comic"><p className="title">store</p></a>
                     <a href="/about"><p className="title">info</p></a>
                     <a href="/contact"><p className="title">contact</p></a>
-                    <p className="title pointer" onClick={signUpShow}>sign in</p>
+                    <p className="title pointer" onClick={signInShow}>sign in</p>
                 </nav>
             </div>
             <hr/>
