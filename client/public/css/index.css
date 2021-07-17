@@ -99,6 +99,11 @@ button a, button a:hover{
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s, opacity 0.5s;
+    cursor: pointer;
+}
+
+.modal-link:hover{
+    color: rgb(212, 0, 28);
 }
 
 .sign-active{
