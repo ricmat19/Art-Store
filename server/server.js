@@ -7,6 +7,7 @@ const adminCreateRouter = require('./routes/adminCreate');
 const adminUpdateRouter = require('./routes/adminUpdate');
 const collectionRouter = require('./routes/collection');
 const contactRouter = require('./routes/contact');
+const users = require('./routes/users');
 
 app.listen(3000, function(){
     console.log("Server Running..."); 
@@ -28,3 +29,4 @@ app.use(adminCreateRouter);
 app.use(adminUpdateRouter);
 app.use(collectionRouter);  
 app.use(contactRouter);
+app.use(users);

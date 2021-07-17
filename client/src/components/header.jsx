@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useRef} from 'react';
 import CollectionAPI from "../apis/collectionAPI";
 import {CollectionContext} from '../context/collectionContext';
 
@@ -12,6 +12,12 @@ const HeaderC = (props) => {
     const [rePassword, setRePassword] = useState("");
     const [firstname, setFirstName] = useState("");
     const [lastname, setLastName] = useState("");
+
+    const firstNameInput = useRef(null);
+    const lastNameInput = useRef(null);
+    const emailInput = useRef(null);
+    const passwordInput = useRef(null);
+    const rePasswordInput = useRef(null);
 
     let signUpClass = "";
 
@@ -44,10 +50,30 @@ const HeaderC = (props) => {
             
             createUser(response.data.data.user);
 
+            firstNameInput.current.value = "";
+            lastNameInput.current.value = "";
+            emailInput.current.value = "";
+            passwordInput.current.value = "";
+            rePasswordInput.current.value = "";
+
         }catch(err){
             console.log(err);
         }
     }
+
+    const handleSignin = async (e) => {
+        e.preventDefault()
+        try{
+         
+            const request = await CollectionAPI.get("/signin", {
+                email: email,
+                password: password
+            });
+
+        }catch(err){
+            console.log(err);
+        }
+    }  
 
 
 
@@ -103,17 +129,17 @@ const HeaderC = (props) => {
                     <p className="sign-header title">Create Account</p>
                     <div className="sign-input">
                         <div className="name-input-div">
-                            <input type="text" value={firstname} name="firstname" placeholder="First Name" onChange={(e) => {setFirstName(e.target.value)}}/>
-                            <input type="text" value={lastname} name="lastname" placeholder="Last Name" onChange={(e) => {setLastName(e.target.value)}}/>
+                            <input type="text" ref={firstNameInput} value={firstname} name="firstname" placeholder="First Name" onChange={(e) => {setFirstName(e.target.value)}}/>
+                            <input type="text" ref={lastNameInput} value={lastname} name="lastname" placeholder="Last Name" onChange={(e) => {setLastName(e.target.value)}}/>
                         </div>
                         <div className="modal-input-div">
-                            <input type="email" value={email} name="email" placeholder="Email" onChange={(e) => {setEmail(e.target.value)}}/>
+                            <input type="email" ref={emailInput} value={email} name="email" placeholder="Email" onChange={(e) => {setEmail(e.target.value)}}/>
                         </div>
                         <div className="modal-input-div">
-                            <input type="password" value={password} name="password" placeholder="Create Password" onChange={(e) => {setPassword(e.target.value)}}/>
+                            <input type="password" ref={passwordInput} value={password} name="password" placeholder="Create Password" onChange={(e) => {setPassword(e.target.value)}}/>
                         </div>
                         <div className="modal-input-div">
-                            <input type="password" name="re-password" placeholder="Re-type Password" onChange={(e) => {setRePassword(e.target.value)}}/>
+                            <input type="password" ref={rePasswordInput} value={rePassword} name="re-password" placeholder="Re-type Password" onChange={(e) => {setRePassword(e.target.value)}}/>
                         </div>
                     </div>
                     <div>
