@@ -18,31 +18,32 @@ router.post("/contact", async(req, res) => {
         <li>Message: ${req.body.message}</li>
     </ul>`
 
-let transporter = nodemailer.createTransport({ 
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false,
-    service: 'gmail',
-    auth:{
-        user: process.env.EMAIL,
-        pass: process.env.EMAILPASSWORD
-    }
-})
-
-let mailOptions = {
-    from: req.body.email,
-    to: process.env.EMAIL, 
-    subject: req.body.subject,
-    html: output
-}
-
-transporter.sendMail(mailOptions)
-    .then(function(response){
-        console.log('Email sent');
+    let transporter = nodemailer.createTransport({ 
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false,
+        service: 'gmail',
+        auth:{
+            user: process.env.EMAIL,
+            pass: process.env.EMAILPASSWORD
+        }
     })
-    .catch(function(error){
-        console.log('Error', error);
-    });
+
+    let mailOptions = {
+        from: req.body.email,
+        to: process.env.EMAIL, 
+        subject: req.body.subject,
+        html: output
+    }
+
+    transporter.sendMail(mailOptions)
+        .then(function(response){
+            console.log('Email sent');
+            res.sendStatus(200);
+        })
+        .catch(function(error){
+            console.log('Error', error);
+        });
 
 })
 

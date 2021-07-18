@@ -32,18 +32,18 @@ const HeaderC = (props) => {
     const signupRef = useRef();
     const resetRef = useRef();
 
-    useEffect(() =>{
+    // useEffect(() =>{
 
-        document.addEventListener("click", (event) => {
-            if(!signinRef.current.contains(event.target) && signinModal === "sign-bg sign-active"){
-                    setResetModal("sign-bg");
-                    setSignupModal("sign-bg");
-                    setSigninModal("sign-bg");
-            }
+    //     document.addEventListener("click", (event) => {
+    //         if(!signinRef.current.contains(event.target) && signinModal === "sign-bg sign-active"){
+    //                 setResetModal("sign-bg");
+    //                 setSignupModal("sign-bg");
+    //                 setSigninModal("sign-bg");
+    //         }
 
-        })
+    //     })
 
-    }, [])
+    // }, [])
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -157,7 +157,7 @@ const HeaderC = (props) => {
                         </div>
                         <div className="sign-footer">
 
-                        <div className="modal-link" onClick={displaySignin}><span>Already have an account?Sign In</span></div>
+                        <div className="modal-link" onClick={displaySignin}><span>Already have an account? Sign In</span></div>
                         </div>
                     </div>
                 </form>
