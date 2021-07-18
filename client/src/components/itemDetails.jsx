@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react';
 import { useParams } from 'react-router';
-import collectionAPI from '../apis/collectionAPI';
+import CollectionAPI from '../apis/collectionAPI';
 import { CollectionContext } from '../context/collectionContext';
 
 const ItemDetailsC = (props) => {
@@ -16,7 +16,7 @@ const ItemDetailsC = (props) => {
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
-                const response = await collectionAPI.get(`/collection/${product}/${id}`);
+                const response = await CollectionAPI.get(`/collection/${product}/${id}`);
                 setSelectedItem(response.data.data.product);
             }catch(err){
                 console.log(err);
@@ -26,17 +26,23 @@ const ItemDetailsC = (props) => {
         fetchData();
     }, []);
 
-    let [cartQty, setCartQty] = useState("");
+    const [qty, setQty] = useState(null);
 
-    cartQty = 0;
-    const displayCartModal = async () => {
-        if(cartQty > 0){
-            
-        }else{
-            
+    const addToCart = async (e) => {
+        e.preventDefault()
+        try{
+
+            const response = await CollectionAPI.post("/cart", {
+                id: id,
+                qty: qty
+            })
+
+            console.log(response.data);
+
+        }catch(err){
+            console.log(err);
         }
     }
-
     return(
         <div>
             <div className="main-body item-details">
@@ -52,7 +58,7 @@ const ItemDetailsC = (props) => {
                         </div>
                     </div>
                 </div>
-                <div>
+                <form className="item-form" method="POST" action="/cart">
                     <div className="info-div">
                         <p className="title">{selectedItem && selectedItem.title}</p>
                         <div className="info-detail-div">
@@ -67,14 +73,14 @@ const ItemDetailsC = (props) => {
                     <div className="info-div">
                     <div className="info-detail-div">
                             <label>quantity</label>
-                            <input type="number" name="quantity" placeholder="0"/>
+                            <input type="number" name="quantity" placeholder="0" onChange={(e) => {setQty(e.target.value)}}/>
                         </div>
                     </div>
                     <div className="cart-options">
-                        <button>Add To Cart</button>
-                        <button onClick={displayCartModal}>Order Now</button>
+                        <button onClick={addToCart}>Add To Cart</button>
+                        <button>Order Now</button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     )

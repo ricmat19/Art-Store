@@ -8,6 +8,7 @@ const adminUpdateRouter = require('./routes/adminUpdate');
 const collectionRouter = require('./routes/collection');
 const contactRouter = require('./routes/contact');
 const usersRouter = require('./routes/users');
+const cartRouter = require('./routes/cart');
 
 app.listen(3000, function(){
     console.log("Server Running..."); 
@@ -30,3 +31,4 @@ app.use(adminUpdateRouter);
 app.use(collectionRouter);  
 app.use(contactRouter);
 app.use(usersRouter);
+app.use(cartRouter);
