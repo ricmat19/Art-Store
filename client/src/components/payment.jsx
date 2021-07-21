@@ -10,19 +10,19 @@ const PaymentC = () => {
                     <div className="payment-info">
                         <p className="align-left">contact</p>
                         <p className="align-left">test@test.com</p>
-                        <a className="align-right" href=""><p>change</p></a>
+                        <a className="align-right" href="/checkout"><p>change</p></a>
                     </div>
                     <hr className="payment-hr"/>
                     <div className="payment-info">
                         <p className="align-left">ship to</p>
                         <p className="align-left">100 sw 111 ave Atlanta GA 11111, United States</p>
-                        <a className="align-right" href=""><p>change</p></a>
+                        <a className="align-right" href="/checkout"><p>change</p></a>
                     </div>
                     <hr className="payment-hr"/>
                     <div className="payment-info">
                         <p className="align-left">method</p>
                         <p className="align-left">first class (3-7 days) - $0.00</p>
-                        <a className="align-right" href=""><p>change</p></a>
+                        <a className="align-right" href="/shipping"><p>change</p></a>
                     </div>
                 </div>
 

@@ -106,10 +106,6 @@ const CheckoutC = () => {
                     <p className="align-left">subtotal</p>
                     <p className="align-right">$0.00</p>
                 </div>
-                <div className="two-column-div">
-                    <p className="align-left">shipping</p>
-                    <p className="align-right">$0.00</p>
-                </div>
                 <hr className="checkout-hr"/>
                 <div className="two-column-div">
                     <p className="align-left">total</p>
