@@ -79,16 +79,16 @@ const AdminCreateC = (props) => {
                             </div>
                         </div>
                     </div>
-                    <form action="/admin/create" method="POST" encType="multipart/form-data">
-                        <div className="admin-form">
+                    <form className="admin-form" action="/admin/create" method="POST" encType="multipart/form-data">
+                        <div className="admin-form-field">
                             <label className=""></label>
-                            <p className="">Create</p>
+                            <p className="title">Create</p>
                         </div>
-                        <div className="admin-form">
+                        <div className="admin-form-field">
                             <label className="">Title</label>
                             <input value={title} ref={titleInput} onChange={e => setTitle(e.target.value)} type="text" name="name" className="form-control" required/>
                         </div>
-                        <div className="admin-form">
+                        <div className="admin-form-field">
                             <div>
                                 <label className=" radio-label">Type:</label>
                             </div>
@@ -107,20 +107,25 @@ const AdminCreateC = (props) => {
                                 </div>
                             </div>
                         </div>
-                        <div className="admin-form">
+                        <div className="admin-form-field">
                             <label className="">Images</label>
                             <input  type="file" onChange={e => setImages(e.target.files[0])} name="images" className="form-control" required/>
                         </div>
-                        <div className="admin-form">
+                        <div className="admin-form-field">
                             <label className="">Price</label>
                             <input value={price} ref={priceInput} onChange={e => setPrice(e.target.value)} type="number" name="price" className="form-control" required/>
                         </div>
-                        <div className="admin-form">
+                        <div className="admin-form-field">
                             <label className="">Info</label>
                             <textarea value={info} ref={infoInput} onChange={e => setInfo(e.target.value)} name="message" rows="5" required></textarea>
                         </div>
-                        <div className="form-button-div text-center">
-                            <button onClick={handleSubmit} type="submit" className="btn form-button">Submit</button>
+                        <div className="admin-form-button">
+                            <div></div>
+                            <div className="text-center">
+                                <div>
+                                    <button onClick={handleSubmit} type="submit" className="btn form-button">Submit</button>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>

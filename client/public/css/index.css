@@ -492,9 +492,18 @@ button{
 }
 
 .admin-form{
+    padding: 0 40px 40px 40px;
+}
+
+.admin-form-field{
     display: grid;
     grid-template-columns: 75px auto;
     margin: 15px 0;
+}
+
+.admin-form-button{
+    display: grid;
+    grid-template-columns: 75px auto;
 }
 
 input, select{
