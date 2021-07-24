@@ -185,7 +185,7 @@ const HeaderC = (props) => {
 
             <div>
                 <input type="checkbox" id="nav-toggle" className="nav-toggle"/>
-                <label className="title nav-toggle-label">
+                <label for="nav-toggle" className="title nav-toggle-label">
                     <a className="menu-toggle"><p className="title">menu</p></a>
                 </label>
                 <nav className="navbar">
