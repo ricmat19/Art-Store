@@ -16,9 +16,6 @@ const ItemDetailsC = (props) => {
     const [price, setPrice] = useState("");
     const [info, setInfo] = useState("");
 
-    const [cartQty, setCartQty] = useState("");
-    const [cartModal, setCartModal] = useState("");
-
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
@@ -32,18 +29,11 @@ const ItemDetailsC = (props) => {
         fetchData();
     }, []);
 
-    const [qty, setQty] = useState(null);
+    const [qty, setQty] = useState(5);
 
     const addToCart = async (e) => {
         e.preventDefault()
         try{
-
-            setCartQty(cartQty + qty);
-            if(cartQty === 0){
-                setCartModal("inactive-cart cart-modal")
-            }else{
-                setCartModal("active-cart cart-modal")
-            }
 
             const response = await CollectionAPI.post("/cart", {
                 id: id,

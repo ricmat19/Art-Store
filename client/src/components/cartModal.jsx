@@ -1,10 +1,21 @@
-import React from 'react';
+import React, {useState, useContext} from 'react';
 
-const CartModalC = () => {
+const CartModalC = (props) => {
 
+    const [cartQty, setCartQty] = useState("");
+    const [cartModal, setCartModal] = useState("inactive-cart cart-modal");
+
+    const addToCartModal = (e) => {
+        if(cartQty === 0){
+            setCartModal("inactive-cart cart-modal")
+        }else{
+            setCartModal("active-cart cart-modal")
+        }
+    }
+    
     return(
         <a href="/cart">
-            <div className="active-cart cart-modal">
+            <div className={cartModal}>
                 <i className="fas fa-shopping-cart cart-icon"></i>
                 <div className="cart-quantity-div">
                     <div className="cart-quantity">0</div>

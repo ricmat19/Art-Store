@@ -32,18 +32,22 @@ const HeaderC = (props) => {
     const signupRef = useRef();
     const resetRef = useRef();
 
-    // useEffect(() =>{
+    useEffect(() =>{
 
-    //     document.addEventListener("click", (event) => {
-    //         if(!signinRef.current.contains(event.target) && signinModal === "sign-bg sign-active"){
-    //                 setResetModal("sign-bg");
-    //                 setSignupModal("sign-bg");
-    //                 setSigninModal("sign-bg");
-    //         }
+        document.addEventListener("mousedown", (event) => {
+            if(!signinRef.current.contains(event.target)){
+                setSigninModal("sign-bg");
+            }
+            if(!signupRef.current.contains(event.target)){
+                setSignupModal("sign-bg");
+            }
+            if(!resetRef.current.contains(event.target)){
+                setResetModal("sign-bg");
+            }
 
-    //     })
+        })
 
-    // }, [])
+    }, [])
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -110,8 +114,8 @@ const HeaderC = (props) => {
 
             {/* Signin */}
             <div className={signinModal}>
-                <form ref={signinRef}>
-                    <div className="sign-content">
+                <form>
+                    <div ref={signinRef} className="sign-content">
                         <p className="sign-header title">welcome</p>
                         <div>
                             <div className="modal-input-div">
@@ -134,8 +138,8 @@ const HeaderC = (props) => {
 
             {/* signup */}
             <div className={signupModal}>
-                <form ref={signupRef}>
-                    <div className="sign-content">
+                <form>
+                    <div ref={signupRef} className="sign-content">
                         <p className="sign-header title">Create Account</p>
                         <div className="sign-input">
                             <div className="name-input-div">
@@ -165,8 +169,8 @@ const HeaderC = (props) => {
 
             {/* reset */}
             <div className={resetModal}>
-                <form ref={resetRef}> 
-                    <div className="sign-content">
+                <form> 
+                    <div ref={resetRef} className="sign-content">
                         <p className="sign-header title">Reset Password</p>
                         <div className="sign-input">
                             <div className="forgot-input-div">
@@ -185,7 +189,7 @@ const HeaderC = (props) => {
 
             <div>
                 <input type="checkbox" id="nav-toggle" className="nav-toggle"/>
-                <label for="nav-toggle" className="title nav-toggle-label">
+                <label htmlFor="nav-toggle" className="title nav-toggle-label">
                     <a className="menu-toggle"><p className="title">menu</p></a>
                 </label>
                 <nav className="navbar">
