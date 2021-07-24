@@ -2,6 +2,9 @@ import React, {useContext, useEffect} from 'react';
 import {useParams, useHistory} from "react-router-dom";
 import CollectionAPI from '../apis/collectionAPI';
 import {CollectionContext} from '../context/collectionContext';
+import CartModalC from './cartModal';
+import HeaderC from './header';
+import FooterC from './footer';
 
 const CollectionC = (props) => {
 
@@ -33,6 +36,8 @@ const CollectionC = (props) => {
 
     return(
         <div>
+            <CartModalC/>
+            <HeaderC/>
             <div className="main-body">
                 <div className="center subtitle-div">
                     <a className="subtitle-anchor" href="/collection/comic"><p className="title">comics</p></a>
@@ -55,6 +60,7 @@ const CollectionC = (props) => {
                     })}
                 </div>
             </div>
+            <FooterC/>
         </div>
     )
 }

@@ -2,6 +2,8 @@ import React, {useContext, useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import CollectionAPI from '../apis/collectionAPI';
 import {CollectionContext} from '../context/collectionContext';
+import HeaderC from './header';
+import FooterC from './footer';
 
 const AdminUpdateC = (props) => {
 
@@ -31,6 +33,7 @@ const AdminUpdateC = (props) => {
 
     return(
         <div>
+            <HeaderC/>
             <div className="main-body">
                 <div className="center">
                     <p className="title">admin</p>
@@ -90,6 +93,7 @@ const AdminUpdateC = (props) => {
                     </form>
                 </div>
             </div>
+            <FooterC/>
         </div>
     )
 }

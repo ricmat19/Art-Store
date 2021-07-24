@@ -1,8 +1,13 @@
 import React from 'react';
+import CartModalC from './cartModal';
+import HeaderC from './header';
+import FooterC from './footer';
 
 const AboutC = () => {
     return(
         <div>
+            <CartModalC/>
+            <HeaderC/>
             <div className="main-body">
                 <div className="center">
                     <p className="title">about</p>
@@ -34,6 +39,7 @@ const AboutC = () => {
                     </div>
                 </div>
             </div>
+            <FooterC/>
         </div>
     )
 }

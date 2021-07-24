@@ -1,6 +1,8 @@
 import React, { useContext, useState, useRef} from 'react';
 import CollectionAPI from "../apis/collectionAPI";
 import {CollectionContext} from '../context/collectionContext';
+import HeaderC from './header';
+import FooterC from './footer';
 
 const AdminCreateC = (props) => {
 
@@ -67,6 +69,7 @@ const AdminCreateC = (props) => {
 
     return(
         <div>
+            <HeaderC/>
             <div className="main-body">
                 <div className="center">
                     <p className="title">admin</p>
@@ -130,6 +133,7 @@ const AdminCreateC = (props) => {
                     </form>
                 </div>
             </div>
+            <FooterC/>
         </div>
     )
 }

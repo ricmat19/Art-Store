@@ -1,10 +1,13 @@
 import React from 'react';
 import CartItemC from './cartItem';
+import HeaderC from './header';
+import FooterC from './footer';
 
 const CartC = () => {
 
     return(
         <div className="main-body">
+            <HeaderC/>
             <div className="center">
                 <p className="title">Shopping Cart</p>
             </div>
@@ -25,8 +28,8 @@ const CartC = () => {
                 <div className="align-right cart-button">
                     <button><a href="/checkout">Checkout</a></button>
                 </div>
-
             </div>
+            <FooterC/>
         </div>
     )
 }

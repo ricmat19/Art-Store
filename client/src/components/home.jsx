@@ -1,8 +1,13 @@
 import React from 'react';
+import CartModalC from './cartModal';
+import HeaderC from './header';
+import FooterC from './footer';
 
 const HomeC = () => {
     return(
         <div>
+            <CartModalC/>
+            <HeaderC/>
             <div className="main-body home-menu">
                 <a href="collection/comic">
                     <div className="menu-item">
@@ -23,6 +28,7 @@ const HomeC = () => {
                     </div>
                 </a>
             </div>
+            <FooterC/>
         </div>
     )
 }

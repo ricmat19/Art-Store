@@ -4,10 +4,10 @@ const CartModalC = () => {
 
     return(
         <a href="/cart">
-            <div className="active-modal cart-modal">
+            <div className="active-cart cart-modal">
                 <i className="fas fa-shopping-cart cart-icon"></i>
-                <div className="cart-quantity">
-                    <div>0</div>
+                <div className="cart-quantity-div">
+                    <div className="cart-quantity">0</div>
                     <label>items</label>
                 </div>
                 <div className="totalPrice">$0</div>

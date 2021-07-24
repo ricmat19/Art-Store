@@ -2,6 +2,8 @@ import React, {useContext, useEffect} from 'react';
 import {useHistory, useParams} from "react-router-dom";
 import CollectionAPI from '../apis/collectionAPI';
 import {CollectionContext} from '../context/collectionContext';
+import HeaderC from './header';
+import FooterC from './footer';
 
 const AdminCollectionC = (props) => {
 
@@ -45,6 +47,7 @@ const AdminCollectionC = (props) => {
 
     return(
         <div>
+            <HeaderC/>
             <div className="main-body">
                 <div className="center subtitle-div">
                     <a className="subtitle-anchor" href="/admin/collection/comic"><p className="title">comics</p></a>
@@ -79,6 +82,7 @@ const AdminCollectionC = (props) => {
                     })}
                 </div>
             </div>
+            <FooterC/>
         </div>
     )
 }

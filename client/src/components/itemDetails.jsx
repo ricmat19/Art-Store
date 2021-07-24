@@ -2,6 +2,9 @@ import React, {useState, useEffect, useContext} from 'react';
 import { useParams } from 'react-router';
 import CollectionAPI from '../apis/collectionAPI';
 import { CollectionContext } from '../context/collectionContext';
+import CartModalC from './cartModal';
+import HeaderC from './header';
+import FooterC from './footer';
 
 const ItemDetailsC = (props) => {
 
@@ -12,6 +15,9 @@ const ItemDetailsC = (props) => {
     const [images, setImages] = useState("");
     const [price, setPrice] = useState("");
     const [info, setInfo] = useState("");
+
+    const [cartQty, setCartQty] = useState("");
+    const [cartModal, setCartModal] = useState("");
 
     useEffect(() => {
         const fetchData = async (req, res) => {
@@ -32,6 +38,13 @@ const ItemDetailsC = (props) => {
         e.preventDefault()
         try{
 
+            setCartQty(cartQty + qty);
+            if(cartQty === 0){
+                setCartModal("inactive-cart cart-modal")
+            }else{
+                setCartModal("active-cart cart-modal")
+            }
+
             const response = await CollectionAPI.post("/cart", {
                 id: id,
                 qty: qty
@@ -43,8 +56,11 @@ const ItemDetailsC = (props) => {
             console.log(err);
         }
     }
+
     return(
         <div>
+            <CartModalC/>
+            <HeaderC/>
             <div className="main-body item-details">
                 <div className="item-images">
                     <div className="image-div">
@@ -82,6 +98,7 @@ const ItemDetailsC = (props) => {
                     </div>
                 </form>
             </div>
+            <FooterC/>
         </div>
     )
 }

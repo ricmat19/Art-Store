@@ -53,7 +53,7 @@ button a, button a:hover{
     color: rgb(212, 0, 28);
 }
 
-.inactive-modal{
+.inactive-cart{
     background-color: rgb(243, 243, 243);
     position: fixed;
     right: 11px;
@@ -61,7 +61,7 @@ button a, button a:hover{
     opacity: 0;
 }
 
-.active-modal{
+.active-cart{
     background-color: rgb(243, 243, 243);
     position: fixed;
     right: 11px;
@@ -144,7 +144,7 @@ button a, button a:hover{
     margin: 5px 0;
 }
 
-.cart-quantity{
+.cart-quantity-div{
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 5px;
