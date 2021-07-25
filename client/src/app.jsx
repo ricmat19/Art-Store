@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route} from "react-router-dom";
 import Home from "./routes/home";
 import About from "./routes/about";
 import Product from "./routes/collection";
+import Images from "./routes/images";
 import Item from "./routes/itemDetails";
 import Cart from "./routes/cart";
 import Checkout from "./routes/checkout";
@@ -24,6 +25,7 @@ const App = () =>{
                     <Route exact path="/" component={Home}/>
                     <Route exact path="/about" component={About}/>
                     <Route exact path="/collection/:product" component={Product}/>
+                    <Route exact path="/images/:key" component={Images}/>
                     <Route exact path="/collection/:product/:id" component={Item}/>
                     <Route export path="/cart" component={Cart}/>
                     <Route export path="/checkout" component={Checkout}/>

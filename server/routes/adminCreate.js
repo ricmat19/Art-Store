@@ -10,7 +10,7 @@ const unlinkFile = util.promisify(fs.unlink);
 const upload = multer({dest: 'images/'});
 
 router.get('/admin', async(req, res) => {
-    res.render('admin', {title: 'Admin', condition: false}); 
+    res.render('admin', {title: 'Admin', condition: false});
 })
 
 //Create a collection item
@@ -22,6 +22,7 @@ router.post('/admin/create', upload.single('images'), async(req, res) => {
         await unlinkFile(file.path);
         console.log(result);
         const newItem = await db.query("INSERT INTO collection (title, product, imagekey, price, info) values ($1, $2, $3, $4, $5) RETURNING *", [req.body.title, req.body.product, result.key, req.body.price, req.body.info]);
+        res.send({imagePath: `/images/${result.key}`})
         res.status(201).json({
             status: "success",
             results: newItem.rows.length,
@@ -29,8 +30,6 @@ router.post('/admin/create', upload.single('images'), async(req, res) => {
                 newItem: newItem.rows[0]
             }
         })
-
-        // res.send({imagePath: `/collection/${newItem.rows[0].product}/${newItem.rows[0].imagekey}`})
     }catch(err){
         console.log(err);
     }

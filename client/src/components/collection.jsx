@@ -1,23 +1,27 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useParams, useHistory} from "react-router-dom";
 import CollectionAPI from '../apis/collectionAPI';
 import {CollectionContext} from '../context/collectionContext';
 import CartModalC from './cartModal';
 import HeaderC from './header';
 import FooterC from './footer';
+import ImagesC from './images';
 
 const CollectionC = (props) => {
 
     const {product} = useParams();
     const {collection, setCollection} = useContext(CollectionContext);
+    const {images, setImages} = useContext(CollectionContext);
 
     let history = useHistory();
 
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
-                const response = await CollectionAPI.get(`/collection/${product}`);
-                setCollection(response.data.data.collection);
+                const productResponse = await CollectionAPI.get(`/collection/${product}`);
+                setCollection(productResponse.data.data.collection);
+                const imagesResponse = await CollectionAPI.get(`/images/${productResponse.data.data.collection[0].imagekey}`);
+                setImages(imagesResponse);
             }catch(err){
                 console.log(err);
             }
@@ -32,6 +36,10 @@ const CollectionC = (props) => {
         }catch(err){
             console.log(err);
         }
+    }
+
+    const imageURL = (imagekey) =>{
+        return(`/images/${imagekey}`);
     }
 
     return(
@@ -49,7 +57,7 @@ const CollectionC = (props) => {
                         return(
                             <div className="collection-item-div" key={item.id} onClick={() => displayItem(item.product, item.id)}>
                                 <div className="collection-item">
-                                    <img className="collection-thumbnail" src="../../logo512.png" alt="thumbnail"/>
+                                    <ImagesC classes="collection-thumbnail" source={imageURL(item.imagekey)}/>
                                 </div>
                                 <div className="collection-thumbnail-footer">
                                     <div className="Title">{item.title}</div>
