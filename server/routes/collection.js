@@ -1,4 +1,5 @@
 const express = require('express');
+const fs = require('fs');
 const router = express.Router();
 const db = require("../db");
 const {getFileStream} = require("../s3");
@@ -8,14 +9,14 @@ router.get("/images/:key", async (req, res) => {
     try{
         const key = req.params.key;
         const readStream = getFileStream(key);
-        
-        res.status(200).json({
-            status: "success",
-            result: readStream.pipe(res),
-            data: {
-                imagekey: key,
-            }
-        })
+        readStream.pipe(res);
+        // res.status(200).json({
+        //     status: "success",
+        //     result: readStream,
+        //     data: {
+        //         data: readStream.pipe(res)
+        //     }
+        // })
     }catch(err){
         console.log(err);
     }
@@ -28,7 +29,7 @@ router.get("/collection/:product", async(req, res) => {
     try{
         const collection = await db.query("SELECT * FROM collection WHERE PRODUCT=$1", [req.params.product]);
 
-        res.status(200).json({
+        res.status(200).json({ 
             status: "success",
             results: collection.rows.length,
             data: {

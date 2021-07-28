@@ -19,10 +19,9 @@ router.post('/admin/create', upload.single('images'), async(req, res) => {
         const file = req.file;
         console.log(req.file);
         const result = await uploadFile(file);
+        // res.send({imagePath: `/images/${result.key}`})
         await unlinkFile(file.path);
-        console.log(result);
         const newItem = await db.query("INSERT INTO collection (title, product, imagekey, price, info) values ($1, $2, $3, $4, $5) RETURNING *", [req.body.title, req.body.product, result.key, req.body.price, req.body.info]);
-        res.send({imagePath: `/images/${result.key}`})
         res.status(201).json({
             status: "success",
             results: newItem.rows.length,

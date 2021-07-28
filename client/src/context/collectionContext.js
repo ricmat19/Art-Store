@@ -5,13 +5,17 @@ export const CollectionContext = createContext();
 export const CollectionContextProvider = props => {
 
     const [collection, setCollection] = useState([]);
-    const [images, setImages] = useState([]);
+    // const [images, setImages] = useState(null);
     const [selectedItem, setSelectedItem] = useState(null);
     const [user, setUser]  = useState([]);
 
     const createItem = (item) => {
         setCollection([...collection, item])
     }
+
+    // const createImage = (image) => {
+    //     setImages([...images, image])
+    // }
 
     const createUser = (newUser) => {
         setUser([...user, newUser])
@@ -21,8 +25,8 @@ export const CollectionContextProvider = props => {
         <CollectionContext.Provider value={{
             collection: collection, 
             setCollection: setCollection, createItem,
-            images: images,
-            setImages: setImages,
+            // images: images,
+            // setImages: setImages, createImage,
             selectedItem: selectedItem,
             setSelectedItem: setSelectedItem,
             user: user,

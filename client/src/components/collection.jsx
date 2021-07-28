@@ -5,13 +5,12 @@ import {CollectionContext} from '../context/collectionContext';
 import CartModalC from './cartModal';
 import HeaderC from './header';
 import FooterC from './footer';
-import ImagesC from './images';
 
 const CollectionC = (props) => {
 
-    const {product} = useParams();
+    const {product, imagekey} = useParams();
     const {collection, setCollection} = useContext(CollectionContext);
-    const {images, setImages} = useContext(CollectionContext);
+    // const {images, setImages} = useContext(CollectionContext);
 
     let history = useHistory();
 
@@ -20,8 +19,8 @@ const CollectionC = (props) => {
             try{
                 const productResponse = await CollectionAPI.get(`/collection/${product}`);
                 setCollection(productResponse.data.data.collection);
-                const imagesResponse = await CollectionAPI.get(`/images/${productResponse.data.data.collection[0].imagekey}`);
-                setImages(imagesResponse);
+                // const imagesResponse = await CollectionAPI.get(`/images/${imagekey}`);
+                // setImages(imagesResponse.data);
             }catch(err){
                 console.log(err);
             }
@@ -57,7 +56,7 @@ const CollectionC = (props) => {
                         return(
                             <div className="collection-item-div" key={item.id} onClick={() => displayItem(item.product, item.id)}>
                                 <div className="collection-item">
-                                    <ImagesC classes="collection-thumbnail" source={imageURL(item.imagekey)}/>
+                                    <img className="collection-thumbnail" src={imageURL(item.imagekey)}/>
                                 </div>
                                 <div className="collection-thumbnail-footer">
                                     <div className="Title">{item.title}</div>
