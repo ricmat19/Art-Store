@@ -506,11 +506,16 @@ button{
     grid-template-columns: 75px auto;
 }
 
-input, select{
+input, select, .cardElement{
     border-style: none;
     padding: 10px;
     outline: none;
     font-family: 'Rajdhani';
+}
+
+.cardElement{
+    background-color: white;
+    padding: 20px;
 }
 
 textarea{

@@ -7,7 +7,7 @@ import Item from "./routes/itemDetails";
 import Cart from "./routes/cart";
 import Checkout from "./routes/checkout";
 import Shipping from "./routes/shipping";
-import Payment from "./routes/payment";
+import Payment from "./routes/stripe";
 import Contact from "./routes/contact";
 import AdminCollection from "./routes/adminCollection";
 import AdminCreate from "./routes/adminCreate";

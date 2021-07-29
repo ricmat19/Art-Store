@@ -30,7 +30,7 @@
     "node-postgres": "^0.6.2",
     "nodemailer": "^6.6.2",
     "pg": "^8.6.0",
-    "stripe": "^8.150.0"
+    "stripe": "^8.167.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"

@@ -1,9 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import OrderSummaryC from './orderSummary';
 import HeaderC from './header';
 import FooterC from './footer';
+import {CardElement, useStripe, useElements} from "@stripe/react-stripe-js";
+import CollectionAPI from '../apis/collectionAPI';
+
+
 
 const PaymentC = () => {
+
+    const stripe = useStripe();
+    const elements = useElements();
+
+    const handleSubmit = async(e) => {
+        e.preventDefault();
+        const {err, paymentMethod} = await stripe.createPaymentMethod({
+            type: "card",
+            card: elements.getElement(CardElement)
+        })
+
+        if(!err){
+            try{
+                const {id} = paymentMethod;
+                const response = await CollectionAPI.get(`/payment`, {
+                    amount: 1000,
+                    id: id
+                });
+
+                if(response.data.success){
+                    console.log("Successful payment!");
+                }
+            }catch(err){
+                console.log(err);
+            }
+        }else{
+            console.log(err)
+        }
+    }
+
+    
+    
 
     return(
         <div>
@@ -31,35 +67,37 @@ const PaymentC = () => {
                     </div>
 
                     <div className="payment-method-selection-div">
-                        <p>payment method</p>
-                        <div className="payment-options-div">
-                            <div className="payment-option">
-                                <input className="align-left" type="radio" name="payment-method"/>
-                                <label className="align-left">Credit Card</label>
-                            </div>
-                            <div className="payment-info-input-div">
-                                <div className="grid payment-input">
-                                    <input type="text" placeholder="card number"/>
-                                </div>
-                                <div className="grid payment-input">
-                                    <input type="text" placeholder="name on card"/>
-                                </div>
-                                <div className="two-column-div">
-                                    <input type="text" placeholder="expiration date (mm/yy)"/>
-                                    <input type="text" placeholder="cvv"/>
-                                </div>
-                                <hr className="payment-hr"/>
+                        <p>payment method</p>      
+                            <form className="payment-options-div" onSubmit={handleSubmit}>
                                 <div className="payment-option">
                                     <input className="align-left" type="radio" name="payment-method"/>
-                                    <label className="align-left">PayPal</label>
+                                    <label className="align-left">Credit Card</label>
                                 </div>
-                                <hr className="payment-hr"/>
-                                <div className="payment-option">
-                                    <input className="align-left" type="radio" name="payment-method"/>
-                                    <label className="align-left">Amazon Pay</label>
+                                <div className="payment-info-input-div">
+                                    <div className="grid payment-input">
+                                        <input type="text" placeholder="card number"/>
+                                            <CardElement className="cardElement"/>
+                                    </div>
+                                    <div className="grid payment-input">
+                                        <input type="text" placeholder="name on card"/>
+                                    </div>
+                                    <div className="two-column-div">
+                                        <input type="text" placeholder="expiration date (mm/yy)"/>
+                                        <input type="text" placeholder="cvv"/>
+                                    </div>
+                                    <hr className="payment-hr"/>
+                                    <div className="payment-option">
+                                        <input className="align-left" type="radio" name="payment-method"/>
+                                        <label className="align-left">PayPal</label>
+                                    </div>
+                                    <hr className="payment-hr"/>
+                                    <div className="payment-option">
+                                        <input className="align-left" type="radio" name="payment-method"/>
+                                        <label className="align-left">Amazon Pay</label>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                            </form>
+
                     </div>
                     <div className="two-column-div payment-button">
                         <a href="/payment"><button>continue to payment</button></a>
