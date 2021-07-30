@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import OrderSummaryC from './orderSummary';
 import HeaderC from './header';
 import FooterC from './footer';

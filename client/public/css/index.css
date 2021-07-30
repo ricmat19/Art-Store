@@ -463,6 +463,8 @@ button{
     text-align: justify;
     justify-content: center;
     font-size: 14px;
+    line-height: 35px;
+    align-self: center;
 }
 
 .form-div{
