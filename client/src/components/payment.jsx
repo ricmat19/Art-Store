@@ -5,8 +5,6 @@ import FooterC from './footer';
 import {CardElement, useStripe, useElements} from "@stripe/react-stripe-js";
 import CollectionAPI from '../apis/collectionAPI';
 
-
-
 const PaymentC = () => {
 
     const stripe = useStripe();
@@ -22,7 +20,7 @@ const PaymentC = () => {
         if(!err){
             try{
                 const {id} = paymentMethod;
-                const response = await CollectionAPI.get(`/payment`, {
+                const response = await CollectionAPI.post(`/payment`, {
                     amount: 1000,
                     id: id
                 });
@@ -38,14 +36,21 @@ const PaymentC = () => {
         }
     }
 
-    
+    const cardElementOptions = {
+        style:{
+            base:{
+                fontFamily: 'Rajdhani'
+            }
+        },
+        hidePostalCode: true
+    }
     
 
     return(
         <div>
             <HeaderC/>
             <div className="main-body payment-div">
-                <div className="payment-selection-div">
+                <form method="POST" className="payment-selection-div" onSubmit={handleSubmit}>
                     <div className="payment-info-div">
                         <div className="payment-info">
                             <p className="align-left">contact</p>
@@ -68,22 +73,17 @@ const PaymentC = () => {
 
                     <div className="payment-method-selection-div">
                         <p>payment method</p>      
-                            <form className="payment-options-div" onSubmit={handleSubmit}>
+                            <div className="payment-options-div">
                                 <div className="payment-option">
                                     <input className="align-left" type="radio" name="payment-method"/>
                                     <label className="align-left">Credit Card</label>
                                 </div>
                                 <div className="payment-info-input-div">
                                     <div className="grid payment-input">
-                                        <input type="text" placeholder="card number"/>
-                                            <CardElement className="cardElement"/>
+                                        <CardElement className="cardElement" options={cardElementOptions}/>
                                     </div>
                                     <div className="grid payment-input">
                                         <input type="text" placeholder="name on card"/>
-                                    </div>
-                                    <div className="two-column-div">
-                                        <input type="text" placeholder="expiration date (mm/yy)"/>
-                                        <input type="text" placeholder="cvv"/>
                                     </div>
                                     <hr className="payment-hr"/>
                                     <div className="payment-option">
@@ -96,14 +96,14 @@ const PaymentC = () => {
                                         <label className="align-left">Amazon Pay</label>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
 
                     </div>
                     <div className="two-column-div payment-button">
-                        <a href="/payment"><button>continue to payment</button></a>
+                        <a href="/payment"><button type="submit">continue to payment</button></a>
                         <a href="/checkout"><p>return to information</p></a>
                     </div>
-                </div>
+                </form>
                 <div className="order-summary">
                     <div>
                         <OrderSummaryC/>
