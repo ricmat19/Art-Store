@@ -6,6 +6,12 @@ const PaypalC = () => {
 
     useEffect(() => {
         window.paypal.Buttons({
+            style: {
+                layout:  'horizontal',
+                color: 'black',
+                label: 'paypal',
+                shape: 'rect'
+            },
             createOrder: (data, actions, err) => {
                 return actions.order.create({
                     intent: "CAPTURE",

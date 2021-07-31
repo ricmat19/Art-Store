@@ -305,6 +305,8 @@ a{
 
 hr{
     margin: 15px 15%;
+    align-content: center;
+    justify-self: center;
 }
 
 .form-hr{
@@ -601,7 +603,7 @@ label{
 
 .shipping-option, .shipping-info, .payment-info, .payment-option{
     display: grid;
-    grid-template-columns: 30px auto auto;
+    grid-template-columns: 30px auto 200px;
     align-items: center;
     gap: 20px;
 }
@@ -611,13 +613,8 @@ label{
     justify-content: right;
 }
 
-.credit-card-form{
-    padding-bottom: 5px;
-}
-
 .payment-option{
-    padding: 5px 0;
-    align-content: right;
+    padding: 5px 5px 0 5px;
 }
 
 .payment-button{

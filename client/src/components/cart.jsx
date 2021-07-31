@@ -1,9 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CartItemC from './cartItem';
 import HeaderC from './header';
 import FooterC from './footer';
+import collectionAPI from '../apis/collectionAPI';
 
 const CartC = () => {
+
+    const [cart, setCart] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async (req, res) => {
+            try{
+                const cartResponse = await collectionAPI.get(`/cart`);
+                // console.log(cartResponse.data.data.cart[0])
+                setCart(cartResponse.data.data.cart);
+            }catch(err){
+                console.log(err);
+            }
+        }
+
+        fetchData();
+    }, []);
+
 
     return(
         <div className="main-body">
@@ -19,7 +37,7 @@ const CartC = () => {
                 </div>
                 <hr className="table-hr"/>
                 <div className="cart-items">
-                    <CartItemC/>
+                    <CartItemC cartCollection={cart}/>
                 </div>
                 <div className="align-right subtotal-div">
                     <span>subtotal</span>

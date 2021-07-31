@@ -32,12 +32,14 @@ router.post('/cart', async(req, res) => {
 router.get("/cart", async(req, res) => {
 
     try{
-        const collection = await db.query("SELECT * FROM collection WHERE PRODUCT=$1", [req.params.product]);
+        const cart = await db.query("SELECT * FROM users WHERE email='george@jungle'");
+        const cartCollection = await db.query("SELECT * FROM collection WHERE id=$1", [cart.rows[0].cart[0]]);
+        // console.log(cartCollection);
         res.status(200).json({
             status: "success",
-            results: collection.rows.length,
+            results: cartCollection.rows.length,
             data:{
-                collection: collection.rows
+                cart: cartCollection.rows
             }
         })
     }catch(err){

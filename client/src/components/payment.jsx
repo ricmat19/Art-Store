@@ -94,13 +94,13 @@ const PaymentC = () => {
                                     <div className="payment-option">
                                         <input className="align-left" type="radio" name="payment-method"/>
                                         <label className="align-left">PayPal</label>
-                                        {/* <Paypal className="payment-button"/> */}
+                                        <Paypal className="payment-button"/>
                                     </div>
                                     <hr className="payment-hr"/>
-                                    <div className="payment-option">
+                                    {/* <div className="payment-option">
                                         <input className="align-left" type="radio" name="payment-method"/>
                                         <label className="align-left">Amazon Pay</label>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
 
