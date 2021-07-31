@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import OrderSummaryC from './orderSummary';
 import HeaderC from './header';
 import FooterC from './footer';
 import {CardElement, useStripe, useElements} from "@stripe/react-stripe-js";
 import CollectionAPI from '../apis/collectionAPI';
+import Paypal from './paypalComponent';
 
 const PaymentC = () => {
 
@@ -44,13 +45,12 @@ const PaymentC = () => {
         },
         hidePostalCode: true
     }
-    
 
     return(
         <div>
             <HeaderC/>
             <div className="main-body payment-div">
-                <form method="POST" className="payment-selection-div" onSubmit={handleSubmit}>
+                <div className="payment-selection-div">
                     <div className="payment-info-div">
                         <div className="payment-info">
                             <p className="align-left">contact</p>
@@ -79,16 +79,22 @@ const PaymentC = () => {
                                     <label className="align-left">Credit Card</label>
                                 </div>
                                 <div className="payment-info-input-div">
-                                    <div className="grid payment-input">
-                                        <CardElement className="cardElement" options={cardElementOptions}/>
-                                    </div>
-                                    <div className="grid payment-input">
-                                        <input type="text" placeholder="name on card"/>
-                                    </div>
+                                    <form className="credit-card-form" method="POST" onSubmit={handleSubmit}>
+                                        <div className="grid payment-input">
+                                            <CardElement className="cardElement" options={cardElementOptions}/>
+                                        </div>
+                                        <div className="grid payment-input">
+                                            <input type="text" placeholder="name on card"/>
+                                        </div>
+                                        <div className="credit-card-option">
+                                            <button className="payment-button" type="submit">continue to payment</button>
+                                        </div>
+                                    </form>
                                     <hr className="payment-hr"/>
                                     <div className="payment-option">
                                         <input className="align-left" type="radio" name="payment-method"/>
                                         <label className="align-left">PayPal</label>
+                                        {/* <Paypal className="payment-button"/> */}
                                     </div>
                                     <hr className="payment-hr"/>
                                     <div className="payment-option">
@@ -99,11 +105,7 @@ const PaymentC = () => {
                             </div>
 
                     </div>
-                    <div className="two-column-div payment-button">
-                        <a href="/payment"><button type="submit">continue to payment</button></a>
-                        <a href="/checkout"><p>return to information</p></a>
-                    </div>
-                </form>
+                </div>
                 <div className="order-summary">
                     <div>
                         <OrderSummaryC/>

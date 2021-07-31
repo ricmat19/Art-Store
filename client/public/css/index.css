@@ -606,15 +606,30 @@ label{
     gap: 20px;
 }
 
+.credit-card-option{
+    display: grid;
+    justify-content: right;
+}
+
+.credit-card-form{
+    padding-bottom: 5px;
+}
+
 .payment-option{
-    padding: 10px 0;
+    padding: 5px 0;
+    align-content: right;
+}
+
+.payment-button{
+    width: 200px;
+    justify-self: right;
 }
 
 .shipping-info, .payment-info{
     grid-template-columns: 50px auto auto;
 }
 
-.shipping-button, .payment-button{
+.shipping-button{
     align-items: center;
 }
 
