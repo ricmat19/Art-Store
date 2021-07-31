@@ -10,7 +10,8 @@ const CollectionC = (props) => {
 
     const {product, imagekey} = useParams();
     const {collection, setCollection} = useContext(CollectionContext);
-    // const {images, setImages} = useContext(CollectionContext);
+    const [images, setImages] = useState([]);
+
 
     let history = useHistory();
 
@@ -19,8 +20,6 @@ const CollectionC = (props) => {
             try{
                 const productResponse = await CollectionAPI.get(`/collection/${product}`);
                 setCollection(productResponse.data.data.collection);
-                // const imagesResponse = await CollectionAPI.get(`/images/${imagekey}`);
-                // setImages(imagesResponse.data);
             }catch(err){
                 console.log(err);
             }
@@ -37,9 +36,17 @@ const CollectionC = (props) => {
         }
     }
 
-    const imageURL = (imagekey) =>{
-        return(`/images/${imagekey}`);
+    const imageURL = async (id, imagekey) =>{
+        const imagesResponse = await CollectionAPI.get(`/images/${imagekey}`, {
+            responseType: 'arraybuffer'
+        })
+        .then(response => Buffer.from(response.data, 'binary').toString('base64'));
+
+        console.log(imagesResponse);
+        setImages(imagesResponse);
     }
+
+    //onChange={imageURL(item.id, item.imagekey)}
 
     return(
         <div>
@@ -56,7 +63,7 @@ const CollectionC = (props) => {
                         return(
                             <div className="collection-item-div" key={item.id} onClick={() => displayItem(item.product, item.id)}>
                                 <div className="collection-item">
-                                    <img className="collection-thumbnail" src={imageURL(item.imagekey)}/>
+                                    <img className="collection-thumbnail" src={`data:image/png;base64,${images}`}/>
                                 </div>
                                 <div className="collection-thumbnail-footer">
                                     <div className="Title">{item.title}</div>

@@ -11,10 +11,7 @@ const ItemDetailsC = (props) => {
     const {product, id} = useParams();
     const {selectedItem, setSelectedItem} = useContext(CollectionContext);
 
-    const [title, setTitle] = useState("");
-    const [images, setImages] = useState("");
-    const [price, setPrice] = useState("");
-    const [info, setInfo] = useState("");
+    const [images, setImages] = useState([]);
 
     useEffect(() => {
         const fetchData = async (req, res) => {
@@ -47,6 +44,16 @@ const ItemDetailsC = (props) => {
         }
     }
 
+    const imageURL = async (imagekey) =>{
+        const imagesResponse = await CollectionAPI.get(`/images/${imagekey}`, {
+            responseType: 'arraybuffer'
+        })
+        .then(response => Buffer.from(response.data, 'binary').toString('base64'))
+        setImages(imagesResponse);
+    }
+
+    //onChange={imageURL(selectedItem.imagekey)}
+
     return(
         <div>
             <CartModalC/>
@@ -55,12 +62,12 @@ const ItemDetailsC = (props) => {
                 <div className="item-images">
                     <div className="image-div">
                         <div className="big-image-div">
-                            <img className="big-image" src={selectedItem && selectedItem.images} alt="main"/>
+                            <img className="big-image" src={`data:image/png;base64,${images}`} alt="main"/>
                         </div>
                         <div className="image-thumbnails">
-                            <img className="image-thumbnail" src="../../logo512.png" alt="thumbnail"/>
-                            <img className="image-thumbnail" src="../../logo512.png" alt="thumbnail"/>
-                            <img className="image-thumbnail" src="../../logo512.png" alt="thumbnail"/>
+                            <img className="image-thumbnail" src="" alt="thumbnail"/>
+                            <img className="image-thumbnail" src="" alt="thumbnail"/>
+                            <img className="image-thumbnail" src="" alt="thumbnail"/>
                         </div>
                     </div>
                 </div>
