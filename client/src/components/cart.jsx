@@ -12,7 +12,6 @@ const CartC = () => {
         const fetchData = async (req, res) => {
             try{
                 const cartResponse = await collectionAPI.get(`/cart`);
-                // console.log(cartResponse.data.data.cart[0])
                 setCart(cartResponse.data.data.cart);
             }catch(err){
                 console.log(err);

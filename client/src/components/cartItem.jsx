@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import collectionAPI from '../apis/collectionAPI';
 
 const CartItemC = (props) => {
 
@@ -7,6 +8,7 @@ const CartItemC = (props) => {
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
+                console.log(props.cartCollection);
                 setCart(props.cartCollection);
             }catch(err){
                 console.log(err);
@@ -16,6 +18,20 @@ const CartItemC = (props) => {
         fetchData();
     });
 
+    const deleteFromCart = async (id) => {
+        try{
+            
+            const response = await collectionAPI.put("/cart", {
+                id: id
+            })
+
+            console.log(id);
+
+        }catch(err){
+            console.log(err);
+        }
+    }
+
     return(
         <div >
             {cart && cart.map(item => {
@@ -23,7 +39,7 @@ const CartItemC = (props) => {
                     <div className="cart-item" key={item.id}>
                         <div className="cart-item-details">
                             <div className="cart-item-info">
-                                <span>X</span>
+                                <span className="delete-button" onClick={() => deleteFromCart(item.id)}>X</span>
                                 <span>
                                     <img className="cart-item-thumbnail" src="../../logo512.png" alt="thumbnail"/>
                                 </span>

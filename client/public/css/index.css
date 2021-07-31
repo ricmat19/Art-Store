@@ -656,3 +656,7 @@ label{
 .payment-input{
     margin: 5px 0;
 }
+
+.delete-button{
+    cursor: pointer;
+}
