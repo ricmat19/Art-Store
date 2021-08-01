@@ -55,18 +55,24 @@ router.put('/cart', async(req, res) => {
     try{
 
         const cart = await db.query("SELECT cart FROM users WHERE email='george@jungle'");
-        // console.log(cart.rows[0].cart[0])
-        // console.log(req.body.id);
+        // console.log("58. " + cart.rows[0].cart)
+        // console.log("59. " + req.body.id);
 
         const newCart = [];
         for(let i = 0; i < cart.rows[0].cart.length; i++){
             if(req.body.id !== cart.rows[0].cart[i]){
-                newCart.push(parseInt(cart.rows[0].cart[i]))
+                newCart.push(cart.rows[0].cart[i])
             }
         }
 
         console.log(newCart)
-        // const usersCart = await db.query("UPDATE users SET cart=(ARRAY [$1]) WHERE email='george@jungle' RETURNING *", [newCart]);
+        if(JSON.stringify(newCart) !== JSON.stringify([])){
+            console.log("items")
+            const usersCart = await db.query("UPDATE users SET cart=(ARRAY [$1]) WHERE email='george@jungle' RETURNING *", newCart);
+        }else{
+            console.log("no items")
+            const usersCart = await db.query("UPDATE users SET cart=(NULL) WHERE email='george@jungle' RETURNING *");
+        }
 
         res.status(200).json({
             status: "success",

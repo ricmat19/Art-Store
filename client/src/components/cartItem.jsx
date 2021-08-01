@@ -25,15 +25,13 @@ const CartItemC = (props) => {
                 id: id
             })
 
-            console.log(id);
-
         }catch(err){
             console.log(err);
         }
     }
 
     return(
-        <div >
+        <div>
             {cart && cart.map(item => {
                 return(
                     <div className="cart-item" key={item.id}>
