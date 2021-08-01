@@ -50,7 +50,7 @@ const CartItemC = (props) => {
                             <div className="cart-item-info">
                                 <span className="delete-button" onClick={() => deleteFromCart(item.id)}>X</span>
                                 <span>
-                                    <img className="cart-item-thumbnail" src="../../logo512.png" alt="thumbnail"/>
+                                    <img className="cart-item-thumbnail" src={`data:image/png;base64,${item.imageBuffer}`} alt="thumbnail"/>
                                 </span>
                                 <div className="cart-item-title">{item.title}</div>
                             </div>
