@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import OrderSummaryC from './orderSummary';
 import HeaderC from './header';
 import FooterC from './footer';
@@ -10,6 +10,33 @@ const PaymentC = () => {
 
     const stripe = useStripe();
     const elements = useElements();
+
+    const [cart, setCart] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async (req, res) => {
+            try{
+                const cartResponse = await CollectionAPI.get(`/cart`);
+
+                for(let i=0; i < cartResponse.data.data.cart.length; i++){
+ 
+                    let imagesResponse = await CollectionAPI.get(`/images/${cartResponse.data.data.cart[i].imagekey}`, {
+                        responseType: 'arraybuffer'
+                    })
+                    .then(response => Buffer.from(response.data, 'binary').toString('base64'));
+
+                    cartResponse.data.data.cart[i].imageBuffer = imagesResponse;
+                    
+                }
+                console.log(cartResponse.data.data.cart);
+                setCart(cartResponse.data.data.cart);
+            }catch(err){
+                console.log(err);
+            }
+        }
+
+        fetchData();
+    }, []);
 
     const handleSubmit = async(e) => {
         e.preventDefault();
@@ -108,7 +135,7 @@ const PaymentC = () => {
                 </div>
                 <div className="order-summary">
                     <div>
-                        <OrderSummaryC/>
+                        <OrderSummaryC cartCollection={cart}/>
                     </div>
                     <hr className="checkout-hr"/>
                     <div className="two-column-div checkout-discount">
