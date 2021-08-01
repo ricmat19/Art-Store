@@ -16,8 +16,17 @@ const ItemDetailsC = (props) => {
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
-                const response = await CollectionAPI.get(`/collection/${product}/${id}`);
-                setSelectedItem(response.data.data.product);
+                const productResponse = await CollectionAPI.get(`/collection/${product}/${id}`);
+ 
+                let imagesResponse = await CollectionAPI.get(`/images/${productResponse.data.data.product.imagekey}`, {
+                    responseType: 'arraybuffer'
+                })
+                .then(response => Buffer.from(response.data, 'binary').toString('base64'));
+
+                productResponse.data.data.product.imageBuffer = imagesResponse;
+                    
+                setSelectedItem(productResponse.data.data.product);
+
             }catch(err){
                 console.log(err);
             }
@@ -44,16 +53,6 @@ const ItemDetailsC = (props) => {
         }
     }
 
-    const imageURL = async (imagekey) =>{
-        const imagesResponse = await CollectionAPI.get(`/images/${imagekey}`, {
-            responseType: 'arraybuffer'
-        })
-        .then(response => Buffer.from(response.data, 'binary').toString('base64'))
-        setImages(imagesResponse);
-    }
-
-    //onChange={imageURL(selectedItem.imagekey)}
-
     return(
         <div>
             <CartModalC/>
@@ -62,7 +61,7 @@ const ItemDetailsC = (props) => {
                 <div className="item-images">
                     <div className="image-div">
                         <div className="big-image-div">
-                            <img className="big-image" src={`data:image/png;base64,${images}`} alt="main"/>
+                            <img className="big-image" src={`data:image/png;base64,${selectedItem.imageBuffer}`} alt="main"/>
                         </div>
                         <div className="image-thumbnails">
                             <img className="image-thumbnail" src="" alt="thumbnail"/>

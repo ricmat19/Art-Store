@@ -8,17 +8,30 @@ import FooterC from './footer';
 
 const CollectionC = (props) => {
 
-    const {product, imagekey} = useParams();
+    const {product} = useParams();
     const {collection, setCollection} = useContext(CollectionContext);
     const [images, setImages] = useState([]);
 
 
     let history = useHistory();
 
+    let productResponse;
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
-                const productResponse = await CollectionAPI.get(`/collection/${product}`);
+                productResponse = await CollectionAPI.get(`/collection/${product}`);
+
+                for(let i=0; i < productResponse.data.data.collection.length; i++){
+ 
+                    let imagesResponse = await CollectionAPI.get(`/images/${productResponse.data.data.collection[i].imagekey}`, {
+                        responseType: 'arraybuffer'
+                    })
+                    .then(response => Buffer.from(response.data, 'binary').toString('base64'));
+
+                    productResponse.data.data.collection[i].imageBuffer = imagesResponse;
+                    
+                }
+                console.log(productResponse.data.data.collection);
                 setCollection(productResponse.data.data.collection);
             }catch(err){
                 console.log(err);
@@ -36,18 +49,6 @@ const CollectionC = (props) => {
         }
     }
 
-    const imageURL = async (id, imagekey) =>{
-        const imagesResponse = await CollectionAPI.get(`/images/${imagekey}`, {
-            responseType: 'arraybuffer'
-        })
-        .then(response => Buffer.from(response.data, 'binary').toString('base64'));
-
-        console.log(imagesResponse);
-        setImages(imagesResponse);
-    }
-
-    //onChange={imageURL(item.id, item.imagekey)}
-
     return(
         <div>
             <CartModalC/>
@@ -63,11 +64,11 @@ const CollectionC = (props) => {
                         return(
                             <div className="collection-item-div" key={item.id} onClick={() => displayItem(item.product, item.id)}>
                                 <div className="collection-item">
-                                    <img className="collection-thumbnail" src={`data:image/png;base64,${images}`}/>
+                                    <img className="collection-thumbnail" src={`data:image/png;base64,${item.imageBuffer}`}/>
                                 </div>
                                 <div className="collection-thumbnail-footer">
                                     <div className="Title">{item.title}</div>
-                                    <div className="Price">{item.price}</div>
+                                    <div className="Price">${item.price}.00</div>
                                 </div>
                             </div>
                         );

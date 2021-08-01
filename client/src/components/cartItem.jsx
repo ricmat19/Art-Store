@@ -4,6 +4,7 @@ import collectionAPI from '../apis/collectionAPI';
 const CartItemC = (props) => {
 
     const [cart, setCart] = useState([]);
+    const [price, setPrice] = useState(0);
 
     useEffect(() => {
         const fetchData = async (req, res) => {
@@ -30,6 +31,16 @@ const CartItemC = (props) => {
         }
     }
 
+    const setItemQty = (itemPrice, e) => {
+        try{
+            itemPrice *= e;
+            console.log(itemPrice)
+            // console.log(cart)
+        }catch(err){
+            console.log(err);
+        }
+    }
+
     return(
         <div>
             {cart && cart.map(item => {
@@ -44,10 +55,10 @@ const CartItemC = (props) => {
                                 <div className="cart-item-title">{item.title}</div>
                             </div>
                             <div className="cart-item-qty">
-                                <input className="item-qty-input" type="number" placeholder="0"></input>
+                                <input onChange={event => setItemQty(item.price, event.target.value)} className="item-qty-input" type="number" placeholder="0"></input>
                             </div>
                             <div className="cart-item-price">
-                                <span>{item.price}</span>
+                                <span>${item.price}.00</span>
                             </div>
                         </div>
                         <hr className="item-hr"/>

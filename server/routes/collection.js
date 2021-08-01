@@ -10,13 +10,7 @@ router.get("/images/:key", async (req, res) => {
         const key = req.params.key;
         const readStream = getFileStream(key);
         readStream.pipe(res);
-        // res.status(200).json({
-        //     status: "success",
-        //     result: readStream,
-        //     data: {
-        //         data: readStream.pipe(res)
-        //     }
-        // })
+
     }catch(err){
         console.log(err);
     }

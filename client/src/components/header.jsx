@@ -35,14 +35,16 @@ const HeaderC = (props) => {
     useEffect(() =>{
 
         document.addEventListener("mousedown", (event) => {
-            if(!signinRef.current.contains(event.target)){
-                setSigninModal("sign-bg");
-            }
-            if(!signupRef.current.contains(event.target)){
-                setSignupModal("sign-bg");
-            }
-            if(!resetRef.current.contains(event.target)){
-                setResetModal("sign-bg");
+            if(event.target !== null){
+                if(!signinRef.current.contains(event.target)){
+                    setSigninModal("sign-bg");
+                }
+                if(!signupRef.current.contains(event.target)){
+                    setSignupModal("sign-bg");
+                }
+                if(!resetRef.current.contains(event.target)){
+                    setResetModal("sign-bg");
+                }
             }
 
         })
