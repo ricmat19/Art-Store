@@ -11,7 +11,7 @@ const ItemDetailsC = (props) => {
     const {product, id} = useParams();
     const {selectedItem, setSelectedItem} = useContext(CollectionContext);
 
-    const [imageBuffer, setImageBuffer] = useState("../../logo512.png");
+    const [imageBuffer, setImageBuffer] = useState("../../images/loading.svg");
 
     useEffect(() => {
         const fetchData = async (req, res) => {

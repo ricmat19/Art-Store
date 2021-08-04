@@ -22,7 +22,7 @@ const CartItemC = (props) => {
     const deleteFromCart = async (id) => {
         try{
             
-            const response = await collectionAPI.put("/cart", {
+            const response = await collectionAPI.put("/cart/delete", {
                 id: id
             })
 

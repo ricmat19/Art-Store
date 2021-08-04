@@ -10,8 +10,6 @@ const CollectionC = (props) => {
 
     const {product} = useParams();
     const {collection, setCollection} = useContext(CollectionContext);
-    const [images, setImages] = useState([]);
-
 
     let history = useHistory();
 
@@ -28,7 +26,7 @@ const CollectionC = (props) => {
                     })
                     .then(response => Buffer.from(response.data, 'binary').toString('base64'));
 
-                    productResponse.data.data.collection[i].imageBuffer = imagesResponse;
+                    productResponse.data.data.collection[i].imageBuffer = `data:image/png;base64,${imagesResponse}`;
                     
                 }
                 console.log(productResponse.data.data.collection);
@@ -64,7 +62,7 @@ const CollectionC = (props) => {
                         return(
                             <div className="collection-item-div" key={item.id} onClick={() => displayItem(item.product, item.id)}>
                                 <div className="collection-item">
-                                    <img className="collection-thumbnail" src={`data:image/png;base64,${item.imageBuffer}`}/>
+                                    <img className="collection-thumbnail" src={item.imageBuffer}/>
                                 </div>
                                 <div className="collection-thumbnail-footer">
                                     <div className="Title">{item.title}</div>

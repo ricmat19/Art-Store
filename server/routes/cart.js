@@ -6,14 +6,18 @@ const db = require("../db");
 router.post('/cart', async(req, res) => {
     try{
         const cart = await db.query("SELECT cart FROM users WHERE email='george@jungle'");
-        let newCart = [];
-        for(let i=0; i < req.body.qty; i++){
-            if(cart.rows[0].cart === null){
-                newCart = await db.query("UPDATE users SET cart=(ARRAY [$1]) WHERE email='george@jungle' RETURNING *", [req.body.id]);
-            }else if(cart.rows[0] !== null){
-                newCart = await db.query("UPDATE users SET cart=array_append(ARRAY[$1], [$2]) WHERE email='george@jungle' RETURNING *", [cart.rows[0], [req.body.id]]);
-            }
+
+        let currentCart = cart.rows[0].cart;
+        let newItem = req.body.id;
+
+        if(currentCart !== null){
+            currentCart.push(newItem);
+        }else{
+            currentCart = [req.body.id]
         }
+
+        let newCart = await db.query("UPDATE users SET cart=$1 WHERE email='george@jungle'", [currentCart]);
+
         res.status(201).json({
             status: "success",
             results: newCart.rows,
@@ -51,12 +55,10 @@ router.get("/cart", async(req, res) => {
 })
 
 
-router.put('/cart', async(req, res) => {
+router.put('/cart/delete', async(req, res) => {
     try{
 
         const cart = await db.query("SELECT cart FROM users WHERE email='george@jungle'");
-        // console.log("58. " + cart.rows[0].cart)
-        // console.log("59. " + req.body.id);
 
         const newCart = [];
         for(let i = 0; i < cart.rows[0].cart.length; i++){
