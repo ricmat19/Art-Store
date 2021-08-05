@@ -10,8 +10,25 @@ router.post('/cart', async(req, res) => {
         let currentCart = cart.rows[0].cart;
         let newItem = req.body.id;
 
+        //Check that new item does not exist in the cart
+
+        let uniqueItem = true;
         if(currentCart !== null){
-            currentCart.push(newItem);
+
+            for(let i=0; i < currentCart.length; i++){
+                console.log("Current Cart " + i + ":" + currentCart[i]);
+                console.log("Req.body.id:" + req.body.id);
+                if(currentCart[i] === req.body.id){
+                    uniqueItem = false;
+                }
+            }
+
+            console.log("Unique Item: " + uniqueItem);
+
+            if(uniqueItem === true){
+                currentCart.push(newItem);
+            }
+
         }else{
             currentCart = [req.body.id]
         }
