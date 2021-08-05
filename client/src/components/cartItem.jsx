@@ -9,13 +9,11 @@ const CartItemC = (props) => {
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
-                console.log(props.cartCollection);
                 setCart(props.cartCollection);
             }catch(err){
                 console.log(err);
             }
         }
-
         fetchData();
     });
 

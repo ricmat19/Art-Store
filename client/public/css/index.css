@@ -357,7 +357,7 @@ button{
     text-align: center;
     display: grid;
     justify-content: center;
-    grid-template-columns: repeat(auto-fit, minmax(13rem, 13rem));
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 20rem));
     gap: 30px;
     padding: 50px 200px;
 }
@@ -373,8 +373,8 @@ button{
 .collection-thumbnail{
     border-style: none;
     background: rgb(243, 243, 243);
-    height: 200px;
-    width: 200px;
+    height: 300px;
+    width: 300px;
 }
 
 .collection-thumbnail-footer{
@@ -659,4 +659,47 @@ label{
 
 .delete-button{
     cursor: pointer;
+}
+
+.paginationButtons{
+    width: 80%;
+    height: 40px;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+}
+
+.paginationButtons a{
+    padding: 10px;
+    margin: 8px;
+    border-radius: 5px;
+    border: 1px solid #2b2eff;
+    color: #2b2eff;
+    cursor: pointer;
+}
+
+.paginationButtons a:hover{
+    color: white;
+    background-color: #2b2eff;
+}
+
+/* .previousButton{
+
+}
+
+.nextButton{
+
+}
+
+.disabledButton{
+
+}
+
+.activeButton{
+
+} */
+
+.activeButton a{
+    color: white;
+    background-color: #2b2eff;
 }

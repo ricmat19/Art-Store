@@ -23,7 +23,6 @@ const CartC = () => {
                     cartResponse.data.data.cart[i].imageBuffer = imagesResponse;
                     
                 }
-                console.log(cartResponse.data.data.cart);
                 setCart(cartResponse.data.data.cart);
             }catch(err){
                 console.log(err);

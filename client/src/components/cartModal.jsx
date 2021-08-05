@@ -1,17 +1,37 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 
 const CartModalC = (props) => {
 
-    const [cartQty, setCartQty] = useState("");
+    const [cartFull, setCartFull] = useState(false);
     const [cartModal, setCartModal] = useState("inactive-cart cart-modal");
 
-    const addToCartModal = (e) => {
-        if(cartQty === 0){
+
+    useEffect(() => {
+        const fetchData = async (req, res) => {
+            try{
+
+                if(props.cartCollection.length > 0){
+                    setCartFull(true)
+                }
+               
+            }catch(err){
+                console.log(err);
+            }
+        }
+
+        fetchData();
+    });
+
+                
+    const cartModalState = (cartFull) => {
+        if(cartFull === false){
             setCartModal("inactive-cart cart-modal")
         }else{
             setCartModal("active-cart cart-modal")
         }
     }
+    
+    // onChange={props.cartModalState(cartFull)}
     
     return(
         <a href="/cart">
