@@ -102,12 +102,12 @@ const CollectionC = (props) => {
                     })} */}
                 </div>
                 <ReactPaginate 
-                    previousLabel={"Prev"} 
-                    nextLabel={"Next"} 
+                    previousLabel={"prev"} 
+                    nextLabel={"next"} 
                     pageCount={pageCount} 
                     onPageChange={changePage}
                     containerClassName={"paginationButtons"}
-                    previousLinkClassName={"previousButton"}
+                    previousLinkClassName={"prevButton"}
                     nextLinkClassName={"nextButton"}
                     disabledClassName={"disabledButton"}
                     activeClassName={"activeButton"}

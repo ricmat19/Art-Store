@@ -662,44 +662,32 @@ label{
 }
 
 .paginationButtons{
-    width: 80%;
-    height: 40px;
+    margin-bottom: 40px;
     list-style: none;
-    display: flex;
+    display: grid;
     justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 50px));
 }
 
 .paginationButtons a{
     padding: 10px;
-    margin: 8px;
-    border-radius: 5px;
-    border: 1px solid #2b2eff;
-    color: #2b2eff;
+    margin: 1px;
+    border-style: none;
+    color: black;
     cursor: pointer;
 }
 
 .paginationButtons a:hover{
-    color: white;
-    background-color: #2b2eff;
+    color: black;
+    background-color: rgb(243, 243, 243);
 }
 
-/* .previousButton{
-
+.paginationButtons li{
+    text-align: center;
+    display: grid;
 }
-
-.nextButton{
-
-}
-
-.disabledButton{
-
-}
-
-.activeButton{
-
-} */
 
 .activeButton a{
-    color: white;
-    background-color: #2b2eff;
+    color: black;
+    background-color: rgb(243, 243, 243);
 }
