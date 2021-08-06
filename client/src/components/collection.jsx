@@ -9,6 +9,9 @@ import FooterC from './footer';
 
 const CollectionC = (props) => {
 
+    const [cart, setCart] = useState([]);
+    const [cartState, setCartState] = useState(false);
+
     const {product} = useParams();
     const {collection, setCollection} = useContext(CollectionContext);
     const [pageNumber, setPageNumber] = useState(0);
@@ -72,12 +75,9 @@ const CollectionC = (props) => {
         }
     }
 
-    // const [cartFull, setCartFull] = useState(false);
-    // cardModalState={cartFull => setCartFull(cartFull)}
-
     return(
         <div>
-            <CartModalC/>
+            <CartModalC cartState={cartState}/>
             <HeaderC/>
             <div className="main-body">
                 <div className="center subtitle-div">

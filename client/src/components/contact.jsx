@@ -6,6 +6,9 @@ import FooterC from './footer';
 
 const ContactC = () => {
 
+    const [cart, setCart] = useState([]);
+    const [cartState, setCartState] = useState(false);
+
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [subject, setSubject] = useState("");
@@ -39,7 +42,7 @@ const ContactC = () => {
 
     return(
         <div>
-            <CartModalC/>
+            <CartModalC cartState={cartState}/>
             <HeaderC/>
             <div className="main-body">
                 <div className="center">

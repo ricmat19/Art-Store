@@ -1,12 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CartModalC from './cartModal';
 import HeaderC from './header';
 import FooterC from './footer';
+import CollectionAPI from '../apis/collectionAPI';
 
 const HomeC = () => {
+
+    const [cart, setCart] = useState([]);
+    const [cartState, setCartState] = useState(false);
+
+    useEffect(() => {
+        const fetchData = async (req, res) => {
+            try{
+                const cartResponse = await CollectionAPI.get(`/cart`);
+                setCart(cartResponse.data.data.cart);
+
+                console.log(cart)
+
+                if(cart.length !== 0){
+                    setCartState(true);
+                }else{
+                    setCartState(false);
+                }
+
+            }catch(err){
+                console.log(err);
+            }
+        }
+
+        fetchData();
+    }, []);
+
     return(
         <div>
-            <CartModalC/>
+            <CartModalC cartState={cartState}/>
             <HeaderC/>
             <div className="main-body home-menu">
                 <a href="collection/comic">

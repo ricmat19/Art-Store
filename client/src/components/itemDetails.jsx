@@ -8,6 +8,9 @@ import FooterC from './footer';
 
 const ItemDetailsC = (props) => {
 
+    const [cart, setCart] = useState([]);
+    const [cartState, setCartState] = useState(false);
+
     const {product, id} = useParams();
     const {selectedItem, setSelectedItem} = useContext(CollectionContext);
 
@@ -67,7 +70,7 @@ const ItemDetailsC = (props) => {
 
     return(
         <div>
-            <CartModalC/>
+            <CartModalC cartState={cartState}/>
             <HeaderC/>
             <div className="main-body item-details">
                 <div className="item-images">

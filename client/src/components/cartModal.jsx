@@ -10,8 +10,14 @@ const CartModalC = (props) => {
         const fetchData = async (req, res) => {
             try{
 
-                if(props.cartCollection.length > 0){
-                    setCartFull(true)
+                setCartFull(props.cartState)
+                console.log(props.cartState);
+                console.log(cartFull);
+
+                if(cartFull === false){
+                    setCartModal("inactive-cart cart-modal")
+                }else{
+                    setCartModal("active-cart cart-modal")
                 }
                
             }catch(err){
@@ -21,17 +27,6 @@ const CartModalC = (props) => {
 
         fetchData();
     });
-
-                
-    const cartModalState = (cartFull) => {
-        if(cartFull === false){
-            setCartModal("inactive-cart cart-modal")
-        }else{
-            setCartModal("active-cart cart-modal")
-        }
-    }
-    
-    // onChange={props.cartModalState(cartFull)}
     
     return(
         <a href="/cart">

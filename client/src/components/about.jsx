@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CartModalC from './cartModal';
 import HeaderC from './header';
 import FooterC from './footer';
 
 const AboutC = () => {
+
+    const [cart, setCart] = useState([]);
+    const [cartState, setCartState] = useState(false);
+
     return(
         <div>
-            <CartModalC/>
+            <CartModalC cartState={cartState}/>
             <HeaderC/>
             <div className="main-body">
                 <div className="center">
