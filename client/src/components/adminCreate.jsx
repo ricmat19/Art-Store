@@ -67,6 +67,11 @@ const AdminCreateC = (props) => {
         }
     }
 
+    let displayedImage = "../../images/loading.svg";
+    if(images !== null){
+        displayedImage = URL.createObjectURL(images);
+    }
+
     return(
         <div>
             <HeaderC/>
@@ -78,7 +83,7 @@ const AdminCreateC = (props) => {
                     <div className="admin-image-div">
                         <div className="image">
                             <div className="big-image-div">
-                                <img className="big-image" src="" alt="item"/>
+                                <img className="big-image" src={displayedImage} alt="item"/>
                             </div>
                         </div>
                     </div>
