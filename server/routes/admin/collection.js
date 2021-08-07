@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require("../db");
+const db = require("../../db");
 
 //Get all collection items
 router.get("/admin/collection/:product", async(req, res) => {

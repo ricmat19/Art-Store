@@ -9,10 +9,10 @@ import Checkout from "./routes/checkout";
 import Shipping from "./routes/shipping";
 import Payment from "./routes/stripe";
 import Contact from "./routes/contact";
-import AdminHome from "./routes/admin/adminHome";
-import AdminCollection from "./routes/admin/adminCollection";
-import AdminCreate from "./routes/admin/adminCreate";
-import AdminUpdate from "./routes/admin/adminUpdate";
+import AdminHome from "./routes/admin/home";
+import AdminCollection from "./routes/admin/collection";
+import AdminCreate from "./routes/admin/create";
+import AdminUpdate from "./routes/admin/update";
 import { CollectionContextProvider } from './context/collectionContext';
 
 

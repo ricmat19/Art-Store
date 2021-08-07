@@ -1,5 +1,5 @@
 import React from 'react';
-import AdminHomeC from '../../components/admin/adminHome';
+import AdminHomeC from '../../components/admin/home';
 
 const AdminHomeR = () => {
     return(

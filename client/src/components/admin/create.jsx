@@ -1,7 +1,7 @@
 import React, { useContext, useState, useRef} from 'react';
 import CollectionAPI from "../../apis/collectionAPI";
 import {CollectionContext} from '../../context/collectionContext';
-import AdminHeaderC from './adminHeader';
+import AdminHeaderC from './header';
 import FooterC from '../footer';
 
 const AdminCreateC = (props) => {

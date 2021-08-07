@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import AdminHeaderC from './adminHeader';
+import AdminHeaderC from './header';
 import FooterC from '../footer';
 import CollectionAPI from '../../apis/collectionAPI';
 import { useParams } from 'react-router-dom';

@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import {useHistory, useParams} from "react-router-dom";
 import CollectionAPI from '../../apis/collectionAPI';
 import {CollectionContext} from '../../context/collectionContext';
-import AdminHeaderC from './adminHeader';
+import AdminHeaderC from './header';
 import FooterC from '../footer';
 
 const AdminCollectionC = (props) => {
