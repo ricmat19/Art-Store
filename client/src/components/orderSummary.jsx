@@ -22,7 +22,7 @@ const OrderSummaryC = (props) => {
         <div>
             {cart && cart.map(item => {
                 return(
-                    <div className="cart-item">
+                    <div className="cart-item" key={item.id}>
                         <div className="order-item-details">
                             <div className="cart-item-info">
                                 <img className="cart-item-thumbnail" src={`data:image/png;base64,${item.imageBuffer}`} alt="thumbnail"/>

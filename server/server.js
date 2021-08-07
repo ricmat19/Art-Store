@@ -9,7 +9,8 @@ const collectionRouter = require('./routes/collection');
 const contactRouter = require('./routes/contact');
 const usersRouter = require('./routes/users');
 const cartRouter = require('./routes/cart');
-const paymentRouter = require('./routes/payment')
+const paymentRouter = require('./routes/payment');
+const shipmentRouter = require('./routes/shipment');
 
 app.listen(3000, function(){
     console.log("Server Running..."); 
@@ -34,3 +35,4 @@ app.use(contactRouter);
 app.use(usersRouter);
 app.use(cartRouter);
 app.use(paymentRouter);
+app.use(shipmentRouter); 
