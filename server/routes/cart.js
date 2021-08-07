@@ -54,9 +54,13 @@ router.get("/cart", async(req, res) => {
         const cart = await db.query("SELECT * FROM users WHERE email='george@jungle'");
 
         const usersCart = [];
-        for(let i = 0; i < cart.rows[0].cart.length; i++){
-            const cartCollection = await db.query("SELECT * FROM collection WHERE id=$1", [cart.rows[0].cart[i]]);
-            usersCart.push(cartCollection.rows[0])
+        console.log(cart.rows[0].cart)
+
+        if(cart.rows[0].cart !== null){
+            for(let i = 0; i < cart.rows[0].cart.length; i++){
+                const cartCollection = await db.query("SELECT * FROM collection WHERE id=$1", [cart.rows[0].cart[i]]);
+                usersCart.push(cartCollection.rows[0])
+            }
         }
 
         res.status(200).json({
@@ -93,7 +97,7 @@ router.put('/cart/delete', async(req, res) => {
             const usersCart = await db.query("UPDATE users SET cart=(NULL) WHERE email='george@jungle' RETURNING *");
         }
 
-        res.status(200).json({
+        res.status(200).json({ 
             status: "success",
             // results: usersCart.length,
             // data:{

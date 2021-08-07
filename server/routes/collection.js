@@ -39,7 +39,7 @@ router.get("/collection", async(req, res) => {
 router.get("/collection/:product", async(req, res) => {
 
     try{
-        const collection = await db.query("SELECT * FROM collection WHERE PRODUCT=$1", [req.params.product]);
+        const collection = await db.query("SELECT * FROM collection WHERE PRODUCT=$1 ORDER BY qty DESC", [req.params.product]);
 
         res.status(200).json({ 
             status: "success",

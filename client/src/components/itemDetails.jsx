@@ -110,18 +110,16 @@ const ItemDetailsC = (props) => {
                     <div className="info-div">
                         <p className="title">{selectedItem && selectedItem.title}</p>
                         <div className="info-detail-div">
-                            <label>price</label>
-                            <p className="no-margin">{selectedItem && selectedItem.price}</p>
+                            <label>price:</label>
+                            <p className="no-margin">${selectedItem && selectedItem.price}.00</p>
                         </div>
                         <div className="info-detail-div">
-                            <label>info</label>
-                            <p className="no-margin">{selectedItem && selectedItem.info}</p>
+                            <label>quantity:</label>
+                            <p className="no-margin">{selectedItem && selectedItem.qty}</p>
                         </div>
-                    </div>
-                    <div className="info-div">
-                    <div className="info-detail-div">
-                            <label>quantity</label>
-                            <input type="number" name="quantity" placeholder="0" onChange={(e) => {setQty(e.target.value)}}/>
+                        <div className="info-detail-div">
+                            <label>info:</label>
+                            <p className="no-margin">{selectedItem && selectedItem.info}</p>
                         </div>
                     </div>
                     <div className="cart-options">

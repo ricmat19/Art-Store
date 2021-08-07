@@ -1,8 +1,8 @@
 import React, { useContext, useState, useRef} from 'react';
-import CollectionAPI from "../apis/collectionAPI";
-import {CollectionContext} from '../context/collectionContext';
-import HeaderC from './header';
-import FooterC from './footer';
+import CollectionAPI from "../../apis/collectionAPI";
+import {CollectionContext} from '../../context/collectionContext';
+import AdminHeaderC from './adminHeader';
+import FooterC from '../footer';
 
 const AdminCreateC = (props) => {
 
@@ -11,11 +11,13 @@ const AdminCreateC = (props) => {
     const [title, setTitle] = useState("");
     const [type, setType] = useState("");
     const [images, setImages] = useState(null);
+    const [quantity, setQuantity] = useState("");
     const [price, setPrice] = useState("");
     const [info, setInfo] = useState("");
 
     const titleInput = useRef(null);
     const typeInput = useRef(null);
+    const quantityInput = useRef(null);
     const priceInput = useRef(null);
     const infoInput = useRef(null);
 
@@ -34,6 +36,7 @@ const AdminCreateC = (props) => {
             formData.append('title', title);
             formData.append('product', type);
             formData.append('images', images);
+            formData.append('quantity', quantity);
             formData.append('price', price);
             formData.append('info', info);
 
@@ -59,6 +62,7 @@ const AdminCreateC = (props) => {
 
             titleInput.current.value = "";
             typeInput.current.value = "";
+            quantityInput.current.value = "";
             priceInput.current.value = "";
             infoInput.current.value = "";
 
@@ -74,7 +78,7 @@ const AdminCreateC = (props) => {
 
     return(
         <div>
-            <HeaderC/>
+            <AdminHeaderC/>
             <div className="main-body">
                 <div className="center">
                     <p className="title">admin</p>
@@ -118,6 +122,10 @@ const AdminCreateC = (props) => {
                         <div className="admin-form-field">
                             <label className="">Images</label>
                             <input  type="file" onChange={e => setImages(e.target.files[0])} name="images" className="form-control" required/>
+                        </div>
+                        <div className="admin-form-field">
+                            <label className="">Quantity</label>
+                            <input value={quantity} ref={quantityInput} onChange={e => setQuantity(e.target.value)} type="number" name="quantity" className="form-control" required/>
                         </div>
                         <div className="admin-form-field">
                             <label className="">Price</label>

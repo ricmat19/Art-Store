@@ -1,5 +1,5 @@
 import React from 'react';
-import AdminCreateC from '../components/adminCreate';
+import AdminCreateC from '../../components/admin/adminCreate';
 
 const AdminCreateR = () => {
     return(

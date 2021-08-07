@@ -108,19 +108,6 @@ const CollectionC = (props) => {
                 </div>
                 <div className="collection-menu">
                     {displayItems}
-                    {/* {collection && collection.map(item => {
-                        return(
-                            <div className="collection-item-div" key={item.id} onClick={() => displayItem(item.product, item.id)}>
-                                <div className="collection-item">
-                                    <img className="collection-thumbnail" src={item.imageBuffer}/>
-                                </div>
-                                <div className="collection-thumbnail-footer">
-                                    <div className="Title">{item.title}</div>
-                                    <div className="Price">${item.price}.00</div>
-                                </div>
-                            </div>
-                        );
-                    })} */}
                 </div>
                 <ReactPaginate 
                     previousLabel={"prev"} 
