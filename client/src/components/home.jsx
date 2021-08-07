@@ -8,6 +8,8 @@ const HomeC = () => {
 
     const [cart, setCart] = useState([]);
     const [cartState, setCartState] = useState(false);
+    const [cartQty, setCartQty] = useState(0);
+    const [cartCost, setCartCost] = useState(0);
 
     useEffect(() => {
         const fetchData = async (req, res) => {
@@ -15,9 +17,15 @@ const HomeC = () => {
                 const cartResponse = await CollectionAPI.get(`/cart`);
                 setCart(cartResponse.data.data.cart);
 
-                console.log(cart)
+                setCartQty(cartResponse.data.data.cart.length)
 
-                if(cart.length !== 0){
+                let price = 0;
+                for(let i = 0; i < cartResponse.data.data.cart.length; i++){
+                    price += parseInt(cartResponse.data.data.cart[i].price)
+                }
+                setCartCost(price)
+
+                if(cartResponse.length !== 0){
                     setCartState(true);
                 }else{
                     setCartState(false);
@@ -33,7 +41,7 @@ const HomeC = () => {
 
     return(
         <div>
-            <CartModalC cartState={cartState}/>
+            <CartModalC cartState={cartState} cartQty={cartQty} cartCost={cartCost}/>
             <HeaderC/>
             <div className="main-body home-menu">
                 <a href="collection/comic">

@@ -10,6 +10,8 @@ const ItemDetailsC = (props) => {
 
     const [cart, setCart] = useState([]);
     const [cartState, setCartState] = useState(false);
+    const [cartQty, setCartQty] = useState(0);
+    const [cartCost, setCartCost] = useState(0);
 
     const {product, id} = useParams();
     const {selectedItem, setSelectedItem} = useContext(CollectionContext);
@@ -28,6 +30,23 @@ const ItemDetailsC = (props) => {
                     
                 setImageBuffer(`data:image/png;base64,${imagesResponse}`)
                 setSelectedItem(productResponse.data.data.product);
+
+                const cartResponse = await CollectionAPI.get(`/cart`);
+                setCart(cartResponse.data.data.cart);
+
+                setCartQty(cartResponse.data.data.cart.length);
+
+                let price = 0;
+                for(let i = 0; i < cartResponse.data.data.cart.length; i++){
+                    price += parseInt(cartResponse.data.data.cart[i].price)
+                }
+                setCartCost(price)
+
+                if(cartResponse.length !== 0){
+                    setCartState(true);
+                }else{
+                    setCartState(false);
+                }
 
 
             }catch(err){
@@ -70,7 +89,7 @@ const ItemDetailsC = (props) => {
 
     return(
         <div>
-            <CartModalC cartState={cartState}/>
+            <CartModalC cartState={cartState} cartQty={cartQty} cartCost={cartCost}/>
             <HeaderC/>
             <div className="main-body item-details">
                 <div className="item-images">

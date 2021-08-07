@@ -11,6 +11,8 @@ const CollectionC = (props) => {
 
     const [cart, setCart] = useState([]);
     const [cartState, setCartState] = useState(false);
+    const [cartQty, setCartQty] = useState(0);
+    const [cartCost, setCartCost] = useState(0);
 
     const {product} = useParams();
     const {collection, setCollection} = useContext(CollectionContext);
@@ -47,18 +49,36 @@ const CollectionC = (props) => {
             try{
                 productResponse = await CollectionAPI.get(`/collection/${product}`);
 
-                // for(let i=0; i < productResponse.data.data.collection.length; i++){
+                for(let i=0; i < productResponse.data.data.collection.length; i++){
  
-                //     let imagesResponse = await CollectionAPI.get(`/images/${productResponse.data.data.collection[i].imagekey}`, {
-                //         responseType: 'arraybuffer'
-                //     })
-                //     .then(response => Buffer.from(response.data, 'binary').toString('base64'));
+                    let imagesResponse = await CollectionAPI.get(`/images/${productResponse.data.data.collection[i].imagekey}`, {
+                        responseType: 'arraybuffer'
+                    })
+                    .then(response => Buffer.from(response.data, 'binary').toString('base64'));
 
-                //     productResponse.data.data.collection[i].imageBuffer = `data:image/png;base64,${imagesResponse}`;
+                    productResponse.data.data.collection[i].imageBuffer = `data:image/png;base64,${imagesResponse}`;
                     
-                // }
+                }
                 console.log(productResponse.data.data.collection);
                 setCollection(productResponse.data.data.collection);
+
+                const cartResponse = await CollectionAPI.get(`/cart`);
+                setCart(cartResponse.data.data.cart);
+
+                setCartQty(cartResponse.data.data.cart.length);
+
+                let price = 0;
+                for(let i = 0; i < cartResponse.data.data.cart.length; i++){
+                    price += parseInt(cartResponse.data.data.cart[i].price)
+                }
+                setCartCost(price)
+
+                if(cartResponse.length !== 0){
+                    setCartState(true);
+                }else{
+                    setCartState(false);
+                }
+
             }catch(err){
                 console.log(err);
             }
@@ -77,7 +97,7 @@ const CollectionC = (props) => {
 
     return(
         <div>
-            <CartModalC cartState={cartState}/>
+            <CartModalC cartState={cartState} cartQty={cartQty} cartCost={cartCost}/>
             <HeaderC/>
             <div className="main-body">
                 <div className="center subtitle-div">
