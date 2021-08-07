@@ -196,7 +196,7 @@ const HeaderC = (props) => {
                 </label>
                 <nav className="navbar">
                     <a href="/"><p className="title">home</p></a>
-                    <a href="/collection/comic"><p className="title">store</p></a>
+                    <a href="/collection/2D"><p className="title">store</p></a>
                     <a href="/about"><p className="title">info</p></a>
                     <a href="/contact"><p className="title">contact</p></a>
                     <div onClick={displaySignin}><p className="title pointer">sign in</p></div>

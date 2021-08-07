@@ -50,16 +50,17 @@ const CollectionC = (props) => {
                 productResponse = await CollectionAPI.get(`/collection/${product}`);
 
                 for(let i=0; i < productResponse.data.data.collection.length; i++){
- 
-                    let imagesResponse = await CollectionAPI.get(`/images/${productResponse.data.data.collection[i].imagekey}`, {
-                        responseType: 'arraybuffer'
-                    })
-                    .then(response => Buffer.from(response.data, 'binary').toString('base64'));
-
-                    productResponse.data.data.collection[i].imageBuffer = `data:image/png;base64,${imagesResponse}`;
+                    
+                    if(productResponse.data.data.collection[i].imagekey !== null){
+                        let imagesResponse = await CollectionAPI.get(`/images/${productResponse.data.data.collection[i].imagekey}`, {
+                            responseType: 'arraybuffer'
+                        })
+                        .then(response => Buffer.from(response.data, 'binary').toString('base64'));
+    
+                        productResponse.data.data.collection[i].imageBuffer = `data:image/png;base64,${imagesResponse}`;
+                    }
                     
                 }
-                console.log(productResponse.data.data.collection);
                 setCollection(productResponse.data.data.collection);
 
                 const cartResponse = await CollectionAPI.get(`/cart`);
@@ -101,9 +102,9 @@ const CollectionC = (props) => {
             <HeaderC/>
             <div className="main-body">
                 <div className="center subtitle-div">
+                    <a className="subtitle-anchor" href="/collection/2D"><p className="title">2D art</p></a>
+                    <a className="subtitle-anchor" href="/collection/3D"><p className="title">3D art</p></a>
                     <a className="subtitle-anchor" href="/collection/comic"><p className="title">comics</p></a>
-                    <a className="subtitle-anchor" href="/collection/print"><p className="title">print</p></a>
-                    <a className="subtitle-anchor" href="/collection/personal"><p className="title">personal</p></a>
                 </div>
                 <div className="collection-menu">
                     {displayItems}

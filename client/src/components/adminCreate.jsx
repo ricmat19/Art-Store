@@ -97,16 +97,16 @@ const AdminCreateC = (props) => {
                             </div>
                             <div className="radio-div">
                                 <div>
+                                    <label className=" radio">2D Art</label>
+                                    <input value={type} ref={typeInput} onChange={e => setType("2D")} type = "radio" name = "product"/>
+                                </div>
+                                <div>
+                                    <label className=" radio">3D Art</label>
+                                    <input value={type} ref={typeInput} onChange={e => setType("3D")} type = "radio" name = "product"/>
+                                </div>
+                                <div>
                                     <label className=" radio">Comic</label>
                                     <input value={type} ref={typeInput} onChange={e => setType("comic")} type = "radio" name = "product" required/>
-                                </div>
-                                <div>
-                                    <label className=" radio">Print</label>
-                                    <input value={type} ref={typeInput} onChange={e => setType("print")} type = "radio" name = "product"/>
-                                </div>
-                                <div>
-                                    <label className=" radio">Personal</label>
-                                    <input value={type} ref={typeInput} onChange={e => setType("personal")} type = "radio" name = "product"/>
                                 </div>
                             </div>
                         </div>

@@ -20,12 +20,14 @@ const PaymentC = () => {
 
                 for(let i=0; i < cartResponse.data.data.cart.length; i++){
  
-                    let imagesResponse = await CollectionAPI.get(`/images/${cartResponse.data.data.cart[i].imagekey}`, {
-                        responseType: 'arraybuffer'
-                    })
-                    .then(response => Buffer.from(response.data, 'binary').toString('base64'));
+                    if(cartResponse.data.data.cart[i].imagekey !== null){
+                        let imagesResponse = await CollectionAPI.get(`/images/${cartResponse.data.data.cart[i].imagekey}`, {
+                            responseType: 'arraybuffer'
+                        })
+                        .then(response => Buffer.from(response.data, 'binary').toString('base64'));
 
-                    cartResponse.data.data.cart[i].imageBuffer = imagesResponse;
+                        cartResponse.data.data.cart[i].imageBuffer = imagesResponse;
+                    }
                     
                 }
                 console.log(cartResponse.data.data.cart);

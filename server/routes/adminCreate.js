@@ -16,8 +16,8 @@ router.get('/admin', async(req, res) => {
 //Create a collection item
 router.post('/admin/create', upload.single('images'), async(req, res) => {
     try{
+        // const result = ""
         const file = req.file;
-        console.log(req.file);
         const result = await uploadFile(file);
         res.send({imagePath: `/images/${result.key}`})
         await unlinkFile(file.path);
