@@ -9,7 +9,9 @@ const HomeC = () => {
 
     const {product} = useParams();
     const {collection, setCollection} = useContext(CollectionContext);
-    const [homeImageArray, setHomeImageArray] = useState([]);
+    const [twoDImage, setTwoDImage] = useState("");
+    const [threeDImage, setThreeDImage] = useState("");
+    const [comicImage, setComicImage] = useState("");
 
     const imageArray = [];
     useEffect(() => {
@@ -26,17 +28,18 @@ const HomeC = () => {
                         })
                         .then(response => Buffer.from(response.data, 'binary').toString('base64'));
 
-                        productResponse.data.data.collection[i].imageBuffer = `data:image/png;base64,${imagesResponse}`;
-
-                        console.log(productResponse.data.data.collection[i].primaryimage)
-                        if(productResponse.data.data.collection[i].primaryimage === true){
-                            imageArray.push(productResponse.data.data.collection[i])
+                        if(productResponse.data.data.collection[i].primaryimage && productResponse.data.data.collection[i].product === '2D'){
+                            setTwoDImage(`data:image/png;base64,${imagesResponse}`)
+                        }
+                        if(productResponse.data.data.collection[i].primaryimage && productResponse.data.data.collection[i].product === '3D'){
+                            setThreeDImage(`data:image/png;base64,${imagesResponse}`)
+                        } 
+                        if(productResponse.data.data.collection[i].primaryimage && productResponse.data.data.collection[i].product === 'comic'){
+                            setComicImage(`data:image/png;base64,${imagesResponse}`)
                         } 
                     }
                     
                 }
-                console.log(imageArray)
-                setHomeImageArray(imageArray)
                 setCollection(productResponse.data.data.collection);
 
             }catch(err){
@@ -53,19 +56,19 @@ const HomeC = () => {
                 <div className="main-body home-menu">
                     <a href="collection/2D">
                         <div className="menu-item">
-                            <img className="menu-image" src={homeImageArray.imageBuffer} alt="prints"/>
+                            <img className="menu-image" src={twoDImage} alt="2d art"/>
                             <p className="title">2D art</p>
                         </div>
                     </a>
                     <a href="collection/3D">
                         <div className="menu-item">
-                            <img className="menu-image" src={homeImageArray.imageBuffer} alt="3d art"/>
+                            <img className="menu-image" src={threeDImage} alt="3d art"/>
                             <p className="title">3D art</p>
                         </div>
                     </a>
                     <a href="collection/comic">
                         <div className="menu-item">
-                            <img className="menu-image" src={homeImageArray.imageBuffer} alt="comics"/>
+                            <img className="menu-image" src={comicImage} alt="comics"/>
                             <p className="title">comics</p>
                         </div>
                     </a>

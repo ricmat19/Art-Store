@@ -14,7 +14,9 @@ const HomeC = () => {
     const [cartState, setCartState] = useState(false);
     const [cartQty, setCartQty] = useState(0);
     const [cartCost, setCartCost] = useState(0);
-    const [homeImageArray, setHomeImageArray] = useState([]);
+    const [twoDImage, setTwoDImage] = useState("");
+    const [threeDImage, setThreeDImage] = useState("");
+    const [comicImage, setComicImage] = useState("");
 
     let productResponse;
     let imageArray = [];
@@ -48,12 +50,19 @@ const HomeC = () => {
                         })
                         .then(response => Buffer.from(response.data, 'binary').toString('base64'));
     
-                        imageArray.push(`data:image/png;base64,${imagesResponse}`)
+
+                        if(productResponse.data.data.collection[i].primaryimage && productResponse.data.data.collection[i].product === '2D'){
+                            setTwoDImage(`data:image/png;base64,${imagesResponse}`)
+                        }
+                        if(productResponse.data.data.collection[i].primaryimage && productResponse.data.data.collection[i].product === '3D'){
+                            setThreeDImage(`data:image/png;base64,${imagesResponse}`)
+                        } 
+                        if(productResponse.data.data.collection[i].primaryimage && productResponse.data.data.collection[i].product === 'comic'){
+                            setComicImage(`data:image/png;base64,${imagesResponse}`)
+                        } 
                     }
                     
                 }
-                setHomeImageArray(imageArray);
-                console.log(homeImageArray)
                 setCollection(productResponse.data.data.collection);
 
             }catch(err){
@@ -72,19 +81,19 @@ const HomeC = () => {
                 <div className="main-body home-menu">
                     <a href="collection/2D">
                         <div className="menu-item">
-                            <img className="menu-image" src={homeImageArray[0]} alt="prints"/>
+                            <img className="menu-image" src={twoDImage} alt="prints"/>
                             <p className="title">2D art</p>
                         </div>
                     </a>
                     <a href="collection/3D">
                         <div className="menu-item">
-                            <img className="menu-image" src={homeImageArray[1]} alt="3d art"/>
+                            <img className="menu-image" src={threeDImage} alt="3d art"/>
                             <p className="title">3D art</p>
                         </div>
                     </a>
                     <a href="collection/comic">
                         <div className="menu-item">
-                            <img className="menu-image" src={homeImageArray[2]} alt="comics"/>
+                            <img className="menu-image" src={comicImage} alt="comics"/>
                             <p className="title">comics</p>
                         </div>
                     </a>
