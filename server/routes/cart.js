@@ -91,7 +91,7 @@ router.put('/cart/delete', async(req, res) => {
         console.log(newCart)
         if(JSON.stringify(newCart) !== JSON.stringify([])){
             console.log("items")
-            const usersCart = await db.query("UPDATE users SET cart=(ARRAY [$1]) WHERE email='george@jungle' RETURNING *", newCart);
+            const usersCart = await db.query("UPDATE users SET cart=$1 WHERE email='george@jungle' RETURNING *", [newCart]);
         }else{
             console.log("no items")
             const usersCart = await db.query("UPDATE users SET cart=(NULL) WHERE email='george@jungle' RETURNING *");
