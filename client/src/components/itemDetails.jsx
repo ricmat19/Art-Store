@@ -23,15 +23,15 @@ const ItemDetailsC = (props) => {
             try{
                 const productResponse = await CollectionAPI.get(`/collection/${product}/${id}`);
 
-                if(productResponse.data.data.product.imagekey !== null){
-                    let imagesResponse = await CollectionAPI.get(`/images/${productResponse.data.data.product.imagekey}`, {
+                if(productResponse.data.data.item.imagekey !== null){
+                    let imagesResponse = await CollectionAPI.get(`/images/${productResponse.data.data.item.imagekey}`, {
                         responseType: 'arraybuffer'
                     })
                     .then(response => Buffer.from(response.data, 'binary').toString('base64'));
                         
                     setImageBuffer(`data:image/png;base64,${imagesResponse}`)
                 }
-                setSelectedItem(productResponse.data.data.product);
+                setSelectedItem(productResponse.data.data.item);
 
                 const cartResponse = await CollectionAPI.get(`/cart`);
                 setCart(cartResponse.data.data.cart);

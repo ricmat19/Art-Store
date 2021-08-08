@@ -16,7 +16,7 @@ router.post("/shipment", async(req, res) => {
             status: "success",
             results: newShipment.rows.length,
             data:{
-                newShipment: newShipment.rows[0]
+                shipment: newShipment.rows[0]
             }
         })
     }catch(err){

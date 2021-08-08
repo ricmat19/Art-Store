@@ -1,4 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
+import ReactPaginate from 'react-paginate';
 import {useHistory, useParams} from "react-router-dom";
 import CollectionAPI from '../../apis/collectionAPI';
 import {CollectionContext} from '../../context/collectionContext';
@@ -54,20 +55,20 @@ const AdminCollectionC = (props) => {
                 const productResponse = await CollectionAPI.get(`/admin/collection/${product}`);
                 console.log(productResponse)
 
-                for(let i=0; i < productResponse.data.data.collection.length; i++){
+                for(let i=0; i < productResponse.data.data.product.length; i++){
                     
-                    if(productResponse.data.data.collection[i].imagekey !== null){
-                        let imagesResponse = await CollectionAPI.get(`/images/${productResponse.data.data.collection[i].imagekey}`, {
+                    if(productResponse.data.data.product[i].imagekey !== null){
+                        let imagesResponse = await CollectionAPI.get(`/images/${productResponse.data.data.product[i].imagekey}`, {
                             responseType: 'arraybuffer'
                         })
                         .then(response => Buffer.from(response.data, 'binary').toString('base64'));
     
-                        productResponse.data.data.collection[i].imageBuffer = `data:image/png;base64,${imagesResponse}`;
+                        productResponse.data.data.product[i].imageBuffer = `data:image/png;base64,${imagesResponse}`;
                     }
                     
                 }
 
-                setCollection(productResponse.data.data.collection);
+                setCollection(productResponse.data.data.product);
             }catch(err){
                 console.log(err);
             }
@@ -107,6 +108,17 @@ const AdminCollectionC = (props) => {
                 <div className="collection-menu">
                     {displayItems}
                 </div>
+                <ReactPaginate 
+                    previousLabel={"prev"} 
+                    nextLabel={"next"} 
+                    pageCount={pageCount} 
+                    onPageChange={changePage}
+                    containerClassName={"paginationButtons"}
+                    previousLinkClassName={"prevButton"}
+                    nextLinkClassName={"nextButton"}
+                    disabledClassName={"disabledButton"}
+                    activeClassName={"activeButton"}
+                />
             </div>
             <FooterC/>
         </div>

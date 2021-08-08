@@ -49,19 +49,19 @@ const CollectionC = (props) => {
             try{
                 productResponse = await CollectionAPI.get(`/collection/${product}`);
 
-                for(let i=0; i < productResponse.data.data.collection.length; i++){
+                for(let i=0; i < productResponse.data.data.product.length; i++){
                     
-                    if(productResponse.data.data.collection[i].imagekey !== null){
-                        let imagesResponse = await CollectionAPI.get(`/images/${productResponse.data.data.collection[i].imagekey}`, {
+                    if(productResponse.data.data.product[i].imagekey !== null){
+                        let imagesResponse = await CollectionAPI.get(`/images/${productResponse.data.data.product[i].imagekey}`, {
                             responseType: 'arraybuffer'
                         })
                         .then(response => Buffer.from(response.data, 'binary').toString('base64'));
     
-                        productResponse.data.data.collection[i].imageBuffer = `data:image/png;base64,${imagesResponse}`;
+                        productResponse.data.data.product[i].imageBuffer = `data:image/png;base64,${imagesResponse}`;
                     }
                     
                 }
-                setCollection(productResponse.data.data.collection);
+                setCollection(productResponse.data.data.product);
 
                 const cartResponse = await CollectionAPI.get(`/cart`);
                 setCart(cartResponse.data.data.cart);

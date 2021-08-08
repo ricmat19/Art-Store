@@ -17,35 +17,17 @@ router.get("/images/:key", async (req, res) => {
 
 })
 
-//Get all collection items
-router.get("/collection", async(req, res) => {
-
-    try{
-        const collection = await db.query("SELECT * FROM collection");
-
-        res.status(200).json({ 
-            status: "success",
-            results: collection.rows.length,
-            data: {
-                collection: collection.rows
-            }
-        })
-    }catch(err){
-        console.log(err);
-    }
-})
-
 //Get all collection items of a certain type
 router.get("/collection/:product", async(req, res) => {
 
     try{
-        const collection = await db.query("SELECT * FROM collection WHERE PRODUCT=$1 ORDER BY qty DESC", [req.params.product]);
+        const product = await db.query("SELECT * FROM collection WHERE PRODUCT=$1 ORDER BY qty DESC", [req.params.product]);
 
         res.status(200).json({ 
             status: "success",
-            results: collection.rows.length,
+            results: product.rows.length,
             data: {
-                collection: collection.rows
+                product: product.rows
             }
         })
     }catch(err){
@@ -57,13 +39,13 @@ router.get("/collection/:product", async(req, res) => {
 router.get('/collection/:product/:id', async (req, res) => {
 
     try{
-        const product = await db.query(`SELECT * FROM collection WHERE id=$1`, [req.params.id]);
-        const imageKey = (product.rows[0].imagekey)
+        const item = await db.query(`SELECT * FROM collection WHERE id=$1`, [req.params.id]);
+        const imageKey = (item.rows[0].imagekey)
         res.status(201).json({
             status: "success",
-            results: product.rows.length,
+            results: item.rows.length,
             data:{
-                product: product.rows[0]
+                item: item.rows[0]
             }
         })
 

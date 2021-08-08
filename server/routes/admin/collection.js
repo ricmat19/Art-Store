@@ -3,16 +3,33 @@ const router = express.Router();
 const db = require("../../db");
 
 //Get all collection items
+router.get("/collection", async(req, res) => {
+
+    try{
+        const collection = await db.query("SELECT * FROM collection WHERE primaryImage=true");
+
+        res.status(200).json({ 
+            status: "success",
+            results: collection.rows.length,
+            data: {
+                collection: collection.rows
+            }
+        })
+    }catch(err){
+        console.log(err);
+    }
+})
+
+//Get all collection items
 router.get("/admin/collection/:product", async(req, res) => {
 
     try{
-        const collection = await db.query("SELECT * FROM collection WHERE PRODUCT=$1", [req.params.product]);
-        console.log(collection)
+        const product = await db.query("SELECT * FROM collection WHERE PRODUCT=$1", [req.params.product]);
         res.status(200).json({
             status: "success",
-            results: collection.rows.length,
+            results: product.rows.length,
             data:{
-                collection: collection.rows
+                product: product.rows
             }
         })
     }catch(err){

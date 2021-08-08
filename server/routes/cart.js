@@ -39,7 +39,7 @@ router.post('/cart', async(req, res) => {
             status: "success",
             results: newCart.rows,
             data:{
-                newCart: newCart.rows
+                cart: newCart.rows
             }
         })
     }catch(err){
@@ -98,11 +98,7 @@ router.put('/cart/delete', async(req, res) => {
         }
 
         res.status(200).json({
-            status: "success",
-            // results: usersCart.length,
-            // data:{
-            //     cart: usersCart
-            // }
+            status: "success"
         })
     }catch(err){
         console.log(err);
