@@ -92,25 +92,24 @@ const AdminCreateC = (props) => {
                         </div>
                     </div>
                     <form className="admin-form" action="/admin/create" method="POST" encType="multipart/form-data">
-                        <div className="admin-form-field">
-                            <label className=""></label>
+                        <div className="admin-form-title">
                             <p className="title">Create</p>
                         </div>
                         <div className="admin-form-field">
-                            <label className="">Title</label>
+                            <label className="admin-label">Title:</label>
                             <input value={title} ref={titleInput} onChange={e => setTitle(e.target.value)} type="text" name="name" className="form-control" required/>
                         </div>
                         <div className="admin-form-field">
                             <div>
-                                <label className=" radio-label">Type:</label>
+                                <label className="admin-label">Type:</label>
                             </div>
                             <div className="radio-div">
                                 <div>
-                                    <label className=" radio">2D Art</label>
+                                    <label className=" radio">2D art</label>
                                     <input value={type} ref={typeInput} onChange={e => setType("2D")} type = "radio" name = "product"/>
                                 </div>
                                 <div>
-                                    <label className=" radio">3D Art</label>
+                                    <label className=" radio">3D art</label>
                                     <input value={type} ref={typeInput} onChange={e => setType("3D")} type = "radio" name = "product"/>
                                 </div>
                                 <div>
@@ -120,19 +119,19 @@ const AdminCreateC = (props) => {
                             </div>
                         </div>
                         <div className="admin-form-field">
-                            <label className="">Images</label>
+                            <label className="admin-label">Images:</label>
                             <input  type="file" onChange={e => setImages(e.target.files[0])} name="images" className="form-control" required/>
                         </div>
                         <div className="admin-form-field">
-                            <label className="">Quantity</label>
+                            <label className="admin-label">Quantity:</label>
                             <input value={quantity} ref={quantityInput} onChange={e => setQuantity(e.target.value)} type="number" name="quantity" className="form-control" required/>
                         </div>
                         <div className="admin-form-field">
-                            <label className="">Price</label>
+                            <label className="admin-label">Price:</label>
                             <input value={price} ref={priceInput} onChange={e => setPrice(e.target.value)} type="number" name="price" className="form-control" required/>
                         </div>
                         <div className="admin-form-field">
-                            <label className="">Info</label>
+                            <label className="admin-label">Info:</label>
                             <textarea value={info} ref={infoInput} onChange={e => setInfo(e.target.value)} name="message" rows="5" required></textarea>
                         </div>
                         <div className="admin-form-button">

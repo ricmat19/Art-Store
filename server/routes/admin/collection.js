@@ -7,7 +7,7 @@ router.get("/admin/collection/:product", async(req, res) => {
 
     try{
         const collection = await db.query("SELECT * FROM collection WHERE PRODUCT=$1", [req.params.product]);
-        console.log(collection);
+        console.log(collection)
         res.status(200).json({
             status: "success",
             results: collection.rows.length,

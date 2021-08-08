@@ -73,19 +73,19 @@ const HomeC = () => {
                     <a href="collection/2D">
                         <div className="menu-item">
                             <img className="menu-image" src={homeImageArray[0]} alt="prints"/>
-                            <p className="title">2D Art</p>
+                            <p className="title">2D art</p>
                         </div>
                     </a>
                     <a href="collection/3D">
                         <div className="menu-item">
                             <img className="menu-image" src={homeImageArray[1]} alt="3d art"/>
-                            <p className="title">3D Art</p>
+                            <p className="title">3D art</p>
                         </div>
                     </a>
                     <a href="collection/comic">
                         <div className="menu-item">
                             <img className="menu-image" src={homeImageArray[2]} alt="comics"/>
-                            <p className="title">Comics</p>
+                            <p className="title">comics</p>
                         </div>
                     </a>
                 </div>

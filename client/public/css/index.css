@@ -259,10 +259,6 @@ button a, button a:hover{
     display: grid;
 }
 
-textarea{
-    resize: none;
-}
-
 .active{
     color: rgb(212, 0, 28);
 }
@@ -457,10 +453,6 @@ button{
     margin: 10px 0;
 }
 
-.admin-item-div{
-    background: rgb(243, 243, 243);
-}
-
 .about-info{
     text-align: justify;
     justify-content: center;
@@ -495,8 +487,18 @@ button{
     grid-template-columns: 75px auto;
 }
 
+.admin-label{
+    text-align: left;
+}
+
 .admin-form{
     padding: 0 40px 40px 40px;
+    background-color: rgb(243, 243, 243);
+}
+
+.admin-form-title{
+    display: grid;
+    margin: 15px 0;
 }
 
 .admin-form-field{
@@ -525,7 +527,9 @@ input, select, .cardElement{
 textarea{
     border-style: none;
     padding: 5px;
-    outline: none
+    outline: none;
+    resize: none;
+    font-family: 'Rajdhani';
 }
 
 .form-button-div{

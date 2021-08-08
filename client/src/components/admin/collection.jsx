@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import {useHistory, useParams} from "react-router-dom";
 import CollectionAPI from '../../apis/collectionAPI';
 import {CollectionContext} from '../../context/collectionContext';
-import AdminHeaderC from './header';
+import AdminHeaderC from '../admin/header';
 import FooterC from '../footer';
 
 const AdminCollectionC = (props) => {
@@ -17,15 +17,15 @@ const AdminCollectionC = (props) => {
     const displayItems = collection.slice(pagesVisted, pagesVisted + itemsPerPage).map((item) => {
         return(
             <div key={item.id}>
-                <a href="/collection/:product">
+                <div className="collection-item-div">
                     <div className="collection-item">
                         <img className="collection-thumbnail" src={item.imageBuffer} alt="thumbnail"/>
                     </div>
                     <div className="collection-thumbnail-footer">
                         <div className="Title">{item.title}</div>
-                        <div className="Price">{item.price}</div>
+                        <div className="Price">${item.price}.00</div>
                     </div>
-                </a>
+                </div>
                 <div className="admin-form">
                     <div className="admin-collection-button-div text-center">
                         <div>
@@ -48,11 +48,11 @@ const AdminCollectionC = (props) => {
 
     let history = useHistory();
 
-    let productResponse;
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
                 const productResponse = await CollectionAPI.get(`/admin/collection/${product}`);
+                console.log(productResponse)
 
                 for(let i=0; i < productResponse.data.data.collection.length; i++){
                     

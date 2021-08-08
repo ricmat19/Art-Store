@@ -97,7 +97,7 @@ router.put('/cart/delete', async(req, res) => {
             const usersCart = await db.query("UPDATE users SET cart=(NULL) WHERE email='george@jungle' RETURNING *");
         }
 
-        res.status(200).json({ 
+        res.status(200).json({
             status: "success",
             // results: usersCart.length,
             // data:{
