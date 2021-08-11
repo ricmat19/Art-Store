@@ -7,7 +7,9 @@ import CollectionAPI from '../apis/collectionAPI';
 const ShippingC = () => {
 
     const [cart, setCart] = useState([]);
+    const [subtotal, setSubtotal] = useState(0)
 
+    let sub = 0;
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
@@ -25,7 +27,13 @@ const ShippingC = () => {
                     }
                     
                 }
-                console.log(cartResponse.data.data.cart);
+                
+                for(let i = 0; i < cart.length; i++){
+                    sub += parseInt(cart[i].price);
+                }
+
+                setSubtotal(sub);
+                
                 setCart(cartResponse.data.data.cart);
             }catch(err){
                 console.log(err);
@@ -71,7 +79,7 @@ const ShippingC = () => {
                         </div>
                     </div>
                     <div className="two-column-div shipping-button">
-                        <a href="/payment"><button>continue to payment</button></a>
+                        <button><a href="/payment">continue to payment</a></button>
                         <a href="/checkout"><p>return to information</p></a>
                     </div>
                 </div>
@@ -79,23 +87,9 @@ const ShippingC = () => {
                     <div>
                         <OrderSummaryC cartCollection={cart}/>
                     </div>
-                    <hr className="checkout-hr"/>
                     <div className="two-column-div checkout-discount">
                         <input type="text" placeholder="discount code"/>
                         <button>apply</button>
-                    </div>
-                    <div className="two-column-div">
-                        <p className="align-left">subtotal</p>
-                        <p className="align-right">$0.00</p>
-                    </div>
-                    <div className="two-column-div">
-                        <p className="align-left">shipping</p>
-                        <p className="align-right">$0.00</p>
-                    </div>
-                    <hr className="checkout-hr"/>
-                    <div className="two-column-div">
-                        <p className="align-left">total</p>
-                        <p className="align-right">$0.00</p>
                     </div>
                 </div>
             </div>

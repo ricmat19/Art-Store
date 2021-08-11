@@ -3,13 +3,13 @@ import React, { useEffect, useState } from 'react';
 const OrderSummaryC = (props) => {
 
     const [cart, setCart] = useState([]);
-    const [price, setPrice] = useState(0);
+    const [subtotal, setSubtotal] = useState(0);
 
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
-                console.log(props.cartCollection);
                 setCart(props.cartCollection);
+                setSubtotal(props.subtotal);
             }catch(err){
                 console.log(err);
             }
@@ -32,9 +32,15 @@ const OrderSummaryC = (props) => {
                                 <span>${item.price}.00</span>
                             </div>
                         </div>
+
                     </div>
                 );
             })}
+            <hr className="checkout-hr"/>
+            <div className="two-column-div">
+                <p className="align-left">subtotal</p>
+                <p className="align-right">${subtotal}.00</p>
+            </div>
         </div>
     )
 }

@@ -88,7 +88,6 @@ router.put('/cart/delete', async(req, res) => {
             }
         }
 
-        console.log(newCart)
         if(JSON.stringify(newCart) !== JSON.stringify([])){
             console.log("items")
             const usersCart = await db.query("UPDATE users SET cart=$1 WHERE email='george@jungle' RETURNING *", [newCart]);

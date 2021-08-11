@@ -49,10 +49,6 @@ const CartC = () => {
                 <div className="cart-items">
                     <CartItemC cartCollection={cart}/>
                 </div>
-                <div className="align-right subtotal-div">
-                    <span>subtotal</span>
-                    <span>$0.00</span>
-                </div>
                 <div className="align-right cart-button">
                     <button><a href="/checkout">Checkout</a></button>
                 </div>

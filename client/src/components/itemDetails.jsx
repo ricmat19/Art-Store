@@ -121,10 +121,10 @@ const ItemDetailsC = (props) => {
                             <label>info:</label>
                             <p className="no-margin">{selectedItem && selectedItem.info}</p>
                         </div>
-                    </div>
-                    <div className="cart-options">
-                        <button onClick={addToCart}>Add To Cart</button>
-                        <button>Order Now</button>
+                        <hr className="no-margin"/>
+                        <div className="cart-options">
+                            <button onClick={addToCart}>Add To Cart</button>
+                        </div>
                     </div>
                 </form>
             </div>

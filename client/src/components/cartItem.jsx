@@ -4,12 +4,19 @@ import collectionAPI from '../apis/collectionAPI';
 const CartItemC = (props) => {
 
     const [cart, setCart] = useState([]);
-    const [price, setPrice] = useState(0);
+    const fixedCart = props.cartCollection;
+    const [subtotal, setSubtotal] = useState(0)
 
+    let sub = 0;
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
                 setCart(props.cartCollection);
+
+                for(let i = 0; i < cart.length; i++){
+                    sub += parseInt(cart[i].price);
+                }
+                setSubtotal(sub);
             }catch(err){
                 console.log(err);
             }
@@ -29,11 +36,15 @@ const CartItemC = (props) => {
         }
     }
 
-    const setItemQty = (itemPrice, e) => {
+    const setItemQty = (item, e) => {
         try{
-            itemPrice *= e;
-            console.log(itemPrice)
-            // console.log(cart)
+            for(let i=0; i < cart.length; i++){
+                if(cart[i].id === item.id){
+                    cart[i].price = fixedCart[i].price * e;
+                    console.log(fixedCart)
+                    setCart(cart)
+                }
+            }
         }catch(err){
             console.log(err);
         }
@@ -53,7 +64,7 @@ const CartItemC = (props) => {
                                 <div className="cart-item-title">{item.title}</div>
                             </div>
                             <div className="cart-item-qty">
-                                <input onChange={event => setItemQty(item.price, event.target.value)} className="item-qty-input" type="number" placeholder="0"></input>
+                                <input onChange={event => setItemQty(item, event.target.value)} className="item-qty-input" type="number" placeholder="0"/>
                             </div>
                             <div className="cart-item-price">
                                 <span>${item.price}.00</span>
@@ -63,6 +74,10 @@ const CartItemC = (props) => {
                     </div>
                 );
             })}
+            <div className="align-right subtotal-div">
+                <span>subtotal</span>
+                <span>${subtotal}.00</span>
+            </div>
         </div>
     )
 }

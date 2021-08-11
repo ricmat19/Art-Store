@@ -27,7 +27,7 @@ const AdminCollectionC = (props) => {
                         <div className="Price">${item.price}.00</div>
                     </div>
                 </div>
-                <div className="admin-form">
+                <div className="admin-buttons">
                     <div className="admin-collection-button-div text-center">
                         <div>
                             <button onClick={() => handleDelete(item.id)} className="btn form-button delete">Delete</button>

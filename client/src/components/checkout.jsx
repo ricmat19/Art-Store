@@ -29,6 +29,9 @@ const CheckoutC = () => {
     const zipcodeInput = useRef(null);
     const phoneInput = useRef(null);
 
+    const [subtotal, setSubtotal] = useState(0)
+
+    let sub = 0;
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
@@ -46,7 +49,13 @@ const CheckoutC = () => {
                     }
                     
                 }
-                console.log(cartResponse.data.data.cart);
+
+                for(let i = 0; i < cart.length; i++){
+                    sub += parseInt(cart[i].price);
+                }
+
+                setSubtotal(sub);
+
                 setCart(cartResponse.data.data.cart);
             }catch(err){
                 console.log(err);
@@ -178,7 +187,7 @@ const CheckoutC = () => {
                                 <input type="tel" ref={phoneInput} value={phone} name="phone" placeholder="phone (optional)" onChange={(e) => {setPhone(e.target.value)}}/>
                             </div>
                             <div className="two-column-div">
-                                <button onClick={handleCheckout} ><a href="/shipping">continue to shipping</a></button>
+                            <button><a href="/shipping" onClick={handleCheckout}>continue to shipping</a></button>
                                 <a href="/cart"><p>return to cart</p></a>
                             </div>
                         </div>
@@ -186,21 +195,11 @@ const CheckoutC = () => {
                 </form>
                 <div className="order-summary">
                     <div>
-                        <OrderSummaryC cartCollection={cart}/>
+                        <OrderSummaryC cartCollection={cart} subtotal={subtotal}/>
                     </div>
-                    <hr className="checkout-hr"/>
                     <div className="two-column-div checkout-discount">
                         <input type="text" placeholder="discount code"/>
                         <button>apply</button>
-                    </div>
-                    <div className="two-column-div">
-                        <p className="align-left">subtotal</p>
-                        <p className="align-right">$0.00</p>
-                    </div>
-                    <hr className="checkout-hr"/>
-                    <div className="two-column-div">
-                        <p className="align-left">total</p>
-                        <p className="align-right">$0.00</p>
                     </div>
                 </div>
             </div>

@@ -212,7 +212,7 @@ button a, button a:hover{
 }
 
 .subtotal-div{
-    padding: 20px 40px;
+    padding: 20px 0px;
 }
 
 .table-hr, .item-hr, .shipping-hr, .payment-hr{
@@ -221,6 +221,10 @@ button a, button a:hover{
 
 .subtotal-div span{
     padding-left: 15px;
+}
+
+.cart-options{
+    text-align: center;
 }
 
 .cart-button{
@@ -443,8 +447,7 @@ button{
 }
 
 .no-margin{
-    margin: 0;
-    padding: 3px 0;
+    margin: 10px 0;
 }
 
 .info-detail-div{
