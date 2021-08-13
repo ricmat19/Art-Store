@@ -24,4 +24,24 @@ router.post("/shipment", async(req, res) => {
     }
 })
 
+//Get a shipment
+router.get("/shipment", async(req, res) => {
+
+    try{
+        const shipment = await db.query("SELECT * FROM shipment WHERE id=9");
+
+        console.log(shipment)
+
+        res.status(200).json({
+            status: "success",
+            results: shipment.length,
+            data:{
+                shipment: shipment
+            }
+        })
+    }catch(err){
+        console.log(err);
+    }
+})
+
 module.exports = router;

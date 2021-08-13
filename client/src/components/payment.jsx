@@ -12,6 +12,7 @@ const PaymentC = () => {
     const elements = useElements();
 
     const [cart, setCart] = useState([]);
+    const [shipment, setShipment] = useState([])
 
     useEffect(() => {
         const fetchData = async (req, res) => {
@@ -30,8 +31,11 @@ const PaymentC = () => {
                     }
                     
                 }
-                console.log(cartResponse.data.data.cart);
+
+                const shipmentResponse = await CollectionAPI.get(`/shipment`);
+
                 setCart(cartResponse.data.data.cart);
+                setShipment(shipmentResponse.data.data.shipment.rows[0])
             }catch(err){
                 console.log(err);
             }
@@ -83,13 +87,13 @@ const PaymentC = () => {
                     <div className="payment-info-div">
                         <div className="payment-info">
                             <p className="align-left">contact</p>
-                            <p className="align-left">test@test.com</p>
+                            <p className="align-left">{shipment.email}</p>
                             <a className="align-right" href="/checkout"><p>change</p></a>
                         </div>
                         <hr className="payment-hr"/>
                         <div className="payment-info">
                             <p className="align-left">ship to</p>
-                            <p className="align-left">100 sw 111 ave Atlanta GA 11111, United States</p>
+                            <p className="align-left">{shipment.address} {shipment.city}, {shipment.state} {shipment.zipcode}</p>
                             <a className="align-right" href="/checkout"><p>change</p></a>
                         </div>
                         <hr className="payment-hr"/>

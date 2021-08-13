@@ -7,7 +7,7 @@ import CollectionAPI from '../apis/collectionAPI';
 const ShippingC = () => {
 
     const [cart, setCart] = useState([]);
-    const [subtotal, setSubtotal] = useState(0)
+    const [shipment, setShipment] = useState([])
 
     let sub = 0;
     useEffect(() => {
@@ -27,14 +27,15 @@ const ShippingC = () => {
                     }
                     
                 }
+
+                const shipmentResponse = await CollectionAPI.get(`/shipment`);
                 
                 for(let i = 0; i < cart.length; i++){
                     sub += parseInt(cart[i].price);
                 }
 
-                setSubtotal(sub);
-                
                 setCart(cartResponse.data.data.cart);
+                setShipment(shipmentResponse.data.data.shipment.rows[0])
             }catch(err){
                 console.log(err);
             }
@@ -51,13 +52,13 @@ const ShippingC = () => {
                     <div className="shipping-info-div">
                         <div className="shipping-info">
                             <p className="align-left">contact</p>
-                            <p className="align-left">test@test.com</p>
+                            <p className="align-left">{shipment.email}</p>
                             <a className="align-right" href=""><p>change</p></a>
                         </div>
                         <hr className="shipping-hr"/>
                         <div className="shipping-info">
                             <p className="align-left">ship to</p>
-                            <p className="align-left">100 sw 111 ave Atlanta GA 11111, United States</p>
+                            <p className="align-left">{shipment.address} {shipment.city}, {shipment.state} {shipment.zipcode}</p>
                             <a className="align-right" href=""><p>change</p></a>
                         </div>
                     </div>
