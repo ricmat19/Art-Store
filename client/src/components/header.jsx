@@ -127,10 +127,10 @@ const HeaderC = (props) => {
                         <p className="sign-header title">welcome</p>
                         <div>
                             <div className="modal-input-div">
-                                <input type="text" placeholder="Email"></input>
+                                <input type="email" ref={emailInput} value={email} name="email" placeholder="Email" onChange={(e) => {setEmail(e.target.value)}}/>
                             </div>
                             <div className="modal-input-div">
-                                <input type="text" placeholder="Password"></input>
+                                <input type="password" ref={passwordInput} value={password} name="password" placeholder="Create Password" onChange={(e) => {setPassword(e.target.value)}}/>
                             </div>
                         </div>
                         <div>

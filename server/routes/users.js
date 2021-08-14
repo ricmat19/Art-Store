@@ -6,14 +6,14 @@ const {encrypt, decrypt} = require("../encryptionHandler");
 //User Sign Up
 router.post('/signup', async(req, res) => {
     try{
-        if(req.body.password === req.body.passwordCopy){
 
-            const encryptedPassword = encrypt(req.body.password);
-            console.log(encryptedPassword)
+        if(req.body.password === req.body.passwordCopy){
 
             req.session.email = req.body.email;
 
-            const user = await db.query("INSERT INTO users (email, password, firstname, lastname, iv) values ($1, $2, $3, $4, $5) RETURNING *", [req.body.email, encryptedPassword.password, req.body.firstname, req.body.lastname, encryptedPassword.iv]);
+            const encryptedPassword = await encrypt(req.body.password);
+
+            const user = await db.query("INSERT INTO users (email, password, firstname, lastname) values ($1, $2, $3, $4) RETURNING *", [req.body.email, encryptedPassword.password, req.body.firstname, req.body.lastname]);
             
             res.status(201).json({
                 status: "success",
@@ -37,8 +37,10 @@ router.post('/signup', async(req, res) => {
 router.post('/signin', async(req, res) => {
     try{
 
-        const user = await db.query("SELECT * FROM users WHERE email=$1", [req.body.email]);
-        console.log(user)
+        const user = await db.query("SELECT password FROM users WHERE email=$1", [req.body.email]);
+
+        const storedPassword = user.rows[0].password;
+        const validPassword = await decrypt(storedPassword, req.body.password);
 
         if(!user){
             res.status(404).json({
@@ -47,46 +49,24 @@ router.post('/signin', async(req, res) => {
                     user: "No user found!"
                 }
             })
-        }
-
-        const storedPassword = await db.query("SELECT * FROM users WHERE password=$1", [req.body.password]);
-        const validPassword = decrypt(storedPassword, req.body.password)
-
-        if(!validPassword){
+        }else if(!validPassword){
             res.status(404).json({
                 status: "failure",
                 data:{
                     user: "Password Incorrect!"
                 }
             })
+        }else{
+            req.session.email = req.body.email;
+
+            res.status(201).json({
+                status: "success",
+                results: user.rows.length,
+                data:{
+                    user: user.rows[0]
+                }
+            })
         }
-
-        req.session.email = req.body.email;
-
-        res.status(201).json({
-            status: "success",
-            results: user.rows.length,
-            data:{
-                user: user.rows[0]
-            }
-        })
-    }catch(err){
-        console.log(err);
-    }
-})
-
-//User Sign In
-router.get('/signin', async(req, res) => {
-    try{
-
-
-        res.status(201).json({
-            status: "success",
-            results: user.rows.length,
-            data:{
-                user: user.rows[0]
-            }
-        })
     }catch(err){
         console.log(err);
     }

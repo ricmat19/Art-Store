@@ -16,36 +16,23 @@ const encrypt = async (password) => {
     const salt = crypto.randomBytes(8).toString('hex');
     const hashed = await scrypt(password, salt, 64);
     const record = {
-        // iv: iv.toString('hex'),
-        // password: encryptedPassword.toString('hex'),
         password: hashed.toString('hex') + "." + salt
     }
-
-    // const iv = Buffer.from(crypto.randomBytes(16));
-    // const cipher = crypto.createCipheriv("aes-256-ctr", Buffer.from(signupSecret), iv);
-
-    // const encryptedPassword = Buffer.concat([cipher.update(password), cipher.final()]);
 
     return record;
 }
 
-const decrypt = async (savedhash, password) => {
+const decrypt = async (storedPW, providedPW) => {
 
-    const result = saved. split('.');
-    const hashed = result[0];
-    const salt = result[1];
+    // console.log("Provided PW:" + providedPW)
 
-    const hashedSupplied = await scrypt(savedhash, salt, 64);
+    const [hash, salt] = storedPW.split('.');
+    // console.log("Stored Hash:" + hash)
 
-    return hashed === hashedSupplied.toString('hex');
+    const providedPWHashed = await scrypt(providedPW, salt, 64);
+    // console.log("Provided PW Hashed:" + providedPWHashed.toString('hex'))
 
-
-    // const decipher =  crypto.createCipheriv("aes-256-ctr", Buffer.from(signupSecret), iv);
-    // Buffer.from(encryption.iv, 'hex');
-
-    // const decryptedPassword = Buffer.concat([cipher.update(Buffer.from(encryption.password, 'hex')), cipher.final()]);
-
-    // return decryptedPassword.toString();
+    return hash === providedPWHashed.toString('hex');
 }
 
 module.exports = {encrypt, decrypt};

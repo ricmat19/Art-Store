@@ -5,7 +5,7 @@ const db = require("../db");
 //Add an item to a users cart
 router.post('/cart', async(req, res) => {
     try{
-        const cart = await db.query("SELECT cart FROM users WHERE email='george@jungle'");
+        const cart = await db.query("SELECT cart FROM users WHERE email='ric19mat@gmail.com'");
 
         let currentCart = cart.rows[0].cart;
         let newItem = req.body.id;
@@ -33,7 +33,9 @@ router.post('/cart', async(req, res) => {
             currentCart = [req.body.id]
         }
 
-        let newCart = await db.query("UPDATE users SET cart=$1 WHERE email='george@jungle'", [currentCart]);
+        // let newCart = await db.query("UPDATE users SET cart=$1 WHERE email='ric19mat@gmail.com'", [currentCart]);
+        let newCart = await db.query("UPDATE users SET cart=$1 WHERE email=$2", [currentCart, req.session.email]);
+        console.log(req.session.email)
 
         res.status(201).json({
             status: "success",
@@ -51,7 +53,7 @@ router.post('/cart', async(req, res) => {
 router.get("/cart", async(req, res) => {
 
     try{
-        const cart = await db.query("SELECT * FROM users WHERE email='george@jungle'");
+        const cart = await db.query("SELECT * FROM users WHERE email='ric19mat@gmail.com'");
 
         const usersCart = [];
         console.log(cart.rows[0].cart)
@@ -79,7 +81,7 @@ router.get("/cart", async(req, res) => {
 router.put('/cart/delete', async(req, res) => {
     try{
 
-        const cart = await db.query("SELECT cart FROM users WHERE email='george@jungle'");
+        const cart = await db.query("SELECT cart FROM users WHERE email='ric19mat@gmail.com'");
 
         const newCart = [];
         for(let i = 0; i < cart.rows[0].cart.length; i++){
@@ -90,10 +92,10 @@ router.put('/cart/delete', async(req, res) => {
 
         if(JSON.stringify(newCart) !== JSON.stringify([])){
             console.log("items")
-            const usersCart = await db.query("UPDATE users SET cart=$1 WHERE email='george@jungle' RETURNING *", [newCart]);
+            const usersCart = await db.query("UPDATE users SET cart=$1 WHERE email='ric19mat@gmail.com'' RETURNING *", [newCart]);
         }else{
             console.log("no items")
-            const usersCart = await db.query("UPDATE users SET cart=(NULL) WHERE email='george@jungle' RETURNING *");
+            const usersCart = await db.query("UPDATE users SET cart=(NULL) WHERE email='ric19mat@gmail.com' RETURNING *");
         }
 
         res.status(200).json({
