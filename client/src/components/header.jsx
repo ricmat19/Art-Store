@@ -53,7 +53,7 @@ const HeaderC = (props) => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [rePassword, setRePassword] = useState("");
+    const [passwordCopy, setPasswordCopy] = useState("");
     const [firstname, setFirstName] = useState("");
     const [lastname, setLastName] = useState("");
 
@@ -61,17 +61,22 @@ const HeaderC = (props) => {
     const passwordInput = useRef(null);
     const firstNameInput = useRef(null);
     const lastNameInput = useRef(null);
-    const rePasswordInput = useRef(null);
+    const passwordCopyInput = useRef(null);
 
 
     const handleSignin = async (e) => {
         e.preventDefault()
         try{
-         
-            const request = await CollectionAPI.get("/signin", {
+
+            const response = await CollectionAPI.post("/signin", {
                 email: email,
                 password: password
-            });
+            })
+         
+            // const request = await CollectionAPI.get("/signin", {
+            //     email: email,
+            //     password: password
+            // });
 
         }catch(err){
             console.log(err);
@@ -86,7 +91,8 @@ const HeaderC = (props) => {
                 firstname: firstname,
                 lastname: lastname,
                 email: email,
-                password: password
+                password: password,
+                passwordCopy: passwordCopy
             })
             
             createUser(response.data.data.user);
@@ -95,7 +101,7 @@ const HeaderC = (props) => {
             lastNameInput.current.value = "";
             emailInput.current.value = "";
             passwordInput.current.value = "";
-            rePasswordInput.current.value = "";
+            passwordCopyInput.current.value = "";
 
         }catch(err){
             console.log(err);
@@ -128,7 +134,7 @@ const HeaderC = (props) => {
                             </div>
                         </div>
                         <div>
-                            <button>sign in</button>
+                            <button onClick={handleSignin}>sign in</button>
                         </div>
                         <div className="sign-footer">
                             <div className="modal-link" onClick={displayReset}><span>forgot password?</span></div>
@@ -155,7 +161,7 @@ const HeaderC = (props) => {
                                 <input type="password" ref={passwordInput} value={password} name="password" placeholder="Create Password" onChange={(e) => {setPassword(e.target.value)}}/>
                             </div>
                             <div className="modal-input-div">
-                                <input type="password" ref={rePasswordInput} value={rePassword} name="re-password" placeholder="Re-type Password" onChange={(e) => {setRePassword(e.target.value)}}/>
+                                <input type="password" ref={passwordCopyInput} value={passwordCopy} name="re-password" placeholder="Re-type Password" onChange={(e) => {setPasswordCopy(e.target.value)}}/>
                             </div>
                         </div>
                         <div>

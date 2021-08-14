@@ -1,7 +1,8 @@
 const express = require('express');
-const app = express();
 const morgan = require("morgan");
 const cors = require("cors");
+const cookieSession = require('cookie-session');
+const app = express();
 const adminCollectionRouter = require('./routes/admin/collection');
 const adminCreateRouter = require('./routes/admin/create');
 const adminUpdateRouter = require('./routes/admin/update');
@@ -11,6 +12,12 @@ const usersRouter = require('./routes/users');
 const cartRouter = require('./routes/cart');
 const paymentRouter = require('./routes/payment');
 const shipmentRouter = require('./routes/shipment');
+
+//insures that the .env file is only run in a development environment and not a production environment
+if(process.env.NODE_ENV !== 'production'){
+    //requires the the .env file configuration be run first hiding all info hidden via the .env file
+    require('dotenv').config();
+}
 
 app.listen(3000, function(){
     console.log("Server Running..."); 
@@ -26,6 +33,10 @@ app.use(express.json());
 
 //Middleware: Logging
 app.use(morgan("dev"));
+
+app.use(cookieSession({
+    keys: [process.env.COOKIE_SESSION]
+}));
 
 app.use(adminCollectionRouter);
 app.use(adminCreateRouter);
