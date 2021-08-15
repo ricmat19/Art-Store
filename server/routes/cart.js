@@ -33,8 +33,8 @@ router.post('/cart', async(req, res) => {
             currentCart = [req.body.id]
         }
 
-        // let newCart = await db.query("UPDATE users SET cart=$1 WHERE email='ric19mat@gmail.com'", [currentCart]);
-        let newCart = await db.query("UPDATE users SET cart=$1 WHERE email=$2", [currentCart, req.session.email]);
+        let newCart = await db.query("UPDATE users SET cart=$1 WHERE email='ric19mat@gmail.com'", [currentCart]);
+        // let newCart = await db.query("UPDATE users SET cart=$1 WHERE email=$2", [currentCart, req.session.email]);
         console.log(req.session.email)
 
         res.status(201).json({
@@ -92,7 +92,7 @@ router.put('/cart/delete', async(req, res) => {
 
         if(JSON.stringify(newCart) !== JSON.stringify([])){
             console.log("items")
-            const usersCart = await db.query("UPDATE users SET cart=$1 WHERE email='ric19mat@gmail.com'' RETURNING *", [newCart]);
+            const usersCart = await db.query("UPDATE users SET cart=$1 WHERE email='ric19mat@gmail.com' RETURNING *", [newCart]);
         }else{
             console.log("no items")
             const usersCart = await db.query("UPDATE users SET cart=(NULL) WHERE email='ric19mat@gmail.com' RETURNING *");

@@ -1,31 +1,34 @@
 const express = require('express');
+const {validationResult} = require('express-validator');
+const {checkEmail, checkPassword, checkPasswordCopy} = require('../validator')
 const router = express.Router();
 const db = require("../db");
-const {encrypt, decrypt} = require("../encryptionHandler");
+const {signup, signin} = require("../encryptionHandler");
 
 //User Sign Up
-router.post('/signup', async(req, res) => {
+router.post('/signup', [checkEmail, checkPassword, checkPasswordCopy], async(req, res) => {
     try{
 
-        if(req.body.password === req.body.passwordCopy){
+        const errors = validationResult(req);
 
-            req.session.email = req.body.email;
-
-            const encryptedPassword = await encrypt(req.body.password);
-
-            const user = await db.query("INSERT INTO users (email, password, firstname, lastname) values ($1, $2, $3, $4) RETURNING *", [req.body.email, encryptedPassword.password, req.body.firstname, req.body.lastname]);
-            
-            res.status(201).json({
-                status: "success",
-                results: user.rows.length,
-                data:{
-                    user: user.rows[0]
-                }
-            })
-
-        }else{
-            console.log("Passwords must match")
+        if(!errors.isEmpty()){
+            return errors;
         }
+
+        req.session.email = req.body.email;
+
+        const encryptedPassword = await signup(req.body.password);
+
+        const user = await db.query("INSERT INTO users (email, password, firstname, lastname) values ($1, $2, $3, $4) RETURNING *", [req.body.email, encryptedPassword.password, req.body.firstname, req.body.lastname]);
+        
+        res.status(201).json({
+            status: "success",
+            results: user.rows.length,
+            data:{
+                user: user.rows[0],
+                errors: errors
+            }
+        })
 
     }catch(err){
         console.log(err);
@@ -34,13 +37,13 @@ router.post('/signup', async(req, res) => {
 
 
 //User Sign In
-router.post('/signin', async(req, res) => {
+router.post('/signin', [checkEmail, checkPassword], async(req, res) => {
     try{
 
         const user = await db.query("SELECT password FROM users WHERE email=$1", [req.body.email]);
 
         const storedPassword = user.rows[0].password;
-        const validPassword = await decrypt(storedPassword, req.body.password);
+        const validPassword = await signin(storedPassword, req.body.password);
 
         if(!user){
             res.status(404).json({

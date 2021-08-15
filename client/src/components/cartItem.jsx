@@ -4,7 +4,6 @@ import collectionAPI from '../apis/collectionAPI';
 const CartItemC = (props) => {
 
     const [cart, setCart] = useState([]);
-    const fixedCart = props.cartCollection;
     const [subtotal, setSubtotal] = useState(0)
 
     let sub = 0;
@@ -12,6 +11,7 @@ const CartItemC = (props) => {
         const fetchData = async (req, res) => {
             try{
                 setCart(props.cartCollection);
+                console.log(cart)
 
                 for(let i = 0; i < cart.length; i++){
                     sub += parseInt(cart[i].price);
@@ -40,9 +40,7 @@ const CartItemC = (props) => {
         try{
             for(let i=0; i < cart.length; i++){
                 if(cart[i].id === item.id){
-                    cart[i].price = fixedCart[i].price * e;
-                    console.log(fixedCart)
-                    setCart(cart)
+                    item.price = cart[i].price * e;
                 }
             }
         }catch(err){

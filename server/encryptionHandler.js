@@ -11,7 +11,7 @@ if(process.env.NODE_ENV !== 'production'){
 
 const signupSecret = process.env.SIGNUPSECRET;
 
-const encrypt = async (password) => {
+const signup = async (password) => {
 
     const salt = crypto.randomBytes(8).toString('hex');
     const hashed = await scrypt(password, salt, 64);
@@ -22,7 +22,7 @@ const encrypt = async (password) => {
     return record;
 }
 
-const decrypt = async (storedPW, providedPW) => {
+const signin = async (storedPW, providedPW) => {
 
     // console.log("Provided PW:" + providedPW)
 
@@ -35,4 +35,4 @@ const decrypt = async (storedPW, providedPW) => {
     return hash === providedPWHashed.toString('hex');
 }
 
-module.exports = {encrypt, decrypt};
+module.exports = {signup, signin};
