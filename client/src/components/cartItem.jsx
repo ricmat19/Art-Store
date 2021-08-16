@@ -4,19 +4,21 @@ import collectionAPI from '../apis/collectionAPI';
 const CartItemC = (props) => {
 
     const [cart, setCart] = useState([]);
+    const [prices, setPrices] = useState([]);
     const [subtotal, setSubtotal] = useState(0)
 
     let sub = 0;
+    let priceArray = [];    
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
                 setCart(props.cartCollection);
-                console.log(cart)
 
                 for(let i = 0; i < cart.length; i++){
                     sub += parseInt(cart[i].price);
                 }
                 setSubtotal(sub);
+
             }catch(err){
                 console.log(err);
             }
@@ -38,11 +40,17 @@ const CartItemC = (props) => {
 
     const setItemQty = (item, e) => {
         try{
+            setPrices(priceArray)
+
             for(let i=0; i < cart.length; i++){
                 if(cart[i].id === item.id){
-                    item.price = cart[i].price * e;
+                    priceArray[i] = cart[i].price * e;
                 }
             }
+            for(let i = 0; i < priceArray.length; i++){
+                sub += parseInt(priceArray[i]);
+            }
+            setSubtotal(sub)
         }catch(err){
             console.log(err);
         }
@@ -50,7 +58,17 @@ const CartItemC = (props) => {
 
     return(
         <div>
-            {cart && cart.map(item => {
+            {cart && cart.map((item, index) => {
+
+                priceArray.push(parseInt(item.price));
+
+                let itemPrice = ``;
+                if(prices[index] === undefined){
+                    itemPrice = item.price;
+                }else{
+                    itemPrice = prices[index];
+                }
+
                 return(
                     <div className="cart-item" key={item.id}>
                         <div className="cart-item-details">
@@ -62,10 +80,10 @@ const CartItemC = (props) => {
                                 <div className="cart-item-title">{item.title}</div>
                             </div>
                             <div className="cart-item-qty">
-                                <input onChange={event => setItemQty(item, event.target.value)} className="item-qty-input" type="number" placeholder="0"/>
+                                <input onChange={event => setItemQty(item, event.target.value)} className="item-qty-input" type="number" placeholder='0'/>
                             </div>
                             <div className="cart-item-price">
-                                <span>${item.price}.00</span>
+                                <span>${itemPrice}.00</span>
                             </div>
                         </div>
                         <hr className="item-hr"/>
