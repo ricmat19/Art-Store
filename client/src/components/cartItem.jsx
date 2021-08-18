@@ -5,7 +5,7 @@ const CartItemC = (props) => {
 
     const [cart, setCart] = useState([]);
     const [prices, setPrices] = useState([]);
-    const [subtotal, setSubtotal] = useState(0)
+    const [subtotal, setSubtotal] = useState(0);
 
     let sub = 0;
     let priceArray = [];    
@@ -17,7 +17,7 @@ const CartItemC = (props) => {
                 for(let i = 0; i < cart.length; i++){
                     sub += parseInt(cart[i].price);
                 }
-                setSubtotal(sub);
+                // setSubtotal(sub);
 
             }catch(err){
                 console.log(err);
@@ -41,14 +41,17 @@ const CartItemC = (props) => {
     const setItemQty = (item, e) => {
         try{
             setPrices(priceArray)
-
             for(let i=0; i < cart.length; i++){
                 if(cart[i].id === item.id){
                     priceArray[i] = cart[i].price * e;
+                }else{
+                    priceArray[i] = prices[i];
                 }
             }
+            setPrices(priceArray);
+            sub = 0;
             for(let i = 0; i < priceArray.length; i++){
-                sub += parseInt(priceArray[i]);
+                sub = sub + parseInt(prices[i]);
             }
             setSubtotal(sub)
         }catch(err){
