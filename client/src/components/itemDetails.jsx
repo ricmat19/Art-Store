@@ -59,15 +59,12 @@ const ItemDetailsC = (props) => {
         fetchData();
     }, []);
 
-    const [qty, setQty] = useState(5);
-
     const addToCart = async (e) => {
         e.preventDefault()
         try{
 
             const response = await CollectionAPI.post("/cart", {
-                id: id,
-                qty: qty
+                id: id
             })
 
             console.log(response.data);

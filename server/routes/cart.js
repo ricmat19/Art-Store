@@ -9,6 +9,7 @@ router.post('/cart', async(req, res) => {
 
         let currentCart = cart.rows[0].cart;
         let newItem = req.body.id;
+        let qty = 1;
 
         //Check that new item does not exist in the cart
 
@@ -33,7 +34,12 @@ router.post('/cart', async(req, res) => {
             currentCart = [req.body.id]
         }
 
-        let newCart = await db.query("UPDATE users SET cart=$1 WHERE email='ric19mat@gmail.com'", [currentCart]);
+        let cartQty = []
+        for(let i = 0; i < currentCart.length; i++){
+            cartQty.push(1);
+        }
+
+        let newCart = await db.query("UPDATE users SET cart=$1, qty=$2 WHERE email='ric19mat@gmail.com'", [currentCart, cartQty]);
         // let newCart = await db.query("UPDATE users SET cart=$1 WHERE email=$2", [currentCart, req.session.email]);
         console.log(req.session.email)
 
@@ -65,11 +71,15 @@ router.get("/cart", async(req, res) => {
             }
         }
 
+        const qty = await db.query("SELECT qty FROM users WHERE email='ric19mat@gmail.com'");
+        const cartQty = qty.rows[0].qty;
+
         res.status(200).json({
             status: "success",
             results: usersCart.length,
             data:{
-                cart: usersCart
+                cart: usersCart,
+                qty: cartQty
             }
         })
     }catch(err){
@@ -90,12 +100,17 @@ router.put('/cart/delete', async(req, res) => {
             }
         }
 
+        let qty = []
+        for(let i=0; i < newCart.length; i++){
+            qty.push(1);
+        }
+
         if(JSON.stringify(newCart) !== JSON.stringify([])){
             console.log("items")
-            const usersCart = await db.query("UPDATE users SET cart=$1 WHERE email='ric19mat@gmail.com' RETURNING *", [newCart]);
+            const usersCart = await db.query("UPDATE users SET cart=$1, qty=$2 WHERE email='ric19mat@gmail.com' RETURNING *", [newCart, qty]);
         }else{
             console.log("no items")
-            const usersCart = await db.query("UPDATE users SET cart=(NULL) WHERE email='ric19mat@gmail.com' RETURNING *");
+            const usersCart = await db.query("UPDATE users SET cart=(NULL), qty=(NULL) WHERE email='ric19mat@gmail.com' RETURNING *");
         }
 
         res.status(200).json({

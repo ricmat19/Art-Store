@@ -47,14 +47,12 @@ const CartItemC = (props) => {
             for(let i=0; i < cart.length; i++){
                 if(cart[i].id === item.id){
                     priceArray[i] = cart[i].price * e;
-                    console.log("Match: " + priceArray[i])
                 }else{
                     if(prices[i] !== undefined){
                         priceArray[i] = prices[i];
                     }else{
                         priceArray[i] = parseInt(cart[i].price);
                     }
-                    console.log(priceArray[i])
                 }
             }
             setPrices(priceArray);
