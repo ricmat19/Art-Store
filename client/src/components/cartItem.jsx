@@ -5,7 +5,7 @@ const CartItemC = (props) => {
 
     const [cart, setCart] = useState([]);
     const [prices, setPrices] = useState([]);
-    const [subtotal, setSubtotal] = useState(0);
+    const [subtotal, setSubtotal] = useState();
 
     let sub = 0;
     let priceArray = [];    
@@ -17,7 +17,10 @@ const CartItemC = (props) => {
                 for(let i = 0; i < cart.length; i++){
                     sub += parseInt(cart[i].price);
                 }
-                // setSubtotal(sub);
+                if(prices.length === 0){
+                    setSubtotal(sub);
+                }
+
 
             }catch(err){
                 console.log(err);
@@ -44,15 +47,21 @@ const CartItemC = (props) => {
             for(let i=0; i < cart.length; i++){
                 if(cart[i].id === item.id){
                     priceArray[i] = cart[i].price * e;
+                    console.log("Match: " + priceArray[i])
                 }else{
-                    priceArray[i] = prices[i];
+                    if(prices[i] !== undefined){
+                        priceArray[i] = prices[i];
+                    }else{
+                        priceArray[i] = parseInt(cart[i].price);
+                    }
+                    console.log(priceArray[i])
                 }
             }
             setPrices(priceArray);
             sub = 0;
-            for(let i = 0; i < priceArray.length; i++){
-                sub = sub + parseInt(prices[i]);
-            }
+            sub = priceArray.reduce(function(a, b){
+                return a + b;
+            }, 0);
             setSubtotal(sub)
         }catch(err){
             console.log(err);
@@ -83,7 +92,7 @@ const CartItemC = (props) => {
                                 <div className="cart-item-title">{item.title}</div>
                             </div>
                             <div className="cart-item-qty">
-                                <input onChange={event => setItemQty(item, event.target.value)} className="item-qty-input" type="number" placeholder='0'/>
+                                <input onChange={event => setItemQty(item, event.target.value)} className="item-qty-input" type="number" placeholder='1'/>
                             </div>
                             <div className="cart-item-price">
                                 <span>${itemPrice}.00</span>
