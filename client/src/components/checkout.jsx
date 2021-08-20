@@ -31,11 +31,19 @@ const CheckoutC = () => {
 
     const [subtotal, setSubtotal] = useState(0)
 
+    let cartPrices = []
     let sub = 0;
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
                 const cartResponse = await CollectionAPI.get(`/cart`);
+                console.log(cartResponse.data.data.qty);
+
+                for(let i = 0; i < cartResponse.data.data.cart.length; i++){
+                    let itemSummaryPrice = cartResponse.data.data.cart[i].price * cartResponse.data.data.qty[i];
+                    cartPrices.push(parseInt(itemSummaryPrice))
+                }
+                console.log(cartPrices)
 
                 for(let i=0; i < cartResponse.data.data.cart.length; i++){
  
@@ -50,10 +58,9 @@ const CheckoutC = () => {
                     
                 }
 
-                for(let i = 0; i < cart.length; i++){
-                    sub += parseInt(cart[i].price);
-                }
-
+                sub = cartPrices.reduce(function(a, b){
+                    return a + b;
+                }, 0);
                 setSubtotal(sub);
 
                 setCart(cartResponse.data.data.cart);
@@ -68,8 +75,6 @@ const CheckoutC = () => {
     const handleCheckout = async (e) => {
         e.preventDefault()
         try{
-
-            const cartResponse = await CollectionAPI.get(`/cart`);
          
             const response = await CollectionAPI.post("/shipment", {
                 email: email,
@@ -195,7 +200,7 @@ const CheckoutC = () => {
                 </form>
                 <div className="order-summary">
                     <div>
-                        <OrderSummaryC cartCollection={cart} subtotal={subtotal}/>
+                        <OrderSummaryC cartCollection={cart} cartPrices={cartPrices} subtotal={subtotal}/>
                     </div>
                     <div className="two-column-div checkout-discount">
                         <input type="text" placeholder="discount code"/>

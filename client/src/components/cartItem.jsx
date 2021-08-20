@@ -5,22 +5,28 @@ const CartItemC = (props) => {
 
     const [cart, setCart] = useState([]);
     const [prices, setPrices] = useState([]);
+    const [cartQty, setCartQty] = useState([]);
     const [subtotal, setSubtotal] = useState();
 
     let sub = 0;
-    let priceArray = [];    
+    let priceArray = []; 
+    let startingCartQty = []   
+    let qtyArray = [];
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
-                setCart(props.cartCollection);
-
-                for(let i = 0; i < cart.length; i++){
-                    sub += parseInt(cart[i].price);
+                
+                if(cart.length === 0){
+                    setCart(props.cartCollection);
                 }
+
                 if(prices.length === 0){
                     setSubtotal(sub);
                 }
 
+                for(let i = 0; i < cart.length; i++){
+                    sub += parseInt(cart[i].price);
+                }
 
             }catch(err){
                 console.log(err);
@@ -41,7 +47,7 @@ const CartItemC = (props) => {
         }
     }
 
-    const setItemQty = (item, e) => {
+    const setItemQty = async (item, e) => {
         try{
             setPrices(priceArray)
             for(let i=0; i < cart.length; i++){
@@ -54,8 +60,23 @@ const CartItemC = (props) => {
                         priceArray[i] = parseInt(cart[i].price);
                     }
                 }
+
+                if(cart[i].id === item.id){
+                    qtyArray[i] = parseInt(e);
+                }else{
+                    if(cartQty[i] !== undefined){
+                        qtyArray[i] = cartQty[i];
+                    }else{
+                        qtyArray[i] = 1;
+                    }
+                }
             }
             setPrices(priceArray);
+            setCartQty(qtyArray);
+            const response = await collectionAPI.put("/cart/quantity", {
+                cartQty: qtyArray                
+            })
+
             sub = 0;
             sub = priceArray.reduce(function(a, b){
                 return a + b;
@@ -90,7 +111,7 @@ const CartItemC = (props) => {
                                 <div className="cart-item-title">{item.title}</div>
                             </div>
                             <div className="cart-item-qty">
-                                <input onChange={event => setItemQty(item, event.target.value)} className="item-qty-input" type="number" placeholder='1'/>
+                                <input onChange={event => setItemQty(item, event.target.value)} className="item-qty-input" type="number" placeholder="0"/>
                             </div>
                             <div className="cart-item-price">
                                 <span>${itemPrice}.00</span>

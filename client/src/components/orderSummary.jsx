@@ -3,12 +3,17 @@ import React, { useEffect, useState } from 'react';
 const OrderSummaryC = (props) => {
 
     const [cart, setCart] = useState([]);
+    const [cartPrices, setCartPrices] = useState([]);
     const [subtotal, setSubtotal] = useState(0);
 
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
                 setCart(props.cartCollection);
+                if(cartPrices.length === 0){
+                    setCartPrices(props.cartPrices);
+                }
+                console.log(cartPrices)
                 setSubtotal(props.subtotal);
             }catch(err){
                 console.log(err);

@@ -34,12 +34,7 @@ router.post('/cart', async(req, res) => {
             currentCart = [req.body.id]
         }
 
-        let cartQty = []
-        for(let i = 0; i < currentCart.length; i++){
-            cartQty.push(1);
-        }
-
-        let newCart = await db.query("UPDATE users SET cart=$1, qty=$2 WHERE email='ric19mat@gmail.com'", [currentCart, cartQty]);
+        let newCart = await db.query("UPDATE users SET cart=$1 WHERE email='ric19mat@gmail.com'", [currentCart]);
         // let newCart = await db.query("UPDATE users SET cart=$1 WHERE email=$2", [currentCart, req.session.email]);
         console.log(req.session.email)
 
@@ -47,7 +42,8 @@ router.post('/cart', async(req, res) => {
             status: "success",
             results: newCart.rows,
             data:{
-                cart: newCart.rows
+                cart: newCart.rows,
+                cartQty: cartQty
             }
         })
     }catch(err){
@@ -81,6 +77,19 @@ router.get("/cart", async(req, res) => {
                 cart: usersCart,
                 qty: cartQty
             }
+        })
+    }catch(err){
+        console.log(err);
+    }
+});
+
+router.put('/cart/quantity', async(req, res) => {
+    try{
+
+        const usersCart = await db.query("UPDATE users SET qty=$1 WHERE email='ric19mat@gmail.com' RETURNING *", [req.body.cartQty]);
+
+        res.status(200).json({
+            status: "success"
         })
     }catch(err){
         console.log(err);
