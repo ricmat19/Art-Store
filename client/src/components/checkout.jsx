@@ -3,6 +3,7 @@ import OrderSummaryC from './orderSummary';
 import HeaderC from './header';
 import FooterC from './footer';
 import CollectionAPI from '../apis/collectionAPI';
+import { useHistory } from 'react-router-dom';
 
 const CheckoutC = () => {
 
@@ -72,6 +73,7 @@ const CheckoutC = () => {
         fetchData();
     }, []);
 
+    let history = useHistory();
     const handleCheckout = async (e) => {
         e.preventDefault()
         try{
@@ -91,15 +93,17 @@ const CheckoutC = () => {
             console.log(response)
             setShipment(response.data.data.newShipment)
 
-            emailInput.current.value = "";
-            firstNameInput.current.value = "";
-            lastNameInput.current.value = "";
-            addressInput.current.value = "";
-            suiteInput.current.value = "";
-            cityInput.current.value = "";
-            stateInput.current.value = "";
-            zipcodeInput.current.value = "";
-            phoneInput.current.value = "";
+            history.push(`/shipping`)
+
+            // emailInput.current.value = "";
+            // firstNameInput.current.value = "";
+            // lastNameInput.current.value = "";
+            // addressInput.current.value = "";
+            // suiteInput.current.value = "";
+            // cityInput.current.value = "";
+            // stateInput.current.value = "";
+            // zipcodeInput.current.value = "";
+            // phoneInput.current.value = "";
 
         }catch(err){
             console.log(err);
@@ -192,7 +196,7 @@ const CheckoutC = () => {
                                 <input type="tel" ref={phoneInput} value={phone} name="phone" placeholder="phone (optional)" onChange={(e) => {setPhone(e.target.value)}}/>
                             </div>
                             <div className="two-column-div">
-                            <button><a href="/shipping" onClick={handleCheckout}>continue to shipping</a></button>
+                                <button onClick={handleCheckout}>continue to shipping</button>
                                 <a href="/cart"><p>return to cart</p></a>
                             </div>
                         </div>
