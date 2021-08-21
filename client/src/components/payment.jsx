@@ -12,12 +12,21 @@ const PaymentC = () => {
     const elements = useElements();
 
     const [cart, setCart] = useState([]);
+    const [cartPrices, setCartPrices] = useState([]);
+    const [subtotal, setSubtotal] = useState(0)
     const [shipment, setShipment] = useState([])
 
+    let cartPriceArray = []
+    let sub = 0;
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
                 const cartResponse = await CollectionAPI.get(`/cart`);
+
+                for(let i = 0; i < cartResponse.data.data.cart.length; i++){
+                    let itemSummaryPrice = cartResponse.data.data.cart[i].price * cartResponse.data.data.qty[i];
+                    cartPriceArray.push(parseInt(itemSummaryPrice))
+                }
 
                 for(let i=0; i < cartResponse.data.data.cart.length; i++){
  
@@ -33,6 +42,13 @@ const PaymentC = () => {
                 }
 
                 const shipmentResponse = await CollectionAPI.get(`/shipment`);
+
+                setCartPrices(cartPriceArray)
+
+                sub = cartPriceArray.reduce(function(a, b){
+                    return a + b;
+                }, 0);
+                setSubtotal(sub);
 
                 setCart(cartResponse.data.data.cart);
                 setShipment(shipmentResponse.data.data.shipment.rows[0])
@@ -141,7 +157,7 @@ const PaymentC = () => {
                 </div>
                 <div className="order-summary">
                     <div>
-                        <OrderSummaryC cartCollection={cart}/>
+                        <OrderSummaryC cartCollection={cart} cartPrices={cartPrices} subtotal={subtotal}/>
                     </div>
                     <div className="two-column-div checkout-discount">
                         <input type="text" placeholder="discount code"/>

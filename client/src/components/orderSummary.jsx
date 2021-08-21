@@ -10,10 +10,7 @@ const OrderSummaryC = (props) => {
         const fetchData = async (req, res) => {
             try{
                 setCart(props.cartCollection);
-                if(cartPrices.length === 0){
-                    setCartPrices(props.cartPrices);
-                }
-                console.log(cartPrices)
+                setCartPrices(props.cartPrices);
                 setSubtotal(props.subtotal);
             }catch(err){
                 console.log(err);
@@ -25,7 +22,7 @@ const OrderSummaryC = (props) => {
 
     return(
         <div>
-            {cart && cart.map(item => {
+            {cart && cartPrices && cart.map((item, index) => {
                 return(
                     <div className="cart-item" key={item.id}>
                         <div className="order-item-details">
@@ -34,7 +31,7 @@ const OrderSummaryC = (props) => {
                                 <div className="cart-item-title">Title</div>
                             </div>
                             <div className="cart-item-price">
-                                <span>${item.price}.00</span>
+                                <span>${cartPrices[index]}.00</span>
                             </div>
                         </div>
 

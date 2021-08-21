@@ -30,7 +30,7 @@ router.get("/shipment", async(req, res) => {
     try{
         const shipment = await db.query("SELECT * FROM shipment WHERE id=9");
 
-        console.log(shipment)
+        // console.log(shipment)
 
         res.status(200).json({
             status: "success",

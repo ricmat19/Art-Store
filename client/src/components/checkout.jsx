@@ -7,6 +7,8 @@ import CollectionAPI from '../apis/collectionAPI';
 const CheckoutC = () => {
 
     const [cart, setCart] = useState([]);
+    const [cartPrices, setCartPrices] = useState([]);
+    const [subtotal, setSubtotal] = useState(0)
     const [shipment, setShipment] = useState(null);
 
     const [email, setEmail] = useState("");
@@ -29,21 +31,17 @@ const CheckoutC = () => {
     const zipcodeInput = useRef(null);
     const phoneInput = useRef(null);
 
-    const [subtotal, setSubtotal] = useState(0)
-
-    let cartPrices = []
+    let cartPriceArray = []
     let sub = 0;
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
                 const cartResponse = await CollectionAPI.get(`/cart`);
-                console.log(cartResponse.data.data.qty);
 
                 for(let i = 0; i < cartResponse.data.data.cart.length; i++){
                     let itemSummaryPrice = cartResponse.data.data.cart[i].price * cartResponse.data.data.qty[i];
-                    cartPrices.push(parseInt(itemSummaryPrice))
+                    cartPriceArray.push(parseInt(itemSummaryPrice))
                 }
-                console.log(cartPrices)
 
                 for(let i=0; i < cartResponse.data.data.cart.length; i++){
  
@@ -58,7 +56,9 @@ const CheckoutC = () => {
                     
                 }
 
-                sub = cartPrices.reduce(function(a, b){
+                setCartPrices(cartPriceArray)
+
+                sub = cartPriceArray.reduce(function(a, b){
                     return a + b;
                 }, 0);
                 setSubtotal(sub);
