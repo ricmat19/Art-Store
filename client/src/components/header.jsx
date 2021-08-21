@@ -35,7 +35,7 @@ const HeaderC = (props) => {
     useEffect(() =>{
 
         document.addEventListener("mousedown", (event) => {
-            if(event.target !== null){
+            if(signinRef.current !== null){
                 if(!signinRef.current.contains(event.target)){
                     setSigninModal("sign-bg");
                 }
