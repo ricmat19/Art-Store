@@ -20,13 +20,21 @@ const CartItemC = (props) => {
                     setCart(props.cartCollection);
                 }
 
+                if(priceArray.length === 0){
+                    for(let i = 0; i < cart.length; i++){
+                        sub += parseInt(cart[i].price);
+                    }
+                }else{
+                    sub = priceArray.reduce(function(a, b){
+                        return a + b;
+                    }, 0);
+                }
+
                 if(prices.length === 0){
                     setSubtotal(sub);
                 }
 
-                for(let i = 0; i < cart.length; i++){
-                    sub += parseInt(cart[i].price);
-                }
+
 
             }catch(err){
                 console.log(err);
