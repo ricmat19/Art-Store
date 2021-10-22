@@ -1,50 +1,54 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 const OrderSummaryC = (props) => {
+  const [cart, setCart] = useState([]);
+  const [cartPrices, setCartPrices] = useState([]);
+  const [subtotal, setSubtotal] = useState(0);
 
-    const [cart, setCart] = useState([]);
-    const [cartPrices, setCartPrices] = useState([]);
-    const [subtotal, setSubtotal] = useState(0);
+  useEffect(() => {
+    const fetchData = async (req, res) => {
+      try {
+        setCart(props.cartCollection);
+        setCartPrices(props.cartPrices);
+        setSubtotal(props.subtotal);
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
-    useEffect(() => {
-        const fetchData = async (req, res) => {
-            try{
-                setCart(props.cartCollection);
-                setCartPrices(props.cartPrices);
-                setSubtotal(props.subtotal);
-            }catch(err){
-                console.log(err);
-            }
-        }
+    fetchData();
+  });
 
-        fetchData();
-    });
-
-    return(
-        <div>
-            {cart && cartPrices && cart.map((item, index) => {
-                return(
-                    <div className="cart-item" key={item.id}>
-                        <div className="order-item-details">
-                            <div className="cart-item-info">
-                                <img className="cart-item-thumbnail" src={`data:image/png;base64,${item.imageBuffer}`} alt="thumbnail"/>
-                                <div className="cart-item-title">Title</div>
-                            </div>
-                            <div className="cart-item-price">
-                                <span>${cartPrices[index]}.00</span>
-                            </div>
-                        </div>
-
-                    </div>
-                );
-            })}
-            <hr className="checkout-hr"/>
-            <div className="two-column-div">
-                <p className="align-left">subtotal</p>
-                <p className="align-right">${subtotal}.00</p>
+  return (
+    <div>
+      {cart &&
+        cartPrices &&
+        cart.map((item, index) => {
+          return (
+            <div className="cart-item" key={item.id}>
+              <div className="order-item-details">
+                <div className="cart-item-info">
+                  <img
+                    className="cart-item-thumbnail"
+                    src={`data:image/png;base64,${item.imageBuffer}`}
+                    alt="thumbnail"
+                  />
+                  <div className="cart-item-title">Title</div>
+                </div>
+                <div className="cart-item-price">
+                  <span>${cartPrices[index]}.00</span>
+                </div>
+              </div>
             </div>
-        </div>
-    )
-}
+          );
+        })}
+      <hr className="checkout-hr" />
+      <div className="two-column-div">
+        <p className="align-left">subtotal</p>
+        <p className="align-right">${subtotal}.00</p>
+      </div>
+    </div>
+  );
+};
 
 export default OrderSummaryC;
