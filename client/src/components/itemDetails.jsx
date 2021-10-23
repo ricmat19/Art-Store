@@ -6,8 +6,8 @@ import CartModalC from "./cartModal";
 import HeaderC from "./header";
 import FooterC from "./footer";
 
-const ItemDetailsC = (props) => {
-  const [cart, setCart] = useState([]);
+const ItemDetailsC = () => {
+  const [, setCart] = useState([]);
   const [cartState, setCartState] = useState(false);
   const [cartQty, setCartQty] = useState(0);
   const [cartCost, setCartCost] = useState(0);
@@ -18,7 +18,7 @@ const ItemDetailsC = (props) => {
   const [imageBuffer, setImageBuffer] = useState("../../images/loading.svg");
 
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         const productResponse = await CollectionAPI.get(
           `/collection/${product}/${id}`

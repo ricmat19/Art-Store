@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 
 const CartModalC = (props) => {
   const [cartFull, setCartFull] = useState(false);
@@ -7,7 +8,7 @@ const CartModalC = (props) => {
   const [cartModal, setCartModal] = useState("inactive-cart cart-modal");
 
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         setCartFull(props.cartState);
         setCartQty(props.cartQty);
@@ -39,5 +40,11 @@ const CartModalC = (props) => {
     </a>
   );
 };
+
+CartModalC.propTypes = {
+  cartState: PropTypes.bool,
+  cartQty: PropTypes.number,
+  cartCost: PropTypes.number
+}
 
 export default CartModalC;

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
 const OrderSummaryC = (props) => {
   const [cart, setCart] = useState([]);
@@ -6,7 +7,7 @@ const OrderSummaryC = (props) => {
   const [subtotal, setSubtotal] = useState(0);
 
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         setCart(props.cartCollection);
         setCartPrices(props.cartPrices);
@@ -50,5 +51,11 @@ const OrderSummaryC = (props) => {
     </div>
   );
 };
+
+OrderSummaryC.propTypes = {
+  cartCollection: PropTypes.array,
+  cartPrices: PropTypes.array,
+  subtotal: PropTypes.number
+}
 
 export default OrderSummaryC;

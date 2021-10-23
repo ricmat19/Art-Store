@@ -1,4 +1,5 @@
 import React, { useState, createContext } from "react";
+import PropTypes from "prop-types";
 
 export const CollectionContext = createContext();
 
@@ -31,4 +32,9 @@ export const CollectionContextProvider = (props) => {
       {props.children}
     </CollectionContext.Provider>
   );
+
 };
+
+CollectionContextProvider.propTypes = {
+  children: PropTypes.any
+}

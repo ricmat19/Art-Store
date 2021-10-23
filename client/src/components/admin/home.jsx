@@ -2,19 +2,16 @@ import React, { useContext, useEffect, useState } from "react";
 import AdminHeaderC from "./header";
 import FooterC from "../footer";
 import CollectionAPI from "../../apis/collectionAPI";
-import { useParams } from "react-router-dom";
 import { CollectionContext } from "../../context/collectionContext";
 
 const HomeC = () => {
-  const { product } = useParams();
-  const { collection, setCollection } = useContext(CollectionContext);
+  const { setCollection } = useContext(CollectionContext);
   const [twoDImage, setTwoDImage] = useState("");
   const [threeDImage, setThreeDImage] = useState("");
   const [comicImage, setComicImage] = useState("");
 
-  const imageArray = [];
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         const productResponse = await CollectionAPI.get(`/collection`);
 

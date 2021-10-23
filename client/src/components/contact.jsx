@@ -5,7 +5,7 @@ import HeaderC from "./header";
 import FooterC from "./footer";
 
 const ContactC = () => {
-  const [cart, setCart] = useState([]);
+  const [, setCart] = useState([]);
   const [cartState, setCartState] = useState(false);
   const [cartQty, setCartQty] = useState(0);
   const [cartCost, setCartCost] = useState(0);
@@ -21,7 +21,7 @@ const ContactC = () => {
   const messageInput = useRef(null);
 
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         const cartResponse = await CollectionAPI.get(`/cart`);
         setCart(cartResponse.data.data.cart);
@@ -50,7 +50,7 @@ const ContactC = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await CollectionAPI.post("/contact", {
+      await CollectionAPI.post("/contact", {
         name: name,
         email: email,
         subject: subject,

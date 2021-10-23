@@ -2,7 +2,7 @@ import React, { useContext, useState, useRef, useEffect } from "react";
 import CollectionAPI from "../../apis/collectionAPI";
 import { CollectionContext } from "../../context/collectionContext";
 
-const HeaderC = (props) => {
+const HeaderC = () => {
   const { createUser } = useContext(CollectionContext);
 
   const [signinModal, setSigninModal] = useState("sign-bg");
@@ -59,10 +59,10 @@ const HeaderC = (props) => {
   const lastNameInput = useRef(null);
   const rePasswordInput = useRef(null);
 
-  const handleSignin = async (e) => {
+  async (e) => {
     e.preventDefault();
     try {
-      const request = await CollectionAPI.get("/signin", {
+      await CollectionAPI.get("/signin", {
         email: email,
         password: password,
       });
@@ -93,9 +93,10 @@ const HeaderC = (props) => {
     }
   };
 
-  const handleReset = async (e) => {
+  async (e) => {
     e.preventDefault();
     try {
+      console.log(e);
     } catch (err) {
       console.log(err);
     }

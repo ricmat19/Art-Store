@@ -5,13 +5,13 @@ import FooterC from "./footer";
 import CollectionAPI from "../apis/collectionAPI";
 
 const AboutC = () => {
-  const [cart, setCart] = useState([]);
+  const [, setCart] = useState([]);
   const [cartState, setCartState] = useState(false);
   const [cartQty, setCartQty] = useState(0);
   const [cartCost, setCartCost] = useState(0);
 
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         const cartResponse = await CollectionAPI.get(`/cart`);
         setCart(cartResponse.data.data.cart);

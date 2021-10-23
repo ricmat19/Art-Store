@@ -7,8 +7,8 @@ import CartModalC from "./cartModal";
 import HeaderC from "./header";
 import FooterC from "./footer";
 
-const CollectionC = (props) => {
-  const [cart, setCart] = useState([]);
+const CollectionC = () => {
+  const [, setCart] = useState([]);
   const [cartState, setCartState] = useState(false);
   const [cartQty, setCartQty] = useState(0);
   const [cartCost, setCartCost] = useState(0);
@@ -50,7 +50,7 @@ const CollectionC = (props) => {
 
   let productResponse;
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         productResponse = await CollectionAPI.get(`/collection/${product}`);
 

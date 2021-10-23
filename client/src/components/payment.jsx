@@ -18,7 +18,7 @@ const PaymentC = () => {
   let cartPriceArray = [];
   let sub = 0;
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         const cartResponse = await CollectionAPI.get(`/cart`);
 

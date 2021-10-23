@@ -3,13 +3,12 @@ import CartModalC from "./cartModal";
 import HeaderC from "./header";
 import FooterC from "./footer";
 import CollectionAPI from "../apis/collectionAPI";
-import { useParams } from "react-router-dom";
 import { CollectionContext } from "../context/collectionContext";
 
 const HomeC = () => {
-  const { product } = useParams();
-  const { collection, setCollection } = useContext(CollectionContext);
-  const [cart, setCart] = useState([]);
+
+  const { setCollection } = useContext(CollectionContext);
+  const [, setCart] = useState([]);
   const [cartState, setCartState] = useState(false);
   const [cartQty, setCartQty] = useState(0);
   const [cartCost, setCartCost] = useState(0);
@@ -18,9 +17,8 @@ const HomeC = () => {
   const [comicImage, setComicImage] = useState("");
 
   let productResponse;
-  let imageArray = [];
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         const cartResponse = await CollectionAPI.get(`/cart`);
         setCart(cartResponse.data.data.cart);

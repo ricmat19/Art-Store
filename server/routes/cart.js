@@ -1,135 +1,147 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 const db = require("../db");
 
 //Add an item to a users cart
-router.post('/cart', async(req, res) => {
-    try{
-        const cart = await db.query("SELECT cart FROM users WHERE email='ric19mat@gmail.com'");
+router.post("/cart", async (req, res) => {
+  try {
+    const cart = await db.query(
+      "SELECT cart FROM users WHERE email='ric19mat@gmail.com'"
+    );
 
-        let currentCart = cart.rows[0].cart;
-        let newItem = req.body.id;
-        let qty = 1;
+    let currentCart = cart.rows[0].cart;
+    let newItem = req.body.id;
 
-        //Check that new item does not exist in the cart
+    //Check that new item does not exist in the cart
 
-        let uniqueItem = true;
-        if(currentCart !== null){
-
-            for(let i=0; i < currentCart.length; i++){
-                console.log("Current Cart " + i + ":" + currentCart[i]);
-                console.log("Req.body.id:" + req.body.id);
-                if(currentCart[i] === req.body.id){
-                    uniqueItem = false;
-                }
-            }
-
-            console.log("Unique Item: " + uniqueItem);
-
-            if(uniqueItem === true){
-                currentCart.push(newItem);
-            }
-
-        }else{
-            currentCart = [req.body.id]
+    let uniqueItem = true;
+    if (currentCart !== null) {
+      for (let i = 0; i < currentCart.length; i++) {
+        console.log("Current Cart " + i + ":" + currentCart[i]);
+        console.log("Req.body.id:" + req.body.id);
+        if (currentCart[i] === req.body.id) {
+          uniqueItem = false;
         }
+      }
 
-        let newCart = await db.query("UPDATE users SET cart=$1 WHERE email='ric19mat@gmail.com'", [currentCart]);
-        // let newCart = await db.query("UPDATE users SET cart=$1 WHERE email=$2", [currentCart, req.session.email]);
-        console.log(req.session.email)
+      console.log("Unique Item: " + uniqueItem);
 
-        res.status(201).json({
-            status: "success",
-            results: newCart.rows,
-            data:{
-                cart: newCart.rows,
-                cartQty: cartQty
-            }
-        })
-    }catch(err){
-        console.log(err);
+      if (uniqueItem === true) {
+        currentCart.push(newItem);
+      }
+    } else {
+      currentCart = [req.body.id];
     }
-})
 
-//Get all collection items of a certain type
-router.get("/cart", async(req, res) => {
+    let newCart = await db.query(
+      "UPDATE users SET cart=$1 WHERE email='ric19mat@gmail.com'",
+      [currentCart]
+    );
+    // let newCart = await db.query("UPDATE users SET cart=$1 WHERE email=$2", [currentCart, req.session.email]);
+    console.log(req.session.email);
 
-    try{
-        const cart = await db.query("SELECT * FROM users WHERE email='ric19mat@gmail.com'");
-
-        const usersCart = [];
-        console.log(cart.rows[0].cart)
-
-        if(cart.rows[0].cart !== null){
-            for(let i = 0; i < cart.rows[0].cart.length; i++){
-                const cartCollection = await db.query("SELECT * FROM collection WHERE id=$1", [cart.rows[0].cart[i]]);
-                usersCart.push(cartCollection.rows[0])
-            }
-        }
-
-        const qty = await db.query("SELECT qty FROM users WHERE email='ric19mat@gmail.com'");
-        const cartQty = qty.rows[0].qty;
-
-        res.status(200).json({
-            status: "success",
-            results: usersCart.length,
-            data:{
-                cart: usersCart,
-                qty: cartQty
-            }
-        })
-    }catch(err){
-        console.log(err);
-    }
+    res.status(201).json({
+      status: "success",
+      results: newCart.rows,
+      data: {
+        cart: newCart.rows
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
-router.put('/cart/quantity', async(req, res) => {
-    try{
+//Get all collection items of a certain type
+router.get("/cart", async (req, res) => {
+  try {
+    const cart = await db.query(
+      "SELECT * FROM users WHERE email='ric19mat@gmail.com'"
+    );
 
-        const usersCart = await db.query("UPDATE users SET qty=$1 WHERE email='ric19mat@gmail.com' RETURNING *", [req.body.cartQty]);
+    const usersCart = [];
+    console.log(cart.rows[0].cart);
 
-        res.status(200).json({
-            status: "success"
-        })
-    }catch(err){
-        console.log(err);
+    if (cart.rows[0].cart !== null) {
+      for (let i = 0; i < cart.rows[0].cart.length; i++) {
+        const cartCollection = await db.query(
+          "SELECT * FROM collection WHERE id=$1",
+          [cart.rows[0].cart[i]]
+        );
+        usersCart.push(cartCollection.rows[0]);
+      }
     }
-})
 
+    const qty = await db.query(
+      "SELECT qty FROM users WHERE email='ric19mat@gmail.com'"
+    );
+    const cartQty = qty.rows[0].qty;
 
-router.put('/cart/delete', async(req, res) => {
-    try{
+    res.status(200).json({
+      status: "success",
+      results: usersCart.length,
+      data: {
+        cart: usersCart,
+        qty: cartQty,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
 
-        const cart = await db.query("SELECT cart FROM users WHERE email='ric19mat@gmail.com'");
+router.put("/cart/quantity", async (req, res) => {
+  try {
+    await db.query(
+      "UPDATE users SET qty=$1 WHERE email='ric19mat@gmail.com' RETURNING *",
+      [req.body.cartQty]
+    );
 
-        const newCart = [];
-        for(let i = 0; i < cart.rows[0].cart.length; i++){
-            if(req.body.id !== cart.rows[0].cart[i]){
-                newCart.push(cart.rows[0].cart[i])
-            }
-        }
+    res.status(200).json({
+      status: "success",
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
 
-        let qty = []
-        for(let i=0; i < newCart.length; i++){
-            qty.push(1);
-        }
+router.put("/cart/delete", async (req, res) => {
+  try {
+    const cart = await db.query(
+      "SELECT cart FROM users WHERE email='ric19mat@gmail.com'"
+    );
 
-        if(JSON.stringify(newCart) !== JSON.stringify([])){
-            console.log("items")
-            const usersCart = await db.query("UPDATE users SET cart=$1, qty=$2 WHERE email='ric19mat@gmail.com' RETURNING *", [newCart, qty]);
-        }else{
-            console.log("no items")
-            const usersCart = await db.query("UPDATE users SET cart=(NULL), qty=(NULL) WHERE email='ric19mat@gmail.com' RETURNING *");
-        }
-
-        res.status(200).json({
-            status: "success"
-        })
-    }catch(err){
-        console.log(err);
+    const newCart = [];
+    for (let i = 0; i < cart.rows[0].cart.length; i++) {
+      if (req.body.id !== cart.rows[0].cart[i]) {
+        newCart.push(cart.rows[0].cart[i]);
+      }
     }
-})
 
+    let qty = [];
+    for (let i = 0; i < newCart.length; i++) {
+      qty.push(1);
+    }
 
+    if (JSON.stringify(newCart) !== JSON.stringify([])) {
+      console.log("items");
+      await db.query(
+        "UPDATE users SET cart=$1, qty=$2 WHERE email='ric19mat@gmail.com' RETURNING *",
+        [newCart, qty]
+      );
+    } else {
+      console.log("no items");
+      await db.query(
+        "UPDATE users SET cart=(NULL), qty=(NULL) WHERE email='ric19mat@gmail.com' RETURNING *"
+      );
+    }
+
+    res.status(200).json({
+      status: "success",
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 module.exports = router;

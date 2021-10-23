@@ -12,7 +12,7 @@ const PaypalC = () => {
           label: "paypal",
           shape: "rect",
         },
-        createOrder: (data, actions, err) => {
+        createOrder: (data, actions) => {
           return actions.order.create({
             intent: "CAPTURE",
             purchase_units: [

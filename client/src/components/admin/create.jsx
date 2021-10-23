@@ -4,7 +4,7 @@ import { CollectionContext } from "../../context/collectionContext";
 import AdminHeaderC from "./header";
 import FooterC from "../footer";
 
-const AdminCreateC = (props) => {
+const AdminCreateC = () => {
   const { createItem } = useContext(CollectionContext);
 
   const [title, setTitle] = useState("");
@@ -115,7 +115,7 @@ const AdminCreateC = (props) => {
                   <input
                     value={type}
                     ref={typeInput}
-                    onChange={(e) => setType("2D")}
+                    onChange={() => setType("2D")}
                     type="radio"
                     name="product"
                   />
@@ -125,7 +125,7 @@ const AdminCreateC = (props) => {
                   <input
                     value={type}
                     ref={typeInput}
-                    onChange={(e) => setType("3D")}
+                    onChange={() => setType("3D")}
                     type="radio"
                     name="product"
                   />
@@ -135,7 +135,7 @@ const AdminCreateC = (props) => {
                   <input
                     value={type}
                     ref={typeInput}
-                    onChange={(e) => setType("comic")}
+                    onChange={() => setType("comic")}
                     type="radio"
                     name="product"
                     required

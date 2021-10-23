@@ -9,7 +9,7 @@ const CheckoutC = () => {
   const [cart, setCart] = useState([]);
   const [cartPrices, setCartPrices] = useState([]);
   const [subtotal, setSubtotal] = useState(0);
-  const [shipment, setShipment] = useState(null);
+  const [, setShipment] = useState(null);
 
   const [email, setEmail] = useState("");
   const [firstname, setFirstName] = useState("");
@@ -34,7 +34,7 @@ const CheckoutC = () => {
   let cartPriceArray = [];
   let sub = 0;
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         const cartResponse = await CollectionAPI.get(`/cart`);
 

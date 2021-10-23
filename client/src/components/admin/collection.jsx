@@ -5,8 +5,9 @@ import CollectionAPI from "../../apis/collectionAPI";
 import { CollectionContext } from "../../context/collectionContext";
 import AdminHeaderC from "../admin/header";
 import FooterC from "../footer";
+import Buffer from "buffer";
 
-const AdminCollectionC = (props) => {
+const AdminCollectionC = () => {
   const { product } = useParams();
   const { collection, setCollection } = useContext(CollectionContext);
   const [pageNumber, setPageNumber] = useState(0);
@@ -66,7 +67,7 @@ const AdminCollectionC = (props) => {
   let history = useHistory();
 
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         const productResponse = await CollectionAPI.get(
           `/admin/collection/${product}`
@@ -101,7 +102,7 @@ const AdminCollectionC = (props) => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await CollectionAPI.delete(`/admin/delete/${id}`);
+      await CollectionAPI.delete(`/admin/delete/${id}`);
       setCollection(
         collection.filter((item) => {
           return item.id !== id;

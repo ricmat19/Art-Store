@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CollectionAPI from "../../apis/collectionAPI";
 import { CollectionContext } from "../../context/collectionContext";
 import AdminHeaderC from "../admin/header";
 import FooterC from "../footer";
 
-const AdminUpdateC = (props) => {
+const AdminUpdateC = () => {
   const { id } = useParams();
-  const { collection, setCollection } = useContext(CollectionContext);
+  const { setCollection } = useContext(CollectionContext);
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
   const [type, setType] = useState("");
@@ -17,7 +17,7 @@ const AdminUpdateC = (props) => {
   const [primaryImage, setPrimaryImage] = useState();
 
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         const response = await CollectionAPI.get(`/admin/update/${id}`);
         setTitle(response.data.data.item.title);
@@ -112,7 +112,7 @@ const AdminUpdateC = (props) => {
                   <label className="radio">2D art</label>
                   <input
                     value={type}
-                    onChange={(e) => setType("2D")}
+                    onChange={() => setType("2D")}
                     type="radio"
                     name="product"
                   />
@@ -121,7 +121,7 @@ const AdminUpdateC = (props) => {
                   <label className="radio">3D art</label>
                   <input
                     value={type}
-                    onChange={(e) => setType("3D")}
+                    onChange={() => setType("3D")}
                     type="radio"
                     name="product"
                   />
@@ -130,7 +130,7 @@ const AdminUpdateC = (props) => {
                   <label className="radio">comic</label>
                   <input
                     value={type}
-                    onChange={(e) => setType("comic")}
+                    onChange={() => setType("comic")}
                     type="radio"
                     name="product"
                     required

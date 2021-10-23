@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import collectionAPI from "../apis/collectionAPI";
+import PropTypes from "prop-types";
 
 const CartItemC = (props) => {
   const [cart, setCart] = useState([]);
@@ -9,10 +10,9 @@ const CartItemC = (props) => {
 
   let sub = 0;
   let priceArray = [];
-  let startingCartQty = [];
   let qtyArray = [];
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         if (cart.length === 0) {
           setCart(props.cartCollection);
@@ -40,7 +40,7 @@ const CartItemC = (props) => {
 
   const deleteFromCart = async (id) => {
     try {
-      const response = await collectionAPI.put("/cart/delete", {
+      await collectionAPI.put("/cart/delete", {
         id: id,
       });
     } catch (err) {
@@ -74,7 +74,7 @@ const CartItemC = (props) => {
       }
       setPrices(priceArray);
       setCartQty(qtyArray);
-      const response = await collectionAPI.put("/cart/quantity", {
+      await collectionAPI.put("/cart/quantity", {
         cartQty: qtyArray,
       });
 
@@ -143,5 +143,9 @@ const CartItemC = (props) => {
     </div>
   );
 };
+
+CartItemC.propTypes = {
+  cartCollection: PropTypes.array
+}
 
 export default CartItemC;

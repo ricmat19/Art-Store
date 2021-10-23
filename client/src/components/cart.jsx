@@ -8,7 +8,7 @@ const CartC = () => {
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         const cartResponse = await CollectionAPI.get(`/cart`);
 
