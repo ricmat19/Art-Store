@@ -102,7 +102,7 @@ const HeaderC = () => {
   async (e) => {
     e.preventDefault();
     try {
-      console.log("reset")
+      console.log("reset");
     } catch (err) {
       console.log(err);
     }

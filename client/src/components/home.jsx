@@ -6,7 +6,6 @@ import CollectionAPI from "../apis/collectionAPI";
 import { CollectionContext } from "../context/collectionContext";
 
 const HomeC = () => {
-
   const { setCollection } = useContext(CollectionContext);
   const [, setCart] = useState([]);
   const [cartState, setCartState] = useState(false);

@@ -44,7 +44,7 @@ router.put("/admin/update/:id", async (req, res) => {
         req.params.id,
       ]
     );
-    res.status(200).json({
+    res.status(201).json({
       status: "success",
       results: item.rows.length,
       data: {

@@ -39,7 +39,7 @@ router.get("/collection/:product/:id", async (req, res) => {
     const item = await db.query(`SELECT * FROM collection WHERE id=$1`, [
       req.params.id,
     ]);
-    res.status(201).json({
+    res.status(200).json({
       status: "success",
       results: item.rows.length,
       data: {

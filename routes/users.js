@@ -94,7 +94,7 @@ router.get("/signout", async (req, res) => {
   try {
     req.session = null;
 
-    res.status(201).json({
+    res.status(200).json({
       status: "success",
     });
   } catch (err) {

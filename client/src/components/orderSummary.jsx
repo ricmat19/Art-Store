@@ -55,7 +55,7 @@ const OrderSummaryC = (props) => {
 OrderSummaryC.propTypes = {
   cartCollection: PropTypes.array,
   cartPrices: PropTypes.array,
-  subtotal: PropTypes.number
-}
+  subtotal: PropTypes.number,
+};
 
 export default OrderSummaryC;

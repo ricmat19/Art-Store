@@ -21,7 +21,7 @@ router.post("/payment", async (req, res) => {
       confirm: true,
     });
 
-    res.status(200).json({
+    res.status(201).json({
       status: "success",
     });
   } catch (err) {

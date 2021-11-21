@@ -44,7 +44,7 @@ const CartModalC = (props) => {
 CartModalC.propTypes = {
   cartState: PropTypes.bool,
   cartQty: PropTypes.number,
-  cartCost: PropTypes.number
-}
+  cartCost: PropTypes.number,
+};
 
 export default CartModalC;

@@ -97,7 +97,7 @@ router.put("/cart/quantity", async (req, res) => {
       [req.body.cartQty]
     );
 
-    res.status(200).json({
+    res.status(201).json({
       status: "success",
     });
   } catch (err) {
@@ -136,7 +136,7 @@ router.put("/cart/delete", async (req, res) => {
       );
     }
 
-    res.status(200).json({
+    res.status(201).json({
       status: "success",
     });
   } catch (err) {

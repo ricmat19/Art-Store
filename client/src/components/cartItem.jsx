@@ -145,7 +145,7 @@ const CartItemC = (props) => {
 };
 
 CartItemC.propTypes = {
-  cartCollection: PropTypes.array
-}
+  cartCollection: PropTypes.array,
+};
 
 export default CartItemC;

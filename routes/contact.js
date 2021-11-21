@@ -40,7 +40,7 @@ router.post("/contact", async (req, res) => {
     .sendMail(mailOptions)
     .then(function () {
       console.log("Email sent");
-      res.sendStatus(200);
+      res.sendStatus(201);
     })
     .catch(function (error) {
       console.log("Error", error);

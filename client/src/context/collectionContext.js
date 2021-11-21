@@ -32,9 +32,8 @@ export const CollectionContextProvider = (props) => {
       {props.children}
     </CollectionContext.Provider>
   );
-
 };
 
 CollectionContextProvider.propTypes = {
-  children: PropTypes.any
-}
+  children: PropTypes.any,
+};
