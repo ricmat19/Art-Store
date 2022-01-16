@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import CartModalC from "./cartModal";
+import CartModalC from "./cartSummaryModal";
 import HeaderC from "./header";
 import FooterC from "./footer";
-import CollectionAPI from "../apis/collectionAPI";
+import IndexAPI from "../apis/indexAPI";
 
 const AboutC = () => {
   const [, setCart] = useState([]);
@@ -13,7 +13,7 @@ const AboutC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const cartResponse = await CollectionAPI.get(`/cart`);
+        const cartResponse = await IndexAPI.get(`/cart`);
         setCart(cartResponse.data.data.cart);
 
         setCartQty(cartResponse.data.data.cart.length);

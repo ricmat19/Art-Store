@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import OrderSummaryC from "./orderSummary";
 import HeaderC from "./header";
 import FooterC from "./footer";
-import CollectionAPI from "../apis/collectionAPI";
+import IndexAPI from "../apis/indexAPI";
 
 const ShippingC = () => {
   const [cart, setCart] = useState([]);
@@ -15,7 +15,7 @@ const ShippingC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const cartResponse = await CollectionAPI.get(`/cart`);
+        const cartResponse = await IndexAPI.get(`/cart`);
 
         for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
           let itemSummaryPrice =
@@ -26,7 +26,7 @@ const ShippingC = () => {
 
         for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
           if (cartResponse.data.data.cart[i].imagekey !== null) {
-            let imagesResponse = await CollectionAPI.get(
+            let imagesResponse = await IndexAPI.get(
               `/images/${cartResponse.data.data.cart[i].imagekey}`,
               {
                 responseType: "arraybuffer",
@@ -39,7 +39,7 @@ const ShippingC = () => {
           }
         }
 
-        const shipmentResponse = await CollectionAPI.get(`/shipment`);
+        const shipmentResponse = await IndexAPI.get(`/shipment`);
 
         setCartPrices(cartPriceArray);
 
@@ -124,7 +124,7 @@ const ShippingC = () => {
         <div className="order-summary">
           <div>
             <OrderSummaryC
-              cartCollection={cart}
+              cartProducts={cart}
               cartPrices={cartPrices}
               subtotal={subtotal}
             />

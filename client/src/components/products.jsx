@@ -1,38 +1,37 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import ReactPaginate from "react-paginate";
-import CollectionAPI from "../apis/collectionAPI";
-import { CollectionContext } from "../context/collectionContext";
-import CartModalC from "./cartModal";
+import IndexAPI from "../apis/indexAPI";
+import CartModalC from "./cartSummaryModal";
 import HeaderC from "./header";
 import FooterC from "./footer";
 
-const CollectionC = () => {
+const ProductsC = () => {
   const [, setCart] = useState([]);
   const [cartState, setCartState] = useState(false);
   const [cartQty, setCartQty] = useState(0);
   const [cartCost, setCartCost] = useState(0);
 
   const { product } = useParams();
-  const { collection, setCollection } = useContext(CollectionContext);
+  const { products, setProducts } = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
 
   const itemsPerPage = 9;
   const pagesVisted = pageNumber * itemsPerPage;
 
-  const displayItems = collection
+  const displayItems = products
     .slice(pagesVisted, pagesVisted + itemsPerPage)
     .map((item) => {
       return (
         <div
-          className="collection-item-div"
+          className="products-item-div"
           key={item.id}
           onClick={() => displayItem(item.product, item.id)}
         >
-          <div className="collection-item">
-            <img className="collection-thumbnail" src={item.imageBuffer} />
+          <div className="products-item">
+            <img className="products-thumbnail" src={item.imageBuffer} />
           </div>
-          <div className="collection-thumbnail-footer">
+          <div className="products-thumbnail-footer">
             <div className="Title">{item.title}</div>
             <div className="Price">${item.price}.00</div>
           </div>
@@ -40,7 +39,7 @@ const CollectionC = () => {
       );
     });
 
-  const pageCount = Math.ceil(collection.length / itemsPerPage);
+  const pageCount = Math.ceil(products.length / itemsPerPage);
 
   const changePage = ({ selected }) => {
     setPageNumber(selected);
@@ -52,11 +51,11 @@ const CollectionC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        productResponse = await CollectionAPI.get(`/collection/${product}`);
+        productResponse = await IndexAPI.get(`/products/${product}`);
 
         for (let i = 0; i < productResponse.data.data.product.length; i++) {
           if (productResponse.data.data.product[i].imagekey !== null) {
-            let imagesResponse = await CollectionAPI.get(
+            let imagesResponse = await IndexAPI.get(
               `/images/${productResponse.data.data.product[i].imagekey}`,
               {
                 responseType: "arraybuffer",
@@ -70,9 +69,9 @@ const CollectionC = () => {
             ].imageBuffer = `data:image/png;base64,${imagesResponse}`;
           }
         }
-        setCollection(productResponse.data.data.product);
+        setProducts(productResponse.data.data.product);
 
-        const cartResponse = await CollectionAPI.get(`/cart`);
+        const cartResponse = await IndexAPI.get(`/cart`);
         setCart(cartResponse.data.data.cart);
 
         setCartQty(cartResponse.data.data.cart.length);
@@ -98,7 +97,7 @@ const CollectionC = () => {
 
   const displayItem = async (product, id) => {
     try {
-      history.push(`/collection/${product}/${id}`);
+      history.push(`/products/${product}/${id}`);
     } catch (err) {
       console.log(err);
     }
@@ -110,17 +109,17 @@ const CollectionC = () => {
       <HeaderC />
       <div className="main-body">
         <div className="center subtitle-div">
-          <a className="subtitle-anchor" href="/collection/2D">
+          <a className="subtitle-anchor" href="/products/2D">
             <p className="title">2D art</p>
           </a>
-          <a className="subtitle-anchor" href="/collection/3D">
+          <a className="subtitle-anchor" href="/products/3D">
             <p className="title">3D art</p>
           </a>
-          <a className="subtitle-anchor" href="/collection/comic">
+          <a className="subtitle-anchor" href="/products/comic">
             <p className="title">comics</p>
           </a>
         </div>
-        <div className="collection-menu">{displayItems}</div>
+        <div className="products-menu">{displayItems}</div>
         <ReactPaginate
           previousLabel={"prev"}
           nextLabel={"next"}
@@ -138,4 +137,4 @@ const CollectionC = () => {
   );
 };
 
-export default CollectionC;
+export default ProductsC;

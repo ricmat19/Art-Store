@@ -2,28 +2,26 @@ import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from "./routes/home";
 import About from "./routes/about";
-import Product from "./routes/collection";
-import Item from "./routes/itemDetails";
+import Product from "./routes/products";
+import Item from "./routes/productDetails";
 import Cart from "./routes/cart";
 import Checkout from "./routes/checkout";
 import Shipping from "./routes/shipping";
 import Payment from "./routes/stripe";
 import Contact from "./routes/contact";
 import AdminHome from "./routes/admin/home";
-import AdminCollection from "./routes/admin/collection";
-import AdminCreate from "./routes/admin/create";
-import AdminUpdate from "./routes/admin/update";
-import { CollectionContextProvider } from "./context/collectionContext";
+import AdminProducts from "./routes/admin/products";
+import AdminCreate from "./routes/admin/createProduct";
+import AdminUpdate from "./routes/admin/updateProduct";
 
 const App = () => {
   return (
-    <CollectionContextProvider>
       <div>
         <Router>
           <Route exact path="/" component={Home} />
           <Route exact path="/about" component={About} />
-          <Route exact path="/collection/:product" component={Product} />
-          <Route exact path="/collection/:product/:id" component={Item} />
+          <Route exact path="/products/:product" component={Product} />
+          <Route exact path="/products/:product/:id" component={Item} />
           <Route export path="/cart" component={Cart} />
           <Route export path="/checkout" component={Checkout} />
           <Route export path="/shipping" component={Shipping} />
@@ -32,14 +30,13 @@ const App = () => {
           <Route exact path="/admin/home" component={AdminHome} />
           <Route
             exact
-            path="/admin/collection/:product"
-            component={AdminCollection}
+            path="/admin/products/:product"
+            component={AdminProducts}
           />
           <Route exact path="/admin/create" component={AdminCreate} />
           <Route exact path="/admin/update/:id" component={AdminUpdate} />
         </Router>
       </div>
-    </CollectionContextProvider>
   );
 };
 

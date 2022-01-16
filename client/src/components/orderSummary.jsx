@@ -9,7 +9,7 @@ const OrderSummaryC = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setCart(props.cartCollection);
+        setCart(props.cartProducts);
         setCartPrices(props.cartPrices);
         setSubtotal(props.subtotal);
       } catch (err) {
@@ -53,7 +53,7 @@ const OrderSummaryC = (props) => {
 };
 
 OrderSummaryC.propTypes = {
-  cartCollection: PropTypes.array,
+  cartProducts: PropTypes.array,
   cartPrices: PropTypes.array,
   subtotal: PropTypes.number,
 };

@@ -3,7 +3,7 @@ import OrderSummaryC from "./orderSummary";
 import HeaderC from "./header";
 import FooterC from "./footer";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import CollectionAPI from "../apis/collectionAPI";
+import IndexAPI from "../apis/indexAPI";
 import Paypal from "./paypalComponent";
 
 const PaymentC = () => {
@@ -20,7 +20,7 @@ const PaymentC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const cartResponse = await CollectionAPI.get(`/cart`);
+        const cartResponse = await IndexAPI.get(`/cart`);
 
         for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
           let itemSummaryPrice =
@@ -31,7 +31,7 @@ const PaymentC = () => {
 
         for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
           if (cartResponse.data.data.cart[i].imagekey !== null) {
-            let imagesResponse = await CollectionAPI.get(
+            let imagesResponse = await IndexAPI.get(
               `/images/${cartResponse.data.data.cart[i].imagekey}`,
               {
                 responseType: "arraybuffer",
@@ -44,7 +44,7 @@ const PaymentC = () => {
           }
         }
 
-        const shipmentResponse = await CollectionAPI.get(`/shipment`);
+        const shipmentResponse = await IndexAPI.get(`/shipment`);
 
         setCartPrices(cartPriceArray);
 
@@ -73,7 +73,7 @@ const PaymentC = () => {
     if (!err) {
       try {
         const { id } = paymentMethod;
-        const response = await CollectionAPI.post(`/payment`, {
+        const response = await IndexAPI.post(`/payment`, {
           amount: 1000,
           id: id,
         });
@@ -186,7 +186,7 @@ const PaymentC = () => {
         <div className="order-summary">
           <div>
             <OrderSummaryC
-              cartCollection={cart}
+              cartProducts={cart}
               cartPrices={cartPrices}
               subtotal={subtotal}
             />

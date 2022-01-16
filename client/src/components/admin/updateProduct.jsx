@@ -1,34 +1,31 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import CollectionAPI from "../../apis/collectionAPI";
-import { CollectionContext } from "../../context/collectionContext";
-import AdminHeaderC from "../admin/header";
+import IndexAPI from "../../apis/indexAPI";
+import AdminHeaderC from "./header";
 import FooterC from "../footer";
 
-const AdminUpdateC = () => {
+const AdminUpdateProductC = () => {
   const { id } = useParams();
-  const { setCollection } = useContext(CollectionContext);
+  const { setProducts } = useState([]);
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
   const [type, setType] = useState("");
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
   const [info, setInfo] = useState("");
-  const [primaryImage, setPrimaryImage] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await CollectionAPI.get(`/admin/update/${id}`);
+        const response = await IndexAPI.get(`/admin/update/${id}`);
         setTitle(response.data.data.item.title);
         setType(response.data.data.item.product);
         setPrice(response.data.data.item.price);
         setInfo(response.data.data.item.info);
         setQuantity(response.data.data.item.qty);
-        setPrimaryImage(response.data.data.item.primaryimage);
 
         if (response.data.data.item.imagekey !== null) {
-          let imagesResponse = await CollectionAPI.get(
+          let imagesResponse = await IndexAPI.get(
             `/images/${response.data.data.item.imagekey}`,
             {
               responseType: "arraybuffer",
@@ -40,7 +37,7 @@ const AdminUpdateC = () => {
           setImage(`data:image/png;base64,${imagesResponse}`);
         }
 
-        setCollection(response.data.data.item);
+        setProducts(response.data.data.item);
       } catch (err) {
         console.log(err);
       }
@@ -52,18 +49,16 @@ const AdminUpdateC = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(primaryImage);
 
-      const update = await CollectionAPI.put(`/admin/update/${id}`, {
+      const update = await IndexAPI.put(`/admin/update/${id}`, {
         title,
         type,
         quantity,
         price,
         info,
-        primaryImage,
       });
 
-      setCollection(update);
+      setProducts(update);
     } catch (err) {
       console.log(err);
     }
@@ -176,7 +171,7 @@ const AdminUpdateC = () => {
                 required
               ></textarea>
             </div>
-            <div className="admin-form-field">
+            {/* <div className="admin-form-field">
               <label className="admin-label" htmlFor="primaryImage">
                 Primary:
               </label>
@@ -186,7 +181,7 @@ const AdminUpdateC = () => {
                 name="primaryImage"
                 className="form-control"
               />
-            </div>
+            </div> */}
             <div className="admin-form-button">
               <div></div>
               <div className="text-center">
@@ -209,4 +204,4 @@ const AdminUpdateC = () => {
   );
 };
 
-export default AdminUpdateC;
+export default AdminUpdateProductC;

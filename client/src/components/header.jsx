@@ -1,9 +1,7 @@
-import React, { useContext, useState, useRef, useEffect } from "react";
-import CollectionAPI from "../apis/collectionAPI";
-import { CollectionContext } from "../context/collectionContext";
+import React, { useState, useRef, useEffect } from "react";
+import IndexAPI from "../apis/indexAPI";
 
 const HeaderC = () => {
-  const { createUser } = useContext(CollectionContext);
 
   const [signinModal, setSigninModal] = useState("sign-bg");
   const [signupModal, setSignupModal] = useState("sign-bg");
@@ -62,15 +60,10 @@ const HeaderC = () => {
   const handleSignin = async (e) => {
     e.preventDefault();
     try {
-      await CollectionAPI.post("/signin", {
+      await IndexAPI.post("/signin", {
         email: email,
         password: password,
       });
-
-      // const request = await CollectionAPI.get("/signin", {
-      //     email: email,
-      //     password: password
-      // });
     } catch (err) {
       console.log(err);
     }
@@ -79,15 +72,13 @@ const HeaderC = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      const response = await CollectionAPI.post("/signup", {
+      await IndexAPI.post("/signup", {
         firstname: firstname,
         lastname: lastname,
         email: email,
         password: password,
         passwordCopy: passwordCopy,
       });
-
-      createUser(response.data.data.user);
 
       firstNameInput.current.value = "";
       lastNameInput.current.value = "";
@@ -272,7 +263,7 @@ const HeaderC = () => {
           <a href="/">
             <p className="title">home</p>
           </a>
-          <a href="/collection/2D">
+          <a href="/products/2D">
             <p className="title">store</p>
           </a>
           <a href="/about">

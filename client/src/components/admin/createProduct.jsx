@@ -1,11 +1,9 @@
-import React, { useContext, useState, useRef } from "react";
-import CollectionAPI from "../../apis/collectionAPI";
-import { CollectionContext } from "../../context/collectionContext";
+import React, { useState, useRef } from "react";
+import IndexAPI from "../../apis/indexAPI";
 import AdminHeaderC from "./header";
 import FooterC from "../footer";
 
-const AdminCreateC = () => {
-  const { createItem } = useContext(CollectionContext);
+const AdminCreateProductC = () => {
 
   const [title, setTitle] = useState("");
   const [type, setType] = useState("");
@@ -38,13 +36,13 @@ const AdminCreateC = () => {
       formData.append("price", price);
       formData.append("info", info);
 
-      const response = await CollectionAPI.post("/admin/create", formData, {
+      await IndexAPI.post("/admin/create", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
         .then((res) => console.log(res))
         .catch((err) => console.log(err));
 
-      // const response = await CollectionAPI.post("/admin/create",{
+      // const response = await IndexAPI.post("/admin/create",{
       //         title: title,
       //         product: type,
       //         images: images,
@@ -52,7 +50,7 @@ const AdminCreateC = () => {
       //         info: info
       // })
 
-      createItem(response);
+      // createItem(response);
 
       titleInput.current.value = "";
       typeInput.current.value = "";
@@ -210,4 +208,4 @@ const AdminCreateC = () => {
   );
 };
 
-export default AdminCreateC;
+export default AdminCreateProductC;

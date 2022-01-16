@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-const CartModalC = (props) => {
+const CartSummaryModalC = (props) => {
   const [cartFull, setCartFull] = useState(false);
   const [cartQty, setCartQty] = useState(0);
   const [cartCost, setCartCost] = useState(0);
@@ -41,10 +41,10 @@ const CartModalC = (props) => {
   );
 };
 
-CartModalC.propTypes = {
+CartSummaryModalC.propTypes = {
   cartState: PropTypes.bool,
   cartQty: PropTypes.number,
   cartCost: PropTypes.number,
 };
 
-export default CartModalC;
+export default CartSummaryModalC;

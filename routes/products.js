@@ -13,11 +13,11 @@ router.get("/images/:key", async (req, res) => {
   }
 });
 
-//Get all collection items of a certain type
-router.get("/collection/:product", async (req, res) => {
+//Get all products items of a certain type
+router.get("/products/:product", async (req, res) => {
   try {
     const product = await db.query(
-      "SELECT * FROM collection WHERE PRODUCT=$1 ORDER BY qty DESC",
+      "SELECT * FROM products WHERE PRODUCT=$1 ORDER BY qty DESC",
       [req.params.product]
     );
 
@@ -33,10 +33,10 @@ router.get("/collection/:product", async (req, res) => {
   }
 });
 
-//Get a specific collection item
-router.get("/collection/:product/:id", async (req, res) => {
+//Get a specific products item
+router.get("/products/:product/:id", async (req, res) => {
   try {
-    const item = await db.query(`SELECT * FROM collection WHERE id=$1`, [
+    const item = await db.query(`SELECT * FROM products WHERE id=$1`, [
       req.params.id,
     ]);
     res.status(200).json({

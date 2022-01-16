@@ -1,40 +1,39 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useHistory, useParams } from "react-router-dom";
-import CollectionAPI from "../../apis/collectionAPI";
-import { CollectionContext } from "../../context/collectionContext";
-import AdminHeaderC from "../admin/header";
+import IndexAPI from "../../apis/indexAPI";
+import AdminHeaderC from "./header";
 import FooterC from "../footer";
-import Buffer from "buffer";
+// import Buffer from "buffer";
 
-const AdminCollectionC = () => {
+const AdminProductsC = () => {
   const { product } = useParams();
-  const { collection, setCollection } = useContext(CollectionContext);
+  const [products, setProducts] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
 
   const itemsPerPage = 9;
   const pagesVisted = pageNumber * itemsPerPage;
 
-  const displayItems = collection
+  const displayItems = products
     .slice(pagesVisted, pagesVisted + itemsPerPage)
     .map((item) => {
       return (
         <div key={item.id}>
-          <div className="collection-item-div">
-            <div className="collection-item">
+          <div className="products-item-div">
+            <div className="products-item">
               <img
-                className="collection-thumbnail"
+                className="products-thumbnail"
                 src={item.imageBuffer}
                 alt="thumbnail"
               />
             </div>
-            <div className="collection-thumbnail-footer">
+            <div className="products-thumbnail-footer">
               <div className="Title">{item.title}</div>
               <div className="Price">${item.price}.00</div>
             </div>
           </div>
           <div className="admin-buttons">
-            <div className="admin-collection-button-div text-center">
+            <div className="admin-products-button-div text-center">
               <div>
                 <button
                   onClick={() => handleDelete(item.id)}
@@ -58,7 +57,7 @@ const AdminCollectionC = () => {
       );
     });
 
-  const pageCount = Math.ceil(collection.length / itemsPerPage);
+  const pageCount = Math.ceil(products.length / itemsPerPage);
 
   const changePage = ({ selected }) => {
     setPageNumber(selected);
@@ -69,20 +68,21 @@ const AdminCollectionC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const productResponse = await CollectionAPI.get(
-          `/admin/collection/${product}`
+        const productResponse = await IndexAPI.get(
+          `/admin/products/${product}`
         );
         console.log(productResponse);
 
         for (let i = 0; i < productResponse.data.data.product.length; i++) {
           if (productResponse.data.data.product[i].imagekey !== null) {
-            let imagesResponse = await CollectionAPI.get(
+            let imagesResponse = await IndexAPI.get(
               `/images/${productResponse.data.data.product[i].imagekey}`,
               {
                 responseType: "arraybuffer",
               }
             ).then((response) =>
-              Buffer.from(response.data, "binary").toString("base64")
+              console.log(response)
+              // Buffer.from(response.data, "binary").toString("base64")
             );
 
             productResponse.data.data.product[
@@ -91,7 +91,7 @@ const AdminCollectionC = () => {
           }
         }
 
-        setCollection(productResponse.data.data.product);
+        setProducts(productResponse.data.data.product);
       } catch (err) {
         console.log(err);
       }
@@ -102,9 +102,9 @@ const AdminCollectionC = () => {
 
   const handleDelete = async (id) => {
     try {
-      await CollectionAPI.delete(`/admin/delete/${id}`);
-      setCollection(
-        collection.filter((item) => {
+      await IndexAPI.delete(`/admin/delete/${id}`);
+      setProducts(
+        products.filter((item) => {
           return item.id !== id;
         })
       );
@@ -126,17 +126,17 @@ const AdminCollectionC = () => {
       <AdminHeaderC />
       <div className="main-body">
         <div className="center subtitle-div">
-          <a className="subtitle-anchor" href="/admin/collection/2D">
+          <a className="subtitle-anchor" href="/admin/products/2D">
             <p className="title">2D art</p>
           </a>
-          <a className="subtitle-anchor" href="/admin/collection/3D">
+          <a className="subtitle-anchor" href="/admin/products/3D">
             <p className="title">3D art</p>
           </a>
-          <a className="subtitle-anchor" href="/admin/collection/comic">
+          <a className="subtitle-anchor" href="/admin/products/comic">
             <p className="title">comics</p>
           </a>
         </div>
-        <div className="collection-menu">{displayItems}</div>
+        <div className="products-menu">{displayItems}</div>
         <ReactPaginate
           previousLabel={"prev"}
           nextLabel={"next"}
@@ -154,4 +154,4 @@ const AdminCollectionC = () => {
   );
 };
 
-export default AdminCollectionC;
+export default AdminProductsC;

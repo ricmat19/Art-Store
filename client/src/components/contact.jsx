@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import CollectionAPI from "../apis/collectionAPI";
-import CartModalC from "./cartModal";
+import IndexAPI from "../apis/indexAPI";
+import CartModalC from "./cartSummaryModal";
 import HeaderC from "./header";
 import FooterC from "./footer";
 
@@ -23,7 +23,7 @@ const ContactC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const cartResponse = await CollectionAPI.get(`/cart`);
+        const cartResponse = await IndexAPI.get(`/cart`);
         setCart(cartResponse.data.data.cart);
 
         setCartQty(cartResponse.data.data.cart.length);
@@ -50,7 +50,7 @@ const ContactC = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await CollectionAPI.post("/contact", {
+      await IndexAPI.post("/contact", {
         name: name,
         email: email,
         subject: subject,

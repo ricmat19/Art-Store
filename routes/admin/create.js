@@ -13,7 +13,7 @@ router.get("/admin", async (req, res) => {
   res.render("admin", { title: "Admin", condition: false });
 });
 
-//Create a collection item
+//Create a products item
 router.post("/admin/create", upload.single("images"), async (req, res) => {
   try {
     // const result = ""
@@ -22,7 +22,7 @@ router.post("/admin/create", upload.single("images"), async (req, res) => {
     res.send({ imagePath: `/images/${result.key}` });
     await unlinkFile(file.path);
     const newItem = await db.query(
-      "INSERT INTO collection (title, product, imagekey, qty, price, info) values ($1, $2, $3, $4, $5, $6) RETURNING *",
+      "INSERT INTO products (title, product, imagekey, qty, price, info) values ($1, $2, $3, $4, $5, $6) RETURNING *",
       [
         req.body.title,
         req.body.product,

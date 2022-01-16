@@ -374,7 +374,7 @@ button {
 }
 
 /*  */
-.collection-menu {
+.products-menu {
   text-align: center;
   display: grid;
   justify-content: center;
@@ -383,22 +383,22 @@ button {
   padding: 50px 200px;
 }
 
-.collection-item-div {
+.products-item-div {
   cursor: pointer;
 }
 
-.collection-item {
+.products-item {
   text-align: center;
 }
 
-.collection-thumbnail {
+.products-thumbnail {
   border-style: none;
   background: rgb(243, 243, 243);
   height: 300px;
   width: 300px;
 }
 
-.collection-thumbnail-footer {
+.products-thumbnail-footer {
   text-align: center;
   display: grid;
   grid-template-columns: auto auto;
@@ -572,7 +572,7 @@ textarea {
   text-align: right;
 }
 
-.admin-collection-button-div {
+.admin-products-button-div {
   display: grid;
   grid-template-columns: auto auto;
 }

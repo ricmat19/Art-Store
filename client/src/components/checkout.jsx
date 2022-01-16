@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import OrderSummaryC from "./orderSummary";
 import HeaderC from "./header";
 import FooterC from "./footer";
-import CollectionAPI from "../apis/collectionAPI";
+import IndexAPI from "../apis/indexAPI";
 import { useHistory } from "react-router-dom";
 
 const CheckoutC = () => {
@@ -36,7 +36,7 @@ const CheckoutC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const cartResponse = await CollectionAPI.get(`/cart`);
+        const cartResponse = await IndexAPI.get(`/cart`);
 
         for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
           let itemSummaryPrice =
@@ -47,7 +47,7 @@ const CheckoutC = () => {
 
         for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
           if (cartResponse.data.data.cart[i].imagekey !== null) {
-            let imagesResponse = await CollectionAPI.get(
+            let imagesResponse = await IndexAPI.get(
               `/images/${cartResponse.data.data.cart[i].imagekey}`,
               {
                 responseType: "arraybuffer",
@@ -80,7 +80,7 @@ const CheckoutC = () => {
   const handleCheckout = async (e) => {
     e.preventDefault();
     try {
-      const response = await CollectionAPI.post("/shipment", {
+      const response = await IndexAPI.post("/shipment", {
         email: email,
         firstname: firstname,
         lastname: lastname,
@@ -288,7 +288,7 @@ const CheckoutC = () => {
         <div className="order-summary">
           <div>
             <OrderSummaryC
-              cartCollection={cart}
+              cartProducts={cart}
               cartPrices={cartPrices}
               subtotal={subtotal}
             />

@@ -3,10 +3,10 @@ const morgan = require("morgan");
 const cors = require("cors");
 const cookieSession = require("cookie-session");
 const app = express();
-const adminCollectionRouter = require("./routes/admin/collection");
+const adminProductsRouter = require("./routes/admin/products");
 const adminCreateRouter = require("./routes/admin/create");
 const adminUpdateRouter = require("./routes/admin/update");
-const collectionRouter = require("./routes/collection");
+const productsRouter = require("./routes/products");
 const contactRouter = require("./routes/contact");
 const usersRouter = require("./routes/users");
 const cartRouter = require("./routes/cart");
@@ -40,10 +40,10 @@ app.use(
   })
 );
 
-app.use(adminCollectionRouter);
+app.use(adminProductsRouter);
 app.use(adminCreateRouter);
 app.use(adminUpdateRouter);
-app.use(collectionRouter);
+app.use(productsRouter);
 app.use(contactRouter);
 app.use(usersRouter);
 app.use(cartRouter);

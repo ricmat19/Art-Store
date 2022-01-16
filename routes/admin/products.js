@@ -2,18 +2,18 @@ const express = require("express");
 const router = express.Router();
 const db = require("../../db");
 
-//Get all collection items
-router.get("/collection", async (req, res) => {
+//Get all products items
+router.get("/products", async (req, res) => {
   try {
-    const collection = await db.query(
-      "SELECT * FROM collection WHERE primaryImage=true"
+    const products = await db.query(
+      "SELECT * FROM products"
     );
 
     res.status(200).json({
       status: "success",
-      results: collection.rows.length,
+      results: products.rows.length,
       data: {
-        collection: collection.rows,
+        products: products.rows,
       },
     });
   } catch (err) {
@@ -21,11 +21,11 @@ router.get("/collection", async (req, res) => {
   }
 });
 
-//Get all collection items
-router.get("/admin/collection/:product", async (req, res) => {
+//Get all products items
+router.get("/admin/products/:product", async (req, res) => {
   try {
     const product = await db.query(
-      "SELECT * FROM collection WHERE PRODUCT=$1",
+      "SELECT * FROM products WHERE PRODUCT=$1",
       [req.params.product]
     );
     res.status(200).json({
@@ -40,10 +40,10 @@ router.get("/admin/collection/:product", async (req, res) => {
   }
 });
 
-//Delete a collection item
+//Delete a products item
 router.delete("/admin/delete/:id", async (req, res) => {
   try {
-    await db.query("DELETE FROM collection WHERE id = $1", [
+    await db.query("DELETE FROM products WHERE id = $1", [
       req.params.id,
     ]);
     res.status(204).json({

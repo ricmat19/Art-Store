@@ -6,7 +6,7 @@ const db = require("../db");
 router.post("/cart", async (req, res) => {
   try {
     const cart = await db.query(
-      "SELECT cart FROM users WHERE email='ric19mat@gmail.com'"
+      "SELECT cart FROM admin_users WHERE email='ric19mat@gmail.com'"
     );
 
     let currentCart = cart.rows[0].cart;
@@ -34,7 +34,7 @@ router.post("/cart", async (req, res) => {
     }
 
     let newCart = await db.query(
-      "UPDATE users SET cart=$1 WHERE email='ric19mat@gmail.com'",
+      "UPDATE admin_users SET cart=$1 WHERE email='ric19mat@gmail.com'",
       [currentCart]
     );
     // let newCart = await db.query("UPDATE users SET cart=$1 WHERE email=$2", [currentCart, req.session.email]);
@@ -52,28 +52,27 @@ router.post("/cart", async (req, res) => {
   }
 });
 
-//Get all collection items of a certain type
+//Get all products items of a certain type
 router.get("/cart", async (req, res) => {
   try {
     const cart = await db.query(
-      "SELECT * FROM users WHERE email='ric19mat@gmail.com'"
+      "SELECT * FROM admin_users WHERE email='ric19mat@gmail.com'"
     );
 
     const usersCart = [];
-    console.log(cart.rows[0].cart);
 
     if (cart.rows[0].cart !== null) {
       for (let i = 0; i < cart.rows[0].cart.length; i++) {
-        const cartCollection = await db.query(
-          "SELECT * FROM collection WHERE id=$1",
+        const cartproducts = await db.query(
+          "SELECT * FROM products WHERE id=$1",
           [cart.rows[0].cart[i]]
         );
-        usersCart.push(cartCollection.rows[0]);
+        usersCart.push(cartproducts.rows[0]);
       }
     }
 
     const qty = await db.query(
-      "SELECT qty FROM users WHERE email='ric19mat@gmail.com'"
+      "SELECT qty FROM admin_users WHERE email='ric19mat@gmail.com'"
     );
     const cartQty = qty.rows[0].qty;
 
@@ -93,7 +92,7 @@ router.get("/cart", async (req, res) => {
 router.put("/cart/quantity", async (req, res) => {
   try {
     await db.query(
-      "UPDATE users SET qty=$1 WHERE email='ric19mat@gmail.com' RETURNING *",
+      "UPDATE admin_users SET qty=$1 WHERE email='ric19mat@gmail.com' RETURNING *",
       [req.body.cartQty]
     );
 
@@ -108,7 +107,7 @@ router.put("/cart/quantity", async (req, res) => {
 router.put("/cart/delete", async (req, res) => {
   try {
     const cart = await db.query(
-      "SELECT cart FROM users WHERE email='ric19mat@gmail.com'"
+      "SELECT cart FROM admin_users WHERE email='ric19mat@gmail.com'"
     );
 
     const newCart = [];
@@ -126,13 +125,13 @@ router.put("/cart/delete", async (req, res) => {
     if (JSON.stringify(newCart) !== JSON.stringify([])) {
       console.log("items");
       await db.query(
-        "UPDATE users SET cart=$1, qty=$2 WHERE email='ric19mat@gmail.com' RETURNING *",
+        "UPDATE admin_users SET cart=$1, qty=$2 WHERE email='ric19mat@gmail.com' RETURNING *",
         [newCart, qty]
       );
     } else {
       console.log("no items");
       await db.query(
-        "UPDATE users SET cart=(NULL), qty=(NULL) WHERE email='ric19mat@gmail.com' RETURNING *"
+        "UPDATE admin_users SET cart=(NULL), qty=(NULL) WHERE email='ric19mat@gmail.com' RETURNING *"
       );
     }
 
