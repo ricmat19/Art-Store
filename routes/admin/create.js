@@ -21,7 +21,7 @@ router.post("/admin/create", upload.single("images"), async (req, res) => {
     const result = await uploadFile(file);
     res.send({ imagePath: `/images/${result.key}` });
     await unlinkFile(file.path);
-    const newItem = await db.query(
+    await db.query(
       "INSERT INTO products (title, product, imagekey, qty, price, info) values ($1, $2, $3, $4, $5, $6) RETURNING *",
       [
         req.body.title,
@@ -32,13 +32,13 @@ router.post("/admin/create", upload.single("images"), async (req, res) => {
         req.body.info,
       ]
     );
-    res.status(201).json({
-      status: "success",
-      results: newItem.rows.length,
-      data: {
-        newItem: newItem.rows[0],
-      },
-    });
+    // res.status(201).json({
+    //   status: "success",
+    //   results: newItem.rows.length,
+    //   data: {
+    //     newItem: newItem.rows[0],
+    //   },
+    // });
   } catch (err) {
     console.log(err);
   }

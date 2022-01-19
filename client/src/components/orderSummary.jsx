@@ -32,7 +32,7 @@ const OrderSummaryC = (props) => {
                   <img
                     className="cart-item-thumbnail"
                     src={`data:image/png;base64,${item.imageBuffer}`}
-                    alt="thumbnail"
+                    alt="Thumbnail"
                   />
                   <div className="cart-item-title">Title</div>
                 </div>

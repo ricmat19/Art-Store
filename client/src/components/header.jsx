@@ -263,7 +263,7 @@ const HeaderC = () => {
           <a href="/">
             <p className="title">home</p>
           </a>
-          <a href="/products/2D">
+          <a href="/products/print">
             <p className="title">store</p>
           </a>
           <a href="/about">

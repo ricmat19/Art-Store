@@ -94,7 +94,7 @@ const ProductDetailsC = () => {
         <div className="item-images">
           <div className="image-div">
             <div className="big-image-div">
-              <img className="big-image" src={imageBuffer} alt="main" />
+              <img className="big-image" src={imageBuffer} alt="product image" />
             </div>
           </div>
         </div>

@@ -26,12 +26,12 @@ const HomeC = () => {
             );
 
             if (
-              productResponse.data.data.collection[i].product === "2D"
+              productResponse.data.data.collection[i].product === "print"
             ) {
               setTwoDImage(`data:image/png;base64,${imagesResponse}`);
             }
             if (
-              productResponse.data.data.products[i].product === "3D"
+              productResponse.data.data.products[i].product === "model"
             ) {
               setThreeDImage(`data:image/png;base64,${imagesResponse}`);
             }
@@ -55,21 +55,21 @@ const HomeC = () => {
     <div>
       <AdminHeaderC />
       <div className="main-body home-menu">
-        <a href="products/2D">
+        <a href="products/print">
           <div className="menu-item">
-            <img className="menu-image" src={twoDImage} alt="2d art" />
-            <p className="title">2D art</p>
+            <img className="menu-image" src={twoDImage} alt="2D Print" />
+            <p className="title">2D Prints</p>
           </div>
         </a>
-        <a href="products/3D">
+        <a href="products/model">
           <div className="menu-item">
-            <img className="menu-image" src={threeDImage} alt="3d art" />
-            <p className="title">3D art</p>
+            <img className="menu-image" src={threeDImage} alt="3D Model" />
+            <p className="title">3D model</p>
           </div>
         </a>
         <a href="products/comic">
           <div className="menu-item">
-            <img className="menu-image" src={comicImage} alt="comics" />
+            <img className="menu-image" src={comicImage} alt="Comic" />
             <p className="title">comics</p>
           </div>
         </a>

@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import CartModalC from "./cartSummaryModal";
+// import CartModalC from "./cartSummaryModal";
 import HeaderC from "./header";
+import CoverC from "./cover";
 import FooterC from "./footer";
 import IndexAPI from "../apis/indexAPI";
 
 const HomeC = () => {
-  const { setProducts } = useState([]);
-  const [, setCart] = useState([]);
-  const [cartState, setCartState] = useState(false);
-  const [cartQty, setCartQty] = useState(0);
-  const [cartCost, setCartCost] = useState(0);
+  const [setProducts] = useState([]);
+  // const [, setCart] = useState([]);
+  // const [cartState, setCartState] = useState(false);
+  // const [cartQty, setCartQty] = useState(0);
+  // const [cartCost, setCartCost] = useState(0);
   const [twoDImage, setTwoDImage] = useState("");
   const [threeDImage, setThreeDImage] = useState("");
   const [comicImage, setComicImage] = useState("");
@@ -18,24 +19,25 @@ const HomeC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const cartResponse = await IndexAPI.get(`/cart`);
-        setCart(cartResponse.data.data.cart);
+        // const cartResponse = await IndexAPI.get(`/cart`);
+        // setCart(cartResponse.data.data.cart);
 
-        setCartQty(cartResponse.data.data.cart.length);
+        // setCartQty(cartResponse.data.data.cart.length);
 
-        let price = 0;
-        for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
-          price += parseInt(cartResponse.data.data.cart[i].price);
-        }
-        setCartCost(price);
+        // let price = 0;
+        // for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
+        //   price += parseInt(cartResponse.data.data.cart[i].price);
+        // }
+        // setCartCost(price);
 
-        if (cartResponse.length !== 0) {
-          setCartState(true);
-        } else {
-          setCartState(false);
-        }
+        // if (cartResponse.length !== 0) {
+        //   setCartState(true);
+        // } else {
+        //   setCartState(false);
+        // }
 
         productResponse = await IndexAPI.get(`/products`);
+        console.log(productResponse.data.data.products)
 
         for (let i = 0; i < productResponse.data.data.products.length; i++) {
           if (productResponse.data.data.products[i].imagekey !== null) {
@@ -49,12 +51,12 @@ const HomeC = () => {
             );
 
             if (
-              productResponse.data.data.products[i].product === "2D"
+              productResponse.data.data.products[i].product === "print"
             ) {
               setTwoDImage(`data:image/png;base64,${imagesResponse}`);
             }
             if (
-              productResponse.data.data.products[i].product === "3D"
+              productResponse.data.data.products[i].product === "model"
             ) {
               setThreeDImage(`data:image/png;base64,${imagesResponse}`);
             }
@@ -76,25 +78,26 @@ const HomeC = () => {
 
   return (
     <div>
-      <CartModalC cartState={cartState} cartQty={cartQty} cartCost={cartCost} />
+      {/* <CartModalC cartState={cartState} cartQty={cartQty} cartCost={cartCost} /> */}
       <HeaderC />
+      <CoverC/>
       <div className="main-body home-menu">
-        <a href="products/2D">
+        <a href="products/print">
           <div className="menu-item">
-            <img className="menu-image" src={twoDImage} alt="prints" />
-            <p className="title">2D art</p>
+            <img className="menu-image" src={twoDImage} alt="2D Print" />
+            <p className="title">2D Prints</p>
           </div>
         </a>
-        <a href="products/3D">
+        <a href="products/model">
           <div className="menu-item">
-            <img className="menu-image" src={threeDImage} alt="3d art" />
-            <p className="title">3D art</p>
+            <img className="menu-image" src={threeDImage} alt="3D Model" />
+            <p className="title">3D Models</p>
           </div>
         </a>
         <a href="products/comic">
           <div className="menu-item">
-            <img className="menu-image" src={comicImage} alt="comics" />
-            <p className="title">comics</p>
+            <img className="menu-image" src={comicImage} alt="Comic" />
+            <p className="title">Comics</p>
           </div>
         </a>
       </div>

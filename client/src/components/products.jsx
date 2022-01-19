@@ -13,7 +13,7 @@ const ProductsC = () => {
   const [cartCost, setCartCost] = useState(0);
 
   const { product } = useParams();
-  const { products, setProducts } = useState([]);
+  const [ products, setProducts ] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
 
   const itemsPerPage = 9;
@@ -109,14 +109,14 @@ const ProductsC = () => {
       <HeaderC />
       <div className="main-body">
         <div className="center subtitle-div">
-          <a className="subtitle-anchor" href="/products/2D">
-            <p className="title">2D art</p>
+          <a className="subtitle-anchor" href="/products/print">
+            <p className="title">2D Prints</p>
           </a>
-          <a className="subtitle-anchor" href="/products/3D">
-            <p className="title">3D art</p>
+          <a className="subtitle-anchor" href="/products/model">
+            <p className="title">3D Models</p>
           </a>
           <a className="subtitle-anchor" href="/products/comic">
-            <p className="title">comics</p>
+            <p className="title">Comics</p>
           </a>
         </div>
         <div className="products-menu">{displayItems}</div>

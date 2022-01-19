@@ -4,7 +4,6 @@ import { useHistory, useParams } from "react-router-dom";
 import IndexAPI from "../../apis/indexAPI";
 import AdminHeaderC from "./header";
 import FooterC from "../footer";
-// import Buffer from "buffer";
 
 const AdminProductsC = () => {
   const { product } = useParams();
@@ -24,7 +23,7 @@ const AdminProductsC = () => {
               <img
                 className="products-thumbnail"
                 src={item.imageBuffer}
-                alt="thumbnail"
+                alt="Thumbnail"
               />
             </div>
             <div className="products-thumbnail-footer">
@@ -81,8 +80,7 @@ const AdminProductsC = () => {
                 responseType: "arraybuffer",
               }
             ).then((response) =>
-              console.log(response)
-              // Buffer.from(response.data, "binary").toString("base64")
+              Buffer.from(response.data, "binary").toString("base64")
             );
 
             productResponse.data.data.product[
@@ -90,7 +88,6 @@ const AdminProductsC = () => {
             ].imageBuffer = `data:image/png;base64,${imagesResponse}`;
           }
         }
-
         setProducts(productResponse.data.data.product);
       } catch (err) {
         console.log(err);
@@ -126,14 +123,14 @@ const AdminProductsC = () => {
       <AdminHeaderC />
       <div className="main-body">
         <div className="center subtitle-div">
-          <a className="subtitle-anchor" href="/admin/products/2D">
-            <p className="title">2D art</p>
+          <a className="subtitle-anchor" href="/admin/products/print">
+            <p className="title">2D Prints</p>
           </a>
-          <a className="subtitle-anchor" href="/admin/products/3D">
-            <p className="title">3D art</p>
+          <a className="subtitle-anchor" href="/admin/products/model">
+            <p className="title">3D Models</p>
           </a>
           <a className="subtitle-anchor" href="/admin/products/comic">
-            <p className="title">comics</p>
+            <p className="title">Comics</p>
           </a>
         </div>
         <div className="products-menu">{displayItems}</div>

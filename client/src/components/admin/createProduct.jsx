@@ -78,7 +78,7 @@ const AdminCreateProductC = () => {
           <div className="admin-image-div">
             <div className="image">
               <div className="big-image-div">
-                <img className="big-image" src={displayedImage} alt="item" />
+                <img className="big-image" src={displayedImage} alt="product" />
               </div>
             </div>
           </div>
@@ -109,21 +109,21 @@ const AdminCreateProductC = () => {
               </div>
               <div className="radio-div">
                 <div>
-                  <label className=" radio">2D art</label>
+                  <label className=" radio">2D Print</label>
                   <input
                     value={type}
                     ref={typeInput}
-                    onChange={() => setType("2D")}
+                    onChange={() => setType("print")}
                     type="radio"
                     name="product"
                   />
                 </div>
                 <div>
-                  <label className=" radio">3D art</label>
+                  <label className=" radio">3D Model</label>
                   <input
                     value={type}
                     ref={typeInput}
-                    onChange={() => setType("3D")}
+                    onChange={() => setType("model")}
                     type="radio"
                     name="product"
                   />

@@ -52,7 +52,7 @@ const AboutC = () => {
                 <img
                   className="big-image"
                   src="../../images/profileImage.jpeg"
-                  alt="profile"
+                  alt="Profile"
                 />
               </div>
             </div>

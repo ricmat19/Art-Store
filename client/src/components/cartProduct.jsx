@@ -116,7 +116,7 @@ const CartProductC = (props) => {
                     <img
                       className="cart-item-thumbnail"
                       src={`data:image/png;base64,${item.imageBuffer}`}
-                      alt="thumbnail"
+                      alt="Thumbnail"
                     />
                   </span>
                   <div className="cart-item-title">{item.title}</div>

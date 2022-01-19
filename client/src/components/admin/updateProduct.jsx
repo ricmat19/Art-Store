@@ -6,7 +6,7 @@ import FooterC from "../footer";
 
 const AdminUpdateProductC = () => {
   const { id } = useParams();
-  const { setProducts } = useState([]);
+  const [setProducts] = useState([]);
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
   const [type, setType] = useState("");
@@ -75,7 +75,7 @@ const AdminUpdateProductC = () => {
           <div className="admin-image-div">
             <div className="image">
               <div className="big-image-div">
-                <img className="big-image" src={image} alt="item" />
+                <img className="big-image" src={image} alt="product" />
               </div>
             </div>
           </div>
@@ -104,19 +104,19 @@ const AdminUpdateProductC = () => {
               </div>
               <div className="radio-div">
                 <div>
-                  <label className="radio">2D art</label>
+                  <label className="radio">2D Print</label>
                   <input
                     value={type}
-                    onChange={() => setType("2D")}
+                    onChange={() => setType("print")}
                     type="radio"
                     name="product"
                   />
                 </div>
                 <div>
-                  <label className="radio">3D art</label>
+                  <label className="radio">3D Model</label>
                   <input
                     value={type}
-                    onChange={() => setType("3D")}
+                    onChange={() => setType("model")}
                     type="radio"
                     name="product"
                   />

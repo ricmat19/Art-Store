@@ -1,6 +1,8 @@
 body {
   color: #000000;
   font-family: "Rajdhani";
+  margin: 0;
+  padding: 0;
 }
 
 h1,
@@ -10,6 +12,28 @@ h4,
 h5,
 h6 {
   font-weight: normal;
+}
+
+.cover{
+  background-image: url("/images/allOut.jpg");
+  background-blend-mode: overlay;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+
+.navbar-div, .navbar-div a{
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: black;
+  color: white;
 }
 
 .title {
@@ -72,6 +96,7 @@ button a:hover {
   position: fixed;
   right: 11px;
 }
+
 
 .navbar {
   display: grid;
@@ -371,6 +396,8 @@ button {
   grid-template-columns: repeat(auto-fit, minmax(15rem, 20rem));
   gap: 30px;
   padding: 50px 200px;
+  position: absolute;
+  top: 100vh;
 }
 
 /*  */
