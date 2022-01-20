@@ -43,7 +43,7 @@ const AboutC = () => {
       <HeaderC />
       <div className="main-body">
         <div className="center">
-          <p className="title">about</p>
+          <h1>about</h1>
         </div>
         <div className="profile-info">
           <div className="profile-image-div">
@@ -60,8 +60,8 @@ const AboutC = () => {
             <div className="qty"></div>
           </div>
           <div className="about-info">
-            <p>&emsp; &emsp; {process.env.REACT_APP_INFO_PARAGRAPH_1}</p>
-            <p>&emsp; &emsp; {process.env.REACT_APP_INFO_PARAGRAPH_2}</p>
+            <h3>&emsp; &emsp; {process.env.REACT_APP_INFO_PARAGRAPH_1}</h3>
+            <h3>&emsp; &emsp; {process.env.REACT_APP_INFO_PARAGRAPH_2}</h3>
           </div>
         </div>
       </div>

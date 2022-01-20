@@ -14,7 +14,7 @@ const ProductDetailsC = () => {
   const { product, id } = useParams();
   const { selectedProduct, setSelectedProduct } = useState([]);
 
-  const [imageBuffer, setImageBuffer] = useState("../../images/loading.svg");
+  const [imageBuffer, setImageBuffer] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {

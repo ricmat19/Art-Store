@@ -2,10 +2,10 @@ import React, { useState, useRef, useEffect } from "react";
 import IndexAPI from "../apis/indexAPI";
 
 const HeaderC = () => {
-
   const [signinModal, setSigninModal] = useState("sign-bg");
   const [signupModal, setSignupModal] = useState("sign-bg");
   const [resetModal, setResetModal] = useState("sign-bg");
+  const [cartCount] = useState(0);
 
   const displaySignin = () => {
     setSigninModal("sign-bg sign-active");
@@ -252,7 +252,7 @@ const HeaderC = () => {
         </form>
       </div>
 
-      <div>
+      <div className="nav-row">
         <input type="checkbox" id="nav-toggle" className="nav-toggle" />
         <label htmlFor="nav-toggle" className="title nav-toggle-label">
           <a className="menu-toggle">
@@ -263,7 +263,7 @@ const HeaderC = () => {
           <a href="/">
             <p className="title">home</p>
           </a>
-          <a href="/products/print">
+          <a href="/#store">
             <p className="title">store</p>
           </a>
           <a href="/about">
@@ -272,12 +272,18 @@ const HeaderC = () => {
           <a href="/contact">
             <p className="title">contact</p>
           </a>
-          <div onClick={displaySignin}>
-            <p className="title pointer">sign in</p>
-          </div>
+          <a href>
+            <div onClick={displaySignin}>
+              <p className="title pointer">sign in</p>
+            </div>
+          </a>
+          <a href="/cart">
+            <p className="title pointer">
+              {cartCount} items <i className="fas fa-shopping-cart"></i>
+            </p>
+          </a>
         </nav>
       </div>
-      <hr />
     </div>
   );
 };

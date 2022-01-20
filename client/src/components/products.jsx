@@ -110,13 +110,13 @@ const ProductsC = () => {
       <div className="main-body">
         <div className="center subtitle-div">
           <a className="subtitle-anchor" href="/products/print">
-            <p className="title">2D Prints</p>
+            <h2 className="title">2D Prints</h2>
           </a>
           <a className="subtitle-anchor" href="/products/model">
-            <p className="title">3D Models</p>
+            <h2 className="title">3D Models</h2>
           </a>
           <a className="subtitle-anchor" href="/products/comic">
-            <p className="title">Comics</p>
+            <h2 className="title">Comics</h2>
           </a>
         </div>
         <div className="products-menu">{displayItems}</div>

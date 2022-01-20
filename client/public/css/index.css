@@ -3,6 +3,8 @@ body {
   font-family: "Rajdhani";
   margin: 0;
   padding: 0;
+  background-color: black;
+  color: white;
 }
 
 h1,
@@ -12,23 +14,56 @@ h4,
 h5,
 h6 {
   font-weight: normal;
+  text-align: center;
+  color: white;
 }
 
-.cover{
+a{
+  color: white;
+}
+
+h1{
+  margin: 70px 0;
+}
+
+h3{
+  text-align: justify;
+}
+
+.cover {
   background-image: url("/images/allOut.jpg");
   background-blend-mode: overlay;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  height: 100vh;
-  width: 100vw;
-  position: absolute;
-  top: 0;
-  left: 0;
+  height: calc(100vh - 70px);
+  position: relative;
 }
 
+#store {
+  padding-top: 70px;
+  min-height: calc(100vh - 70px);
+}
 
-.navbar-div, .navbar-div a{
+.intro-button {
+  color: white;
+  text-align: center;
+  font-size: 50px;
+  display: grid;
+  width: 100vw;
+}
+
+.down-arrow {
+  font-size: 100px;
+  color: white;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 50px;
+  justify-self: center;
+}
+
+.navbar-div,
+.navbar-div a {
   position: sticky;
   top: 0;
   z-index: 2;
@@ -46,7 +81,7 @@ a {
 }
 
 a:hover {
-  color: rgb(212, 0, 28);
+  color: white;
 }
 
 button a,
@@ -80,11 +115,11 @@ button a:hover {
 
 .pointer:hover {
   cursor: pointer;
-  color: rgb(212, 0, 28);
+  color: white;
 }
 
 .inactive-cart {
-  background-color: rgb(243, 243, 243);
+  background-color: black;
   position: fixed;
   right: 11px;
   visibility: hidden;
@@ -92,16 +127,22 @@ button a:hover {
 }
 
 .active-cart {
-  background-color: rgb(243, 243, 243);
+  background-color: black;
   position: fixed;
   right: 11px;
 }
 
+.nav-row{
+  height: 70px;
+}
 
 .navbar {
   display: grid;
   justify-content: center;
   grid-template-columns: repeat(auto-fit, minmax(50px, 150px));
+  border-bottom: white solid 2px;
+  background-color: black;
+  height: 70px;
 }
 
 .cart-icon {
@@ -134,7 +175,7 @@ button a:hover {
 }
 
 .modal-link:hover {
-  color: rgb(212, 0, 28);
+  color: white;
 }
 
 .sign-active {
@@ -144,7 +185,7 @@ button a:hover {
 
 .sign-content {
   display: grid;
-  background-color: rgb(243, 243, 243);
+  background-color: black;
   gap: 10px;
   padding: 20px;
   text-align: center;
@@ -214,7 +255,7 @@ button a:hover {
 .cart-item-qty,
 .checkout-discount {
   padding: 5px;
-  background-color: rgb(243, 243, 243);
+  background-color: black;
   text-align: center;
 }
 
@@ -311,7 +352,7 @@ button a:hover {
 }
 
 .active {
-  color: rgb(212, 0, 28);
+  color: white;
 }
 
 .main-body {
@@ -345,10 +386,6 @@ button {
   }
 }
 
-a {
-  color: #000000;
-}
-
 hr {
   margin: 15px 15%;
   align-content: center;
@@ -362,7 +399,7 @@ hr {
 button {
   padding: 5px 20px;
   margin: 5px;
-  font-size: 15px;
+  font-size: 20px;
   background-color: black;
   color: white;
   font-family: "Rajdhani";
@@ -389,18 +426,16 @@ button {
   margin: 5px;
 }
 
-.home-menu {
+.store-menu {
   display: grid;
   justify-content: center;
   text-align: center;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 20rem));
   gap: 30px;
-  padding: 50px 200px;
-  position: absolute;
-  top: 100vh;
+  position: relative;
+  height: 100vh;
 }
 
-/*  */
 .products-menu {
   text-align: center;
   display: grid;
@@ -416,13 +451,19 @@ button {
 
 .products-item {
   text-align: center;
+  height: 300px;
+  width: 300px;
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  border: white solid 2px
 }
 
 .products-thumbnail {
   border-style: none;
-  background: rgb(243, 243, 243);
-  height: 300px;
-  width: 300px;
+  background: black;
+  max-height: 300px;
+  max-width: 300px;
 }
 
 .products-thumbnail-footer {
@@ -438,13 +479,18 @@ button {
 
 .menu-image {
   border-style: none;
-  background: rgb(243, 243, 243);
+  background: black;
   width: 100%;
+  border: solid white 2px;
 }
 
 .icon {
   font-size: 30px;
   padding: 0 10px;
+}
+
+footer {
+  position: relative;
 }
 
 .footer-pad {
@@ -453,17 +499,19 @@ button {
 
 .big-image {
   border-style: none;
-  background: rgb(243, 243, 243);
-  height: 400px;
-  width: 400px;
+  background: black;
+  max-height: 400px;
+  max-width: 400px;
+  border: solid white 2px;
 }
 
 .image-thumbnail {
   border-style: none;
-  background: rgb(243, 243, 243);
+  background: black;
   height: 100px;
   width: 100px;
   margin: 0 5px;
+  border: solid white 2px;
 }
 
 .item-details,
@@ -501,7 +549,9 @@ button {
   padding: 20px 50px;
   text-align: left;
   justify-content: center;
-  background-color: rgb(243, 243, 243);
+  background-color: black;
+  color: white;
+  border: white solid 2px;
 }
 
 .no-margin {
@@ -525,16 +575,17 @@ button {
 .form-div {
   display: grid;
   justify-content: center;
-  padding: 40px;
+  padding-bottom: 40px;
 }
 
 .contact-form {
   display: grid;
   justify-content: center;
   border-style: none;
-  background: rgb(243, 243, 243);
+  background: black;
   padding: 40px;
   grid-template-columns: repeat(1, minmax(0px, 800px));
+  border: white solid 2px;
 }
 
 .subject-line {
@@ -554,7 +605,7 @@ button {
 
 .admin-form {
   padding: 0 40px 40px 40px;
-  background-color: rgb(243, 243, 243);
+  background-color: black;
 }
 
 .admin-form-title {
@@ -623,8 +674,8 @@ label {
 }
 
 .delete {
-  background-color: rgb(212, 0, 28);
-  border-color: rgb(212, 0, 28);
+  color: white;
+  color: white;
   color: white;
   text-align: left;
 }
@@ -661,14 +712,15 @@ label {
 
 .shipping-selection-div,
 .payment-selection-div {
-  background-color: rgb(243, 243, 243);
+  background-color: black;
   padding: 40px;
 }
 
 .shipping-options-div,
 .shipping-info-div,
 .payment-info-div {
-  background-color: white;
+  background-color: black;
+  color: white;
   padding: 0 10px;
 }
 
@@ -714,7 +766,7 @@ label {
 }
 
 .checkout-info {
-  background-color: rgb(243, 243, 243);
+  background-color: black;
   padding: 40px;
 }
 
@@ -746,27 +798,36 @@ label {
   display: grid;
   justify-content: center;
   grid-template-columns: repeat(auto-fit, minmax(50px, 50px));
+  gap: 5px;
 }
 
 .paginationButtons a {
-  padding: 10px;
+  padding: 10px 0;
   margin: 1px;
   border-style: none;
-  color: black;
+  /* color: black; */
   cursor: pointer;
 }
 
-.paginationButtons a:hover {
+/* .paginationButtons a:hover {
   color: black;
-  background-color: rgb(243, 243, 243);
-}
+  background-color: black;
+} */
 
 .paginationButtons li {
   text-align: center;
   display: grid;
+  background-color: black;
+  color: white;
+  border: white solid 2px;
 }
 
-.activeButton a {
+/* .activeButton a {
   color: black;
-  background-color: rgb(243, 243, 243);
-}
+  background-color: black;
+} */
+
+/* .next, .activeButton, .previous{
+  color: black;
+  background-color: black;
+} */
