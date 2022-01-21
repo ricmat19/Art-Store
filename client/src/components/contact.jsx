@@ -69,68 +69,70 @@ const ContactC = () => {
   return (
     <div>
       <CartModalC cartState={cartState} cartQty={cartQty} cartCost={cartCost} />
-      <HeaderC />
       <div className="main-body">
-        <div className="center">
-          <h1>contact</h1>
+        <HeaderC />
+        <div>
+          <div className="center">
+            <h1>contact</h1>
+          </div>
+          <div className="form-div">
+            <form className="contact-form" method="POST" action="/contact">
+              <div className="subject-line">
+                <input
+                  type="text"
+                  ref={nameInput}
+                  onChange={(e) => setName(e.target.value)}
+                  name="name"
+                  className="form-control"
+                  placeholder="your name..."
+                />
+              </div>
+              <div className="subject-line">
+                <input
+                  type="email"
+                  ref={emailInput}
+                  onChange={(e) => setEmail(e.target.value)}
+                  name="email"
+                  className="form-control"
+                  placeholder="your email..."
+                  required
+                />
+              </div>
+              <div className="subject-line">
+                <input
+                  type="text"
+                  ref={subjectInput}
+                  onChange={(e) => setSubject(e.target.value)}
+                  name="subject"
+                  className="form-control"
+                  placeholder="the subject..."
+                  required
+                />
+              </div>
+              <div className="subject-line">
+                <textarea
+                  name="message"
+                  ref={messageInput}
+                  onChange={(e) => setMessage(e.target.value)}
+                  placeholder="your message..."
+                  rows="7"
+                  required
+                ></textarea>
+              </div>
+              <div className="form-button-div text-center">
+                <button
+                  onClick={handleSubmit}
+                  type="submit"
+                  className="btn form-button"
+                >
+                  submit
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-        <div className="form-div">
-          <form className="contact-form" method="POST" action="/contact">
-            <div className="subject-line">
-              <label className="form-label">name</label>
-              <input
-                type="text"
-                ref={nameInput}
-                onChange={(e) => setName(e.target.value)}
-                name="name"
-                className="form-control"
-              />
-            </div>
-            <div className="subject-line">
-              <label className="form-label">email</label>
-              <input
-                type="email"
-                ref={emailInput}
-                onChange={(e) => setEmail(e.target.value)}
-                name="email"
-                className="form-control"
-                required
-              />
-            </div>
-            <div className="subject-line">
-              <label className="form-label">subject</label>
-              <input
-                type="text"
-                ref={subjectInput}
-                onChange={(e) => setSubject(e.target.value)}
-                name="subject"
-                className="form-control"
-                required
-              />
-            </div>
-            <div className="subject-line">
-              <label className="form-label">message</label>
-              <textarea
-                name="message"
-                ref={messageInput}
-                onChange={(e) => setMessage(e.target.value)}
-                rows="10"
-                required
-              ></textarea>
-            </div>
-            <div className="form-button-div text-center">
-              <button
-                onClick={handleSubmit}
-                type="submit"
-                className="btn form-button"
-              >
-                submit
-              </button>
-            </div>
-          </form>
-        </div>
+        <FooterC />
       </div>
-      <FooterC />
     </div>
   );
 };

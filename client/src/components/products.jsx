@@ -32,8 +32,8 @@ const ProductsC = () => {
             <img className="products-thumbnail" src={item.imageBuffer} />
           </div>
           <div className="products-thumbnail-footer">
-            <div className="Title">{item.title}</div>
-            <div className="Price">${item.price}.00</div>
+            <h3 className="align-center">{item.title}</h3>
+            <h3 className="align-center">${item.price}.00</h3>
           </div>
         </div>
       );

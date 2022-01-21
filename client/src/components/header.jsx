@@ -260,24 +260,24 @@ const HeaderC = () => {
           </a>
         </label>
         <nav className="navbar">
-          <a href="/">
+          <a className="nav-link" href="/">
             <p className="title">home</p>
           </a>
-          <a href="/#store">
+          {/* <a href="/#store">
             <p className="title">store</p>
-          </a>
-          <a href="/about">
+          </a> */}
+          <a className="nav-link" href="/about">
             <p className="title">info</p>
           </a>
-          <a href="/contact">
+          <a className="nav-link" href="/contact">
             <p className="title">contact</p>
           </a>
-          <a href>
+          <a className="nav-link" href>
             <div onClick={displaySignin}>
               <p className="title pointer">sign in</p>
             </div>
           </a>
-          <a href="/cart">
+          <a className="nav-link" href="/cart">
             <p className="title pointer">
               {cartCount} items <i className="fas fa-shopping-cart"></i>
             </p>

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 // import CartModalC from "./cartSummaryModal";
 import HeaderC from "./header";
-import CoverC from "./cover";
+// import CoverC from "./cover";
 import FooterC from "./footer";
 import StoreMenuC from "./storeMenu";
 
@@ -35,10 +35,10 @@ const HomeC = () => {
   }, []);
 
   return (
-    <div>
+    <div className="main-body">
       {/* <CartModalC cartState={cartState} cartQty={cartQty} cartCost={cartCost} /> */}
       <HeaderC />
-      <CoverC />
+      {/* <CoverC /> */}
       <StoreMenuC />
       <FooterC />
     </div>

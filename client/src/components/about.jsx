@@ -40,32 +40,34 @@ const AboutC = () => {
   return (
     <div>
       <CartModalC cartState={cartState} cartQty={cartQty} cartCost={cartCost} />
-      <HeaderC />
       <div className="main-body">
-        <div className="center">
-          <h1>about</h1>
-        </div>
-        <div className="profile-info">
-          <div className="profile-image-div">
-            <div className="image">
-              <div className="big-image-div">
-                <img
-                  className="big-image"
-                  src="../../images/profileImage.jpeg"
-                  alt="Profile"
-                />
+        <HeaderC />
+        <div>
+          <div className="center">
+            <h1>about</h1>
+          </div>
+          <div className="profile-info">
+            <div className="profile-image-div">
+              <div className="image">
+                <div className="big-image-div">
+                  <img
+                    className="big-image"
+                    src="../../images/profileImage.jpeg"
+                    alt="Profile"
+                  />
+                </div>
               </div>
+              <div className="details"></div>
+              <div className="qty"></div>
             </div>
-            <div className="details"></div>
-            <div className="qty"></div>
-          </div>
-          <div className="about-info">
-            <h3>&emsp; &emsp; {process.env.REACT_APP_INFO_PARAGRAPH_1}</h3>
-            <h3>&emsp; &emsp; {process.env.REACT_APP_INFO_PARAGRAPH_2}</h3>
+            <div className="about-info">
+              <h3>&emsp; &emsp; {process.env.REACT_APP_INFO_PARAGRAPH_1}</h3>
+              <h3>&emsp; &emsp; {process.env.REACT_APP_INFO_PARAGRAPH_2}</h3>
+            </div>
           </div>
         </div>
+        <FooterC />
       </div>
-      <FooterC />
     </div>
   );
 };

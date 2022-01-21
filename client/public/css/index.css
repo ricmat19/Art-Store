@@ -7,6 +7,16 @@ body {
   color: white;
 }
 
+.nav-link:hover {
+  background-color: rgb(44, 44, 44);
+}
+
+.main-body{
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: 70px 1fr 70px;
+}
+
 h1,
 h2,
 h3,
@@ -23,7 +33,7 @@ a{
 }
 
 h1{
-  margin: 70px 0;
+  margin: 30px 0;
 }
 
 h3{
@@ -38,11 +48,6 @@ h3{
   background-position: center;
   height: calc(100vh - 70px);
   position: relative;
-}
-
-#store {
-  padding-top: 70px;
-  min-height: calc(100vh - 70px);
 }
 
 .intro-button {
@@ -409,6 +414,7 @@ button {
   display: grid;
   justify-content: center;
   grid-template-columns: repeat(auto-fit, minmax(50px, 150px));
+  margin-top: 50px;
 }
 
 .subtitle-anchor {
@@ -430,19 +436,19 @@ button {
   display: grid;
   justify-content: center;
   text-align: center;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 20rem));
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 350px));
   gap: 30px;
   position: relative;
-  height: 100vh;
 }
 
 .products-menu {
   text-align: center;
   display: grid;
   justify-content: center;
-  grid-template-columns: repeat(auto-fit, minmax(13rem, 20rem));
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 350px));
   gap: 30px;
-  padding: 50px 200px;
+  padding: 50px 0;
+  margin: 0 10%;
 }
 
 .products-item-div {
@@ -451,37 +457,49 @@ button {
 
 .products-item {
   text-align: center;
-  height: 300px;
-  width: 300px;
+  height: 350px;
+  width: 350px;
   display: grid;
   align-content: center;
   justify-content: center;
-  border: white solid 2px
 }
 
 .products-thumbnail {
   border-style: none;
   background: black;
-  max-height: 300px;
-  max-width: 300px;
+  max-height: 350px;
+  max-width: 350px;
+  border: white solid 2px
 }
 
 .products-thumbnail-footer {
   text-align: center;
   display: grid;
   grid-template-columns: auto auto;
-  padding: 5px 0 20px 0;
+}
+
+.menu-image-div{
+  text-align: center;
+  height: 350px;
+  width: 350px;
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  border: white solid 2px
 }
 
 .menu-item {
   text-align: center;
+  display: grid;
+  align-content: center;
+  justify-content: center;
 }
 
 .menu-image {
   border-style: none;
   background: black;
-  width: 100%;
-  border: solid white 2px;
+  max-height: 350px;
+  max-width: 350px;
 }
 
 .icon {
@@ -491,6 +509,11 @@ button {
 
 footer {
   position: relative;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  display: grid;
+  align-content: center;
 }
 
 .footer-pad {
@@ -590,8 +613,11 @@ footer {
 
 .subject-line {
   display: grid;
-  grid-template-columns: 75px auto;
   margin: 15px 0;
+}
+
+.subject-line input, .subject-line textarea{
+  font-size: 17px;
 }
 
 .quantity-div {

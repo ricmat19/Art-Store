@@ -46,29 +46,35 @@ const StoreMenuC = () => {
   }, []);
 
   return (
-    <section id="store">
+    <div>
       <h1>Store</h1>
-      <div className="main-body store-menu">
+      <div className="store-menu">
         <a href="products/print">
           <div className="menu-item">
-            <img className="menu-image" src={twoDImage} alt="2D Print" />
+            <div className="menu-image-div">
+              <img className="menu-image" src={twoDImage} alt="2D Print" />
+            </div>
             <h2>2D Prints</h2>
           </div>
         </a>
         <a href="products/model">
           <div className="menu-item">
-            <img className="menu-image" src={threeDImage} alt="3D Model" />
+            <div className="menu-image-div">
+              <img className="menu-image" src={threeDImage} alt="3D Model" />
+            </div>
             <h2>3D Models</h2>
           </div>
         </a>
         <a href="products/comic">
           <div className="menu-item">
-            <img className="menu-image" src={comicImage} alt="Comic" />
+            <div className="menu-image-div">
+              <img className="menu-image" src={comicImage} alt="Comic" />
+            </div>
             <h2>Comics</h2>
           </div>
         </a>
       </div>
-    </section>
+    </div>
   );
 };
 
