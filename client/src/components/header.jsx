@@ -260,28 +260,33 @@ const HeaderC = () => {
           </a>
         </label>
         <nav className="navbar">
-          <a className="nav-link" href="/">
-            <p className="title">home</p>
+          <a className="logo-div" href="/">
+            <p className="title">logo</p>
           </a>
-          {/* <a href="/#store">
+          <div className="nav-div">
+            <a className="nav-link" href="/">
+              <p className="title">store</p>
+            </a>
+            {/* <a href="/#store">
             <p className="title">store</p>
           </a> */}
-          <a className="nav-link" href="/about">
-            <p className="title">info</p>
-          </a>
-          <a className="nav-link" href="/contact">
-            <p className="title">contact</p>
-          </a>
-          <a className="nav-link" href>
-            <div onClick={displaySignin}>
-              <p className="title pointer">sign in</p>
-            </div>
-          </a>
-          <a className="nav-link" href="/cart">
-            <p className="title pointer">
-              {cartCount} items <i className="fas fa-shopping-cart"></i>
-            </p>
-          </a>
+            <a className="nav-link" href="/about">
+              <p className="title">info</p>
+            </a>
+            <a className="nav-link" href="/contact">
+              <p className="title">contact</p>
+            </a>
+            {/* <a className="nav-link" href onClick={displaySignin}>
+            <p className="title">sign in</p>
+            </a> */}
+          </div>
+          <div className="cart-summary-div">
+            <a className="nav-link" href="/cart">
+              <p className="title pointer">
+                {cartCount} items <i className="fas fa-shopping-cart"></i>
+              </p>
+            </a>
+          </div>
         </nav>
       </div>
     </div>

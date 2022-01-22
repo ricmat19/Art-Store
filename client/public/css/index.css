@@ -7,8 +7,36 @@ body {
   color: white;
 }
 
+.navbar{
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  border-bottom: white solid 2px;
+  background-color: black;
+  height: 70px;
+  padding: 0 50px;
+}
+
+.nav-div {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 150px));
+}
+
 .nav-link:hover {
   background-color: rgb(44, 44, 44);
+  cursor: pointer;
+}
+
+.logo-div{
+  display: grid;
+  align-content: center;
+  min-width: 100px;
+}
+
+.cart-summary-div{
+  display: grid;
+  align-content: center;
+  min-width: 100px;
 }
 
 .main-body{
@@ -138,15 +166,6 @@ button a:hover {
 }
 
 .nav-row{
-  height: 70px;
-}
-
-.navbar {
-  display: grid;
-  justify-content: center;
-  grid-template-columns: repeat(auto-fit, minmax(50px, 150px));
-  border-bottom: white solid 2px;
-  background-color: black;
   height: 70px;
 }
 
@@ -439,6 +458,7 @@ button {
   grid-template-columns: repeat(auto-fit, minmax(15rem, 350px));
   gap: 30px;
   position: relative;
+  margin: 0 10%;
 }
 
 .products-menu {
@@ -462,6 +482,8 @@ button {
   display: grid;
   align-content: center;
   justify-content: center;
+  border: white solid 2px;
+  background-color: rgb(44, 44, 44);
 }
 
 .products-thumbnail {
@@ -469,7 +491,6 @@ button {
   background: black;
   max-height: 350px;
   max-width: 350px;
-  border: white solid 2px
 }
 
 .products-thumbnail-footer {
@@ -554,7 +575,7 @@ footer {
 .profile-info,
 .admin-item-div,
 .image-div {
-  margin: 20px 200px;
+  margin: 20px 10%;
 }
 
 .checkout-div,
@@ -599,6 +620,7 @@ footer {
   display: grid;
   justify-content: center;
   padding-bottom: 40px;
+  margin: 0 10%;
 }
 
 .contact-form {
@@ -835,10 +857,10 @@ label {
   cursor: pointer;
 }
 
-/* .paginationButtons a:hover {
-  color: black;
-  background-color: black;
-} */
+.paginationButtons a:hover {
+  color: white;
+  background-color: rgb(44, 44, 44);
+}
 
 .paginationButtons li {
   text-align: center;

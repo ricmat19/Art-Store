@@ -191,10 +191,10 @@ const PaymentC = () => {
               subtotal={subtotal}
             />
           </div>
-          <div className="two-column-div checkout-discount">
+          {/* <div className="two-column-div checkout-discount">
             <input type="text" placeholder="discount code" />
             <button>apply</button>
-          </div>
+          </div> */}
         </div>
       </div>
       <FooterC />

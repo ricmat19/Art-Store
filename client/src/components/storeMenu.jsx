@@ -25,13 +25,24 @@ const StoreMenuC = () => {
               Buffer.from(response.data, "binary").toString("base64")
             );
 
-            if (productResponse.data.data.products[i].product === "print") {
+            console.log(productResponse.data.data.products)
+
+            if (
+              productResponse.data.data.products[i].primary_image &&
+              productResponse.data.data.products[i].product === "print"
+            ) {
               setTwoDImage(`data:image/png;base64,${imagesResponse}`);
             }
-            if (productResponse.data.data.products[i].product === "model") {
+            if (
+              productResponse.data.data.products[i].primary_image &&
+              productResponse.data.data.products[i].product === "model"
+            ) {
               setThreeDImage(`data:image/png;base64,${imagesResponse}`);
             }
-            if (productResponse.data.data.products[i].product === "comic") {
+            if (
+              productResponse.data.data.products[i].primary_image &&
+              productResponse.data.data.products[i].product === "comic"
+            ) {
               setComicImage(`data:image/png;base64,${imagesResponse}`);
             }
           }

@@ -84,7 +84,7 @@ const ShippingC = () => {
             </div>
           </div>
 
-          <div className="shipping-method-selection-div">
+          {/* <div className="shipping-method-selection-div">
             <p>shipping method</p>
             <div className="shipping-options-div">
               <div className="shipping-option">
@@ -119,8 +119,8 @@ const ShippingC = () => {
             <a href="/checkout">
               <p>return to information</p>
             </a>
-          </div>
-        </div>
+          </div>*/}
+        </div> 
         <div className="order-summary">
           <div>
             <OrderSummaryC
@@ -129,10 +129,10 @@ const ShippingC = () => {
               subtotal={subtotal}
             />
           </div>
-          <div className="two-column-div checkout-discount">
+          {/* <div className="two-column-div checkout-discount">
             <input type="text" placeholder="discount code" />
             <button>apply</button>
-          </div>
+          </div> */}
         </div>
       </div>
       <FooterC />

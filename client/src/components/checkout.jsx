@@ -116,11 +116,11 @@ const CheckoutC = () => {
       <HeaderC />
       <div className="main-body checkout-div">
         <form className="checkout-info" method="POST">
-          <p className="title">express checkout</p>
+          {/* <p className="title">express checkout</p>
           <div className="express-checkout-button-div">
             <button>PayPal</button>
           </div>
-          <hr className="checkout-hr" />
+          <hr className="checkout-hr" /> */}
           <p className="title">checkout</p>
           <div>
             <div className="grid">
@@ -293,10 +293,10 @@ const CheckoutC = () => {
               subtotal={subtotal}
             />
           </div>
-          <div className="two-column-div checkout-discount">
+          {/* <div className="two-column-div checkout-discount">
             <input type="text" placeholder="discount code" />
             <button>apply</button>
-          </div>
+          </div> */}
         </div>
       </div>
       <FooterC />
