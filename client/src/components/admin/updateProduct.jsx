@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import PropTypes from "prop-types";
 import IndexAPI from "../../apis/indexAPI";
-import AdminHeaderC from "./header";
-import FooterC from "../footer";
 
-const AdminUpdateProductC = () => {
+const AdminUpdateProductC = (props) => {
   const { id } = useParams();
   const [setProducts] = useState([]);
   const [image, setImage] = useState("");
@@ -17,7 +16,7 @@ const AdminUpdateProductC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await IndexAPI.get(`/admin/update/${id}`);
+        const response = await IndexAPI.get(`/admin/update/${props.id}`);
         setTitle(response.data.data.item.title);
         setType(response.data.data.item.product);
         setPrice(response.data.data.item.price);
@@ -66,7 +65,6 @@ const AdminUpdateProductC = () => {
 
   return (
     <div>
-      <AdminHeaderC />
       <div className="main-body">
         <div className="center">
           <p className="title">admin</p>
@@ -199,9 +197,12 @@ const AdminUpdateProductC = () => {
           </form>
         </div>
       </div>
-      <FooterC />
     </div>
   );
+};
+
+AdminUpdateProductC.propTypes = {
+  id: PropTypes.string,
 };
 
 export default AdminUpdateProductC;

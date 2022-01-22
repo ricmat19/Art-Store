@@ -13,7 +13,7 @@ const ProductsC = () => {
   const [cartCost, setCartCost] = useState(0);
 
   // const { product } = useParams();
-  const [ products, setProducts ] = useState([]);
+  const [products, setProducts] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
 
   const itemsPerPage = 9;
@@ -109,6 +109,9 @@ const ProductsC = () => {
       <CartModalC cartState={cartState} cartQty={cartQty} cartCost={cartCost} />
       <HeaderC />
       <div className="main-body">
+        <div className="center">
+          <h1>store</h1>
+        </div>
         {/* <div className="center subtitle-div">
           <a className="subtitle-anchor" href="/products/print">
             <h2 className="title">2D Prints</h2>

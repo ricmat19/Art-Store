@@ -1,107 +1,107 @@
-import React, { useState, useRef, useEffect } from "react";
-import IndexAPI from "../../apis/indexAPI";
+import React from "react";
+// import IndexAPI from "../../apis/indexAPI";
 
 const HeaderC = () => {
 
-  const [signinModal, setSigninModal] = useState("sign-bg");
-  const [signupModal, setSignupModal] = useState("sign-bg");
-  const [resetModal, setResetModal] = useState("sign-bg");
+  // const [signinModal, setSigninModal] = useState("sign-bg");
+  // const [signupModal, setSignupModal] = useState("sign-bg");
+  // const [resetModal, setResetModal] = useState("sign-bg");
 
-  const displaySignin = () => {
-    setSigninModal("sign-bg sign-active");
-    setSignupModal("sign-bg");
-    setResetModal("sign-bg");
-  };
+  // const displaySignin = () => {
+  //   setSigninModal("sign-bg sign-active");
+  //   setSignupModal("sign-bg");
+  //   setResetModal("sign-bg");
+  // };
 
-  const displaySignup = () => {
-    setSignupModal("sign-bg sign-active");
-    setSigninModal("sign-bg");
-    setResetModal("sign-bg");
-  };
+  // const displaySignup = () => {
+  //   setSignupModal("sign-bg sign-active");
+  //   setSigninModal("sign-bg");
+  //   setResetModal("sign-bg");
+  // };
 
-  const displayReset = () => {
-    setResetModal("sign-bg sign-active");
-    setSignupModal("sign-bg");
-    setSigninModal("sign-bg");
-  };
+  // const displayReset = () => {
+  //   setResetModal("sign-bg sign-active");
+  //   setSignupModal("sign-bg");
+  //   setSigninModal("sign-bg");
+  // };
 
-  const signinRef = useRef();
-  const signupRef = useRef();
-  const resetRef = useRef();
+  // const signinRef = useRef();
+  // const signupRef = useRef();
+  // const resetRef = useRef();
 
-  useEffect(() => {
-    document.addEventListener("mousedown", (event) => {
-      if (event.target !== null) {
-        if (!signinRef.current.contains(event.target)) {
-          setSigninModal("sign-bg");
-        }
-        if (!signupRef.current.contains(event.target)) {
-          setSignupModal("sign-bg");
-        }
-        if (!resetRef.current.contains(event.target)) {
-          setResetModal("sign-bg");
-        }
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   document.addEventListener("mousedown", (event) => {
+  //     if (event.target !== null) {
+  //       if (!signinRef.current.contains(event.target)) {
+  //         setSigninModal("sign-bg");
+  //       }
+  //       if (!signupRef.current.contains(event.target)) {
+  //         setSignupModal("sign-bg");
+  //       }
+  //       if (!resetRef.current.contains(event.target)) {
+  //         setResetModal("sign-bg");
+  //       }
+  //     }
+  //   });
+  // }, []);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [rePassword, setRePassword] = useState("");
-  const [firstname, setFirstName] = useState("");
-  const [lastname, setLastName] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [rePassword, setRePassword] = useState("");
+  // const [firstname, setFirstName] = useState("");
+  // const [lastname, setLastName] = useState("");
 
-  const emailInput = useRef(null);
-  const passwordInput = useRef(null);
-  const firstNameInput = useRef(null);
-  const lastNameInput = useRef(null);
-  const rePasswordInput = useRef(null);
+  // const emailInput = useRef(null);
+  // const passwordInput = useRef(null);
+  // const firstNameInput = useRef(null);
+  // const lastNameInput = useRef(null);
+  // const rePasswordInput = useRef(null);
 
-  async (e) => {
-    e.preventDefault();
-    try {
-      await IndexAPI.get("/signin", {
-        email: email,
-        password: password,
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     await IndexAPI.get("/signin", {
+  //       email: email,
+  //       password: password,
+  //     });
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  const handleSignup = async (e) => {
-    e.preventDefault();
-    try {
-      await IndexAPI.post("/signup", {
-        firstname: firstname,
-        lastname: lastname,
-        email: email,
-        password: password,
-      });
+  // const handleSignup = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     await IndexAPI.post("/signup", {
+  //       firstname: firstname,
+  //       lastname: lastname,
+  //       email: email,
+  //       password: password,
+  //     });
 
-      firstNameInput.current.value = "";
-      lastNameInput.current.value = "";
-      emailInput.current.value = "";
-      passwordInput.current.value = "";
-      rePasswordInput.current.value = "";
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  //     firstNameInput.current.value = "";
+  //     lastNameInput.current.value = "";
+  //     emailInput.current.value = "";
+  //     passwordInput.current.value = "";
+  //     rePasswordInput.current.value = "";
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  async (e) => {
-    e.preventDefault();
-    try {
-      console.log(e);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     console.log(e);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   return (
     <div className="navbar-div">
       {/* Signin */}
-      <div className={signinModal}>
+      {/* <div className={signinModal}>
         <form>
           <div ref={signinRef} className="sign-content">
             <p className="sign-header title">welcome</p>
@@ -126,10 +126,10 @@ const HeaderC = () => {
             </div>
           </div>
         </form>
-      </div>
+      </div> */}
 
       {/* signup */}
-      <div className={signupModal}>
+      {/* <div className={signupModal}>
         <form>
           <div ref={signupRef} className="sign-content">
             <p className="sign-header title">Create Account</p>
@@ -209,10 +209,10 @@ const HeaderC = () => {
             </div>
           </div>
         </form>
-      </div>
+      </div> */}
 
       {/* reset */}
-      <div className={resetModal}>
+      {/* <div className={resetModal}>
         <form>
           <div ref={resetRef} className="sign-content">
             <p className="sign-header title">Reset Password</p>
@@ -231,7 +231,7 @@ const HeaderC = () => {
             </div>
           </div>
         </form>
-      </div>
+      </div> */}
 
       <div>
         <input type="checkbox" id="nav-toggle" className="nav-toggle" />

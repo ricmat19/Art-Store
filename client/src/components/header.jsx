@@ -271,12 +271,12 @@ const HeaderC = () => {
             <p className="title">store</p>
           </a> */}
             <a className="nav-link" href="/about">
-              <p className="title">info</p>
+              <p className="title">about</p>
             </a>
             <a className="nav-link" href="/contact">
               <p className="title">contact</p>
             </a>
-            {/* <a className="nav-link" href onClick={displaySignin}>
+            {/* <a className="nav-link" href={value.toString()} onClick={displaySignin}>
             <p className="title">sign in</p>
             </a> */}
           </div>

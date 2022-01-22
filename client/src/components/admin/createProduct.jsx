@@ -1,10 +1,7 @@
 import React, { useState, useRef } from "react";
 import IndexAPI from "../../apis/indexAPI";
-import AdminHeaderC from "./header";
-import FooterC from "../footer";
 
 const AdminCreateProductC = () => {
-
   const [title, setTitle] = useState("");
   const [type, setType] = useState("");
   const [images, setImages] = useState(null);
@@ -68,142 +65,133 @@ const AdminCreateProductC = () => {
   }
 
   return (
-    <div>
-      <AdminHeaderC />
-      <div className="main-body">
-        <div className="center">
-          <p className="title">admin</p>
-        </div>
-        <div className="admin-item-div">
-          <div className="admin-image-div">
-            <div className="image">
-              <div className="big-image-div">
-                <img className="big-image" src={displayedImage} alt="product" />
-              </div>
-            </div>
+    <div className="admin-item-div">
+      <div className="admin-image-div">
+        <div className="image">
+          <div className="big-image-div">
+            <img className="big-image" src={displayedImage} alt="product" />
           </div>
-          <form
-            className="admin-form"
-            action="/admin/create"
-            method="POST"
-            encType="multipart/form-data"
-          >
-            <div className="admin-form-title">
-              <p className="title">Create</p>
-            </div>
-            <div className="admin-form-field">
-              <label className="admin-label">Title:</label>
-              <input
-                value={title}
-                ref={titleInput}
-                onChange={(e) => setTitle(e.target.value)}
-                type="text"
-                name="name"
-                className="form-control"
-                required
-              />
-            </div>
-            <div className="admin-form-field">
-              <div>
-                <label className="admin-label">Type:</label>
-              </div>
-              <div className="radio-div">
-                <div>
-                  <label className=" radio">2D Print</label>
-                  <input
-                    value={type}
-                    ref={typeInput}
-                    onChange={() => setType("print")}
-                    type="radio"
-                    name="product"
-                  />
-                </div>
-                <div>
-                  <label className=" radio">3D Model</label>
-                  <input
-                    value={type}
-                    ref={typeInput}
-                    onChange={() => setType("model")}
-                    type="radio"
-                    name="product"
-                  />
-                </div>
-                <div>
-                  <label className=" radio">Comic</label>
-                  <input
-                    value={type}
-                    ref={typeInput}
-                    onChange={() => setType("comic")}
-                    type="radio"
-                    name="product"
-                    required
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="admin-form-field">
-              <label className="admin-label">Images:</label>
-              <input
-                type="file"
-                onChange={(e) => setImages(e.target.files[0])}
-                name="images"
-                className="form-control"
-                required
-              />
-            </div>
-            <div className="admin-form-field">
-              <label className="admin-label">Quantity:</label>
-              <input
-                value={quantity}
-                ref={quantityInput}
-                onChange={(e) => setQuantity(e.target.value)}
-                type="number"
-                name="quantity"
-                className="form-control"
-                required
-              />
-            </div>
-            <div className="admin-form-field">
-              <label className="admin-label">Price:</label>
-              <input
-                value={price}
-                ref={priceInput}
-                onChange={(e) => setPrice(e.target.value)}
-                type="number"
-                name="price"
-                className="form-control"
-                required
-              />
-            </div>
-            <div className="admin-form-field">
-              <label className="admin-label">Info:</label>
-              <textarea
-                value={info}
-                ref={infoInput}
-                onChange={(e) => setInfo(e.target.value)}
-                name="message"
-                rows="5"
-                required
-              ></textarea>
-            </div>
-            <div className="admin-form-button">
-              <div></div>
-              <div className="text-center">
-                <div>
-                  <button
-                    onClick={handleSubmit}
-                    type="submit"
-                    className="btn form-button"
-                  >
-                    Submit
-                  </button>
-                </div>
-              </div>
-            </div>
-          </form>
         </div>
       </div>
-      <FooterC />
+      <form
+        className="admin-form"
+        action="/admin/create"
+        method="POST"
+        encType="multipart/form-data"
+      >
+        <div className="admin-form-title">
+          <p className="title">Create</p>
+        </div>
+        <div className="admin-form-field">
+          <label className="admin-label">Title:</label>
+          <input
+            value={title}
+            ref={titleInput}
+            onChange={(e) => setTitle(e.target.value)}
+            type="text"
+            name="name"
+            className="form-control"
+            required
+          />
+        </div>
+        <div className="admin-form-field">
+          <div>
+            <label className="admin-label">Type:</label>
+          </div>
+          <div className="radio-div">
+            <div>
+              <label className=" radio">2D Print</label>
+              <input
+                value={type}
+                ref={typeInput}
+                onChange={() => setType("print")}
+                type="radio"
+                name="product"
+              />
+            </div>
+            <div>
+              <label className=" radio">3D Model</label>
+              <input
+                value={type}
+                ref={typeInput}
+                onChange={() => setType("model")}
+                type="radio"
+                name="product"
+              />
+            </div>
+            <div>
+              <label className=" radio">Comic</label>
+              <input
+                value={type}
+                ref={typeInput}
+                onChange={() => setType("comic")}
+                type="radio"
+                name="product"
+                required
+              />
+            </div>
+          </div>
+        </div>
+        <div className="admin-form-field">
+          <label className="admin-label">Images:</label>
+          <input
+            type="file"
+            onChange={(e) => setImages(e.target.files[0])}
+            name="images"
+            className="form-control"
+            required
+          />
+        </div>
+        <div className="admin-form-field">
+          <label className="admin-label">Quantity:</label>
+          <input
+            value={quantity}
+            ref={quantityInput}
+            onChange={(e) => setQuantity(e.target.value)}
+            type="number"
+            name="quantity"
+            className="form-control"
+            required
+          />
+        </div>
+        <div className="admin-form-field">
+          <label className="admin-label">Price:</label>
+          <input
+            value={price}
+            ref={priceInput}
+            onChange={(e) => setPrice(e.target.value)}
+            type="number"
+            name="price"
+            className="form-control"
+            required
+          />
+        </div>
+        <div className="admin-form-field">
+          <label className="admin-label">Info:</label>
+          <textarea
+            value={info}
+            ref={infoInput}
+            onChange={(e) => setInfo(e.target.value)}
+            name="message"
+            rows="5"
+            required
+          ></textarea>
+        </div>
+        <div className="admin-form-button">
+          <div></div>
+          <div className="text-center">
+            <div>
+              <button
+                onClick={handleSubmit}
+                type="submit"
+                className="btn form-button"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
   );
 };

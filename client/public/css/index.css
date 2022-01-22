@@ -46,6 +46,23 @@ body {
   grid-template-rows: 1fr 100px;
 }
 
+.plus-icon-div{
+  text-align: end;
+  margin-right: 10%;
+}
+
+.plus-icon{
+  border: white solid 2px;
+  padding: 10px 20px;
+  color: white;
+  background-color: black;
+  cursor: pointer;
+}
+
+.plus-icon:hover{
+  background-color: rgb(44, 44, 44);
+}
+
 h1,
 h2,
 h3,
@@ -183,7 +200,7 @@ button a:hover {
   padding: 10px;
 }
 
-.sign-bg {
+.sign-bg, .create-bg, .update-bg {
   display: grid;
   position: fixed;
   top: 0;
@@ -203,9 +220,10 @@ button a:hover {
   color: white;
 }
 
-.sign-active {
+.sign-active, .create-product, .update-product {
   visibility: visible;
   opacity: 1;
+  z-index: 3;
 }
 
 .sign-content {
@@ -569,13 +587,24 @@ footer {
   display: grid;
   justify-content: center;
   grid-template-columns: repeat(auto-fit, minmax(410px, 550px));
+  background-color: black;
 }
 
 .item-details,
 .profile-info,
-.admin-item-div,
 .image-div {
   margin: 20px 10%;
+}
+
+.admin-item-div{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+}
+
+.create-product-container, .update-product-container{
+  background-color: black;
+  border: white solid 2px;
+  width: 1000px;
 }
 
 .checkout-div,
@@ -652,13 +681,12 @@ footer {
 }
 
 .admin-form {
-  padding: 0 40px 40px 40px;
+  padding: 30px;
   background-color: black;
 }
 
 .admin-form-title {
   display: grid;
-  margin: 15px 0;
 }
 
 .admin-form-field {
@@ -732,6 +760,10 @@ label {
 .admin-image-div {
   display: grid;
   align-content: center;
+}
+
+.admin-image-div{
+  padding: 30px;
 }
 
 @keyframes transitionIn {

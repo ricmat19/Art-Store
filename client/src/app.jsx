@@ -11,8 +11,6 @@ import Payment from "./routes/stripe";
 import Contact from "./routes/contact";
 import AdminHome from "./routes/admin/home";
 import AdminProducts from "./routes/admin/products";
-import AdminCreate from "./routes/admin/createProduct";
-import AdminUpdate from "./routes/admin/updateProduct";
 
 const App = () => {
   return (
@@ -34,8 +32,6 @@ const App = () => {
             path="/admin/products/:product"
             component={AdminProducts}
           />
-          <Route exact path="/admin/create" component={AdminCreate} />
-          <Route exact path="/admin/update/:id" component={AdminUpdate} />
         </Router>
       </div>
   );
