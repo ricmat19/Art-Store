@@ -3,13 +3,18 @@ import OrderSummaryC from "./orderSummary";
 import HeaderC from "./header";
 import FooterC from "./footer";
 import IndexAPI from "../apis/indexAPI";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
+import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 
 const CheckoutC = () => {
+
+  const stripe = useStripe();
+  const elements = useElements();
+
   const [cart, setCart] = useState([]);
   const [cartPrices, setCartPrices] = useState([]);
   const [subtotal, setSubtotal] = useState(0);
-  const [, setShipment] = useState(null);
+  // const [, setShipment] = useState(null);
 
   const [email, setEmail] = useState("");
   const [firstname, setFirstName] = useState("");
@@ -76,39 +81,74 @@ const CheckoutC = () => {
     fetchData();
   }, []);
 
-  let history = useHistory();
-  const handleCheckout = async (e) => {
+  // let history = useHistory();
+  // const handleCheckout = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const response = await IndexAPI.post("/shipment", {
+  //       email: email,
+  //       firstname: firstname,
+  //       lastname: lastname,
+  //       address: address,
+  //       suite: suite,
+  //       city: city,
+  //       state: state,
+  //       zipcode: zipcode,
+  //       phone: phone,
+  //     });
+
+  //     console.log(response);
+  //     setShipment(response.data.data.newShipment);
+
+  //     history.push(`/shipping`);
+
+  //     // emailInput.current.value = "";
+  //     // firstNameInput.current.value = "";
+  //     // lastNameInput.current.value = "";
+  //     // addressInput.current.value = "";
+  //     // suiteInput.current.value = "";
+  //     // cityInput.current.value = "";
+  //     // stateInput.current.value = "";
+  //     // zipcodeInput.current.value = "";
+  //     // phoneInput.current.value = "";
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  const handlePayment = async (e) => {
     e.preventDefault();
-    try {
-      const response = await IndexAPI.post("/shipment", {
-        email: email,
-        firstname: firstname,
-        lastname: lastname,
-        address: address,
-        suite: suite,
-        city: city,
-        state: state,
-        zipcode: zipcode,
-        phone: phone,
-      });
+    const { err, paymentMethod } = await stripe.createPaymentMethod({
+      type: "card",
+      card: elements.getElement(CardElement),
+    });
 
-      console.log(response);
-      setShipment(response.data.data.newShipment);
+    if (!err) {
+      try {
+        const { id } = paymentMethod;
+        const response = await IndexAPI.post(`/payment`, {
+          amount: 1000,
+          id: id,
+        });
 
-      history.push(`/shipping`);
-
-      // emailInput.current.value = "";
-      // firstNameInput.current.value = "";
-      // lastNameInput.current.value = "";
-      // addressInput.current.value = "";
-      // suiteInput.current.value = "";
-      // cityInput.current.value = "";
-      // stateInput.current.value = "";
-      // zipcodeInput.current.value = "";
-      // phoneInput.current.value = "";
-    } catch (err) {
+        if (response.data.success) {
+          console.log("Successful payment!");
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
       console.log(err);
     }
+  };
+
+  const cardElementOptions = {
+    style: {
+      base: {
+        fontFamily: "Rajdhani",
+      },
+    },
+    hidePostalCode: true,
   };
 
   return (
@@ -276,11 +316,61 @@ const CheckoutC = () => {
                   }}
                 />
               </div>
-              <div className="two-column-div">
+              {/* <div className="two-column-div">
                 <button onClick={handleCheckout}>continue to shipping</button>
                 <a href="/cart">
                   <p>return to cart</p>
                 </a>
+              </div> */}
+            </div>
+          </div>
+          <div className="payment-method-selection-div">
+            <p className="title">payment information</p>
+            <div className="payment-options-div">
+              <div className="payment-option">
+                {/* <input
+                  className="align-left"
+                  type="radio"
+                  name="payment-method"
+                /> */}
+                <label className="align-left">Credit Card</label>
+              </div>
+              <div className="payment-info-input-div">
+                <form
+                  className="credit-card-form"
+                  method="POST"
+                  onSubmit={handlePayment}
+                >
+                  <div className="grid payment-input">
+                    <CardElement
+                      className="cardElement"
+                      options={cardElementOptions}
+                    />
+                  </div>
+                  <div className="grid payment-input">
+                    <input type="text" placeholder="name on card" />
+                  </div>
+                  <div className="credit-card-option">
+                    <button className="payment-button" type="submit">
+                      pay
+                    </button>
+                  </div>
+                </form>
+                {/* <hr className="payment-hr" />
+                <div className="payment-option">
+                  <input
+                    className="align-left"
+                    type="radio"
+                    name="payment-method"
+                  />
+                  <label className="align-left">PayPal</label>
+                  <Paypal className="payment-button" />
+                </div>
+                <hr className="payment-hr" />
+                <div className="payment-option">
+                    <input className="align-left" type="radio" name="payment-method"/>
+                    <label className="align-left">Amazon Pay</label>
+                </div> */}
               </div>
             </div>
           </div>

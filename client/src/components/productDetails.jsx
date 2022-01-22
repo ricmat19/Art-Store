@@ -12,7 +12,7 @@ const ProductDetailsC = () => {
   const [cartCost, setCartCost] = useState(0);
 
   const { product, id } = useParams();
-  const { selectedProduct, setSelectedProduct } = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState([]);
 
   const [imageBuffer, setImageBuffer] = useState("");
 
@@ -36,6 +36,7 @@ const ProductDetailsC = () => {
           setImageBuffer(`data:image/png;base64,${imagesResponse}`);
         }
         setSelectedProduct(productResponse.data.data.item);
+        console.log(productResponse.data.data.item);
 
         const cartResponse = await IndexAPI.get(`/cart`);
         setCart(cartResponse.data.data.cart);
@@ -74,55 +75,53 @@ const ProductDetailsC = () => {
     }
   };
 
-  // const imageURL = async (imagekey) =>{
-
-  //     const imagesResponse = await IndexAPI.get(`/images/${imagekey}`, {
-  //         responseType: 'arraybuffer'
-  //     })
-  //     .then(response => Buffer.from(response.data, 'binary').toString('base64'))
-  //     console.log(imagesResponse)
-  //     setImages(imagesResponse);
-  // }
-
-  // onChange={imageURL(selectedItem.imagekey)}
-
   return (
     <div>
       <CartModalC cartState={cartState} cartQty={cartQty} cartCost={cartCost} />
       <HeaderC />
-      <div className="main-body item-details">
-        <div className="item-images">
-          <div className="image-div">
-            <div className="big-image-div">
-              <img className="big-image" src={imageBuffer} alt="product image" />
+      <div className="main-body">
+        <div className="item-details">
+          <div className="item-images">
+            <div className="image-div">
+              <div className="big-image-div">
+                <img
+                  className="big-image"
+                  src={imageBuffer}
+                  alt="product image"
+                />
+              </div>
             </div>
           </div>
-        </div>
-        <form className="item-form" method="POST" action="/cart">
-          <div className="info-div">
-            <p className="title">{selectedProduct && selectedProduct.title}</p>
-            <div className="info-detail-div">
-              <label>price:</label>
-              <p className="no-margin">
-                ${selectedProduct && selectedProduct.price}.00
+          <form className="item-form" method="POST" action="/cart">
+            <div className="info-div">
+              <p className="title">
+                {selectedProduct && selectedProduct.title}
               </p>
-            </div>
-            <div className="info-detail-div">
+              <div className="info-detail-div">
+                <label>price:</label>
+                <p className="no-margin">
+                  ${selectedProduct && selectedProduct.price}.00
+                </p>
+              </div>
+              {/* <div className="info-detail-div">
               <label>quantity:</label>
               <p className="no-margin">{selectedProduct && selectedProduct.qty}</p>
+            </div> */}
+              <div className="info-detail-div">
+                <label>info:</label>
+                <p className="no-margin">
+                  {selectedProduct && selectedProduct.info}
+                </p>
+              </div>
+              <hr className="no-margin" />
+              <div className="cart-options">
+                <button onClick={addToCart}>Add To Cart</button>
+              </div>
             </div>
-            <div className="info-detail-div">
-              <label>info:</label>
-              <p className="no-margin">{selectedProduct && selectedProduct.info}</p>
-            </div>
-            <hr className="no-margin" />
-            <div className="cart-options">
-              <button onClick={addToCart}>Add To Cart</button>
-            </div>
-          </div>
-        </form>
+          </form>
+        </div>
+        <FooterC />
       </div>
-      <FooterC />
     </div>
   );
 };

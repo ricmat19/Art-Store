@@ -40,7 +40,7 @@ body {
 }
 
 .main-body{
-  min-height: 100%;
+  min-height: calc(100vh - 70px);
   display: grid;
   /* grid-template-rows: 70px 1fr 70px; */
   grid-template-rows: 1fr 100px;
@@ -426,6 +426,20 @@ button {
 
   .navbar {
     display: none;
+    padding: 0;
+  }
+
+  .logo-div{
+    visibility: hidden;
+    height: 0;
+  }
+
+  .nav-div{
+    grid-template-columns: auto;
+  }
+
+  .nav-link{
+    width: 100vw;
   }
 }
 
@@ -562,8 +576,8 @@ footer {
 .big-image {
   border-style: none;
   background: black;
-  max-height: 400px;
-  max-width: 400px;
+  max-height: 500px;
+  max-width: 450px;
   border: solid white 2px;
 }
 
@@ -586,7 +600,7 @@ footer {
   text-align: center;
   display: grid;
   justify-content: center;
-  grid-template-columns: repeat(auto-fit, minmax(410px, 550px));
+  grid-template-columns: repeat(auto-fit, minmax(450px, 550px));
   background-color: black;
 }
 
@@ -830,7 +844,6 @@ label {
 }
 
 .payment-button {
-  width: 200px;
   justify-self: right;
 }
 
@@ -854,6 +867,8 @@ label {
 .checkout-info {
   background-color: black;
   padding: 40px;
+  border: white solid 2px;
+  display: grid;
 }
 
 .order-summary {
