@@ -200,7 +200,7 @@ button a:hover {
   padding: 10px;
 }
 
-.sign-bg, .create-bg, .update-bg {
+.sign-bg, .create-bg, .update-bg, .delete-bg {
   display: grid;
   position: fixed;
   top: 0;
@@ -220,7 +220,7 @@ button a:hover {
   color: white;
 }
 
-.sign-active, .create-product, .update-product {
+.sign-active, .create-product, .update-product, .delete-product {
   visibility: visible;
   opacity: 1;
   z-index: 3;
@@ -605,6 +605,11 @@ footer {
   background-color: black;
   border: white solid 2px;
   width: 1000px;
+}
+
+.delete-product-container{
+  background-color: black;
+  border: white solid 2px;
 }
 
 .checkout-div,

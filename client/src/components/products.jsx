@@ -2,16 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import IndexAPI from "../apis/indexAPI";
-import CartModalC from "./cartSummaryModal";
 import HeaderC from "./header";
 import FooterC from "./footer";
 
 const ProductsC = () => {
-  const [, setCart] = useState([]);
-  const [cartState, setCartState] = useState(false);
-  const [cartQty, setCartQty] = useState(0);
-  const [cartCost, setCartCost] = useState(0);
-
   // const { product } = useParams();
   const [products, setProducts] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
@@ -71,23 +65,6 @@ const ProductsC = () => {
           }
         }
         setProducts(productResponse.data.data.product);
-
-        const cartResponse = await IndexAPI.get(`/cart`);
-        setCart(cartResponse.data.data.cart);
-
-        setCartQty(cartResponse.data.data.cart.length);
-
-        let price = 0;
-        for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
-          price += parseInt(cartResponse.data.data.cart[i].price);
-        }
-        setCartCost(price);
-
-        if (cartResponse.length !== 0) {
-          setCartState(true);
-        } else {
-          setCartState(false);
-        }
       } catch (err) {
         console.log(err);
       }
@@ -106,13 +83,13 @@ const ProductsC = () => {
 
   return (
     <div>
-      <CartModalC cartState={cartState} cartQty={cartQty} cartCost={cartCost} />
       <HeaderC />
       <div className="main-body">
-        <div className="center">
-          <h1>store</h1>
-        </div>
-        {/* <div className="center subtitle-div">
+        <div>
+          <div className="center">
+            <h1>store</h1>
+          </div>
+          {/* <div className="center subtitle-div">
           <a className="subtitle-anchor" href="/products/print">
             <h2 className="title">2D Prints</h2>
           </a>
@@ -123,20 +100,21 @@ const ProductsC = () => {
             <h2 className="title">Comics</h2>
           </a>
         </div> */}
-        <div className="products-menu">{displayItems}</div>
-        <ReactPaginate
-          previousLabel={"prev"}
-          nextLabel={"next"}
-          pageCount={pageCount}
-          onPageChange={changePage}
-          containerClassName={"paginationButtons"}
-          previousLinkClassName={"prevButton"}
-          nextLinkClassName={"nextButton"}
-          disabledClassName={"disabledButton"}
-          activeClassName={"activeButton"}
-        />
+          <div className="products-menu">{displayItems}</div>
+          <ReactPaginate
+            previousLabel={"prev"}
+            nextLabel={"next"}
+            pageCount={pageCount}
+            onPageChange={changePage}
+            containerClassName={"paginationButtons"}
+            previousLinkClassName={"prevButton"}
+            nextLinkClassName={"nextButton"}
+            disabledClassName={"disabledButton"}
+            activeClassName={"activeButton"}
+          />
+        </div>
+        <FooterC />
       </div>
-      <FooterC />
     </div>
   );
 };

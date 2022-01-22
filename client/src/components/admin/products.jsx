@@ -5,6 +5,7 @@ import IndexAPI from "../../apis/indexAPI";
 import AdminHeaderC from "./header";
 import AdminCreateProductC from "./createProduct";
 import AdminUpdateProductC from "./updateProduct";
+import AdminDeleteProductC from "./deleteProduct";
 import FooterC from "../footer";
 
 const AdminProductsC = () => {
@@ -12,6 +13,8 @@ const AdminProductsC = () => {
   const [createProductModal, setCreateProductModal] = useState("create-bg");
   const [updateItem, setUpdateItem] = useState("");
   const [updateProductModal, setUpdateProductModal] = useState("update-bg");
+  const [deleteItem, setDeleteItem] = useState("");
+  const [deleteProductModal, setDeleteProductModal] = useState("delete-bg");
   const [products, setProducts] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
 
@@ -21,13 +24,20 @@ const AdminProductsC = () => {
   const displayCreateProductModal = () => {
     setCreateProductModal("create-bg create-product");
   };
+
   const displayUpdateProductModal = (id) => {
     setUpdateItem(id);
     setUpdateProductModal("update-bg update-product");
   };
 
+  const displayDeleteProductModal = (id) => {
+    setDeleteItem(id);
+    setDeleteProductModal("delete-bg delete-product");
+  };
+
   const createProductRef = useRef();
   const updateProductRef = useRef();
+  const deleteProductRef = useRef();
 
   const displayItems = products
     .slice(pagesVisted, pagesVisted + itemsPerPage)
@@ -51,7 +61,7 @@ const AdminProductsC = () => {
             <div className="admin-products-button-div text-center">
               <div>
                 <button
-                  onClick={() => handleDelete(item.id)}
+                  onClick={() => displayDeleteProductModal(item.id)}
                   className="btn form-button delete"
                 >
                   Delete
@@ -93,12 +103,16 @@ const AdminProductsC = () => {
               setUpdateProductModal("update-bg");
             }
           }
+          if (deleteProductRef.current !== null) {
+            if (!deleteProductRef.current.contains(event.target)) {
+              setDeleteProductModal("delete-bg");
+            }
+          }
         });
 
         const productResponse = await IndexAPI.get(
           `/admin/products/${product}`
         );
-        console.log(productResponse);
 
         for (let i = 0; i < productResponse.data.data.product.length; i++) {
           if (productResponse.data.data.product[i].imagekey !== null) {
@@ -125,19 +139,6 @@ const AdminProductsC = () => {
     fetchData();
   }, []);
 
-  const handleDelete = async (id) => {
-    try {
-      await IndexAPI.delete(`/admin/delete/${id}`);
-      setProducts(
-        products.filter((item) => {
-          return item.id !== id;
-        })
-      );
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   return (
     <div>
       <AdminHeaderC />
@@ -149,6 +150,11 @@ const AdminProductsC = () => {
       <div className={updateProductModal}>
         <div ref={updateProductRef} className="update-product-container">
           <AdminUpdateProductC updateItem={updateItem}/>
+        </div>
+      </div>
+      <div className={deleteProductModal}>
+        <div ref={deleteProductRef} className="delete-product-container">
+          <AdminDeleteProductC deleteItem={deleteItem} products={products} setProducts={setProducts}/>
         </div>
       </div>
       <div className="main-body">
