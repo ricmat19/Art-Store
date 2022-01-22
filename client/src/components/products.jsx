@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import IndexAPI from "../apis/indexAPI";
 import CartModalC from "./cartSummaryModal";
@@ -12,7 +12,7 @@ const ProductsC = () => {
   const [cartQty, setCartQty] = useState(0);
   const [cartCost, setCartCost] = useState(0);
 
-  const { product } = useParams();
+  // const { product } = useParams();
   const [ products, setProducts ] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
 
@@ -51,7 +51,8 @@ const ProductsC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        productResponse = await IndexAPI.get(`/products/${product}`);
+        productResponse = await IndexAPI.get(`/products/print`);
+        // productResponse = await IndexAPI.get(`/products/${product}`);
 
         for (let i = 0; i < productResponse.data.data.product.length; i++) {
           if (productResponse.data.data.product[i].imagekey !== null) {
@@ -108,7 +109,7 @@ const ProductsC = () => {
       <CartModalC cartState={cartState} cartQty={cartQty} cartCost={cartCost} />
       <HeaderC />
       <div className="main-body">
-        <div className="center subtitle-div">
+        {/* <div className="center subtitle-div">
           <a className="subtitle-anchor" href="/products/print">
             <h2 className="title">2D Prints</h2>
           </a>
@@ -118,7 +119,7 @@ const ProductsC = () => {
           <a className="subtitle-anchor" href="/products/comic">
             <h2 className="title">Comics</h2>
           </a>
-        </div>
+        </div> */}
         <div className="products-menu">{displayItems}</div>
         <ReactPaginate
           previousLabel={"prev"}

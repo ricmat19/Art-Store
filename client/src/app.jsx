@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Home from "./routes/home";
+// import Home from "./routes/home";
 import About from "./routes/about";
 import Product from "./routes/products";
 import Item from "./routes/productDetails";
@@ -18,9 +18,10 @@ const App = () => {
   return (
       <div>
         <Router>
-          <Route exact path="/" component={Home} />
+          {/* <Route exact path="/" component={Home} /> */}
+          <Route exact path="/" component={Product} />
           <Route exact path="/about" component={About} />
-          <Route exact path="/products/:product" component={Product} />
+          {/* <Route exact path="/products/:product" component={Product} /> */}
           <Route exact path="/products/:product/:id" component={Item} />
           <Route export path="/cart" component={Cart} />
           <Route export path="/checkout" component={Checkout} />

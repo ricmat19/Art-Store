@@ -241,21 +241,24 @@ const HeaderC = () => {
           </a>
         </label>
         <nav className="navbar">
-          <a href="/admin/home">
-            <p className="title">home</p>
+          <a className="logo-div" href="/">
+            <p className="title">logo</p>
           </a>
-          <a href="/admin/products/print">
+          <div className="nav-div">
+          {/* <a href="/admin/products/print">
             <p className="title">store</p>
-          </a>
-          <a href="/admin/about">
+          </a> */}
+          {/* <a href="/admin/about">
             <p className="title">info</p>
-          </a>
-          <div onClick={displaySignin}>
+          </a> */}
+          {/* <a onClick={displaySignin}>
             <p className="title pointer">sign in</p>
+          </a> */}
+          </div>
+          <div className="cart-summary-div">
           </div>
         </nav>
       </div>
-      <hr />
     </div>
   );
 };

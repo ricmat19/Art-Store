@@ -4,7 +4,7 @@ import HeaderC from "./header";
 import FooterC from "./footer";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import IndexAPI from "../apis/indexAPI";
-import Paypal from "./paypalComponent";
+// import Paypal from "./paypalComponent";
 
 const PaymentC = () => {
   const stripe = useStripe();
@@ -122,25 +122,25 @@ const PaymentC = () => {
                 <p>change</p>
               </a>
             </div>
-            <hr className="payment-hr" />
+            {/* <hr className="payment-hr" />
             <div className="payment-info">
               <p className="align-left">method</p>
               <p className="align-left">first class (3-7 days) - $0.00</p>
               <a className="align-right" href="/shipping">
                 <p>change</p>
               </a>
-            </div>
+            </div> */}
           </div>
 
           <div className="payment-method-selection-div">
             <p>payment method</p>
             <div className="payment-options-div">
               <div className="payment-option">
-                <input
+                {/* <input
                   className="align-left"
                   type="radio"
                   name="payment-method"
-                />
+                /> */}
                 <label className="align-left">Credit Card</label>
               </div>
               <div className="payment-info-input-div">
@@ -160,11 +160,11 @@ const PaymentC = () => {
                   </div>
                   <div className="credit-card-option">
                     <button className="payment-button" type="submit">
-                      continue to payment
+                      process payment
                     </button>
                   </div>
                 </form>
-                <hr className="payment-hr" />
+                {/* <hr className="payment-hr" />
                 <div className="payment-option">
                   <input
                     className="align-left"
@@ -175,10 +175,10 @@ const PaymentC = () => {
                   <Paypal className="payment-button" />
                 </div>
                 <hr className="payment-hr" />
-                {/* <div className="payment-option">
-                                        <input className="align-left" type="radio" name="payment-method"/>
-                                        <label className="align-left">Amazon Pay</label>
-                                    </div> */}
+                <div className="payment-option">
+                    <input className="align-left" type="radio" name="payment-method"/>
+                    <label className="align-left">Amazon Pay</label>
+                </div> */}
               </div>
             </div>
           </div>

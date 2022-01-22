@@ -36,28 +36,32 @@ const CartC = () => {
   }, []);
 
   return (
-    <div className="main-body">
+    <div>
       <HeaderC />
-      <div className="center">
-        <p className="title">Shopping Cart</p>
+      <div className="main-body">
+        <div>
+          <div className="center">
+            <p className="title">Shopping Cart</p>
+          </div>
+          <div className="cart-table">
+            <div className="table-headers">
+              <p>item</p>
+              <p className="align-center">quantity</p>
+              <p className="align-right">price</p>
+            </div>
+            <hr className="table-hr" />
+            <div className="cart-items">
+              <CartProductC cartProducts={cart} />
+            </div>
+            <div className="align-right cart-button">
+              <button>
+                <a href="/checkout">Checkout</a>
+              </button>
+            </div>
+          </div>
+        </div>
+        <FooterC />
       </div>
-      <div className="cart-table">
-        <div className="table-headers">
-          <p>item</p>
-          <p className="align-center">quantity</p>
-          <p className="align-right">price</p>
-        </div>
-        <hr className="table-hr" />
-        <div className="cart-items">
-          <CartProductC cartProducts={cart} />
-        </div>
-        <div className="align-right cart-button">
-          <button>
-            <a href="/checkout">Checkout</a>
-          </button>
-        </div>
-      </div>
-      <FooterC />
     </div>
   );
 };

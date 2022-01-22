@@ -69,8 +69,8 @@ const ContactC = () => {
   return (
     <div>
       <CartModalC cartState={cartState} cartQty={cartQty} cartCost={cartCost} />
+      <HeaderC />
       <div className="main-body">
-        <HeaderC />
         <div>
           <div className="center">
             <h1>contact</h1>

@@ -27,8 +27,8 @@ const AdminProductsC = () => {
               />
             </div>
             <div className="products-thumbnail-footer">
-              <div className="Title">{item.title}</div>
-              <div className="Price">${item.price}.00</div>
+              <h3 className="align-center">{item.title}</h3>
+              <h3 className="align-center">${item.price}.00</h3>
             </div>
           </div>
           <div className="admin-buttons">
@@ -122,17 +122,17 @@ const AdminProductsC = () => {
     <div>
       <AdminHeaderC />
       <div className="main-body">
-        <div className="center subtitle-div">
+        {/* <div className="center subtitle-div">
           <a className="subtitle-anchor" href="/admin/products/print">
-            <p className="title">2D Prints</p>
+            <h2 className="title">2D Prints</h2>
           </a>
           <a className="subtitle-anchor" href="/admin/products/model">
-            <p className="title">3D Models</p>
+            <h2 className="title">3D Models</h2>
           </a>
           <a className="subtitle-anchor" href="/admin/products/comic">
-            <p className="title">Comics</p>
+            <h2 className="title">Comics</h2>
           </a>
-        </div>
+        </div> */}
         <div className="products-menu">{displayItems}</div>
         <ReactPaginate
           previousLabel={"prev"}

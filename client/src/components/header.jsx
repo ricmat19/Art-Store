@@ -281,7 +281,7 @@ const HeaderC = () => {
             </a> */}
           </div>
           <div className="cart-summary-div">
-            <a className="nav-link" href="/cart">
+            <a href="/cart">
               <p className="title pointer">
                 {cartCount} items <i className="fas fa-shopping-cart"></i>
               </p>
