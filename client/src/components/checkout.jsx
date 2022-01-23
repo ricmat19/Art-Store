@@ -162,7 +162,7 @@ const CheckoutC = () => {
             <button>PayPal</button>
           </div>
           <hr className="checkout-hr" /> */}
-          <p className="title">checkout</p>
+          <p className="title">checkout information</p>
           {/* <div> */}
             <div className="checkout-info-div">
               <div className="checkout-email-div">

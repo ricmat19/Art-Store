@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 
 const CartProductC = (props) => {
   const [prices, setPrices] = useState([]);
+  const [cart, setCart] = useState([]);
   const [cartQty, setCartQty] = useState([]);
   const [subtotal, setSubtotal] = useState();
 
@@ -13,10 +14,23 @@ const CartProductC = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // if (props.cart.length === 0) {
-        //   setCart(props.cart);
-        // }
-        // console.log(props.cart)
+        const cartResponse = await IndexAPI.get(`/cart`);
+
+        for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
+          if (cartResponse.data.data.cart[i].imagekey !== null) {
+            let imagesResponse = await IndexAPI.get(
+              `/images/${cartResponse.data.data.cart[i].imagekey}`,
+              {
+                responseType: "arraybuffer",
+              }
+            ).then((response) =>
+              Buffer.from(response.data, "binary").toString("base64")
+            );
+
+            cartResponse.data.data.cart[i].imageBuffer = imagesResponse;
+          }
+        }
+        setCart(cartResponse.data.data.cart)
 
         if (priceArray.length === 0) {
           for (let i = 0; i < props.cart.length; i++) {
@@ -36,13 +50,17 @@ const CartProductC = (props) => {
       }
     };
     fetchData();
-  });
+  }, [props]);
 
   const deleteFromCart = async (id) => {
     try {
       await IndexAPI.put("/cart/delete", {
         id: id,
       });
+
+      const cartResponse = await IndexAPI.get(`/cart`);
+      props.setCart(cartResponse.data.data.cart)
+
     } catch (err) {
       console.log(err);
     }
@@ -90,8 +108,9 @@ const CartProductC = (props) => {
 
   return (
     <div className="cart-items">
-      {props.cart &&
-        props.cart.map((item, index) => {
+      {console.log(cart)}
+      {cart &&
+        cart.map((item, index) => {
           priceArray.push(parseInt(item.price));
 
           let itemPrice = ``;
@@ -125,7 +144,7 @@ const CartProductC = (props) => {
                     onChange={(event) => setItemQty(item, event.target.value)}
                     className="item-qty-input"
                     type="number"
-                    placeholder="0"
+                    placeholder="1"
                   />
                 </div>
                 <div className="cart-item-price">
@@ -146,6 +165,7 @@ const CartProductC = (props) => {
 
 CartProductC.propTypes = {
   cart: PropTypes.array,
+  setCart: PropTypes.func
 };
 
 export default CartProductC;

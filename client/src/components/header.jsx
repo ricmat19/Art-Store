@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
+import PropTypes from "prop-types";
 import IndexAPI from "../apis/indexAPI";
 
-const HeaderC = () => {
+const HeaderC = (props) => {
   const [signinModal, setSigninModal] = useState("sign-bg");
   const [signupModal, setSignupModal] = useState("sign-bg");
   const [resetModal, setResetModal] = useState("sign-bg");
-  const [cartCount] = useState(0);
+  const [cartCount, setCartCount] = useState(0);
 
   const displaySignin = () => {
     setSigninModal("sign-bg sign-active");
@@ -30,20 +31,32 @@ const HeaderC = () => {
   const resetRef = useRef();
 
   useEffect(() => {
-    document.addEventListener("mousedown", (event) => {
-      if (signinRef.current !== null) {
-        if (!signinRef.current.contains(event.target)) {
-          setSigninModal("sign-bg");
-        }
-        if (!signupRef.current.contains(event.target)) {
-          setSignupModal("sign-bg");
-        }
-        if (!resetRef.current.contains(event.target)) {
-          setResetModal("sign-bg");
-        }
+    const fetchData = async () => {
+      try {
+
+        document.addEventListener("mousedown", (event) => {
+          if (signinRef.current !== null) {
+            if (!signinRef.current.contains(event.target)) {
+              setSigninModal("sign-bg");
+            }
+            if (!signupRef.current.contains(event.target)) {
+              setSignupModal("sign-bg");
+            }
+            if (!resetRef.current.contains(event.target)) {
+              setResetModal("sign-bg");
+            }
+          }
+        });
+
+        const cartResponse = await IndexAPI.get(`/cart`);
+
+        setCartCount(cartResponse.data.data.cart.length)
+      } catch (err) {
+        console.log(err);
       }
-    });
-  }, []);
+    };
+    fetchData();
+  }, [props]);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -292,5 +305,10 @@ const HeaderC = () => {
     </div>
   );
 };
+
+HeaderC.propTypes = {
+  cartQty: PropTypes.string,
+};
+
 
 export default HeaderC;

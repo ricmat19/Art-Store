@@ -26,21 +26,24 @@ const OrderSummaryC = (props) => {
         cartPrices &&
         cart.map((item, index) => {
           return (
-            <div className="order-item" key={item.id}>
-              <div className="order-item-details">
-                <div className="order-item-info">
-                  <img
-                    className="order-item-thumbnail"
-                    src={`data:image/png;base64,${item.imageBuffer}`}
-                    alt="Thumbnail"
-                  />
-                  <div className="order-item-title">{item.title}</div>
-                </div>
-                <div className="order-item-price">
-                  <span>${cartPrices[index]}.00</span>
+            <>
+              <div className="order-item" key={item.id}>
+                <div className="order-item-details">
+                  <div className="order-item-info">
+                    <img
+                      className="order-item-thumbnail"
+                      src={`data:image/png;base64,${item.imageBuffer}`}
+                      alt="Thumbnail"
+                    />
+                    <div className="order-item-title">{item.title}</div>
+                  </div>
+                  <div className="order-item-price">
+                    <span>${cartPrices[index]}.00</span>
+                  </div>
                 </div>
               </div>
-            </div>
+              {index !== cart.length - 1  ? <hr className="order-summary-hr"/> : ""}
+            </>
           );
         })}
       <hr className="checkout-hr" />

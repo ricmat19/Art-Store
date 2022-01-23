@@ -65,11 +65,12 @@ const ProductDetailsC = () => {
   const addToCart = async (e) => {
     e.preventDefault();
     try {
-      const response = await IndexAPI.post("/cart", {
+      await IndexAPI.post("/cart", {
         id: id,
       });
 
-      console.log(response.data);
+      const cartResponse = await IndexAPI.get(`/cart`);
+      setCartQty(cartResponse.data.data.cart.length)
     } catch (err) {
       console.log(err);
     }
@@ -78,7 +79,7 @@ const ProductDetailsC = () => {
   return (
     <div>
       <CartModalC cartState={cartState} cartQty={cartQty} cartCost={cartCost} />
-      <HeaderC />
+      <HeaderC cartQty={cartQty}/>
       <div className="main-body">
         <div className="item-details">
           <div className="item-images">

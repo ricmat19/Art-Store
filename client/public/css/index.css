@@ -297,11 +297,24 @@ button a:hover {
   grid-template-columns: 50px 150px 1fr;
 }
 
+.order-item-info{
+  grid-template-columns: 100px 150px 1fr;
+}
+
 .cart-item-qty,
 .checkout-discount {
   padding: 5px;
   background-color: black;
   text-align: center;
+}
+
+.order-item{
+  height: 120px;
+  display: grid;
+}
+
+.order-summary-hr{
+  margin: 0;
 }
 
 .order-item-details {
@@ -331,12 +344,23 @@ button a:hover {
 .cart-item-div{
   height: 150px;
   width: 150px;
+  align-items: center;
   text-align: center;
+  display: flex;
+  vertical-align: middle;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
-.cart-item-thumbnail, .order-item-thumbnail {
+.cart-item-thumbnail{
   max-height: 100%;
   max-width: 100%;
+}
+
+.order-item-thumbnail {
+  max-height: 100px;
+  max-width: 100px;
+  justify-self: center;
 }
 
 .cart-item-title, .order-item-title {
@@ -928,6 +952,7 @@ label {
   background-color: black;
   padding: 40px;
   border: white solid 2px;
+  height: fit-content;
 }
 
 

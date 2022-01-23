@@ -69,7 +69,7 @@ router.get("/cart", async (req, res) => {
 
     const usersCart = [];
 
-    if (cart.rows[0].cart !== undefined) {
+    if (cart.rows[0].cart !== null) {
       for (let i = 0; i < cart.rows[0].cart.length; i++) {
         const cartproducts = await db.query(
           "SELECT * FROM products WHERE id=$1",
