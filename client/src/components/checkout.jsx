@@ -154,7 +154,8 @@ const CheckoutC = () => {
   return (
     <div>
       <HeaderC />
-      <div className="main-body checkout-div">
+      <div className="checkout-div">
+        {/* <div> */}
         <form className="checkout-info" method="POST">
           {/* <p className="title">express checkout</p>
           <div className="express-checkout-button-div">
@@ -162,8 +163,8 @@ const CheckoutC = () => {
           </div>
           <hr className="checkout-hr" /> */}
           <p className="title">checkout</p>
-          <div>
-            <div className="grid">
+          {/* <div> */}
+            <div className="checkout-info-div">
               <div className="checkout-email-div">
                 <input
                   type="email"
@@ -323,7 +324,7 @@ const CheckoutC = () => {
                 </a>
               </div> */}
             </div>
-          </div>
+          {/* </div> */}
           <div className="payment-method-selection-div">
             <p className="title">payment information</p>
             <div className="payment-options-div">
@@ -375,19 +376,18 @@ const CheckoutC = () => {
             </div>
           </div>
         </form>
-        <div className="order-summary">
-          <div>
+        <div className="order-summary-container">
             <OrderSummaryC
               cartProducts={cart}
               cartPrices={cartPrices}
               subtotal={subtotal}
             />
-          </div>
           {/* <div className="two-column-div checkout-discount">
             <input type="text" placeholder="discount code" />
             <button>apply</button>
           </div> */}
         </div>
+        {/* </div> */}
       </div>
       <FooterC />
     </div>
