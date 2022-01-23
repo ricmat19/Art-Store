@@ -6,45 +6,52 @@ const db = require("../db");
 router.post("/cart", async (req, res) => {
   try {
     const cart = await db.query(
-      "SELECT cart FROM admin_users WHERE email='ric19mat@gmail.com'"
+      "SELECT cart FROM cart WHERE email='ric19mat@gmail.com'"
     );
 
     let currentCart = cart.rows[0].cart;
     let newItem = req.body.id;
+    // console.log(cart.rows[0].cart)
+    // console.log(currentCart)
+    // console.log(currentCart.length)
 
     //Check that new item does not exist in the cart
 
     let uniqueItem = true;
     if (currentCart !== null) {
       for (let i = 0; i < currentCart.length; i++) {
-        console.log("Current Cart " + i + ":" + currentCart[i]);
-        console.log("Req.body.id:" + req.body.id);
+        // console.log("Current Cart " + i + ":" + currentCart[i]);
+        // console.log("Req.body.id:" + req.body.id);
         if (currentCart[i] === req.body.id) {
           uniqueItem = false;
         }
       }
 
-      console.log("Unique Item: " + uniqueItem);
+      // console.log("Unique Item: " + uniqueItem);
 
       if (uniqueItem === true) {
         currentCart.push(newItem);
       }
+
     } else {
       currentCart = [req.body.id];
     }
 
     let newCart = await db.query(
-      "UPDATE admin_users SET cart=$1 WHERE email='ric19mat@gmail.com'",
+      "UPDATE cart SET cart=$1 WHERE email='ric19mat@gmail.com'",
       [currentCart]
     );
-    // let newCart = await db.query("UPDATE users SET cart=$1 WHERE email=$2", [currentCart, req.session.email]);
+    // let newCart = await db.query("UPDATE users SET cart=$1 WHERE email=$2", [
+    //   currentCart,
+    //   req.session.email,
+    // ]);
     console.log(req.session.email);
 
     res.status(201).json({
       status: "success",
       results: newCart.rows,
       data: {
-        cart: newCart.rows
+        cart: newCart.rows,
       },
     });
   } catch (err) {
@@ -56,12 +63,13 @@ router.post("/cart", async (req, res) => {
 router.get("/cart", async (req, res) => {
   try {
     const cart = await db.query(
-      "SELECT * FROM admin_users WHERE email='ric19mat@gmail.com'"
+      "SELECT * FROM cart WHERE email='ric19mat@gmail.com'"
     );
+    console.log(cart.rows[0].cart)
 
     const usersCart = [];
 
-    if (cart.rows[0].cart !== null) {
+    if (cart.rows[0].cart !== undefined) {
       for (let i = 0; i < cart.rows[0].cart.length; i++) {
         const cartproducts = await db.query(
           "SELECT * FROM products WHERE id=$1",
@@ -72,7 +80,7 @@ router.get("/cart", async (req, res) => {
     }
 
     const qty = await db.query(
-      "SELECT qty FROM admin_users WHERE email='ric19mat@gmail.com'"
+      "SELECT qty FROM cart WHERE email='ric19mat@gmail.com'"
     );
     const cartQty = qty.rows[0].qty;
 
@@ -92,7 +100,7 @@ router.get("/cart", async (req, res) => {
 router.put("/cart/quantity", async (req, res) => {
   try {
     await db.query(
-      "UPDATE admin_users SET qty=$1 WHERE email='ric19mat@gmail.com' RETURNING *",
+      "UPDATE cart SET qty=$1 WHERE email='ric19mat@gmail.com' RETURNING *",
       [req.body.cartQty]
     );
 
@@ -107,7 +115,7 @@ router.put("/cart/quantity", async (req, res) => {
 router.put("/cart/delete", async (req, res) => {
   try {
     const cart = await db.query(
-      "SELECT cart FROM admin_users WHERE email='ric19mat@gmail.com'"
+      "SELECT cart FROM cart WHERE email='ric19mat@gmail.com'"
     );
 
     const newCart = [];
@@ -125,13 +133,13 @@ router.put("/cart/delete", async (req, res) => {
     if (JSON.stringify(newCart) !== JSON.stringify([])) {
       console.log("items");
       await db.query(
-        "UPDATE admin_users SET cart=$1, qty=$2 WHERE email='ric19mat@gmail.com' RETURNING *",
+        "UPDATE cart SET cart=$1, qty=$2 WHERE email='ric19mat@gmail.com' RETURNING *",
         [newCart, qty]
       );
     } else {
       console.log("no items");
       await db.query(
-        "UPDATE admin_users SET cart=(NULL), qty=(NULL) WHERE email='ric19mat@gmail.com' RETURNING *"
+        "UPDATE cart SET cart=(NULL), qty=(NULL) WHERE email='ric19mat@gmail.com' RETURNING *"
       );
     }
 

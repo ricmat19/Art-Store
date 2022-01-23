@@ -3,7 +3,6 @@ import IndexAPI from "../apis/indexAPI";
 import PropTypes from "prop-types";
 
 const CartProductC = (props) => {
-  const [cart, setCart] = useState([]);
   const [prices, setPrices] = useState([]);
   const [cartQty, setCartQty] = useState([]);
   const [subtotal, setSubtotal] = useState();
@@ -14,14 +13,14 @@ const CartProductC = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (cart.length === 0) {
-          setCart(props.cartProduct);
-        }
-        console.log(props.cartProduct)
+        // if (props.cart.length === 0) {
+        //   setCart(props.cart);
+        // }
+        // console.log(props.cart)
 
         if (priceArray.length === 0) {
-          for (let i = 0; i < cart.length; i++) {
-            sub += parseInt(cart[i].price);
+          for (let i = 0; i < props.cart.length; i++) {
+            sub += parseInt(props.cart[i].price);
           }
         } else {
           sub = priceArray.reduce(function (a, b) {
@@ -52,18 +51,18 @@ const CartProductC = (props) => {
   const setItemQty = async (item, e) => {
     try {
       setPrices(priceArray);
-      for (let i = 0; i < cart.length; i++) {
-        if (cart[i].id === item.id) {
-          priceArray[i] = cart[i].price * e;
+      for (let i = 0; i < props.cart.length; i++) {
+        if (props.cart[i].id === item.id) {
+          priceArray[i] = props.cart[i].price * e;
         } else {
           if (prices[i] !== undefined) {
             priceArray[i] = prices[i];
           } else {
-            priceArray[i] = parseInt(cart[i].price);
+            priceArray[i] = parseInt(props.cart[i].price);
           }
         }
 
-        if (cart[i].id === item.id) {
+        if (props.cart[i].id === item.id) {
           qtyArray[i] = parseInt(e);
         } else {
           if (cartQty[i] !== undefined) {
@@ -90,9 +89,9 @@ const CartProductC = (props) => {
   };
 
   return (
-    <div>
-      {cart &&
-        cart.map((item, index) => {
+    <div className="cart-items">
+      {props.cart &&
+        props.cart.map((item, index) => {
           priceArray.push(parseInt(item.price));
 
           let itemPrice = ``;
@@ -112,7 +111,7 @@ const CartProductC = (props) => {
                   >
                     X
                   </span>
-                  <span>
+                  <span className="cart-item-div">
                     <img
                       className="cart-item-thumbnail"
                       src={`data:image/png;base64,${item.imageBuffer}`}
@@ -146,7 +145,7 @@ const CartProductC = (props) => {
 };
 
 CartProductC.propTypes = {
-  cartProduct: PropTypes.array,
+  cart: PropTypes.array,
 };
 
 export default CartProductC;

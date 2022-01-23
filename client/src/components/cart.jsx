@@ -11,6 +11,7 @@ const CartC = () => {
     const fetchData = async () => {
       try {
         const cartResponse = await IndexAPI.get(`/cart`);
+        console.log(cart)
 
         for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
           if (cartResponse.data.data.cart[i].imagekey !== null) {
@@ -50,8 +51,8 @@ const CartC = () => {
               <p className="align-right">price</p>
             </div>
             <hr className="table-hr" />
-            <div className="cart-items">
-              <CartProductC cartProducts={cart} />
+            <div className="cart-items-container">
+              <CartProductC cart={cart} />
             </div>
             <div className="align-right cart-button">
               <button>

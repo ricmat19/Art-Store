@@ -284,15 +284,13 @@ button a:hover {
 .cart-item-details {
   padding: 10px 0;
   align-items: center;
-  height: 50px;
 }
 
 .cart-item-info {
   display: grid;
   align-items: center;
   justify-content: center;
-  grid-template-columns: 50px 50px 1fr;
-  height: 50px;
+  grid-template-columns: 50px 150px 1fr;
 }
 
 .cart-item-qty,
@@ -319,9 +317,23 @@ button a:hover {
   text-align: right;
 }
 
+.cart-items-container{
+  height: 100%;
+}
+
+.cart-items{
+  height: 100%;
+}
+
+.cart-item-div{
+  height: 150px;
+  width: 150px;
+  text-align: center;
+}
+
 .cart-item-thumbnail {
-  height: 50px;
-  width: 50px;
+  max-height: 100%;
+  max-width: 100%;
 }
 
 .cart-item-title {
@@ -516,6 +528,12 @@ button {
   justify-content: center;
   border: white solid 2px;
   background-color: rgb(44, 44, 44);
+}
+
+.products-item:hover {
+  transform: scale(1.03);
+  box-shadow: 0px 0px 20px rgb(255 255 255 / 70%);
+  transition: all 0.3s;
 }
 
 .products-thumbnail {
