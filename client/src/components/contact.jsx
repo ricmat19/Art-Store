@@ -83,7 +83,6 @@ const ContactC = () => {
                   ref={nameInput}
                   onChange={(e) => setName(e.target.value)}
                   name="name"
-                  className="form-control"
                   placeholder="your name..."
                 />
               </div>
@@ -93,7 +92,6 @@ const ContactC = () => {
                   ref={emailInput}
                   onChange={(e) => setEmail(e.target.value)}
                   name="email"
-                  className="form-control"
                   placeholder="your email..."
                   required
                 />
@@ -104,7 +102,6 @@ const ContactC = () => {
                   ref={subjectInput}
                   onChange={(e) => setSubject(e.target.value)}
                   name="subject"
-                  className="form-control"
                   placeholder="the subject..."
                   required
                 />
@@ -119,11 +116,10 @@ const ContactC = () => {
                   required
                 ></textarea>
               </div>
-              <div className="form-button-div text-center">
+              <div className="form-button-div">
                 <button
                   onClick={handleSubmit}
                   type="submit"
-                  className="btn form-button"
                 >
                   submit
                 </button>

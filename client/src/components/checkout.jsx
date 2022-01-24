@@ -97,7 +97,6 @@ const CheckoutC = () => {
   //       phone: phone,
   //     });
 
-  //     console.log(response);
   //     setShipment(response.data.data.newShipment);
 
   //     history.push(`/shipping`);
@@ -155,7 +154,6 @@ const CheckoutC = () => {
     <div>
       <HeaderC />
       <div className="checkout-div">
-        {/* <div> */}
         <form className="checkout-info" method="POST">
           {/* <p className="title">express checkout</p>
           <div className="express-checkout-button-div">
@@ -325,9 +323,9 @@ const CheckoutC = () => {
               </div> */}
             </div>
           {/* </div> */}
-          <div className="payment-method-selection-div">
+          <div>
             <p className="title">payment information</p>
-            <div className="payment-options-div">
+            <div>
               <div className="payment-option">
                 {/* <input
                   className="align-left"
@@ -336,15 +334,14 @@ const CheckoutC = () => {
                 /> */}
                 <label className="align-left">Credit Card</label>
               </div>
-              <div className="payment-info-input-div">
+              <div>
                 <form
-                  className="credit-card-form"
                   method="POST"
                   onSubmit={handlePayment}
                 >
                   <div className="grid payment-input">
                     <CardElement
-                      className="cardElement"
+                      className="card-element"
                       options={cardElementOptions}
                     />
                   </div>
@@ -387,7 +384,6 @@ const CheckoutC = () => {
             <button>apply</button>
           </div> */}
         </div>
-        {/* </div> */}
       </div>
       <FooterC />
     </div>

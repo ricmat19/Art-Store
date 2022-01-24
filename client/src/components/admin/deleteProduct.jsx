@@ -47,7 +47,6 @@ const AdminDeleteProductC = (props) => {
           <button
             onClick={handleDelete}
             type="submit"
-            className="btn form-button"
           >
             Delete
           </button>

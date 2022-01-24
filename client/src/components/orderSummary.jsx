@@ -21,7 +21,7 @@ const OrderSummaryC = (props) => {
   });
 
   return (
-    <div className="order-summary">
+    <div>
       {cart &&
         cartPrices &&
         cart.map((item, index) => {

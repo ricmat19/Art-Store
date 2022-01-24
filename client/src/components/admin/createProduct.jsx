@@ -67,10 +67,8 @@ const AdminCreateProductC = () => {
   return (
     <div className="admin-item-div">
       <div className="admin-image-div">
-        <div className="image">
-          <div className="big-image-div">
-            <img className="big-image" src={displayedImage} alt="product" />
-          </div>
+        <div className="big-image-div">
+          <img className="big-image" src={displayedImage} alt="product" />
         </div>
       </div>
       <form
@@ -90,7 +88,6 @@ const AdminCreateProductC = () => {
             onChange={(e) => setTitle(e.target.value)}
             type="text"
             name="name"
-            className="form-control"
             required
           />
         </div>
@@ -100,7 +97,7 @@ const AdminCreateProductC = () => {
           </div>
           <div className="radio-div">
             <div>
-              <label className=" radio">2D Print</label>
+              <label className="radio">2D Print</label>
               <input
                 value={type}
                 ref={typeInput}
@@ -110,7 +107,7 @@ const AdminCreateProductC = () => {
               />
             </div>
             <div>
-              <label className=" radio">3D Model</label>
+              <label className="radio">3D Model</label>
               <input
                 value={type}
                 ref={typeInput}
@@ -120,7 +117,7 @@ const AdminCreateProductC = () => {
               />
             </div>
             <div>
-              <label className=" radio">Comic</label>
+              <label className="radio">Comic</label>
               <input
                 value={type}
                 ref={typeInput}
@@ -138,7 +135,6 @@ const AdminCreateProductC = () => {
             type="file"
             onChange={(e) => setImages(e.target.files[0])}
             name="images"
-            className="form-control"
             required
           />
         </div>
@@ -150,7 +146,6 @@ const AdminCreateProductC = () => {
             onChange={(e) => setQuantity(e.target.value)}
             type="number"
             name="quantity"
-            className="form-control"
             required
           />
         </div>
@@ -162,7 +157,6 @@ const AdminCreateProductC = () => {
             onChange={(e) => setPrice(e.target.value)}
             type="number"
             name="price"
-            className="form-control"
             required
           />
         </div>
@@ -179,16 +173,13 @@ const AdminCreateProductC = () => {
         </div>
         <div className="admin-form-button">
           <div></div>
-          <div className="text-center">
-            <div>
-              <button
-                onClick={handleSubmit}
-                type="submit"
-                className="btn form-button"
-              >
-                Submit
-              </button>
-            </div>
+          <div>
+            <button
+              onClick={handleSubmit}
+              type="submit"
+            >
+              Submit
+            </button>
           </div>
         </div>
       </form>

@@ -84,7 +84,7 @@
 //             </div>
 //           </div>
 
-//           {/* <div className="shipping-method-selection-div">
+//           {/* <div>
 //             <p>shipping method</p>
 //             <div className="shipping-options-div">
 //               <div className="shipping-option">
@@ -121,7 +121,7 @@
 //             </a>
 //           </div>*/}
 //         </div> 
-//         <div className="order-summary">
+//         <div>
 //           <div>
 //             <OrderSummaryC
 //               cartProducts={cart}

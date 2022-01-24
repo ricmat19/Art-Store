@@ -70,7 +70,7 @@ const ProductDetailsC = () => {
       });
 
       const cartResponse = await IndexAPI.get(`/cart`);
-      setCartQty(cartResponse.data.data.cart.length)
+      setCartQty(cartResponse.data.data.cart.length);
     } catch (err) {
       console.log(err);
     }
@@ -79,21 +79,19 @@ const ProductDetailsC = () => {
   return (
     <div>
       <CartModalC cartState={cartState} cartQty={cartQty} cartCost={cartCost} />
-      <HeaderC cartQty={cartQty}/>
+      <HeaderC cartQty={cartQty} />
       <div className="main-body">
         <div className="item-details">
-          <div className="item-images">
-            <div className="image-div">
-              <div className="big-image-div">
-                <img
-                  className="big-image"
-                  src={imageBuffer}
-                  alt="product image"
-                />
-              </div>
+          <div className="image-div">
+            <div className="big-image-div">
+              <img
+                className="big-image"
+                src={imageBuffer}
+                alt="product image"
+              />
             </div>
           </div>
-          <form className="item-form" method="POST" action="/cart">
+          <form method="POST" action="/cart">
             <div className="info-div">
               <p className="title">
                 {selectedProduct && selectedProduct.title}

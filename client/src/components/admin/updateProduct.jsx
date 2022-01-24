@@ -71,10 +71,8 @@ const AdminUpdateProductC = (props) => {
       </div>
       <div className="admin-item-div">
         <div className="admin-image-div">
-          <div className="image">
-            <div className="big-image-div">
-              <img className="big-image" src={image} alt="product" />
-            </div>
+          <div className="big-image-div">
+            <img className="big-image" src={image} alt="product" />
           </div>
         </div>
         <form className="admin-form" action="/routes/admin.js" method="POST">
@@ -90,7 +88,6 @@ const AdminUpdateProductC = (props) => {
               onChange={(e) => setTitle(e.target.value)}
               type="text"
               name="name"
-              className="form-control"
               required
             />
           </div>
@@ -140,7 +137,6 @@ const AdminUpdateProductC = (props) => {
               onChange={(e) => setQuantity(e.target.value)}
               type="number"
               name="quantity"
-              className="form-control"
               required
             />
           </div>
@@ -153,7 +149,6 @@ const AdminUpdateProductC = (props) => {
               onChange={(e) => setPrice(e.target.value)}
               type="text"
               name="name"
-              className="form-control"
               required
             />
           </div>
@@ -177,7 +172,6 @@ const AdminUpdateProductC = (props) => {
                 onChange={(e) => setPrimaryImage(e.target.value)}
                 type="checkbox"
                 name="primaryImage"
-                className="form-control"
               />
             </div> */}
           <div className="admin-form-button">
@@ -187,7 +181,6 @@ const AdminUpdateProductC = (props) => {
                 <button
                   onClick={handleSubmit}
                   type="submit"
-                  className="btn form-button"
                 >
                   Submit
                 </button>

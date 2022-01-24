@@ -48,17 +48,15 @@ const AboutC = () => {
           </div>
           <div className="profile-info">
             <div className="profile-image-div">
-              <div className="image">
-                <div className="big-image-div">
-                  <img
-                    className="big-image"
-                    src="../../images/profileImage.jpeg"
-                    alt="Profile"
-                  />
-                </div>
+              <div className="big-image-div">
+                <img
+                  className="big-image"
+                  src="../../images/profileImage.jpeg"
+                  alt="Profile"
+                />
               </div>
-              <div className="details"></div>
-              <div className="qty"></div>
+              <div></div>
+              <div></div>
             </div>
             <div className="about-info">
               <h3>&emsp; &emsp; {process.env.REACT_APP_INFO_PARAGRAPH_1}</h3>

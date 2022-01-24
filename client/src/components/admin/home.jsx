@@ -54,7 +54,7 @@ const HomeC = () => {
   return (
     <div>
       <AdminHeaderC />
-      <div className="main-body home-menu">
+      <div className="main-body">
         <a href="products/print">
           <div className="menu-item">
             <img className="menu-image" src={twoDImage} alt="2D Print" />

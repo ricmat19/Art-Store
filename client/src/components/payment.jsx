@@ -132,9 +132,9 @@
 //             </div> */}
 //           </div>
 
-//           <div className="payment-method-selection-div">
+//           <div>
 //             <p>payment method</p>
-//             <div className="payment-options-div">
+//             <div>
 //               <div className="payment-option">
 //                 {/* <input
 //                   className="align-left"
@@ -143,15 +143,14 @@
 //                 /> */}
 //                 <label className="align-left">Credit Card</label>
 //               </div>
-//               <div className="payment-info-input-div">
+//               <div>
 //                 <form
-//                   className="credit-card-form"
 //                   method="POST"
 //                   onSubmit={handlePayment}
 //                 >
 //                   <div className="grid payment-input">
 //                     <CardElement
-//                       className="cardElement"
+//                       className="card-element"
 //                       options={cardElementOptions}
 //                     />
 //                   </div>
@@ -183,7 +182,7 @@
 //             </div>
 //           </div>
 //         </div>
-//         <div className="order-summary">
+//         <div>
 //           <div>
 //             <OrderSummaryC
 //               cartProducts={cart}

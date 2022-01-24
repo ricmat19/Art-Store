@@ -33,7 +33,6 @@ const HeaderC = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-
         document.addEventListener("mousedown", (event) => {
           if (signinRef.current !== null) {
             if (!signinRef.current.contains(event.target)) {
@@ -50,7 +49,7 @@ const HeaderC = (props) => {
 
         const cartResponse = await IndexAPI.get(`/cart`);
 
-        setCartCount(cartResponse.data.data.cart.length)
+        setCartCount(cartResponse.data.data.cart.length);
       } catch (err) {
         console.log(err);
       }
@@ -165,7 +164,7 @@ const HeaderC = (props) => {
         <form>
           <div ref={signupRef} className="sign-content">
             <p className="sign-header title">Create Account</p>
-            <div className="sign-input">
+            <div>
               <div className="name-input-div">
                 <input
                   type="text"
@@ -226,11 +225,7 @@ const HeaderC = (props) => {
               </div>
             </div>
             <div>
-              <button
-                onClick={handleSignup}
-                type="submit"
-                className="btn form-button"
-              >
+              <button onClick={handleSignup} type="submit">
                 Create Account
               </button>
             </div>
@@ -248,10 +243,8 @@ const HeaderC = (props) => {
         <form>
           <div ref={resetRef} className="sign-content">
             <p className="sign-header title">Reset Password</p>
-            <div className="sign-input">
-              <div className="forgot-input-div">
-                <input type="text" placeholder="Email" />
-              </div>
+            <div className="forgot-input-div">
+              <input type="text" placeholder="Email" />
             </div>
             <div>
               <button>Send Reset Link</button>
@@ -267,7 +260,7 @@ const HeaderC = (props) => {
 
       <div className="nav-row">
         <input type="checkbox" id="nav-toggle" className="nav-toggle" />
-        <label htmlFor="nav-toggle" className="title nav-toggle-label">
+        <label htmlFor="nav-toggle" className="title">
           <a className="menu-toggle">
             <p className="title">menu</p>
           </a>
@@ -309,6 +302,5 @@ const HeaderC = (props) => {
 HeaderC.propTypes = {
   cartQty: PropTypes.string,
 };
-
 
 export default HeaderC;

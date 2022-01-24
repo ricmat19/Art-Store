@@ -2,7 +2,6 @@ import React from "react";
 // import IndexAPI from "../../apis/indexAPI";
 
 const HeaderC = () => {
-
   // const [signinModal, setSigninModal] = useState("sign-bg");
   // const [signupModal, setSignupModal] = useState("sign-bg");
   // const [resetModal, setResetModal] = useState("sign-bg");
@@ -133,7 +132,7 @@ const HeaderC = () => {
         <form>
           <div ref={signupRef} className="sign-content">
             <p className="sign-header title">Create Account</p>
-            <div className="sign-input">
+            <div>
               <div className="name-input-div">
                 <input
                   type="text"
@@ -197,7 +196,6 @@ const HeaderC = () => {
               <button
                 onClick={handleSignup}
                 type="submit"
-                className="btn form-button"
               >
                 Create Account
               </button>
@@ -216,11 +214,9 @@ const HeaderC = () => {
         <form>
           <div ref={resetRef} className="sign-content">
             <p className="sign-header title">Reset Password</p>
-            <div className="sign-input">
               <div className="forgot-input-div">
                 <input type="text" placeholder="Email" />
               </div>
-            </div>
             <div>
               <button>Send Reset Link</button>
             </div>
@@ -235,7 +231,7 @@ const HeaderC = () => {
 
       <div>
         <input type="checkbox" id="nav-toggle" className="nav-toggle" />
-        <label htmlFor="nav-toggle" className="title nav-toggle-label">
+        <label htmlFor="nav-toggle" className="title">
           <a className="menu-toggle">
             <p className="title">menu</p>
           </a>
@@ -245,18 +241,17 @@ const HeaderC = () => {
             <p className="title">logo</p>
           </a>
           <div className="nav-div">
-          {/* <a href="/admin/products/print">
+            {/* <a href="/admin/products/print">
             <p className="title">store</p>
           </a> */}
-          {/* <a href="/admin/about">
+            {/* <a href="/admin/about">
             <p className="title">info</p>
           </a> */}
-          {/* <a onClick={displaySignin}>
+            {/* <a onClick={displaySignin}>
             <p className="title pointer">sign in</p>
           </a> */}
           </div>
-          <div className="cart-summary-div">
-          </div>
+          <div className="cart-summary-div"></div>
         </nav>
       </div>
     </div>

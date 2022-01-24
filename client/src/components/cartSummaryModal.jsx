@@ -32,10 +32,10 @@ const CartSummaryModalC = (props) => {
       <div className={cartModal}>
         <i className="fas fa-shopping-cart cart-icon"></i>
         <div className="cart-quantity-div">
-          <div className="cart-quantity">{cartQty}</div>
+          <div>{cartQty}</div>
           <label>items</label>
         </div>
-        <div className="totalPrice">${cartCost}</div>
+        <div className="total-price">${cartCost}</div>
       </div>
     </a>
   );

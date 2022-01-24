@@ -57,12 +57,12 @@ const AdminProductsC = () => {
               <h3 className="align-center">${item.price}.00</h3>
             </div>
           </div>
-          <div className="admin-buttons">
-            <div className="admin-products-button-div text-center">
+          <div>
+            <div className="admin-products-button-div">
               <div>
                 <button
                   onClick={() => displayDeleteProductModal(item.id)}
-                  className="btn form-button delete"
+                  className="delete"
                 >
                   Delete
                 </button>
@@ -72,7 +72,6 @@ const AdminProductsC = () => {
                   onClick={() => displayUpdateProductModal(item.id)}
                   // onClick={() => handleUpdate(item.id)}
                   type="submit"
-                  className="btn form-button"
                 >
                   Update
                 </button>
