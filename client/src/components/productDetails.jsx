@@ -93,9 +93,9 @@ const ProductDetailsC = () => {
           </div>
           <form method="POST" action="/cart">
             <div className="info-div">
-              <p className="title">
+              <h1>
                 {selectedProduct && selectedProduct.title}
-              </p>
+              </h1>
               <div className="info-detail-div">
                 <label>price:</label>
                 <p className="no-margin">

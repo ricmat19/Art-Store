@@ -40,7 +40,7 @@ const CartC = () => {
       <HeaderC cartQty={cart.length}/>
       <div className="main-body">
         <div>
-          <div className="center">
+          <div className="align-center">
             <p className="title">Shopping Cart</p>
           </div>
           <div className="cart-table">

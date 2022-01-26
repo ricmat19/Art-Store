@@ -86,18 +86,18 @@ const ProductsC = () => {
       <HeaderC />
       <div className="main-body">
         <div>
-          <div className="center">
+          <div className="align-center">
             <h1>store</h1>
           </div>
-          {/* <div className="center subtitle-div">
+          {/* <div className="align-center subtitle-div">
           <a className="subtitle-anchor" href="/products/print">
-            <h2 className="title">2D Prints</h2>
+            <h2>2D Prints</h2>
           </a>
           <a className="subtitle-anchor" href="/products/model">
-            <h2 className="title">3D Models</h2>
+            <h2>3D Models</h2>
           </a>
           <a className="subtitle-anchor" href="/products/comic">
-            <h2 className="title">Comics</h2>
+            <h2>Comics</h2>
           </a>
         </div> */}
           <div className="products-menu">{displayItems}</div>

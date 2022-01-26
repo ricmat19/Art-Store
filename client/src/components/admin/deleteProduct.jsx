@@ -39,10 +39,10 @@ const AdminDeleteProductC = (props) => {
     <div className="">
       <div className="admin-item-div">
         <form className="admin-form" action="/routes/admin.js" method="POST">
-          <div className="center">
-            <p className="title">
+          <div className="align-center">
+            <h1>
               Are you sure you want to delete &quot;{product}&quot; ?
-            </p>
+            </h1>
           </div>
           <button
             onClick={handleDelete}

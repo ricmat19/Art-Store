@@ -155,12 +155,12 @@ const CheckoutC = () => {
       <HeaderC />
       <div className="checkout-div">
         <form className="checkout-info" method="POST">
-          {/* <p className="title">express checkout</p>
+          {/* <h1>express checkout</h1>
           <div className="express-checkout-button-div">
             <button>PayPal</button>
           </div>
           <hr className="checkout-hr" /> */}
-          <p className="title">checkout information</p>
+          <h1>checkout information</h1>
           {/* <div> */}
             <div className="checkout-info-div">
               <div className="checkout-email-div">
@@ -324,7 +324,7 @@ const CheckoutC = () => {
             </div>
           {/* </div> */}
           <div>
-            <p className="title">payment information</p>
+            <h1>payment information</h1>
             <div>
               <div className="payment-option">
                 {/* <input

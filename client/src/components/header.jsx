@@ -117,7 +117,7 @@ const HeaderC = (props) => {
       <div className={signinModal}>
         <form>
           <div ref={signinRef} className="sign-content">
-            <p className="sign-header title">welcome</p>
+            <h1 className="sign-header">welcome</h1>
             <div>
               <div className="modal-input-div">
                 <input
@@ -163,7 +163,7 @@ const HeaderC = (props) => {
       <div className={signupModal}>
         <form>
           <div ref={signupRef} className="sign-content">
-            <p className="sign-header title">Create Account</p>
+            <h1 className="sign-header">Create Account</h1>
             <div>
               <div className="name-input-div">
                 <input
@@ -242,7 +242,7 @@ const HeaderC = (props) => {
       <div className={resetModal}>
         <form>
           <div ref={resetRef} className="sign-content">
-            <p className="sign-header title">Reset Password</p>
+            <h1 className="sign-header">Reset Password</h1>
             <div className="forgot-input-div">
               <input type="text" placeholder="Email" />
             </div>
@@ -260,37 +260,37 @@ const HeaderC = (props) => {
 
       <div className="nav-row">
         <input type="checkbox" id="nav-toggle" className="nav-toggle" />
-        <label htmlFor="nav-toggle" className="title">
+        <h1 htmlFor="nav-toggle">
           <a className="menu-toggle">
-            <p className="title">menu</p>
+            <h1>menu</h1>
           </a>
-        </label>
+        </h1>
         <nav className="navbar">
           <a className="logo-div" href="/">
-            <p className="title">logo</p>
+            <h1>logo</h1>
           </a>
           <div className="nav-div">
             <a className="nav-link" href="/">
-              <p className="title">store</p>
+              <h1>store</h1>
             </a>
             {/* <a href="/#store">
-            <p className="title">store</p>
+            <h1>store</h1>
           </a> */}
             <a className="nav-link" href="/about">
-              <p className="title">about</p>
+              <h1>about</h1>
             </a>
             <a className="nav-link" href="/contact">
-              <p className="title">contact</p>
+              <h1>contact</h1>
             </a>
             {/* <a className="nav-link" href={value.toString()} onClick={displaySignin}>
-            <p className="title">sign in</p>
+            <h1>sign in</h1>
             </a> */}
           </div>
           <div className="cart-summary-div">
             <a href="/cart">
-              <p className="title pointer">
+              <h1 className="pointer">
                 {cartCount} items <i className="fas fa-shopping-cart"></i>
-              </p>
+              </h1>
             </a>
           </div>
         </nav>

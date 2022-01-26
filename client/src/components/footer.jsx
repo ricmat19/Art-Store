@@ -3,7 +3,7 @@ import React from "react";
 const FooterC = () => {
   return (
     <footer>
-      <div className="center footer-pad">
+      <div className="align-center footer-pad">
         <a
           href="https://www.instagram.com/arthouse_19/"
           target="_blank"

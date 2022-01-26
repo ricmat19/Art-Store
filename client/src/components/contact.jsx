@@ -72,7 +72,7 @@ const ContactC = () => {
       <HeaderC />
       <div className="main-body">
         <div>
-          <div className="center">
+          <div className="align-center">
             <h1>contact</h1>
           </div>
           <div className="form-div">
