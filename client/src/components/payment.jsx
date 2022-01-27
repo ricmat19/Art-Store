@@ -105,35 +105,35 @@
 //         <div className="payment-selection-div">
 //           <div className="payment-info-div">
 //             <div className="payment-info">
-//               <p className="align-left">contact</p>
-//               <p className="align-left">{shipment.email}</p>
+//               <h3 className="align-left">contact</h3>
+//               <h3 className="align-left">{shipment.email}</h3>
 //               <a className="align-right" href="/checkout">
-//                 <p>change</p>
+//                 <h3>change</h3>
 //               </a>
 //             </div>
 //             <hr className="payment-hr" />
 //             <div className="payment-info">
-//               <p className="align-left">ship to</p>
-//               <p className="align-left">
+//               <h3 className="align-left">ship to</h3>
+//               <h3 className="align-left">
 //                 {shipment.address} {shipment.city}, {shipment.state}{" "}
 //                 {shipment.zipcode}
-//               </p>
+//               </h3>
 //               <a className="align-right" href="/checkout">
-//                 <p>change</p>
+//                 <h3>change</h3>
 //               </a>
 //             </div>
 //             {/* <hr className="payment-hr" />
 //             <div className="payment-info">
-//               <p className="align-left">method</p>
-//               <p className="align-left">first class (3-7 days) - $0.00</p>
+//               <h3 className="align-left">method</h3>
+//               <h3 className="align-left">first class (3-7 days) - $0.00</h3>
 //               <a className="align-right" href="/shipping">
-//                 <p>change</p>
+//                 <h3>change</h3>
 //               </a>
 //             </div> */}
 //           </div>
 
 //           <div>
-//             <p>payment method</p>
+//             <h1>payment method</h1>
 //             <div>
 //               <div className="payment-option">
 //                 {/* <input

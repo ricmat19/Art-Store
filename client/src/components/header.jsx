@@ -260,11 +260,11 @@ const HeaderC = (props) => {
 
       <div className="nav-row">
         <input type="checkbox" id="nav-toggle" className="nav-toggle" />
-        <h1 htmlFor="nav-toggle">
+        <div htmlFor="nav-toggle">
           <a className="menu-toggle">
             <h1>menu</h1>
           </a>
-        </h1>
+        </div>
         <nav className="navbar">
           <a className="logo-div" href="/">
             <h1>logo</h1>

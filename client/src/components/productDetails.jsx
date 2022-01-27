@@ -98,19 +98,19 @@ const ProductDetailsC = () => {
               </h1>
               <div className="info-detail-div">
                 <label>price:</label>
-                <p className="no-margin">
+                <h3 className="no-margin">
                   ${selectedProduct && selectedProduct.price}.00
-                </p>
+                </h3>
               </div>
               {/* <div className="info-detail-div">
               <label>quantity:</label>
-              <p className="no-margin">{selectedProduct && selectedProduct.qty}</p>
+              <h3 className="no-margin">{selectedProduct && selectedProduct.qty}</h3>
             </div> */}
               <div className="info-detail-div">
                 <label>info:</label>
-                <p className="no-margin">
+                <h3 className="no-margin">
                   {selectedProduct && selectedProduct.info}
-                </p>
+                </h3>
               </div>
               <hr className="no-margin" />
               <div className="cart-options">

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import CartProductC from "./cartProduct";
+import CartProductsC from "./cartProducts";
 import HeaderC from "./header";
 import FooterC from "./footer";
 import IndexAPI from "../apis/indexAPI";
@@ -41,22 +41,17 @@ const CartC = () => {
       <div className="main-body">
         <div>
           <div className="align-center">
-            <p className="title">Shopping Cart</p>
+            <h1>Shopping Cart</h1>
           </div>
           <div className="cart-table">
             <div className="table-headers">
-              <p>item</p>
-              <p className="align-center">quantity</p>
-              <p className="align-right">price</p>
+              <h3>item</h3>
+              <h3 className="align-center">quantity</h3>
+              <h3 className="align-right">price</h3>
             </div>
             <hr className="table-hr" />
             <div className="cart-items-container">
-              <CartProductC setCart={setCart}/>
-            </div>
-            <div className="align-right cart-button">
-              <button>
-                <a href="/checkout">Checkout</a>
-              </button>
+              <CartProductsC setCart={setCart}/>
             </div>
           </div>
         </div>

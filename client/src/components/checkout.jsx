@@ -318,7 +318,7 @@ const CheckoutC = () => {
               {/* <div className="two-column-div">
                 <button onClick={handleCheckout}>continue to shipping</button>
                 <a href="/cart">
-                  <p>return to cart</p>
+                  <h1>return to cart</h1>
                 </a>
               </div> */}
             </div>

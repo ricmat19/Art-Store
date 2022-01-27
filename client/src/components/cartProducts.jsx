@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import IndexAPI from "../apis/indexAPI";
 import PropTypes from "prop-types";
 
-const CartProductC = (props) => {
+const CartProductsC = (props) => {
   const [prices, setPrices] = useState([]);
   const [cart, setCart] = useState([]);
   const [cartQty, setCartQty] = useState([]);
@@ -30,11 +30,13 @@ const CartProductC = (props) => {
             cartResponse.data.data.cart[i].imageBuffer = imagesResponse;
           }
         }
-        setCart(cartResponse.data.data.cart)
+        setCart(cartResponse.data.data.cart);
 
-        if (priceArray.length === 0) {
-          for (let i = 0; i < props.cart.length; i++) {
-            sub += parseInt(props.cart[i].price);
+        if (cartResponse.data.data.cart.length === 0) {
+          sub = 0;
+        } else if (priceArray.length === 0) {
+          for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
+            sub += parseInt(cartResponse.data.data.cart[i].price);
           }
         } else {
           sub = priceArray.reduce(function (a, b) {
@@ -59,8 +61,23 @@ const CartProductC = (props) => {
       });
 
       const cartResponse = await IndexAPI.get(`/cart`);
-      props.setCart(cartResponse.data.data.cart)
+      props.setCart(cartResponse.data.data.cart);
 
+      if (cartResponse.data.data.cart.length === 0) {
+        sub = 0;
+      } else {
+        for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
+          sub += parseInt(cartResponse.data.data.cart[i].price);
+        }
+      }
+      setSubtotal(sub);
+
+      console.log(qtyArray);
+      const resetPricesArray = [];
+      for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
+        resetPricesArray.push(parseInt(cartResponse.data.data.cart[i].price));
+      }
+      setPrices(resetPricesArray);
     } catch (err) {
       console.log(err);
     }
@@ -68,7 +85,6 @@ const CartProductC = (props) => {
 
   const setItemQty = async (item, e) => {
     try {
-      console.log(e)
       setPrices(priceArray);
       for (let i = 0; i < cart.length; i++) {
         if (cart[i].id === item.id) {
@@ -109,11 +125,10 @@ const CartProductC = (props) => {
 
   return (
     <div className="cart-items">
-      {console.log(cart)}
       {cart &&
         cart.map((item, index) => {
           priceArray.push(parseInt(item.price));
-
+          console.log(prices);
           let itemPrice = ``;
           if (prices[index] === undefined) {
             itemPrice = item.price;
@@ -129,7 +144,7 @@ const CartProductC = (props) => {
                     className="delete-button"
                     onClick={() => deleteFromCart(item.id)}
                   >
-                    X
+                    <h3>X</h3>
                   </span>
                   <span className="cart-item-div">
                     <img
@@ -160,13 +175,20 @@ const CartProductC = (props) => {
         <span>subtotal</span>
         <span>${subtotal}.00</span>
       </div>
+      {subtotal > 0 ? 
+      <div className="align-right cart-button">
+        <button>
+          <a href="/checkout">Checkout</a>
+        </button>
+      </div>
+      : ""}
     </div>
   );
 };
 
-CartProductC.propTypes = {
+CartProductsC.propTypes = {
   cart: PropTypes.array,
-  setCart: PropTypes.func
+  setCart: PropTypes.func,
 };
 
-export default CartProductC;
+export default CartProductsC;

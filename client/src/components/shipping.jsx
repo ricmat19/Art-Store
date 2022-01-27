@@ -65,27 +65,27 @@
 //         <div className="shipping-selection-div">
 //           <div className="shipping-info-div">
 //             <div className="shipping-info">
-//               <p className="align-left">contact</p>
-//               <p className="align-left">{shipment.email}</p>
+//               <h3 className="align-left">contact</h3>
+//               <h3 className="align-left">{shipment.email}</h3>
 //               <a className="align-right" href="">
-//                 <p>change</p>
+//                 <h3>change</h3>
 //               </a>
 //             </div>
 //             <hr className="shipping-hr" />
 //             <div className="shipping-info">
-//               <p className="align-left">ship to</p>
-//               <p className="align-left">
+//               <h3 className="align-left">ship to</h3>
+//               <h3 className="align-left">
 //                 {shipment.address} {shipment.city}, {shipment.state}{" "}
 //                 {shipment.zipcode}
-//               </p>
+//               </h3>
 //               <a className="align-right" href="">
-//                 <p>change</p>
+//                 <h3>change</h3>
 //               </a>
 //             </div>
 //           </div>
 
 //           {/* <div>
-//             <p>shipping method</p>
+//             <h3>shipping method</h3>
 //             <div className="shipping-options-div">
 //               <div className="shipping-option">
 //                 <input
@@ -96,7 +96,7 @@
 //                 <label className="align-left">
 //                   first class (3-7 business days)
 //                 </label>
-//                 <p className="align-right">$0.00</p>
+//                 <h3 className="align-right">$0.00</h3>
 //               </div>
 //               <hr className="shipping-hr" />
 //               <div className="shipping-option">
@@ -108,7 +108,7 @@
 //                 <label className="align-left">
 //                   priority mail (1-3 business days)
 //                 </label>
-//                 <p className="align-right">$0.00</p>
+//                 <h3 className="align-right">$0.00</h3>
 //               </div>
 //             </div>
 //           </div>
@@ -117,7 +117,7 @@
 //               <a href="/payment">continue to payment</a>
 //             </button>
 //             <a href="/checkout">
-//               <p>return to information</p>
+//               <h3>return to information</h3>
 //             </a>
 //           </div>*/}
 //         </div> 
