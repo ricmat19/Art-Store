@@ -1,3 +1,4 @@
+.disclaimer,
 .sign-bg,
 .create-bg,
 .update-bg,
@@ -17,6 +18,7 @@
   cursor: pointer;
 }
 
+.disclaimer-active,
 .sign-active,
 .create-product,
 .update-product,
@@ -26,6 +28,7 @@
   z-index: 3;
 }
 
+.disclaimer-content,
 .sign-content {
   display: grid;
   background-color: black;
@@ -35,6 +38,12 @@
   min-width: 330px;
 }
 
+.disclaimer-content{
+  width: 400px;
+  border: white solid 2px;
+}
+
+.disclaimer-header,
 .sign-header {
   margin: 5px;
 }

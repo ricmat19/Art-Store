@@ -3,10 +3,20 @@ import PropTypes from "prop-types";
 import IndexAPI from "../apis/indexAPI";
 
 const HeaderC = (props) => {
+  const [disclaimerModal, setDisclaimerModal] = useState("disclaimer");
   const [signinModal, setSigninModal] = useState("sign-bg");
   const [signupModal, setSignupModal] = useState("sign-bg");
   const [resetModal, setResetModal] = useState("sign-bg");
   const [cartCount, setCartCount] = useState(0);
+
+  const displayDisclaimer = () => {
+    setDisclaimerModal("disclaimer disclaimer-active");
+  };
+
+  const closeDisclaimer = (e) => {
+    e.preventDefault();
+    setDisclaimerModal("disclaimer");
+  };
 
   const displaySignin = () => {
     setSigninModal("sign-bg sign-active");
@@ -33,6 +43,9 @@ const HeaderC = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+
+        displayDisclaimer();
+
         document.addEventListener("mousedown", (event) => {
           if (signinRef.current !== null) {
             if (!signinRef.current.contains(event.target)) {
@@ -113,6 +126,28 @@ const HeaderC = (props) => {
 
   return (
     <div className="navbar-div">
+      {/* Disclaimer Modal */}
+      <div className={disclaimerModal}>
+        <form>
+          <div className="disclaimer-content">
+            <h1 className="disclaimer-header">welcome to Art Store</h1>
+            <div>
+              Art Store is a full-stack E-commerce application built using React.js,
+              Node/Express, PostgreSQL, an AWS S3 Bucket. This application is strictly for demonstrative
+              purposes.
+              <hr className="disclaimer-hr"/>
+              By clicking the button below, you are acceptig that no real
+              purchases will be made, no payments will be processed, and no
+              personal information, such as: names, addresses, and credit
+              card information will be used.
+            </div>
+            <div>
+              <button onClick={(e) => closeDisclaimer(e)}>i accept</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
       {/* Signin */}
       <div className={signinModal}>
         <form>
@@ -260,11 +295,13 @@ const HeaderC = (props) => {
 
       <div className="nav-row">
         <input type="checkbox" id="nav-toggle" className="nav-toggle" />
-        <div htmlFor="nav-toggle">
+        <label htmlFor="nav-toggle" className="nav-toggle-label">
           <a className="menu-toggle">
-            <h1>menu</h1>
+            <nav>
+              <h1>menu</h1>
+            </nav>
           </a>
-        </div>
+        </label>
         <nav className="navbar">
           <a className="logo-div" href="/">
             <h1>logo</h1>

@@ -7,7 +7,6 @@ import IndexAPI from "../apis/indexAPI";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 
 const CheckoutC = () => {
-
   const stripe = useStripe();
   const elements = useElements();
 
@@ -162,166 +161,166 @@ const CheckoutC = () => {
           <hr className="checkout-hr" /> */}
           <h1>checkout information</h1>
           {/* <div> */}
-            <div className="checkout-info-div">
-              <div className="checkout-email-div">
-                <input
-                  type="email"
-                  ref={emailInput}
-                  value={email}
-                  name="email"
-                  placeholder="email"
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                  }}
-                />
-              </div>
-              <div className="two-column-div">
-                <input
-                  type="text"
-                  ref={firstNameInput}
-                  value={firstname}
-                  name="firstname"
-                  placeholder="First Name"
-                  onChange={(e) => {
-                    setFirstName(e.target.value);
-                  }}
-                />
-                <input
-                  type="text"
-                  ref={lastNameInput}
-                  value={lastname}
-                  name="lastname"
-                  placeholder="Last Name"
-                  onChange={(e) => {
-                    setLastName(e.target.value);
-                  }}
-                />
-              </div>
-              <div className="checkout-address-div">
-                <input
-                  type="text"
-                  ref={addressInput}
-                  value={address}
-                  name="address"
-                  placeholder="Address"
-                  onChange={(e) => {
-                    setAddress(e.target.value);
-                  }}
-                />
-              </div>
-              <div className="checkout-suite-div">
-                <input
-                  type="text"
-                  ref={suiteInput}
-                  value={suite}
-                  name="suite"
-                  placeholder="apartment, suite, etc. (optional)"
-                  onChange={(e) => {
-                    setSuite(e.target.value);
-                  }}
-                />
-              </div>
-              <div className="three-column-div">
-                <input
-                  type="text"
-                  ref={cityInput}
-                  value={city}
-                  name="city"
-                  placeholder="city"
-                  onChange={(e) => {
-                    setCity(e.target.value);
-                  }}
-                />
-                <select
-                  ref={stateInput}
-                  value={state}
-                  name="state"
-                  placeholder="state"
-                  onChange={(e) => {
-                    setState(e.target.value);
-                  }}
-                >
-                  <option>Alabama</option>
-                  <option>Alaska</option>
-                  <option>Arizona</option>
-                  <option>Arkansas</option>
-                  <option>California</option>
-                  <option>Colorado</option>
-                  <option>Connecticut</option>
-                  <option>Delaware</option>
-                  <option>Florida</option>
-                  <option>Georgia</option>
-                  <option>Hawaii</option>
-                  <option>Idaho</option>
-                  <option>Illinois</option>
-                  <option>Indiana</option>
-                  <option>Iowa</option>
-                  <option>Kansas</option>
-                  <option>Kentucky</option>
-                  <option>Louisiana</option>
-                  <option>Maine</option>
-                  <option>Maryland</option>
-                  <option>Massachusetts</option>
-                  <option>Michigan</option>
-                  <option>Minnesota</option>
-                  <option>Mississippi</option>
-                  <option>Missouri</option>
-                  <option>Montana</option>
-                  <option>Nebraska</option>
-                  <option>Nevada</option>
-                  <option>New Hampshire</option>
-                  <option>New Jersey</option>
-                  <option>New Mexico</option>
-                  <option>New York</option>
-                  <option>North Carolina</option>
-                  <option>North Dakota</option>
-                  <option>Ohio</option>
-                  <option>Oklahoma</option>
-                  <option>Oregon</option>
-                  <option>Pennsylvania</option>
-                  <option>Rhode Island</option>
-                  <option>South Carolina</option>
-                  <option>South Dakota</option>
-                  <option>Tennessee</option>
-                  <option>Texas</option>
-                  <option>Utah</option>
-                  <option>Vermont</option>
-                  <option>Virginia</option>
-                  <option>Washington</option>
-                  <option>West Virginia</option>
-                  <option>Wisconsin</option>
-                  <option>Wyoming</option>
-                </select>
-                <input
-                  type="number"
-                  ref={zipcodeInput}
-                  value={zipcode}
-                  name="zipcode"
-                  placeholder="ZIP code"
-                  onChange={(e) => {
-                    setZipcode(e.target.value);
-                  }}
-                />
-              </div>
-              <div className="checkout-phone-div">
-                <input
-                  type="tel"
-                  ref={phoneInput}
-                  value={phone}
-                  name="phone"
-                  placeholder="phone (optional)"
-                  onChange={(e) => {
-                    setPhone(e.target.value);
-                  }}
-                />
-              </div>
-              {/* <div className="two-column-div">
+          <div className="checkout-info-div">
+            <div className="checkout-email-div">
+              <input
+                type="email"
+                ref={emailInput}
+                value={email}
+                name="email"
+                placeholder="email"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
+            </div>
+            <div className="two-column-div">
+              <input
+                type="text"
+                ref={firstNameInput}
+                value={firstname}
+                name="firstname"
+                placeholder="First Name"
+                onChange={(e) => {
+                  setFirstName(e.target.value);
+                }}
+              />
+              <input
+                type="text"
+                ref={lastNameInput}
+                value={lastname}
+                name="lastname"
+                placeholder="Last Name"
+                onChange={(e) => {
+                  setLastName(e.target.value);
+                }}
+              />
+            </div>
+            <div className="checkout-address-div">
+              <input
+                type="text"
+                ref={addressInput}
+                value={address}
+                name="address"
+                placeholder="Address"
+                onChange={(e) => {
+                  setAddress(e.target.value);
+                }}
+              />
+            </div>
+            <div className="checkout-suite-div">
+              <input
+                type="text"
+                ref={suiteInput}
+                value={suite}
+                name="suite"
+                placeholder="apartment, suite, etc. (optional)"
+                onChange={(e) => {
+                  setSuite(e.target.value);
+                }}
+              />
+            </div>
+            <div className="three-column-div">
+              <input
+                type="text"
+                ref={cityInput}
+                value={city}
+                name="city"
+                placeholder="city"
+                onChange={(e) => {
+                  setCity(e.target.value);
+                }}
+              />
+              <select
+                ref={stateInput}
+                value={state}
+                name="state"
+                placeholder="state"
+                onChange={(e) => {
+                  setState(e.target.value);
+                }}
+              >
+                <option>Alabama</option>
+                <option>Alaska</option>
+                <option>Arizona</option>
+                <option>Arkansas</option>
+                <option>California</option>
+                <option>Colorado</option>
+                <option>Connecticut</option>
+                <option>Delaware</option>
+                <option>Florida</option>
+                <option>Georgia</option>
+                <option>Hawaii</option>
+                <option>Idaho</option>
+                <option>Illinois</option>
+                <option>Indiana</option>
+                <option>Iowa</option>
+                <option>Kansas</option>
+                <option>Kentucky</option>
+                <option>Louisiana</option>
+                <option>Maine</option>
+                <option>Maryland</option>
+                <option>Massachusetts</option>
+                <option>Michigan</option>
+                <option>Minnesota</option>
+                <option>Mississippi</option>
+                <option>Missouri</option>
+                <option>Montana</option>
+                <option>Nebraska</option>
+                <option>Nevada</option>
+                <option>New Hampshire</option>
+                <option>New Jersey</option>
+                <option>New Mexico</option>
+                <option>New York</option>
+                <option>North Carolina</option>
+                <option>North Dakota</option>
+                <option>Ohio</option>
+                <option>Oklahoma</option>
+                <option>Oregon</option>
+                <option>Pennsylvania</option>
+                <option>Rhode Island</option>
+                <option>South Carolina</option>
+                <option>South Dakota</option>
+                <option>Tennessee</option>
+                <option>Texas</option>
+                <option>Utah</option>
+                <option>Vermont</option>
+                <option>Virginia</option>
+                <option>Washington</option>
+                <option>West Virginia</option>
+                <option>Wisconsin</option>
+                <option>Wyoming</option>
+              </select>
+              <input
+                type="number"
+                ref={zipcodeInput}
+                value={zipcode}
+                name="zipcode"
+                placeholder="ZIP code"
+                onChange={(e) => {
+                  setZipcode(e.target.value);
+                }}
+              />
+            </div>
+            <div className="checkout-phone-div">
+              <input
+                type="tel"
+                ref={phoneInput}
+                value={phone}
+                name="phone"
+                placeholder="phone (optional)"
+                onChange={(e) => {
+                  setPhone(e.target.value);
+                }}
+              />
+            </div>
+            {/* <div className="two-column-div">
                 <button onClick={handleCheckout}>continue to shipping</button>
                 <a href="/cart">
                   <h1>return to cart</h1>
                 </a>
               </div> */}
-            </div>
+          </div>
           {/* </div> */}
           <div>
             <h1>payment information</h1>
@@ -335,10 +334,7 @@ const CheckoutC = () => {
                 <label className="align-left">Credit Card</label>
               </div>
               <div>
-                <form
-                  method="POST"
-                  onSubmit={handlePayment}
-                >
+                <form method="POST" onSubmit={handlePayment}>
                   <div className="grid payment-input">
                     <CardElement
                       className="card-element"
@@ -347,6 +343,15 @@ const CheckoutC = () => {
                   </div>
                   <div className="grid payment-input">
                     <input type="text" placeholder="name on card" />
+                  </div>
+                  <div className="two-column-div checkout-disclaimer-container">
+                    <input type="checkbox" />
+                    <div className="checkout-disclaimer">
+                      By clicking the button below, you are acceptig that no
+                      real purchases will be made, no payments will be
+                      processed, and no personal information, such as: names,
+                      addresses, and credit card information will be used.
+                    </div>
                   </div>
                   <div className="credit-card-option">
                     <button className="payment-button" type="submit">
@@ -374,11 +379,11 @@ const CheckoutC = () => {
           </div>
         </form>
         <div className="order-summary-container">
-            <OrderSummaryC
-              cartProducts={cart}
-              cartPrices={cartPrices}
-              subtotal={subtotal}
-            />
+          <OrderSummaryC
+            cartProducts={cart}
+            cartPrices={cartPrices}
+            subtotal={subtotal}
+          />
           {/* <div className="two-column-div checkout-discount">
             <input type="text" placeholder="discount code" />
             <button>apply</button>

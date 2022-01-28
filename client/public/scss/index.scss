@@ -32,6 +32,18 @@ hr {
   justify-self: center;
 }
 
+.disclaimer-hr{
+  margin: 15px 0;
+}
+
+.table-hr,
+.item-hr,
+.shipping-hr,
+.payment-hr,
+.form-hr {
+  margin: 0;
+}
+
 a {
   color: white;
   text-decoration: none;
@@ -213,10 +225,6 @@ select,
   cursor: pointer;
 }
 
-.form-hr {
-  margin: 0;
-}
-
 .subtitle-div {
   display: grid;
   justify-content: center;
@@ -315,13 +323,6 @@ select,
 
 .item-qty-input {
   width: 70px;
-}
-
-.table-hr,
-.item-hr,
-.shipping-hr,
-.payment-hr {
-  margin: 0;
 }
 
 .total-price {
