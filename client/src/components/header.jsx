@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import IndexAPI from "../apis/indexAPI";
 
@@ -7,6 +8,8 @@ const HeaderC = (props) => {
   const [signupModal, setSignupModal] = useState("sign-bg");
   const [resetModal, setResetModal] = useState("sign-bg");
   const [cartCount, setCartCount] = useState(0);
+
+  const history = useHistory();
 
   const displaySignin = () => {
     setSigninModal("sign-bg sign-active");
@@ -268,32 +271,32 @@ const HeaderC = (props) => {
           </a>
         </label>
         <nav className="navbar">
-          <a className="logo-div" href="/">
+          <div className="logo-div" onClick={() => history.push("/")}>
             <h1>logo</h1>
-          </a>
+          </div>
           <div className="nav-div">
-            <a className="nav-link" href="/">
+            <div className="nav-link" onClick={() => history.push("/")}>
               <h1>store</h1>
-            </a>
-            {/* <a href="/#store">
+            </div>
+            {/* <div href="/#store">
             <h1>store</h1>
-          </a> */}
-            <a className="nav-link" href="/about">
+          </div> */}
+            <div className="nav-link" onClick={() => history.push("/about")}>
               <h1>about</h1>
-            </a>
-            <a className="nav-link" href="/contact">
+            </div>
+            <div className="nav-link" onClick={() => history.push("/contact")}>
               <h1>contact</h1>
-            </a>
-            {/* <a className="nav-link" href={value.toString()} onClick={displaySignin}>
+            </div>
+            {/* <div className="nav-link" href={value.toString()} onClick={displaySignin}>
             <h1>sign in</h1>
-            </a> */}
+            </div> */}
           </div>
           <div className="cart-summary-div">
-            <a href="/cart">
+            <div onClick={() => history.push("/cart")}>
               <h1 className="pointer">
                 {cartCount} items <i className="fas fa-shopping-cart"></i>
               </h1>
-            </a>
+            </div>
           </div>
         </nav>
       </div>

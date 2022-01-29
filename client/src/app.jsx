@@ -25,7 +25,6 @@ const App = () => {
 
   return (
     <div>
-      {console.log(disclaimerModal)}
       {/* Disclaimer Modal */}
       <div className={disclaimerModal}>
         <form>
