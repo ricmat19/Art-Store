@@ -52,6 +52,7 @@ router.post("/cart", async (req, res) => {
       results: newCart.rows,
       data: {
         cart: newCart.rows,
+        uniqueItem: uniqueItem
       },
     });
   } catch (err) {

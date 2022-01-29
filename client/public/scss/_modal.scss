@@ -1,4 +1,5 @@
-.disclaimer,
+.disclaimer-bg,
+.added-bg,
 .sign-bg,
 .create-bg,
 .update-bg,
@@ -19,6 +20,7 @@
 }
 
 .disclaimer-active,
+.added-active,
 .sign-active,
 .create-product,
 .update-product,
@@ -29,6 +31,7 @@
 }
 
 .disclaimer-content,
+.added-content,
 .sign-content {
   display: grid;
   background-color: black;
@@ -38,12 +41,17 @@
   min-width: 330px;
 }
 
-.disclaimer-content{
-  width: 400px;
+.disclaimer-content,
+.added-content{
   border: white solid 2px;
 }
 
+.disclaimer-content{
+  width: 400px;
+}
+
 .disclaimer-header,
+.added-header,
 .sign-header {
   margin: 5px;
 }
@@ -76,4 +84,8 @@
 .modal-input-div {
   display: grid;
   margin: 5px 0;
+}
+
+.added-button{
+  width: 200px;
 }

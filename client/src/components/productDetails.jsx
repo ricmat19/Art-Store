@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useHistory } from "react-router-dom";
 import { useParams } from "react-router";
 import IndexAPI from "../apis/indexAPI";
 import CartModalC from "./cartSummaryModal";
@@ -6,19 +7,31 @@ import HeaderC from "./header";
 import FooterC from "./footer";
 
 const ProductDetailsC = () => {
+  const { product, id } = useParams();
+  const [addedModal, setAddedModal] = useState("added-bg");
+  const [imageBuffer, setImageBuffer] = useState("");
   const [, setCart] = useState([]);
   const [cartState, setCartState] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState([]);
   const [cartQty, setCartQty] = useState(0);
   const [cartCost, setCartCost] = useState(0);
+  const [uniqueItem, setUniqueItem] = useState();
 
-  const { product, id } = useParams();
-  const [selectedProduct, setSelectedProduct] = useState([]);
+  const history = useHistory();
 
-  const [imageBuffer, setImageBuffer] = useState("");
+  const addedRef = useRef();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        document.addEventListener("mousedown", (event) => {
+          if (addedRef.current !== null) {
+            if (!addedRef.current.contains(event.target)) {
+              setAddedModal("added-bg");
+            }
+          }
+        });
+
         const productResponse = await IndexAPI.get(
           `/products/${product}/${id}`
         );
@@ -36,7 +49,6 @@ const ProductDetailsC = () => {
           setImageBuffer(`data:image/png;base64,${imagesResponse}`);
         }
         setSelectedProduct(productResponse.data.data.item);
-        console.log(productResponse.data.data.item);
 
         const cartResponse = await IndexAPI.get(`/cart`);
         setCart(cartResponse.data.data.cart);
@@ -65,12 +77,15 @@ const ProductDetailsC = () => {
   const addToCart = async (e) => {
     e.preventDefault();
     try {
-      await IndexAPI.post("/cart", {
+      const cartPostResponse = await IndexAPI.post("/cart", {
         id: id,
       });
+      setUniqueItem(cartPostResponse.data.data.uniqueItem)
 
       const cartResponse = await IndexAPI.get(`/cart`);
       setCartQty(cartResponse.data.data.cart.length);
+
+      setAddedModal("added-bg added-active");
     } catch (err) {
       console.log(err);
     }
@@ -79,6 +94,23 @@ const ProductDetailsC = () => {
   return (
     <div>
       <CartModalC cartState={cartState} cartQty={cartQty} cartCost={cartCost} />
+
+      {/* Added to Cart */}
+      <div className={addedModal}>
+        <form>
+          <div ref={addedRef} className="added-content">
+            <h1 className="added-header">Item Added</h1>
+            <div>{selectedProduct.title} has {!uniqueItem ?  "already" : ""} been added to your cart.</div>
+            <div className="grid two-column-div">
+              <button className="added-button" onClick={() => history.push("/")}>
+                continue shopping
+              </button>
+              <button className="added-button" onClick={() => history.push("/cart")}>view cart</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
       <HeaderC cartQty={cartQty} />
       <div className="main-body">
         <div className="item-details">
@@ -93,9 +125,7 @@ const ProductDetailsC = () => {
           </div>
           <form method="POST" action="/cart">
             <div className="info-div">
-              <h1>
-                {selectedProduct && selectedProduct.title}
-              </h1>
+              <h1>{selectedProduct && selectedProduct.title}</h1>
               <div className="info-detail-div">
                 <label>price:</label>
                 <h3 className="no-margin">

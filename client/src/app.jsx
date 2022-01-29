@@ -15,12 +15,12 @@ import AdminProducts from "./routes/admin/products";
 
 const App = () => {
   const [disclaimerModal, setDisclaimerModal] = useState(
-    "disclaimer disclaimer-active"
+    "disclaimer-bg disclaimer-active"
   );
 
   const closeDisclaimer = (e) => {
     e.preventDefault();
-    setDisclaimerModal("disclaimer");
+    setDisclaimerModal("disclaimer-bg");
   };
 
   return (
