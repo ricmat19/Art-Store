@@ -6,7 +6,6 @@ import HeaderC from "./header";
 import FooterC from "./footer";
 
 const ProductsC = () => {
-  // const { product } = useParams();
   const [products, setProducts] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
 
