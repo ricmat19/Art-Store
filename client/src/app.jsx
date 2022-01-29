@@ -32,10 +32,10 @@ const App = () => {
             <h1 className="disclaimer-header">welcome to Art Store</h1>
             <div>
               Art Store is a full-stack E-commerce application built using
-              React.js, Node/Express, PostgreSQL, an AWS S3 Bucket. This
-              application is strictly for demonstrative purposes.
+              React.js, Node/Express, PostgreSQL, and an AWS S3 Bucket for image
+              storage. This application is strictly for demonstrative purposes.
               <hr className="disclaimer-hr" />
-              By clicking the button below, you are acceptig that no real
+              By clicking the button below, you are accepting that no real
               purchases will be made, no payments will be processed, and no
               personal information, such as: names, addresses, and credit card
               information will be used.

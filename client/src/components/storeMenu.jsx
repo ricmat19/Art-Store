@@ -12,7 +12,6 @@ const StoreMenuC = () => {
     const fetchData = async () => {
       try {
         productResponse = await IndexAPI.get(`/products`);
-        console.log(productResponse.data.data.products);
 
         for (let i = 0; i < productResponse.data.data.products.length; i++) {
           if (productResponse.data.data.products[i].imagekey !== null) {
@@ -24,8 +23,6 @@ const StoreMenuC = () => {
             ).then((response) =>
               Buffer.from(response.data, "binary").toString("base64")
             );
-
-            console.log(productResponse.data.data.products)
 
             if (
               productResponse.data.data.products[i].primary_image &&

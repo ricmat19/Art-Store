@@ -8,7 +8,6 @@ router.post("/shipment", async (req, res) => {
       "SELECT cart FROM users WHERE email='ric19mat@gmail.com'"
     );
     let currentCart = cart.rows[0].cart;
-    console.log(currentCart);
 
     // let newCart = await db.query("UPDATE users SET cart=$1 WHERE email='ric19mat@gmail.com'", [currentCart]);
 
@@ -43,8 +42,6 @@ router.post("/shipment", async (req, res) => {
 router.get("/shipment", async (req, res) => {
   try {
     const shipment = await db.query("SELECT * FROM shipment WHERE id=9");
-
-    // console.log(shipment)
 
     res.status(200).json({
       status: "success",

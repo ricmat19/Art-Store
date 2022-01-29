@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useHistory } from "react-router-dom";
 import OrderSummaryC from "./orderSummary";
 import HeaderC from "./header";
 import FooterC from "./footer";
@@ -13,8 +14,6 @@ const CheckoutC = () => {
   const [cart, setCart] = useState([]);
   const [cartPrices, setCartPrices] = useState([]);
   const [subtotal, setSubtotal] = useState(0);
-  // const [, setShipment] = useState(null);
-
   const [email, setEmail] = useState("");
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
@@ -24,6 +23,7 @@ const CheckoutC = () => {
   const [state, setState] = useState("");
   const [zipcode, setZipcode] = useState("");
   const [phone, setPhone] = useState("");
+  // const [, setShipment] = useState(null);
 
   const emailInput = useRef(null);
   const firstNameInput = useRef(null);
@@ -34,6 +34,8 @@ const CheckoutC = () => {
   const stateInput = useRef(null);
   const zipcodeInput = useRef(null);
   const phoneInput = useRef(null);
+
+  const history = useHistory();
 
   let cartPriceArray = [];
   let sub = 0;
@@ -116,27 +118,19 @@ const CheckoutC = () => {
 
   const handlePayment = async (e) => {
     e.preventDefault();
+
     const { err, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card: elements.getElement(CardElement),
     });
-
-    if (!err) {
+    if (!err && paymentMethod !== undefined) {
       try {
-        const { id } = paymentMethod;
-        const response = await IndexAPI.post(`/payment`, {
-          amount: 1000,
-          id: id,
-        });
+        await IndexAPI.put(`/cart/deleteAll`);
 
-        if (response.data.success) {
-          console.log("Successful payment!");
-        }
+        history.push("/");
       } catch (err) {
         console.log(err);
       }
-    } else {
-      console.log(err);
     }
   };
 
@@ -153,7 +147,8 @@ const CheckoutC = () => {
     <div>
       <HeaderC />
       <div className="checkout-div">
-        <form className="checkout-info" method="POST">
+        {/* <form className="checkout-info" method="POST" onSubmit={handlePayment}> */}
+        <form className="checkout-info" onSubmit={handlePayment}>
           {/* <h1>express checkout</h1>
           <div className="express-checkout-button-div">
             <button>PayPal</button>
@@ -169,6 +164,7 @@ const CheckoutC = () => {
                 value={email}
                 name="email"
                 placeholder="email"
+                required
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
@@ -181,6 +177,7 @@ const CheckoutC = () => {
                 value={firstname}
                 name="firstname"
                 placeholder="First Name"
+                required
                 onChange={(e) => {
                   setFirstName(e.target.value);
                 }}
@@ -191,6 +188,7 @@ const CheckoutC = () => {
                 value={lastname}
                 name="lastname"
                 placeholder="Last Name"
+                required
                 onChange={(e) => {
                   setLastName(e.target.value);
                 }}
@@ -203,6 +201,7 @@ const CheckoutC = () => {
                 value={address}
                 name="address"
                 placeholder="Address"
+                required
                 onChange={(e) => {
                   setAddress(e.target.value);
                 }}
@@ -227,6 +226,7 @@ const CheckoutC = () => {
                 value={city}
                 name="city"
                 placeholder="city"
+                required
                 onChange={(e) => {
                   setCity(e.target.value);
                 }}
@@ -236,6 +236,7 @@ const CheckoutC = () => {
                 value={state}
                 name="state"
                 placeholder="state"
+                required
                 onChange={(e) => {
                   setState(e.target.value);
                 }}
@@ -297,6 +298,7 @@ const CheckoutC = () => {
                 value={zipcode}
                 name="zipcode"
                 placeholder="ZIP code"
+                required
                 onChange={(e) => {
                   setZipcode(e.target.value);
                 }}
@@ -334,31 +336,30 @@ const CheckoutC = () => {
                 <label className="align-left">Credit Card</label>
               </div>
               <div>
-                <form method="POST" onSubmit={handlePayment}>
-                  <div className="grid payment-input">
-                    <CardElement
-                      className="card-element"
-                      options={cardElementOptions}
-                    />
+                {/* <form method="POST" onSubmit={handlePayment}> */}
+                {/* <form> */}
+                <div className="grid payment-input">
+                  <CardElement
+                    className="card-element"
+                    options={cardElementOptions}
+                  />
+                </div>
+                <div className="grid payment-input">
+                  <input type="text" placeholder="name on card" required />
+                </div>
+                <div className="two-column-div checkout-disclaimer-container">
+                  <input type="checkbox" required />
+                  <div className="checkout-disclaimer">
+                    By clicking the button below, you are accepting that no real
+                    purchases will be made, no payments will be processed, and
+                    no personal information, such as: names, addresses, and
+                    credit card information will be used.
                   </div>
-                  <div className="grid payment-input">
-                    <input type="text" placeholder="name on card" />
-                  </div>
-                  <div className="two-column-div checkout-disclaimer-container">
-                    <input type="checkbox" />
-                    <div className="checkout-disclaimer">
-                      By clicking the button below, you are acceptig that no
-                      real purchases will be made, no payments will be
-                      processed, and no personal information, such as: names,
-                      addresses, and credit card information will be used.
-                    </div>
-                  </div>
-                  <div className="credit-card-option">
-                    <button className="payment-button" type="submit">
-                      pay
-                    </button>
-                  </div>
-                </form>
+                </div>
+                <div className="credit-card-option">
+                  <button className="payment-button">pay</button>
+                </div>
+                {/* </form> */}
                 {/* <hr className="payment-hr" />
                 <div className="payment-option">
                   <input

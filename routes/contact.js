@@ -39,7 +39,6 @@ router.post("/contact", async (req, res) => {
   transporter
     .sendMail(mailOptions)
     .then(function () {
-      console.log("Email sent");
       res.sendStatus(201);
     })
     .catch(function (error) {

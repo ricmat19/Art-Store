@@ -79,7 +79,6 @@
 //         });
 
 //         if (response.data.success) {
-//           console.log("Successful payment!");
 //         }
 //       } catch (err) {
 //         console.log(err);

@@ -11,28 +11,20 @@ router.post("/cart", async (req, res) => {
 
     let currentCart = cart.rows[0].cart;
     let newItem = req.body.id;
-    // console.log(cart.rows[0].cart)
-    // console.log(currentCart)
-    // console.log(currentCart.length)
 
     //Check that new item does not exist in the cart
 
     let uniqueItem = true;
     if (currentCart !== null) {
       for (let i = 0; i < currentCart.length; i++) {
-        // console.log("Current Cart " + i + ":" + currentCart[i]);
-        // console.log("Req.body.id:" + req.body.id);
         if (currentCart[i] === req.body.id) {
           uniqueItem = false;
         }
       }
 
-      // console.log("Unique Item: " + uniqueItem);
-
       if (uniqueItem === true) {
         currentCart.push(newItem);
       }
-
     } else {
       currentCart = [req.body.id];
     }
@@ -45,14 +37,13 @@ router.post("/cart", async (req, res) => {
     //   currentCart,
     //   req.session.email,
     // ]);
-    console.log(req.session.email);
 
     res.status(201).json({
       status: "success",
       results: newCart.rows,
       data: {
         cart: newCart.rows,
-        uniqueItem: uniqueItem
+        uniqueItem: uniqueItem,
       },
     });
   } catch (err) {
@@ -66,7 +57,6 @@ router.get("/cart", async (req, res) => {
     const cart = await db.query(
       "SELECT * FROM cart WHERE email='ric19mat@gmail.com'"
     );
-    console.log(cart.rows[0].cart)
 
     const usersCart = [];
 
@@ -132,17 +122,29 @@ router.put("/cart/delete", async (req, res) => {
     }
 
     if (JSON.stringify(newCart) !== JSON.stringify([])) {
-      console.log("items");
       await db.query(
         "UPDATE cart SET cart=$1, qty=$2 WHERE email='ric19mat@gmail.com' RETURNING *",
         [newCart, qty]
       );
     } else {
-      console.log("no items");
       await db.query(
         "UPDATE cart SET cart=(NULL), qty=(NULL) WHERE email='ric19mat@gmail.com' RETURNING *"
       );
     }
+
+    res.status(201).json({
+      status: "success",
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+router.put("/cart/deleteAll", async (req, res) => {
+  try {
+    await db.query(
+      "UPDATE cart SET cart=(NULL), qty=(NULL) WHERE email='ric19mat@gmail.com' RETURNING *"
+    );
 
     res.status(201).json({
       status: "success",

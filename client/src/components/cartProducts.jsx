@@ -76,7 +76,6 @@ const CartProductsC = (props) => {
       }
       setSubtotal(sub);
 
-      console.log(qtyArray);
       const resetPricesArray = [];
       for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
         resetPricesArray.push(parseInt(cartResponse.data.data.cart[i].price));
@@ -144,7 +143,6 @@ const CartProductsC = (props) => {
       {cart &&
         cart.map((item) => {
           // priceArray.push(parseInt(item.price));
-          // console.log(prices);
           // let itemPrice = ``;
           // if (prices[index] === undefined) {
           //   itemPrice = item.price;
