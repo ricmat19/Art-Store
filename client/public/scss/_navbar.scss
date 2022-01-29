@@ -59,7 +59,8 @@
     grid-template-columns: auto;
   }
 
-  .nav-link {
+  .nav-link, .cart-summary-div {
     width: 100vw;
+    background-color: black;
   }
 }
