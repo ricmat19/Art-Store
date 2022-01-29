@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import IndexAPI from "../apis/indexAPI";
 import PropTypes from "prop-types";
 
@@ -7,6 +8,9 @@ const CartProductsC = (props) => {
   const [cart, setCart] = useState([]);
   const [cartQty, setCartQty] = useState([]);
   const [subtotal, setSubtotal] = useState();
+  const [hasQty, setHasQty] = useState(false);
+
+  const history = useHistory();
 
   let sub = 0;
   let priceArray = [];
@@ -34,10 +38,10 @@ const CartProductsC = (props) => {
 
         if (cartResponse.data.data.cart.length === 0) {
           sub = 0;
-        } else if (priceArray.length === 0) {
-          for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
-            sub += parseInt(cartResponse.data.data.cart[i].price);
-          }
+        // } else if (priceArray.length === 0) {
+        //   for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
+        //     sub += parseInt(cartResponse.data.data.cart[i].price);
+        //   }
         } else {
           sub = priceArray.reduce(function (a, b) {
             return a + b;
@@ -92,10 +96,13 @@ const CartProductsC = (props) => {
         } else {
           if (prices[i] !== undefined) {
             priceArray[i] = prices[i];
-          } else {
-            priceArray[i] = parseInt(cart[i].price);
+          } 
+          else {
+            // priceArray[i] = parseInt(cart[i].price);
+            priceArray[i] = 0;
           }
         }
+        setPrices(priceArray);
 
         if (cart[i].id === item.id) {
           qtyArray[i] = parseInt(e);
@@ -103,12 +110,21 @@ const CartProductsC = (props) => {
           if (cartQty[i] !== undefined) {
             qtyArray[i] = cartQty[i];
           } else {
-            qtyArray[i] = 1;
+            qtyArray[i] = 0;
+          }
+        }
+        setCartQty(qtyArray);
+
+        for(let i = 0; i < qtyArray.length; i++){
+          if(qtyArray[i] <= 0 || isNaN(qtyArray[i])){
+            setHasQty(false)
+            break;
+          }else{
+            setHasQty(true)
           }
         }
       }
-      setPrices(priceArray);
-      setCartQty(qtyArray);
+
       await IndexAPI.put("/cart/quantity", {
         cartQty: qtyArray,
       });
@@ -126,16 +142,15 @@ const CartProductsC = (props) => {
   return (
     <div className="cart-items">
       {cart &&
-        cart.map((item, index) => {
-          priceArray.push(parseInt(item.price));
-          console.log(prices);
-          let itemPrice = ``;
-          if (prices[index] === undefined) {
-            itemPrice = item.price;
-          } else {
-            itemPrice = prices[index];
-          }
-
+        cart.map((item) => {
+          // priceArray.push(parseInt(item.price));
+          // console.log(prices);
+          // let itemPrice = ``;
+          // if (prices[index] === undefined) {
+          //   itemPrice = item.price;
+          // } else {
+          //   itemPrice = prices[index];
+          // }
           return (
             <div key={item.id}>
               <div className="cart-item-details">
@@ -160,11 +175,12 @@ const CartProductsC = (props) => {
                     onChange={(event) => setItemQty(item, event.target.value)}
                     className="item-qty-input"
                     type="number"
-                    placeholder="1"
+                    min="1"
+                    placeholder="0"
                   />
                 </div>
                 <div className="cart-item-price">
-                  <span>${itemPrice}.00</span>
+                  <span>${item.price}.00</span>
                 </div>
               </div>
               <hr className="item-hr" />
@@ -175,13 +191,15 @@ const CartProductsC = (props) => {
         <span>subtotal</span>
         <span>${subtotal}.00</span>
       </div>
-      {subtotal > 0 ? 
-      <div className="align-right cart-button">
-        <button>
-          <a href="/checkout">Checkout</a>
-        </button>
-      </div>
-      : ""}
+      {hasQty ? (
+        <div className="align-right cart-button">
+          <button>
+            <div onClick={() => history.push("/checkout")}>Checkout</div>
+          </button>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
