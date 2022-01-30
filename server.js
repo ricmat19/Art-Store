@@ -3,6 +3,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const path = require("path");
 const app = express();
 const adminLoginRouter = require("./routes/admin/login")
 const adminProductsRouter = require("./routes/admin/products");
@@ -15,17 +16,6 @@ const cartRouter = require("./routes/cart");
 const paymentRouter = require("./routes/payment");
 const shipmentRouter = require("./routes/shipment");
 
-//insures that the .env file is only run in a development environment and not a production environment
-if (process.env.NODE_ENV !== "production") {
-  //requires the the .env file configuration be run first hiding all info hidden via the .env file
-  require("dotenv").config();
-}
-
-app.listen(process.env.PORT, function () {
-  console.log("Server Running...");
-});
-
-//allows for different domains to communicate
 //allows for different domains to communicate
 app.use(
   cors({
@@ -69,3 +59,18 @@ app.use(usersRouter);
 app.use(cartRouter);
 app.use(paymentRouter);
 app.use(shipmentRouter);
+
+//Serve static assets if in production
+if (process.env.NODE_ENV === "production") {
+  require("dotenv").config();
+
+  app.use(express.static("client/build"));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
+
+app.listen(process.env.PORT, function () {
+  console.log("Server Running...");
+});
