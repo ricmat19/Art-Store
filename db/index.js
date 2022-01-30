@@ -6,16 +6,21 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
-const pool = new Pool({
+const devConfig = {
   user: process.env.PGUSER,
   password: process.env.PGPASSWORD,
   host: process.env.PGHOST,
   port: process.env.PGPORT,
   database: process.env.PGDATABASE,
-  max: 20,
-  connectionTimeoutMillis: 0,
-  idleTimeoutMillis: 0,
-});
+};
+
+const proConfig = {
+  connectionString: process.env.DATABASE_URL,
+};
+
+const pool = new Pool(
+  process.env.NODE_ENV === "production" ? proConfig : devConfig
+);
 
 module.exports = {
   query: (text, params) => {
