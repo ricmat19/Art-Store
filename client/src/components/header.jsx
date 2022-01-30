@@ -272,7 +272,10 @@ const HeaderC = (props) => {
         </label>
         <nav className="navbar">
           <div className="logo-div" onClick={() => history.push("/")}>
-            <h1>logo</h1>
+            <div className="logo">
+              <span className="logo-first">a</span>rt
+              <span className="logo-first">H</span>ouse
+            </div>
           </div>
           <div className="nav-div">
             <div className="nav-link" onClick={() => history.push("/")}>

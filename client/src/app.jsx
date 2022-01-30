@@ -10,7 +10,8 @@ import Checkout from "./routes/stripe";
 // import Payment from "./routes/stripe";
 import Contact from "./routes/contact";
 import PageNotFound from "./routes/pageNotFound";
-import AdminHome from "./routes/admin/home";
+import AdminLogin from "./routes/admin/login";
+// import AdminHome from "./routes/admin/home";
 import AdminProducts from "./routes/admin/products";
 
 const App = () => {
@@ -29,9 +30,20 @@ const App = () => {
       <div className={disclaimerModal}>
         <form>
           <div className="disclaimer-content">
-            <h1 className="disclaimer-header">welcome to Art Store</h1>
+            <h1 className="disclaimer-header">
+              welcome to{" "}
+              <span className="logo">
+                <span className="logo-first">a</span>rt
+                <span className="logo-first">H</span>ouse
+              </span>
+            </h1>
             <div>
-              Art Store is a full-stack E-commerce application built using
+              &quot;
+              <span>
+                <span className="logo-first">a</span>rt
+                <span className="logo-first">H</span>ouse
+              </span>
+              &quot; is a full-stack E-commerce application built using
               React.js, Node/Express, PostgreSQL, and an AWS S3 Bucket for image
               storage. This application is strictly for demonstrative purposes.
               <hr className="disclaimer-hr" />
@@ -58,7 +70,8 @@ const App = () => {
           {/* <Route export path="/shipping" component={Shipping} />
           <Route export path="/payment" component={Payment} /> */}
           <Route exact path="/contact" component={Contact} />
-          <Route exact path="/admin/home" component={AdminHome} />
+          <Route exact path="/admin/login" component={AdminLogin} />
+          {/* <Route exact path="/admin/home" component={AdminHome} /> */}
           <Route
             exact
             path="/admin/products/:product"

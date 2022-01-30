@@ -231,15 +231,25 @@ const HeaderC = () => {
 
       <div>
         <input type="checkbox" id="nav-toggle" className="nav-toggle" />
-        <h1 htmlFor="nav-toggle">
+        <div htmlFor="nav-toggle" className="nav-toggle-label">
           <a className="menu-toggle">
-            <h1>menu</h1>
+            <nav>
+              <h1>
+                <div className="logo">
+                  <span className="logo-first">a</span>rt
+                  <span className="logo-first">H</span>ouse
+                </div>
+              </h1>
+            </nav>
           </a>
-        </h1>
+        </div>
         <nav className="navbar">
-          <a className="logo-div" href="/">
-            <h1>logo</h1>
-          </a>
+          <div className="logo-div">
+            <div className="logo">
+              <span className="logo-first">a</span>rt
+              <span className="logo-first">H</span>ouse
+            </div>
+          </div>
           <div className="nav-div">
             {/* <a href="/admin/products/print">
             <h1>store</h1>

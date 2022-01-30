@@ -76,6 +76,7 @@ const CartProductsC = (props) => {
       }
       setSubtotal(sub);
 
+
       const resetPricesArray = [];
       for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
         resetPricesArray.push(parseInt(cartResponse.data.data.cart[i].price));

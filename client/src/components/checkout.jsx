@@ -327,14 +327,14 @@ const CheckoutC = () => {
           <div>
             <h1>payment information</h1>
             <div>
-              <div className="payment-option">
-                {/* <input
+              {/* <div className="payment-option">
+                <input
                   className="align-left"
                   type="radio"
                   name="payment-method"
-                /> */}
+                />
                 <label className="align-left">Credit Card</label>
-              </div>
+              </div> */}
               <div>
                 {/* <form method="POST" onSubmit={handlePayment}> */}
                 {/* <form> */}

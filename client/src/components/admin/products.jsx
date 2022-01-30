@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { Redirect } from "react-router";
 import ReactPaginate from "react-paginate";
 import { useParams } from "react-router-dom";
 import IndexAPI from "../../apis/indexAPI";
@@ -10,6 +11,7 @@ import FooterC from "../footer";
 
 const AdminProductsC = () => {
   const { product } = useParams();
+  const [loginStatus, setLoginStatus] = useState(true);
   const [createProductModal, setCreateProductModal] = useState("create-bg");
   const [updateItem, setUpdateItem] = useState("");
   const [updateProductModal, setUpdateProductModal] = useState("update-bg");
@@ -91,6 +93,9 @@ const AdminProductsC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const loginResponse = await IndexAPI.get(`/login`);
+        setLoginStatus(loginResponse.data.data.loggedIn);
+
         document.addEventListener("mousedown", (event) => {
           if (createProductRef.current !== null) {
             if (!createProductRef.current.contains(event.target)) {
@@ -138,35 +143,41 @@ const AdminProductsC = () => {
     fetchData();
   }, []);
 
-  return (
-    <div>
-      <AdminHeaderC />
-      <div className={createProductModal}>
-        <div ref={createProductRef} className="create-product-container">
-          <AdminCreateProductC />
-        </div>
-      </div>
-      <div className={updateProductModal}>
-        <div ref={updateProductRef} className="update-product-container">
-          <AdminUpdateProductC updateItem={updateItem}/>
-        </div>
-      </div>
-      <div className={deleteProductModal}>
-        <div ref={deleteProductRef} className="delete-product-container">
-          <AdminDeleteProductC deleteItem={deleteItem} products={products} setProducts={setProducts}/>
-        </div>
-      </div>
-      <div className="main-body">
-        <div>
-          <div className="align-center">
-            <h1>store</h1>
+  console.log(loginStatus)
+  if (loginStatus) {
+    return (
+      <div>
+        <AdminHeaderC />
+        <div className={createProductModal}>
+          <div ref={createProductRef} className="create-product-container">
+            <AdminCreateProductC />
           </div>
-          <div className="plus-icon-div">
-            <span onClick={displayCreateProductModal}>
-              <i className="fas fa-plus plus-icon"></i>
-            </span>
+        </div>
+        <div className={updateProductModal}>
+          <div ref={updateProductRef} className="update-product-container">
+            <AdminUpdateProductC updateItem={updateItem} />
           </div>
-          {/* <div className="align-center subtitle-div">
+        </div>
+        <div className={deleteProductModal}>
+          <div ref={deleteProductRef} className="delete-product-container">
+            <AdminDeleteProductC
+              deleteItem={deleteItem}
+              products={products}
+              setProducts={setProducts}
+            />
+          </div>
+        </div>
+        <div className="main-body">
+          <div>
+            <div className="align-center">
+              <h1>store</h1>
+            </div>
+            <div className="plus-icon-div">
+              <span onClick={displayCreateProductModal}>
+                <i className="fas fa-plus plus-icon"></i>
+              </span>
+            </div>
+            {/* <div className="align-center subtitle-div">
           <a className="subtitle-anchor" href="/admin/products/print">
             <h2>2D Prints</h2>
           </a>
@@ -177,23 +188,26 @@ const AdminProductsC = () => {
             <h2>Comics</h2>
           </a>
           </div> */}
-          <div className="products-menu">{displayItems}</div>
-          <ReactPaginate
-            previousLabel={"prev"}
-            nextLabel={"next"}
-            pageCount={pageCount}
-            onPageChange={changePage}
-            containerClassName={"paginationButtons"}
-            previousLinkClassName={"prevButton"}
-            nextLinkClassName={"nextButton"}
-            disabledClassName={"disabledButton"}
-            activeClassName={"activeButton"}
-          />
+            <div className="products-menu">{displayItems}</div>
+            <ReactPaginate
+              previousLabel={"prev"}
+              nextLabel={"next"}
+              pageCount={pageCount}
+              onPageChange={changePage}
+              containerClassName={"paginationButtons"}
+              previousLinkClassName={"prevButton"}
+              nextLinkClassName={"nextButton"}
+              disabledClassName={"disabledButton"}
+              activeClassName={"activeButton"}
+            />
+          </div>
+          <FooterC />
         </div>
-        <FooterC />
       </div>
-    </div>
-  );
+    );
+  } else {
+    return <Redirect to="/admin/login" />;
+  }
 };
 
 export default AdminProductsC;
