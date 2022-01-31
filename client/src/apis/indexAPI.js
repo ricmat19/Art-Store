@@ -2,5 +2,5 @@ import axios from "axios";
 
 export default axios.create({
   withCredentials: true,
-  baseURL: process.env.REACT_APP_PLANNER_API,
+  baseURL: process.env.REACT_APP_ARTSTORE_API,
 });
