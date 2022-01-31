@@ -49,11 +49,11 @@ const AboutC = () => {
           <div className="profile-info">
             <div className="profile-image-div">
               <div className="big-image-div">
-                <img
+                {/* <img
                   className="big-image"
                   src="../images/profile-image.jpeg"
                   alt="profile"
-                />
+                /> */}
               </div>
               <div></div>
               <div></div>
