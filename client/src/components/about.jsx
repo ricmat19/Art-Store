@@ -51,7 +51,7 @@ const AboutC = () => {
               <div className="big-image-div">
                 <img
                   className="big-image"
-                  src="/images/profile-image.jpg"
+                  src="/img/profile-image.jpg"
                   alt="Profile"
                 />
               </div>
