@@ -47,7 +47,8 @@ const AboutC = () => {
             <h1>about</h1>
           </div>
           <div className="profile-info">
-            <div className="profile-image-div">
+          {/* <div> */}
+            {/* <div className="profile-image-div">
               <div className="big-image-div">
                 <img
                   className="big-image"
@@ -57,7 +58,7 @@ const AboutC = () => {
               </div>
               <div></div>
               <div></div>
-            </div>
+            </div> */}
             <div className="about-info">
               <h3>&emsp; &emsp; {process.env.REACT_APP_INFO_PARAGRAPH_1}</h3>
               <h3>&emsp; &emsp; {process.env.REACT_APP_INFO_PARAGRAPH_2}</h3>
