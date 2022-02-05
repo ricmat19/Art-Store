@@ -49,7 +49,7 @@ const AboutC = () => {
           <div className="profile-info">
             {/* <div> */}
             {/* <div className="profile-image-div">
-              <div className="big-image-div">
+              <div className="justify-center">
                 <img
                   className="big-image"
                   src="images/profile-image.jpg"

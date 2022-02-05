@@ -12,11 +12,11 @@ import FooterC from "../footer";
 const AdminProductsC = () => {
   const { product } = useParams();
   const [loginStatus, setLoginStatus] = useState(true);
-  const [createProductModal, setCreateProductModal] = useState("create-bg");
+  const [createProductModal, setCreateProductModal] = useState("modal-bg");
   const [updateItem, setUpdateItem] = useState("");
-  const [updateProductModal, setUpdateProductModal] = useState("update-bg");
+  const [updateProductModal, setUpdateProductModal] = useState("modal-bg");
   const [deleteItem, setDeleteItem] = useState("");
-  const [deleteProductModal, setDeleteProductModal] = useState("delete-bg");
+  const [deleteProductModal, setDeleteProductModal] = useState("modal-bg");
   const [products, setProducts] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
 
@@ -24,17 +24,17 @@ const AdminProductsC = () => {
   const pagesVisted = pageNumber * itemsPerPage;
 
   const displayCreateProductModal = () => {
-    setCreateProductModal("create-bg create-product");
+    setCreateProductModal("modal-bg active");
   };
 
   const displayUpdateProductModal = (id) => {
     setUpdateItem(id);
-    setUpdateProductModal("update-bg update-product");
+    setUpdateProductModal("modal-bg active");
   };
 
   const displayDeleteProductModal = (id) => {
     setDeleteItem(id);
-    setDeleteProductModal("delete-bg delete-product");
+    setDeleteProductModal("modal-bg active");
   };
 
   const createProductRef = useRef();
@@ -46,7 +46,7 @@ const AdminProductsC = () => {
     .map((item) => {
       return (
         <div key={item.id}>
-          <div className="products-item-div">
+          <div className="pointer">
             <div className="products-item">
               <img
                 className="products-thumbnail"
@@ -98,17 +98,17 @@ const AdminProductsC = () => {
         document.addEventListener("mousedown", (event) => {
           if (createProductRef.current !== null) {
             if (!createProductRef.current.contains(event.target)) {
-              setCreateProductModal("create-bg");
+              setCreateProductModal("modal-bg");
             }
           }
           if (updateProductRef.current !== null) {
             if (!updateProductRef.current.contains(event.target)) {
-              setUpdateProductModal("update-bg");
+              setUpdateProductModal("modal-bg");
             }
           }
           if (deleteProductRef.current !== null) {
             if (!deleteProductRef.current.contains(event.target)) {
-              setDeleteProductModal("delete-bg");
+              setDeleteProductModal("modal-bg");
             }
           }
         });
@@ -176,13 +176,13 @@ const AdminProductsC = () => {
               </span>
             </div>
             {/* <div className="align-center subtitle-div">
-          <a className="subtitle-anchor" href="/admin/products/print">
+          <a className="no-decoration" href="/admin/products/print">
             <h2>2D Prints</h2>
           </a>
-          <a className="subtitle-anchor" href="/admin/products/model">
+          <a className="no-decoration" href="/admin/products/model">
             <h2>3D Models</h2>
           </a>
-          <a className="subtitle-anchor" href="/admin/products/comic">
+          <a className="no-decoration" href="/admin/products/comic">
             <h2>Comics</h2>
           </a>
           </div> */}

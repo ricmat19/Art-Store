@@ -116,7 +116,7 @@ const ContactC = () => {
                   required
                 ></textarea>
               </div>
-              <div className="form-button-div">
+              <div className="align-right">
                 <button onClick={handleSubmit} type="submit">
                   submit
                 </button>

@@ -71,16 +71,16 @@ const AdminUpdateProductC = (props) => {
       </div>
       <div className="admin-item-div">
         <div className="admin-image-div">
-          <div className="big-image-div">
+          <div className="justify-center">
             <img className="big-image" src={image} alt="product" />
           </div>
         </div>
         <form className="admin-form" action="/routes/admin.js" method="POST">
-          <div className="admin-form-title">
+          <div className="grid">
             <h1>Update</h1>
           </div>
           <div className="admin-form-field">
-            <label className="admin-label" htmlFor="title">
+            <label className="align-left" htmlFor="title">
               Title:
             </label>
             <input
@@ -93,7 +93,7 @@ const AdminUpdateProductC = (props) => {
           </div>
           <div className="admin-form-field">
             <div>
-              <label className="admin-label" htmlFor="product">
+              <label className="align-left" htmlFor="product">
                 Type:
               </label>
             </div>
@@ -129,7 +129,7 @@ const AdminUpdateProductC = (props) => {
             </div>
           </div>
           <div className="admin-form-field">
-            <label className="admin-label" htmlFor="qty">
+            <label className="align-left" htmlFor="qty">
               Quantity:
             </label>
             <input
@@ -141,7 +141,7 @@ const AdminUpdateProductC = (props) => {
             />
           </div>
           <div className="admin-form-field">
-            <label className="admin-label" htmlFor="price">
+            <label className="align-left" htmlFor="price">
               Price:
             </label>
             <input
@@ -153,7 +153,7 @@ const AdminUpdateProductC = (props) => {
             />
           </div>
           <div className="admin-form-field">
-            <label className="admin-label" htmlFor="info">
+            <label className="align-left" htmlFor="info">
               Info:
             </label>
             <textarea
@@ -165,7 +165,7 @@ const AdminUpdateProductC = (props) => {
             ></textarea>
           </div>
           {/* <div className="admin-form-field">
-              <label className="admin-label" htmlFor="primaryImage">
+              <label className="align-left" htmlFor="primaryImage">
                 Primary:
               </label>
               <input

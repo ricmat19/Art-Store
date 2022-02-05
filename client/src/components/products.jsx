@@ -17,7 +17,7 @@ const ProductsC = () => {
     .map((item) => {
       return (
         <div
-          className="products-item-div"
+          className="pointer"
           key={item.id}
           onClick={() => displayItem(item.product, item.id)}
         >
@@ -88,13 +88,13 @@ const ProductsC = () => {
             <h1>store</h1>
           </div>
           {/* <div className="align-center subtitle-div">
-          <a className="subtitle-anchor" href="/products/print">
+          <a className="no-decoration" href="/products/print">
             <h2>2D Prints</h2>
           </a>
-          <a className="subtitle-anchor" href="/products/model">
+          <a className="no-decoration" href="/products/model">
             <h2>3D Models</h2>
           </a>
-          <a className="subtitle-anchor" href="/products/comic">
+          <a className="no-decoration" href="/products/comic">
             <h2>Comics</h2>
           </a>
         </div> */}

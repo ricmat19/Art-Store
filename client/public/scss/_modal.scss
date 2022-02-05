@@ -1,9 +1,4 @@
-.disclaimer-bg,
-.added-bg,
-.sign-bg,
-.create-bg,
-.update-bg,
-.delete-bg {
+.modal-bg {
   display: grid;
   position: fixed;
   top: 0;
@@ -19,20 +14,13 @@
   cursor: pointer;
 }
 
-.disclaimer-active,
-.added-active,
-.sign-active,
-.create-product,
-.update-product,
-.delete-product {
+.active {
   visibility: visible;
   opacity: 1;
   z-index: 3;
 }
 
-.disclaimer-content,
-.added-content,
-.sign-content {
+.modal-content {
   display: grid;
   background-color: black;
   gap: 10px;
@@ -50,9 +38,7 @@
   width: 400px;
 }
 
-.disclaimer-header,
-.added-header,
-.sign-header {
+.header {
   margin: 5px;
 }
 

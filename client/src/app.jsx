@@ -14,12 +14,12 @@ import AdminProducts from "./routes/admin/products";
 
 const App = () => {
   const [disclaimerModal, setDisclaimerModal] = useState(
-    "disclaimer-bg disclaimer-active"
+    "modal-bg active"
   );
 
   const closeDisclaimer = (e) => {
     e.preventDefault();
-    setDisclaimerModal("disclaimer-bg");
+    setDisclaimerModal("modal-bg");
   };
 
   return (
@@ -27,8 +27,8 @@ const App = () => {
       {/* Disclaimer Modal */}
       <div className={disclaimerModal}>
         <form>
-          <div className="disclaimer-content">
-            <h1 className="disclaimer-header">
+          <div className="disclaimer-content modal-content">
+            <h1 className="header">
               welcome to{" "}
               <span className="logo">
                 <span className="logo-first">a</span>rt

@@ -12,7 +12,6 @@
   padding: 10px 0;
   margin: 1px;
   border-style: none;
-  /* color: black; */
   cursor: pointer;
 }
 
@@ -46,10 +45,6 @@
   grid-template-columns: repeat(auto-fit, minmax(13rem, 350px));
   gap: 30px;
   margin: 50px 10%;
-}
-
-.products-item-div {
-  cursor: pointer;
 }
 
 .products-item {

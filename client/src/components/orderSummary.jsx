@@ -35,11 +35,11 @@ const OrderSummaryC = (props) => {
                       src={`data:image/png;base64,${item.imageBuffer}`}
                       alt="Thumbnail"
                     />
-                    <div className="order-item-title">
+                    <div className="align-left">
                       <h3>{item.title}</h3>
                     </div>
                   </div>
-                  <div className="order-item-price">
+                  <div className="align-right">
                     <span>
                       <h3 className="align-right">${cartPrices[index]}.00</h3>
                     </span>
@@ -47,14 +47,14 @@ const OrderSummaryC = (props) => {
                 </div>
               </div>
               {index !== cart.length - 1 ? (
-                <hr className="order-summary-hr" />
+                <hr className="no-margin" />
               ) : (
                 ""
               )}
             </>
           );
         })}
-      <hr className="checkout-hr" />
+      <hr className="no-margin" />
       <div className="two-column-div">
         <h3 className="align-left">subtotal</h3>
         <h3 className="align-right">${subtotal}.00</h3>

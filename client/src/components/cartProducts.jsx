@@ -138,7 +138,7 @@ const CartProductsC = (props) => {
   };
 
   return (
-    <div className="cart-items">
+    <div className="full-height">
       {cart &&
         cart.map((item) => {
           // priceArray.push(parseInt(item.price));
@@ -153,7 +153,7 @@ const CartProductsC = (props) => {
               <div className="cart-item-details">
                 <div className="cart-item-info">
                   <span
-                    className="delete-button"
+                    className="pointer"
                     onClick={() => deleteFromCart(item.id)}
                   >
                     <h3>X</h3>
@@ -176,11 +176,11 @@ const CartProductsC = (props) => {
                     placeholder="0"
                   />
                 </div>
-                <div className="cart-item-price">
+                <div className="align-right">
                   <span>${item.price}.00</span>
                 </div>
               </div>
-              <hr className="item-hr" />
+              <hr className="no-margin" />
             </div>
           );
         })}
@@ -189,7 +189,7 @@ const CartProductsC = (props) => {
         <span>${subtotal}.00</span>
       </div>
       {hasQty ? (
-        <div className="align-right cart-button">
+        <div className="align-right no-margin">
           <button>
             <div onClick={() => history.push("/checkout")}>Checkout</div>
           </button>

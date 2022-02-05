@@ -3,10 +3,6 @@
   background-color: black;
 }
 
-.admin-form-title {
-  display: grid;
-}
-
 .admin-form-field {
   display: grid;
   grid-template-columns: 75px auto;
@@ -28,8 +24,4 @@
   justify-content: center;
   padding-bottom: 40px;
   margin: 0 10%;
-}
-
-.form-button-div {
-  text-align: right;
 }

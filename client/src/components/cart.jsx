@@ -49,8 +49,8 @@ const CartC = () => {
               <h3 className="align-center">quantity</h3>
               <h3 className="align-right">price</h3>
             </div>
-            <hr className="table-hr" />
-            <div className="cart-items-container">
+            <hr className="no-margin" />
+            <div className="full-height">
               <CartProductsC setCart={setCart} />
             </div>
           </div>

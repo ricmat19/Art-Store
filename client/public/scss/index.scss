@@ -18,10 +18,6 @@ h6 {
   color: white;
 }
 
-.title-margin {
-  margin: 30px 0;
-}
-
 h3 {
   text-align: justify;
 }
@@ -30,26 +26,6 @@ hr {
   margin: 15px 15%;
   align-content: center;
   justify-self: center;
-}
-
-.logo {
-  font-size: 30px;
-}
-
-.logo-first {
-  color: rgb(255, 0, 0);
-}
-
-.disclaimer-hr {
-  margin: 15px 0;
-}
-
-.table-hr,
-.item-hr,
-.shipping-hr,
-.payment-hr,
-.form-hr {
-  margin: 0;
 }
 
 a {
@@ -87,6 +63,30 @@ textarea {
 label {
   display: grid;
   align-content: center;
+}
+
+.full-height {
+  height: 100%;
+}
+
+.title-margin {
+  margin: 30px 0;
+}
+
+.logo {
+  font-size: 30px;
+}
+
+.logo-first {
+  color: rgb(255, 0, 0);
+}
+
+.disclaimer-hr {
+  margin: 15px 0;
+}
+
+.no-margin {
+  margin: 0;
 }
 
 input,
@@ -132,11 +132,27 @@ select,
   text-align: right;
 }
 
+.align-justify {
+  text-align: justify;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-right {
+  justify-self: right;
+}
+
 .display-none {
   display: none;
 }
 
-.no-margin {
+.no-decoration {
+  text-decoration: none;
+}
+
+.top-margin {
   margin: 10px 0;
 }
 
@@ -225,10 +241,6 @@ select,
   margin: 5px;
 }
 
-.big-image-div {
-  justify-content: center;
-}
-
 .menu-toggle {
   display: none;
   cursor: pointer;
@@ -241,13 +253,7 @@ select,
   margin-top: 50px;
 }
 
-.subtitle-anchor {
-  text-decoration: none;
-}
-
 .delete {
-  color: white;
-  color: white;
   color: white;
   text-align: left;
 }
@@ -274,10 +280,6 @@ select,
   grid-template-columns: 1fr 100px 100px;
   margin: 5px 0;
   gap: 10px;
-}
-
-.delete-button {
-  cursor: pointer;
 }
 
 .plus-icon-div {
@@ -409,10 +411,6 @@ select,
 .quantity-div {
   display: grid;
   grid-template-columns: 75px auto;
-}
-
-.admin-label {
-  text-align: left;
 }
 
 .admin-products-button-div {

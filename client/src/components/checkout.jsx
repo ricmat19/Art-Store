@@ -289,7 +289,7 @@ const CheckoutC = () => {
                 </div>
                 <div className="two-column-div checkout-disclaimer-container">
                   <input type="checkbox" required />
-                  <div className="checkout-disclaimer">
+                  <div className="align-justify">
                     By clicking the button below, you are accepting that no real
                     purchases will be made, no payments will be processed, and
                     no personal information, such as: names, addresses, and
@@ -297,7 +297,7 @@ const CheckoutC = () => {
                   </div>
                 </div>
                 <div className="credit-card-option">
-                  <button className="payment-button">pay</button>
+                  <button className="justify-right">pay</button>
                 </div>
               </div>
             </div>

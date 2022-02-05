@@ -4,29 +4,29 @@ import PropTypes from "prop-types";
 import IndexAPI from "../apis/indexAPI";
 
 const HeaderC = (props) => {
-  const [signinModal, setSigninModal] = useState("sign-bg");
-  const [signupModal, setSignupModal] = useState("sign-bg");
-  const [resetModal, setResetModal] = useState("sign-bg");
+  const [signinModal, setSigninModal] = useState("modal-bg");
+  const [signupModal, setSignupModal] = useState("modal-bg");
+  const [resetModal, setResetModal] = useState("modal-bg");
   const [cartCount, setCartCount] = useState(0);
 
   const history = useHistory();
 
   const displaySignin = () => {
-    setSigninModal("sign-bg sign-active");
-    setSignupModal("sign-bg");
-    setResetModal("sign-bg");
+    setSigninModal("modal-bg active");
+    setSignupModal("modal-bg");
+    setResetModal("modal-bg");
   };
 
   const displaySignup = () => {
-    setSignupModal("sign-bg sign-active");
-    setSigninModal("sign-bg");
-    setResetModal("sign-bg");
+    setSignupModal("modal-bg active");
+    setSigninModal("modal-bg");
+    setResetModal("modal-bg");
   };
 
   const displayReset = () => {
-    setResetModal("sign-bg sign-active");
-    setSignupModal("sign-bg");
-    setSigninModal("sign-bg");
+    setResetModal("modal-bg active");
+    setSignupModal("modal-bg");
+    setSigninModal("modal-bg");
   };
 
   const signinRef = useRef();
@@ -39,13 +39,13 @@ const HeaderC = (props) => {
         document.addEventListener("mousedown", (event) => {
           if (signinRef.current !== null) {
             if (!signinRef.current.contains(event.target)) {
-              setSigninModal("sign-bg");
+              setSigninModal("modal-bg");
             }
             if (!signupRef.current.contains(event.target)) {
-              setSignupModal("sign-bg");
+              setSignupModal("modal-bg");
             }
             if (!resetRef.current.contains(event.target)) {
-              setResetModal("sign-bg");
+              setResetModal("modal-bg");
             }
           }
         });
@@ -119,8 +119,8 @@ const HeaderC = (props) => {
       {/* Signin */}
       <div className={signinModal}>
         <form>
-          <div ref={signinRef} className="sign-content">
-            <h1 className="sign-header">welcome</h1>
+          <div ref={signinRef} className="modal-content">
+            <h1 className="header">welcome</h1>
             <div>
               <div className="modal-input-div">
                 <input
@@ -165,8 +165,8 @@ const HeaderC = (props) => {
       {/* signup */}
       <div className={signupModal}>
         <form>
-          <div ref={signupRef} className="sign-content">
-            <h1 className="sign-header">Create Account</h1>
+          <div ref={signupRef} className="modal-content">
+            <h1 className="header">Create Account</h1>
             <div>
               <div className="name-input-div">
                 <input
@@ -244,8 +244,8 @@ const HeaderC = (props) => {
       {/* reset */}
       <div className={resetModal}>
         <form>
-          <div ref={resetRef} className="sign-content">
-            <h1 className="sign-header">Reset Password</h1>
+          <div ref={resetRef} className="modal-content">
+            <h1 className="header">Reset Password</h1>
             <div className="forgot-input-div">
               <input type="text" placeholder="Email" />
             </div>

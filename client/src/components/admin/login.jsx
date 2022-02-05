@@ -31,7 +31,7 @@ const AdminLoginC = () => {
   return (
     <div className="login-main">
       <div className="login-div title-div">
-        <p className="login-header">login</p>
+        <p>login</p>
         <div className="login-inputs">
           <div className="grid modal-input-div">
             <input
@@ -58,7 +58,7 @@ const AdminLoginC = () => {
             />
           </div>
         </div>
-        <div className="form-button-div">
+        <div className="align-right">
           <button className="form-button" onClick={handleLogin}>
             Login
           </button>

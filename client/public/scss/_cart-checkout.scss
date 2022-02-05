@@ -35,14 +35,6 @@
   margin: 0 15%;
 }
 
-.cart-items-container {
-  height: 100%;
-}
-
-.cart-items {
-  height: 100%;
-}
-
 .cart-item-div {
   height: 150px;
   width: 150px;
@@ -57,14 +49,6 @@
 .cart-item-thumbnail {
   max-height: 100%;
   max-width: 100%;
-}
-
-.cart-options {
-  text-align: center;
-}
-
-.cart-button {
-  margin: 0;
 }
 
 .cart-summary-div {
@@ -96,36 +80,8 @@
   padding: 0 20px;
 }
 
-.cart-item-price,
-.order-item-price {
-  text-align: right;
-}
-
 .subtotal-div {
   padding: 20px 0px;
-}
-
-@media (max-width: 715px) {
-  .cart-item-info {
-    display: grid;
-    align-items: center;
-    justify-content: center;
-    grid-template-columns: 50px auto;
-  }
-
-  .cart-item-div {
-    width: 100%;
-    display: flex;
-    vertical-align: middle;
-    flex-direction: column;
-    justify-content: space-evenly;
-  }
-
-  .cart-item-title {
-    visibility: hidden;
-    width: 0;
-    height: 0;
-  }
 }
 
 .checkout-info {
@@ -133,10 +89,6 @@
   padding: 40px;
   border: white solid 2px;
   height: fit-content;
-}
-
-.checkout-hr {
-  margin: 0;
 }
 
 .express-checkout-button-div {
@@ -165,10 +117,6 @@
   padding: 5px 5px 0 5px;
 }
 
-.payment-button {
-  justify-self: right;
-}
-
 .card-element {
   background-color: white;
   padding: 10px;
@@ -188,7 +136,6 @@
 .payment-info,
 .payment-option {
   display: grid;
-  /* grid-template-columns: 30px auto 200px; */
   grid-template-columns: auto 200px;
   align-items: center;
   gap: 20px;
@@ -235,10 +182,6 @@
   display: grid;
 }
 
-.order-summary-hr {
-  margin: 0;
-}
-
 .order-item-details {
   display: grid;
   justify-content: center;
@@ -253,10 +196,6 @@
   justify-self: center;
 }
 
-.order-item-title {
-  text-align: left;
-}
-
 .checkout-discount {
   padding: 5px;
   background-color: black;
@@ -265,10 +204,6 @@
 
 .checkout-disclaimer-container {
   margin: 10px 0;
-}
-
-.checkout-disclaimer {
-  text-align: justify;
 }
 
 .subtotal-div span {
@@ -280,11 +215,33 @@
   display: grid;
   justify-content: center;
   grid-template-columns: 1fr 100px minmax(50px, 100px);
-  /* padding: 0 20px; */
 }
 
 @media (max-width: 1417px) {
   .order-summary-container {
     padding: 40px 0 0 0;
+  }
+}
+
+@media (max-width: 715px) {
+  .cart-item-info {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: 50px auto;
+  }
+
+  .cart-item-div {
+    width: 100%;
+    display: flex;
+    vertical-align: middle;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+
+  .cart-item-title {
+    visibility: hidden;
+    width: 0;
+    height: 0;
   }
 }

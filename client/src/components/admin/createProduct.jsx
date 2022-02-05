@@ -57,7 +57,7 @@ const AdminCreateProductC = () => {
   return (
     <div className="admin-item-div">
       <div className="admin-image-div">
-        <div className="big-image-div">
+        <div className="justify-center">
           <img className="big-image" src={displayedImage} alt="product" />
         </div>
       </div>
@@ -67,11 +67,11 @@ const AdminCreateProductC = () => {
         method="POST"
         encType="multipart/form-data"
       >
-        <div className="admin-form-title">
+        <div className="grid">
           <h1>Create</h1>
         </div>
         <div className="admin-form-field">
-          <label className="admin-label">Title:</label>
+          <label className="align-left">Title:</label>
           <input
             value={title}
             ref={titleInput}
@@ -83,7 +83,7 @@ const AdminCreateProductC = () => {
         </div>
         <div className="admin-form-field">
           <div>
-            <label className="admin-label">Type:</label>
+            <label className="align-left">Type:</label>
           </div>
           <div className="radio-div">
             <div>
@@ -120,7 +120,7 @@ const AdminCreateProductC = () => {
           </div>
         </div>
         <div className="admin-form-field">
-          <label className="admin-label">Images:</label>
+          <label className="align-left">Images:</label>
           <input
             type="file"
             onChange={(e) => setImages(e.target.files[0])}
@@ -129,7 +129,7 @@ const AdminCreateProductC = () => {
           />
         </div>
         <div className="admin-form-field">
-          <label className="admin-label">Quantity:</label>
+          <label className="align-left">Quantity:</label>
           <input
             value={quantity}
             ref={quantityInput}
@@ -140,7 +140,7 @@ const AdminCreateProductC = () => {
           />
         </div>
         <div className="admin-form-field">
-          <label className="admin-label">Price:</label>
+          <label className="align-left">Price:</label>
           <input
             value={price}
             ref={priceInput}
@@ -151,7 +151,7 @@ const AdminCreateProductC = () => {
           />
         </div>
         <div className="admin-form-field">
-          <label className="admin-label">Info:</label>
+          <label className="align-left">Info:</label>
           <textarea
             value={info}
             ref={infoInput}
