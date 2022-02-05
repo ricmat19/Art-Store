@@ -72,7 +72,6 @@ const AdminProductsC = () => {
               <div>
                 <button
                   onClick={() => displayUpdateProductModal(item.id)}
-                  // onClick={() => handleUpdate(item.id)}
                   type="submit"
                 >
                   Update
@@ -143,7 +142,6 @@ const AdminProductsC = () => {
     fetchData();
   }, []);
 
-  console.log(loginStatus)
   if (loginStatus) {
     return (
       <div>

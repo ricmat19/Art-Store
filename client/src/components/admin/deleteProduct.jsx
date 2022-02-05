@@ -40,14 +40,9 @@ const AdminDeleteProductC = (props) => {
       <div className="admin-item-div">
         <form className="admin-form" action="/routes/admin.js" method="POST">
           <div className="align-center">
-            <h1>
-              Are you sure you want to delete &quot;{product}&quot; ?
-            </h1>
+            <h1>Are you sure you want to delete &quot;{product}&quot; ?</h1>
           </div>
-          <button
-            onClick={handleDelete}
-            type="submit"
-          >
+          <button onClick={handleDelete} type="submit">
             Delete
           </button>
         </form>

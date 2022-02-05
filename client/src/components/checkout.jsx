@@ -4,7 +4,6 @@ import OrderSummaryC from "./orderSummary";
 import HeaderC from "./header";
 import FooterC from "./footer";
 import IndexAPI from "../apis/indexAPI";
-// import { useHistory } from "react-router-dom";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 
 const CheckoutC = () => {
@@ -23,7 +22,6 @@ const CheckoutC = () => {
   const [state, setState] = useState("");
   const [zipcode, setZipcode] = useState("");
   const [phone, setPhone] = useState("");
-  // const [, setShipment] = useState(null);
 
   const emailInput = useRef(null);
   const firstNameInput = useRef(null);
@@ -82,40 +80,6 @@ const CheckoutC = () => {
     fetchData();
   }, []);
 
-  // let history = useHistory();
-  // const handleCheckout = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const response = await IndexAPI.post("/shipment", {
-  //       email: email,
-  //       firstname: firstname,
-  //       lastname: lastname,
-  //       address: address,
-  //       suite: suite,
-  //       city: city,
-  //       state: state,
-  //       zipcode: zipcode,
-  //       phone: phone,
-  //     });
-
-  //     setShipment(response.data.data.newShipment);
-
-  //     history.push(`/shipping`);
-
-  //     // emailInput.current.value = "";
-  //     // firstNameInput.current.value = "";
-  //     // lastNameInput.current.value = "";
-  //     // addressInput.current.value = "";
-  //     // suiteInput.current.value = "";
-  //     // cityInput.current.value = "";
-  //     // stateInput.current.value = "";
-  //     // zipcodeInput.current.value = "";
-  //     // phoneInput.current.value = "";
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
   const handlePayment = async (e) => {
     e.preventDefault();
 
@@ -147,15 +111,8 @@ const CheckoutC = () => {
     <div>
       <HeaderC />
       <div className="checkout-div">
-        {/* <form className="checkout-info" method="POST" onSubmit={handlePayment}> */}
         <form className="checkout-info" onSubmit={handlePayment}>
-          {/* <h1>express checkout</h1>
-          <div className="express-checkout-button-div">
-            <button>PayPal</button>
-          </div>
-          <hr className="checkout-hr" /> */}
           <h1>checkout information</h1>
-          {/* <div> */}
           <div className="checkout-info-div">
             <div className="checkout-email-div">
               <input
@@ -316,28 +273,11 @@ const CheckoutC = () => {
                 }}
               />
             </div>
-            {/* <div className="two-column-div">
-                <button onClick={handleCheckout}>continue to shipping</button>
-                <a href="/cart">
-                  <h1>return to cart</h1>
-                </a>
-              </div> */}
           </div>
-          {/* </div> */}
           <div>
             <h1>payment information</h1>
             <div>
-              {/* <div className="payment-option">
-                <input
-                  className="align-left"
-                  type="radio"
-                  name="payment-method"
-                />
-                <label className="align-left">Credit Card</label>
-              </div> */}
               <div>
-                {/* <form method="POST" onSubmit={handlePayment}> */}
-                {/* <form> */}
                 <div className="grid payment-input">
                   <CardElement
                     className="card-element"
@@ -359,22 +299,6 @@ const CheckoutC = () => {
                 <div className="credit-card-option">
                   <button className="payment-button">pay</button>
                 </div>
-                {/* </form> */}
-                {/* <hr className="payment-hr" />
-                <div className="payment-option">
-                  <input
-                    className="align-left"
-                    type="radio"
-                    name="payment-method"
-                  />
-                  <label className="align-left">PayPal</label>
-                  <Paypal className="payment-button" />
-                </div>
-                <hr className="payment-hr" />
-                <div className="payment-option">
-                    <input className="align-left" type="radio" name="payment-method"/>
-                    <label className="align-left">Amazon Pay</label>
-                </div> */}
               </div>
             </div>
           </div>
@@ -385,10 +309,6 @@ const CheckoutC = () => {
             cartPrices={cartPrices}
             subtotal={subtotal}
           />
-          {/* <div className="two-column-div checkout-discount">
-            <input type="text" placeholder="discount code" />
-            <button>apply</button>
-          </div> */}
         </div>
       </div>
       <FooterC />

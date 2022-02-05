@@ -281,9 +281,6 @@ const HeaderC = (props) => {
             <div className="nav-link" onClick={() => history.push("/")}>
               <h1>store</h1>
             </div>
-            {/* <div href="/#store">
-            <h1>store</h1>
-          </div> */}
             <div className="nav-link" onClick={() => history.push("/about")}>
               <h1>about</h1>
             </div>

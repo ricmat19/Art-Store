@@ -39,16 +39,6 @@ const AdminCreateProductC = () => {
         .then((res) => console.log(res))
         .catch((err) => console.log(err));
 
-      // const response = await IndexAPI.post("/admin/create",{
-      //         title: title,
-      //         product: type,
-      //         images: images,
-      //         price: price,
-      //         info: info
-      // })
-
-      // createItem(response);
-
       titleInput.current.value = "";
       typeInput.current.value = "";
       quantityInput.current.value = "";
@@ -174,10 +164,7 @@ const AdminCreateProductC = () => {
         <div className="admin-form-button">
           <div></div>
           <div>
-            <button
-              onClick={handleSubmit}
-              type="submit"
-            >
+            <button onClick={handleSubmit} type="submit">
               Submit
             </button>
           </div>

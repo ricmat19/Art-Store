@@ -80,7 +80,7 @@ const ProductDetailsC = () => {
       const cartPostResponse = await IndexAPI.post("/cart", {
         id: id,
       });
-      setUniqueItem(cartPostResponse.data.data.uniqueItem)
+      setUniqueItem(cartPostResponse.data.data.uniqueItem);
 
       const cartResponse = await IndexAPI.get(`/cart`);
       setCartQty(cartResponse.data.data.cart.length);
@@ -100,12 +100,23 @@ const ProductDetailsC = () => {
         <form>
           <div ref={addedRef} className="added-content">
             <h1 className="added-header">Item Added</h1>
-            <div>{selectedProduct.title} has {!uniqueItem ?  "already" : ""} been added to your cart.</div>
+            <div>
+              {selectedProduct.title} has {!uniqueItem ? "already" : ""} been
+              added to your cart.
+            </div>
             <div className="grid two-column-div">
-              <button className="added-button" onClick={() => history.push("/")}>
+              <button
+                className="added-button"
+                onClick={() => history.push("/")}
+              >
                 continue shopping
               </button>
-              <button className="added-button" onClick={() => history.push("/cart")}>view cart</button>
+              <button
+                className="added-button"
+                onClick={() => history.push("/cart")}
+              >
+                view cart
+              </button>
             </div>
           </div>
         </form>
@@ -132,10 +143,6 @@ const ProductDetailsC = () => {
                   ${selectedProduct && selectedProduct.price}.00
                 </h3>
               </div>
-              {/* <div className="info-detail-div">
-              <label>quantity:</label>
-              <h3 className="no-margin">{selectedProduct && selectedProduct.qty}</h3>
-            </div> */}
               <div className="info-detail-div">
                 <label>info:</label>
                 <h3 className="no-margin">

@@ -47,7 +47,7 @@ const AboutC = () => {
             <h1>about</h1>
           </div>
           <div className="profile-info">
-          {/* <div> */}
+            {/* <div> */}
             {/* <div className="profile-image-div">
               <div className="big-image-div">
                 <img

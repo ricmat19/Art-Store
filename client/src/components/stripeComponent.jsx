@@ -9,8 +9,7 @@ const stripePromise = loadStripe(process.env.REACT_APP_STRIPEPUBLIC);
 const StripeC = () => {
   return (
     <Elements stripe={stripePromise}>
-      {/* <PaymentC /> */}
-      <CheckoutC/>
+      <CheckoutC />
     </Elements>
   );
 };

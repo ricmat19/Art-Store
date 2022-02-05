@@ -178,10 +178,7 @@ const AdminUpdateProductC = (props) => {
             <div></div>
             <div className="text-center">
               <div>
-                <button
-                  onClick={handleSubmit}
-                  type="submit"
-                >
+                <button onClick={handleSubmit} type="submit">
                   Submit
                 </button>
               </div>

@@ -37,7 +37,7 @@ const CartC = () => {
 
   return (
     <div>
-      <HeaderC cartQty={cart.length}/>
+      <HeaderC cartQty={cart.length} />
       <div className="main-body">
         <div>
           <div className="align-center">
@@ -51,7 +51,7 @@ const CartC = () => {
             </div>
             <hr className="table-hr" />
             <div className="cart-items-container">
-              <CartProductsC setCart={setCart}/>
+              <CartProductsC setCart={setCart} />
             </div>
           </div>
         </div>

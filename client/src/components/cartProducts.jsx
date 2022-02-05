@@ -38,10 +38,10 @@ const CartProductsC = (props) => {
 
         if (cartResponse.data.data.cart.length === 0) {
           sub = 0;
-        // } else if (priceArray.length === 0) {
-        //   for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
-        //     sub += parseInt(cartResponse.data.data.cart[i].price);
-        //   }
+          // } else if (priceArray.length === 0) {
+          //   for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
+          //     sub += parseInt(cartResponse.data.data.cart[i].price);
+          //   }
         } else {
           sub = priceArray.reduce(function (a, b) {
             return a + b;
@@ -76,7 +76,6 @@ const CartProductsC = (props) => {
       }
       setSubtotal(sub);
 
-
       const resetPricesArray = [];
       for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
         resetPricesArray.push(parseInt(cartResponse.data.data.cart[i].price));
@@ -96,8 +95,7 @@ const CartProductsC = (props) => {
         } else {
           if (prices[i] !== undefined) {
             priceArray[i] = prices[i];
-          } 
-          else {
+          } else {
             // priceArray[i] = parseInt(cart[i].price);
             priceArray[i] = 0;
           }
@@ -115,12 +113,12 @@ const CartProductsC = (props) => {
         }
         setCartQty(qtyArray);
 
-        for(let i = 0; i < qtyArray.length; i++){
-          if(qtyArray[i] <= 0 || isNaN(qtyArray[i])){
-            setHasQty(false)
+        for (let i = 0; i < qtyArray.length; i++) {
+          if (qtyArray[i] <= 0 || isNaN(qtyArray[i])) {
+            setHasQty(false);
             break;
-          }else{
-            setHasQty(true)
+          } else {
+            setHasQty(true);
           }
         }
       }

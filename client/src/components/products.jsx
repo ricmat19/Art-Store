@@ -45,7 +45,6 @@ const ProductsC = () => {
     const fetchData = async () => {
       try {
         productResponse = await IndexAPI.get(`/products/print`);
-        // productResponse = await IndexAPI.get(`/products/${product}`);
 
         for (let i = 0; i < productResponse.data.data.product.length; i++) {
           if (productResponse.data.data.product[i].imagekey !== null) {

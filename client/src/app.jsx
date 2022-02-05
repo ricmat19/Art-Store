@@ -6,8 +6,6 @@ import Product from "./routes/products";
 import Item from "./routes/productDetails";
 import Cart from "./routes/cart";
 import Checkout from "./routes/stripe";
-// import Shipping from "./routes/shipping";
-// import Payment from "./routes/stripe";
 import Contact from "./routes/contact";
 import PageNotFound from "./routes/pageNotFound";
 import AdminLogin from "./routes/admin/login";
@@ -67,8 +65,6 @@ const App = () => {
           <Route exact path="/products/:product/:id" component={Item} />
           <Route export path="/cart" component={Cart} />
           <Route export path="/checkout" component={Checkout} />
-          {/* <Route export path="/shipping" component={Shipping} />
-          <Route export path="/payment" component={Payment} /> */}
           <Route exact path="/contact" component={Contact} />
           <Route exact path="/admin/login" component={AdminLogin} />
           {/* <Route exact path="/admin/home" component={AdminHome} /> */}

@@ -5,9 +5,7 @@ const db = require("../../db");
 //Get all products items
 router.get("/products", async (req, res) => {
   try {
-    const products = await db.query(
-      "SELECT * FROM products"
-    );
+    const products = await db.query("SELECT * FROM products");
 
     res.status(200).json({
       status: "success",
@@ -24,10 +22,9 @@ router.get("/products", async (req, res) => {
 //Get all products items
 router.get("/admin/products/:product", async (req, res) => {
   try {
-    const product = await db.query(
-      "SELECT * FROM products WHERE PRODUCT=$1",
-      [req.params.product]
-    );
+    const product = await db.query("SELECT * FROM products WHERE PRODUCT=$1", [
+      req.params.product,
+    ]);
     res.status(200).json({
       status: "success",
       results: product.rows.length,
@@ -43,9 +40,7 @@ router.get("/admin/products/:product", async (req, res) => {
 //Delete a products item
 router.delete("/admin/delete/:id", async (req, res) => {
   try {
-    await db.query("DELETE FROM products WHERE id = $1", [
-      req.params.id,
-    ]);
+    await db.query("DELETE FROM products WHERE id = $1", [req.params.id]);
     res.status(204).json({
       status: "success",
     });
