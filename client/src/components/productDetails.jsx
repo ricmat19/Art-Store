@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router";
 import IndexAPI from "../apis/indexAPI";
-import CartModalC from "./cartSummaryModal";
 import HeaderC from "./header";
 import FooterC from "./footer";
 
@@ -11,10 +10,8 @@ const ProductDetailsC = () => {
   const [addedModal, setAddedModal] = useState("modal-bg");
   const [imageBuffer, setImageBuffer] = useState("");
   const [, setCart] = useState([]);
-  const [cartState, setCartState] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState([]);
   const [cartQty, setCartQty] = useState(0);
-  const [cartCost, setCartCost] = useState(0);
   const [uniqueItem, setUniqueItem] = useState();
 
   const history = useHistory();
@@ -55,17 +52,6 @@ const ProductDetailsC = () => {
 
         setCartQty(cartResponse.data.data.cart.length);
 
-        let price = 0;
-        for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
-          price += parseInt(cartResponse.data.data.cart[i].price);
-        }
-        setCartCost(price);
-
-        if (cartResponse.length !== 0) {
-          setCartState(true);
-        } else {
-          setCartState(false);
-        }
       } catch (err) {
         console.log(err);
       }
@@ -93,7 +79,6 @@ const ProductDetailsC = () => {
 
   return (
     <div>
-      <CartModalC cartState={cartState} cartQty={cartQty} cartCost={cartCost} />
 
       {/* Added to Cart */}
       <div className={addedModal}>

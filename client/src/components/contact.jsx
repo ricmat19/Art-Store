@@ -1,14 +1,9 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import IndexAPI from "../apis/indexAPI";
-import CartModalC from "./cartSummaryModal";
 import HeaderC from "./header";
 import FooterC from "./footer";
 
 const ContactC = () => {
-  const [, setCart] = useState([]);
-  const [cartState, setCartState] = useState(false);
-  const [cartQty, setCartQty] = useState(0);
-  const [cartCost, setCartCost] = useState(0);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -18,34 +13,7 @@ const ContactC = () => {
   const nameInput = useRef(null);
   const emailInput = useRef(null);
   const subjectInput = useRef(null);
-  const messageInput = useRef(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const cartResponse = await IndexAPI.get(`/cart`);
-        setCart(cartResponse.data.data.cart);
-
-        setCartQty(cartResponse.data.data.cart.length);
-
-        let price = 0;
-        for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
-          price += parseInt(cartResponse.data.data.cart[i].price);
-        }
-        setCartCost(price);
-
-        if (cartResponse.length !== 0) {
-          setCartState(true);
-        } else {
-          setCartState(false);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const messageInput = useRef(null)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -68,7 +36,6 @@ const ContactC = () => {
 
   return (
     <div>
-      <CartModalC cartState={cartState} cartQty={cartQty} cartCost={cartCost} />
       <HeaderC />
       <div className="main-body">
         <div>
