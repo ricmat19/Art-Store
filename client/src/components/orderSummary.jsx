@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
+// import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
+// import { CartContext } from "../context/CartContext";
 
 const OrderSummaryC = (props) => {
   const [cart, setCart] = useState([]);
   const [cartPrices, setCartPrices] = useState([]);
   const [subtotal, setSubtotal] = useState(0);
+
+  // const { cart, setCart } = useContext(CartContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,11 +50,7 @@ const OrderSummaryC = (props) => {
                   </div>
                 </div>
               </div>
-              {index !== cart.length - 1 ? (
-                <hr className="no-margin" />
-              ) : (
-                ""
-              )}
+              {index !== cart.length - 1 ? <hr className="no-margin" /> : ""}
             </>
           );
         })}

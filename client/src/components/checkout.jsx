@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
+// import React, { useContext, useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import OrderSummaryC from "./orderSummary";
 import HeaderC from "./header";
 import FooterC from "./footer";
 import IndexAPI from "../apis/indexAPI";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+// import { CartContext } from "../context/CartContext";
 
 const CheckoutC = () => {
   const stripe = useStripe();
@@ -35,6 +37,8 @@ const CheckoutC = () => {
 
   const history = useHistory();
 
+  // const {cart, setCart, qty} = useContext(CartContext);
+
   let cartPriceArray = [];
   let sub = 0;
   useEffect(() => {
@@ -48,11 +52,18 @@ const CheckoutC = () => {
             cartResponse.data.data.qty[i];
           cartPriceArray.push(parseInt(itemSummaryPrice));
         }
+        // for (let i = 0; i < cart.length; i++) {
+        //   let itemSummaryPrice = cart[i].price * qty[i];
+        //   cartPriceArray.push(parseInt(itemSummaryPrice));
+        // }
 
         for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
           if (cartResponse.data.data.cart[i].imagekey !== null) {
+        // for (let i = 0; i < cart.length; i++) {
+        //   if (cart[i].imagekey !== null) {
             let imagesResponse = await IndexAPI.get(
               `/images/${cartResponse.data.data.cart[i].imagekey}`,
+              // `/images/${cart[i].imagekey}`,
               {
                 responseType: "arraybuffer",
               }
@@ -61,6 +72,7 @@ const CheckoutC = () => {
             );
 
             cartResponse.data.data.cart[i].imageBuffer = imagesResponse;
+            // cart[i].imageBuffer = imagesResponse;
           }
         }
 

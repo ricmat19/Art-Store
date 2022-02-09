@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
+// import React, { useContext, useEffect, useState, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router";
 import IndexAPI from "../apis/indexAPI";
 import HeaderC from "./header";
 import FooterC from "./footer";
+// import {CartContext} from "../context/CartContext";
 
 const ProductDetailsC = () => {
   const { product, id } = useParams();
@@ -17,6 +19,8 @@ const ProductDetailsC = () => {
   const history = useHistory();
 
   const addedRef = useRef();
+
+  // const {cart} = useContext(CartContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,6 +55,7 @@ const ProductDetailsC = () => {
         setCart(cartResponse.data.data.cart);
 
         setCartQty(cartResponse.data.data.cart.length);
+        // setCartQty(cart.length);
 
       } catch (err) {
         console.log(err);

@@ -1,7 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
+// import React, { useContext, useEffect, useState, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import IndexAPI from "../apis/indexAPI";
+// import { CartContext } from "../context/CartContext";
 
 const HeaderC = (props) => {
   const [signinModal, setSigninModal] = useState("modal-bg");
@@ -33,6 +35,8 @@ const HeaderC = (props) => {
   const signupRef = useRef();
   const resetRef = useRef();
 
+  // const { cart } = useContext(CartContext);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -53,6 +57,7 @@ const HeaderC = (props) => {
         const cartResponse = await IndexAPI.get(`/cart`);
 
         setCartCount(cartResponse.data.data.cart.length);
+        // setCartCount(cart.length);
       } catch (err) {
         console.log(err);
       }

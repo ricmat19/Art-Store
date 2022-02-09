@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+// import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import IndexAPI from "../apis/indexAPI";
 import PropTypes from "prop-types";
+// import { CartContext } from "../context/CartContext";
 
 const CartProductsC = (props) => {
   const [prices, setPrices] = useState([]);
@@ -11,6 +13,8 @@ const CartProductsC = (props) => {
   const [hasQty, setHasQty] = useState(false);
 
   const history = useHistory();
+
+  // const { cart, setCart } = useContext(CartContext);
 
   let sub = 0;
   let priceArray = [];
@@ -37,11 +41,8 @@ const CartProductsC = (props) => {
         setCart(cartResponse.data.data.cart);
 
         if (cartResponse.data.data.cart.length === 0) {
+        // if(cart.length === 0){
           sub = 0;
-          // } else if (priceArray.length === 0) {
-          //   for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
-          //     sub += parseInt(cartResponse.data.data.cart[i].price);
-          //   }
         } else {
           sub = priceArray.reduce(function (a, b) {
             return a + b;
@@ -66,13 +67,18 @@ const CartProductsC = (props) => {
 
       const cartResponse = await IndexAPI.get(`/cart`);
       props.setCart(cartResponse.data.data.cart);
+      // setCart(cartResponse.data.data.cart);
 
       if (cartResponse.data.data.cart.length === 0) {
+      // if (cart.length === 0){
         sub = 0;
       } else {
         for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
           sub += parseInt(cartResponse.data.data.cart[i].price);
         }
+        // for (let i = 0; i < cart.length; i++) {
+        //   sub += parseInt(cart[i].price);
+        // }
       }
       setSubtotal(sub);
 
@@ -80,6 +86,9 @@ const CartProductsC = (props) => {
       for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
         resetPricesArray.push(parseInt(cartResponse.data.data.cart[i].price));
       }
+      // for (let i = 0; i < cart.length; i++) {
+      //   resetPricesArray.push(parseInt(cart[i].price));
+      // }
       setPrices(resetPricesArray);
     } catch (err) {
       console.log(err);

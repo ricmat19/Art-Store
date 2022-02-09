@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-// import Home from "./routes/home";
+import CartContextProvider from "./context/CartContext";
 import About from "./routes/about";
 import Product from "./routes/products";
 import Item from "./routes/productDetails";
@@ -9,13 +9,10 @@ import Checkout from "./routes/stripe";
 import Contact from "./routes/contact";
 import PageNotFound from "./routes/pageNotFound";
 import AdminLogin from "./routes/admin/login";
-// import AdminHome from "./routes/admin/home";
 import AdminProducts from "./routes/admin/products";
 
 const App = () => {
-  const [disclaimerModal, setDisclaimerModal] = useState(
-    "modal-bg active"
-  );
+  const [disclaimerModal, setDisclaimerModal] = useState("modal-bg active");
 
   const closeDisclaimer = (e) => {
     e.preventDefault();
@@ -56,26 +53,25 @@ const App = () => {
           </div>
         </form>
       </div>
-      <Router>
-        <Switch>
-          {/* <Route exact path="/" component={Home} /> */}
-          <Route exact path="/" component={Product} />
-          <Route exact path="/about" component={About} />
-          {/* <Route exact path="/products/:product" component={Product} /> */}
-          <Route exact path="/products/:product/:id" component={Item} />
-          <Route export path="/cart" component={Cart} />
-          <Route export path="/checkout" component={Checkout} />
-          <Route exact path="/contact" component={Contact} />
-          <Route exact path="/admin/login" component={AdminLogin} />
-          {/* <Route exact path="/admin/home" component={AdminHome} /> */}
-          <Route
-            exact
-            path="/admin/products/:product"
-            component={AdminProducts}
-          />
-          <Route component={PageNotFound} />
-        </Switch>
-      </Router>
+      <CartContextProvider>
+        <Router>
+          <Switch>
+            <Route exact path="/" component={Product} />
+            <Route exact path="/about" component={About} />
+            <Route exact path="/products/:product/:id" component={Item} />
+            <Route export path="/cart" component={Cart} />
+            <Route export path="/checkout" component={Checkout} />
+            <Route exact path="/contact" component={Contact} />
+            <Route exact path="/admin/login" component={AdminLogin} />
+            <Route
+              exact
+              path="/admin/products/:product"
+              component={AdminProducts}
+            />
+            <Route component={PageNotFound} />
+          </Switch>
+        </Router>
+      </CartContextProvider>
     </div>
   );
 };

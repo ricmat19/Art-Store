@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+// import React, { useContext } from "react";
 import CartProductsC from "./cartProducts";
 import HeaderC from "./header";
 import FooterC from "./footer";
 import IndexAPI from "../apis/indexAPI";
+// import { CartContext } from "../context/cartContext";
 
 const CartC = () => {
   const [cart, setCart] = useState([]);
@@ -34,6 +36,8 @@ const CartC = () => {
 
     fetchData();
   }, []);
+
+  // const {cart, setCart } = useContext(CartContext);
 
   return (
     <div>
