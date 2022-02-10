@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import CartContextProvider from "./context/CartContext";
 import About from "./routes/about";
-import Product from "./routes/products";
+import Products from "./routes/products";
 import Item from "./routes/productDetails";
 import Cart from "./routes/cart";
 import Checkout from "./routes/stripe";
@@ -56,7 +56,7 @@ const App = () => {
       <CartContextProvider>
         <Router>
           <Switch>
-            <Route exact path="/" component={Product} />
+            <Route exact path="/" component={Products} />
             <Route exact path="/about" component={About} />
             <Route exact path="/products/:product/:id" component={Item} />
             <Route export path="/cart" component={Cart} />
