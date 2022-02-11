@@ -1,13 +1,14 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import IndexAPI from "../../apis/indexAPI";
+import Image from 'next/image';
 
 const AdminCreateProductC = () => {
-  const [title, setTitle] = useState("");
-  const [type, setType] = useState("");
-  const [images, setImages] = useState(null);
-  const [quantity, setQuantity] = useState("");
-  const [price, setPrice] = useState("");
-  const [info, setInfo] = useState("");
+  const [title, setTitle] = useState<string>("");
+  const [type, setType] = useState<string>("");
+  const [images, setImages] = useState<File>();
+  const [quantity, setQuantity] = useState<string>("");
+  const [price, setPrice] = useState<string>("");
+  const [info, setInfo] = useState<string>("");
 
   const titleInput = useRef(null);
   const typeInput = useRef(null);
@@ -21,7 +22,7 @@ const AdminCreateProductC = () => {
     require("dotenv").config();
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
       let formData = new FormData();
@@ -58,7 +59,7 @@ const AdminCreateProductC = () => {
     <div className="admin-item-div">
       <div className="admin-image-div">
         <div className="justify-center">
-          <img className="big-image" src={displayedImage} alt="product" />
+          <Image className="big-image" src={displayedImage} alt="product" />
         </div>
       </div>
       <form

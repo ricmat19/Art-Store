@@ -1,12 +1,19 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 // import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { ICart, IProduct } from "../interfaces";
 // import { CartContext } from "../context/CartContext";
 
-const OrderSummaryC = (props) => {
-  const [cart, setCart] = useState([]);
-  const [cartPrices, setCartPrices] = useState([]);
-  const [subtotal, setSubtotal] = useState(0);
+interface ICartSummary {
+  cartProducts: [],
+  cartPrices: IProduct[],
+  subtotal: number,
+}
+
+const OrderSummaryC = (props:ICartSummary) => {
+  const [cart, setCart] = useState<ICart[]>([]);
+  const [cartPrices, setCartPrices] = useState<ICart[]>([]);
+  const [subtotal, setSubtotal] = useState<number>(0);
 
   // const { cart, setCart } = useContext(CartContext);
 

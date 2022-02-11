@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 // import React, { useContext, useEffect, useState } from "react";
 // import { useHistory } from "react-router-dom";
 import Link from 'next/link';
 import IndexAPI from "../apis/indexAPI";
 import PropTypes from "prop-types";
+import { ICart, IProduct } from "../interfaces";
 // import { CartContext } from "../context/CartContext";
 
 const CartProductsC = (props) => {
-  const [prices, setPrices] = useState([]);
-  const [cart, setCart] = useState([]);
-  const [cartQty, setCartQty] = useState([]);
+  const [prices, setPrices] = useState<IProduct[]>([]);
+  const [cart, setCart] = useState<ICart[]>([]);
+  const [cartQty, setCartQty] = useState<ICart[]>([]);
   const [subtotal, setSubtotal] = useState();
   const [hasQty, setHasQty] = useState(false);
 
-  const history = useHistory();
+  // const history = useHistory();
 
   // const { cart, setCart } = useContext(CartContext);
 

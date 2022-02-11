@@ -1,9 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import IndexAPI from "../../apis/indexAPI";
 
-const AdminDeleteProductC = (props) => {
-  const [product, setProduct] = useState("");
+interface IProducts {
+  deleteItem: string,
+  products: [],
+  setProducts: () => boolean,
+}
+
+const AdminDeleteProductC = (props: IProducts) => {
+  const [product, setProduct] = useState<string>("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,12 +28,12 @@ const AdminDeleteProductC = (props) => {
     fetchData();
   }, [props]);
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: any) => {
     try {
       await IndexAPI.delete(`/admin/delete/${props.deleteItem}`);
       props.setProducts(
-        props.products.filter((item) => {
-          return item.id !== id;
+        props.products.filter((item: { id: any; }) => {
+          return item.id !== id; 
         })
       );
     } catch (err) {

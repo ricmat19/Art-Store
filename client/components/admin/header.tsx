@@ -1,4 +1,3 @@
-import React from "react";
 // import IndexAPI from "../../apis/indexAPI";
 
 const HeaderC = () => {

@@ -1,15 +1,22 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import IndexAPI from "../../apis/indexAPI";
+import { IProduct } from "../../interfaces";
 
-const AdminUpdateProductC = (props) => {
-  const [setProducts] = useState([]);
-  const [image, setImage] = useState("");
-  const [title, setTitle] = useState("");
-  const [type, setType] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [price, setPrice] = useState("");
-  const [info, setInfo] = useState("");
+interface IProducts {
+  updateItem: string,
+  products: IProduct[],
+  setProducts: () => void,
+}
+
+const AdminUpdateProductC = (props: IProducts) => {
+  const [setProducts] = useState<IProduct[]>([]);
+  const [image, setImage] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
+  const [type, setType] = useState<string>("");
+  const [quantity, setQuantity] = useState<string>("");
+  const [price, setPrice] = useState<string>("");
+  const [info, setInfo] = useState<string>("");
 
   useEffect(() => {
     const fetchData = async () => {

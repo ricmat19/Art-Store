@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 // import React, { useContext, useEffect, useState, useRef } from "react";
 // import { useHistory } from "react-router-dom";
 import Link from "next/link";
@@ -6,11 +6,11 @@ import PropTypes from "prop-types";
 import IndexAPI from "../apis/indexAPI";
 // import { CartContext } from "../context/CartContext";
 
-const HeaderC = (props) => {
-  const [signinModal, setSigninModal] = useState("modal-bg");
-  const [signupModal, setSignupModal] = useState("modal-bg");
-  const [resetModal, setResetModal] = useState("modal-bg");
-  const [cartCount, setCartCount] = useState(0);
+const HeaderC = () => {
+  const [signinModal, setSigninModal] = useState<string>("modal-bg");
+  const [signupModal, setSignupModal] = useState<string>("modal-bg");
+  const [resetModal, setResetModal] = useState<string>("modal-bg");
+  const [cartCount, setCartCount] = useState<number>(0);
 
   // const history = useHistory();
 
@@ -64,7 +64,7 @@ const HeaderC = (props) => {
       }
     };
     fetchData();
-  }, [props]);
+  }, []);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
