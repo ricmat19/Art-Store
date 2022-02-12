@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
-// import { useHistory } from "react-router";
-import Link from 'next/link';
+import { useRouter } from "next/router";
 import IndexAPI from "../../apis/indexAPI";
 
 const AdminLoginC = () => {
@@ -10,7 +9,7 @@ const AdminLoginC = () => {
   const emailInput = useRef(null);
   const passwordInput = useRef(null);
 
-  // const history = useHistory();
+  const router = useRouter();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -22,7 +21,7 @@ const AdminLoginC = () => {
 
       const loginResponse = await IndexAPI.get(`/login`);
       if (loginResponse.data.data.loggedIn) {
-        history.push("/admin/products/print");
+        router.push("/admin/products/print");
       }
     } catch (err) {
       console.log(err);

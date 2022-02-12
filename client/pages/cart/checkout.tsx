@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 // import React, { useContext, useEffect, useRef, useState } from "react";
-// import { useHistory } from "react-router-dom";
-import Link from 'next/link';
+import { useRouter } from "next/router";
 import OrderSummaryC from "../../components/orderSummary";
 import HeaderC from "../../components/header";
 import FooterC from "../../components/footer";
@@ -9,13 +8,13 @@ import IndexAPI from "../../apis/indexAPI";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 // import { CartContext } from "../context/CartContext";
 
-const CheckoutC = () => {
+const CheckoutC = (props: { cart: any; cartPriceArray: any; sub: any; }) => {
   const stripe = useStripe();
   const elements = useElements();
 
-  const [cart, setCart] = useState([]);
-  const [cartPrices, setCartPrices] = useState([]);
-  const [subtotal, setSubtotal] = useState(0);
+  const [cart] = useState(props.cart);
+  const [cartPrices] = useState(props.cartPriceArray);
+  const [subtotal] = useState(props.sub);
   const [email, setEmail] = useState("");
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
@@ -36,62 +35,9 @@ const CheckoutC = () => {
   const zipcodeInput = useRef(null);
   const phoneInput = useRef(null);
 
-  // const history = useHistory();
+  const router = useRouter();
 
   // const {cart, setCart, qty} = useContext(CartContext);
-
-  let cartPriceArray = [];
-  let sub = 0;
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const cartResponse = await IndexAPI.get(`/cart`);
-
-        for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
-          let itemSummaryPrice =
-            cartResponse.data.data.cart[i].price *
-            cartResponse.data.data.qty[i];
-          cartPriceArray.push(parseInt(itemSummaryPrice));
-        }
-        // for (let i = 0; i < cart.length; i++) {
-        //   let itemSummaryPrice = cart[i].price * qty[i];
-        //   cartPriceArray.push(parseInt(itemSummaryPrice));
-        // }
-
-        for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
-          if (cartResponse.data.data.cart[i].imagekey !== null) {
-        // for (let i = 0; i < cart.length; i++) {
-        //   if (cart[i].imagekey !== null) {
-            let imagesResponse = await IndexAPI.get(
-              `/images/${cartResponse.data.data.cart[i].imagekey}`,
-              // `/images/${cart[i].imagekey}`,
-              {
-                responseType: "arraybuffer",
-              }
-            ).then((response) =>
-              Buffer.from(response.data, "binary").toString("base64")
-            );
-
-            cartResponse.data.data.cart[i].imageBuffer = imagesResponse;
-            // cart[i].imageBuffer = imagesResponse;
-          }
-        }
-
-        setCartPrices(cartPriceArray);
-
-        sub = cartPriceArray.reduce(function (a, b) {
-          return a + b;
-        }, 0);
-        setSubtotal(sub);
-
-        setCart(cartResponse.data.data.cart);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   const handlePayment = async (e) => {
     e.preventDefault();
@@ -104,7 +50,7 @@ const CheckoutC = () => {
       try {
         await IndexAPI.put(`/cart/deleteAll`);
 
-        history.push("/");
+        router.push("/");
       } catch (err) {
         console.log(err);
       }
@@ -328,5 +274,57 @@ const CheckoutC = () => {
     </div>
   );
 };
+
+export async function getStaticProps() {
+      try {
+        let cartPriceArray = [];
+        const cartResponse = await IndexAPI.get(`/cart`);
+
+        for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
+          let itemSummaryPrice =
+            cartResponse.data.data.cart[i].price *
+            cartResponse.data.data.qty[i];
+          cartPriceArray.push(parseInt(itemSummaryPrice));
+        }
+        // for (let i = 0; i < cart.length; i++) {
+        //   let itemSummaryPrice = cart[i].price * qty[i];
+        //   cartPriceArray.push(parseInt(itemSummaryPrice));
+        // }
+
+        for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
+          if (cartResponse.data.data.cart[i].imagekey !== null) {
+        // for (let i = 0; i < cart.length; i++) {
+        //   if (cart[i].imagekey !== null) {
+            let imagesResponse = await IndexAPI.get(
+              `/images/${cartResponse.data.data.cart[i].imagekey}`,
+              // `/images/${cart[i].imagekey}`,
+              {
+                responseType: "arraybuffer",
+              }
+            ).then((response) =>
+              Buffer.from(response.data, "binary").toString("base64")
+            );
+
+            cartResponse.data.data.cart[i].imageBuffer = imagesResponse;
+            // cart[i].imageBuffer = imagesResponse;
+          }
+        }
+
+        let sub = cartPriceArray.reduce(function (a, b) {
+          return a + b;
+        }, 0);
+
+        return{
+          props: {
+            cart: cartResponse.data.data.cart,
+            priceArray: cartPriceArray,
+            sub: sub
+          }
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+}
 
 export default CheckoutC;

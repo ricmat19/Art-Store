@@ -1,13 +1,12 @@
-import { useEffect, useState } from "react";
-// import { useHistory } from "react-router-dom";
-import Link from 'next/link';
+import { useState } from "react";
+import { useRouter } from "next/router";
 import ReactPaginate from "react-paginate";
 import IndexAPI from "../apis/indexAPI";
 import HeaderC from "../components/header";
 import FooterC from "../components/footer";
 
-const ProductsC = () => {
-  const [products, setProducts] = useState([]);
+const ProductsC = (props: any) => {
+  const [products] = useState(props.products);
   const [pageNumber, setPageNumber] = useState(0);
 
   const itemsPerPage = 9;
@@ -39,42 +38,20 @@ const ProductsC = () => {
     setPageNumber(selected);
   };
 
-  // let history = useHistory();
+  const router = useRouter();
 
-  let productResponse;
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        productResponse = await IndexAPI.get(`/products/print`);
+  // let productResponse;
+  // useEffect(() => {
+  //   const fetchData = async () => {
 
-        for (let i = 0; i < productResponse.data.data.product.length; i++) {
-          if (productResponse.data.data.product[i].imagekey !== null) {
-            let imagesResponse = await IndexAPI.get(
-              `/images/${productResponse.data.data.product[i].imagekey}`,
-              {
-                responseType: "arraybuffer",
-              }
-            ).then((response) =>
-              Buffer.from(response.data, "binary").toString("base64")
-            );
+  //   };
 
-            productResponse.data.data.product[
-              i
-            ].imageBuffer = `data:image/png;base64,${imagesResponse}`;
-          }
-        }
-        setProducts(productResponse.data.data.product);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   const displayItem = async (product, id) => {
     try {
-      history.push(`/products/${product}/${id}`);
+      router.push(`/products/${product}/${id}`);
     } catch (err) {
       console.log(err);
     }
@@ -117,5 +94,35 @@ const ProductsC = () => {
     </div>
   );
 };
+
+export async function getStaticProps() {
+  try {
+    const productResponse = await IndexAPI.get(`/products/print`);
+
+    for (let i = 0; i < productResponse.data.data.product.length; i++) {
+      if (productResponse.data.data.product[i].imagekey !== null) {
+        let imagesResponse = await IndexAPI.get(
+          `/images/${productResponse.data.data.product[i].imagekey}`,
+          {
+            responseType: "arraybuffer",
+          }
+        ).then((response) =>
+          Buffer.from(response.data, "binary").toString("base64")
+        );
+
+        productResponse.data.data.product[
+          i
+        ].imageBuffer = `data:image/png;base64,${imagesResponse}`;
+      }
+    }
+    return{
+      props: {
+        products: productResponse.data.data.product
+      }
+    }
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 export default ProductsC;

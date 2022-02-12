@@ -1,20 +1,19 @@
 import { useEffect, useState } from "react";
 // import React, { useContext, useEffect, useState } from "react";
-// import { useHistory } from "react-router-dom";
-import Link from 'next/link';
+import { useRouter } from "next/router";
 import IndexAPI from "../apis/indexAPI";
 import PropTypes from "prop-types";
 import { ICart, IProduct } from "../interfaces";
 // import { CartContext } from "../context/CartContext";
 
-const CartProductsC = (props) => {
+const CartProductsC = (props: { setCart: () => void; }) => {
   const [prices, setPrices] = useState<IProduct[]>([]);
   const [cart, setCart] = useState<ICart[]>([]);
   const [cartQty, setCartQty] = useState<ICart[]>([]);
   const [subtotal, setSubtotal] = useState();
   const [hasQty, setHasQty] = useState(false);
 
-  // const history = useHistory();
+  const router = useRouter();
 
   // const { cart, setCart } = useContext(CartContext);
 
@@ -43,7 +42,7 @@ const CartProductsC = (props) => {
         setCart(cartResponse.data.data.cart);
 
         if (cartResponse.data.data.cart.length === 0) {
-        // if(cart.length === 0){
+          // if(cart.length === 0){
           sub = 0;
         } else {
           sub = priceArray.reduce(function (a, b) {
@@ -61,7 +60,7 @@ const CartProductsC = (props) => {
     fetchData();
   }, [props]);
 
-  const deleteFromCart = async (id) => {
+  const deleteFromCart = async (id: Number) => {
     try {
       await IndexAPI.put("/cart/delete", {
         id: id,
@@ -72,7 +71,7 @@ const CartProductsC = (props) => {
       // setCart(cartResponse.data.data.cart);
 
       if (cartResponse.data.data.cart.length === 0) {
-      // if (cart.length === 0){
+        // if (cart.length === 0){
         sub = 0;
       } else {
         for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
@@ -202,8 +201,7 @@ const CartProductsC = (props) => {
       {hasQty ? (
         <div className="align-right no-margin">
           <button>
-            {/* <div onClick={() => history.push("/checkout")}>Checkout</div> */}
-            <Link href="/checkout">Checkout</Link>
+            <div onClick={() => router.push("/checkout")}>Checkout</div>
           </button>
         </div>
       ) : (

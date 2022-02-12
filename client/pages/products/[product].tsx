@@ -1,27 +1,23 @@
 import { useState, useEffect, useRef } from "react";
 // import React, { useContext, useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
-// import { useHistory } from "react-router-dom";
-import Link from "next/link";
 import { useParams } from "react-router";
 import IndexAPI from "../../apis/indexAPI";
 import HeaderC from "../../components/header";
 import FooterC from "../../components/footer";
 // import {CartContext} from "../context/CartContext";
 
-const ProductDetailsC = () => {
-  const router = useRouter();
-  router.query.product;
+const ProductDetailsC = (props: any) => {
 
   const { product, id } = useParams();
   const [addedModal, setAddedModal] = useState("modal-bg");
-  const [imageBuffer, setImageBuffer] = useState("");
-  const [, setCart] = useState([]);
-  const [selectedProduct, setSelectedProduct] = useState([]);
-  const [cartQty, setCartQty] = useState(0);
+  const [imageBuffer] = useState(props.imageBuffer);
+  const [selectedProduct] = useState(props.selectedProduct);
+  const [cartQty, setCartQty] = useState(props.cartQty);
   const [uniqueItem, setUniqueItem] = useState();
 
-  // const history = useHistory();
+  const router = useRouter();
+  router.query.product;
 
   const addedRef = useRef();
 
@@ -37,30 +33,6 @@ const ProductDetailsC = () => {
             }
           }
         });
-
-        const productResponse = await IndexAPI.get(
-          `/products/${product}/${id}`
-        );
-
-        if (productResponse.data.data.item.imagekey !== null) {
-          let imagesResponse = await IndexAPI.get(
-            `/images/${productResponse.data.data.item.imagekey}`,
-            {
-              responseType: "arraybuffer",
-            }
-          ).then((response) =>
-            Buffer.from(response.data, "binary").toString("base64")
-          );
-
-          setImageBuffer(`data:image/png;base64,${imagesResponse}`);
-        }
-        setSelectedProduct(productResponse.data.data.item);
-
-        const cartResponse = await IndexAPI.get(`/cart`);
-        setCart(cartResponse.data.data.cart);
-
-        setCartQty(cartResponse.data.data.cart.length);
-        // setCartQty(cart.length);
       } catch (err) {
         console.log(err);
       }
@@ -98,18 +70,18 @@ const ProductDetailsC = () => {
               added to your cart.
             </div>
             <div className="grid two-column-div">
-              {/* <button
+              <button
                 className="added-button"
-                onClick={() => history.push("/")}
-              > */}
-              <Link href="/">continue shopping</Link>
-              {/* </button> */}
-              {/* <button
+                onClick={() => router.push("/")}
+              >
+              continue shopping
+              </button>
+              <button
                 className="added-button"
-                onClick={() => history.push("/cart")}
-              > */}
-                <Link href="/cart">view cart</Link>
-              {/* </button> */}
+                onClick={() => router.push("/cart")}
+              >
+                view cart
+              </button>
             </div>
           </div>
         </form>
@@ -154,5 +126,40 @@ const ProductDetailsC = () => {
     </div>
   );
 };
+
+export async function getStaticProps() {
+  try {
+    const productResponse = await IndexAPI.get(
+      `/products/${product}/${id}`
+    );
+
+    let imageBuffer = "";
+    if (productResponse.data.data.item.imagekey !== null) {
+      let imagesResponse = await IndexAPI.get(
+        `/images/${productResponse.data.data.item.imagekey}`,
+        {
+          responseType: "arraybuffer",
+        }
+      ).then((response) =>
+        Buffer.from(response.data, "binary").toString("base64")
+      );
+
+      imageBuffer = `data:image/png;base64,${imagesResponse}`;
+    }
+
+    const cartResponse = await IndexAPI.get(`/cart`);
+
+    return{
+      props: {
+        imageBuffer: imageBuffer,
+        selectedProduct: productResponse.data.data.item,
+        cart: cartResponse.data.data.cart,
+        cartQty: cartResponse.data.data.cart.length
+      }
+    }
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 export default ProductDetailsC;

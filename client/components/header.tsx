@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 // import React, { useContext, useEffect, useState, useRef } from "react";
-// import { useHistory } from "react-router-dom";
-import Link from "next/link";
+import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import IndexAPI from "../apis/indexAPI";
 // import { CartContext } from "../context/CartContext";
@@ -12,7 +11,7 @@ const HeaderC = () => {
   const [resetModal, setResetModal] = useState<string>("modal-bg");
   const [cartCount, setCartCount] = useState<number>(0);
 
-  // const history = useHistory();
+  const router = useRouter();
 
   const displaySignin = () => {
     setSigninModal("modal-bg active");
@@ -277,42 +276,32 @@ const HeaderC = () => {
           </a>
         </label>
         <nav className="navbar">
-          {/* <div className="logo-div" onClick={() => history.push("/")}> */}
-          <Link href="/">
+          <div className="logo-div" onClick={() => router.push("/")}>
             <div className="logo">
               <span className="logo-first">a</span>rt
               <span className="logo-first">H</span>ouse
             </div>
-          </Link>
-          {/* </div> */}
+          </div>
           <div className="nav-div">
-            {/* <div className="nav-link" onClick={() => history.push("/")}> */}
-            <Link href="/">
+            <div className="nav-link" onClick={() => router.push("/")}>
               <h1>store</h1>
-            </Link>
-            {/* </div> */}
-            {/* <div className="nav-link" onClick={() => history.push("/about")}> */}
-            <Link href="/about">
+            </div>
+            <div className="nav-link" onClick={() => router.push("/about")}>
               <h1>about</h1>
-            </Link>
-            {/* </div> */}
-            {/* <div className="nav-link" onClick={() => history.push("/contact")}> */}
-            <Link href="/contact">
+            </div>
+            <div className="nav-link" onClick={() => router.push("/contact")}>
               <h1>contact</h1>
-            </Link>
-            {/* </div> */}
-            {/* <div className="nav-link" href={value.toString()} onClick={displaySignin}>
+            </div>
+            <div className="nav-link" href={value.toString()} onClick={displaySignin}>
             <h1>sign in</h1>
-            </div> */}
+            </div>
           </div>
           <div className="cart-summary-div">
-            {/* <div onClick={() => history.push("/cart")}> */}
-            <Link href="/cart">
+            <div onClick={() => router.push("/cart")}>
               <h1 className="pointer">
                 {cartCount} items <i className="fas fa-shopping-cart"></i>
               </h1>
-            </Link>
-            {/* </div> */}
+            </div>
           </div>
         </nav>
       </div>
