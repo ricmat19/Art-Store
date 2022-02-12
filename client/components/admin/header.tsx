@@ -230,7 +230,7 @@ const HeaderC = () => {
 
       <div>
         <input type="checkbox" id="nav-toggle" className="nav-toggle" />
-        <div htmlFor="nav-toggle" className="nav-toggle-label">
+        <label htmlFor="nav-toggle" className="nav-toggle-label">
           <a className="menu-toggle">
             <nav>
               <h1>
@@ -241,7 +241,7 @@ const HeaderC = () => {
               </h1>
             </nav>
           </a>
-        </div>
+        </label>
         <nav className="navbar">
           <div className="logo-div">
             <div className="logo">

@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, SetStateAction } from "react";
 // import { Redirect } from "react-router";
 import ReactPaginate from "react-paginate";
 import IndexAPI from "../../apis/indexAPI";
@@ -8,6 +8,8 @@ import AdminUpdateProductC from "../../components/admin/updateProduct";
 import AdminDeleteProductC from "../../components/admin/deleteProduct";
 import FooterC from "../../components/footer";
 import { IProduct } from "../../interfaces";
+import Image from "next/image";
+import Head from "next/head";
 
 const AdminProductsC = () => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
@@ -29,19 +31,19 @@ const AdminProductsC = () => {
     setCreateProductModal("modal-bg active");
   };
 
-  const displayUpdateProductModal = (id) => {
+  const displayUpdateProductModal = (id: SetStateAction<string>) => {
     setUpdateItem(id);
     setUpdateProductModal("modal-bg active");
   };
 
-  const displayDeleteProductModal = (id) => {
+  const displayDeleteProductModal = (id: SetStateAction<string>) => {
     setDeleteItem(id);
     setDeleteProductModal("modal-bg active");
   };
 
-  const createProductRef = useRef();
-  const updateProductRef = useRef();
-  const deleteProductRef = useRef();
+  // const createProductRef = useRef();
+  // const updateProductRef = useRef();
+  // const deleteProductRef = useRef();
 
   const displayItems = products
     .slice(pagesVisted, pagesVisted + itemsPerPage)
@@ -50,7 +52,7 @@ const AdminProductsC = () => {
         <div key={item.id}>
           <div className="pointer">
             <div className="products-item">
-              <img
+              <Image
                 className="products-thumbnail"
                 src={item.imageBuffer}
                 alt="Thumbnail"
@@ -97,23 +99,23 @@ const AdminProductsC = () => {
         const loginResponse = await IndexAPI.get(`/login`);
         setLoginStatus(loginResponse.data.data.loggedIn);
 
-        document.addEventListener("mousedown", (event) => {
-          if (createProductRef.current !== null) {
-            if (!createProductRef.current.contains(event.target)) {
-              setCreateProductModal("modal-bg");
-            }
-          }
-          if (updateProductRef.current !== null) {
-            if (!updateProductRef.current.contains(event.target)) {
-              setUpdateProductModal("modal-bg");
-            }
-          }
-          if (deleteProductRef.current !== null) {
-            if (!deleteProductRef.current.contains(event.target)) {
-              setDeleteProductModal("modal-bg");
-            }
-          }
-        });
+        // document.addEventListener("mousedown", (event) => {
+        //   if (createProductRef.current !== null) {
+        //     if (!createProductRef.current.contains(event.target)) {
+        //       setCreateProductModal("modal-bg");
+        //     }
+        //   }
+        //   if (updateProductRef.current !== null) {
+        //     if (!updateProductRef.current.contains(event.target)) {
+        //       setUpdateProductModal("modal-bg");
+        //     }
+        //   }
+        //   if (deleteProductRef.current !== null) {
+        //     if (!deleteProductRef.current.contains(event.target)) {
+        //       setDeleteProductModal("modal-bg");
+        //     }
+        //   }
+        // });
       } catch (err) {
         console.log(err);
       }
@@ -125,19 +127,31 @@ const AdminProductsC = () => {
   if (loginStatus) {
     return (
       <div>
+        <Head>
+          <title>artHouse19-Admin Products</title>
+        </Head>
         <AdminHeaderC />
         <div className={createProductModal}>
-          <div ref={createProductRef} className="create-product-container">
+          <div
+            // ref={createProductRef}
+            className="create-product-container"
+          >
             <AdminCreateProductC />
           </div>
         </div>
         <div className={updateProductModal}>
-          <div ref={updateProductRef} className="update-product-container">
+          <div
+            // ref={updateProductRef}
+            className="update-product-container"
+          >
             <AdminUpdateProductC updateItem={updateItem} />
           </div>
         </div>
         <div className={deleteProductModal}>
-          <div ref={deleteProductRef} className="delete-product-container">
+          <div
+            // ref={deleteProductRef}
+            className="delete-product-container"
+          >
             <AdminDeleteProductC
               deleteItem={deleteItem}
               products={products}
@@ -188,25 +202,17 @@ const AdminProductsC = () => {
   }
 };
 
-export async function getStaticPaths(){
-
+export async function getStaticPaths() {
   const productsResponse = await IndexAPI.get(`/admin/products`);
-  for(let i = 0; i < productsResponse.data.data.products.length; i++){
-    console.log(productsResponse.data.data.products.id)
-  }
-  return{
+  return {
     fallback: false,
-    paths: [
-      {
-        params: {
-
-        }
-      }
-    ]
-  }
+    paths: productsResponse.data.data.product.map((product: any) => ({
+      params: { product },
+    })),
+  };
 }
 
-export async function getStaticProps(context: { params: { product: any; }; }) {
+export async function getStaticProps(context: { params: { product: any } }) {
   const product = context.params.product;
   const productResponse = await IndexAPI.get(`/admin/products/${product}`);
 

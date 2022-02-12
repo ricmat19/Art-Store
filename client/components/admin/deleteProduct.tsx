@@ -5,7 +5,7 @@ import IndexAPI from "../../apis/indexAPI";
 interface IProducts {
   deleteItem: string,
   products: [],
-  setProducts: () => boolean,
+  setProducts: () => void,
 }
 
 const AdminDeleteProductC = (props: IProducts) => {
@@ -31,11 +31,12 @@ const AdminDeleteProductC = (props: IProducts) => {
   const handleDelete = async (id: any) => {
     try {
       await IndexAPI.delete(`/admin/delete/${props.deleteItem}`);
-      props.setProducts(
-        props.products.filter((item: { id: any; }) => {
-          return item.id !== id; 
-        })
-      );
+      console.log(id)
+      // props.setProducts(
+      //   props.products.filter((item: { id: any; }) => {
+      //     return item.id !== id; 
+      //   })
+      // );
     } catch (err) {
       console.log(err);
     }

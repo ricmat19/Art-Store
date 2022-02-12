@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import IndexAPI from "../../apis/indexAPI";
 import { IProduct } from "../../interfaces";
+import Image from "next/image";
 
 interface IProducts {
   updateItem: string,
@@ -10,7 +11,7 @@ interface IProducts {
 }
 
 const AdminUpdateProductC = (props: IProducts) => {
-  const [setProducts] = useState<IProduct[]>([]);
+  const [,setProducts] = useState<IProduct[]>([]);
   const [image, setImage] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [type, setType] = useState<string>("");
@@ -54,7 +55,7 @@ const AdminUpdateProductC = (props: IProducts) => {
     fetchData();
   }, [props]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     try {
       const update = await IndexAPI.put(`/admin/update/${props.updateItem}`, {
@@ -64,8 +65,8 @@ const AdminUpdateProductC = (props: IProducts) => {
         price,
         info,
       });
-
-      setProducts(update);
+      console.log(update)
+      // setProducts(update);
     } catch (err) {
       console.log(err);
     }
@@ -79,7 +80,7 @@ const AdminUpdateProductC = (props: IProducts) => {
       <div className="admin-item-div">
         <div className="admin-image-div">
           <div className="justify-center">
-            <img className="big-image" src={image} alt="product" />
+            <Image className="big-image" src={image} alt="product" />
           </div>
         </div>
         <form className="admin-form" action="/routes/admin.js" method="POST">
@@ -167,7 +168,7 @@ const AdminUpdateProductC = (props: IProducts) => {
               value={info}
               onChange={(e) => setInfo(e.target.value)}
               name="message"
-              rows="5"
+              // rows="5"
               required
             ></textarea>
           </div>

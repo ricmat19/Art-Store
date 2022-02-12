@@ -10,16 +10,16 @@ const CartProductsC = (props: { setCart: () => void; }) => {
   const [prices, setPrices] = useState<IProduct[]>([]);
   const [cart, setCart] = useState<ICart[]>([]);
   const [cartQty, setCartQty] = useState<ICart[]>([]);
-  const [subtotal, setSubtotal] = useState();
+  const [subtotal, setSubtotal] = useState(0);
   const [hasQty, setHasQty] = useState(false);
 
   const router = useRouter();
 
   // const { cart, setCart } = useContext(CartContext);
 
-  let sub = 0;
-  let priceArray = [];
-  let qtyArray = [];
+  let sub: number = 0;
+  let priceArray: number[] = [];
+  let qtyArray: number[] = [];
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -96,7 +96,7 @@ const CartProductsC = (props: { setCart: () => void; }) => {
     }
   };
 
-  const setItemQty = async (item, e) => {
+  const setItemQty = async (item: ICart, e: string | number) => {
     try {
       setPrices(priceArray);
       for (let i = 0; i < cart.length; i++) {

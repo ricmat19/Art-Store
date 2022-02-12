@@ -31,28 +31,28 @@ const HeaderC = () => {
     setSigninModal("modal-bg");
   };
 
-  const signinRef = useRef();
-  const signupRef = useRef();
-  const resetRef = useRef();
+  // const signinRef = useRef();
+  // const signupRef = useRef();
+  // const resetRef = useRef();
 
   // const { cart } = useContext(CartContext);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        document.addEventListener("mousedown", (event) => {
-          if (signinRef.current !== null) {
-            if (!signinRef.current.contains(event.target)) {
-              setSigninModal("modal-bg");
-            }
-            if (!signupRef.current.contains(event.target)) {
-              setSignupModal("modal-bg");
-            }
-            if (!resetRef.current.contains(event.target)) {
-              setResetModal("modal-bg");
-            }
-          }
-        });
+        // document.addEventListener("mousedown", (event) => {
+        //   if (signinRef.current !== null) {
+        //     if (!signinRef.current.contains(event.target)) {
+        //       setSigninModal("modal-bg");
+        //     }
+        //     if (!signupRef.current.contains(event.target)) {
+        //       setSignupModal("modal-bg");
+        //     }
+        //     if (!resetRef.current.contains(event.target)) {
+        //       setResetModal("modal-bg");
+        //     }
+        //   }
+        // });
 
         const cartResponse = await IndexAPI.get(`/cart`);
 
@@ -77,7 +77,7 @@ const HeaderC = () => {
   const lastNameInput = useRef(null);
   const passwordCopyInput = useRef(null);
 
-  const handleSignin = async (e) => {
+  const handleSignin = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     try {
       await IndexAPI.post("/signin", {
@@ -89,7 +89,7 @@ const HeaderC = () => {
     }
   };
 
-  const handleSignup = async (e) => {
+  const handleSignup = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
       await IndexAPI.post("/signup", {
@@ -100,17 +100,17 @@ const HeaderC = () => {
         passwordCopy: passwordCopy,
       });
 
-      firstNameInput.current.value = "";
-      lastNameInput.current.value = "";
-      emailInput.current.value = "";
-      passwordInput.current.value = "";
-      passwordCopyInput.current.value = "";
+      // firstNameInput.current.value = "";
+      // lastNameInput.current.value = "";
+      // emailInput.current.value = "";
+      // passwordInput.current.value = "";
+      // passwordCopyInput.current.value = "";
     } catch (err) {
       console.log(err);
     }
   };
 
-  async (e) => {
+  async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
       console.log("reset");
@@ -124,7 +124,10 @@ const HeaderC = () => {
       {/* Signin */}
       <div className={signinModal}>
         <form>
-          <div ref={signinRef} className="modal-content">
+          <div
+            // ref={signinRef}
+            className="modal-content"
+          >
             <h1 className="header">welcome</h1>
             <div>
               <div className="modal-input-div">
@@ -170,7 +173,10 @@ const HeaderC = () => {
       {/* signup */}
       <div className={signupModal}>
         <form>
-          <div ref={signupRef} className="modal-content">
+          <div
+            // ref={signupRef}
+            className="modal-content"
+          >
             <h1 className="header">Create Account</h1>
             <div>
               <div className="name-input-div">
@@ -249,7 +255,10 @@ const HeaderC = () => {
       {/* reset */}
       <div className={resetModal}>
         <form>
-          <div ref={resetRef} className="modal-content">
+          <div
+            // ref={resetRef}
+            className="modal-content"
+          >
             <h1 className="header">Reset Password</h1>
             <div className="forgot-input-div">
               <input type="text" placeholder="Email" />

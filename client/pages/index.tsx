@@ -5,6 +5,7 @@ import IndexAPI from "../apis/indexAPI";
 import HeaderC from "../components/header";
 import FooterC from "../components/footer";
 import { IProduct } from "../interfaces";
+import Head from "next/head";
 
 const ProductsC = (props: any) => {
   const [products] = useState<IProduct>(props.products);
@@ -60,6 +61,10 @@ const ProductsC = (props: any) => {
 
   return (
     <div>
+      <Head>
+        <title>artHouse19-Store</title>
+        <meta name="description" content="View a full list of the products available in artHouse19!"></meta>
+      </Head>
       <HeaderC />
       <div className="main-body">
         <div>
@@ -97,30 +102,30 @@ const ProductsC = (props: any) => {
 };
 
 export async function getStaticProps() {
-    const productResponse = await IndexAPI.get(`/products/print`);
+  const productResponse = await IndexAPI.get(`/products/print`);
 
-    for (let i = 0; i < productResponse.data.data.product.length; i++) {
-      if (productResponse.data.data.product[i].imagekey !== null) {
-        let imagesResponse = await IndexAPI.get(
-          `/images/${productResponse.data.data.product[i].imagekey}`,
-          {
-            responseType: "arraybuffer",
-          }
-        ).then((response) =>
-          Buffer.from(response.data, "binary").toString("base64")
-        );
+  for (let i = 0; i < productResponse.data.data.product.length; i++) {
+    if (productResponse.data.data.product[i].imagekey !== null) {
+      let imagesResponse = await IndexAPI.get(
+        `/images/${productResponse.data.data.product[i].imagekey}`,
+        {
+          responseType: "arraybuffer",
+        }
+      ).then((response) =>
+        Buffer.from(response.data, "binary").toString("base64")
+      );
 
-        productResponse.data.data.product[
-          i
-        ].imageBuffer = `data:image/png;base64,${imagesResponse}`;
-      }
+      productResponse.data.data.product[
+        i
+      ].imageBuffer = `data:image/png;base64,${imagesResponse}`;
     }
-    return{
-      props: {
-        products: productResponse.data.data.product
-      },
-      revalidate: 10
-    }
+  }
+  return {
+    props: {
+      products: productResponse.data.data.product,
+    },
+    revalidate: 10,
+  };
 }
 
 export default ProductsC;

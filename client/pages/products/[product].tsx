@@ -1,10 +1,12 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 // import React, { useContext, useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
 import IndexAPI from "../../apis/indexAPI";
 import HeaderC from "../../components/header";
 import FooterC from "../../components/footer";
+import Head from "next/head";
 // import {CartContext} from "../context/CartContext";
+import Image from "next/image";
 
 const ProductDetailsC = (props: any) => {
   // const { product, id } = useParams();
@@ -21,25 +23,25 @@ const ProductDetailsC = (props: any) => {
 
   // const {cart} = useContext(CartContext);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        document.addEventListener("mousedown", (event) => {
-          if (addedRef.current !== null) {
-            if (!addedRef.current.contains(event.target)) {
-              setAddedModal("modal-bg");
-            }
-          }
-        });
-      } catch (err) {
-        console.log(err);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       document.addEventListener("mousedown", (event) => {
+  //         if (addedRef.current !== null) {
+  //           if (!addedRef.current.contains(event.target)) {
+  //             setAddedModal("modal-bg");
+  //           }
+  //         }
+  //       });
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
-  const addToCart = async (e) => {
+  const addToCart = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
       const cartPostResponse = await IndexAPI.post("/cart", {
@@ -58,10 +60,17 @@ const ProductDetailsC = (props: any) => {
 
   return (
     <div>
+      <Head>
+        <title>artHouse19-{selectedProduct.title}</title>
+        <meta name="description" content={selectedProduct.title}></meta>
+      </Head>
       {/* Added to Cart */}
       <div className={addedModal}>
         <form>
-          <div ref={addedRef} className="added-content modal-content">
+          <div
+            // ref={addedRef}
+            className="added-content modal-content"
+          >
             <h1 className="header">Item Added</h1>
             <div>
               {selectedProduct.title} has {!uniqueItem ? "already" : ""} been
@@ -87,7 +96,7 @@ const ProductDetailsC = (props: any) => {
         <div className="item-details">
           <div className="image-div">
             <div className="justify-center">
-              <img
+              <Image
                 className="big-image"
                 src={imageBuffer}
                 alt="product image"
@@ -122,25 +131,24 @@ const ProductDetailsC = (props: any) => {
   );
 };
 
-export async function getStaticPaths(){
-
+export async function getStaticPaths() {
   const productsResponse = await IndexAPI.get(`/admin/products`);
-  for(let i = 0; i < productsResponse.data.data.products.length; i++){
-    console.log(productsResponse.data.data.products.id)
+  for (let i = 0; i < productsResponse.data.data.products.length; i++) {
+    console.log(productsResponse.data.data.products.id);
   }
-  return{
+  return {
     fallback: false,
     paths: [
       {
-        params: {
-
-        }
-      }
-    ]
-  }
+        params: {},
+      },
+    ],
+  };
 }
 
-export async function getStaticProps(context: { params: { product: any; id: any; }; }) {
+export async function getStaticProps(context: {
+  params: { product: any; id: any };
+}) {
   const product = context.params.product;
   const id = context.params.id;
   const productResponse = await IndexAPI.get(`/products/${product}/${id}`);

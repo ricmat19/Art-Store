@@ -1,11 +1,11 @@
 import { useState, useRef } from "react";
 import IndexAPI from "../../apis/indexAPI";
-import Image from 'next/image';
+import Image from "next/image";
 
 const AdminCreateProductC = () => {
   const [title, setTitle] = useState<string>("");
   const [type, setType] = useState<string>("");
-  const [images, setImages] = useState<File>();
+  const [images,] = useState<File>();
   const [quantity, setQuantity] = useState<string>("");
   const [price, setPrice] = useState<string>("");
   const [info, setInfo] = useState<string>("");
@@ -29,7 +29,9 @@ const AdminCreateProductC = () => {
 
       formData.append("title", title);
       formData.append("product", type);
-      formData.append("images", images);
+      if (images !== undefined) {
+        formData.append("images", images);
+      }
       formData.append("quantity", quantity);
       formData.append("price", price);
       formData.append("info", info);
@@ -40,11 +42,11 @@ const AdminCreateProductC = () => {
         .then((res) => console.log(res))
         .catch((err) => console.log(err));
 
-      titleInput.current.value = "";
-      typeInput.current.value = "";
-      quantityInput.current.value = "";
-      priceInput.current.value = "";
-      infoInput.current.value = "";
+      // titleInput.current.value = "";
+      // typeInput.current.value = "";
+      // quantityInput.current.value = "";
+      // priceInput.current.value = "";
+      // infoInput.current.value = "";
     } catch (err) {
       console.log(err);
     }
@@ -52,7 +54,8 @@ const AdminCreateProductC = () => {
 
   let displayedImage = "../../images/loading.svg";
   if (images !== null) {
-    displayedImage = URL.createObjectURL(images);
+    console.log(images)
+    // displayedImage = URL.createObjectURL(images);
   }
 
   return (
@@ -124,7 +127,7 @@ const AdminCreateProductC = () => {
           <label className="align-left">Images:</label>
           <input
             type="file"
-            onChange={(e) => setImages(e.target.files[0])}
+            // onChange={(e) => setImages(e.target.files[0])}
             name="images"
             required
           />
@@ -158,7 +161,7 @@ const AdminCreateProductC = () => {
             ref={infoInput}
             onChange={(e) => setInfo(e.target.value)}
             name="message"
-            rows="5"
+            // rows="5"
             required
           ></textarea>
         </div>

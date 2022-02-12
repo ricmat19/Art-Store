@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { useRouter } from "next/router";
 import IndexAPI from "../../apis/indexAPI";
+import Head from "next/head";
 
 const AdminLoginC = () => {
   const [email, setEmail] = useState("");
@@ -11,7 +12,7 @@ const AdminLoginC = () => {
 
   const router = useRouter();
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
       await IndexAPI.post("/login", {
@@ -29,39 +30,44 @@ const AdminLoginC = () => {
   };
 
   return (
-    <div className="login-main">
-      <div className="login-div title-div">
-        <p>login</p>
-        <div className="login-inputs">
-          <div className="grid modal-input-div">
-            <input
-              type="email"
-              ref={emailInput}
-              value={email}
-              name="email"
-              placeholder="email"
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-            />
+    <div>
+      <Head>
+        <title>artHouse19-About</title>
+      </Head>
+      <div className="login-main">
+        <div className="login-div title-div">
+          <p>login</p>
+          <div className="login-inputs">
+            <div className="grid modal-input-div">
+              <input
+                type="email"
+                ref={emailInput}
+                value={email}
+                name="email"
+                placeholder="email"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
+            </div>
+            <div className="grid modal-input-div">
+              <input
+                type="password"
+                ref={passwordInput}
+                value={password}
+                name="password"
+                placeholder="password"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
+            </div>
           </div>
-          <div className="grid modal-input-div">
-            <input
-              type="password"
-              ref={passwordInput}
-              value={password}
-              name="password"
-              placeholder="password"
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-            />
+          <div className="align-right">
+            <button className="form-button" onClick={handleLogin}>
+              Login
+            </button>
           </div>
-        </div>
-        <div className="align-right">
-          <button className="form-button" onClick={handleLogin}>
-            Login
-          </button>
         </div>
       </div>
     </div>
