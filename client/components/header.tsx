@@ -292,9 +292,9 @@ const HeaderC = () => {
             <div className="nav-link" onClick={() => router.push("/contact")}>
               <h1>contact</h1>
             </div>
-            <div className="nav-link" href={value.toString()} onClick={displaySignin}>
+            {/* <div className="nav-link" href={value.toString()} onClick={displaySignin}>
             <h1>sign in</h1>
-            </div>
+            </div> */}
           </div>
           <div className="cart-summary-div">
             <div onClick={() => router.push("/cart")}>

@@ -1,15 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 // import React, { useContext, useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
-import { useParams } from "react-router";
 import IndexAPI from "../../apis/indexAPI";
 import HeaderC from "../../components/header";
 import FooterC from "../../components/footer";
 // import {CartContext} from "../context/CartContext";
 
 const ProductDetailsC = (props: any) => {
-
-  const { product, id } = useParams();
+  // const { product, id } = useParams();
   const [addedModal, setAddedModal] = useState("modal-bg");
   const [imageBuffer] = useState(props.imageBuffer);
   const [selectedProduct] = useState(props.selectedProduct);
@@ -70,11 +68,8 @@ const ProductDetailsC = (props: any) => {
               added to your cart.
             </div>
             <div className="grid two-column-div">
-              <button
-                className="added-button"
-                onClick={() => router.push("/")}
-              >
-              continue shopping
+              <button className="added-button" onClick={() => router.push("/")}>
+                continue shopping
               </button>
               <button
                 className="added-button"
@@ -127,39 +122,54 @@ const ProductDetailsC = (props: any) => {
   );
 };
 
-export async function getStaticProps() {
-  try {
-    const productResponse = await IndexAPI.get(
-      `/products/${product}/${id}`
+export async function getStaticPaths(){
+
+  const productsResponse = await IndexAPI.get(`/admin/products`);
+  for(let i = 0; i < productsResponse.data.data.products.length; i++){
+    console.log(productsResponse.data.data.products.id)
+  }
+  return{
+    fallback: false,
+    paths: [
+      {
+        params: {
+
+        }
+      }
+    ]
+  }
+}
+
+export async function getStaticProps(context: { params: { product: any; id: any; }; }) {
+  const product = context.params.product;
+  const id = context.params.id;
+  const productResponse = await IndexAPI.get(`/products/${product}/${id}`);
+
+  let imageBuffer = "";
+  if (productResponse.data.data.item.imagekey !== null) {
+    let imagesResponse = await IndexAPI.get(
+      `/images/${productResponse.data.data.item.imagekey}`,
+      {
+        responseType: "arraybuffer",
+      }
+    ).then((response) =>
+      Buffer.from(response.data, "binary").toString("base64")
     );
 
-    let imageBuffer = "";
-    if (productResponse.data.data.item.imagekey !== null) {
-      let imagesResponse = await IndexAPI.get(
-        `/images/${productResponse.data.data.item.imagekey}`,
-        {
-          responseType: "arraybuffer",
-        }
-      ).then((response) =>
-        Buffer.from(response.data, "binary").toString("base64")
-      );
-
-      imageBuffer = `data:image/png;base64,${imagesResponse}`;
-    }
-
-    const cartResponse = await IndexAPI.get(`/cart`);
-
-    return{
-      props: {
-        imageBuffer: imageBuffer,
-        selectedProduct: productResponse.data.data.item,
-        cart: cartResponse.data.data.cart,
-        cartQty: cartResponse.data.data.cart.length
-      }
-    }
-  } catch (err) {
-    console.log(err);
+    imageBuffer = `data:image/png;base64,${imagesResponse}`;
   }
+
+  const cartResponse = await IndexAPI.get(`/cart`);
+
+  return {
+    props: {
+      imageBuffer: imageBuffer,
+      selectedProduct: productResponse.data.data.item,
+      cart: cartResponse.data.data.cart,
+      cartQty: cartResponse.data.data.cart.length,
+    },
+    revalidate: 1,
+  };
 }
 
 export default ProductDetailsC;

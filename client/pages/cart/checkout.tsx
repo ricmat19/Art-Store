@@ -8,7 +8,7 @@ import IndexAPI from "../../apis/indexAPI";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 // import { CartContext } from "../context/CartContext";
 
-const CheckoutC = (props: { cart: any; cartPriceArray: any; sub: any; }) => {
+const CheckoutC = (props: { cart: any; cartPriceArray: any; sub: any }) => {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -276,54 +276,49 @@ const CheckoutC = (props: { cart: any; cartPriceArray: any; sub: any; }) => {
 };
 
 export async function getStaticProps() {
-      try {
-        let cartPriceArray = [];
-        const cartResponse = await IndexAPI.get(`/cart`);
+    const cartResponse = await IndexAPI.get(`/cart`);
 
-        for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
-          let itemSummaryPrice =
-            cartResponse.data.data.cart[i].price *
-            cartResponse.data.data.qty[i];
-          cartPriceArray.push(parseInt(itemSummaryPrice));
-        }
-        // for (let i = 0; i < cart.length; i++) {
-        //   let itemSummaryPrice = cart[i].price * qty[i];
-        //   cartPriceArray.push(parseInt(itemSummaryPrice));
-        // }
+    let cartPriceArray: number[] = [];
+    for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
+      let itemSummaryPrice =
+        cartResponse.data.data.cart[i].price * cartResponse.data.data.qty[i];
+      cartPriceArray.push(itemSummaryPrice);
+    }
+    // for (let i = 0; i < cart.length; i++) {
+    //   let itemSummaryPrice = cart[i].price * qty[i];
+    //   cartPriceArray.push(parseInt(itemSummaryPrice));
+    // }
 
-        for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
-          if (cartResponse.data.data.cart[i].imagekey !== null) {
+    for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
+      if (cartResponse.data.data.cart[i].imagekey !== null) {
         // for (let i = 0; i < cart.length; i++) {
         //   if (cart[i].imagekey !== null) {
-            let imagesResponse = await IndexAPI.get(
-              `/images/${cartResponse.data.data.cart[i].imagekey}`,
-              // `/images/${cart[i].imagekey}`,
-              {
-                responseType: "arraybuffer",
-              }
-            ).then((response) =>
-              Buffer.from(response.data, "binary").toString("base64")
-            );
-
-            cartResponse.data.data.cart[i].imageBuffer = imagesResponse;
-            // cart[i].imageBuffer = imagesResponse;
+        let imagesResponse = await IndexAPI.get(
+          `/images/${cartResponse.data.data.cart[i].imagekey}`,
+          // `/images/${cart[i].imagekey}`,
+          {
+            responseType: "arraybuffer",
           }
-        }
+        ).then((response) =>
+          Buffer.from(response.data, "binary").toString("base64")
+        );
 
-        let sub = cartPriceArray.reduce(function (a, b) {
-          return a + b;
-        }, 0);
-
-        return{
-          props: {
-            cart: cartResponse.data.data.cart,
-            priceArray: cartPriceArray,
-            sub: sub
-          }
-        }
-      } catch (err) {
-        console.log(err);
+        cartResponse.data.data.cart[i].imageBuffer = imagesResponse;
+        // cart[i].imageBuffer = imagesResponse;
       }
+    }
+
+    let sub = cartPriceArray.reduce(function (a, b) {
+      return a + b;
+    }, 0);
+
+    return {
+      props: {
+        cart: cartResponse.data.data.cart,
+        priceArray: cartPriceArray,
+        sub: sub,
+      },
+      revalidate: 1
     };
 }
 

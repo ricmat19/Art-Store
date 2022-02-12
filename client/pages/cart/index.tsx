@@ -38,7 +38,6 @@ const CartC = (props: any) => {
 };
 
 export async function getStaticProps() {
-  try {
     const cartResponse = await IndexAPI.get(`/cart`);
 
     for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
@@ -58,11 +57,9 @@ export async function getStaticProps() {
     return{
       props: {
         cart: cartResponse.data.data.cart
-      }
+      },
+      revalidate: 1
     }
-  } catch (err) {
-    console.log(err);
-  }
 }
 
 export default CartC;

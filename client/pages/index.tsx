@@ -4,10 +4,11 @@ import ReactPaginate from "react-paginate";
 import IndexAPI from "../apis/indexAPI";
 import HeaderC from "../components/header";
 import FooterC from "../components/footer";
+import { IProduct } from "../interfaces";
 
 const ProductsC = (props: any) => {
-  const [products] = useState(props.products);
-  const [pageNumber, setPageNumber] = useState(0);
+  const [products] = useState<IProduct>(props.products);
+  const [pageNumber, setPageNumber] = useState<number>(0);
 
   const itemsPerPage = 9;
   const pagesVisted = pageNumber * itemsPerPage;
@@ -96,7 +97,6 @@ const ProductsC = (props: any) => {
 };
 
 export async function getStaticProps() {
-  try {
     const productResponse = await IndexAPI.get(`/products/print`);
 
     for (let i = 0; i < productResponse.data.data.product.length; i++) {
@@ -118,11 +118,9 @@ export async function getStaticProps() {
     return{
       props: {
         products: productResponse.data.data.product
-      }
+      },
+      revalidate: 10
     }
-  } catch (err) {
-    console.log(err);
-  }
 }
 
 export default ProductsC;
