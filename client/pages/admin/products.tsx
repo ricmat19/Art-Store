@@ -1,45 +1,45 @@
-import { useEffect, useState, useRef, SetStateAction } from "react";
+import { useEffect, useState } from "react";
 // import { Redirect } from "react-router";
 import ReactPaginate from "react-paginate";
 import IndexAPI from "../../apis/indexAPI";
 import AdminHeaderC from "../../components/admin/header";
-import AdminCreateProductC from "../../components/admin/createProduct";
-import AdminUpdateProductC from "../../components/admin/updateProduct";
-import AdminDeleteProductC from "../../components/admin/deleteProduct";
+// import AdminCreateProductC from "../../components/admin/modals/createProduct";
+// import AdminUpdateProductC from "../../components/admin/modals/updateProduct";
+// import AdminDeleteProductC from "../../components/admin/modals/deleteProduct";
 import FooterC from "../../components/footer";
 import { IProduct } from "../../interfaces";
 import Image from "next/image";
 import Head from "next/head";
 
-const AdminProductsC = () => {
+const AdminProductsC = (props: any) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
-  const [createProductModal, setCreateProductModal] =
-    useState<string>("modal-bg");
-  const [updateItem, setUpdateItem] = useState<string>("");
-  const [updateProductModal, setUpdateProductModal] =
-    useState<string>("modal-bg");
-  const [deleteItem, setDeleteItem] = useState<string>("");
-  const [deleteProductModal, setDeleteProductModal] =
-    useState<string>("modal-bg");
-  const [products, setProducts] = useState<IProduct>();
+  // const [createProductModal, setCreateProductModal] =
+  //   useState<string>("modal-bg");
+  // const [updateItem, setUpdateItem] = useState<string>("");
+  // const [updateProductModal, setUpdateProductModal] =
+  //   useState<string>("modal-bg");
+  // const [deleteItem, setDeleteItem] = useState<string>("");
+  // const [deleteProductModal, setDeleteProductModal] =
+  //   useState<string>("modal-bg");
+  const [products] = useState<IProduct>(props.products);
   const [pageNumber, setPageNumber] = useState<number>(0);
 
   const itemsPerPage = 9;
   const pagesVisted = pageNumber * itemsPerPage;
 
-  const displayCreateProductModal = () => {
-    setCreateProductModal("modal-bg active");
-  };
+  // const displayCreateProductModal = () => {
+  //   setCreateProductModal("modal-bg active");
+  // };
 
-  const displayUpdateProductModal = (id: SetStateAction<string>) => {
-    setUpdateItem(id);
-    setUpdateProductModal("modal-bg active");
-  };
+  // const displayUpdateProductModal = (id: SetStateAction<string>) => {
+  //   setUpdateItem(id);
+  //   setUpdateProductModal("modal-bg active");
+  // };
 
-  const displayDeleteProductModal = (id: SetStateAction<string>) => {
-    setDeleteItem(id);
-    setDeleteProductModal("modal-bg active");
-  };
+  // const displayDeleteProductModal = (id: SetStateAction<string>) => {
+  //   setDeleteItem(id);
+  //   setDeleteProductModal("modal-bg active");
+  // };
 
   // const createProductRef = useRef();
   // const updateProductRef = useRef();
@@ -47,7 +47,7 @@ const AdminProductsC = () => {
 
   const displayItems = products
     .slice(pagesVisted, pagesVisted + itemsPerPage)
-    .map((item) => {
+    .map((item: any) => {
       return (
         <div key={item.id}>
           <div className="pointer">
@@ -67,7 +67,7 @@ const AdminProductsC = () => {
             <div className="admin-products-button-div">
               <div>
                 <button
-                  onClick={() => displayDeleteProductModal(item.id)}
+                  // onClick={() => displayDeleteProductModal(item.id)}
                   className="delete"
                 >
                   Delete
@@ -75,7 +75,7 @@ const AdminProductsC = () => {
               </div>
               <div>
                 <button
-                  onClick={() => displayUpdateProductModal(item.id)}
+                  // onClick={() => displayUpdateProductModal(item.id)}
                   type="submit"
                 >
                   Update
@@ -89,7 +89,7 @@ const AdminProductsC = () => {
 
   const pageCount = Math.ceil(products.length / itemsPerPage);
 
-  const changePage = ({ selected }) => {
+  const changePage = ({ selected }: any) => {
     setPageNumber(selected);
   };
 
@@ -131,7 +131,7 @@ const AdminProductsC = () => {
           <title>artHouse19-Admin Products</title>
         </Head>
         <AdminHeaderC />
-        <div className={createProductModal}>
+        {/* <div className={createProductModal}>
           <div
             // ref={createProductRef}
             className="create-product-container"
@@ -158,16 +158,16 @@ const AdminProductsC = () => {
               setProducts={setProducts}
             />
           </div>
-        </div>
+        </div> */}
         <div className="main-body">
           <div>
             <div className="align-center">
               <h1>store</h1>
             </div>
             <div className="plus-icon-div">
-              <span onClick={displayCreateProductModal}>
-                <i className="fas fa-plus plus-icon"></i>
-              </span>
+              {/* <span onClick={displayCreateProductModal}> */}
+              <i className="fas fa-plus plus-icon"></i>
+              {/* </span> */}
             </div>
             {/* <div className="align-center subtitle-div">
           <a className="no-decoration" href="/admin/products/print">
@@ -198,7 +198,8 @@ const AdminProductsC = () => {
       </div>
     );
   } else {
-    return <Redirect to="/admin/login" />;
+    return "";
+    // <Redirect to="/admin/login" />;
   }
 };
 

@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import IndexAPI from "../../apis/indexAPI";
+import IndexAPI from "../../../apis/indexAPI";
 import Image from "next/image";
 
 const AdminCreateProductC = () => {

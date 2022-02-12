@@ -1,15 +1,13 @@
-import { useState, useRef } from "react";
-// import React, { useContext, useEffect, useState, useRef } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
 import IndexAPI from "../../apis/indexAPI";
 import HeaderC from "../../components/header";
 import FooterC from "../../components/footer";
 import Head from "next/head";
-// import {CartContext} from "../context/CartContext";
+// import {CartContext} from "../../context/CartContext";
 import Image from "next/image";
 
 const ProductDetailsC = (props: any) => {
-  // const { product, id } = useParams();
   const [addedModal, setAddedModal] = useState("modal-bg");
   const [imageBuffer] = useState(props.imageBuffer);
   const [selectedProduct] = useState(props.selectedProduct);
@@ -18,8 +16,9 @@ const ProductDetailsC = (props: any) => {
 
   const router = useRouter();
   router.query.product;
+  router.query.id;
 
-  const addedRef = useRef();
+  // const addedRef = useRef();
 
   // const {cart} = useContext(CartContext);
 
@@ -45,7 +44,7 @@ const ProductDetailsC = (props: any) => {
     e.preventDefault();
     try {
       const cartPostResponse = await IndexAPI.post("/cart", {
-        id: id,
+        id,
       });
       setUniqueItem(cartPostResponse.data.data.uniqueItem);
 

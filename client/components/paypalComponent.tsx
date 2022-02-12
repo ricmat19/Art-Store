@@ -1,6 +1,6 @@
 // import { useRef, useEffect } from "react";
 
-// const PaypalC = () => {
+const PaypalC = () => {
 //   const paypal = useRef();
 
 //   useEffect(() => {
@@ -35,6 +35,6 @@
 //       <div ref={paypal}></div>
 //     </div>
 //   );
-// };
+};
 
-// export default PaypalC;
+export default PaypalC;

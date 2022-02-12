@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import IndexAPI from "../../apis/indexAPI";
-import { IProduct } from "../../interfaces";
+import IndexAPI from "../../../apis/indexAPI";
+import { IProduct } from "../../../interfaces";
 import Image from "next/image";
 
 interface IProducts {

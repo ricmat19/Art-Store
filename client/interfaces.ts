@@ -1,4 +1,6 @@
 export interface IProduct {
+  length: number;
+  slice(pagesVisted: number, arg1: number);
   project: string,
   id: string,
   title: string,
@@ -12,6 +14,8 @@ export interface IProduct {
 }
 
 export interface ICart {
+  [x: string]: number;
+  map(arg0: (item: any, index: any) => JSX.Element): import("react").ReactNode;
   cart: any[],
   id: string,
   title: string,

@@ -6,6 +6,7 @@ import HeaderC from "../components/header";
 import FooterC from "../components/footer";
 import { IProduct } from "../interfaces";
 import Head from "next/head";
+import Image from "next/image"
 
 const ProductsC = (props: any) => {
   const [products] = useState<IProduct>(props.products);
@@ -16,7 +17,7 @@ const ProductsC = (props: any) => {
 
   const displayItems = products
     .slice(pagesVisted, pagesVisted + itemsPerPage)
-    .map((item) => {
+    .map((item: any) => {
       return (
         <div
           className="pointer"
@@ -24,7 +25,7 @@ const ProductsC = (props: any) => {
           onClick={() => displayItem(item.product, item.id)}
         >
           <div className="products-item">
-            <img className="products-thumbnail" src={item.imageBuffer} />
+            <Image className="products-thumbnail" src={item.imageBuffer} alt={item.title} />
           </div>
           <div className="products-thumbnail-footer">
             <h3 className="align-center">{item.title}</h3>
@@ -36,7 +37,7 @@ const ProductsC = (props: any) => {
 
   const pageCount = Math.ceil(products.length / itemsPerPage);
 
-  const changePage = ({ selected }) => {
+  const changePage = ({ selected }: any) => {
     setPageNumber(selected);
   };
 
@@ -51,7 +52,7 @@ const ProductsC = (props: any) => {
   //   fetchData();
   // }, []);
 
-  const displayItem = async (product, id) => {
+  const displayItem = async (product: string, id: string) => {
     try {
       router.push(`/products/${product}/${id}`);
     } catch (err) {

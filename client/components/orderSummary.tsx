@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 // import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { ICart, IProduct } from "../interfaces";
+import { ICart } from "../interfaces";
 // import { CartContext } from "../context/CartContext";
+import Image from "next/image";
 
 interface ICartSummary {
-  cartProducts: [],
-  cartPrices: IProduct[],
+  cartProducts: ICart | undefined,
+  cartPrices: ICart | undefined,
   subtotal: number,
 }
 
 const OrderSummaryC = (props:ICartSummary) => {
-  const [cart, setCart] = useState<ICart[]>([]);
-  const [cartPrices, setCartPrices] = useState<ICart[]>([]);
+  const [cart, setCart] = useState<ICart>();
+  const [cartPrices, setCartPrices] = useState<ICart>();
   const [subtotal, setSubtotal] = useState<number>(0);
 
   // const { cart, setCart } = useContext(CartContext);
@@ -41,7 +42,7 @@ const OrderSummaryC = (props:ICartSummary) => {
               <div className="order-item" key={item.id}>
                 <div className="order-item-details">
                   <div className="order-item-info">
-                    <img
+                    <Image
                       className="order-item-thumbnail"
                       src={`data:image/png;base64,${item.imageBuffer}`}
                       alt="Thumbnail"
@@ -71,7 +72,7 @@ const OrderSummaryC = (props:ICartSummary) => {
 };
 
 OrderSummaryC.propTypes = {
-  cartProducts: PropTypes.array,
+  cartProducts: PropTypes.object,
   cartPrices: PropTypes.array,
   subtotal: PropTypes.number,
 };

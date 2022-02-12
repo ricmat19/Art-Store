@@ -1,21 +1,20 @@
-import { useEffect, useState } from "react";
-// import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import IndexAPI from "../apis/indexAPI";
 import PropTypes from "prop-types";
-import { ICart, IProduct } from "../interfaces";
-// import { CartContext } from "../context/CartContext";
+import { ICart } from "../interfaces";
+import { CartContext } from "../context/CartContext";
+import Image from "next/image";
 
-const CartProductsC = (props: { setCart: () => void; }) => {
-  const [prices, setPrices] = useState<IProduct[]>([]);
-  const [cart, setCart] = useState<ICart[]>([]);
-  const [cartQty, setCartQty] = useState<ICart[]>([]);
+const CartProductsC = (props:any) => {
+  const [prices, setPrices] = useState<number[]>([]);
+  const [cartQty, setCartQty] = useState<number[]>([]);
   const [subtotal, setSubtotal] = useState(0);
   const [hasQty, setHasQty] = useState(false);
 
   const router = useRouter();
 
-  // const { cart, setCart } = useContext(CartContext);
+  const { cart } = useContext(CartContext);
 
   let sub: number = 0;
   let priceArray: number[] = [];
@@ -23,26 +22,7 @@ const CartProductsC = (props: { setCart: () => void; }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const cartResponse = await IndexAPI.get(`/cart`);
-
-        for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
-          if (cartResponse.data.data.cart[i].imagekey !== null) {
-            let imagesResponse = await IndexAPI.get(
-              `/images/${cartResponse.data.data.cart[i].imagekey}`,
-              {
-                responseType: "arraybuffer",
-              }
-            ).then((response) =>
-              Buffer.from(response.data, "binary").toString("base64")
-            );
-
-            cartResponse.data.data.cart[i].imageBuffer = imagesResponse;
-          }
-        }
-        setCart(cartResponse.data.data.cart);
-
-        if (cartResponse.data.data.cart.length === 0) {
-          // if(cart.length === 0){
+        if (cart.length === 0) {
           sub = 0;
         } else {
           sub = priceArray.reduce(function (a, b) {
@@ -60,7 +40,7 @@ const CartProductsC = (props: { setCart: () => void; }) => {
     fetchData();
   }, [props]);
 
-  const deleteFromCart = async (id: Number) => {
+  const deleteFromCart = async (id: string) => {
     try {
       await IndexAPI.put("/cart/delete", {
         id: id,
@@ -68,40 +48,32 @@ const CartProductsC = (props: { setCart: () => void; }) => {
 
       const cartResponse = await IndexAPI.get(`/cart`);
       props.setCart(cartResponse.data.data.cart);
-      // setCart(cartResponse.data.data.cart);
 
-      if (cartResponse.data.data.cart.length === 0) {
-        // if (cart.length === 0){
+      if (cart.length === 0) {
         sub = 0;
       } else {
-        for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
-          sub += parseInt(cartResponse.data.data.cart[i].price);
+        for (let i = 0; i < cart.length; i++) {
+          sub += parseInt(cart[i].price);
         }
-        // for (let i = 0; i < cart.length; i++) {
-        //   sub += parseInt(cart[i].price);
-        // }
       }
       setSubtotal(sub);
 
       const resetPricesArray = [];
-      for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
-        resetPricesArray.push(parseInt(cartResponse.data.data.cart[i].price));
+      for (let i = 0; i < cart.length; i++) {
+        resetPricesArray.push(parseInt(cart[i].price));
       }
-      // for (let i = 0; i < cart.length; i++) {
-      //   resetPricesArray.push(parseInt(cart[i].price));
-      // }
       setPrices(resetPricesArray);
     } catch (err) {
       console.log(err);
     }
   };
 
-  const setItemQty = async (item: ICart, e: string | number) => {
+  const setItemQty = async (item: ICart, e: string) => {
     try {
       setPrices(priceArray);
       for (let i = 0; i < cart.length; i++) {
         if (cart[i].id === item.id) {
-          priceArray[i] = cart[i].price * e;
+          priceArray[i] = cart[i].price * parseInt(e);
         } else {
           if (prices[i] !== undefined) {
             priceArray[i] = prices[i];
@@ -150,7 +122,7 @@ const CartProductsC = (props: { setCart: () => void; }) => {
   return (
     <div className="full-height">
       {cart &&
-        cart.map((item) => {
+        cart.map((item: ICart) => {
           // priceArray.push(parseInt(item.price));
           // let itemPrice = ``;
           // if (prices[index] === undefined) {
@@ -169,7 +141,7 @@ const CartProductsC = (props: { setCart: () => void; }) => {
                     <h3>X</h3>
                   </span>
                   <span className="cart-item-div">
-                    <img
+                    <Image
                       className="cart-item-thumbnail"
                       src={`data:image/png;base64,${item.imageBuffer}`}
                       alt="Thumbnail"

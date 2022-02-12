@@ -1,17 +1,14 @@
-import { useState } from "react";
-// import React, { useContext } from "react";
+import { useContext } from "react";
 import CartProductsC from "../../components/cartProducts";
 import HeaderC from "../../components/header";
 import FooterC from "../../components/footer";
 import IndexAPI from "../../apis/indexAPI";
-import { ICart } from "../../interfaces";
 import Head from "next/head";
-// import { CartContext } from "../context/cartContext";
+import { CartContext } from "../../context/CartContext";
 
-const CartC = (props: any) => {
-  const [cart, setCart] = useState<ICart>(props.cart);
+const CartC = () => {
 
-  // const {cart, setCart } = useContext(CartContext);
+  const {cart, setCart } = useContext(CartContext);
 
   return (
     <div>

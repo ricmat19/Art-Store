@@ -7,24 +7,25 @@ import FooterC from "../../components/footer";
 import IndexAPI from "../../apis/indexAPI";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import Head from "next/head";
+import { ICart } from "../../interfaces";
 // import { CartContext } from "../context/CartContext";
 
-const CheckoutC = (props: { cart: any; cartPriceArray: any; sub: any }) => {
-  const stripe = useStripe();
-  const elements = useElements();
+const CheckoutC = () => {
+  const stripe:any = useStripe();
+  const elements:any = useElements();
 
-  const [cart] = useState(props.cart);
-  const [cartPrices] = useState(props.cartPriceArray);
-  const [subtotal] = useState(props.sub);
-  const [email, setEmail] = useState("");
-  const [firstname, setFirstName] = useState("");
-  const [lastname, setLastName] = useState("");
-  const [address, setAddress] = useState("");
-  const [suite, setSuite] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [zipcode, setZipcode] = useState("");
-  const [phone, setPhone] = useState("");
+  const [cart] = useState<ICart>();
+  const [cartPrices] = useState<ICart>();
+  const [subtotal] = useState<number>(0);
+  const [email, setEmail] = useState<string>("");
+  const [firstname, setFirstName] = useState<string>("");
+  const [lastname, setLastName] = useState<string>("");
+  const [address, setAddress] = useState<string>("");
+  const [suite, setSuite] = useState<string>("");
+  const [city, setCity] = useState<string>("");
+  const [state, setState] = useState<string>("");
+  const [zipcode, setZipcode] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
 
   const emailInput = useRef(null);
   const firstNameInput = useRef(null);
