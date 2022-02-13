@@ -1,8 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import IndexAPI from "../../../apis/indexAPI";
 import { IProduct } from "../../../interfaces";
-import Image from "next/image";
 
 interface IProducts {
   updateItem: string,
@@ -80,7 +80,7 @@ const AdminUpdateProductC = (props: IProducts) => {
       <div className="admin-item-div">
         <div className="admin-image-div">
           <div className="justify-center">
-            <Image className="big-image" src={image} alt="product" />
+            <img className="big-image" src={image} alt="product" />
           </div>
         </div>
         <form className="admin-form" action="/routes/admin.js" method="POST">
@@ -168,7 +168,7 @@ const AdminUpdateProductC = (props: IProducts) => {
               value={info}
               onChange={(e) => setInfo(e.target.value)}
               name="message"
-              // rows="5"
+              rows={5}
               required
             ></textarea>
           </div>

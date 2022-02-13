@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import IndexAPI from "../apis/indexAPI";
 // import { CartContext } from "../context/CartContext";
 
-const HeaderC = () => {
+const HeaderC = (props: { cartQty: number }) => {
   const [signinModal, setSigninModal] = useState<string>("modal-bg");
   const [signupModal, setSignupModal] = useState<string>("modal-bg");
   const [resetModal, setResetModal] = useState<string>("modal-bg");
@@ -63,7 +63,7 @@ const HeaderC = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [props]);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -77,7 +77,7 @@ const HeaderC = () => {
   const lastNameInput = useRef(null);
   const passwordCopyInput = useRef(null);
 
-  const handleSignin = async (e: { preventDefault: () => void; }) => {
+  const handleSignin = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
       await IndexAPI.post("/signin", {

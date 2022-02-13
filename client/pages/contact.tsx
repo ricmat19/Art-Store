@@ -1,10 +1,12 @@
-import { useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import IndexAPI from "../apis/indexAPI";
 import HeaderC from "../components/header";
 import FooterC from "../components/footer";
 import Head from "next/head";
 
 const ContactC = () => {
+  const [cart, setCart] = useState([]);
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
@@ -14,6 +16,34 @@ const ContactC = () => {
   const emailInput = useRef(null);
   const subjectInput = useRef(null);
   const messageInput = useRef(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const cartResponse = await IndexAPI.get(`/cart`);
+
+        for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
+          if (cartResponse.data.data.cart[i].imagekey !== null) {
+            let imagesResponse = await IndexAPI.get(
+              `/images/${cartResponse.data.data.cart[i].imagekey}`,
+              {
+                responseType: "arraybuffer",
+              }
+            ).then((response) =>
+              Buffer.from(response.data, "binary").toString("base64")
+            );
+
+            cartResponse.data.data.cart[i].imageBuffer = imagesResponse;
+          }
+        }
+        setCart(cartResponse.data.data.cart);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -40,7 +70,7 @@ const ContactC = () => {
         <title>artHouse19-Contact</title>
         <meta name="description" content="Contact page if you want to reach out to artHouse19"></meta>
       </Head>
-      <HeaderC />
+      <HeaderC cartQty={cart.length}/>
       <div className="main-body">
         <div>
           <div className="align-center">
@@ -83,7 +113,7 @@ const ContactC = () => {
                   ref={messageInput}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="your message..."
-                  // rows="7"
+                  rows={7}
                   required
                 ></textarea>
               </div>

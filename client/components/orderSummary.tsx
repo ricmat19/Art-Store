@@ -1,19 +1,19 @@
+/* eslint-disable @next/next/no-img-element */
 import { useEffect, useState } from "react";
 // import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { ICart } from "../interfaces";
 // import { CartContext } from "../context/CartContext";
-import Image from "next/image";
 
 interface ICartSummary {
-  cartProducts: ICart | undefined,
-  cartPrices: ICart | undefined,
+  cartProducts: ICart[],
+  cartPrices: ICart[],
   subtotal: number,
 }
 
 const OrderSummaryC = (props:ICartSummary) => {
-  const [cart, setCart] = useState<ICart>();
-  const [cartPrices, setCartPrices] = useState<ICart>();
+  const [cart, setCart] = useState<ICart[]>([]);
+  const [cartPrices, setCartPrices] = useState<ICart[]>([]);
   const [subtotal, setSubtotal] = useState<number>(0);
 
   // const { cart, setCart } = useContext(CartContext);
@@ -36,13 +36,13 @@ const OrderSummaryC = (props:ICartSummary) => {
     <div>
       {cart &&
         cartPrices &&
-        cart.map((item, index) => {
+        cart.map((item: any, index: number) => {
           return (
             <>
               <div className="order-item" key={item.id}>
                 <div className="order-item-details">
                   <div className="order-item-info">
-                    <Image
+                    <img
                       className="order-item-thumbnail"
                       src={`data:image/png;base64,${item.imageBuffer}`}
                       alt="Thumbnail"

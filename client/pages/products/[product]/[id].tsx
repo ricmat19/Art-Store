@@ -1,11 +1,11 @@
+/* eslint-disable @next/next/no-img-element */
 import { useState } from "react";
 import { useRouter } from "next/router";
-import IndexAPI from "../../apis/indexAPI";
-import HeaderC from "../../components/header";
-import FooterC from "../../components/footer";
+import IndexAPI from "../../../apis/indexAPI";
+import HeaderC from "../../../components/header";
+import FooterC from "../../../components/footer";
 import Head from "next/head";
 // import {CartContext} from "../../context/CartContext";
-import Image from "next/image";
 
 const ProductDetailsC = (props: any) => {
   const [addedModal, setAddedModal] = useState("modal-bg");
@@ -15,8 +15,7 @@ const ProductDetailsC = (props: any) => {
   const [uniqueItem, setUniqueItem] = useState();
 
   const router = useRouter();
-  router.query.product;
-  router.query.id;
+  const id = router.query.id;
 
   // const addedRef = useRef();
 
@@ -44,7 +43,7 @@ const ProductDetailsC = (props: any) => {
     e.preventDefault();
     try {
       const cartPostResponse = await IndexAPI.post("/cart", {
-        id,
+        id: id,
       });
       setUniqueItem(cartPostResponse.data.data.uniqueItem);
 
@@ -95,7 +94,7 @@ const ProductDetailsC = (props: any) => {
         <div className="item-details">
           <div className="image-div">
             <div className="justify-center">
-              <Image
+              <img
                 className="big-image"
                 src={imageBuffer}
                 alt="product image"
@@ -131,17 +130,15 @@ const ProductDetailsC = (props: any) => {
 };
 
 export async function getStaticPaths() {
-  const productsResponse = await IndexAPI.get(`/admin/products`);
-  for (let i = 0; i < productsResponse.data.data.products.length; i++) {
-    console.log(productsResponse.data.data.products.id);
-  }
+  const productsResponse = await IndexAPI.get(`/products/print`);
   return {
     fallback: false,
-    paths: [
-      {
-        params: {},
-      },
-    ],
+    paths: productsResponse.data.data.product.map((product: any) => ({
+      params: { 
+        product: product.product,
+        id: product.id
+       },
+    })),
   };
 }
 

@@ -34,10 +34,10 @@ const AdminLoginC = () => {
       <Head>
         <title>artHouse19-About</title>
       </Head>
-      <div className="login-main">
-        <div className="login-div title-div">
+      <div className="grid admin-login-main">
+        <div className="admin-login-div title-div">
           <p>login</p>
-          <div className="login-inputs">
+          <div className="admin-login-inputs">
             <div className="grid modal-input-div">
               <input
                 type="email"

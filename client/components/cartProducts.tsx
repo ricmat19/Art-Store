@@ -1,12 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+/* eslint-disable @next/next/no-img-element */
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import IndexAPI from "../apis/indexAPI";
 import PropTypes from "prop-types";
 import { ICart } from "../interfaces";
-import { CartContext } from "../context/CartContext";
-import Image from "next/image";
+// import { CartContext } from "../context/CartContext";
 
 const CartProductsC = (props:any) => {
+  const [cart, setCart] = useState<ICart[]>([]);
   const [prices, setPrices] = useState<number[]>([]);
   const [cartQty, setCartQty] = useState<number[]>([]);
   const [subtotal, setSubtotal] = useState(0);
@@ -14,7 +15,7 @@ const CartProductsC = (props:any) => {
 
   const router = useRouter();
 
-  const { cart } = useContext(CartContext);
+  // const { cart } = useContext(CartContext);
 
   let sub: number = 0;
   let priceArray: number[] = [];
@@ -22,6 +23,24 @@ const CartProductsC = (props:any) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const cartResponse = await IndexAPI.get(`/cart`);
+
+        for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
+          if (cartResponse.data.data.cart[i].imagekey !== null) {
+            let imagesResponse = await IndexAPI.get(
+              `/images/${cartResponse.data.data.cart[i].imagekey}`,
+              {
+                responseType: "arraybuffer",
+              }
+            ).then((response) =>
+              Buffer.from(response.data, "binary").toString("base64")
+            );
+
+            cartResponse.data.data.cart[i].imageBuffer = imagesResponse;
+          }
+        }
+        setCart(cartResponse.data.data.cart);
+
         if (cart.length === 0) {
           sub = 0;
         } else {
@@ -73,7 +92,7 @@ const CartProductsC = (props:any) => {
       setPrices(priceArray);
       for (let i = 0; i < cart.length; i++) {
         if (cart[i].id === item.id) {
-          priceArray[i] = cart[i].price * parseInt(e);
+          priceArray[i] = parseInt(cart[i].price) * parseInt(e);
         } else {
           if (prices[i] !== undefined) {
             priceArray[i] = prices[i];
@@ -141,7 +160,7 @@ const CartProductsC = (props:any) => {
                     <h3>X</h3>
                   </span>
                   <span className="cart-item-div">
-                    <Image
+                    <img
                       className="cart-item-thumbnail"
                       src={`data:image/png;base64,${item.imageBuffer}`}
                       alt="Thumbnail"

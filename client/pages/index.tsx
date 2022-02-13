@@ -1,4 +1,5 @@
-import { useState } from "react";
+/* eslint-disable @next/next/no-img-element */
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import ReactPaginate from "react-paginate";
 import IndexAPI from "../apis/indexAPI";
@@ -6,10 +7,10 @@ import HeaderC from "../components/header";
 import FooterC from "../components/footer";
 import { IProduct } from "../interfaces";
 import Head from "next/head";
-import Image from "next/image"
 
 const ProductsC = (props: any) => {
-  const [products] = useState<IProduct>(props.products);
+  const [cart, setCart] = useState([]);
+  const [products] = useState<IProduct[]>(props.products);
   const [pageNumber, setPageNumber] = useState<number>(0);
 
   const itemsPerPage = 9;
@@ -25,7 +26,11 @@ const ProductsC = (props: any) => {
           onClick={() => displayItem(item.product, item.id)}
         >
           <div className="products-item">
-            <Image className="products-thumbnail" src={item.imageBuffer} alt={item.title} />
+            <img
+              className="products-thumbnail"
+              src={item.imageBuffer}
+              alt={item.title}
+            />
           </div>
           <div className="products-thumbnail-footer">
             <h3 className="align-center">{item.title}</h3>
@@ -43,14 +48,33 @@ const ProductsC = (props: any) => {
 
   const router = useRouter();
 
-  // let productResponse;
-  // useEffect(() => {
-  //   const fetchData = async () => {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const cartResponse = await IndexAPI.get(`/cart`);
 
-  //   };
+        for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
+          if (cartResponse.data.data.cart[i].imagekey !== null) {
+            let imagesResponse = await IndexAPI.get(
+              `/images/${cartResponse.data.data.cart[i].imagekey}`,
+              {
+                responseType: "arraybuffer",
+              }
+            ).then((response) =>
+              Buffer.from(response.data, "binary").toString("base64")
+            );
 
-  //   fetchData();
-  // }, []);
+            cartResponse.data.data.cart[i].imageBuffer = imagesResponse;
+          }
+        }
+        setCart(cartResponse.data.data.cart);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const displayItem = async (product: string, id: string) => {
     try {
@@ -64,9 +88,12 @@ const ProductsC = (props: any) => {
     <div>
       <Head>
         <title>artHouse19-Store</title>
-        <meta name="description" content="View a full list of the products available in artHouse19!"></meta>
+        <meta
+          name="description"
+          content="View a full list of the products available in artHouse19!"
+        ></meta>
       </Head>
-      <HeaderC />
+      <HeaderC cartQty={cart.length} />
       <div className="main-body">
         <div>
           <div className="align-center">
@@ -125,7 +152,7 @@ export async function getStaticProps() {
     props: {
       products: productResponse.data.data.product,
     },
-    revalidate: 10,
+    revalidate: 1,
   };
 }
 

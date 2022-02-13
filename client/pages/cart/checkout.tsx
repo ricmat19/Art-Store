@@ -14,8 +14,8 @@ const CheckoutC = () => {
   const stripe:any = useStripe();
   const elements:any = useElements();
 
-  const [cart] = useState<ICart>();
-  const [cartPrices] = useState<ICart>();
+  const [cart] = useState<ICart[]>([]);
+  const [cartPrices] = useState<ICart[]>([]);
   const [subtotal] = useState<number>(0);
   const [email, setEmail] = useState<string>("");
   const [firstname, setFirstName] = useState<string>("");
@@ -74,7 +74,7 @@ const CheckoutC = () => {
         <title>artHouse19-Checkout</title>
         <meta name="description" content="artHouse19 checkout page."></meta>
       </Head>
-      <HeaderC />
+      <HeaderC cartQty={cart.length}/>
       <div className="checkout-div">
         <form className="checkout-info" onSubmit={handlePayment}>
           <h1>checkout information</h1>

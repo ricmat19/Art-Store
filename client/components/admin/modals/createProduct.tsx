@@ -1,6 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 import { useState, useRef } from "react";
 import IndexAPI from "../../../apis/indexAPI";
-import Image from "next/image";
 
 const AdminCreateProductC = () => {
   const [title, setTitle] = useState<string>("");
@@ -62,7 +62,7 @@ const AdminCreateProductC = () => {
     <div className="admin-item-div">
       <div className="admin-image-div">
         <div className="justify-center">
-          <Image className="big-image" src={displayedImage} alt="product" />
+          <img className="big-image" src={displayedImage} alt="product" />
         </div>
       </div>
       <form
@@ -161,7 +161,7 @@ const AdminCreateProductC = () => {
             ref={infoInput}
             onChange={(e) => setInfo(e.target.value)}
             name="message"
-            // rows="5"
+            rows={5}
             required
           ></textarea>
         </div>

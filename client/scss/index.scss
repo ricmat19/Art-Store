@@ -428,6 +428,18 @@ select,
   padding: 30px;
 }
 
+.admin-login-main {
+  justify-content: center;
+  height: 100vh;
+}
+
+.admin-login-div {
+  justify-content: center;
+  align-self: center;
+  text-align: center;
+  width: 350px;
+}
+
 @import "about";
 @import "cart-checkout";
 @import "contact";

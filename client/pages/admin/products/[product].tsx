@@ -1,14 +1,14 @@
+/* eslint-disable @next/next/no-img-element */
 import { useEffect, useState } from "react";
 // import { Redirect } from "react-router";
 import ReactPaginate from "react-paginate";
-import IndexAPI from "../../apis/indexAPI";
-import AdminHeaderC from "../../components/admin/header";
+import IndexAPI from "../../../apis/indexAPI";
+import AdminHeaderC from "../../../components/admin/header";
 // import AdminCreateProductC from "../../components/admin/modals/createProduct";
 // import AdminUpdateProductC from "../../components/admin/modals/updateProduct";
 // import AdminDeleteProductC from "../../components/admin/modals/deleteProduct";
-import FooterC from "../../components/footer";
-import { IProduct } from "../../interfaces";
-import Image from "next/image";
+import FooterC from "../../../components/footer";
+import { IProduct } from "../../../interfaces";
 import Head from "next/head";
 
 const AdminProductsC = (props: any) => {
@@ -21,7 +21,7 @@ const AdminProductsC = (props: any) => {
   // const [deleteItem, setDeleteItem] = useState<string>("");
   // const [deleteProductModal, setDeleteProductModal] =
   //   useState<string>("modal-bg");
-  const [products] = useState<IProduct>(props.products);
+  const [products] = useState<IProduct[]>(props.products);
   const [pageNumber, setPageNumber] = useState<number>(0);
 
   const itemsPerPage = 9;
@@ -52,7 +52,7 @@ const AdminProductsC = (props: any) => {
         <div key={item.id}>
           <div className="pointer">
             <div className="products-item">
-              <Image
+              <img
                 className="products-thumbnail"
                 src={item.imageBuffer}
                 alt="Thumbnail"
@@ -205,10 +205,13 @@ const AdminProductsC = (props: any) => {
 
 export async function getStaticPaths() {
   const productsResponse = await IndexAPI.get(`/admin/products`);
+  console.log(productsResponse.data.data.products)
   return {
     fallback: false,
-    paths: productsResponse.data.data.product.map((product: any) => ({
-      params: { product },
+    paths: productsResponse.data.data.products.map((product: any) => ({
+      params: { 
+        product: product.product
+       },
     })),
   };
 }
@@ -216,6 +219,7 @@ export async function getStaticPaths() {
 export async function getStaticProps(context: { params: { product: any } }) {
   const product = context.params.product;
   const productResponse = await IndexAPI.get(`/admin/products/${product}`);
+  // const productResponse = await IndexAPI.get(`/admin/products/print`);
 
   for (let i = 0; i < productResponse.data.data.product.length; i++) {
     if (productResponse.data.data.product[i].imagekey !== null) {
