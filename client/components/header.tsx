@@ -1,15 +1,15 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 // import React, { useContext, useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import IndexAPI from "../apis/indexAPI";
 // import { CartContext } from "../context/CartContext";
 
-const HeaderC = (props: { cartQty: number }) => {
+const HeaderC = (props: any) => {
   const [signinModal, setSigninModal] = useState<string>("modal-bg");
   const [signupModal, setSignupModal] = useState<string>("modal-bg");
   const [resetModal, setResetModal] = useState<string>("modal-bg");
-  const [cartCount, setCartCount] = useState<number>(0);
+  const [cartCount] = useState<number>(props.cartQty);
 
   const router = useRouter();
 
@@ -37,33 +37,29 @@ const HeaderC = (props: { cartQty: number }) => {
 
   // const { cart } = useContext(CartContext);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // document.addEventListener("mousedown", (event) => {
-        //   if (signinRef.current !== null) {
-        //     if (!signinRef.current.contains(event.target)) {
-        //       setSigninModal("modal-bg");
-        //     }
-        //     if (!signupRef.current.contains(event.target)) {
-        //       setSignupModal("modal-bg");
-        //     }
-        //     if (!resetRef.current.contains(event.target)) {
-        //       setResetModal("modal-bg");
-        //     }
-        //   }
-        // });
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       // document.addEventListener("mousedown", (event) => {
+  //       //   if (signinRef.current !== null) {
+  //       //     if (!signinRef.current.contains(event.target)) {
+  //       //       setSigninModal("modal-bg");
+  //       //     }
+  //       //     if (!signupRef.current.contains(event.target)) {
+  //       //       setSignupModal("modal-bg");
+  //       //     }
+  //       //     if (!resetRef.current.contains(event.target)) {
+  //       //       setResetModal("modal-bg");
+  //       //     }
+  //       //   }
+  //       // });
 
-        const cartResponse = await IndexAPI.get(`/cart`);
-
-        setCartCount(cartResponse.data.data.cart.length);
-        // setCartCount(cart.length);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-  }, [props]);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   fetchData();
+  // }, [props]);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -289,6 +285,7 @@ const HeaderC = (props: { cartQty: number }) => {
             <div className="logo">
               <span className="logo-first">a</span>rt
               <span className="logo-first">H</span>ouse
+              <span className="logo-first">19</span>
             </div>
           </div>
           <div className="nav-div">
@@ -321,5 +318,16 @@ const HeaderC = (props: { cartQty: number }) => {
 HeaderC.propTypes = {
   cartQty: PropTypes.string,
 };
+
+export async function getStaticProps() {
+  const cartResponse = await IndexAPI.get(`/cart`);
+
+  return {
+    props: {
+      cartQty: cartResponse.data.data.qty,
+    },
+    revalidate: 1,
+  };
+}
 
 export default HeaderC;

@@ -40,8 +40,8 @@ const ProductDetailsC = (props: any) => {
   // }, []);
 
   const addToCart = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
     try {
+      e.preventDefault();
       const cartPostResponse = await IndexAPI.post("/cart", {
         id: id,
       });
@@ -118,7 +118,7 @@ const ProductDetailsC = (props: any) => {
               </div>
               <hr className="top-margin" />
               <div className="align-center">
-                <button onClick={addToCart}>Add To Cart</button>
+                <button onClick={(e) => addToCart(e)}>Add To Cart</button>
               </div>
             </div>
           </form>
@@ -134,10 +134,10 @@ export async function getStaticPaths() {
   return {
     fallback: false,
     paths: productsResponse.data.data.product.map((product: any) => ({
-      params: { 
+      params: {
         product: product.product,
-        id: product.id
-       },
+        id: product.id,
+      },
     })),
   };
 }

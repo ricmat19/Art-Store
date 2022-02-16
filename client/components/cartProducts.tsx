@@ -192,7 +192,7 @@ const CartProductsC = (props:any) => {
       {hasQty ? (
         <div className="align-right no-margin">
           <button>
-            <div onClick={() => router.push("/checkout")}>Checkout</div>
+            <div onClick={() => router.push("/cart/checkout")}>Checkout</div>
           </button>
         </div>
       ) : (

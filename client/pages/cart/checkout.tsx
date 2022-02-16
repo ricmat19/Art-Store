@@ -5,17 +5,23 @@ import OrderSummaryC from "../../components/orderSummary";
 import HeaderC from "../../components/header";
 import FooterC from "../../components/footer";
 import IndexAPI from "../../apis/indexAPI";
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import {
+  CardElement,
+  // useStripe,
+  Elements,
+  // useElements,
+} from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import Head from "next/head";
-import { ICart } from "../../interfaces";
+// import { ICart } from "../../interfaces";
 // import { CartContext } from "../context/CartContext";
 
-const CheckoutC = () => {
-  const stripe:any = useStripe();
-  const elements:any = useElements();
+const CheckoutC = (props: any) => {
+  // const stripe: any = useStripe();
+  // const elements: any = useElements();
 
-  const [cart] = useState<ICart[]>([]);
-  const [cartPrices] = useState<ICart[]>([]);
+  const [cart] = useState(props.cart);
+  const [cartPrices] = useState([]);
   const [subtotal] = useState<number>(0);
   const [email, setEmail] = useState<string>("");
   const [firstname, setFirstName] = useState<string>("");
@@ -41,22 +47,37 @@ const CheckoutC = () => {
 
   // const {cart, setCart, qty} = useContext(CartContext);
 
+  let stripePromise = loadStripe("");
+  if (process.env.NEXT_PUBLIC_STRIPEPUBLIC !== undefined) {
+    stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPEPUBLIC);
+  }
+
   const handlePayment = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    const { err, paymentMethod } = await stripe.createPaymentMethod({
-      type: "card",
-      card: elements.getElement(CardElement),
-    });
-    if (!err && paymentMethod !== undefined) {
-      try {
-        await IndexAPI.put(`/cart/deleteAll`);
+    // const { err, paymentMethod } = await stripe.createPaymentMethod({
+    //   type: "card",
+    //   card: elements.getElement(CardElement),
+    // });
+    // if (!err && paymentMethod !== undefined) {
+    //   try {
+    //     await IndexAPI.put(`/cart/deleteAll`);
 
-        router.push("/");
-      } catch (err) {
-        console.log(err);
-      }
+    //     router.push("/");
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // }
+
+    // if (!err && paymentMethod !== undefined) {
+    try {
+      await IndexAPI.put(`/cart/deleteAll`);
+
+      router.push("/");
+    } catch (err) {
+      console.log(err);
     }
+    // }
   };
 
   const cardElementOptions = {
@@ -74,200 +95,202 @@ const CheckoutC = () => {
         <title>artHouse19-Checkout</title>
         <meta name="description" content="artHouse19 checkout page."></meta>
       </Head>
-      <HeaderC cartQty={cart.length}/>
+      <HeaderC cartQty={cart.length} />
       <div className="checkout-div">
-        <form className="checkout-info" onSubmit={handlePayment}>
-          <h1>checkout information</h1>
-          <div className="checkout-info-div">
-            <div className="checkout-email-div">
-              <input
-                type="email"
-                ref={emailInput}
-                value={email}
-                name="email"
-                placeholder="email"
-                required
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
-              />
+        <Elements stripe={stripePromise}>
+          <form className="checkout-info" onSubmit={handlePayment}>
+            <h1>checkout information</h1>
+            <div className="checkout-info-div">
+              <div className="checkout-email-div">
+                <input
+                  type="email"
+                  ref={emailInput}
+                  value={email}
+                  name="email"
+                  placeholder="email"
+                  required
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="two-column-div">
+                <input
+                  type="text"
+                  ref={firstNameInput}
+                  value={firstname}
+                  name="firstname"
+                  placeholder="First Name"
+                  required
+                  onChange={(e) => {
+                    setFirstName(e.target.value);
+                  }}
+                />
+                <input
+                  type="text"
+                  ref={lastNameInput}
+                  value={lastname}
+                  name="lastname"
+                  placeholder="Last Name"
+                  required
+                  onChange={(e) => {
+                    setLastName(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="checkout-address-div">
+                <input
+                  type="text"
+                  ref={addressInput}
+                  value={address}
+                  name="address"
+                  placeholder="Address"
+                  required
+                  onChange={(e) => {
+                    setAddress(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="checkout-suite-div">
+                <input
+                  type="text"
+                  ref={suiteInput}
+                  value={suite}
+                  name="suite"
+                  placeholder="apartment, suite, etc. (optional)"
+                  onChange={(e) => {
+                    setSuite(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="three-column-div">
+                <input
+                  type="text"
+                  ref={cityInput}
+                  value={city}
+                  name="city"
+                  placeholder="city"
+                  required
+                  onChange={(e) => {
+                    setCity(e.target.value);
+                  }}
+                />
+                <select
+                  ref={stateInput}
+                  value={state}
+                  name="state"
+                  placeholder="state"
+                  required
+                  onChange={(e) => {
+                    setState(e.target.value);
+                  }}
+                >
+                  <option>Alabama</option>
+                  <option>Alaska</option>
+                  <option>Arizona</option>
+                  <option>Arkansas</option>
+                  <option>California</option>
+                  <option>Colorado</option>
+                  <option>Connecticut</option>
+                  <option>Delaware</option>
+                  <option>Florida</option>
+                  <option>Georgia</option>
+                  <option>Hawaii</option>
+                  <option>Idaho</option>
+                  <option>Illinois</option>
+                  <option>Indiana</option>
+                  <option>Iowa</option>
+                  <option>Kansas</option>
+                  <option>Kentucky</option>
+                  <option>Louisiana</option>
+                  <option>Maine</option>
+                  <option>Maryland</option>
+                  <option>Massachusetts</option>
+                  <option>Michigan</option>
+                  <option>Minnesota</option>
+                  <option>Mississippi</option>
+                  <option>Missouri</option>
+                  <option>Montana</option>
+                  <option>Nebraska</option>
+                  <option>Nevada</option>
+                  <option>New Hampshire</option>
+                  <option>New Jersey</option>
+                  <option>New Mexico</option>
+                  <option>New York</option>
+                  <option>North Carolina</option>
+                  <option>North Dakota</option>
+                  <option>Ohio</option>
+                  <option>Oklahoma</option>
+                  <option>Oregon</option>
+                  <option>Pennsylvania</option>
+                  <option>Rhode Island</option>
+                  <option>South Carolina</option>
+                  <option>South Dakota</option>
+                  <option>Tennessee</option>
+                  <option>Texas</option>
+                  <option>Utah</option>
+                  <option>Vermont</option>
+                  <option>Virginia</option>
+                  <option>Washington</option>
+                  <option>West Virginia</option>
+                  <option>Wisconsin</option>
+                  <option>Wyoming</option>
+                </select>
+                <input
+                  type="number"
+                  ref={zipcodeInput}
+                  value={zipcode}
+                  name="zipcode"
+                  placeholder="ZIP code"
+                  required
+                  onChange={(e) => {
+                    setZipcode(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="checkout-phone-div">
+                <input
+                  type="tel"
+                  ref={phoneInput}
+                  value={phone}
+                  name="phone"
+                  placeholder="phone (optional)"
+                  onChange={(e) => {
+                    setPhone(e.target.value);
+                  }}
+                />
+              </div>
             </div>
-            <div className="two-column-div">
-              <input
-                type="text"
-                ref={firstNameInput}
-                value={firstname}
-                name="firstname"
-                placeholder="First Name"
-                required
-                onChange={(e) => {
-                  setFirstName(e.target.value);
-                }}
-              />
-              <input
-                type="text"
-                ref={lastNameInput}
-                value={lastname}
-                name="lastname"
-                placeholder="Last Name"
-                required
-                onChange={(e) => {
-                  setLastName(e.target.value);
-                }}
-              />
-            </div>
-            <div className="checkout-address-div">
-              <input
-                type="text"
-                ref={addressInput}
-                value={address}
-                name="address"
-                placeholder="Address"
-                required
-                onChange={(e) => {
-                  setAddress(e.target.value);
-                }}
-              />
-            </div>
-            <div className="checkout-suite-div">
-              <input
-                type="text"
-                ref={suiteInput}
-                value={suite}
-                name="suite"
-                placeholder="apartment, suite, etc. (optional)"
-                onChange={(e) => {
-                  setSuite(e.target.value);
-                }}
-              />
-            </div>
-            <div className="three-column-div">
-              <input
-                type="text"
-                ref={cityInput}
-                value={city}
-                name="city"
-                placeholder="city"
-                required
-                onChange={(e) => {
-                  setCity(e.target.value);
-                }}
-              />
-              <select
-                ref={stateInput}
-                value={state}
-                name="state"
-                placeholder="state"
-                required
-                onChange={(e) => {
-                  setState(e.target.value);
-                }}
-              >
-                <option>Alabama</option>
-                <option>Alaska</option>
-                <option>Arizona</option>
-                <option>Arkansas</option>
-                <option>California</option>
-                <option>Colorado</option>
-                <option>Connecticut</option>
-                <option>Delaware</option>
-                <option>Florida</option>
-                <option>Georgia</option>
-                <option>Hawaii</option>
-                <option>Idaho</option>
-                <option>Illinois</option>
-                <option>Indiana</option>
-                <option>Iowa</option>
-                <option>Kansas</option>
-                <option>Kentucky</option>
-                <option>Louisiana</option>
-                <option>Maine</option>
-                <option>Maryland</option>
-                <option>Massachusetts</option>
-                <option>Michigan</option>
-                <option>Minnesota</option>
-                <option>Mississippi</option>
-                <option>Missouri</option>
-                <option>Montana</option>
-                <option>Nebraska</option>
-                <option>Nevada</option>
-                <option>New Hampshire</option>
-                <option>New Jersey</option>
-                <option>New Mexico</option>
-                <option>New York</option>
-                <option>North Carolina</option>
-                <option>North Dakota</option>
-                <option>Ohio</option>
-                <option>Oklahoma</option>
-                <option>Oregon</option>
-                <option>Pennsylvania</option>
-                <option>Rhode Island</option>
-                <option>South Carolina</option>
-                <option>South Dakota</option>
-                <option>Tennessee</option>
-                <option>Texas</option>
-                <option>Utah</option>
-                <option>Vermont</option>
-                <option>Virginia</option>
-                <option>Washington</option>
-                <option>West Virginia</option>
-                <option>Wisconsin</option>
-                <option>Wyoming</option>
-              </select>
-              <input
-                type="number"
-                ref={zipcodeInput}
-                value={zipcode}
-                name="zipcode"
-                placeholder="ZIP code"
-                required
-                onChange={(e) => {
-                  setZipcode(e.target.value);
-                }}
-              />
-            </div>
-            <div className="checkout-phone-div">
-              <input
-                type="tel"
-                ref={phoneInput}
-                value={phone}
-                name="phone"
-                placeholder="phone (optional)"
-                onChange={(e) => {
-                  setPhone(e.target.value);
-                }}
-              />
-            </div>
-          </div>
-          <div>
-            <h1>payment information</h1>
             <div>
+              <h1>payment information</h1>
               <div>
-                <div className="grid payment-input">
-                  <CardElement
-                    className="card-element"
-                    options={cardElementOptions}
-                  />
-                </div>
-                <div className="grid payment-input">
-                  <input type="text" placeholder="name on card" required />
-                </div>
-                <div className="two-column-div checkout-disclaimer-container">
-                  <input type="checkbox" required />
-                  <div className="align-justify">
-                    By clicking the button below, you are accepting that no real
-                    purchases will be made, no payments will be processed, and
-                    no personal information, such as: names, addresses, and
-                    credit card information will be used.
+                <div>
+                  <div className="grid payment-input">
+                    <CardElement
+                      className="card-element"
+                      options={cardElementOptions}
+                    />
                   </div>
-                </div>
-                <div className="credit-card-option">
-                  <button className="justify-right">pay</button>
+                  <div className="grid payment-input">
+                    <input type="text" placeholder="name on card" required />
+                  </div>
+                  <div className="two-column-div checkout-disclaimer-container">
+                    <input type="checkbox" required />
+                    <div className="align-justify">
+                      By clicking the button below, you are accepting that no
+                      real purchases will be made, no payments will be
+                      processed, and no personal information, such as: names,
+                      addresses, and credit card information will be used.
+                    </div>
+                  </div>
+                  <div className="credit-card-option">
+                    <button className="justify-right">pay</button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </Elements>
         <div className="order-summary-container">
           <OrderSummaryC
             cartProducts={cart}

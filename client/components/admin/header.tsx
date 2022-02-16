@@ -247,6 +247,7 @@ const HeaderC = () => {
             <div className="logo">
               <span className="logo-first">a</span>rt
               <span className="logo-first">H</span>ouse
+              <span className="logo-first">19</span>
             </div>
           </div>
           <div className="nav-div">
