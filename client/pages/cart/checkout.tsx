@@ -21,8 +21,8 @@ const CheckoutC = (props: any) => {
   // const elements: any = useElements();
 
   const [cart] = useState(props.cart);
-  const [cartPrices] = useState([]);
-  const [subtotal] = useState<number>(0);
+  const [cartPrices] = useState(props.priceArray);
+  const [subtotal] = useState<number>(props.sub);
   const [email, setEmail] = useState<string>("");
   const [firstname, setFirstName] = useState<string>("");
   const [lastname, setLastName] = useState<string>("");

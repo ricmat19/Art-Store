@@ -1,45 +1,32 @@
 /* eslint-disable @next/next/no-img-element */
-import { useEffect, useState } from "react";
+import { useState } from "react";
 // import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { ICart } from "../interfaces";
 // import { CartContext } from "../context/CartContext";
 
 interface ICartSummary {
-  cartProducts: ICart[],
-  cartPrices: ICart[],
-  subtotal: number,
+  cartProducts: ICart[];
+  cartPrices: any;
+  subtotal: number;
 }
 
-const OrderSummaryC = (props:ICartSummary) => {
-  const [cart, setCart] = useState<ICart[]>([]);
-  const [cartPrices, setCartPrices] = useState<ICart[]>([]);
-  const [subtotal, setSubtotal] = useState<number>(0);
+const OrderSummaryC = (props: ICartSummary) => {
+  const [cart] = useState<ICart[]>(props.cartProducts);
+  const [cartPrices] = useState(props.cartPrices);
+  const [subtotal] = useState<number>(props.subtotal);
 
   // const { cart, setCart } = useContext(CartContext);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setCart(props.cartProducts);
-        setCartPrices(props.cartPrices);
-        setSubtotal(props.subtotal);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    fetchData();
-  });
-
   return (
     <div>
+      {console.log(props.cartPrices)}
       {cart &&
         cartPrices &&
         cart.map((item: any, index: number) => {
           return (
-            <>
-              <div className="order-item" key={item.id}>
+            <div key={item.id}>
+              <div className="order-item">
                 <div className="order-item-details">
                   <div className="order-item-info">
                     <img
@@ -59,7 +46,7 @@ const OrderSummaryC = (props:ICartSummary) => {
                 </div>
               </div>
               {index !== cart.length - 1 ? <hr className="no-margin" /> : ""}
-            </>
+            </div>
           );
         })}
       <hr className="no-margin" />
@@ -72,7 +59,7 @@ const OrderSummaryC = (props:ICartSummary) => {
 };
 
 OrderSummaryC.propTypes = {
-  cartProducts: PropTypes.object,
+  cartProducts: PropTypes.array,
   cartPrices: PropTypes.array,
   subtotal: PropTypes.number,
 };

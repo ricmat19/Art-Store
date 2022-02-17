@@ -9,7 +9,7 @@ const HeaderC = (props: any) => {
   const [signinModal, setSigninModal] = useState<string>("modal-bg");
   const [signupModal, setSignupModal] = useState<string>("modal-bg");
   const [resetModal, setResetModal] = useState<string>("modal-bg");
-  const [cartCount] = useState<number>(props.cartQty);
+  const [cartCount] = useState(props.cartQty);
 
   const router = useRouter();
 
@@ -316,7 +316,7 @@ const HeaderC = (props: any) => {
 };
 
 HeaderC.propTypes = {
-  cartQty: PropTypes.string,
+  cartQty: PropTypes.number,
 };
 
 export async function getStaticProps() {

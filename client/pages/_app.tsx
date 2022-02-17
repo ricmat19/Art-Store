@@ -1,8 +1,15 @@
-import type { AppProps } from 'next/app'
-import '../public/css/index.css'
+import type { AppProps } from "next/app";
+import DisclaimerC from "../components/modals/disclaimer";
+("../components/modals/disclaimer");
+import "../public/css/index.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <div>
+      <DisclaimerC />
+      <Component {...pageProps} />
+    </div>
+  );
 }
 
-export default MyApp
+export default MyApp;
