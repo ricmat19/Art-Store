@@ -10,6 +10,8 @@ import AdminHeaderC from "../../../components/admin/header";
 import FooterC from "../../../components/footer";
 import { IProduct } from "../../../interfaces";
 import Head from "next/head";
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const AdminProductsC = (props: any) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
@@ -166,7 +168,7 @@ const AdminProductsC = (props: any) => {
             </div>
             <div className="plus-icon-div">
               {/* <span onClick={displayCreateProductModal}> */}
-              <i className="fas fa-plus plus-icon"></i>
+              <FontAwesomeIcon className="plus-icon" icon={faPlus}/>
               {/* </span> */}
             </div>
             {/* <div className="align-center subtitle-div">
@@ -205,7 +207,6 @@ const AdminProductsC = (props: any) => {
 
 export async function getStaticPaths() {
   const productsResponse = await IndexAPI.get(`/admin/products`);
-  console.log(productsResponse.data.data.products)
   return {
     fallback: false,
     paths: productsResponse.data.data.products.map((product: any) => ({

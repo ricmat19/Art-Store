@@ -5,6 +5,7 @@ import IndexAPI from "../../../apis/indexAPI";
 import HeaderC from "../../../components/header";
 import FooterC from "../../../components/footer";
 import Head from "next/head";
+import AddToCartC from "../../../components/modals/addToCart";
 // import {CartContext} from "../../context/CartContext";
 
 const ProductDetailsC = (props: any) => {
@@ -63,7 +64,9 @@ const ProductDetailsC = (props: any) => {
         <meta name="description" content={selectedProduct.title}></meta>
       </Head>
       {/* Added to Cart */}
-      <div className={addedModal}>
+      {console.log(addedModal)}
+      <AddToCartC modalStatus={addedModal} selectedProduct={selectedProduct} uniqueItem={uniqueItem}/>
+      {/* <div className={addedModal}>
         <form>
           <div
             // ref={addedRef}
@@ -87,7 +90,7 @@ const ProductDetailsC = (props: any) => {
             </div>
           </div>
         </form>
-      </div>
+      </div> */}
 
       <HeaderC cartQty={cartQty} />
       <div className="main-body">

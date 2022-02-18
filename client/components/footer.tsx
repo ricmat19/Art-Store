@@ -1,3 +1,6 @@
+import { faInstagram, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 const FooterC = () => {
   return (
     <footer>
@@ -7,21 +10,21 @@ const FooterC = () => {
           target="_blank"
           rel="noreferrer"
         >
-          <i className="icon fab fa-instagram ig-logo"></i>
+          <FontAwesomeIcon className="icon fab fa-instagram ig-logo" icon={faInstagram}/>
         </a>
         <a
           href="https://twitter.com/House19Art"
           target="_blank"
           rel="noreferrer"
         >
-          <i className="icon fab fa-twitter twitter-logo"></i>
+          <FontAwesomeIcon className="icon fab fa-twitter twitter-logo" icon={faTwitter}/>
         </a>
         <a
           href="https://www.youtube.com/channel/UCaem2HqM0PPak4fvf-uxlnQ"
           target="_blank"
           rel="noreferrer"
         >
-          <i className="icon fab fa-youtube youtube-logo"></i>
+          <FontAwesomeIcon className="icon fab fa-youtube youtube-logo" icon={faYoutube}/>
         </a>
       </div>
     </footer>

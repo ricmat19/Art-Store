@@ -3,6 +3,8 @@ import { useState, useRef } from "react";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import IndexAPI from "../apis/indexAPI";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 // import { CartContext } from "../context/CartContext";
 
 const HeaderC = (props: any) => {
@@ -305,7 +307,8 @@ const HeaderC = (props: any) => {
           <div className="cart-summary-div">
             <div onClick={() => router.push("/cart")}>
               <h1 className="pointer">
-                {cartCount} items <i className="fas fa-shopping-cart"></i>
+                {cartCount} items 
+                <FontAwesomeIcon className="fab fa-youtube youtube-logo" icon={faShoppingCart}/>
               </h1>
             </div>
           </div>
