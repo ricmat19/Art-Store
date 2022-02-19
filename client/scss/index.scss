@@ -177,35 +177,6 @@ select,
   grid-template-rows: 1fr 100px;
 }
 
-.ig-logo:hover {
-  background: linear-gradient(
-    #405de6,
-    #5b51d8,
-    #833ab4,
-    #c13584,
-    #e1306c,
-    #fd1d1d,
-    #f56040,
-    #f77737,
-    #fcaf45,
-    #ffdc80
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.twitter-logo:hover {
-  background: #1da1f2;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.youtube-logo:hover {
-  background: #ff0000;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
 .logo-div {
   display: grid;
   align-content: center;
