@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Modal, Button } from 'react-bootstrap';
 import IndexAPI from "../../../apis/indexAPI";
+import { Grid, Button } from '@mui/material';
 
 interface IModalState {
   show: boolean,
@@ -54,25 +54,25 @@ function SignUpModalC(props: IModalState) {
   };
 
     return (
-        <Modal
-        {...props}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
+        <Grid
+        // {...props}
+        // size="lg"
+        // aria-labelledby="contained-modal-title-vcenter"
+        // centered
         >
-        <Modal.Header closeButton>
-            <Modal.Title id="contained-modal-title-vcenter">
+        <Grid>
+            <Grid id="contained-modal-title-vcenter">
 
-            </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+            </Grid>
+        </Grid>
+        <Grid>
         <form>
-            <div 
+            <Grid 
             // ref={signupRef} 
             className="sign-content">
                 <h1 className="sign-header">Create Account</h1>
-                <div className="sign-input">
-                <div className="name-input-div">
+                <Grid className="sign-input">
+                <Grid className="name-input-div">
                     <input
                     type="text"
                     value={props.firstName}
@@ -91,8 +91,8 @@ function SignUpModalC(props: IModalState) {
                         setLastName(e.target.value);
                     }}
                     />
-                </div>
-                <div className="modal-input-div">
+                </Grid>
+                <Grid className="modal-input-div">
                     <input
                     type="email"
                     value={props.email}
@@ -102,8 +102,8 @@ function SignUpModalC(props: IModalState) {
                         setEmail(e.target.value);
                     }}
                     />
-                </div>
-                <div className="modal-input-div">
+                </Grid>
+                <Grid className="modal-input-div">
                     <input
                     type="password"
                     value={props.password}
@@ -113,8 +113,8 @@ function SignUpModalC(props: IModalState) {
                         setPassword(e.target.value);
                     }}
                     />
-                </div>
-                <div className="modal-input-div">
+                </Grid>
+                <Grid className="modal-input-div">
                     <input
                     type="password"
                     value={props.passwordCopy}
@@ -124,9 +124,9 @@ function SignUpModalC(props: IModalState) {
                         setPasswordCopy(e.target.value);
                     }}
                     />
-                </div>
-                </div>
-                <div>
+                </Grid>
+                </Grid>
+                <Grid>
                 <button
                     onClick={handleSignup}
                     type="submit"
@@ -134,19 +134,19 @@ function SignUpModalC(props: IModalState) {
                 >
                     Create Account
                 </button>
-                </div>
-                <div className="sign-footer">
-                <div className="modal-link">
+                </Grid>
+                <Grid className="sign-footer">
+                <Grid className="modal-link">
                     <span>Already have an account? Sign In</span>
-                </div>
-                </div>
-            </div>
+                </Grid>
+                </Grid>
+            </Grid>
             </form>
-        </Modal.Body>
-        <Modal.Footer>
+        </Grid>
+        <Grid>
             <Button onClick={props.onHide}>Close</Button>
-        </Modal.Footer>
-        </Modal>
+        </Grid>
+        </Grid>
   );
 }
 

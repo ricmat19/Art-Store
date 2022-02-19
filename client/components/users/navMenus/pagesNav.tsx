@@ -2,9 +2,10 @@ import { useState, useRef } from "react";
 // import React, { useContext, useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
-import IndexAPI from "../apis/indexAPI";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import IndexAPI from "../../../apis/indexAPI";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import { Grid } from "@mui/material";
 // import { CartContext } from "../context/CartContext";
 
 const HeaderC = (props: any) => {
@@ -118,17 +119,17 @@ const HeaderC = (props: any) => {
   };
 
   return (
-    <div className="navbar-div">
+    <Grid className="navbar-div">
       {/* Signin */}
-      <div className={signinModal}>
+      <Grid className={signinModal}>
         <form>
-          <div
+          <Grid
             // ref={signinRef}
             className="modal-content"
           >
             <h1 className="header">welcome</h1>
-            <div>
-              <div className="modal-input-div">
+            <Grid>
+              <Grid className="modal-input-div">
                 <input
                   type="email"
                   ref={emailInput}
@@ -139,8 +140,8 @@ const HeaderC = (props: any) => {
                     setEmail(e.target.value);
                   }}
                 />
-              </div>
-              <div className="modal-input-div">
+              </Grid>
+              <Grid className="modal-input-div">
                 <input
                   type="password"
                   ref={passwordInput}
@@ -151,33 +152,33 @@ const HeaderC = (props: any) => {
                     setPassword(e.target.value);
                   }}
                 />
-              </div>
-            </div>
-            <div>
+              </Grid>
+            </Grid>
+            <Grid>
               <button onClick={handleSignin}>sign in</button>
-            </div>
-            <div className="sign-footer">
-              <div className="modal-link" onClick={displayReset}>
+            </Grid>
+            <Grid className="sign-footer">
+              <Grid className="modal-link" onClick={displayReset}>
                 <span>forgot password?</span>
-              </div>
-              <div className="modal-link" onClick={displaySignup}>
+              </Grid>
+              <Grid className="modal-link" onClick={displaySignup}>
                 <span>create account</span>
-              </div>
-            </div>
-          </div>
+              </Grid>
+            </Grid>
+          </Grid>
         </form>
-      </div>
+      </Grid>
 
       {/* signup */}
-      <div className={signupModal}>
+      <Grid className={signupModal}>
         <form>
-          <div
+          <Grid
             // ref={signupRef}
             className="modal-content"
           >
             <h1 className="header">Create Account</h1>
-            <div>
-              <div className="name-input-div">
+            <Grid>
+              <Grid className="name-input-div">
                 <input
                   type="text"
                   ref={firstNameInput}
@@ -198,8 +199,8 @@ const HeaderC = (props: any) => {
                     setLastName(e.target.value);
                   }}
                 />
-              </div>
-              <div className="modal-input-div">
+              </Grid>
+              <Grid className="modal-input-div">
                 <input
                   type="email"
                   ref={emailInput}
@@ -210,8 +211,8 @@ const HeaderC = (props: any) => {
                     setEmail(e.target.value);
                   }}
                 />
-              </div>
-              <div className="modal-input-div">
+              </Grid>
+              <Grid className="modal-input-div">
                 <input
                   type="password"
                   ref={passwordInput}
@@ -222,8 +223,8 @@ const HeaderC = (props: any) => {
                     setPassword(e.target.value);
                   }}
                 />
-              </div>
-              <div className="modal-input-div">
+              </Grid>
+              <Grid className="modal-input-div">
                 <input
                   type="password"
                   ref={passwordCopyInput}
@@ -234,46 +235,46 @@ const HeaderC = (props: any) => {
                     setPasswordCopy(e.target.value);
                   }}
                 />
-              </div>
-            </div>
-            <div>
+              </Grid>
+            </Grid>
+            <Grid>
               <button onClick={handleSignup} type="submit">
                 Create Account
               </button>
-            </div>
-            <div className="sign-footer">
-              <div className="modal-link" onClick={displaySignin}>
+            </Grid>
+            <Grid className="sign-footer">
+              <Grid className="modal-link" onClick={displaySignin}>
                 <span>Already have an account? Sign In</span>
-              </div>
-            </div>
-          </div>
+              </Grid>
+            </Grid>
+          </Grid>
         </form>
-      </div>
+      </Grid>
 
       {/* reset */}
-      <div className={resetModal}>
+      <Grid className={resetModal}>
         <form>
-          <div
+          <Grid
             // ref={resetRef}
             className="modal-content"
           >
             <h1 className="header">Reset Password</h1>
-            <div className="forgot-input-div">
+            <Grid className="forgot-input-div">
               <input type="text" placeholder="Email" />
-            </div>
-            <div>
+            </Grid>
+            <Grid>
               <button>Send Reset Link</button>
-            </div>
-            <div className="sign-footer">
-              <div className="modal-link" onClick={displaySignin}>
+            </Grid>
+            <Grid className="sign-footer">
+              <Grid className="modal-link" onClick={displaySignin}>
                 <span>Back to signin in</span>
-              </div>
-            </div>
-          </div>
+              </Grid>
+            </Grid>
+          </Grid>
         </form>
-      </div>
+      </Grid>
 
-      <div className="nav-row">
+      <Grid className="nav-row">
         <input type="checkbox" id="nav-toggle" className="nav-toggle" />
         <label htmlFor="nav-toggle" className="nav-toggle-label">
           <a className="menu-toggle">
@@ -283,38 +284,83 @@ const HeaderC = (props: any) => {
           </a>
         </label>
         <nav className="navbar">
-          <div className="logo-div" onClick={() => router.push("/")}>
-            <div className="logo">
+          <Grid className="logo-div" onClick={() => router.push("/")}>
+            <Grid className="logo">
               <span className="logo-first">a</span>rt
               <span className="logo-first">H</span>ouse
               <span className="logo-first">19</span>
-            </div>
-          </div>
-          <div className="nav-div">
-            <div className="nav-link" onClick={() => router.push("/")}>
+            </Grid>
+          </Grid>
+          <Grid className="nav-div">
+            <Grid className="nav-link" onClick={() => router.push("/")}>
               <h1>store</h1>
-            </div>
-            <div className="nav-link" onClick={() => router.push("/about")}>
+            </Grid>
+            <Grid container xs={3} sx={{ justifyContent: "center" }}>
+              <Grid sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}>
+                <i className="fas fa-chalkboard-teacher"></i>
+              </Grid>
+              <Grid sx={{ textAlign: "center", alignSelf: "center" }}>
+                <a href="/courses/drawing">
+                  <h1 className="pointer">courses</h1>
+                </a>
+              </Grid>
+              <Grid container xs={3} sx={{ justifyContent: "center" }}>
+                <Grid
+                  sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}
+                >
+                  <i className="fas fa-tv"></i>
+                </Grid>
+                <Grid sx={{ textAlign: "center", alignSelf: "center" }}>
+                  <a href="/medias/blog">
+                    <h1 className="pointer">media</h1>
+                  </a>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid container xs={3} sx={{ justifyContent: "center" }}>
+              <Grid sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}>
+                <i className="fas fa-calendar-check"></i>
+              </Grid>
+              <Grid sx={{ textAlign: "center", alignSelf: "center" }}>
+                <a href="/events">
+                  <h1 className="pointer">events</h1>
+                </a>
+              </Grid>
+            </Grid>
+            {/* <Grid container xs={2} sx={{justifyContent: "center"}}>
+            <Grid sx={{textAlign: 'center', alignSelf: "center", m: "5px"}}>
+              <i className="fas fa-comments"></i>
+            </Grid>
+            <Grid sx={{textAlign: 'center', alignSelf: "center"}}>
+              <a href="/threads">
+                <h1 className="pointer">community</h1>
+              </a>
+            </Grid>
+          </Grid> */}
+            <Grid className="nav-link" onClick={() => router.push("/about")}>
               <h1>about</h1>
-            </div>
-            <div className="nav-link" onClick={() => router.push("/contact")}>
+            </Grid>
+            <Grid className="nav-link" onClick={() => router.push("/contact")}>
               <h1>contact</h1>
-            </div>
-            {/* <div className="nav-link" href={value.toString()} onClick={displaySignin}>
+            </Grid>
+            {/* <Grid className="nav-link" href={value.toString()} onClick={displaySignin}>
             <h1>sign in</h1>
-            </div> */}
-          </div>
-          <div className="cart-summary-div">
-            <div onClick={() => router.push("/cart")}>
+            </Grid> */}
+          </Grid>
+          <Grid className="cart-summary-div">
+            <Grid onClick={() => router.push("/cart")}>
               <h1 className="pointer">
-                {cartCount} items 
-                <FontAwesomeIcon className="fab fa-youtube youtube-logo" icon={faShoppingCart}/>
+                {cartCount} items
+                <FontAwesomeIcon
+                  className="fab fa-youtube youtube-logo"
+                  icon={faShoppingCart}
+                />
               </h1>
-            </div>
-          </div>
+            </Grid>
+          </Grid>
         </nav>
-      </div>
-    </div>
+      </Grid>
+    </Grid>
   );
 };
 

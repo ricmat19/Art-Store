@@ -1,10 +1,11 @@
 import { useRef, useState } from "react";
 // import React, { useContext, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
-import OrderSummaryC from "../../components/cart/orderSummary";
-import HeaderC from "../../components/header";
-import FooterC from "../../components/footer";
+import OrderSummaryC from "../../components/users/cart/orderSummary";
+import HeaderC from "../../components/users/navMenus/pagesNav";
+import FooterC from "../../components/users/footer";
 import IndexAPI from "../../apis/indexAPI";
+import { Grid } from '@mui/material';
 import {
   CardElement,
   // useStripe,
@@ -90,18 +91,18 @@ const CheckoutC = (props: any) => {
   };
 
   return (
-    <div>
+    <Grid>
       <Head>
         <title>artHouse19-Checkout</title>
         <meta name="description" content="artHouse19 checkout page."></meta>
       </Head>
       <HeaderC cartQty={cart.length} />
-      <div className="checkout-div">
+      <Grid className="checkout-div">
         <Elements stripe={stripePromise}>
           <form className="checkout-info" onSubmit={handlePayment}>
             <h1>checkout information</h1>
-            <div className="checkout-info-div">
-              <div className="checkout-email-div">
+            <Grid className="checkout-info-div">
+              <Grid className="checkout-email-div">
                 <input
                   type="email"
                   ref={emailInput}
@@ -113,8 +114,8 @@ const CheckoutC = (props: any) => {
                     setEmail(e.target.value);
                   }}
                 />
-              </div>
-              <div className="two-column-div">
+              </Grid>
+              <Grid className="two-column-div">
                 <input
                   type="text"
                   ref={firstNameInput}
@@ -137,8 +138,8 @@ const CheckoutC = (props: any) => {
                     setLastName(e.target.value);
                   }}
                 />
-              </div>
-              <div className="checkout-address-div">
+              </Grid>
+              <Grid className="checkout-address-div">
                 <input
                   type="text"
                   ref={addressInput}
@@ -150,8 +151,8 @@ const CheckoutC = (props: any) => {
                     setAddress(e.target.value);
                   }}
                 />
-              </div>
-              <div className="checkout-suite-div">
+              </Grid>
+              <Grid className="checkout-suite-div">
                 <input
                   type="text"
                   ref={suiteInput}
@@ -162,8 +163,8 @@ const CheckoutC = (props: any) => {
                     setSuite(e.target.value);
                   }}
                 />
-              </div>
-              <div className="three-column-div">
+              </Grid>
+              <Grid className="three-column-div">
                 <input
                   type="text"
                   ref={cityInput}
@@ -247,8 +248,8 @@ const CheckoutC = (props: any) => {
                     setZipcode(e.target.value);
                   }}
                 />
-              </div>
-              <div className="checkout-phone-div">
+              </Grid>
+              <Grid className="checkout-phone-div">
                 <input
                   type="tel"
                   ref={phoneInput}
@@ -259,48 +260,48 @@ const CheckoutC = (props: any) => {
                     setPhone(e.target.value);
                   }}
                 />
-              </div>
-            </div>
-            <div>
+              </Grid>
+            </Grid>
+            <Grid>
               <h1>payment information</h1>
-              <div>
-                <div>
-                  <div className="grid payment-input">
+              <Grid>
+                <Grid>
+                  <Grid className="grid payment-input">
                     <CardElement
                       className="card-element"
                       options={cardElementOptions}
                     />
-                  </div>
-                  <div className="grid payment-input">
+                  </Grid>
+                  <Grid className="grid payment-input">
                     <input type="text" placeholder="name on card" required />
-                  </div>
-                  <div className="two-column-div checkout-disclaimer-container">
+                  </Grid>
+                  <Grid className="two-column-div checkout-disclaimer-container">
                     <input type="checkbox" required />
-                    <div className="align-justify">
+                    <Grid className="align-justify">
                       By clicking the button below, you are accepting that no
                       real purchases will be made, no payments will be
                       processed, and no personal information, such as: names,
                       addresses, and credit card information will be used.
-                    </div>
-                  </div>
-                  <div className="credit-card-option">
+                    </Grid>
+                  </Grid>
+                  <Grid className="credit-card-option">
                     <button className="justify-right">pay</button>
-                  </div>
-                </div>
-              </div>
-            </div>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
           </form>
         </Elements>
-        <div className="order-summary-container">
+        <Grid className="order-summary-container">
           <OrderSummaryC
             cartProducts={cart}
             cartPrices={cartPrices}
             subtotal={subtotal}
           />
-        </div>
-      </div>
+        </Grid>
+      </Grid>
       <FooterC />
-    </div>
+    </Grid>
   );
 };
 

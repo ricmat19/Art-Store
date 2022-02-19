@@ -1,9 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import IndexAPI from "../../apis/indexAPI";
+import IndexAPI from "../../../apis/indexAPI";
 import PropTypes from "prop-types";
-import { ICart } from "../../interfaces";
+import { ICart } from "../../../interfaces";
+import { Grid } from '@mui/material';
+
 // import { CartContext } from "../context/CartContext";
 
 const CartProductsC = (props:any) => {
@@ -139,7 +141,7 @@ const CartProductsC = (props:any) => {
   };
 
   return (
-    <div className="full-height">
+    <Grid className="full-height">
       {cart &&
         cart.map((item: ICart) => {
           // priceArray.push(parseInt(item.price));
@@ -150,9 +152,9 @@ const CartProductsC = (props:any) => {
           //   itemPrice = prices[index];
           // }
           return (
-            <div key={item.id}>
-              <div className="cart-item-details">
-                <div className="cart-item-info">
+            <Grid key={item.id}>
+              <Grid className="cart-item-details">
+                <Grid className="cart-item-info">
                   <span
                     className="pointer"
                     onClick={() => deleteFromCart(item.id)}
@@ -166,9 +168,9 @@ const CartProductsC = (props:any) => {
                       alt="Thumbnail"
                     />
                   </span>
-                  <div className="cart-item-title">{item.title}</div>
-                </div>
-                <div className="cart-item-qty">
+                  <Grid className="cart-item-title">{item.title}</Grid>
+                </Grid>
+                <Grid className="cart-item-qty">
                   <input
                     onChange={(event) => setItemQty(item, event.target.value)}
                     className="item-qty-input"
@@ -176,29 +178,29 @@ const CartProductsC = (props:any) => {
                     min="1"
                     placeholder="0"
                   />
-                </div>
-                <div className="align-right">
+                </Grid>
+                <Grid className="align-right">
                   <span>${item.price}.00</span>
-                </div>
-              </div>
+                </Grid>
+              </Grid>
               <hr className="no-margin" />
-            </div>
+            </Grid>
           );
         })}
-      <div className="align-right subtotal-div">
+      <Grid className="align-right subtotal-div">
         <span>subtotal</span>
         <span>${subtotal}.00</span>
-      </div>
+      </Grid>
       {hasQty ? (
-        <div className="align-right no-margin">
+        <Grid className="align-right no-margin">
           <button>
-            <div onClick={() => router.push("/cart/checkout")}>Checkout</div>
+            <Grid onClick={() => router.push("/cart/checkout")}>Checkout</Grid>
           </button>
-        </div>
+        </Grid>
       ) : (
         ""
       )}
-    </div>
+    </Grid>
   );
 };
 

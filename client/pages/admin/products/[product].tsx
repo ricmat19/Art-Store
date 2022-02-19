@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 // import { Redirect } from "react-router";
 import ReactPaginate from "react-paginate";
 import IndexAPI from "../../../apis/indexAPI";
-import AdminHeaderC from "../../../components/admin/header";
+import AdminHeaderC from "../../../components/admin/navMenus/pagesNav";
 // import AdminCreateProductC from "../../components/admin/modals/createProduct";
 // import AdminUpdateProductC from "../../components/admin/modals/updateProduct";
 // import AdminDeleteProductC from "../../components/admin/modals/deleteProduct";

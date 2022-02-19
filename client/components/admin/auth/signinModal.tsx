@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Modal, Button } from 'react-bootstrap';
 import SignUpModalC from "./signupModal";
 import ResetPasswordModalC from "./resetModal";
 import IndexAPI from "../../../apis/indexAPI";
@@ -12,7 +11,7 @@ interface IModalState {
   password: string,
 }
 
-function SignInModalC(props: IModalState) {
+function AdminSignInModalC(props: IModalState) {
   const [displayReset, setDisplayReset] = useState<boolean>(false);
   const [displaySignup, setDisplaySignup] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
@@ -118,8 +117,8 @@ function SignInModalC(props: IModalState) {
   );
 }
 
-SignInModalC.propTypes = {
+AdminSignInModalC.propTypes = {
   onHide: PropTypes.string,
 };
 
-export default SignInModalC;
+export default AdminSignInModalC;

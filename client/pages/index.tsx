@@ -3,8 +3,8 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import ReactPaginate from "react-paginate";
 import IndexAPI from "../apis/indexAPI";
-import HeaderC from "../components/header";
-import FooterC from "../components/footer";
+import HeaderC from "../components/users/navMenus/pagesNav";
+import FooterC from "../components/users/footer";
 import { ICart, IProduct } from "../interfaces";
 import Head from "next/head";
 

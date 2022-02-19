@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Modal, Button } from 'react-bootstrap';
+import { Grid, Button } from '@mui/material';
 
 interface IModalState {
   show: boolean,
@@ -9,18 +9,18 @@ interface IModalState {
 
 function ResetModalC(props: IModalState) {
     return (
-        <Modal
-        {...props}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
+        <Grid
+        // {...props}
+        // size="lg"
+        // aria-labelledby="contained-modal-title-vcenter"
+        // centered
         >
-        <Modal.Header closeButton>
-            <Modal.Title id="contained-modal-title-vcenter">
+        <Grid>
+            <Grid id="contained-modal-title-vcenter">
 
-            </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+            </Grid>
+        </Grid>
+        <Grid>
         <form>
           <div 
           className="sign-content">
@@ -40,11 +40,11 @@ function ResetModalC(props: IModalState) {
             </div>
           </div>
         </form>
-        </Modal.Body>
-        <Modal.Footer>
+        </Grid>
+        <Grid>
             <Button onClick={props.onHide}>Close</Button>
-        </Modal.Footer>
-        </Modal>
+        </Grid>
+        </Grid>
   );
 }
 

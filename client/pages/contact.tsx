@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import IndexAPI from "../apis/indexAPI";
-import HeaderC from "../components/header";
-import FooterC from "../components/footer";
+import HeaderC from "../components/users/navMenus/pagesNav";
+import FooterC from "../components/users/footer";
 import Head from "next/head";
 
 const ContactC = (props: any) => {

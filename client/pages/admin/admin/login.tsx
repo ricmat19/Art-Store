@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { useRouter } from "next/router";
 import IndexAPI from "../../../apis/indexAPI";
 import Head from "next/head";
+import { Grid } from '@mui/material';
 
 const AdminLoginC = () => {
   const [email, setEmail] = useState("");
@@ -30,15 +31,15 @@ const AdminLoginC = () => {
   };
 
   return (
-    <div>
+    <Grid>
       <Head>
         <title>artHouse19-About</title>
       </Head>
-      <div className="grid admin-login-main">
-        <div className="admin-login-div title-div">
+      <Grid className="grid admin-login-main">
+        <Grid className="admin-login-div title-div">
           <p>login</p>
-          <div className="admin-login-inputs">
-            <div className="grid modal-input-div">
+          <Grid className="admin-login-inputs">
+            <Grid className="grid modal-input-div">
               <input
                 type="email"
                 ref={emailInput}
@@ -49,8 +50,8 @@ const AdminLoginC = () => {
                   setEmail(e.target.value);
                 }}
               />
-            </div>
-            <div className="grid modal-input-div">
+            </Grid>
+            <Grid className="grid modal-input-div">
               <input
                 type="password"
                 ref={passwordInput}
@@ -61,16 +62,16 @@ const AdminLoginC = () => {
                   setPassword(e.target.value);
                 }}
               />
-            </div>
-          </div>
-          <div className="align-right">
+            </Grid>
+          </Grid>
+          <Grid className="align-right">
             <button className="form-button" onClick={handleLogin}>
               Login
             </button>
-          </div>
-        </div>
-      </div>
-    </div>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
 

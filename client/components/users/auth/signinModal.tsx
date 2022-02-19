@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Modal, Button } from 'react-bootstrap';
 import SignUpModalC from "./signupModal";
 import ResetPasswordModalC from "./resetModal";
 import IndexAPI from "../../../apis/indexAPI";
+import { Grid } from '@mui/material';
 
 interface IModalState {
   open: boolean,
@@ -34,7 +34,7 @@ function SignInModalC(props: IModalState) {
   };
 
   return (
-    <div>
+    <Grid>
 
        {/* signup */}
        <SignUpModalC 
@@ -53,25 +53,25 @@ function SignInModalC(props: IModalState) {
         onHide={() => setDisplayReset(false)}
       />
       
-      <Modal
-        {...props}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
+      <Grid
+        // {...props}
+        // size="lg"
+        // aria-labelledby="contained-modal-title-vcenter"
+        // centered
       >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
+        <Grid>
+          <Grid id="contained-modal-title-vcenter">
 
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+          </Grid>
+        </Grid>
+        <Grid>
         <form>
-            <div 
+            <Grid 
             // ref={signinRef} 
             className="sign-content">
               <h1 className="sign-header">welcome</h1>
-              <div>
-                <div className="modal-input-div">
+              <Grid>
+                <Grid className="modal-input-div">
                   <input
                     type="email"
                     value={props.email}
@@ -81,8 +81,8 @@ function SignInModalC(props: IModalState) {
                       setEmail(e.target.value);
                     }}
                   />
-                </div>
-                <div className="modal-input-div">
+                </Grid>
+                <Grid className="modal-input-div">
                   <input
                     type="password"
                     value={props.password}
@@ -92,29 +92,29 @@ function SignInModalC(props: IModalState) {
                       setPassword(e.target.value);
                     }}
                   />
-                </div>
-              </div>
-              <div>
+                </Grid>
+              </Grid>
+              <Grid>
                 <button 
                 onClick={handleSignin}
                 >sign in</button>
-              </div>
-              <div className="sign-footer">
-                <div className="modal-link" onClick={() => setDisplayReset(true)}>
+              </Grid>
+              <Grid className="sign-footer">
+                <Grid className="modal-link" onClick={() => setDisplayReset(true)}>
                   <span>forgot password?</span>
-                </div>
-                <div className="modal-link" onClick={() => setDisplaySignup(true)}>
+                </Grid>
+                <Grid className="modal-link" onClick={() => setDisplaySignup(true)}>
                   <span>create account</span>
-                </div>
-              </div>
-            </div>
+                </Grid>
+              </Grid>
+            </Grid>
           </form>
-        </Modal.Body>
-        <Modal.Footer>
+        </Grid>
+        <Grid>
           {/* <Button onClick={props.onHide}>Close</Button> */}
-        </Modal.Footer>
-      </Modal>
-    </div>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 }
 

@@ -1,9 +1,10 @@
 import React, { FC, useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
-import IndexAPI from "../../../apis/indexAPI";
-import FooterC from "../../user/standard/footer";
-import AdminAccountNavC from "../standard/accountNav";
-import AdminMenuNavC from "../standard/menuNav";
+import IndexAPI from "../../apis/indexAPI";
+import FooterC from "../../components/users/footer";
+import AccountNavC from "../../components/users/navMenus/searchNav";
+import MenuNavC from "../../components/users/navMenus/pagesNav";
+import { Grid } from '@mui/material';
 
 const AdminThreadsC: FC = () => {
 
@@ -48,14 +49,14 @@ const AdminThreadsC: FC = () => {
 //   };
 
   return (
-    <div>
-      <AdminAccountNavC />
-      <AdminMenuNavC />
-      <div className="main-body">
-        <div className="collection-menu">{}</div>
-      </div>
+    <Grid>
+      <AccountNavC />
+      <MenuNavC />
+      <Grid className="main-body">
+        <Grid className="collection-menu">{}</Grid>
+      </Grid>
       <FooterC />
-    </div>
+    </Grid>
   );
 };
 

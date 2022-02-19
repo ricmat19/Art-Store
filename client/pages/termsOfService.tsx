@@ -1,7 +1,7 @@
 import React, { FC } from "react";
-import AccountHeaderC from "../accountNav";
-import MenuHeaderC from "../menuNav";
-import FooterC from "../footer";
+import AccountHeaderC from "../components/users/navMenus/searchNav";
+import MenuHeaderC from "../components/users/navMenus/pagesNav";
+import FooterC from "../components/users/footer";
 import { Grid } from "@mui/material";
 
 const TermsOfServiceC: FC = () => {

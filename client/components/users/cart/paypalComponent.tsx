@@ -1,4 +1,5 @@
 // import { useRef, useEffect } from "react";
+// import { Grid } from '@mui/material';
 
 const PaypalC = () => {
 //   const paypal = useRef();
@@ -31,9 +32,9 @@ const PaypalC = () => {
 //   }, []);
 
 //   return (
-//     <div>
-//       <div ref={paypal}></div>
-//     </div>
+//     <Grid>
+//       <Grid ref={paypal}></Grid>
+//     </Grid>
 //   );
 };
 

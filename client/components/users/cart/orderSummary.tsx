@@ -2,7 +2,8 @@
 import { useState } from "react";
 // import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { ICart } from "../../interfaces";
+import { ICart } from "../../../interfaces";
+import { Grid } from '@mui/material';
 // import { CartContext } from "../context/CartContext";
 
 interface ICartSummary {
@@ -19,42 +20,42 @@ const OrderSummaryC = (props: ICartSummary) => {
   // const { cart, setCart } = useContext(CartContext);
 
   return (
-    <div>
+    <Grid>
       {console.log(props.cartPrices)}
       {cart &&
         cartPrices &&
         cart.map((item: any, index: number) => {
           return (
-            <div key={item.id}>
-              <div className="order-item">
-                <div className="order-item-details">
-                  <div className="order-item-info">
+            <Grid key={item.id}>
+              <Grid className="order-item">
+                <Grid className="order-item-details">
+                  <Grid className="order-item-info">
                     <img
                       className="order-item-thumbnail"
                       src={`data:image/png;base64,${item.imageBuffer}`}
                       alt="Thumbnail"
                     />
-                    <div className="align-left">
+                    <Grid className="align-left">
                       <h3>{item.title}</h3>
-                    </div>
-                  </div>
-                  <div className="align-right">
+                    </Grid>
+                  </Grid>
+                  <Grid className="align-right">
                     <span>
                       <h3 className="align-right">${cartPrices[index]}.00</h3>
                     </span>
-                  </div>
-                </div>
-              </div>
+                  </Grid>
+                </Grid>
+              </Grid>
               {index !== cart.length - 1 ? <hr className="no-margin" /> : ""}
-            </div>
+            </Grid>
           );
         })}
       <hr className="no-margin" />
-      <div className="two-column-div">
+      <Grid className="two-column-div">
         <h3 className="align-left">subtotal</h3>
         <h3 className="align-right">${subtotal}.00</h3>
-      </div>
-    </div>
+      </Grid>
+    </Grid>
   );
 };
 

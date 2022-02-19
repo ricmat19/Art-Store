@@ -1,13 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Modal, Button } from 'react-bootstrap';
 
 interface IModalState {
   show: boolean,
   onHide: () => void
 }
 
-function ResetModalC(props: IModalState) {
+function AdminResetModalC(props: IModalState) {
     return (
         <Modal
         {...props}
@@ -48,8 +47,8 @@ function ResetModalC(props: IModalState) {
   );
 }
 
-ResetModalC.propTypes = {
+AdminResetModalC.propTypes = {
   onHide: PropTypes.string,
 };
 
-export default ResetModalC;
+export default AdminResetModalC;

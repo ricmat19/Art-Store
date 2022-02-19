@@ -1,10 +1,11 @@
 import { faInstagram, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Grid } from '@mui/material';
 
 const FooterC = () => {
   return (
     <footer>
-      <div className="align-center footer-pad">
+      <Grid className="align-center footer-pad">
         <a
           href="https://www.instagram.com/arthouse_19/"
           target="_blank"
@@ -26,7 +27,7 @@ const FooterC = () => {
         >
           <FontAwesomeIcon className="icon fab fa-youtube youtube-logo" icon={faYoutube}/>
         </a>
-      </div>
+      </Grid>
     </footer>
   );
 };

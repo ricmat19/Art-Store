@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Grid } from '@mui/material';
 
 const DisclaimerC = () => {
   const [disclaimerModal, setDisclaimerModal] = useState("modal-bg active");
@@ -9,11 +10,11 @@ const DisclaimerC = () => {
   };
 
   return (
-    <div>
+    <Grid>
       {/* Disclaimer Modal */}
-      <div className={disclaimerModal}>
+      <Grid className={disclaimerModal}>
         <form>
-          <div className="disclaimer-content modal-content">
+          <Grid className="disclaimer-content modal-content">
             <h1 className="header">
               welcome to{" "}
               <span className="logo">
@@ -22,7 +23,7 @@ const DisclaimerC = () => {
                 <span className="logo-first">19</span>
               </span>
             </h1>
-            <div>
+            <Grid>
               &quot;
               <span>artHouse19</span>
               &quot; is a full-stack E-commerce application built using
@@ -33,14 +34,14 @@ const DisclaimerC = () => {
               purchases will be made, no payments will be processed, and no
               personal information, such as: names, addresses, and credit card
               information will be used.
-            </div>
-            <div>
+            </Grid>
+            <Grid>
               <button onClick={(e) => closeDisclaimer(e)}>i accept</button>
-            </div>
-          </div>
+            </Grid>
+          </Grid>
         </form>
-      </div>
-    </div>
+      </Grid>
+    </Grid>
   );
 };
 
