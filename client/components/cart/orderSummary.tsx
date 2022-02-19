@@ -2,7 +2,7 @@
 import { useState } from "react";
 // import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { ICart } from "../interfaces";
+import { ICart } from "../../interfaces";
 // import { CartContext } from "../context/CartContext";
 
 interface ICartSummary {

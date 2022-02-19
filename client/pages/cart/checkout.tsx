@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 // import React, { useContext, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
-import OrderSummaryC from "../../components/orderSummary";
+import OrderSummaryC from "../../components/cart/orderSummary";
 import HeaderC from "../../components/header";
 import FooterC from "../../components/footer";
 import IndexAPI from "../../apis/indexAPI";

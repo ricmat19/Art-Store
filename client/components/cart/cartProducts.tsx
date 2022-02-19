@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import IndexAPI from "../apis/indexAPI";
+import IndexAPI from "../../apis/indexAPI";
 import PropTypes from "prop-types";
-import { ICart } from "../interfaces";
+import { ICart } from "../../interfaces";
 // import { CartContext } from "../context/CartContext";
 
 const CartProductsC = (props:any) => {

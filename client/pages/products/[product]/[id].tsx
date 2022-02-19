@@ -5,7 +5,7 @@ import IndexAPI from "../../../apis/indexAPI";
 import HeaderC from "../../../components/header";
 import FooterC from "../../../components/footer";
 import Head from "next/head";
-import AddToCartC from "../../../components/modals/addToCart";
+import AddToCartC from "../../../components/cart/addToCart";
 // import {CartContext} from "../../context/CartContext";
 
 const ProductDetailsC = (props: any) => {

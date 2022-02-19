@@ -1,6 +1,6 @@
 import { useState } from "react";
 // import { useContext } from "react";
-import CartProductsC from "../../components/cartProducts";
+import CartProductsC from "../../components/cart/cartProducts";
 import HeaderC from "../../components/header";
 import FooterC from "../../components/footer";
 import IndexAPI from "../../apis/indexAPI";
