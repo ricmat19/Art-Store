@@ -135,13 +135,14 @@ const ProductDetailsC = (props: any) => {
 };
 
 export async function getStaticPaths() {
-  const productsResponse = await IndexAPI.get(`/products/print`);
+  const productsResponse = await IndexAPI.get(`/products`);
+
   return {
     fallback: false,
-    paths: productsResponse.data.data.product.map((product: any) => ({
+    paths: productsResponse.data.data.products.map((product: any) => ({
       params: {
         product: product.product,
-        id: product.id,
+        id: product.id
       },
     })),
   };
@@ -173,7 +174,7 @@ export async function getStaticProps(context: {
   return {
     props: {
       imageBuffer: imageBuffer,
-      selectedProduct: productResponse.data.data.item,
+      selectedProduct: productResponse.data.data.product,
       cart: cartResponse.data.data.cart,
       cartQty: cartResponse.data.data.cart.length,
     },

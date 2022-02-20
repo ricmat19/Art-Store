@@ -1,13 +1,30 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../db");
-const { getFileStream } = require("../s3");
+const db = require("../../db");
+const { getFileStream } = require("../../s3");
 
 router.get("/images/:key", async (req, res) => {
   try {
     const key = req.params.key;
     const readStream = getFileStream(key);
     readStream.pipe(res);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//Get all products
+router.get("/products", async (req, res) => {
+  try {
+    const product = await db.query("SELECT * FROM products");
+
+    res.status(200).json({
+      status: "success",
+      results: product.rows.length,
+      data: {
+        products: product.rows,
+      },
+    });
   } catch (err) {
     console.log(err);
   }

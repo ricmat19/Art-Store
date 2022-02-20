@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../db");
+const db = require("../../db");
 
 //Add an item to a users cart
 router.post("/cart", async (req, res) => {

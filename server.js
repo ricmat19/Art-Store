@@ -9,12 +9,12 @@ const adminLoginRouter = require("./routes/admin/login")
 const adminProductsRouter = require("./routes/admin/products");
 const adminCreateRouter = require("./routes/admin/create");
 const adminUpdateRouter = require("./routes/admin/update");
-const productsRouter = require("./routes/products");
-const contactRouter = require("./routes/contact");
-const usersRouter = require("./routes/users");
-const cartRouter = require("./routes/cart");
-const paymentRouter = require("./routes/payment");
-const shipmentRouter = require("./routes/shipment");
+const productsRouter = require("./routes/users/products");
+const contactRouter = require("./routes/users/contact");
+const loginRouter = require("./routes/users/login");
+const cartRouter = require("./routes/users/cart");
+const paymentRouter = require("./routes/users/payment");
+const shipmentRouter = require("./routes/users/shipment");
 
 //allows for different domains to communicate
 app.use(
@@ -55,7 +55,7 @@ app.use(adminCreateRouter);
 app.use(adminUpdateRouter);
 app.use(productsRouter);
 app.use(contactRouter);
-app.use(usersRouter);
+app.use(loginRouter);
 app.use(cartRouter);
 app.use(paymentRouter);
 app.use(shipmentRouter);

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import MainNav from "../../components/users/mainNav";
 import PagesNav from "../../components/users/pagesNav";
-// import IndexAPI from "../../../apis/indexAPI";
+import IndexAPI from "../../apis/indexAPI";
 import { IEvent, IDay } from "../../interfaces";
 import { Grid } from "@mui/material";
 
-const CalendarC = () => {
+const CalendarC = (props: any) => {
+  const [cartQty] = useState(props.cart.length);
   const [nav, setNav] = useState(0);
   //   const [setClicked] = useState();
   const [events] = useState<IEvent[]>([]);
@@ -269,5 +270,30 @@ const CalendarC = () => {
     </Grid>
   );
 };
+
+export async function getStaticProps() {
+  const cartResponse = await IndexAPI.get(`/cart`);
+
+  for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
+    if (cartResponse.data.data.cart[i].imagekey !== null) {
+      let imagesResponse = await IndexAPI.get(
+        `/images/${cartResponse.data.data.cart[i].imagekey}`,
+        {
+          responseType: "arraybuffer",
+        }
+      ).then((response) =>
+        Buffer.from(response.data, "binary").toString("base64")
+      );
+
+      cartResponse.data.data.cart[i].imageBuffer = imagesResponse;
+    }
+  }
+  return {
+    props: {
+      cart: cartResponse.data.data.cart,
+    },
+    revalidate: 1,
+  };
+}
 
 export default CalendarC;

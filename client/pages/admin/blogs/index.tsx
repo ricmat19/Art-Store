@@ -6,9 +6,9 @@ import Footer from "../../../components/footer";
 import { IBlog } from "../../../interfaces";
 import AdminMainNav from "../../../components/admin/mainNav";
 import AdminPagesNav from "../../../components/admin/pagesNav";
-import AddBlog from "./addBlog";
+import AddBlog from "../../../components/admin/blog/addBlog";
 import { Button, Grid } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const AdminBlogPostsC: FC = () => {
 
@@ -67,7 +67,9 @@ const AdminBlogPostsC: FC = () => {
           className="collection-item-div"
           key={blog.id}
         >
-          <Grid className="collection-item" onClick={() => displayBlog(blog.id)}>
+          <Grid className="collection-item" 
+          // onClick={() => displayBlog(blog.id)}
+          >
             <img className="collection-thumbnail" src={blog.imageBuffer} alt="collection-thumbnail" />
           </Grid>
           <Grid container>
@@ -78,15 +80,15 @@ const AdminBlogPostsC: FC = () => {
       );
     });
 
-  let navigation = useNavigate();
+  // let navigation = useNavigate();
 
-  const displayBlog = async (id: string) => {
-    try {
-      navigation(`/admin/medias/blog/${id}`);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const displayBlog = async (id: string) => {
+  //   try {
+  //     navigation(`/admin/medias/blog/${id}`);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   const deleteBlog = async (id: string) => {
     try {

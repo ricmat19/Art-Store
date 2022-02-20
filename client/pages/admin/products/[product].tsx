@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 // import { Redirect } from "react-router";
 import ReactPaginate from "react-paginate";
 import IndexAPI from "../../../apis/indexAPI";
+import AdminMainNav from "../../../components/admin/mainNav";
 import AdminPagesNav from "../../../components/admin/pagesNav";
 // import AdminCreateProductC from "../../components/admin/modals/createProduct";
 // import AdminUpdateProductC from "../../components/admin/modals/updateProduct";
@@ -132,6 +133,7 @@ const AdminProducts = (props: any) => {
         <Head>
           <title>artHouse19-Admin Products</title>
         </Head>
+        <AdminMainNav />
         <AdminPagesNav />
         {/* <div className={createProductModal}>
           <div
@@ -206,21 +208,29 @@ const AdminProducts = (props: any) => {
 };
 
 export async function getStaticPaths() {
-  const productsResponse = await IndexAPI.get(`/admin/products`);
+  const productsResponse = await IndexAPI.get(`/products`);
+
+  const products: string[] = [];
+  for (let i = 0; i < productsResponse.data.data.products.length; i++) {
+    if (!products.includes(productsResponse.data.data.products.product)) {
+      products.push(productsResponse.data.data.products[i].product);
+    }
+  }
+
   return {
     fallback: false,
-    paths: productsResponse.data.data.products.map((product: any) => ({
-      params: { 
-        product: product.product
-       },
+    paths: products.map((product: any) => ({
+      params: {
+        product: product,
+      },
     })),
   };
 }
 
 export async function getStaticProps(context: { params: { product: any } }) {
+
   const product = context.params.product;
-  const productResponse = await IndexAPI.get(`/admin/products/${product}`);
-  // const productResponse = await IndexAPI.get(`/admin/products/print`);
+  const productResponse = await IndexAPI.get(`/products/${product}`);
 
   for (let i = 0; i < productResponse.data.data.product.length; i++) {
     if (productResponse.data.data.product[i].imagekey !== null) {
@@ -238,12 +248,11 @@ export async function getStaticProps(context: { params: { product: any } }) {
       ].imageBuffer = `data:image/png;base64,${imagesResponse}`;
     }
   }
-
   return {
     props: {
-      products: productResponse.data.data.product,
+      products: productResponse.data.data.product
     },
-    revalidate: 10,
+    revalidate: 1,
   };
 }
 

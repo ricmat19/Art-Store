@@ -8,10 +8,10 @@ import PagesNav from "../../../components/users/pagesNav";
 import FooterC from "../../../components/footer";
 import { IProduct } from "../../../interfaces";
 import Head from "next/head";
-import { Grid } from '@mui/material';
+import { Grid } from "@mui/material";
 import ProductsNav from "../../../components/users/products/productsNav";
 
-const ProductsC = (props: any) => {
+const Products = (props: any) => {
   const [cartQty] = useState<number>(props.cart.length);
   const [products] = useState<IProduct[]>(props.products);
   const [pageNumber, setPageNumber] = useState<number>(0);
@@ -73,17 +73,6 @@ const ProductsC = (props: any) => {
       <Grid className="main-body">
         <Grid>
           <ProductsNav />
-          {/* <Grid className="align-center subtitle-div">
-          <a className="no-decoration" href="/products/print">
-            <h2>2D Prints</h2>
-          </a>
-          <a className="no-decoration" href="/products/model">
-            <h2>3D Models</h2>
-          </a>
-          <a className="no-decoration" href="/products/comic">
-            <h2>Comics</h2>
-          </a>
-        </Grid> */}
           <Grid className="products-menu">{displayItems}</Grid>
           <ReactPaginate
             previousLabel={"prev"}
@@ -103,7 +92,27 @@ const ProductsC = (props: any) => {
   );
 };
 
-export async function getStaticProps() {
+export async function getStaticPaths() {
+  const productsResponse = await IndexAPI.get(`/products`);
+
+  const products: string[] = [];
+  for (let i = 0; i < productsResponse.data.data.products.length; i++) {
+    if (!products.includes(productsResponse.data.data.products.product)) {
+      products.push(productsResponse.data.data.products[i].product);
+    }
+  }
+
+  return {
+    fallback: false,
+    paths: products.map((product: any) => ({
+      params: {
+        product: product,
+      },
+    })),
+  };
+}
+
+export async function getStaticProps(context: { params: { product: any } }) {
   const cartResponse = await IndexAPI.get(`/cart`);
 
   for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
@@ -121,7 +130,8 @@ export async function getStaticProps() {
     }
   }
 
-  const productResponse = await IndexAPI.get(`/products/print`);
+  const product = context.params.product;
+  const productResponse = await IndexAPI.get(`/products/${product}`);
 
   for (let i = 0; i < productResponse.data.data.product.length; i++) {
     if (productResponse.data.data.product[i].imagekey !== null) {
@@ -148,4 +158,4 @@ export async function getStaticProps() {
   };
 }
 
-export default ProductsC;
+export default Products;

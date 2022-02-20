@@ -1,12 +1,14 @@
 import React, { FC, useState } from "react";
 import ReactPlayer from "react-player";
+import IndexAPI from "../../../apis/indexAPI";
 import MainNav from "../../../components/users/mainNav";
 import PagesNav from "../../../components/users/pagesNav";
 import FooterC from "../../../components/footer";
 import { Grid } from "@mui/material";
 
-const CourseC: FC = () => {
+const CourseC: FC = (props: any) => {
 
+  const [cartQty] = useState(props.cart.length)
   const [fullDuration, ] = useState<string>("");
   const [lessonDuration, ] = useState<string>("");
 
@@ -64,5 +66,53 @@ const CourseC: FC = () => {
     </div>
   );
 };
+
+export async function getStaticPaths() {
+  const coursesResponse = await IndexAPI.get(`/courses`);
+
+  return {
+    fallback: false,
+    paths: coursesResponse.data.data.courses.map((courses: any) => ({
+      params: {
+        courses: courses.course,
+        id: courses.id
+      },
+    })),
+  };
+}
+
+export async function getStaticProps(context: {
+  params: { course: any; id: any };
+}) {
+  const course = context.params.course;
+  const id = context.params.id;
+  const courseResponse = await IndexAPI.get(`/products/${course}/${id}`);
+
+  let imageBuffer = "";
+  if (courseResponse.data.data.item.imagekey !== null) {
+    let imagesResponse = await IndexAPI.get(
+      `/images/${courseResponse.data.data.item.imagekey}`,
+      {
+        responseType: "arraybuffer",
+      }
+    ).then((response) =>
+      Buffer.from(response.data, "binary").toString("base64")
+    );
+
+    imageBuffer = `data:image/png;base64,${imagesResponse}`;
+  }
+
+  const cartResponse = await IndexAPI.get(`/cart`);
+
+  return {
+    props: {
+      imageBuffer: imageBuffer,
+      selectedProduct: courseResponse.data.data.course,
+      cart: cartResponse.data.data.cart,
+      cartQty: cartResponse.data.data.cart.length,
+    },
+    revalidate: 1,
+  };
+}
 
 export default CourseC;

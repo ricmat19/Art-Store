@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import MainNav from "../../../components/admin/mainNav";
-import PagesNav from "../../../components/admin/pagesNav";
+import AdminMainNav from "../../../components/admin/mainNav";
+import AdminPagesNav from "../../../components/admin/pagesNav";
 // import IndexAPI from "../../../apis/indexAPI";
-import { IEvent, IDay } from "../../../interfaces";
+import { IEvent } from "../../../interfaces";
 import { Grid } from "@mui/material";
 
-const Calendar = () => {
+const Calendar = (props: any) => {
   const [nav, setNav] = useState(0);
   //   const [setClicked] = useState();
   const [events] = useState<IEvent[]>([]);
-  const [days, setDays] = useState<IDay[]>([]);
-  const [dateDisplay, setDateDisplay] = useState("");
+  const [days] = useState(props.days);
+  const [dateDisplay] = useState(props.dateDisplay);
   //   const [daysEventsModal, setDaysEventsModal] = useState("modal");
   //   const [selectedDay, setSelectedDay] = useState("");
 
@@ -72,90 +72,7 @@ const Calendar = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const weekdays = [
-          "Sunday",
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday",
-        ];
-
-        const currentDate = new Date();
-        const currentDay = currentDate.getDate();
-        const currentMonth = currentDate.getMonth() + 1;
-        const currentYear = currentDate.getFullYear();
-
-        const date = new Date();
-
-        if (nav !== 0) {
-          date.setMonth(new Date().getMonth() + nav);
-        }
-
-        const month = date.getMonth();
-        const year = date.getFullYear();
-
-        const firstMonthDay = new Date(year, month, 1);
-        const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-        const dateString = firstMonthDay.toLocaleDateString("en-us", {
-          weekday: "long",
-          year: "numeric",
-          month: "numeric",
-          day: "numeric",
-        });
-
-        setDateDisplay(
-          `${date.toLocaleDateString("en-us", { month: "long" })} ${year}`
-        );
-
-        const paddingDays = weekdays.indexOf(dateString.split(", ")[0]);
-
-        const daysArray = [];
-        for (let i = 1; i <= paddingDays + daysInMonth; i++) {
-          let dayStringYear = year.toString();
-          let dayMonth = month + 1;
-          let dayStringMonth = dayMonth.toString();
-          if (dayStringMonth.toString().length === 1) {
-            dayStringMonth = "0" + dayStringMonth.toString();
-          }
-          let dayDay = i - paddingDays;
-          let dayStringDay = dayDay.toString();
-          if (dayStringDay.toString().length === 1) {
-            dayStringDay = "0" + dayStringDay.toString();
-          }
-
-          let todayDayString = currentDay.toString();
-          if (todayDayString.length === 1) {
-            todayDayString = "0" + todayDayString;
-          }
-          let todayMonthString = currentMonth.toString();
-          if (todayMonthString.length === 1) {
-            todayMonthString = "0" + todayMonthString;
-          }
-          let todayYearString = currentYear.toString();
-
-          const dayString = `${dayStringYear}-${dayStringMonth.toString()}-${dayStringDay.toString()}`;
-          const today = `${todayYearString}-${todayMonthString}-${todayDayString}`;
-          if (i > paddingDays) {
-            daysArray.push({
-              value: i - paddingDays,
-              event: "test",
-              //   event: eventForDate(dayString),
-              date: dayString,
-              today: today,
-            });
-          } else {
-            daysArray.push({
-              value: "padding",
-              event: null,
-              date: "",
-              today: "",
-            });
-          }
-        }
-        setDays(daysArray);
+        console.log(events);
       } catch (err) {
         console.log(err);
       }
@@ -165,8 +82,8 @@ const Calendar = () => {
 
   return (
     <Grid>
-      <MainNav />
-      <PagesNav cartQty={cartQty} />
+      <AdminMainNav />
+      <AdminPagesNav />
       <Grid className="grid grid-center user-calendar-container">
         <Grid className="grid month-row">
           <Grid>
@@ -191,7 +108,7 @@ const Calendar = () => {
           <Grid className="day-name">sat</Grid>
         </Grid>
         <Grid className="title day-boxes">
-          {days.map((day, index) => (
+          {days.map((day: any, index: number) => (
             <Grid key={index}>
               {day.value === "padding" ? (
                 ""
@@ -269,5 +186,100 @@ const Calendar = () => {
     </Grid>
   );
 };
+
+export async function getStaticProps() {
+  const weekdays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
+  const currentDate = new Date();
+  const currentDay = currentDate.getDate();
+  const currentMonth = currentDate.getMonth() + 1;
+  const currentYear = currentDate.getFullYear();
+
+  const date = new Date();
+
+  let nav = 0;
+  if (nav !== 0) {
+    date.setMonth(new Date().getMonth() + nav);
+  }
+
+  const month = date.getMonth();
+  const year = date.getFullYear();
+
+  const firstMonthDay = new Date(year, month, 1);
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  const dateString = firstMonthDay.toLocaleDateString("en-us", {
+    weekday: "long",
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+  });
+
+  let dateDisplay = `${date.toLocaleDateString("en-us", {
+    month: "long",
+  })} ${year}`;
+
+  const paddingDays = weekdays.indexOf(dateString.split(", ")[0]);
+
+  const daysArray = [];
+  for (let i = 1; i <= paddingDays + daysInMonth; i++) {
+    let dayStringYear = year.toString();
+    let dayMonth = month + 1;
+    let dayStringMonth = dayMonth.toString();
+    if (dayStringMonth.toString().length === 1) {
+      dayStringMonth = "0" + dayStringMonth.toString();
+    }
+    let dayDay = i - paddingDays;
+    let dayStringDay = dayDay.toString();
+    if (dayStringDay.toString().length === 1) {
+      dayStringDay = "0" + dayStringDay.toString();
+    }
+
+    let todayDayString = currentDay.toString();
+    if (todayDayString.length === 1) {
+      todayDayString = "0" + todayDayString;
+    }
+    let todayMonthString = currentMonth.toString();
+    if (todayMonthString.length === 1) {
+      todayMonthString = "0" + todayMonthString;
+    }
+    let todayYearString = currentYear.toString();
+
+    const dayString = `${dayStringYear}-${dayStringMonth.toString()}-${dayStringDay.toString()}`;
+    const today = `${todayYearString}-${todayMonthString}-${todayDayString}`;
+    if (i > paddingDays) {
+      daysArray.push({
+        value: i - paddingDays,
+        event: "test",
+        //   event: eventForDate(dayString),
+        date: dayString,
+        today: today,
+      });
+    } else {
+      daysArray.push({
+        value: "padding",
+        event: null,
+        date: "",
+        today: "",
+      });
+    }
+  }
+  let days = daysArray;
+  return {
+    props: {
+      dateDisplay: dateDisplay,
+      days: days
+    },
+    revalidate: 1,
+  };
+}
 
 export default Calendar;

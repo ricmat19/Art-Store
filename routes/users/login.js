@@ -4,10 +4,10 @@ const {
   checkEmail,
   checkPassword,
   checkPasswordCopy,
-} = require("../validator");
+} = require("../../validator");
 const router = express.Router();
-const db = require("../db");
-const { signup, signin } = require("../encryptionHandler");
+const db = require("../../db");
+const { signup, signin } = require("../../encryptionHandler");
 
 //User Sign Up
 router.post(

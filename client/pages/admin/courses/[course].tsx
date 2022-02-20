@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { FC, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { FC, useState } from "react";
+// import { useNavigate, useParams } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import IndexAPI from "../../../apis/indexAPI";
-import { ICourse } from "../../../interfaces";
+// import { ICourse } from "../../../interfaces";
 import Footer from "../../../components/footer";
 import CoursesNav from "../../../components/admin/courses/courseMenu";
 import AdminMainNav from "../../../components/admin/mainNav";
@@ -11,11 +11,8 @@ import AdminPagesNav from "../../../components/admin/pagesNav";
 import AddCourse from "../../../components/admin/courses/addCourse";
 import { Button, Grid } from "@mui/material";
 
-const AdminCoursesC: FC = () => {
-
-  const { subject } = useParams();
-
-  const [courses, setCourses] = useState<ICourse[]>([]);
+const AdminCoursesC: FC = (props: any) => {
+  const [courses] = useState(props.courses);
   const [pageNumber, setPageNumber] = useState<number>(0);
 
   const [open, setOpen] = useState(false);
@@ -27,18 +24,26 @@ const AdminCoursesC: FC = () => {
 
   const displayCourses = courses
     .slice(pagesVisted, pagesVisted + itemsPerPage)
-    .map((course) => {
+    .map((course: any) => {
       return (
-        <Grid
-          className="collection-item-div"
-          key={course.id}
-        >
-          <Grid className="collection-item" onClick={() => displayCourse(course.subject, course.id)}>
-            <img className="collection-thumbnail" src={course.imageBuffer} alt="collection-thumbnail"/>
+        <Grid className="collection-item-div" key={course.id}>
+          <Grid
+            className="collection-item"
+            // onClick={() => displayCourse(course.subject, course.id)}
+          >
+            <img
+              className="collection-thumbnail"
+              src={course.imageBuffer}
+              alt="collection-thumbnail"
+            />
           </Grid>
           <Grid container>
-            <Grid xs={6} sx={{textAlign: "left"}}>{course.title}</Grid>
-            <Grid xs={6} sx={{textAlign: "right"}}><button className="delete-button">Delete</button></Grid>
+            <Grid xs={6} sx={{ textAlign: "left" }}>
+              {course.title}
+            </Grid>
+            <Grid xs={6} sx={{ textAlign: "right" }}>
+              <button className="delete-button">Delete</button>
+            </Grid>
           </Grid>
         </Grid>
       );
@@ -46,59 +51,38 @@ const AdminCoursesC: FC = () => {
 
   const pageCount = Math.ceil(courses.length / itemsPerPage);
 
-  const changePage = ({selected}: {selected:number}): void => {
+  const changePage = ({ selected }: { selected: number }): void => {
     setPageNumber(selected);
   };
 
-  let navigation = useNavigate();
+  // let navigation = useNavigate();
 
-  let coursesResponse;
-  useEffect((): void => {
-    const fetchData = async () => {
-      try {
-        coursesResponse = await IndexAPI.get(`/admin/courses/${subject}`);
-
-        for (let i = 0; i < coursesResponse.data.data.courses.length; i++) {
-          if (coursesResponse.data.data.courses[i].imagekey !== null) {
-            let imagesResponse = await IndexAPI.get(
-              `/images/${coursesResponse.data.data.courses[i].imagekey}`,
-              {
-                responseType: "arraybuffer",
-              }
-            ).then((response) =>
-              Buffer.from(response.data, "binary").toString("base64")
-            );
-
-            coursesResponse.data.data.courses[
-              i
-            ].imageBuffer = `data:image/png;base64,${imagesResponse}`;
-          }
-        }
-        setCourses(coursesResponse.data.data.courses);
-
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-  }, []);
-
-  const displayCourse = async (subject: string, id: string) => {
-    try {
-      navigation(`/admin/courses/${subject}/${id}`);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const displayCourse = async (subject: string, id: string) => {
+  //   try {
+  //     navigation(`/admin/courses/${subject}/${id}`);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   return (
     <div>
-      <AddCourse open={open} handleClose={handleClose}/>
+      <AddCourse open={open} handleClose={handleClose} />
       <AdminMainNav />
       <AdminPagesNav />
       <div className="main-body">
-        <Grid sx={{ textAlign: 'right', paddingRight: "50px" }}>
-          <Button onClick={handleOpen} sx={{ fontFamily: "Rajdhani", fontSize: "20px", color: "white", textTransform: "none"}}><a>add course</a></Button>
+        <Grid sx={{ textAlign: "right", paddingRight: "50px" }}>
+          <Button
+            onClick={handleOpen}
+            sx={{
+              fontFamily: "Rajdhani",
+              fontSize: "20px",
+              color: "white",
+              textTransform: "none",
+            }}
+          >
+            <a>add course</a>
+          </Button>
         </Grid>
         <CoursesNav />
         <div className="thumbnail-display">{displayCourses}</div>
@@ -111,11 +95,63 @@ const AdminCoursesC: FC = () => {
           previousLinkClassName={"prevButton"}
           nextLinkClassName={"nextButton"}
           disabledClassName={"disabledButton"}
-          activeClassName={"activeButton"} pageRangeDisplayed={5} marginPagesDisplayed={5}/>
+          activeClassName={"activeButton"}
+          pageRangeDisplayed={5}
+          marginPagesDisplayed={5}
+        />
       </div>
       <Footer />
     </div>
   );
 };
+
+export async function getStaticPaths() {
+  const coursesResponse = await IndexAPI.get(`/courses`);
+
+  const courses: string[] = [];
+  for (let i = 0; i < coursesResponse.data.data.courses.length; i++) {
+    if (!courses.includes(coursesResponse.data.data.courses.subject)) {
+      courses.push(coursesResponse.data.data.courses[i].subject);
+    }
+  }
+
+  return {
+    fallback: false,
+    paths: courses.map((subject: any) => ({
+      params: {
+        subject: subject,
+      },
+    })),
+  };
+}
+
+export async function getStaticProps(context: { params: { subject: any } }) {
+  const subject = context.params.subject;
+  const coursesResponse = await IndexAPI.get(`/admin/courses/${subject}`);
+
+  for (let i = 0; i < coursesResponse.data.data.courses.length; i++) {
+    if (coursesResponse.data.data.courses[i].imagekey !== null) {
+      let imagesResponse = await IndexAPI.get(
+        `/images/${coursesResponse.data.data.courses[i].imagekey}`,
+        {
+          responseType: "arraybuffer",
+        }
+      ).then((response) =>
+        Buffer.from(response.data, "binary").toString("base64")
+      );
+
+      coursesResponse.data.data.courses[
+        i
+      ].imageBuffer = `data:image/png;base64,${imagesResponse}`;
+    }
+  }
+
+  return {
+    props: {
+      courses: coursesResponse.data.data.courses,
+    },
+    revalidate: 1,
+  };
+}
 
 export default AdminCoursesC;
