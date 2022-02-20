@@ -1,54 +1,49 @@
-import React from "react";
 import PropTypes from "prop-types";
+import { Modal, Fade, Box, Grid } from "@mui/material";
 
 interface IModalState {
-  show: boolean,
-  onHide: () => void
+  open: boolean;
+  handleClose: () => void;
+  email: string;
+  password: string;
 }
 
-function AdminResetModalC(props: IModalState) {
-    return (
-        <Modal
-        {...props}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-        >
-        <Modal.Header closeButton>
-            <Modal.Title id="contained-modal-title-vcenter">
-
-            </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-        <form>
-          <div 
-          className="sign-content">
-            <h1 className="sign-header">Reset Password</h1>
-            <div className="sign-input">
-              <div className="forgot-input-div">
-                <input type="text" placeholder="Email" />
-              </div>
-            </div>
-            <div>
-              <button>Send Reset Link</button>
-            </div>
-            <div className="sign-footer">
-              <div className="modal-link">
-                <span>Back to signin in</span>
-              </div>
-            </div>
-          </div>
-        </form>
-        </Modal.Body>
-        <Modal.Footer>
-            <Button onClick={props.onHide}>Close</Button>
-        </Modal.Footer>
-        </Modal>
+const AdminResetModal = (props: IModalState) => {
+  return (
+    <Modal
+      open={props.open}
+      onClose={props.handleClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Fade in={props.open}>
+        <Box>
+          <form>
+            <Grid className="sign-content">
+              <h1 className="sign-header">Reset Password</h1>
+              <Grid className="sign-input">
+                <Grid className="forgot-input-div">
+                  <input type="text" placeholder="Email" />
+                </Grid>
+              </Grid>
+              <Grid>
+                <button>Send Reset Link</button>
+              </Grid>
+              <Grid className="sign-footer">
+                <Grid className="modal-link">
+                  <span>Back to signin in</span>
+                </Grid>
+              </Grid>
+            </Grid>
+          </form>
+        </Box>
+      </Fade>
+    </Modal>
   );
 }
 
-AdminResetModalC.propTypes = {
+AdminResetModal.propTypes = {
   onHide: PropTypes.string,
 };
 
-export default AdminResetModalC;
+export default AdminResetModal;

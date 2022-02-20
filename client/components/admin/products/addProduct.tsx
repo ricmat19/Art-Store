@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import { useState, useRef } from "react";
+import { FC, useState, useRef } from "react";
 import IndexAPI from "../../../apis/indexAPI";
 
-const AdminCreateProductC = () => {
+const AdminCreateProduct: FC = () => {
   const [title, setTitle] = useState<string>("");
   const [type, setType] = useState<string>("");
   const [images,] = useState<File>();
@@ -178,4 +178,4 @@ const AdminCreateProductC = () => {
   );
 };
 
-export default AdminCreateProductC;
+export default AdminCreateProduct;

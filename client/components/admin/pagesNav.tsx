@@ -1,6 +1,7 @@
+import { FC } from "react";
 // import IndexAPI from "../../apis/indexAPI";
 
-const HeaderC = () => {
+const AdminPagesNav: FC = () => {
   // const [signinModal, setSigninModal] = useState("modal-bg");
   // const [signupModal, setSignupModal] = useState("modal-bg");
   // const [resetModal, setResetModal] = useState("modal-bg");
@@ -268,4 +269,4 @@ const HeaderC = () => {
   );
 };
 
-export default HeaderC;
+export default AdminPagesNav;

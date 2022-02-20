@@ -1,9 +1,10 @@
-import React, { FC, useEffect, useState } from "react";
+/* eslint-disable @next/next/no-img-element */
+import { FC, useEffect, useState } from "react";
 import IndexAPI from "../../../apis/indexAPI";
-import FooterC from "../../../components/users/footer";
-import MediaMenuC from "../../../components/users/medias/mediasMenu";
-import AccountNavC from "../../../components/users/navMenus/searchNav";
-import MenuNavC from "../../../components/users/navMenus/pagesNav";
+import FooterC from "../../../components/footer";
+import MediaNav from "../../../components/users/medias/mediaNav";
+import MainNav from "../../../components/users/mainNav";
+import PagesNav from "../../../components/users/pagesNav";
 import { IBlog } from "../../../interfaces";
 // import { useNavigate } from "react-router-dom";
 import ReactPaginate from "react-paginate";
@@ -65,7 +66,7 @@ const BlogPostsC: FC = () => {
           onClick={() => displayPost(post.id)}
         >
           <Grid className="collection-item">
-            <img className="collection-thumbnail" src={post.imageBuffer} />
+            <img className="collection-thumbnail" src={post.imageBuffer} alt="collection-thumbnail"/>
           </Grid>
           <Grid>
             <Grid>{post.title}</Grid>
@@ -87,10 +88,10 @@ const BlogPostsC: FC = () => {
 
   return (
     <Grid>
-      <AccountNavC />
-      <MenuNavC />
+      <MainNav />
+      <PagesNav cartQty={cartQty} />
       <Grid className="main-body">
-        <MediaMenuC />
+        <MediaNav />
         <Grid className="collection-menu">{}</Grid>
         <Grid className="thumbnail-display">{displayBlog}</Grid>
         <ReactPaginate

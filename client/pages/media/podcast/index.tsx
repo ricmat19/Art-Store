@@ -1,11 +1,11 @@
-import React, { FC, useEffect } from "react";
+import { FC, useEffect } from "react";
 // import { useRouter } from "next/router";
 // import ReactPaginate from "react-paginate";
 // import IndexAPI from "../../../apis/indexAPI";
-import FooterC from "../../../components/users/footer";
-import AccountHeaderC from "../../../components/users/navMenus/searchNav";
-import MenuHeaderC from "../../../components/users/navMenus/pagesNav";
-import MediaMenuC from "../../../components/users/medias/mediasMenu";
+import FooterC from "../../../components/footer";
+import MainNav from "../../../components/users/mainNav";
+import PagesNav from "../../../components/users/pagesNav";
+import MediaNav from "../../../components/users/medias/mediaNav";
 import { Grid } from '@mui/material';
 
 const PodcastsC: FC = () => {
@@ -78,10 +78,10 @@ const PodcastsC: FC = () => {
 
   return (
     <Grid>
-      <AccountHeaderC />
-      <MenuHeaderC />
+      <MainNav />
+      <PagesNav cartQty={cartQty} />
       <Grid className="main-body">
-        <MediaMenuC />
+        <MediaNav />
         <Grid className="collection-menu">{}</Grid>
         {/* <Grid className="thumbnail-display">{displayMedias}</Grid> */}
         {/* <ReactPaginate

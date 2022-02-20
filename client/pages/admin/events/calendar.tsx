@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import MainNav from "../../components/users/mainNav";
-import PagesNav from "../../components/users/pagesNav";
+import { useEffect, useState } from "react";
+import MainNav from "../../../components/admin/mainNav";
+import PagesNav from "../../../components/admin/pagesNav";
 // import IndexAPI from "../../../apis/indexAPI";
-import { IEvent, IDay } from "../../interfaces";
+import { IEvent, IDay } from "../../../interfaces";
 import { Grid } from "@mui/material";
 
-const CalendarC = () => {
+const Calendar = () => {
   const [nav, setNav] = useState(0);
   //   const [setClicked] = useState();
   const [events] = useState<IEvent[]>([]);
@@ -270,4 +270,4 @@ const CalendarC = () => {
   );
 };
 
-export default CalendarC;
+export default Calendar;

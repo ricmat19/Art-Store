@@ -1,8 +1,8 @@
 import { useState } from "react";
 // import { useContext } from "react";
 import CartProductsC from "../../components/users/cart/cartProducts";
-import HeaderC from "../../components/users/navMenus/pagesNav";
-import FooterC from "../../components/users/footer";
+import HeaderC from "../../components/users/pagesNav";
+import FooterC from "../../components/footer";
 import IndexAPI from "../../apis/indexAPI";
 import Head from "next/head";
 import { Grid } from '@mui/material';

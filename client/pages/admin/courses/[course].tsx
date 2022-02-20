@@ -1,13 +1,14 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { FC, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import IndexAPI from "../../../apis/indexAPI";
 import { ICourse } from "../../../interfaces";
-import FooterC from "../../user/standard/footer";
-import CoursesMenuC from "./coursesMenu";
-import AdminAccountNavC from "../standard/accountNav";
-import AdminMenuNavC from "../standard/menuNav";
-import AddCourse from "./addCourse";
+import Footer from "../../../components/footer";
+import CoursesNav from "../../../components/admin/courses/courseMenu";
+import AdminMainNav from "../../../components/admin/mainNav";
+import AdminPagesNav from "../../../components/admin/pagesNav";
+import AddCourse from "../../../components/admin/courses/addCourse";
 import { Button, Grid } from "@mui/material";
 
 const AdminCoursesC: FC = () => {
@@ -33,7 +34,7 @@ const AdminCoursesC: FC = () => {
           key={course.id}
         >
           <Grid className="collection-item" onClick={() => displayCourse(course.subject, course.id)}>
-            <img className="collection-thumbnail" src={course.imageBuffer} />
+            <img className="collection-thumbnail" src={course.imageBuffer} alt="collection-thumbnail"/>
           </Grid>
           <Grid container>
             <Grid xs={6} sx={{textAlign: "left"}}>{course.title}</Grid>
@@ -93,13 +94,13 @@ const AdminCoursesC: FC = () => {
   return (
     <div>
       <AddCourse open={open} handleClose={handleClose}/>
-      <AdminAccountNavC />
-      <AdminMenuNavC />
+      <AdminMainNav />
+      <AdminPagesNav />
       <div className="main-body">
         <Grid sx={{ textAlign: 'right', paddingRight: "50px" }}>
           <Button onClick={handleOpen} sx={{ fontFamily: "Rajdhani", fontSize: "20px", color: "white", textTransform: "none"}}><a>add course</a></Button>
         </Grid>
-        <CoursesMenuC />
+        <CoursesNav />
         <div className="thumbnail-display">{displayCourses}</div>
         <ReactPaginate
           previousLabel={"prev"}
@@ -112,7 +113,7 @@ const AdminCoursesC: FC = () => {
           disabledClassName={"disabledButton"}
           activeClassName={"activeButton"} pageRangeDisplayed={5} marginPagesDisplayed={5}/>
       </div>
-      <FooterC />
+      <Footer />
     </div>
   );
 };

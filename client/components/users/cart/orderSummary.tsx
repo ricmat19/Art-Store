@@ -12,7 +12,7 @@ interface ICartSummary {
   subtotal: number;
 }
 
-const OrderSummaryC = (props: ICartSummary) => {
+const OrderSummary = (props: ICartSummary) => {
   const [cart] = useState<ICart[]>(props.cartProducts);
   const [cartPrices] = useState(props.cartPrices);
   const [subtotal] = useState<number>(props.subtotal);
@@ -59,10 +59,10 @@ const OrderSummaryC = (props: ICartSummary) => {
   );
 };
 
-OrderSummaryC.propTypes = {
+OrderSummary.propTypes = {
   cartProducts: PropTypes.array,
   cartPrices: PropTypes.array,
   subtotal: PropTypes.number,
 };
 
-export default OrderSummaryC;
+export default OrderSummary;

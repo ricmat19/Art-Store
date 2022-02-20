@@ -1,9 +1,9 @@
-import React, { FC, useEffect } from "react";
+import { FC, useEffect } from "react";
 // import { useRouter } from "next/router";
 // import IndexAPI from "../../../apis/indexAPI";
-import FooterC from "../../../components/users/footer";
-import AccountHeaderC from "../../../components/users/navMenus/searchNav";
-import MenuHeaderC from "../../../components/users/navMenus/pagesNav";
+import FooterC from "../../../components/footer";
+import MainNav from "../../../components/users/mainNav";
+import PagesNav from "../../../components/users/pagesNav";
 import { Grid } from '@mui/material';
 
 const VideoC: FC = () => {
@@ -49,8 +49,8 @@ const VideoC: FC = () => {
 
   return (
     <Grid>
-      <AccountHeaderC />
-      <MenuHeaderC/>
+      <MainNav />
+      <PagesNav cartQty={cartQty} />
       <FooterC />
     </Grid>
   );

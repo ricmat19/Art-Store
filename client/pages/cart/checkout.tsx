@@ -2,8 +2,8 @@ import { useRef, useState } from "react";
 // import React, { useContext, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import OrderSummaryC from "../../components/users/cart/orderSummary";
-import HeaderC from "../../components/users/navMenus/pagesNav";
-import FooterC from "../../components/users/footer";
+import HeaderC from "../../components/users/pagesNav";
+import FooterC from "../../components/footer";
 import IndexAPI from "../../apis/indexAPI";
 import { Grid } from '@mui/material';
 import {

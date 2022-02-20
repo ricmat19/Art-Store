@@ -1,28 +1,29 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import IndexAPI from "../../../apis/indexAPI";
+import { Modal, Fade, Box, Grid } from "@mui/material";
 
 interface IModalState {
-  show: boolean,
-  onHide: () => void,
-  email: string,
-  password: string,
-  passwordCopy: string,
-  firstName: string,
-  lastName: string
+  open: boolean;
+  handleClose: () => void;
+  email: string;
+  password: string;
+  passwordCopy: string;
+  firstName: string;
+  lastName: string;
 }
 
-function AdminSignUpModalC(props: IModalState) {
-    const [firstName, setFirstName] = useState<string>("");
-    const [lastName, setLastName] = useState<string>("");
-    const [email, setEmail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-    const [passwordCopy, setPasswordCopy] = useState<string>("");
+const AdminSignUpModal = (props: IModalState) => {
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [passwordCopy, setPasswordCopy] = useState<string>("");
 
-    const handleSignup = async (e: { preventDefault: () => void; }) => {
+  const handleSignup = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
-    //   const response = 
+      //   const response =
       await IndexAPI.post("/signup", {
         firstName: firstName,
         lastName: lastName,
@@ -31,19 +32,19 @@ function AdminSignUpModalC(props: IModalState) {
         passwordCopy: passwordCopy,
       });
 
-    //   createUser(response.data.data.user);
+      //   createUser(response.data.data.user);
 
-    //   firstNameInput.current.value = "";
-    //   lastNameInput.current.value = "";
-    //   emailInput.current.value = "";
-    //   passwordInput.current.value = "";
-    //   passwordCopyInput.current.value = "";
+      //   firstNameInput.current.value = "";
+      //   lastNameInput.current.value = "";
+      //   emailInput.current.value = "";
+      //   passwordInput.current.value = "";
+      //   passwordCopyInput.current.value = "";
     } catch (err) {
       console.log(err);
     }
   };
 
-  async (e: { preventDefault: () => void; }) => {
+  async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
       console.log("reset");
@@ -52,26 +53,22 @@ function AdminSignUpModalC(props: IModalState) {
     }
   };
 
-    return (
-        <Modal
-        {...props}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-        >
-        <Modal.Header closeButton>
-            <Modal.Title id="contained-modal-title-vcenter">
-
-            </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+  return (
+    <Modal
+      open={props.open}
+      onClose={props.handleClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Fade in={props.open}>
+        <Box>
         <form>
-            <div 
+            <Grid 
             // ref={signupRef} 
             className="sign-content">
                 <h1 className="sign-header">Create Account</h1>
-                <div className="sign-input">
-                <div className="name-input-div">
+                <Grid className="sign-input">
+                <Grid className="name-input-div">
                     <input
                     type="text"
                     value={props.firstName}
@@ -90,8 +87,8 @@ function AdminSignUpModalC(props: IModalState) {
                         setLastName(e.target.value);
                     }}
                     />
-                </div>
-                <div className="modal-input-div">
+                </Grid>
+                <Grid className="modal-input-div">
                     <input
                     type="email"
                     value={props.email}
@@ -101,8 +98,8 @@ function AdminSignUpModalC(props: IModalState) {
                         setEmail(e.target.value);
                     }}
                     />
-                </div>
-                <div className="modal-input-div">
+                </Grid>
+                <Grid className="modal-input-div">
                     <input
                     type="password"
                     value={props.password}
@@ -112,8 +109,8 @@ function AdminSignUpModalC(props: IModalState) {
                         setPassword(e.target.value);
                     }}
                     />
-                </div>
-                <div className="modal-input-div">
+                </Grid>
+                <Grid className="modal-input-div">
                     <input
                     type="password"
                     value={props.passwordCopy}
@@ -123,9 +120,9 @@ function AdminSignUpModalC(props: IModalState) {
                         setPasswordCopy(e.target.value);
                     }}
                     />
-                </div>
-                </div>
-                <div>
+                </Grid>
+                </Grid>
+                <Grid>
                 <button
                     onClick={handleSignup}
                     type="submit"
@@ -133,24 +130,22 @@ function AdminSignUpModalC(props: IModalState) {
                 >
                     Create Account
                 </button>
-                </div>
-                <div className="sign-footer">
-                <div className="modal-link">
+                </Grid>
+                <Grid className="sign-footer">
+                <Grid className="modal-link">
                     <span>Already have an account? Sign In</span>
-                </div>
-                </div>
-            </div>
+                </Grid>
+                </Grid>
+            </Grid>
             </form>
-        </Modal.Body>
-        <Modal.Footer>
-            <Button onClick={props.onHide}>Close</Button>
-        </Modal.Footer>
-        </Modal>
+        </Box>
+      </Fade>
+    </Modal>
   );
 }
 
-AdminSignUpModalC.propTypes = {
+AdminSignUpModal.propTypes = {
   onHide: PropTypes.string,
 };
 
-export default AdminSignUpModalC;
+export default AdminSignUpModal;

@@ -2,10 +2,11 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import IndexAPI from "../../../apis/indexAPI";
-import HeaderC from "../../../components/users/navMenus/pagesNav";
-import FooterC from "../../../components/users/footer";
+import MainNav from "../../../components/users/mainNav";
+import PagesNav from "../../../components/users/pagesNav";
+import FooterC from "../../../components/footer";
 import Head from "next/head";
-import AddToCartC from "../../../components/users/cart/addToCart";
+import AddToCart from "../../../components/users/cart/addToCart";
 // import {CartContext} from "../../context/CartContext";
 
 const ProductDetailsC = (props: any) => {
@@ -65,7 +66,7 @@ const ProductDetailsC = (props: any) => {
       </Head>
       {/* Added to Cart */}
       {console.log(addedModal)}
-      <AddToCartC modalStatus={addedModal} selectedProduct={selectedProduct} uniqueItem={uniqueItem}/>
+      <AddToCart modalStatus={addedModal} selectedProduct={selectedProduct} uniqueItem={uniqueItem}/>
       {/* <div className={addedModal}>
         <form>
           <div
@@ -92,7 +93,8 @@ const ProductDetailsC = (props: any) => {
         </form>
       </div> */}
 
-      <HeaderC cartQty={cartQty} />
+      <MainNav />
+      <PagesNav cartQty={cartQty} />
       <div className="main-body">
         <div className="item-details">
           <div className="image-div">

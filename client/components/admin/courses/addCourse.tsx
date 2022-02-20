@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 
@@ -7,7 +7,7 @@ interface IModalState {
   handleClose: () => void
 }
 
-const AdminCreateCourseC = (props: IModalState) => {
+const AdminCreateCourse = (props: IModalState) => {
 
   const [title, setTitle] = useState<string>("");
   const [subject, setSubject] = useState<string>("");
@@ -242,4 +242,4 @@ const AdminCreateCourseC = (props: IModalState) => {
   );
 };
 
-export default AdminCreateCourseC;
+export default AdminCreateCourse;

@@ -3,7 +3,13 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Grid } from '@mui/material';
 
-const AddToCartC = (props: any) => {
+interface IItem {
+  modalStatus: string;
+  selectedProduct: any;
+  uniqueItem: any;
+}
+
+const AddToCart = (props: IItem) => {
   const [addedModal] = useState(props.modalStatus);
   const [selectedProduct] = useState(props.selectedProduct);
   const [uniqueItem] = useState(props.uniqueItem);
@@ -54,4 +60,4 @@ const AddToCartC = (props: any) => {
   );
 };
 
-export default AddToCartC;
+export default AddToCart;

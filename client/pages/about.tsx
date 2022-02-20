@@ -1,11 +1,12 @@
 import { useState } from "react";
 import IndexAPI from "../apis/indexAPI";
-import HeaderC from "../components/users/navMenus/pagesNav";
-import FooterC from "../components/users/footer";
+import MainNav from "../components/users/mainNav";
+import PagesNav from "../components/users/pagesNav";
+import FooterC from "../components/footer";
 import Head from "next/head";
 
 const AboutC = (props: any) => {
-  const [cart] = useState(props.cart);
+  const [cartQty] = useState<number>(props.cart.length);
 
   return (
     <div>
@@ -16,7 +17,8 @@ const AboutC = (props: any) => {
           content="About the artHouse19 and its creator."
         ></meta>
       </Head>
-      <HeaderC cartQty={cart.length} />
+      <MainNav />
+      <PagesNav cartQty={cartQty} />
       <div className="main-body">
         <div>
           <div className="align-center">

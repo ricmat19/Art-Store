@@ -1,9 +1,9 @@
 import React, { FC, useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
 import IndexAPI from "../../apis/indexAPI";
-import FooterC from "../../components/users/footer";
-import AccountNavC from "../../components/users/navMenus/searchNav";
-import MenuNavC from "../../components/users/navMenus/pagesNav";
+import FooterC from "../../components/footer";
+import MainNav from "../../components/users/mainNav";
+import PagesNav from "../../components/users/pagesNav";
 import { Grid } from '@mui/material';
 
 const AdminThreadC: FC = () => {
@@ -50,8 +50,8 @@ const AdminThreadC: FC = () => {
 
   return (
     <Grid>
-      <AccountNavC />
-      <MenuNavC />
+      <MainNav />
+      <PagesNav cartQty={cartQty} />
       <Grid className="main-body">
         <Grid className="collection-menu">{}</Grid>
       </Grid>

@@ -1,4 +1,4 @@
-import React, { useState, FC } from "react";
+import { useState, FC } from "react";
 // import SignInModalC from "../auth/signinModal";
 import {
   Grid,
@@ -17,7 +17,7 @@ import {
 //   password: string,
 // }
 
-const AccountNavC: FC = () => {
+const MainNav: FC = () => {
   const [, setDisplaySignInModal] = useState<boolean>(false);
   const [signedIn] = useState<boolean>(true);
   // const [email, ] = useState<string>("");
@@ -292,4 +292,4 @@ const AccountNavC: FC = () => {
   }
 };
 
-export default AccountNavC;
+export default MainNav;

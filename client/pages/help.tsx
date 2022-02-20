@@ -1,15 +1,15 @@
 import React, { FC } from "react";
-import AccountHeaderC from "../components/users/navMenus/searchNav";
-import MenuHeaderC from "../components/users/navMenus/pagesNav";
-import FooterC from "../components/users/footer";
+import MainNav from "../components/users/mainNav";
+import PagesNav from "../components/users/pagesNav";
+import FooterC from "../components/footer";
 import { Grid } from "@mui/material";
 
 const HelpC: FC = () => {
 
   return (
     <div>
-      <AccountHeaderC />
-      <MenuHeaderC />
+      <MainNav />
+      <PagesNav cartQty={cartQty} />
       <Grid>
         <Grid>Help</Grid>
         <Grid></Grid>

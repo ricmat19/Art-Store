@@ -8,7 +8,7 @@ interface IProducts {
   setProducts: () => void,
 }
 
-const AdminDeleteProductC = (props: IProducts) => {
+const AdminDeleteProduct = (props: IProducts) => {
   const [product, setProduct] = useState<string>("");
 
   useEffect(() => {
@@ -58,10 +58,10 @@ const AdminDeleteProductC = (props: IProducts) => {
   );
 };
 
-AdminDeleteProductC.propTypes = {
+AdminDeleteProduct.propTypes = {
   deleteItem: PropTypes.string,
   products: PropTypes.array,
   setProducts: PropTypes.func,
 };
 
-export default AdminDeleteProductC;
+export default AdminDeleteProduct;

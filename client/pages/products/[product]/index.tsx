@@ -2,14 +2,17 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import ReactPaginate from "react-paginate";
-import IndexAPI from "../apis/indexAPI";
-import HeaderC from "../components/users/navMenus/pagesNav";
-import FooterC from "../components/users/footer";
-import { ICart, IProduct } from "../interfaces";
+import IndexAPI from "../../../apis/indexAPI";
+import MainNav from "../../../components/users/mainNav";
+import PagesNav from "../../../components/users/pagesNav";
+import FooterC from "../../../components/footer";
+import { IProduct } from "../../../interfaces";
 import Head from "next/head";
+import { Grid } from '@mui/material';
+import ProductsNav from "../../../components/users/products/productsNav";
 
 const ProductsC = (props: any) => {
-  const [cart] = useState<ICart[]>(props.cart);
+  const [cartQty] = useState<number>(props.cart.length);
   const [products] = useState<IProduct[]>(props.products);
   const [pageNumber, setPageNumber] = useState<number>(0);
 
@@ -20,23 +23,23 @@ const ProductsC = (props: any) => {
     .slice(pagesVisted, pagesVisted + itemsPerPage)
     .map((item: any) => {
       return (
-        <div
+        <Grid
           className="pointer"
           key={item.id}
           onClick={() => displayItem(item.product, item.id)}
         >
-          <div className="products-item">
+          <Grid className="products-item">
             <img
               className="products-thumbnail"
               src={item.imageBuffer}
               alt={item.title}
             />
-          </div>
-          <div className="products-thumbnail-footer">
+          </Grid>
+          <Grid className="products-thumbnail-footer">
             <h3 className="align-center">{item.title}</h3>
             <h3 className="align-center">${item.price}.00</h3>
-          </div>
-        </div>
+          </Grid>
+        </Grid>
       );
     });
 
@@ -57,7 +60,7 @@ const ProductsC = (props: any) => {
   };
 
   return (
-    <div>
+    <Grid>
       <Head>
         <title>artHouse19-Store</title>
         <meta
@@ -65,13 +68,12 @@ const ProductsC = (props: any) => {
           content="View a full list of the products available in artHouse19!"
         ></meta>
       </Head>
-      <HeaderC cartQty={cart.length} />
-      <div className="main-body">
-        <div>
-          <div className="align-center">
-            <h1>store</h1>
-          </div>
-          {/* <div className="align-center subtitle-div">
+      <MainNav />
+      <PagesNav cartQty={cartQty} />
+      <Grid className="main-body">
+        <Grid>
+          <ProductsNav />
+          {/* <Grid className="align-center subtitle-div">
           <a className="no-decoration" href="/products/print">
             <h2>2D Prints</h2>
           </a>
@@ -81,8 +83,8 @@ const ProductsC = (props: any) => {
           <a className="no-decoration" href="/products/comic">
             <h2>Comics</h2>
           </a>
-        </div> */}
-          <div className="products-menu">{displayItems}</div>
+        </Grid> */}
+          <Grid className="products-menu">{displayItems}</Grid>
           <ReactPaginate
             previousLabel={"prev"}
             nextLabel={"next"}
@@ -94,15 +96,14 @@ const ProductsC = (props: any) => {
             disabledClassName={"disabledButton"}
             activeClassName={"activeButton"}
           />
-        </div>
+        </Grid>
         <FooterC />
-      </div>
-    </div>
+      </Grid>
+    </Grid>
   );
 };
 
 export async function getStaticProps() {
-
   const cartResponse = await IndexAPI.get(`/cart`);
 
   for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
@@ -141,7 +142,7 @@ export async function getStaticProps() {
   return {
     props: {
       products: productResponse.data.data.product,
-      cart: cartResponse.data.data.cart
+      cart: cartResponse.data.data.cart,
     },
     revalidate: 1,
   };

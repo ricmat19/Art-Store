@@ -1,7 +1,7 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { Grid } from '@mui/material';
 
-const CoursesMenuC: FC = () => {
+const CoursesMenu: FC = () => {
 
   return (
     <Grid container sx={{justifyContent: "center", gap: "25px", mt: "10px"}}>
@@ -21,4 +21,4 @@ const CoursesMenuC: FC = () => {
   );
 };
 
-export default CoursesMenuC;
+export default CoursesMenu;

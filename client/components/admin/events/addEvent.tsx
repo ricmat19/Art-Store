@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 
@@ -7,7 +7,7 @@ interface IModalState {
   handleClose: () => void
 }
 
-const AdminCreateEventC = (props: IModalState) => {
+const AdminCreateEvent = (props: IModalState) => {
 
   const [title, setTitle] = useState<string>("");
   const [images, setImages] = useState<File>();
@@ -204,4 +204,4 @@ const AdminCreateEventC = (props: IModalState) => {
   );
 };
 
-export default AdminCreateEventC;
+export default AdminCreateEvent;

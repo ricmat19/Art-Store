@@ -1,11 +1,11 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { FC, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-import IndexAPI from "../../../../apis/indexAPI";
-import FooterC from "../../../user/standard/footer";
-import { IBlog } from "../../../../interfaces";
-import MediaMenuC from "./blogMenu";
-import AdminAccountNavC from "../../standard/accountNav";
-import AdminMenuNavC from "../../standard/menuNav";
+import IndexAPI from "../../../apis/indexAPI";
+import Footer from "../../../components/footer";
+import { IBlog } from "../../../interfaces";
+import AdminMainNav from "../../../components/admin/mainNav";
+import AdminPagesNav from "../../../components/admin/pagesNav";
 import AddBlog from "./addBlog";
 import { Button, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -68,7 +68,7 @@ const AdminBlogPostsC: FC = () => {
           key={blog.id}
         >
           <Grid className="collection-item" onClick={() => displayBlog(blog.id)}>
-            <img className="collection-thumbnail" src={blog.imageBuffer} />
+            <img className="collection-thumbnail" src={blog.imageBuffer} alt="collection-thumbnail" />
           </Grid>
           <Grid container>
             <Grid xs={6} sx={{textAlign: "left"}}>{blog.title}</Grid>
@@ -104,13 +104,12 @@ const AdminBlogPostsC: FC = () => {
   return (
     <div>
       <AddBlog open={open} handleClose={handleClose}/>
-      <AdminAccountNavC />
-      <AdminMenuNavC />
+      <AdminMainNav />
+      <AdminPagesNav />
       <div className="main-body">
         <Grid sx={{ textAlign: 'right', paddingRight: "50px" }}>
           <Button onClick={handleOpen} sx={{ fontFamily: "Rajdhani", fontSize: "20px", color: "white", textTransform: "none"}}><a>add blog</a></Button>
         </Grid>
-        <MediaMenuC />
         <div className="thumbnail-display">{displayBlogs}</div>
         <ReactPaginate
           previousLabel={"prev"}
@@ -123,7 +122,7 @@ const AdminBlogPostsC: FC = () => {
           disabledClassName={"disabledButton"}
           activeClassName={"activeButton"} pageRangeDisplayed={5} marginPagesDisplayed={5}/>
       </div>
-      <FooterC />
+      <Footer />
     </div>
   );
 };

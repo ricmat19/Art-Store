@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { FC, useState } from "react";
 import { Grid } from '@mui/material';
 
-const DisclaimerC = () => {
+const DisclaimerModal: FC = () => {
   const [disclaimerModal, setDisclaimerModal] = useState("modal-bg active");
 
   const closeDisclaimer = (e: any) => {
@@ -45,4 +45,4 @@ const DisclaimerC = () => {
   );
 };
 
-export default DisclaimerC;
+export default DisclaimerModal;

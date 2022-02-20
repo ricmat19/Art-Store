@@ -1,7 +1,7 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { Grid } from '@mui/material';
 
-const AdminMediasMenuC: FC = () => {
+const AdminMediasMenu: FC = () => {
 
   return (
     <Grid container sx={{justifyContent: "center", gap: "25px"}}>
@@ -12,4 +12,4 @@ const AdminMediasMenuC: FC = () => {
   );
 };
 
-export default AdminMediasMenuC;
+export default AdminMediasMenu;

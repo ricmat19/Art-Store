@@ -3,10 +3,10 @@ import React, { FC, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 // import IndexAPI from "../../../apis/indexAPI";
 import { ICourse } from "../../../interfaces";
-import AccountHeaderC from "../../../components/users/navMenus/searchNav";
-import MenuHeaderC from "../../../components/users/navMenus/pagesNav";
-import FooterC from "../../../components/users/footer";
-import CoursesMenuC from "../../../components/users/courses/coursesMenue";
+import MainNav from "../../../components/users/mainNav";
+import PagesNav from "../../../components/users/pagesNav";
+import FooterC from "../../../components/footer";
+import CoursesNav from "../../../components/users/courses/coursesMenu";
 import { Grid } from '@mui/material';
 
 const CoursesC: FC = () => {
@@ -66,7 +66,7 @@ const CoursesC: FC = () => {
         //   onClick={() => displayCourse(course.subject, course.id)}
         >
           <Grid className="collection-item">
-            <img className="collection-thumbnail" src={course.imageBuffer} />
+            <img className="collection-thumbnail" src={course.imageBuffer} alt="collection-thumbnail"/>
           </Grid>
           <Grid className="collection-thumbnail-footer">
             <Grid>{course.title}</Grid>
@@ -88,10 +88,10 @@ const CoursesC: FC = () => {
 
   return (
     <Grid>
-      <AccountHeaderC />
-      <MenuHeaderC />
+      <MainNav />
+      <PagesNav cartQty={cartQty} />
       <Grid className="main-body">
-        <CoursesMenuC />
+        <CoursesNav />
         <Grid className="thumbnail-display">{displayCourses}</Grid>
         <ReactPaginate
           previousLabel={"prev"}

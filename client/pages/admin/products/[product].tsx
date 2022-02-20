@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 // import { Redirect } from "react-router";
 import ReactPaginate from "react-paginate";
 import IndexAPI from "../../../apis/indexAPI";
-import AdminHeaderC from "../../../components/admin/navMenus/pagesNav";
+import AdminPagesNav from "../../../components/admin/pagesNav";
 // import AdminCreateProductC from "../../components/admin/modals/createProduct";
 // import AdminUpdateProductC from "../../components/admin/modals/updateProduct";
 // import AdminDeleteProductC from "../../components/admin/modals/deleteProduct";
@@ -13,7 +13,7 @@ import Head from "next/head";
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const AdminProductsC = (props: any) => {
+const AdminProducts = (props: any) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
   // const [createProductModal, setCreateProductModal] =
   //   useState<string>("modal-bg");
@@ -132,7 +132,7 @@ const AdminProductsC = (props: any) => {
         <Head>
           <title>artHouse19-Admin Products</title>
         </Head>
-        <AdminHeaderC />
+        <AdminPagesNav />
         {/* <div className={createProductModal}>
           <div
             // ref={createProductRef}
@@ -247,4 +247,4 @@ export async function getStaticProps(context: { params: { product: any } }) {
   };
 }
 
-export default AdminProductsC;
+export default AdminProducts;

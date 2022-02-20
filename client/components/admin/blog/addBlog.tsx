@@ -1,5 +1,5 @@
-import React, { useState, useRef } from "react";
-import IndexAPI from "../../../../apis/indexAPI";
+import { useState, useRef } from "react";
+import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 
 interface IModalState {
@@ -7,7 +7,7 @@ interface IModalState {
   handleClose: () => void
 }
 
-const AdminAddBlogC = (props: IModalState) => {
+const AdminAddBlog = (props: IModalState) => {
 
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
@@ -163,4 +163,4 @@ const AdminAddBlogC = (props: IModalState) => {
   );
 };
 
-export default AdminAddBlogC;
+export default AdminAddBlog;

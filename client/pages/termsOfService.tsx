@@ -1,15 +1,15 @@
 import React, { FC } from "react";
-import AccountHeaderC from "../components/users/navMenus/searchNav";
-import MenuHeaderC from "../components/users/navMenus/pagesNav";
-import FooterC from "../components/users/footer";
+import MainNav from "../components/users/mainNav";
+import PagesNav from "../components/users/pagesNav";
+import FooterC from "../components/footer";
 import { Grid } from "@mui/material";
 
 const TermsOfServiceC: FC = () => {
   return (
     <Grid>
-      <AccountHeaderC />
-      <MenuHeaderC />
-      <Grid sx={{margin: "30px 100px"}}>
+      <MainNav />
+      <PagesNav cartQty={cartQty} />
+      <Grid sx={{ margin: "30px 100px" }}>
         <Grid>Terms of Service</Grid>
         <Grid>
           <Grid className="container">
@@ -24,10 +24,10 @@ const TermsOfServiceC: FC = () => {
                   <a href="/privacy">Privacy&nbsp;policy</a>.
                 </p>
                 <p className="text-center">
-                  Before using any RDCArt services, you must read,
-                  understand and agree to these terms. The column on the right
-                  provides a short explanation of the terms of use and is not
-                  legally binding.
+                  Before using any RDCArt services, you must read, understand
+                  and agree to these terms. The column on the right provides a
+                  short explanation of the terms of use and is not legally
+                  binding.
                 </p>
               </Grid>
             </Grid>
@@ -93,8 +93,8 @@ const TermsOfServiceC: FC = () => {
                     benefits, features and levels of membership from
                     time-to-time by sending you an email or by posting the
                     changes on the Site. Our provision of the above benefits to
-                    you, including RDCArt Learning (defined in section 9),
-                    the Marketplace (defined in section 10(a)), and all other
+                    you, including RDCArt Learning (defined in section 9), the
+                    Marketplace (defined in section 10(a)), and all other
                     services we provide on the Site, are collectively the
                     “Services”. Epic may use third parties to provide some or
                     all of the Services. The Services may be provided using
@@ -164,8 +164,8 @@ const TermsOfServiceC: FC = () => {
                   <blockquote>
                     <small>Basically...</small>
                     <p className="lead">
-                      Don&apos;t use an offensive username. Keep your login details
-                      secure.
+                      Don&apos;t use an offensive username. Keep your login
+                      details secure.
                     </p>
                   </blockquote>
                 </Grid>
@@ -236,8 +236,8 @@ const TermsOfServiceC: FC = () => {
                   <blockquote>
                     <small>Basically...</small>
                     <p className="lead">
-                      If you want paid services, e.g. the Pro account, you&apos;ll
-                      have to pay for it.
+                      If you want paid services, e.g. the Pro account,
+                      you&apos;ll have to pay for it.
                     </p>
                   </blockquote>
                 </Grid>
@@ -248,8 +248,8 @@ const TermsOfServiceC: FC = () => {
                   <h3>9. RDCArt Learning</h3>
                   <h4>a. Overview</h4>
                   <p>
-                    RDCArt Learning (“RDCArt Learning”) is an optional
-                    Service that allows eligible members to access and stream
+                    RDCArt Learning (“RDCArt Learning”) is an optional Service
+                    that allows eligible members to access and stream
                     instructional and tutorial video content from the Site
                     (“Learning Content”) and download and use certain digital
                     resources (“Learning Resources”) (for example, digital
@@ -264,9 +264,8 @@ const TermsOfServiceC: FC = () => {
                     supported computers and devices. The Learning Content is or
                     may be protected by digital rights management or other
                     technological protection measures. All Learning Content is
-                    RDCArt Property subject to section 16 (Ownership),
-                    section 24 (Use of the Services) and the remainder of these
-                    Terms.
+                    RDCArt Property subject to section 16 (Ownership), section
+                    24 (Use of the Services) and the remainder of these Terms.
                   </p>
                   <h4>c. Learning Resources</h4>
                   <p>
@@ -333,12 +332,12 @@ const TermsOfServiceC: FC = () => {
                   <blockquote>
                     <small>Basically...</small>
                     <p className="lead">
-                      If you&apos;re using RDCArt Learning, you cannot pirate the
-                      content. You cannot copy and redistribute the content. If
-                      a course has downloadable files, you can use it for your
-                      own projects, but you cannot redistribute it to others in
-                      any way, shape or form, including copying it to a shared
-                      server/drive.{" "}
+                      If you&apos;re using RDCArt Learning, you cannot pirate
+                      the content. You cannot copy and redistribute the content.
+                      If a course has downloadable files, you can use it for
+                      your own projects, but you cannot redistribute it to
+                      others in any way, shape or form, including copying it to
+                      a shared server/drive.{" "}
                     </p>
                   </blockquote>
                 </Grid>
@@ -679,8 +678,8 @@ const TermsOfServiceC: FC = () => {
                   <blockquote>
                     <small>Basically...</small>
                     <p className="lead">
-                      If you buy stuff from the RDCArt Marketplace, this
-                      applies to you.
+                      If you buy stuff from the RDCArt Marketplace, this applies
+                      to you.
                     </p>
                   </blockquote>
                 </Grid>
@@ -735,8 +734,8 @@ const TermsOfServiceC: FC = () => {
                     <small>Basically...</small>
                     <p className="lead">
                       You agree to any rules about acceptable behavior on
-                      RDCArt. Be nice and respectful to people and you&apos;ll be
-                      fine.
+                      RDCArt. Be nice and respectful to people and you&apos;ll
+                      be fine.
                     </p>
                   </blockquote>
                 </Grid>
@@ -786,12 +785,11 @@ const TermsOfServiceC: FC = () => {
                   <blockquote>
                     <small>Basically...</small>
                     <p className="lead">
-                      When you submit your info on RDCArt, we save it
-                      somewhere and we use it internally to help make a good
-                      service for you. Because we depend on external services to
-                      run RDCArt (e.g. hosting), your info might be stored
-                      on their service and you&apos;re giving us permission to do
-                      this.
+                      When you submit your info on RDCArt, we save it somewhere
+                      and we use it internally to help make a good service for
+                      you. Because we depend on external services to run RDCArt
+                      (e.g. hosting), your info might be stored on their service
+                      and you&apos;re giving us permission to do this.
                     </p>
                   </blockquote>
                 </Grid>
@@ -817,9 +815,9 @@ const TermsOfServiceC: FC = () => {
                     (a) all other content on the Site or provided through the
                     Services, including all Learning Content, all Learning
                     Resources, and all text, photos, videos, templates, and
-                    other content provided by Epic (collectively, the
-                    “RDCArt Content”) and all intellectual property rights
-                    in the RDCArt Content; and
+                    other content provided by Epic (collectively, the “RDCArt
+                    Content”) and all intellectual property rights in the RDCArt
+                    Content; and
                   </p>
                   <p>
                     (b) all tools, hardware and software used to provide the
@@ -836,17 +834,17 @@ const TermsOfServiceC: FC = () => {
                   </p>
                   <p>
                     You must not copy, modify, distribute, use, exploit or make
-                    derivative works from any of the RDCArt Property except
-                    as explicitly permitted by Epic.
+                    derivative works from any of the RDCArt Property except as
+                    explicitly permitted by Epic.
                   </p>
                 </Grid>
                 <Grid className="col-sm-4">
                   <blockquote>
                     <small>Basically...</small>
                     <p className="lead">
-                      Whatever original content you post on RDCArt belongs
-                      to you. We don&apos;t claim any ownership over your stuff. All
-                      the other stuff (the RDCArt UI, etc.) is ours.
+                      Whatever original content you post on RDCArt belongs to
+                      you. We don&apos;t claim any ownership over your stuff.
+                      All the other stuff (the RDCArt UI, etc.) is ours.
                     </p>
                   </blockquote>
                 </Grid>
@@ -883,10 +881,10 @@ const TermsOfServiceC: FC = () => {
                   <blockquote>
                     <small>Basically...</small>
                     <p className="lead">
-                      You&apos;re allowing us to use your artwork and name for things
-                      connected with RDCArt. E.g. if we want to post it on
-                      Facebook to promote you, we&apos;re allowed to do that. We
-                      won&apos;t sell your artwork.
+                      You&apos;re allowing us to use your artwork and name for
+                      things connected with RDCArt. E.g. if we want to post it
+                      on Facebook to promote you, we&apos;re allowed to do that.
+                      We won&apos;t sell your artwork.
                     </p>
                   </blockquote>
                 </Grid>
@@ -909,8 +907,8 @@ const TermsOfServiceC: FC = () => {
                   <blockquote>
                     <small>Basically...</small>
                     <p className="lead">
-                      When you post stuff to RDCArt, make sure that you own
-                      it or that you have permission to post it.
+                      When you post stuff to RDCArt, make sure that you own it
+                      or that you have permission to post it.
                     </p>
                   </blockquote>
                 </Grid>
@@ -996,8 +994,8 @@ const TermsOfServiceC: FC = () => {
                   <p>
                     (a) reverse engineer, de-compile, hack, disable, disrupt,
                     interfere with, disassemble, copy, decrypt, reassemble,
-                    supplement, translate, adapt or enhance any of the
-                    RDCArt Property or the Services;
+                    supplement, translate, adapt or enhance any of the RDCArt
+                    Property or the Services;
                   </p>
                   <p>
                     (b) create a link, name or label, or otherwise upload to or
@@ -1051,8 +1049,8 @@ const TermsOfServiceC: FC = () => {
                     </li>
                     <li>
                       conduct or instigate any denial of service attack against
-                      the RDCArt website or network, any other Epic website
-                      or network, or any third party’s website or network;
+                      the RDCArt website or network, any other Epic website or
+                      network, or any third party’s website or network;
                     </li>
                   </ol>
                   <p>
@@ -1099,8 +1097,8 @@ const TermsOfServiceC: FC = () => {
                   <blockquote>
                     <small>Basically...</small>
                     <p className="lead">
-                      Behave in a responsible way. Don&apos;t try to hack us or spam
-                      users.
+                      Behave in a responsible way. Don&apos;t try to hack us or
+                      spam users.
                     </p>
                   </blockquote>
                 </Grid>
@@ -1170,10 +1168,10 @@ const TermsOfServiceC: FC = () => {
                   <blockquote>
                     <small>Basically...</small>
                     <p className="lead">
-                      You&apos;re responsible for your own computer and hardware.
-                      RDCArt shouldn&apos;t cause your hardware to fail. And in
-                      the ridiculously unlikely event that it does, we&apos;re not
-                      responsible for it.
+                      You&apos;re responsible for your own computer and
+                      hardware. RDCArt shouldn&apos;t cause your hardware to
+                      fail. And in the ridiculously unlikely event that it does,
+                      we&apos;re not responsible for it.
                     </p>
                   </blockquote>
                 </Grid>
@@ -1255,8 +1253,8 @@ const TermsOfServiceC: FC = () => {
                   </p>
                   <p>(a) this agreement or our enforcement of it;</p>
                   <p>
-                    (b) the Site, the RDCArt Content, the RDCArt Tools
-                    or the Services; and
+                    (b) the Site, the RDCArt Content, the RDCArt Tools or the
+                    Services; and
                   </p>
                   <p>
                     (c) the amount, type or payment of fees in connection with
@@ -1305,9 +1303,10 @@ const TermsOfServiceC: FC = () => {
                   <blockquote>
                     <small>Basically...</small>
                     <p className="lead">
-                      If you don&apos;t use RDCArt for a really long time, we can
-                      remove your account. If you don&apos;t pay us, we can remove
-                      your account. You can also terminate the account yourself.
+                      If you don&apos;t use RDCArt for a really long time, we
+                      can remove your account. If you don&apos;t pay us, we can
+                      remove your account. You can also terminate the account
+                      yourself.
                     </p>
                   </blockquote>
                 </Grid>
@@ -1354,8 +1353,7 @@ const TermsOfServiceC: FC = () => {
                   <blockquote>
                     <small>Basically...</small>
                     <p className="lead">
-                      Stuff that is linked from RDCArt is out of our
-                      control.
+                      Stuff that is linked from RDCArt is out of our control.
                     </p>
                   </blockquote>
                 </Grid>
@@ -1395,8 +1393,8 @@ const TermsOfServiceC: FC = () => {
                   <blockquote>
                     <small>Basically...</small>
                     <p className="lead">
-                      You can link to RDCArt, but please don&apos;t post false or
-                      misleading information.
+                      You can link to RDCArt, but please don&apos;t post false
+                      or misleading information.
                     </p>
                   </blockquote>
                 </Grid>
@@ -1406,37 +1404,36 @@ const TermsOfServiceC: FC = () => {
                 <Grid className="col-sm-8">
                   <h3>38. Disclaimer</h3>
                   <p>
-                    THE SITE, THE RDCArt CONTENT, THE RDCArt TOOLS AND
-                    THE SERVICES ARE PROVIDED “AS IS” AND “AS AVAILABLE”. EPIC
+                    THE SITE, THE RDCArt CONTENT, THE RDCArt TOOLS AND THE
+                    SERVICES ARE PROVIDED “AS IS” AND “AS AVAILABLE”. EPIC
                     DISCLAIMS ALL TERMS, CONDITIONS, GUARANTEES, REPRESENTATIONS
                     AND WARRANTIES (EXPRESS, IMPLIED, STATUTORY AND OTHERWISE),
-                    IN RESPECT OF THE SITE, THE RDCArt CONTENT, THE
-                    RDCArt TOOLS AND THE SERVICES, INCLUDING THOSE OF
-                    MERCHANTABILITY, NON-INFRINGEMENT, TITLE, QUALITY AND
-                    FITNESS FOR A PARTICULAR PURPOSE.
+                    IN RESPECT OF THE SITE, THE RDCArt CONTENT, THE RDCArt TOOLS
+                    AND THE SERVICES, INCLUDING THOSE OF MERCHANTABILITY,
+                    NON-INFRINGEMENT, TITLE, QUALITY AND FITNESS FOR A
+                    PARTICULAR PURPOSE.
                   </p>
                   <Grid className="separator"></Grid>
                   <h3>39. Limitation of Liability</h3>
                   <p>
-                    YOU USE THE SITE, THE RDCArt CONTENT, THE RDCArt
-                    TOOLS AND THE SERVICES AT YOUR OWN RISK. EPIC WILL NOT BE
-                    LIABLE FOR ANY LOSS IN CONNECTION TO THE USE OF, OR
-                    INABILITY TO USE, THE SITE, THE RDCArt CONTENT, THE
-                    RDCArt TOOLS AND THE SERVICES, INCLUDING ANY LOSS TO
-                    YOUR CONTENT. TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE
-                    LAW, AND WITHOUT LIMITING THE PREVIOUS SENTENCE, EPIC WILL
-                    NOT BE LIABLE FOR ANY INDIRECT, CONSEQUENTIAL, INCIDENTAL,
-                    SPECIAL, PUNITIVE OR EXEMPLARY DAMAGES OR LOST PROFITS
-                    WHATSOEVER IN CONNECTION WITH THE SITE, THE RDCArt
-                    CONTENT, THE RDCArt TOOLS OR THE SERVICES.
+                    YOU USE THE SITE, THE RDCArt CONTENT, THE RDCArt TOOLS AND
+                    THE SERVICES AT YOUR OWN RISK. EPIC WILL NOT BE LIABLE FOR
+                    ANY LOSS IN CONNECTION TO THE USE OF, OR INABILITY TO USE,
+                    THE SITE, THE RDCArt CONTENT, THE RDCArt TOOLS AND THE
+                    SERVICES, INCLUDING ANY LOSS TO YOUR CONTENT. TO THE MAXIMUM
+                    EXTENT PERMITTED BY APPLICABLE LAW, AND WITHOUT LIMITING THE
+                    PREVIOUS SENTENCE, EPIC WILL NOT BE LIABLE FOR ANY INDIRECT,
+                    CONSEQUENTIAL, INCIDENTAL, SPECIAL, PUNITIVE OR EXEMPLARY
+                    DAMAGES OR LOST PROFITS WHATSOEVER IN CONNECTION WITH THE
+                    SITE, THE RDCArt CONTENT, THE RDCArt TOOLS OR THE SERVICES.
                   </p>
                   <Grid className="separator"></Grid>
                   <h3>40. Maximum Liability</h3>
                   <p>
                     IF, DESPITE THE ABOVE LIMITATIONS, EPIC BECOMES LIABLE TO
-                    YOU IN RESPECT OF THE SITE, THE RDCArt CONTENT, THE
-                    RDCArt TOOLS OR THE SERVICES, OR A COMBINATION OF THE
-                    FOREGOING, THAT LIABILITY WILL BE LIMITED TO USD $500.
+                    YOU IN RESPECT OF THE SITE, THE RDCArt CONTENT, THE RDCArt
+                    TOOLS OR THE SERVICES, OR A COMBINATION OF THE FOREGOING,
+                    THAT LIABILITY WILL BE LIMITED TO USD $500.
                   </p>
                   <Grid className="separator"></Grid>
                   <h3>41. Indemnity</h3>
@@ -1454,8 +1451,8 @@ const TermsOfServiceC: FC = () => {
                     OR VIOLATES THE RIGHTS OF ANY THIRD PARTY;
                   </p>
                   <p>
-                    (B) YOUR USE OF THE SITE, THE RDCArt CONTENT, THE
-                    RDCArt TOOLS OR THE SERVICES; OR
+                    (B) YOUR USE OF THE SITE, THE RDCArt CONTENT, THE RDCArt
+                    TOOLS OR THE SERVICES; OR
                   </p>
                   <p>
                     (C) THE UNTRUTHFULNESS OR INACCURACY OF ANY OF YOUR
@@ -1470,9 +1467,10 @@ const TermsOfServiceC: FC = () => {
                   <blockquote>
                     <small>Basically...</small>
                     <p className="lead">
-                      We&apos;re providing RDCArt to you as it is. If there&apos;s
-                      anything wrong with it, we&apos;re gonna do our best to fix it,
-                      but we can&apos;t be held legally responsible or liable.
+                      We&apos;re providing RDCArt to you as it is. If
+                      there&apos;s anything wrong with it, we&apos;re gonna do
+                      our best to fix it, but we can&apos;t be held legally
+                      responsible or liable.
                     </p>
                   </blockquote>
                 </Grid>
@@ -1540,9 +1538,9 @@ const TermsOfServiceC: FC = () => {
                   <blockquote>
                     <small>Basically...</small>
                     <p className="lead">
-                      If you have a disagreement with another user on
-                      RDCArt, please figure it out with them and don&apos;t drag
-                      us into it.
+                      If you have a disagreement with another user on RDCArt,
+                      please figure it out with them and don&apos;t drag us into
+                      it.
                     </p>
                   </blockquote>
                 </Grid>

@@ -1,17 +1,18 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import SignUpModalC from "./signupModal";
-import ResetPasswordModalC from "./resetModal";
+import ResetModalC from "./resetModal";
 import IndexAPI from "../../../apis/indexAPI";
+import { Modal, Fade, Box, Grid } from "@mui/material";
 
 interface IModalState {
-  open: boolean,
-  onClose: () => void,
-  email: string,
-  password: string,
+  open: boolean;
+  handleClose: () => void;
+  email: string;
+  password: string;
 }
 
-function AdminSignInModalC(props: IModalState) {
+const AdminSignInModal = (props: IModalState) => {
   const [displayReset, setDisplayReset] = useState<boolean>(false);
   const [displaySignup, setDisplaySignup] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
@@ -20,25 +21,24 @@ function AdminSignInModalC(props: IModalState) {
   const [lastName] = useState<string>("");
   const [passwordCopy] = useState<string>("");
 
-  const handleSignin = async (e: { preventDefault: () => void; }) => {
+  const handleSignin = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
       await IndexAPI.post("/signin", {
         email: email,
         password: password,
-      })
+      });
     } catch (err) {
       console.log(err);
     }
   };
 
   return (
-    <div>
-
-       {/* signup */}
-       <SignUpModalC 
-        show={displaySignup} 
-        onHide={() => setDisplaySignup(false)}
+    <Grid>
+      {/* signup */}
+      <SignUpModalC
+        open={displaySignup}
+        handleClose={() => setDisplaySignup(false)}
         firstName={firstName}
         lastName={lastName}
         email={email}
@@ -47,78 +47,79 @@ function AdminSignInModalC(props: IModalState) {
       />
 
       {/* reset */}
-      <ResetPasswordModalC 
-        show={displayReset} 
-        onHide={() => setDisplayReset(false)}
+      <ResetModalC
+        open={displayReset}
+        handleClose={() => setDisplayReset(false)}
+        email={props.email}
+        password={props.password}
       />
-      
-      <Modal
-        {...props}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
 
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-        <form>
-            <div 
-            // ref={signinRef} 
-            className="sign-content">
-              <h1 className="sign-header">welcome</h1>
-              <div>
-                <div className="modal-input-div">
-                  <input
-                    type="email"
-                    value={props.email}
-                    name="email"
-                    placeholder="Email"
-                    onChange={(e) => {
-                      setEmail(e.target.value);
-                    }}
-                  />
-                </div>
-                <div className="modal-input-div">
-                  <input
-                    type="password"
-                    value={props.password}
-                    name="password"
-                    placeholder="Create Password"
-                    onChange={(e) => {
-                      setPassword(e.target.value);
-                    }}
-                  />
-                </div>
-              </div>
-              <div>
-                <button 
-                onClick={handleSignin}
-                >sign in</button>
-              </div>
-              <div className="sign-footer">
-                <div className="modal-link" onClick={() => setDisplayReset(true)}>
-                  <span>forgot password?</span>
-                </div>
-                <div className="modal-link" onClick={() => setDisplaySignup(true)}>
-                  <span>create account</span>
-                </div>
-              </div>
-            </div>
-          </form>
-        </Modal.Body>
-        <Modal.Footer>
-          {/* <Button onClick={props.onHide}>Close</Button> */}
-        </Modal.Footer>
+      <Modal
+        open={props.open}
+        onClose={props.handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Fade in={props.open}>
+          <Box>
+            <form>
+              <Grid
+                // ref={signinRef}
+                className="sign-content"
+              >
+                <h1 className="sign-header">welcome</h1>
+                <Grid>
+                  <Grid className="modal-input-div">
+                    <input
+                      type="email"
+                      value={props.email}
+                      name="email"
+                      placeholder="Email"
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                      }}
+                    />
+                  </Grid>
+                  <Grid className="modal-input-div">
+                    <input
+                      type="password"
+                      value={props.password}
+                      name="password"
+                      placeholder="Create Password"
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                      }}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid>
+                  <button onClick={handleSignin}>sign in</button>
+                </Grid>
+                <Grid className="sign-footer">
+                  <Grid
+                    className="modal-link"
+                    onClick={() => setDisplayReset(true)}
+                  >
+                    <span>forgot password?</span>
+                  </Grid>
+                  <Grid
+                    className="modal-link"
+                    onClick={() => setDisplaySignup(true)}
+                  >
+                    <span>create account</span>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </form>
+          </Box>
+        </Fade>
       </Modal>
-    </div>
+    </Grid>
   );
 }
 
-AdminSignInModalC.propTypes = {
+AdminSignInModal.propTypes = {
   onHide: PropTypes.string,
 };
 
-export default AdminSignInModalC;
+export default AdminSignInModal;

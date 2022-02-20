@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import IndexAPI from "../../../apis/indexAPI";
 import { Grid, Button } from '@mui/material';
@@ -13,7 +13,7 @@ interface IModalState {
   lastName: string
 }
 
-function SignUpModalC(props: IModalState) {
+const SignUpModal = (props: IModalState) => {
     const [firstName, setFirstName] = useState<string>("");
     const [lastName, setLastName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
@@ -150,8 +150,8 @@ function SignUpModalC(props: IModalState) {
   );
 }
 
-SignUpModalC.propTypes = {
+SignUpModal.propTypes = {
   onHide: PropTypes.string,
 };
 
-export default SignUpModalC;
+export default SignUpModal;

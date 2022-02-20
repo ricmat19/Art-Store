@@ -1,19 +1,20 @@
 import { useState } from "react";
-import HeaderC from "../components/users/navMenus/pagesNav";
-import FooterC from "../components/users/footer";
+import MainNav from "../components/users/mainNav";
+import PagesNav from "../components/users/pagesNav";
+import FooterC from "../components/footer";
 import Head from "next/head";
 import IndexAPI from "../apis/indexAPI";
 
 const PageNotFoundC = (props: any) => {
-
-  const [cart] = useState(props.cart);
+  const [cartQty] = useState(props.cart.length);
 
   return (
     <div>
       <Head>
         <title>artHouse19-404</title>
       </Head>
-      <HeaderC cartQty={cart.length}/>
+      <MainNav />
+      <PagesNav cartQty={cartQty} />
       <div className="main-body">
         <h1>Page Not Found (404)</h1>
         <FooterC />
@@ -23,7 +24,6 @@ const PageNotFoundC = (props: any) => {
 };
 
 export async function getStaticProps() {
-
   const cartResponse = await IndexAPI.get(`/cart`);
 
   for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
@@ -43,7 +43,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      cart: cartResponse.data.data.cart
+      cart: cartResponse.data.data.cart,
     },
     revalidate: 1,
   };

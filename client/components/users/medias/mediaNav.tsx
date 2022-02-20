@@ -1,7 +1,7 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { Grid } from '@mui/material';
 
-const MediasMenuC: FC = () => {
+const MediaNav: FC = () => {
 
   return (
     <Grid container sx={{justifyContent: "center", gap: "25px", mt: "10px"}}>
@@ -18,4 +18,4 @@ const MediasMenuC: FC = () => {
   );
 };
 
-export default MediasMenuC;
+export default MediaNav;

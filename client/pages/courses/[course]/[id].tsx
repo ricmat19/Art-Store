@@ -1,8 +1,8 @@
 import React, { FC, useState } from "react";
 import ReactPlayer from "react-player";
-import AccountHeaderC from "../../../components/users/navMenus/searchNav";
-import MenuHeaderC from "../../../components/users/navMenus/pagesNav";
-import FooterC from "../../../components/users/footer";
+import MainNav from "../../../components/users/mainNav";
+import PagesNav from "../../../components/users/pagesNav";
+import FooterC from "../../../components/footer";
 import { Grid } from "@mui/material";
 
 const CourseC: FC = () => {
@@ -12,8 +12,8 @@ const CourseC: FC = () => {
 
   return (
     <div>
-      <AccountHeaderC />
-      <MenuHeaderC />
+      <MainNav />
+      <PagesNav cartQty={cartQty} />
       <Grid container sx={{gap: "25px", justifyContent: "center", padding: "25px 0"}} className="main-body">
         <Grid container xs={8}>
           <ReactPlayer url="../../../homeVideo.mp4" width="100%" height="fit-content" controls />

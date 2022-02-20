@@ -10,7 +10,7 @@ interface IProducts {
   setProducts: () => void,
 }
 
-const AdminUpdateProductC = (props: IProducts) => {
+const AdminUpdateProduct = (props: IProducts) => {
   const [,setProducts] = useState<IProduct[]>([]);
   const [image, setImage] = useState<string>("");
   const [title, setTitle] = useState<string>("");
@@ -198,8 +198,8 @@ const AdminUpdateProductC = (props: IProducts) => {
   );
 };
 
-AdminUpdateProductC.propTypes = {
+AdminUpdateProduct.propTypes = {
   updateItem: PropTypes.string,
 };
 
-export default AdminUpdateProductC;
+export default AdminUpdateProduct;

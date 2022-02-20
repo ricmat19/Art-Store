@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import IndexAPI from "../../../apis/indexAPI";
 import PropTypes from "prop-types";
@@ -8,7 +8,7 @@ import { Grid } from '@mui/material';
 
 // import { CartContext } from "../context/CartContext";
 
-const CartProductsC = (props:any) => {
+const CartProducts: FC = (props:any) => {
   const [cart, setCart] = useState<ICart[]>([]);
   const [prices, setPrices] = useState<number[]>([]);
   const [cartQty, setCartQty] = useState<number[]>([]);
@@ -204,9 +204,9 @@ const CartProductsC = (props:any) => {
   );
 };
 
-CartProductsC.propTypes = {
+CartProducts.propTypes = {
   cart: PropTypes.array,
   setCart: PropTypes.func,
 };
 
-export default CartProductsC;
+export default CartProducts;

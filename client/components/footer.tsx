@@ -1,8 +1,9 @@
+import { FC } from "react";
 import { faInstagram, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Grid } from '@mui/material';
 
-const FooterC = () => {
+const Footer: FC = () => {
   return (
     <footer>
       <Grid className="align-center footer-pad">
@@ -32,4 +33,4 @@ const FooterC = () => {
   );
 };
 
-export default FooterC;
+export default Footer;

@@ -1,11 +1,12 @@
 import { useState, useRef } from "react";
 import IndexAPI from "../apis/indexAPI";
-import HeaderC from "../components/users/navMenus/pagesNav";
-import FooterC from "../components/users/footer";
+import MainNav from "../components/users/mainNav";
+import PagesNav from "../components/users/pagesNav";
+import FooterC from "../components/footer";
 import Head from "next/head";
 
 const ContactC = (props: any) => {
-  const [cart] = useState(props.cart);
+  const [cartQty] = useState<number>(props.cart.length);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -40,9 +41,13 @@ const ContactC = (props: any) => {
     <div>
       <Head>
         <title>artHouse19-Contact</title>
-        <meta name="description" content="Contact page if you want to reach out to artHouse19"></meta>
+        <meta
+          name="description"
+          content="Contact page if you want to reach out to artHouse19"
+        ></meta>
       </Head>
-      <HeaderC cartQty={cart.length}/>
+      <MainNav />
+      <PagesNav cartQty={cartQty} />
       <div className="main-body">
         <div>
           <div className="align-center">
@@ -104,7 +109,6 @@ const ContactC = (props: any) => {
 };
 
 export async function getStaticProps() {
-
   const cartResponse = await IndexAPI.get(`/cart`);
 
   for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
@@ -124,7 +128,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      cart: cartResponse.data.data.cart
+      cart: cartResponse.data.data.cart,
     },
     revalidate: 1,
   };

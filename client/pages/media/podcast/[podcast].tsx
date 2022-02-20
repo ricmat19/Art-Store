@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { Grid } from '@mui/material';
 // import { useParams } from "react-router";
 // import IndexAPI from "../../../apis/indexAPI";
