@@ -2,7 +2,7 @@
 import { FC, useState } from "react";
 import IndexAPI from "../../../apis/indexAPI";
 import FooterC from "../../../components/footer";
-import MediaNav from "../../../components/users/medias/mediaNav";
+import MediaNav from "../../../components/users/media/mediaNav";
 import MainNav from "../../../components/users/mainNav";
 import PagesNav from "../../../components/users/pagesNav";
 // import { useNavigate } from "react-router-dom";
@@ -87,9 +87,9 @@ export async function getStaticPaths() {
   const mediaResponse = await IndexAPI.get(`/media`);
 
   const media: string[] = [];
-  for (let i = 0; i < mediaResponse.data.data.media.length; i++) {
-    if (!media.includes(mediaResponse.data.data.media.media)) {
-      media.push(mediaResponse.data.data.media[i].media);
+  for (let i = 0; i < mediaResponse.data.data.medias.length; i++) {
+    if (!media.includes(mediaResponse.data.data.medias.type)) {
+      media.push(mediaResponse.data.data.medias[i].type);
     }
   }
 
@@ -124,10 +124,10 @@ export async function getStaticProps(context: { params: { media: any } }) {
   const media = context.params.media;
   const mediaResponse = await IndexAPI.get(`/media/${media}`);
 
-  for (let i = 0; i < mediaResponse.data.data.media.length; i++) {
-    if (mediaResponse.data.data.media[i].imagekey !== null) {
+  for (let i = 0; i < mediaResponse.data.data.posts.length; i++) {
+    if (mediaResponse.data.data.posts[i].imagekey !== null) {
       let imagesResponse = await IndexAPI.get(
-        `/images/${mediaResponse.data.data.media[i].imagekey}`,
+        `/images/${mediaResponse.data.data.posts[i].imagekey}`,
         {
           responseType: "arraybuffer",
         }
@@ -135,14 +135,14 @@ export async function getStaticProps(context: { params: { media: any } }) {
         Buffer.from(response.data, "binary").toString("base64")
       );
 
-      mediaResponse.data.data.media[
+      mediaResponse.data.data.posts[
         i
       ].imageBuffer = `data:image/png;base64,${imagesResponse}`;
     }
   }
   return {
     props: {
-      media: mediaResponse.data.data.media,
+      media: mediaResponse.data.data.posts,
       cart: cartResponse.data.data.cart,
     },
     revalidate: 1,

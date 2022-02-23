@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
-import MainNav from "../../components/users/mainNav";
-import PagesNav from "../../components/users/pagesNav";
-import IndexAPI from "../../apis/indexAPI";
-import { IEvent, IDay } from "../../interfaces";
-import { Grid } from "@mui/material";
+// import IndexAPI from "../../../apis/indexAPI";
+import { IDay } from "../../../interfaces";
 
 const CalendarC = (props: any) => {
-  const [cartQty] = useState(props.cart.length);
   const [nav, setNav] = useState(0);
   //   const [setClicked] = useState();
-  const [events] = useState<IEvent[]>([]);
+  const [events] = useState(props.events);
   const [days, setDays] = useState<IDay[]>([]);
   const [dateDisplay, setDateDisplay] = useState("");
   //   const [daysEventsModal, setDaysEventsModal] = useState("modal");
@@ -165,41 +161,39 @@ const CalendarC = (props: any) => {
   }, [events, nav]);
 
   return (
-    <Grid>
-      <MainNav />
-      <PagesNav cartQty={cartQty} />
-      <Grid className="grid grid-center user-calendar-container">
-        <Grid className="grid month-row">
-          <Grid>
+    <div>
+      <div className="grid grid-center user-calendar-container">
+        <div className="grid month-row">
+          <div>
             <button onClick={() => setNav(nav - 1)} className="month-back">
               <i className="fas fa-chevron-left"></i>
             </button>
-          </Grid>
-          <Grid className="title month-title">{dateDisplay.toLowerCase()}</Grid>
-          <Grid>
+          </div>
+          <div className="title month-title">{dateDisplay.toLowerCase()}</div>
+          <div>
             <button onClick={() => setNav(nav + 1)} className="month-forward">
               <i className="fas fa-chevron-right"></i>
             </button>
-          </Grid>
-        </Grid>
-        <Grid className="day-names">
-          <Grid className="day-name">sun</Grid>
-          <Grid className="day-name">mon</Grid>
-          <Grid className="day-name">tue</Grid>
-          <Grid className="day-name">wed</Grid>
-          <Grid className="day-name">thur</Grid>
-          <Grid className="day-name">fri</Grid>
-          <Grid className="day-name">sat</Grid>
-        </Grid>
-        <Grid className="title day-boxes">
+          </div>
+        </div>
+        <div className="day-names">
+          <div className="day-name">sun</div>
+          <div className="day-name">mon</div>
+          <div className="day-name">tue</div>
+          <div className="day-name">wed</div>
+          <div className="day-name">thur</div>
+          <div className="day-name">fri</div>
+          <div className="day-name">sat</div>
+        </div>
+        <div className="title day-boxes">
           {days.map((day, index) => (
-            <Grid key={index}>
+            <div key={index}>
               {day.value === "padding" ? (
                 ""
               ) : //   ) : day.event.length > 0 && day.date === day.today ? (
               //   day.event.length > 0 &&
               day.date === day.today ? (
-                <Grid
+                <div
                   className="day-box day-box-task-today"
                   onClick={() => {
                     day.value !== "padding";
@@ -207,15 +201,15 @@ const CalendarC = (props: any) => {
                     //   : setClicked("");
                   }}
                 >
-                  <Grid
+                  <div
                     // onClick={() => displayEventModal(day)}
                     className="center-num"
                   >
                     {day.value}
-                  </Grid>
-                </Grid>
+                  </div>
+                </div>
               ) : day.date === day.today ? (
-                <Grid
+                <div
                   className="day-box day-today"
                   onClick={() => {
                     day.value !== "padding";
@@ -223,16 +217,16 @@ const CalendarC = (props: any) => {
                     //   : setClicked("");
                   }}
                 >
-                  <Grid
+                  <div
                     // onClick={() => displayEventModal(day)}
                     className="center-num"
                   >
                     {day.value}
-                  </Grid>
-                </Grid>
+                  </div>
+                </div>
               ) : (
                 //   ) : day.event.length > 0 ? (
-                //     <Grid
+                //     <div
                 //       className="day-box day-box-task"
                 //       onClick={() => {
                 //         day.value !== "padding"
@@ -240,14 +234,14 @@ const CalendarC = (props: any) => {
                 //         //   : setClicked("");
                 //       }}
                 //     >
-                //       <Grid
+                //       <div
                 //         onClick={() => displayEventModal(day)}
                 //         className="center-num"
                 //       >
                 //         {day.value}
-                //       </Grid>
-                //     </Grid>
-                <Grid
+                //       </div>
+                //     </div>
+                <div
                   className="day-box"
                   onClick={() => {
                     day.value !== "padding";
@@ -255,45 +249,20 @@ const CalendarC = (props: any) => {
                     //   : setClicked("");
                   }}
                 >
-                  <Grid
+                  <div
                     // onClick={() => displayEventModal(day)}
                     className="center-num"
                   >
                     {day.value}
-                  </Grid>
-                </Grid>
+                  </div>
+                </div>
               )}
-            </Grid>
+            </div>
           ))}
-        </Grid>
-      </Grid>
-    </Grid>
+        </div>
+      </div>
+    </div>
   );
 };
-
-export async function getStaticProps() {
-  const cartResponse = await IndexAPI.get(`/cart`);
-
-  for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
-    if (cartResponse.data.data.cart[i].imagekey !== null) {
-      let imagesResponse = await IndexAPI.get(
-        `/images/${cartResponse.data.data.cart[i].imagekey}`,
-        {
-          responseType: "arraybuffer",
-        }
-      ).then((response) =>
-        Buffer.from(response.data, "binary").toString("base64")
-      );
-
-      cartResponse.data.data.cart[i].imageBuffer = imagesResponse;
-    }
-  }
-  return {
-    props: {
-      cart: cartResponse.data.data.cart,
-    },
-    revalidate: 1,
-  };
-}
 
 export default CalendarC;

@@ -1,6 +1,25 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../db");
+const db = require("../../db");
+
+//Get all courses
+router.get("/courses", async (req, res) => {
+  try {
+    const subject = await db.query(
+      "SELECT * FROM courses"
+    );
+
+    res.status(200).json({
+      status: "success",
+      results: subject.rows.length,
+      data: {
+        courses: subject.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 //Get all courses of a certain subject
 router.get("/courses/:subject", async (req, res) => {

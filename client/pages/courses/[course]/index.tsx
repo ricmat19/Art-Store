@@ -115,10 +115,11 @@ export async function getStaticPaths() {
 
   const courseType: string[] = [];
   for(let i = 0; i < coursesResponse.data.data.courses.length; i++){
-    if(!courseType.includes(coursesResponse.data.data.courses.course)){
-      courseType.push(coursesResponse.data.data.courses[i].course)
+    if(!courseType.includes(coursesResponse.data.data.courses.subject)){
+      courseType.push(coursesResponse.data.data.courses[i].subject)
     }
   }
+  console.log(courseType)
 
   return {
     fallback: false,
