@@ -1,9 +1,15 @@
-import { useState, FC } from "react";
+import { useState } from "react";
+import PropTypes from "prop-types";
 // import SignInModalC from "../auth/signinModal";
+import { Grid, Menu } from "@mui/material";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  Grid,
-  Menu
-} from "@mui/material";
+  faBell,
+  faHeart,
+  faShoppingCart,
+  faUserCircle,
+  faEllipsisV,
+} from "@fortawesome/free-solid-svg-icons";
 // import UserModalC from "./userModal";
 // import EllipseModalC from "./ellipseModal";
 // import NotificationModalC from "./notificationModal";
@@ -17,9 +23,10 @@ import {
 //   password: string,
 // }
 
-const MainNav: FC = () => {
+const MainNav = (props: any) => {
   const [, setDisplaySignInModal] = useState<boolean>(false);
   const [signedIn] = useState<boolean>(true);
+  const [cartQty] = useState(props.cartQty);
   // const [email, ] = useState<string>("");
   // const [password, ] = useState<string>("");
 
@@ -58,7 +65,6 @@ const MainNav: FC = () => {
     return (
       <header>
         <nav>
-
           {/* Notification menu modal */}
           <Menu
             anchorEl={notificationOpen}
@@ -190,43 +196,61 @@ const MainNav: FC = () => {
                 />
               </Grid>
             </Grid>
-            <Grid container xs={2} sx={{ alignContent: "center", justifyContent: "center"}}>
+            <Grid
+              container
+              xs={2}
+              sx={{ alignContent: "center", justifyContent: "center" }}
+            >
               <Grid xs={2} container sx={{ justifyContent: "center" }}>
                 <h1>
-                  <i
+                  <FontAwesomeIcon
+                    icon={faBell}
+                    onClick={handleNotificationClick}
+                  />
+                  {/* <i
                     className="far fa-bell account-menu-icon"
                     onClick={handleNotificationClick}
-                  ></i>
+                  ></i> */}
                 </h1>
               </Grid>
               <Grid xs={2} container sx={{ justifyContent: "center" }}>
                 <a href="/collection">
                   <h1>
-                    <i className="far fa-heart account-menu-icon"></i>
+                    <FontAwesomeIcon icon={faHeart} />
+                    {/* <i className="far fa-heart account-menu-icon"></i> */}
                   </h1>
                 </a>
               </Grid>
               <Grid xs={2} container sx={{ justifyContent: "center" }}>
                 <a href="/cart">
                   <h1>
-                    <i className="fas fa-shopping-cart account-menu-icon"></i>
+                    <FontAwesomeIcon icon={faShoppingCart} />
+                    {/* <i className="fas fa-shopping-cart account-menu-icon"></i> */}
                   </h1>
                 </a>
               </Grid>
               <Grid xs={2} container sx={{ justifyContent: "center" }}>
                 <h1>
-                  <i
+                  <FontAwesomeIcon
+                    icon={faUserCircle}
+                    onClick={handleUserClick}
+                  />
+                  {/* <i
                     className="fas fa-user-circle account-menu-icon"
                     onClick={handleUserClick}
-                  ></i>
+                  ></i> */}
                 </h1>
               </Grid>
               <Grid xs={2} container sx={{ justifyContent: "center" }}>
                 <h1>
-                  <i
+                  <FontAwesomeIcon
+                    icon={faEllipsisV}
+                    onClick={handleEllipseClick}
+                  />
+                  {/* <i
                     className="fas fa-ellipsis-v"
                     onClick={handleEllipseClick}
-                  ></i>
+                  ></i> */}
                 </h1>
               </Grid>
             </Grid>
@@ -290,6 +314,10 @@ const MainNav: FC = () => {
       </header>
     );
   }
+};
+
+MainNav.propTypes = {
+  cartQty: PropTypes.number,
 };
 
 export default MainNav;

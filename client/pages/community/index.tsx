@@ -50,8 +50,8 @@ const AdminThreadC: FC = () => {
 
   return (
     <Grid>
-      <MainNav />
-      <PagesNav cartQty={cartQty} />
+      <MainNav cartQty={cart.length} />
+      <PagesNav />
       <Grid className="main-body">
         <Grid className="collection-menu">{}</Grid>
       </Grid>

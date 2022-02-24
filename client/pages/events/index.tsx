@@ -20,7 +20,7 @@ const EventsC: FC = () => {
 
   return (
     <div>
-      <MainNav />
+      <MainNav cartQty={cart.length} />
       <PagesNav />
       <div className="main-body">
         <CalendarC/>

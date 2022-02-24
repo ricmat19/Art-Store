@@ -1,7 +1,8 @@
 import { useState } from "react";
 // import { useContext } from "react";
 import CartProductsC from "../../components/users/cart/cartProducts";
-import HeaderC from "../../components/users/pagesNav";
+import MainNav from "../../components/users/mainNav";
+import PagesNav from "../../components/users/pagesNav";
 import FooterC from "../../components/footer";
 import IndexAPI from "../../apis/indexAPI";
 import Head from "next/head";
@@ -19,7 +20,8 @@ const CartC = (props: any) => {
         <title>artHouse19-Cart</title>
         <meta name="description" content="artHouse19 cart page."></meta>
       </Head>
-      <HeaderC cartQty={cart.length} />
+      <MainNav cartQty={cart.length} />
+      <PagesNav />
       <Grid className="main-body">
         <Grid>
           <Grid className="align-center">

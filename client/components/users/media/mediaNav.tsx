@@ -1,11 +1,33 @@
-import { FC } from "react";
+import { useState } from "react";
 import { Grid } from '@mui/material';
+import Link from "next/link";
 
-const MediaNav: FC = () => {
+const MediaNav = (props: any) => {
+  const [media] = useState(props.medias);
+
+  const mediaTypes: any[] = [];
+  for (let i = 0; i < media.length; i++) {
+    if (!mediaTypes.includes(media[i].type)) {
+      mediaTypes.push(media[i].type);
+    }
+  }
+  console.log(mediaTypes);
+
+  const mediaPageLinks = mediaTypes.map((media: any) => {
+    return (
+      <Link
+        passHref
+        key={media}
+        href={`/products/${media}`}
+      >
+        <h1>{media}s</h1>
+      </Link>
+    );
+  });
 
   return (
     <Grid container sx={{justifyContent: "center", gap: "25px", mt: "10px"}}>
-        <a href="/medias/blog">
+        {/* <a href="/medias/blog">
           <h1>blog</h1>
         </a>
         <a href="/medias/podcast">
@@ -13,7 +35,8 @@ const MediaNav: FC = () => {
         </a>
         <a href="/medias/channel">
           <h1>channel</h1>
-        </a>
+        </a> */}
+        {mediaPageLinks}
     </Grid>
   );
 };

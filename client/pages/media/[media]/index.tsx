@@ -58,10 +58,10 @@ const Media: FC = (props: any) => {
 
   return (
     <Grid>
-      <MainNav />
-      <PagesNav cartQty={cartQty} />
+      <MainNav cartQty={cartQty}/>
+      <PagesNav mediasAmount={media.length}/>
       <Grid className="main-body">
-        <MediaNav />
+        <MediaNav medias={media}/>
         <Grid className="collection-menu">{}</Grid>
         <Grid className="thumbnail-display">{displayBlog}</Grid>
         <ReactPaginate

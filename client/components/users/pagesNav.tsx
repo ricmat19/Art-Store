@@ -2,21 +2,18 @@
 // import React, { useContext, useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
-import IndexAPI from "../../apis/indexAPI";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { Grid } from "@mui/material";
 // import { CartContext } from "../context/CartContext";
 
-// interface ICart {
-//   cartQty: any;
-// }
+const PagesNav = (props: any) => {
 
-const PagesNav = () => {
+  console.log(props.productsAmount)
+  console.log(props.mediasAmount)
+  console.log(props.coursesAmount)
+
   // const [signinModal, setSigninModal] = useState<string>("modal-bg");
   // const [signupModal, setSignupModal] = useState<string>("modal-bg");
   // const [resetModal, setResetModal] = useState<string>("modal-bg");
-  // const [cartCount] = useState(props.cartQty);
 
   const router = useRouter();
 
@@ -445,18 +442,9 @@ const PagesNav = () => {
 };
 
 PagesNav.propTypes = {
-  cartQty: PropTypes.number,
+  products: PropTypes.any,
+  medias: PropTypes.any,
+  courses: PropTypes.any
 };
-
-export async function getStaticProps() {
-  const cartResponse = await IndexAPI.get(`/cart`);
-
-  return {
-    props: {
-      cartQty: cartResponse.data.data.qty,
-    },
-    revalidate: 1,
-  };
-}
 
 export default PagesNav;

@@ -6,14 +6,14 @@ import IndexAPI from "../../../apis/indexAPI";
 import MainNav from "../../../components/users/mainNav";
 import PagesNav from "../../../components/users/pagesNav";
 import FooterC from "../../../components/footer";
-import { IProduct } from "../../../interfaces";
+// import { IProduct } from "../../../interfaces";
 import Head from "next/head";
 import { Grid } from "@mui/material";
 import ProductsNav from "../../../components/users/products/productsNav";
 
 const Products = (props: any) => {
   const [cartQty] = useState<number>(props.cart.length);
-  const [products] = useState<IProduct[]>(props.products);
+  const [products] = useState(props.products);
   const [pageNumber, setPageNumber] = useState<number>(0);
 
   const itemsPerPage = 9;
@@ -68,11 +68,11 @@ const Products = (props: any) => {
           content="View a full list of the products available in artHouse19!"
         ></meta>
       </Head>
-      <MainNav />
-      <PagesNav cartQty={cartQty} />
+      <MainNav cartQty={cartQty} />
+      <PagesNav productsAmount={products.length} />
       <Grid className="main-body">
         <Grid>
-          <ProductsNav />
+          <ProductsNav products={products} />
           <Grid className="products-menu">{displayItems}</Grid>
           <ReactPaginate
             previousLabel={"prev"}
