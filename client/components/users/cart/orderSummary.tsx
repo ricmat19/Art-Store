@@ -21,7 +21,6 @@ const OrderSummary = (props: ICartSummary) => {
 
   return (
     <Grid>
-      {console.log(props.cartPrices)}
       {cart &&
         cartPrices &&
         cart.map((item: any, index: number) => {

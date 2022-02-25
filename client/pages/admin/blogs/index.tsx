@@ -56,7 +56,6 @@ const AdminBlogPostsC: FC = () => {
 
   const changePage = ({selected}: {selected:number}): void => {
     setPageNumber(selected);
-    console.log(pagesVisted)
   };
 
   const displayBlogs = blogs

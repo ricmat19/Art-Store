@@ -72,11 +72,6 @@ h1 {
   color: white;
 }
 
-h1:hover {
-  color: rgb(255, 68, 208);
-  cursor: pointer;
-}
-
 a {
   text-decoration: none;
 }
@@ -87,10 +82,6 @@ a:hover {
 
 button a {
   color: white;
-}
-
-.pointer {
-  cursor: pointer;
 }
 
 .grid {
@@ -111,11 +102,6 @@ button a {
 
 .display-none {
   display: none;
-}
-
-.pointer:hover {
-  cursor: pointer;
-  color: rgb(255, 68, 208);
 }
 
 .inactive-cart {
@@ -159,10 +145,6 @@ button a {
   opacity: 0;
   transition: visibility 0s, opacity 0.5s;
   cursor: pointer;
-}
-
-.modal-link:hover {
-  color: rgb(255, 68, 208);
 }
 
 .sign-active {
@@ -342,10 +324,6 @@ button a {
   display: grid;
 }
 
-.active {
-  color: rgb(255, 68, 208);
-}
-
 button {
   cursor: pointer;
 }
@@ -486,9 +464,6 @@ button {
   height: auto;
   width: 100%;
   max-height: 440px;
-}
-
-.blog-banner {
 }
 
 .blog-banner-image {
@@ -687,18 +662,18 @@ label {
   padding: 25px;
 }
 
-.play-icon-container {
-  align-self: center;
-  padding-right: 10px;
-  color: rgb(255, 68, 208);
-}
+// .play-icon-container {
+//   align-self: center;
+//   padding-right: 10px;
+//   color: rgb(255, 68, 208);
+// }
 
-.delete {
-  color: rgb(255, 68, 208);
-  color: rgb(255, 68, 208);
-  color: white;
-  text-align: left;
-}
+// .delete {
+//   color: rgb(255, 68, 208);
+//   color: rgb(255, 68, 208);
+//   color: white;
+//   text-align: left;
+// }
 
 .profile-image-div,
 .admin-image-div {
@@ -820,33 +795,33 @@ label {
 }
 
 .paginationButtons a {
-  padding: 10px;
+  // padding: 10px;
   margin: 1px;
   border-style: none;
   color: white;
   cursor: pointer;
 }
 
-.paginationButtons a:hover {
-  color: black;
-  background-color: rgb(243, 243, 243);
-}
+// .paginationButtons a:hover {
+//   color: black;
+//   background-color: rgb(243, 243, 243);
+// }
 
 .paginationButtons li {
   text-align: center;
   display: grid;
 }
 
-.activeButton a,
-.activeButton a:hover {
-  color: black;
-  background-color: rgb(243, 243, 243);
-}
+// .activeButton a,
+// .activeButton a:hover {
+//   color: black;
+//   background-color: rgb(243, 243, 243);
+// }
 
-.activeButton a:hover {
-  color: black;
-  background-color: rgb(243, 243, 243);
-}
+// .activeButton a:hover {
+//   color: black;
+//   background-color: rgb(243, 243, 243);
+// }
 
 .month-title {
   align-self: center;

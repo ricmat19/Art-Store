@@ -7,10 +7,6 @@ import { Grid } from "@mui/material";
 
 const PagesNav = (props: any) => {
 
-  console.log(props.productsAmount)
-  console.log(props.mediasAmount)
-  console.log(props.coursesAmount)
-
   // const [signinModal, setSigninModal] = useState<string>("modal-bg");
   // const [signupModal, setSignupModal] = useState<string>("modal-bg");
   // const [resetModal, setResetModal] = useState<string>("modal-bg");

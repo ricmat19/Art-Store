@@ -69,16 +69,7 @@ const Calendar = (props: any) => {
   //   }, []);
 
   //Setup Calendar
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        console.log(events);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-  }, [events, nav]);
+  useEffect(() => {}, [events, nav]);
 
   return (
     <Grid>
@@ -276,7 +267,7 @@ export async function getStaticProps() {
   return {
     props: {
       dateDisplay: dateDisplay,
-      days: days
+      days: days,
     },
     revalidate: 1,
   };

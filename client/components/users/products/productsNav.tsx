@@ -11,7 +11,6 @@ const ProductsNav = (props: any) => {
       productTypes.push(products[i].product);
     }
   }
-  console.log(productTypes);
 
   const productPageLinks = productTypes.map((product: any) => {
     return (

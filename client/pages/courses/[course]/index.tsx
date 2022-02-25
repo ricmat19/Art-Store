@@ -21,7 +21,6 @@ const Courses: FC = (props: any) => {
     const fetchData = async () => {
       try {
         // courseResponse = await IndexAPI.get(`/courses/${subject}`);
-        // console.log(courseResponse)
         // for (let i = 0; i < courseResponse.data.data.courses.length; i++) {
         //   if (courseResponse.data.data.courses[i].imagekey !== null) {
         //     let imagesResponse = await IndexAPI.get(
@@ -122,7 +121,6 @@ export async function getStaticPaths() {
       courseType.push(coursesResponse.data.data.courses[i].subject);
     }
   }
-  console.log(courseType);
 
   return {
     fallback: false,

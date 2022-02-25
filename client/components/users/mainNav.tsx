@@ -27,6 +27,7 @@ const MainNav = (props: any) => {
   const [, setDisplaySignInModal] = useState<boolean>(false);
   const [signedIn] = useState<boolean>(true);
   const [cartQty] = useState(props.cartQty);
+  const [mediasAmount] = useState(props.mediasAmount)
   // const [email, ] = useState<string>("");
   // const [password, ] = useState<string>("");
 
@@ -294,7 +295,7 @@ const MainNav = (props: any) => {
                 sx={{ justifyContent: "center", alignSelf: "center" }}
               >
                 <a href="/cart">
-                  <i className="fas fa-shopping-cart account-menu-icon"></i>
+                  <i className="fas fa-shopping-cart"></i>
                 </a>
               </Grid>
               <Grid xs={5} container sx={{ justifyContent: "center" }}>
@@ -318,6 +319,7 @@ const MainNav = (props: any) => {
 
 MainNav.propTypes = {
   cartQty: PropTypes.number,
+  mediasAmount: PropTypes.number
 };
 
 export default MainNav;

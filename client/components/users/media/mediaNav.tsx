@@ -11,7 +11,6 @@ const MediaNav = (props: any) => {
       mediaTypes.push(media[i].type);
     }
   }
-  console.log(mediaTypes);
 
   const mediaPageLinks = mediaTypes.map((media: any) => {
     return (

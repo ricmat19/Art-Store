@@ -65,7 +65,6 @@ const ProductDetailsC = (props: any) => {
         <meta name="description" content={selectedProduct.title}></meta>
       </Head>
       {/* Added to Cart */}
-      {console.log(addedModal)}
       <AddToCart modalStatus={addedModal} selectedProduct={selectedProduct} uniqueItem={uniqueItem}/>
       {/* <div className={addedModal}>
         <form>
