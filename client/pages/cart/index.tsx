@@ -6,11 +6,10 @@ import PagesNav from "../../components/users/pagesNav";
 import FooterC from "../../components/footer";
 import IndexAPI from "../../apis/indexAPI";
 import Head from "next/head";
-import { Grid } from '@mui/material';
+import { Grid } from "@mui/material";
 // import { CartContext } from "../../context/CartContext";
 
 const CartC = (props: any) => {
-
   const [cart, setCart] = useState(props.cart);
   // const {cart, setCart } = useContext(CartContext);
 

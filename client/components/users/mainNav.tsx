@@ -182,8 +182,22 @@ const MainNav = () => {
           </Menu>
 
           {/* Account Navigation */}
-          <Grid container className="mainNav-container">
-            <Grid xs={2} sx={{ textAlign: "center", alignSelf: "center" }}>
+          <Grid
+            xs={12}
+            sx={{
+              padding: "0 10px"
+            }}
+            container
+            className="mainNav-container"
+          >
+            <Grid
+              xs={2}
+              sx={{
+                textAlign: "center",
+                alignSelf: "center",
+                maxWidth: "fit-content",
+              }}
+            >
               <span className="logo">
                 <span className="logo-first">a</span>rt
                 <span className="logo-first">H</span>ouse
@@ -191,17 +205,28 @@ const MainNav = () => {
               </span>
             </Grid>
             <Grid xs={8} container sx={{ alignContent: "center" }}>
-              <Grid xs={1} sx={{ textAlign: "center", alignSelf: "center" }}>
+              <Grid
+                xs={2}
+                sx={{
+                  textAlign: "right",
+                  alignSelf: "right",
+                  maxWidth: "fit-content",
+                }}
+              >
                 <h1>search</h1>
               </Grid>
-              <Grid xs={11} container sx={{ pt: "10px", pb: "10px" }}>
+              <Grid xs={10} container sx={{ pt: "10px", pb: "10px" }}>
                 <input type="text" className="search-field" />
               </Grid>
             </Grid>
             <Grid
               container
               xs={2}
-              sx={{ alignContent: "center", justifyContent: "center" }}
+              sx={{
+                alignContent: "center",
+                justifyContent: "center",
+                minWidth: "fit-content",
+              }}
             >
               <Grid xs={2} container sx={{ justifyContent: "center" }}>
                 <h1>

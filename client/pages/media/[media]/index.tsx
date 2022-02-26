@@ -58,7 +58,7 @@ const Media: FC = (props: any) => {
   return (
     <Grid>
       <MainNav cartQty={props.cartQty} />
-      <PagesNav mediasAmount={media.length} />
+      <PagesNav />
       <Grid className="main-body">
         <MediaNav medias={media} />
         <Grid className="collection-menu">{}</Grid>

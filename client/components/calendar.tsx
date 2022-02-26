@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 // import IndexAPI from "../../../apis/indexAPI";
-import { IDay } from "../../../interfaces";
+import { IDay } from "../interfaces";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 

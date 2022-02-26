@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { FC, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 // import { useRouter } from "next/router";
 import ReactPaginate from "react-paginate";
 import IndexAPI from "../../../apis/indexAPI";
@@ -10,7 +10,7 @@ import FooterC from "../../../components/footer";
 import CoursesNav from "../../../components/users/courses/coursesNav";
 import { Grid } from "@mui/material";
 
-const Courses: FC = (props: any) => {
+const Courses = (props: any) => {
   // const { course } = useRouter();
   const [courses] = useState([]);
   const [pageNumber, setPageNumber] = useState<number>(0);
@@ -51,29 +51,32 @@ const Courses: FC = (props: any) => {
     setPageNumber(selected);
   };
 
-  const displayCourses = courses
-    .slice(pagesVisted, pagesVisted + itemsPerPage)
-    .map((course) => {
-      return (
-        <Grid
-          className="collection-item-div"
-          key={course.id}
-          //   onClick={() => displayCourse(course.subject, course.id)}
-        >
-          <Grid className="collection-item">
-            <img
-              className="collection-thumbnail"
-              src={course.imageBuffer}
-              alt="collection-thumbnail"
-            />
+  let displayCourses;
+  if (courses) {
+    displayCourses = courses
+      .slice(pagesVisted, pagesVisted + itemsPerPage)
+      .map((course) => {
+        return (
+          <Grid
+            className="collection-item-div"
+            key={course.id}
+            //   onClick={() => displayCourse(course.subject, course.id)}
+          >
+            <Grid className="collection-item">
+              <img
+                className="collection-thumbnail"
+                src={course.imageBuffer}
+                alt="collection-thumbnail"
+              />
+            </Grid>
+            <Grid className="collection-thumbnail-footer">
+              <Grid>{course.title}</Grid>
+              <Grid className="price">${course.price}.00</Grid>
+            </Grid>
           </Grid>
-          <Grid className="collection-thumbnail-footer">
-            <Grid>{course.title}</Grid>
-            <Grid className="price">${course.price}.00</Grid>
-          </Grid>
-        </Grid>
-      );
-    });
+        );
+      });
+  }
 
   //   let navigation = useNavigate();
 
@@ -84,31 +87,31 @@ const Courses: FC = (props: any) => {
   //       console.log(err);
   //     }
   //   };
-
-  return (
-    <Grid>
-      <MainNav cartQty={props.cartQty} />
-      <PagesNav coursesAmount={courses.length} />
-      <Grid className="main-body">
-        <CoursesNav courses={courses} />
-        <Grid className="thumbnail-display">{displayCourses}</Grid>
-        <ReactPaginate
-          previousLabel={"prev"}
-          nextLabel={"next"}
-          pageCount={pageCount}
-          onPageChange={changePage}
-          containerClassName={"paginationButtons"}
-          previousLinkClassName={"prevButton"}
-          nextLinkClassName={"nextButton"}
-          disabledClassName={"disabledButton"}
-          activeClassName={"activeButton"}
-          pageRangeDisplayed={5}
-          marginPagesDisplayed={5}
-        />
+  else
+    return (
+      <Grid>
+        <MainNav cartQty={props.cartQty} />
+        <PagesNav />
+        <Grid className="main-body">
+          <CoursesNav courses={courses} />
+          <Grid className="thumbnail-display">{displayCourses}</Grid>
+          <ReactPaginate
+            previousLabel={"prev"}
+            nextLabel={"next"}
+            pageCount={pageCount}
+            onPageChange={changePage}
+            containerClassName={"paginationButtons"}
+            previousLinkClassName={"prevButton"}
+            nextLinkClassName={"nextButton"}
+            disabledClassName={"disabledButton"}
+            activeClassName={"activeButton"}
+            pageRangeDisplayed={5}
+            marginPagesDisplayed={5}
+          />
+        </Grid>
+        <FooterC />
       </Grid>
-      <FooterC />
-    </Grid>
-  );
+    );
 };
 
 export async function getStaticPaths() {

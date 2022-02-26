@@ -13,6 +13,7 @@ import { IProduct } from "../../../interfaces";
 import Head from "next/head";
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import AdminProductsNav from "../../../components/admin/products/productNav";
 
 const AdminProducts = (props: any) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
@@ -165,9 +166,7 @@ const AdminProducts = (props: any) => {
         </div> */}
         <div className="main-body">
           <div>
-            <div className="align-center">
-              <h1>store</h1>
-            </div>
+            <AdminProductsNav products={props.products}/>
             <div className="plus-icon-div">
               {/* <span onClick={displayCreateProductModal}> */}
               <FontAwesomeIcon className="plus-icon" icon={faPlus}/>

@@ -3,15 +3,9 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Grid } from '@mui/material';
 
-interface IItem {
-  modalStatus: string;
-  selectedProduct: any;
-  uniqueItem: any;
-}
-
-const AddToCart = (props: IItem) => {
+const AddToCart = (props: any) => {
   const [addedModal] = useState(props.modalStatus);
-  const [selectedProduct] = useState(props.selectedProduct);
+  const [product] = useState(props.product);
   const [uniqueItem] = useState(props.uniqueItem);
 
   useEffect(() => {
@@ -39,7 +33,7 @@ const AddToCart = (props: IItem) => {
           >
             <h1 className="header">Item Added</h1>
             <Grid>
-              {selectedProduct.title} has {!uniqueItem ? "already" : ""} been
+              {product.title} has {!uniqueItem ? "already" : ""} been
               added to your cart.
             </Grid>
             <Grid className="grid two-column-div">

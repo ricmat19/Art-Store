@@ -3,10 +3,9 @@ import FooterC from "../../components/footer";
 import MainNav from "../../components/users/mainNav";
 import PagesNav from "../../components/users/pagesNav";
 // import { IEvent } from "../../interfaces";
-import Calendar from "../../components/users/events/calendar";
+import Calendar from "../../components/calendar";
 
 const EventsC = (props: any) => {
-
   // const [events] = useState(props.events);
 
   // const displayEvent = async (event: string) => {

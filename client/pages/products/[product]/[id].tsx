@@ -12,8 +12,8 @@ import AddToCart from "../../../components/users/cart/addToCart";
 const ProductDetailsC = (props: any) => {
   const [addedModal, setAddedModal] = useState("modal-bg");
   const [imageBuffer] = useState(props.imageBuffer);
-  const [selectedProduct] = useState(props.selectedProduct);
-  const [cartQty, setCartQty] = useState(props.cartQty);
+  const [product] = useState(props.product);
+  const [cartQty, setCartQty] = useState(props.cart.length);
   const [uniqueItem, setUniqueItem] = useState();
 
   const router = useRouter();
@@ -61,11 +61,15 @@ const ProductDetailsC = (props: any) => {
   return (
     <div>
       <Head>
-        <title>artHouse19-{selectedProduct.title}</title>
-        <meta name="description" content={selectedProduct.title}></meta>
+        {/* <title>artHouse19-{product.title}</title>
+        <meta name="description" content={product.title}></meta> */}
       </Head>
       {/* Added to Cart */}
-      <AddToCart modalStatus={addedModal} selectedProduct={selectedProduct} uniqueItem={uniqueItem}/>
+      <AddToCart
+        modalStatus={addedModal}
+        product={product}
+        uniqueItem={uniqueItem}
+      />
       {/* <div className={addedModal}>
         <form>
           <div
@@ -74,7 +78,7 @@ const ProductDetailsC = (props: any) => {
           >
             <h1 className="header">Item Added</h1>
             <div>
-              {selectedProduct.title} has {!uniqueItem ? "already" : ""} been
+              {product.title} has {!uniqueItem ? "already" : ""} been
               added to your cart.
             </div>
             <div className="grid two-column-div">
@@ -92,8 +96,8 @@ const ProductDetailsC = (props: any) => {
         </form>
       </div> */}
 
-      <MainNav cartQty={cartQty}/>
-      <PagesNav  />
+      <MainNav cartQty={cartQty} />
+      <PagesNav />
       <div className="main-body">
         <div className="item-details">
           <div className="image-div">
@@ -107,17 +111,17 @@ const ProductDetailsC = (props: any) => {
           </div>
           <form method="POST" action="/cart">
             <div className="info-div">
-              <h1>{selectedProduct && selectedProduct.title}</h1>
+              <h1>{product && product.title}</h1>
               <div className="info-detail-div">
                 <label>price:</label>
                 <h3 className="top-margin">
-                  ${selectedProduct && selectedProduct.price}.00
+                  ${product && product.price}.00
                 </h3>
               </div>
               <div className="info-detail-div">
                 <label>info:</label>
                 <h3 className="top-margin">
-                  {selectedProduct && selectedProduct.info}
+                  {product && product.info}
                 </h3>
               </div>
               <hr className="top-margin" />
@@ -141,7 +145,7 @@ export async function getStaticPaths() {
     paths: productsResponse.data.data.products.map((product: any) => ({
       params: {
         product: product.product,
-        id: product.id
+        id: product.id,
       },
     })),
   };
@@ -173,9 +177,8 @@ export async function getStaticProps(context: {
   return {
     props: {
       imageBuffer: imageBuffer,
-      selectedProduct: productResponse.data.data.product,
+      product: productResponse.data.data.item,
       cart: cartResponse.data.data.cart,
-      cartQty: cartResponse.data.data.cart.length,
     },
     revalidate: 1,
   };

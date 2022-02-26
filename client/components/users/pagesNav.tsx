@@ -1,7 +1,6 @@
 // import { useState, useRef } from "react";
 // import React, { useContext, useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
-import PropTypes from "prop-types";
 import { Grid } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -448,12 +447,6 @@ const PagesNav = () => {
     //   </Grid>
     // </Grid>
   );
-};
-
-PagesNav.propTypes = {
-  products: PropTypes.any,
-  medias: PropTypes.any,
-  courses: PropTypes.any,
 };
 
 export default PagesNav;

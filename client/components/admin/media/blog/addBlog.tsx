@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import IndexAPI from "../../../apis/indexAPI";
+import IndexAPI from "../../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 
 interface IModalState {

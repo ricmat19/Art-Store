@@ -5,11 +5,12 @@ import ReactPaginate from "react-paginate";
 import IndexAPI from "../../../apis/indexAPI";
 // import { ICourse } from "../../../interfaces";
 import Footer from "../../../components/footer";
-import CoursesNav from "../../../components/admin/courses/courseMenu";
+import CoursesNav from "../../../components/admin/courses/coursesNav";
 import AdminMainNav from "../../../components/admin/mainNav";
 import AdminPagesNav from "../../../components/admin/pagesNav";
 import AddCourse from "../../../components/admin/courses/addCourse";
 import { Button, Grid } from "@mui/material";
+import AdminCoursesNav from "../../../components/admin/courses/coursesNav";
 
 const AdminCoursesC: FC = (props: any) => {
   const [courses] = useState(props.courses);
@@ -71,6 +72,7 @@ const AdminCoursesC: FC = (props: any) => {
       <AdminMainNav />
       <AdminPagesNav />
       <div className="main-body">
+        <AdminCoursesNav courses={courses} />
         <Grid sx={{ textAlign: "right", paddingRight: "50px" }}>
           <Button
             onClick={handleOpen}

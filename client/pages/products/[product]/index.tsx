@@ -67,7 +67,7 @@ const Products = (props: any) => {
         ></meta>
       </Head>
       <MainNav cartQty={props.cartQty} />
-      <PagesNav productsAmount={props.products.length} />
+      <PagesNav />
       <Grid className="main-body">
         <Grid>
           <ProductsNav products={props.products} />

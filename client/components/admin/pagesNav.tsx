@@ -1,4 +1,13 @@
 import { FC } from "react";
+import { Grid } from "@mui/material";
+import { useRouter } from "next/router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCalendarCheck,
+  faChalkboardTeacher,
+  faStoreAlt,
+  faTv,
+} from "@fortawesome/free-solid-svg-icons";
 // import IndexAPI from "../../apis/indexAPI";
 
 const AdminPagesNav: FC = () => {
@@ -97,141 +106,13 @@ const AdminPagesNav: FC = () => {
   //   }
   // };
 
+  const router = useRouter();
+
   return (
-    <div className="navbar-div">
-      {/* Signin */}
-      {/* <div className={signinModal}>
-        <form>
-          <div ref={signinRef} className="modal-content">
-            <h1 className="header">welcome</h1>
-            <div>
-              <div className="modal-input-div">
-                <input type="text" placeholder="Email"></input>
-              </div>
-              <div className="modal-input-div">
-                <input type="text" placeholder="Password"></input>
-              </div>
-            </div>
-            <div>
-              <button>sign in</button>
-            </div>
-            <div className="sign-footer">
-              <div className="modal-link" onClick={displayReset}>
-                <span>forgot password?</span>
-              </div>
-              <div className="modal-link" onClick={displaySignup}>
-                <span>create account</span>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div> */}
-
-      {/* signup */}
-      {/* <div className={signupModal}>
-        <form>
-          <div ref={signupRef} className="modal-content">
-            <h1 className="header">Create Account</h1>
-            <div>
-              <div className="name-input-div">
-                <input
-                  type="text"
-                  ref={firstNameInput}
-                  value={firstname}
-                  name="firstname"
-                  placeholder="First Name"
-                  onChange={(e) => {
-                    setFirstName(e.target.value);
-                  }}
-                />
-                <input
-                  type="text"
-                  ref={lastNameInput}
-                  value={lastname}
-                  name="lastname"
-                  placeholder="Last Name"
-                  onChange={(e) => {
-                    setLastName(e.target.value);
-                  }}
-                />
-              </div>
-              <div className="modal-input-div">
-                <input
-                  type="email"
-                  ref={emailInput}
-                  value={email}
-                  name="email"
-                  placeholder="Email"
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                  }}
-                />
-              </div>
-              <div className="modal-input-div">
-                <input
-                  type="password"
-                  ref={passwordInput}
-                  value={password}
-                  name="password"
-                  placeholder="Create Password"
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                  }}
-                />
-              </div>
-              <div className="modal-input-div">
-                <input
-                  type="password"
-                  ref={rePasswordInput}
-                  value={rePassword}
-                  name="re-password"
-                  placeholder="Re-type Password"
-                  onChange={(e) => {
-                    setRePassword(e.target.value);
-                  }}
-                />
-              </div>
-            </div>
-            <div>
-              <button
-                onClick={handleSignup}
-                type="submit"
-              >
-                Create Account
-              </button>
-            </div>
-            <div className="sign-footer">
-              <div className="modal-link" onClick={displaySignin}>
-                <span>Already have an account? Sign In</span>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div> */}
-
-      {/* reset */}
-      {/* <div className={resetModal}>
-        <form>
-          <div ref={resetRef} className="modal-content">
-            <h1 className="header">Reset Password</h1>
-              <div className="forgot-input-div">
-                <input type="text" placeholder="Email" />
-              </div>
-            <div>
-              <button>Send Reset Link</button>
-            </div>
-            <div className="sign-footer">
-              <div className="modal-link" onClick={displaySignin}>
-                <span>Back to signin in</span>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div> */}
-
-      <div>
+    <header>
+      <nav>
         <input type="checkbox" id="nav-toggle" className="nav-toggle" />
-        <label htmlFor="nav-toggle" className="nav-toggle-label">
+        {/* <label htmlFor="nav-toggle" className="nav-toggle-label">
           <a className="menu-toggle">
             <nav>
               <h1>
@@ -242,30 +123,83 @@ const AdminPagesNav: FC = () => {
               </h1>
             </nav>
           </a>
-        </label>
-        <nav className="navbar">
-          <div className="logo-div">
-            <div className="logo">
-              <span className="logo-first">a</span>rt
-              <span className="logo-first">H</span>ouse
-              <span className="logo-first">19</span>
-            </div>
-          </div>
-          <div className="nav-div">
-            {/* <a href="/admin/products/print">
-            <h1>store</h1>
-          </a> */}
-            {/* <a href="/admin/about">
-            <h1>info</h1>
-          </a> */}
-            {/* <a onClick={displaySignin}>
-            <h1 className="pointer">sign in</h1>
-          </a> */}
-          </div>
-          <div className="cart-summary-div"></div>
-        </nav>
-      </div>
-    </div>
+        </label> */}
+        <Grid container sx={{ pt: "5px", pb: "5px", justifyContent: "center" }}>
+          <Grid container xs={3} sx={{ justifyContent: "center" }}>
+            <Grid sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}>
+              {/* <i className="fas fa-store-alt"></i> */}
+              <FontAwesomeIcon icon={faStoreAlt} />
+            </Grid>
+            <Grid sx={{ textAlign: "center", alignSelf: "center" }}>
+              <Grid
+                className="nav-link"
+                onClick={() => router.push("/admin/products/print")}
+              >
+                <h1 className="pointer">store</h1>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid container xs={3} sx={{ justifyContent: "center" }}>
+            <Grid sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}>
+              {/* <i className="fas fa-chalkboard-teacher"></i> */}
+              <FontAwesomeIcon icon={faChalkboardTeacher} />
+            </Grid>
+            <Grid sx={{ textAlign: "center", alignSelf: "center" }}>
+              <Grid
+                className="nav-link"
+                onClick={() => router.push("/admin/courses/drawing")}
+              >
+                <h1 className="pointer">courses</h1>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid container xs={3} sx={{ justifyContent: "center" }}>
+            <Grid sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}>
+              {/* <i className="fas fa-tv"></i> */}
+              <FontAwesomeIcon icon={faTv} />
+            </Grid>
+            <Grid
+              className="nav-link"
+              onClick={() => router.push("/admin/media/blog")}
+            >
+              <h1 className="pointer">media</h1>
+            </Grid>
+          </Grid>
+          {/* <Grid container xs={2} sx={{justifyContent: "center"}}>
+            <Grid sx={{textAlign: 'center', alignSelf: "center", m: "5px"}}>
+              <i className="fas fa-paint-brush"></i>
+              <FontAwesomeIcon icon={faPaintBrush} />
+            </Grid>
+            <Grid sx={{textAlign: 'center', alignSelf: "center"}}>
+              <a href="/admin/projects">
+                <h1 className="pointer">projects</h1>
+              </a>
+            </Grid>
+          </Grid> */}
+          <Grid container xs={3} sx={{ justifyContent: "center" }}>
+            <Grid sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}>
+              {/* <i className="fas fa-calendar-check"></i> */}
+              <FontAwesomeIcon icon={faCalendarCheck} />
+            </Grid>
+            <Grid className="nav-link" onClick={() => router.push("/admin/events")}>
+              <h1 className="pointer">events</h1>
+            </Grid>
+          </Grid>
+          {/* <Grid container xs={2} sx={{justifyContent: "center"}}>
+            <Grid sx={{textAlign: 'center', alignSelf: "center", m: "5px"}}>
+              <i className="fas fa-comments"></i>
+              <FontAwesomeIcon icon={faComments} />
+            </Grid>
+            <Grid sx={{textAlign: 'center', alignSelf: "center"}}>
+              <a href="/admin/community">
+                <h1 className="pointer">community</h1>
+              </a>
+            </Grid>
+          </Grid> */}
+        </Grid>
+      </nav>
+      <hr />
+    </header>
   );
 };
 

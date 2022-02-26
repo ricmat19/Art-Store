@@ -552,7 +552,7 @@ button {
 .contact-form {
   display: grid;
   justify-content: center;
-  border-style: none;
+  // border-style: none;
   background: black;
   padding: 40px;
   grid-template-columns: repeat(1, minmax(0px, 800px));
@@ -560,7 +560,6 @@ button {
 
 .subject-line {
   display: grid;
-  grid-template-columns: 75px auto;
   margin: 15px 0;
 }
 
