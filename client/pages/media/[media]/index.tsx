@@ -11,7 +11,6 @@ import { Grid } from "@mui/material";
 
 const Media: FC = (props: any) => {
   const [media] = useState(props.media);
-  const [cartQty] = useState<number>(props.cart.length)
   const [pageNumber, setPageNumber] = useState<number>(0);
 
   const itemsPerPage: number = 9;
@@ -58,10 +57,10 @@ const Media: FC = (props: any) => {
 
   return (
     <Grid>
-      <MainNav cartQty={cartQty}/>
-      <PagesNav mediasAmount={media.length}/>
+      <MainNav cartQty={props.cartQty} />
+      <PagesNav mediasAmount={media.length} />
       <Grid className="main-body">
-        <MediaNav medias={media}/>
+        <MediaNav medias={media} />
         <Grid className="collection-menu">{}</Grid>
         <Grid className="thumbnail-display">{displayBlog}</Grid>
         <ReactPaginate
@@ -97,7 +96,7 @@ export async function getStaticPaths() {
     fallback: false,
     paths: media.map((media: any) => ({
       params: {
-        media: media
+        media: media,
       },
     })),
   };
@@ -105,21 +104,6 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context: { params: { media: any } }) {
   const cartResponse = await IndexAPI.get(`/cart`);
-
-  for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
-    if (cartResponse.data.data.cart[i].imagekey !== null) {
-      let imagesResponse = await IndexAPI.get(
-        `/images/${cartResponse.data.data.cart[i].imagekey}`,
-        {
-          responseType: "arraybuffer",
-        }
-      ).then((response) =>
-        Buffer.from(response.data, "binary").toString("base64")
-      );
-
-      cartResponse.data.data.cart[i].imageBuffer = imagesResponse;
-    }
-  }
 
   const media = context.params.media;
   const mediaResponse = await IndexAPI.get(`/media/${media}`);
@@ -143,7 +127,7 @@ export async function getStaticProps(context: { params: { media: any } }) {
   return {
     props: {
       media: mediaResponse.data.data.posts,
-      cart: cartResponse.data.data.cart,
+      cartQty: cartResponse.data.data.cart.length,
     },
     revalidate: 1,
   };

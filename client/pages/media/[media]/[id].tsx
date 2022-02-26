@@ -1,4 +1,3 @@
-import { FC, useState } from "react";
 // import { useRouter } from "next/router";
 import IndexAPI from "../../../apis/indexAPI";
 import FooterC from "../../../components/footer";
@@ -6,17 +5,15 @@ import MainNav from "../../../components/users/mainNav";
 import PagesNav from "../../../components/users/pagesNav";
 import { Grid } from "@mui/material";
 
-const BlogPost: FC = (props: any) => {
-  const [cartQty] = useState<number>(props.cart.length);
-
-    // const [title] = useState(props.title);
-    // const [info] = useState(props.info);
-    // const [imageBuffer] = useState(props.imageBuffer);
+const BlogPost = (props: any) => {
+  // const [title] = useState(props.title);
+  // const [info] = useState(props.info);
+  // const [imageBuffer] = useState(props.imageBuffer);
 
   return (
     <Grid>
-      <MainNav />
-      <PagesNav cartQty={cartQty} />
+      <MainNav cartQty={props.cartQty} />
+      <PagesNav />
       <Grid className="main-body item-details"></Grid>
       <FooterC />
     </Grid>
@@ -31,7 +28,7 @@ export async function getStaticPaths() {
     paths: mediaResponse.data.data.media.map((media: any) => ({
       params: {
         media: media.media,
-        id: media.id
+        id: media.id,
       },
     })),
   };
@@ -40,6 +37,8 @@ export async function getStaticPaths() {
 export async function getStaticProps(context: {
   params: { media: any; id: any };
 }) {
+  const cartResponse = await IndexAPI.get(`/cart`);
+
   const media = context.params.media;
   const id = context.params.id;
   const mediaResponse = await IndexAPI.get(`/media/${media}/${id}`);
@@ -57,8 +56,6 @@ export async function getStaticProps(context: {
 
     imageBuffer = `data:image/png;base64,${imagesResponse}`;
   }
-
-  const cartResponse = await IndexAPI.get(`/cart`);
 
   return {
     props: {

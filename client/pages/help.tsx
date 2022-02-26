@@ -1,15 +1,14 @@
-import React, { FC } from "react";
+import IndexAPI from "../apis/indexAPI";
 import MainNav from "../components/users/mainNav";
 import PagesNav from "../components/users/pagesNav";
 import FooterC from "../components/footer";
 import { Grid } from "@mui/material";
 
-const HelpC: FC = () => {
-
+const HelpC = (props: any) => {
   return (
     <div>
-      <MainNav />
-      <PagesNav cartQty={cartQty} />
+      <MainNav cartQty={props.cartQty} />
+      <PagesNav />
       <Grid>
         <Grid>Help</Grid>
         <Grid></Grid>
@@ -18,5 +17,16 @@ const HelpC: FC = () => {
     </div>
   );
 };
+
+export async function getStaticProps() {
+  const cartResponse = await IndexAPI.get(`/cart`);
+
+  return {
+    props: {
+      cartQty: cartResponse.data.data.cart.length,
+    },
+    revalidate: 1,
+  };
+}
 
 export default HelpC;

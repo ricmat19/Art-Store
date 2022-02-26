@@ -3,12 +3,9 @@ import FooterC from "../../components/footer";
 import MainNav from "../../components/users/mainNav";
 import PagesNav from "../../components/users/pagesNav";
 // import { IEvent } from "../../interfaces";
-import CalendarC from ".";
-import { useState } from "react";
+import Calendar from "../../components/users/events/calendar";
 
 const EventsC = (props: any) => {
-  const [cartQty] = useState<number>(props.cartQty)
-
 
   // const [events] = useState(props.events);
 
@@ -22,11 +19,9 @@ const EventsC = (props: any) => {
 
   return (
     <div>
-      <MainNav cartQty={cartQty} />
+      <MainNav cartQty={props.cartQty} />
       <PagesNav />
-      <div className="main-body">
-        <CalendarC/>
-      </div>
+      <Calendar />
       <FooterC />
     </div>
   );
@@ -34,21 +29,6 @@ const EventsC = (props: any) => {
 
 export async function getStaticProps() {
   const cartResponse = await IndexAPI.get(`/cart`);
-
-  for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
-    if (cartResponse.data.data.cart[i].imagekey !== null) {
-      let imagesResponse = await IndexAPI.get(
-        `/images/${cartResponse.data.data.cart[i].imagekey}`,
-        {
-          responseType: "arraybuffer",
-        }
-      ).then((response) =>
-        Buffer.from(response.data, "binary").toString("base64")
-      );
-
-      cartResponse.data.data.cart[i].imageBuffer = imagesResponse;
-    }
-  }
 
   return {
     props: {

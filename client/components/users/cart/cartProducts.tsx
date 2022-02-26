@@ -4,11 +4,11 @@ import { useRouter } from "next/router";
 import IndexAPI from "../../../apis/indexAPI";
 import PropTypes from "prop-types";
 import { ICart } from "../../../interfaces";
-import { Grid } from '@mui/material';
+import { Grid } from "@mui/material";
 
 // import { CartContext } from "../context/CartContext";
 
-const CartProducts: FC = (props:any) => {
+const CartProducts: FC = (props: any) => {
   const [cart, setCart] = useState<ICart[]>([]);
   const [prices, setPrices] = useState<number[]>([]);
   const [cartQty, setCartQty] = useState<number[]>([]);

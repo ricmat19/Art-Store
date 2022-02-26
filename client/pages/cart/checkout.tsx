@@ -2,7 +2,8 @@ import { useRef, useState } from "react";
 // import React, { useContext, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import OrderSummaryC from "../../components/users/cart/orderSummary";
-import HeaderC from "../../components/users/pagesNav";
+import MainNav from "../../components/users/mainNav";
+import PagesNav from "../../components/users/pagesNav";
 import FooterC from "../../components/footer";
 import IndexAPI from "../../apis/indexAPI";
 import { Grid } from '@mui/material';
@@ -96,7 +97,8 @@ const CheckoutC = (props: any) => {
         <title>artHouse19-Checkout</title>
         <meta name="description" content="artHouse19 checkout page."></meta>
       </Head>
-      <HeaderC cartQty={cart.length} />
+      <MainNav cartQty={cart.length} />
+      <PagesNav />
       <Grid className="checkout-div">
         <Elements stripe={stripePromise}>
           <form className="checkout-info" onSubmit={handlePayment}>

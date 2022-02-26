@@ -6,8 +6,6 @@ import FooterC from "../components/footer";
 import Head from "next/head";
 
 const ContactC = (props: any) => {
-  const [cartQty] = useState<number>(props.cart.length);
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
@@ -46,8 +44,8 @@ const ContactC = (props: any) => {
           content="Contact page if you want to reach out to artHouse19"
         ></meta>
       </Head>
-      <MainNav />
-      <PagesNav cartQty={cartQty} />
+      <MainNav cartQty={props.cartQty} />
+      <PagesNav />
       <div className="main-body">
         <div>
           <div className="align-center">
@@ -111,24 +109,9 @@ const ContactC = (props: any) => {
 export async function getStaticProps() {
   const cartResponse = await IndexAPI.get(`/cart`);
 
-  for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
-    if (cartResponse.data.data.cart[i].imagekey !== null) {
-      let imagesResponse = await IndexAPI.get(
-        `/images/${cartResponse.data.data.cart[i].imagekey}`,
-        {
-          responseType: "arraybuffer",
-        }
-      ).then((response) =>
-        Buffer.from(response.data, "binary").toString("base64")
-      );
-
-      cartResponse.data.data.cart[i].imageBuffer = imagesResponse;
-    }
-  }
-
   return {
     props: {
-      cart: cartResponse.data.data.cart,
+      cartQty: cartResponse.data.data.cart.length,
     },
     revalidate: 1,
   };

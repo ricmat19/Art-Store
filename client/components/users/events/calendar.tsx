@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 // import IndexAPI from "../../../apis/indexAPI";
 import { IDay } from "../../../interfaces";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
-const CalendarC = (props: any) => {
+const Calendar = (props: any) => {
   const [nav, setNav] = useState(0);
   //   const [setClicked] = useState();
   const [events] = useState(props.events);
@@ -166,13 +168,15 @@ const CalendarC = (props: any) => {
         <div className="grid month-row">
           <div>
             <button onClick={() => setNav(nav - 1)} className="month-back">
-              <i className="fas fa-chevron-left"></i>
+            <FontAwesomeIcon icon={faChevronLeft} />
+              {/* <i className="fas fa-chevron-left"></i> */}
             </button>
           </div>
           <div className="title month-title">{dateDisplay.toLowerCase()}</div>
           <div>
             <button onClick={() => setNav(nav + 1)} className="month-forward">
-              <i className="fas fa-chevron-right"></i>
+            <FontAwesomeIcon icon={faChevronRight} />
+              {/* <i className="fas fa-chevron-right"></i> */}
             </button>
           </div>
         </div>
@@ -265,4 +269,4 @@ const CalendarC = (props: any) => {
   );
 };
 
-export default CalendarC;
+export default Calendar;

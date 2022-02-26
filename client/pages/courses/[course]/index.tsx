@@ -12,7 +12,6 @@ import { Grid } from "@mui/material";
 
 const Courses: FC = (props: any) => {
   // const { course } = useRouter();
-  const [cartQty] = useState(props.cart.length);
   const [courses] = useState([]);
   const [pageNumber, setPageNumber] = useState<number>(0);
 
@@ -88,7 +87,7 @@ const Courses: FC = (props: any) => {
 
   return (
     <Grid>
-      <MainNav cartQty={cart.length} />
+      <MainNav cartQty={props.cartQty} />
       <PagesNav coursesAmount={courses.length} />
       <Grid className="main-body">
         <CoursesNav courses={courses} />
@@ -135,21 +134,6 @@ export async function getStaticPaths() {
 export async function getStaticProps(context: { params: { course: any } }) {
   const cartResponse = await IndexAPI.get(`/cart`);
 
-  for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
-    if (cartResponse.data.data.cart[i].imagekey !== null) {
-      let imagesResponse = await IndexAPI.get(
-        `/images/${cartResponse.data.data.cart[i].imagekey}`,
-        {
-          responseType: "arraybuffer",
-        }
-      ).then((response) =>
-        Buffer.from(response.data, "binary").toString("base64")
-      );
-
-      cartResponse.data.data.cart[i].imageBuffer = imagesResponse;
-    }
-  }
-
   const course = context.params.course;
   const coursesResponse = await IndexAPI.get(`/courses/${course}`);
 
@@ -172,7 +156,7 @@ export async function getStaticProps(context: { params: { course: any } }) {
   return {
     props: {
       courses: coursesResponse.data.data.courses,
-      cart: cartResponse.data.data.cart,
+      cartQty: cartResponse.data.data.cart.length,
     },
     revalidate: 1,
   };

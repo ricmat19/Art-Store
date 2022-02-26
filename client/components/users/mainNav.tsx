@@ -12,7 +12,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 // import UserModalC from "./userModal";
 // import EllipseModalC from "./ellipseModal";
-// import NotificationModalC from "./notificationModal";
+import NotificationModal from "./modals/notificationModal";
+import UserModal from "./modals/userModal";
+import EllipseModal from "./modals/ellipseModal";
 
 // interface IModalState {
 //   open: boolean,
@@ -23,11 +25,10 @@ import {
 //   password: string,
 // }
 
-const MainNav = (props: any) => {
+const MainNav = () => {
   const [, setDisplaySignInModal] = useState<boolean>(false);
   const [signedIn] = useState<boolean>(true);
-  const [cartQty] = useState(props.cartQty);
-  const [mediasAmount] = useState(props.mediasAmount)
+  // const [mediasAmount] = useState(props.mediasAmount);
   // const [email, ] = useState<string>("");
   // const [password, ] = useState<string>("");
 
@@ -101,7 +102,7 @@ const MainNav = (props: any) => {
             transformOrigin={{ horizontal: "right", vertical: "top" }}
             anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
           >
-            {/* <NotificationModalC/> */}
+            <NotificationModal />
           </Menu>
 
           {/* User menu modal */}
@@ -139,7 +140,7 @@ const MainNav = (props: any) => {
             transformOrigin={{ horizontal: "right", vertical: "top" }}
             anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
           >
-            {/* <UserModalC/> */}
+            <UserModal />
           </Menu>
 
           {/* Ellipse menu modal */}
@@ -177,24 +178,24 @@ const MainNav = (props: any) => {
             transformOrigin={{ horizontal: "right", vertical: "top" }}
             anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
           >
-            {/* <EllipseModalC/> */}
+            <EllipseModal />
           </Menu>
 
           {/* Account Navigation */}
-          <Grid container>
-            <Grid xs={1} sx={{ textAlign: "center", alignSelf: "center" }}>
-              <h1>logo</h1>
+          <Grid container className="mainNav-container">
+            <Grid xs={2} sx={{ textAlign: "center", alignSelf: "center" }}>
+              <span className="logo">
+                <span className="logo-first">a</span>rt
+                <span className="logo-first">H</span>ouse
+                <span className="logo-first">19</span>
+              </span>
             </Grid>
-            <Grid xs={9} container sx={{ alignContent: "center" }}>
+            <Grid xs={8} container sx={{ alignContent: "center" }}>
               <Grid xs={1} sx={{ textAlign: "center", alignSelf: "center" }}>
                 <h1>search</h1>
               </Grid>
               <Grid xs={11} container sx={{ pt: "10px", pb: "10px" }}>
-                <input
-                  type="text"
-                  placeholder="test"
-                  className="search-field"
-                />
+                <input type="text" className="search-field" />
               </Grid>
             </Grid>
             <Grid
@@ -205,6 +206,7 @@ const MainNav = (props: any) => {
               <Grid xs={2} container sx={{ justifyContent: "center" }}>
                 <h1>
                   <FontAwesomeIcon
+                    className="pointer"
                     icon={faBell}
                     onClick={handleNotificationClick}
                   />
@@ -217,7 +219,7 @@ const MainNav = (props: any) => {
               <Grid xs={2} container sx={{ justifyContent: "center" }}>
                 <a href="/collection">
                   <h1>
-                    <FontAwesomeIcon icon={faHeart} />
+                    <FontAwesomeIcon className="pointer" icon={faHeart} />
                     {/* <i className="far fa-heart account-menu-icon"></i> */}
                   </h1>
                 </a>
@@ -225,7 +227,10 @@ const MainNav = (props: any) => {
               <Grid xs={2} container sx={{ justifyContent: "center" }}>
                 <a href="/cart">
                   <h1>
-                    <FontAwesomeIcon icon={faShoppingCart} />
+                    <FontAwesomeIcon
+                      className="pointer"
+                      icon={faShoppingCart}
+                    />
                     {/* <i className="fas fa-shopping-cart account-menu-icon"></i> */}
                   </h1>
                 </a>
@@ -233,6 +238,7 @@ const MainNav = (props: any) => {
               <Grid xs={2} container sx={{ justifyContent: "center" }}>
                 <h1>
                   <FontAwesomeIcon
+                    className="pointer"
                     icon={faUserCircle}
                     onClick={handleUserClick}
                   />
@@ -245,6 +251,7 @@ const MainNav = (props: any) => {
               <Grid xs={2} container sx={{ justifyContent: "center" }}>
                 <h1>
                   <FontAwesomeIcon
+                    className="pointer"
                     icon={faEllipsisV}
                     onClick={handleEllipseClick}
                   />
@@ -319,7 +326,7 @@ const MainNav = (props: any) => {
 
 MainNav.propTypes = {
   cartQty: PropTypes.number,
-  mediasAmount: PropTypes.number
+  mediasAmount: PropTypes.number,
 };
 
 export default MainNav;

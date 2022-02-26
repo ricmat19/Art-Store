@@ -1,14 +1,14 @@
-import React, { FC } from "react";
+import IndexAPI from "../apis/indexAPI";
 import MainNav from "../components/users/mainNav";
 import PagesNav from "../components/users/pagesNav";
 import FooterC from "../components/footer";
 import { Grid } from "@mui/material";
 
-const TermsOfServiceC: FC = () => {
+const TermsOfService = (props: any) => {
   return (
     <Grid>
-      <MainNav />
-      <PagesNav cartQty={cartQty} />
+      <MainNav cartQty={props.cartQty} />
+      <PagesNav />
       <Grid sx={{ margin: "30px 100px" }}>
         <Grid>Terms of Service</Grid>
         <Grid>
@@ -1579,4 +1579,15 @@ const TermsOfServiceC: FC = () => {
   );
 };
 
-export default TermsOfServiceC;
+export async function getStaticProps() {
+  const cartResponse = await IndexAPI.get(`/cart`);
+
+  return {
+    props: {
+      cartQty: cartResponse.data.data.cart.length,
+    },
+    revalidate: 1,
+  };
+}
+
+export default TermsOfService;

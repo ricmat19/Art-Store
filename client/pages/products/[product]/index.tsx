@@ -12,14 +12,12 @@ import { Grid } from "@mui/material";
 import ProductsNav from "../../../components/users/products/productsNav";
 
 const Products = (props: any) => {
-  const [cartQty] = useState<number>(props.cart.length);
-  const [products] = useState(props.products);
   const [pageNumber, setPageNumber] = useState<number>(0);
 
   const itemsPerPage = 9;
   const pagesVisted = pageNumber * itemsPerPage;
 
-  const displayItems = products
+  const displayItems = props.products
     .slice(pagesVisted, pagesVisted + itemsPerPage)
     .map((item: any) => {
       return (
@@ -43,7 +41,7 @@ const Products = (props: any) => {
       );
     });
 
-  const pageCount = Math.ceil(products.length / itemsPerPage);
+  const pageCount = Math.ceil(props.products.length / itemsPerPage);
 
   const changePage = ({ selected }: any) => {
     setPageNumber(selected);
@@ -68,11 +66,11 @@ const Products = (props: any) => {
           content="View a full list of the products available in artHouse19!"
         ></meta>
       </Head>
-      <MainNav cartQty={cartQty} />
-      <PagesNav productsAmount={products.length} />
+      <MainNav cartQty={props.cartQty} />
+      <PagesNav productsAmount={props.products.length} />
       <Grid className="main-body">
         <Grid>
-          <ProductsNav products={products} />
+          <ProductsNav products={props.products} />
           <Grid className="products-menu">{displayItems}</Grid>
           <ReactPaginate
             previousLabel={"prev"}
@@ -115,21 +113,6 @@ export async function getStaticPaths() {
 export async function getStaticProps(context: { params: { product: any } }) {
   const cartResponse = await IndexAPI.get(`/cart`);
 
-  for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
-    if (cartResponse.data.data.cart[i].imagekey !== null) {
-      let imagesResponse = await IndexAPI.get(
-        `/images/${cartResponse.data.data.cart[i].imagekey}`,
-        {
-          responseType: "arraybuffer",
-        }
-      ).then((response) =>
-        Buffer.from(response.data, "binary").toString("base64")
-      );
-
-      cartResponse.data.data.cart[i].imageBuffer = imagesResponse;
-    }
-  }
-
   const product = context.params.product;
   const productResponse = await IndexAPI.get(`/products/${product}`);
 
@@ -152,7 +135,7 @@ export async function getStaticProps(context: { params: { product: any } }) {
   return {
     props: {
       products: productResponse.data.data.product,
-      cart: cartResponse.data.data.cart,
+      cartQty: cartResponse.data.data.cart.length,
     },
     revalidate: 1,
   };

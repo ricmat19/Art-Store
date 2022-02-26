@@ -7,18 +7,25 @@ import FooterC from "../../../components/footer";
 import { Grid } from "@mui/material";
 
 const CourseC: FC = (props: any) => {
-
-  const [cartQty] = useState(props.cart.length)
-  const [fullDuration, ] = useState<string>("");
-  const [lessonDuration, ] = useState<string>("");
+  const [fullDuration] = useState<string>("");
+  const [lessonDuration] = useState<string>("");
 
   return (
     <div>
-      <MainNav />
-      <PagesNav cartQty={cartQty} />
-      <Grid container sx={{gap: "25px", justifyContent: "center", padding: "25px 0"}} className="main-body">
+      <MainNav cartQty={props.cartQty} />
+      <PagesNav />
+      <Grid
+        container
+        sx={{ gap: "25px", justifyContent: "center", padding: "25px 0" }}
+        className="main-body"
+      >
         <Grid container xs={8}>
-          <ReactPlayer url="../../../homeVideo.mp4" width="100%" height="fit-content" controls />
+          <ReactPlayer
+            url="../../../homeVideo.mp4"
+            width="100%"
+            height="fit-content"
+            controls
+          />
         </Grid>
         <Grid container xs={3} className="course-content">
           <Grid container className="lesson-container">
@@ -75,7 +82,7 @@ export async function getStaticPaths() {
     paths: coursesResponse.data.data.courses.map((courses: any) => ({
       params: {
         courses: courses.course,
-        id: courses.id
+        id: courses.id,
       },
     })),
   };
@@ -84,6 +91,8 @@ export async function getStaticPaths() {
 export async function getStaticProps(context: {
   params: { course: any; id: any };
 }) {
+  const cartResponse = await IndexAPI.get(`/cart`);
+  
   const course = context.params.course;
   const id = context.params.id;
   const courseResponse = await IndexAPI.get(`/products/${course}/${id}`);
@@ -101,8 +110,6 @@ export async function getStaticProps(context: {
 
     imageBuffer = `data:image/png;base64,${imagesResponse}`;
   }
-
-  const cartResponse = await IndexAPI.get(`/cart`);
 
   return {
     props: {

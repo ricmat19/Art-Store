@@ -1,6 +1,6 @@
 import { useState } from "react";
 // import { useContext } from "react";
-import CartProductsC from "../../components/users/cart/cartProducts";
+import CartProducts from "../../components/users/cart/cartProducts";
 import MainNav from "../../components/users/mainNav";
 import PagesNav from "../../components/users/pagesNav";
 import FooterC from "../../components/footer";
@@ -35,7 +35,7 @@ const CartC = (props: any) => {
             </Grid>
             <hr className="no-margin" />
             <Grid className="full-height">
-              <CartProductsC setCart={setCart} />
+              <CartProducts setCart={setCart} />
             </Grid>
           </Grid>
         </Grid>

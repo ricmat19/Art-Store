@@ -1,4 +1,3 @@
-import { useState } from "react";
 import IndexAPI from "../apis/indexAPI";
 import MainNav from "../components/users/mainNav";
 import PagesNav from "../components/users/pagesNav";
@@ -6,8 +5,6 @@ import FooterC from "../components/footer";
 import Head from "next/head";
 
 const AboutC = (props: any) => {
-  const [cartQty] = useState<number>(props.cart.length);
-
   return (
     <div>
       <Head>
@@ -17,8 +14,8 @@ const AboutC = (props: any) => {
           content="About the artHouse19 and its creator."
         ></meta>
       </Head>
-      <MainNav />
-      <PagesNav cartQty={cartQty} />
+      <MainNav cartQty={props.cartQty} />
+      <PagesNav />
       <div className="main-body">
         <div>
           <div className="align-center">
@@ -52,24 +49,9 @@ const AboutC = (props: any) => {
 export async function getStaticProps() {
   const cartResponse = await IndexAPI.get(`/cart`);
 
-  for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
-    if (cartResponse.data.data.cart[i].imagekey !== null) {
-      let imagesResponse = await IndexAPI.get(
-        `/images/${cartResponse.data.data.cart[i].imagekey}`,
-        {
-          responseType: "arraybuffer",
-        }
-      ).then((response) =>
-        Buffer.from(response.data, "binary").toString("base64")
-      );
-
-      cartResponse.data.data.cart[i].imageBuffer = imagesResponse;
-    }
-  }
-
   return {
     props: {
-      cart: cartResponse.data.data.cart,
+      cartQty: cartResponse.data.data.cart.length,
     },
     revalidate: 1,
   };

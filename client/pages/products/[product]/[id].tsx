@@ -92,8 +92,8 @@ const ProductDetailsC = (props: any) => {
         </form>
       </div> */}
 
-      <MainNav />
-      <PagesNav cartQty={cartQty} />
+      <MainNav cartQty={cartQty}/>
+      <PagesNav  />
       <div className="main-body">
         <div className="item-details">
           <div className="image-div">

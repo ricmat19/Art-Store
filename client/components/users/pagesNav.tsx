@@ -3,10 +3,16 @@
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import { Grid } from "@mui/material";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCalendarCheck,
+  faChalkboardTeacher,
+  faStoreAlt,
+  faTv,
+} from "@fortawesome/free-solid-svg-icons";
 // import { CartContext } from "../context/CartContext";
 
-const PagesNav = (props: any) => {
-
+const PagesNav = () => {
   // const [signinModal, setSigninModal] = useState<string>("modal-bg");
   // const [signupModal, setSignupModal] = useState<string>("modal-bg");
   // const [resetModal, setResetModal] = useState<string>("modal-bg");
@@ -121,7 +127,8 @@ const PagesNav = (props: any) => {
         <Grid container sx={{ pt: "5px", pb: "5px", justifyContent: "center" }}>
           <Grid container xs={3} sx={{ justifyContent: "center" }}>
             <Grid sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}>
-              <i className="fas fa-store-alt"></i>
+              {/* <i className="fas fa-store-alt"></i> */}
+              <FontAwesomeIcon icon={faStoreAlt} />
             </Grid>
             <Grid sx={{ textAlign: "center", alignSelf: "center" }}>
               <Grid
@@ -134,7 +141,8 @@ const PagesNav = (props: any) => {
           </Grid>
           <Grid container xs={3} sx={{ justifyContent: "center" }}>
             <Grid sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}>
-              <i className="fas fa-chalkboard-teacher"></i>
+              {/* <i className="fas fa-chalkboard-teacher"></i> */}
+              <FontAwesomeIcon icon={faChalkboardTeacher} />
             </Grid>
             <Grid sx={{ textAlign: "center", alignSelf: "center" }}>
               <Grid
@@ -147,7 +155,8 @@ const PagesNav = (props: any) => {
           </Grid>
           <Grid container xs={3} sx={{ justifyContent: "center" }}>
             <Grid sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}>
-              <i className="fas fa-tv"></i>
+              {/* <i className="fas fa-tv"></i> */}
+              <FontAwesomeIcon icon={faTv} />
             </Grid>
             <Grid
               className="nav-link"
@@ -159,6 +168,7 @@ const PagesNav = (props: any) => {
           {/* <Grid container xs={2} sx={{justifyContent: "center"}}>
             <Grid sx={{textAlign: 'center', alignSelf: "center", m: "5px"}}>
               <i className="fas fa-paint-brush"></i>
+              <FontAwesomeIcon icon={faPaintBrush} />
             </Grid>
             <Grid sx={{textAlign: 'center', alignSelf: "center"}}>
               <a href="/projects">
@@ -168,18 +178,17 @@ const PagesNav = (props: any) => {
           </Grid> */}
           <Grid container xs={3} sx={{ justifyContent: "center" }}>
             <Grid sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}>
-              <i className="fas fa-calendar-check"></i>
+              {/* <i className="fas fa-calendar-check"></i> */}
+              <FontAwesomeIcon icon={faCalendarCheck} />
             </Grid>
-            <Grid
-              className="nav-link"
-              onClick={() => router.push("/events")}
-            >
+            <Grid className="nav-link" onClick={() => router.push("/events")}>
               <h1 className="pointer">events</h1>
             </Grid>
           </Grid>
           {/* <Grid container xs={2} sx={{justifyContent: "center"}}>
             <Grid sx={{textAlign: 'center', alignSelf: "center", m: "5px"}}>
               <i className="fas fa-comments"></i>
+              <FontAwesomeIcon icon={faComments} />
             </Grid>
             <Grid sx={{textAlign: 'center', alignSelf: "center"}}>
               <a href="/threads">
@@ -371,6 +380,7 @@ const PagesNav = (props: any) => {
     //         <Grid container xs={3} sx={{ justifyContent: "center" }}>
     //           <Grid sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}>
     //             <i className="fas fa-chalkboard-teacher"></i>
+    //             <FontAwesomeIcon icon={faChalkboardTeacher} />
     //           </Grid>
     //           <Grid sx={{ textAlign: "center", alignSelf: "center" }}>
     //             <a href="/courses/drawing">
@@ -382,6 +392,7 @@ const PagesNav = (props: any) => {
     //               sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}
     //             >
     //               <i className="fas fa-tv"></i>
+    //               <FontAwesomeIcon icon={faTv} />
     //             </Grid>
     //             <Grid sx={{ textAlign: "center", alignSelf: "center" }}>
     //               <a href="/medias/blog">
@@ -393,6 +404,7 @@ const PagesNav = (props: any) => {
     //         <Grid container xs={3} sx={{ justifyContent: "center" }}>
     //           <Grid sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}>
     //             <i className="fas fa-calendar-check"></i>
+    //             <FontAwesomeIcon icon={faCalendarCheck} />
     //           </Grid>
     //           <Grid sx={{ textAlign: "center", alignSelf: "center" }}>
     //             <a href="/events">
@@ -403,6 +415,7 @@ const PagesNav = (props: any) => {
     //         {/* <Grid container xs={2} sx={{justifyContent: "center"}}>
     //         <Grid sx={{textAlign: 'center', alignSelf: "center", m: "5px"}}>
     //           <i className="fas fa-comments"></i>
+    //           <FontAwesomeIcon icon={faComments} />
     //         </Grid>
     //         <Grid sx={{textAlign: 'center', alignSelf: "center"}}>
     //           <a href="/threads">
@@ -440,7 +453,7 @@ const PagesNav = (props: any) => {
 PagesNav.propTypes = {
   products: PropTypes.any,
   medias: PropTypes.any,
-  courses: PropTypes.any
+  courses: PropTypes.any,
 };
 
 export default PagesNav;
