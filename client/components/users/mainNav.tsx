@@ -188,7 +188,6 @@ const MainNav = () => {
               padding: "0 10px"
             }}
             container
-            className="mainNav-container"
           >
             <Grid
               xs={2}
@@ -235,17 +234,12 @@ const MainNav = () => {
                     icon={faBell}
                     onClick={handleNotificationClick}
                   />
-                  {/* <i
-                    className="far fa-bell account-menu-icon"
-                    onClick={handleNotificationClick}
-                  ></i> */}
                 </h1>
               </Grid>
               <Grid xs={2} container sx={{ justifyContent: "center" }}>
                 <a href="/collection">
                   <h1>
                     <FontAwesomeIcon className="pointer" icon={faHeart} />
-                    {/* <i className="far fa-heart account-menu-icon"></i> */}
                   </h1>
                 </a>
               </Grid>
@@ -256,7 +250,6 @@ const MainNav = () => {
                       className="pointer"
                       icon={faShoppingCart}
                     />
-                    {/* <i className="fas fa-shopping-cart account-menu-icon"></i> */}
                   </h1>
                 </a>
               </Grid>
@@ -267,10 +260,6 @@ const MainNav = () => {
                     icon={faUserCircle}
                     onClick={handleUserClick}
                   />
-                  {/* <i
-                    className="fas fa-user-circle account-menu-icon"
-                    onClick={handleUserClick}
-                  ></i> */}
                 </h1>
               </Grid>
               <Grid xs={2} container sx={{ justifyContent: "center" }}>
@@ -280,10 +269,6 @@ const MainNav = () => {
                     icon={faEllipsisV}
                     onClick={handleEllipseClick}
                   />
-                  {/* <i
-                    className="fas fa-ellipsis-v"
-                    onClick={handleEllipseClick}
-                  ></i> */}
                 </h1>
               </Grid>
             </Grid>
@@ -327,7 +312,7 @@ const MainNav = () => {
                 sx={{ justifyContent: "center", alignSelf: "center" }}
               >
                 <a href="/cart">
-                  <i className="fas fa-shopping-cart"></i>
+                  <FontAwesomeIcon icon={faShoppingCart} />
                 </a>
               </Grid>
               <Grid xs={5} container sx={{ justifyContent: "center" }}>

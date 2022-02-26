@@ -102,4 +102,21 @@ router.get("/signout", async (req, res) => {
   }
 });
 
+//User Profile
+router.get("/profile", async (req, res) => {
+  try {
+    const user = await db.query("SELECT * from users");
+
+    res.status(200).json({
+      status: "success",
+      results: user.rows.length,
+      data: {
+        user: user.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 module.exports = router;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Grid } from '@mui/material';
+import { Grid } from "@mui/material";
 import Link from "next/link";
 
 const AdminMediaNav = (props: any) => {
@@ -14,28 +14,15 @@ const AdminMediaNav = (props: any) => {
 
   const mediaPageLinks = mediaTypes.map((media: any) => {
     return (
-      <Link
-        passHref
-        key={media}
-        href={`/admin/products/${media}`}
-      >
-        <h1>{media}s</h1>
+      <Link passHref key={media} href={`/admin/products/${media}`}>
+        <h1 className="main-title pointer">{media}s</h1>
       </Link>
     );
   });
 
   return (
-    <Grid container sx={{justifyContent: "center", gap: "25px", mt: "10px"}}>
-        {/* <a href="/medias/blog">
-          <h1>blog</h1>
-        </a>
-        <a href="/medias/podcast">
-          <h1>podcast</h1>
-        </a>
-        <a href="/medias/channel">
-          <h1>channel</h1>
-        </a> */}
-        {mediaPageLinks}
+    <Grid container sx={{ justifyContent: "center", gap: "25px", mt: "10px" }}>
+      {mediaPageLinks}
     </Grid>
   );
 };

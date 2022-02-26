@@ -5,6 +5,8 @@ import MainNav from "../../../components/users/mainNav";
 import PagesNav from "../../../components/users/pagesNav";
 import FooterC from "../../../components/footer";
 import { Grid } from "@mui/material";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlayCircle } from "@fortawesome/free-solid-svg-icons";
 
 const CourseC: FC = (props: any) => {
   const [fullDuration] = useState<string>("");
@@ -37,7 +39,7 @@ const CourseC: FC = (props: any) => {
           <Grid container className="lesson-container">
             <Grid container className="lesson-name">
               <Grid className="play-icon-container">
-                <i className="far fa-play-circle"></i>
+                <FontAwesomeIcon icon={faPlayCircle} />
               </Grid>
               <Grid>
                 <p>Introduction</p>
@@ -48,7 +50,7 @@ const CourseC: FC = (props: any) => {
           <Grid container className="lesson-container">
             <Grid container className="lesson-name">
               <Grid className="play-icon-container">
-                <i className="far fa-play-circle"></i>
+                <FontAwesomeIcon icon={faPlayCircle} />
               </Grid>
               <Grid>
                 <p>Main Lesson</p>
@@ -59,7 +61,7 @@ const CourseC: FC = (props: any) => {
           <Grid container className="lesson-container">
             <Grid container className="lesson-name">
               <Grid className="play-icon-container">
-                <i className="far fa-play-circle"></i>
+                <FontAwesomeIcon icon={faPlayCircle} />
               </Grid>
               <Grid>
                 <p>Conclusion</p>
@@ -92,7 +94,7 @@ export async function getStaticProps(context: {
   params: { course: any; id: any };
 }) {
   const cartResponse = await IndexAPI.get(`/cart`);
-  
+
   const course = context.params.course;
   const id = context.params.id;
   const courseResponse = await IndexAPI.get(`/products/${course}/${id}`);

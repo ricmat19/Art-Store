@@ -10,24 +10,23 @@ const TermsOfService = (props: any) => {
       <MainNav cartQty={props.cartQty} />
       <PagesNav />
       <Grid sx={{ margin: "30px 100px" }}>
-        <Grid>Terms of Service</Grid>
         <Grid>
           <Grid className="container">
             <Grid className="page-header">
-              <h1>RDCArt Terms of Service</h1>
+              <h1 className="main-title">artHouse19 terms of service</h1>
             </Grid>
             <Grid className="row">
               <Grid className="col-sm-8 col-sm-offset-2">
                 <p className="lead text-center">
                   The following document outlines the terms of use of the
-                  RDCArt&nbsp;website. Please also review our
+                  artHouse19&nbsp;website. Please also review our
                   <a href="/privacy">Privacy&nbsp;policy</a>.
                 </p>
                 <p className="text-center">
-                  Before using any RDCArt services, you must read, understand
-                  and agree to these terms. The column on the right provides a
-                  short explanation of the terms of use and is not legally
-                  binding.
+                  Before using any artHouse19 services, you must read,
+                  understand and agree to these terms. The column on the right
+                  provides a short explanation of the terms of use and is not
+                  legally binding.
                 </p>
               </Grid>
             </Grid>
@@ -36,8 +35,8 @@ const TermsOfService = (props: any) => {
             <Grid className="row">
               <Grid className="col-sm-8">
                 <p>
-                  The web pages available at RDCArt.com and linked pages
-                  (“RDCArt” or the “Site”) is accessed by you (“you” or the
+                  The web pages available at artHouse19.com and linked pages
+                  (“artHouse19” or the “Site”) is accessed by you (“you” or the
                   “Member”) under the Terms of Use described below (this
                   “Agreement”).
                 </p>
@@ -73,7 +72,7 @@ const TermsOfService = (props: any) => {
                   <blockquote>
                     <small>Basically...</small>
                     <p className="lead">
-                      By using RDCArt, you&apos;re agreeing to these terms.
+                      By using artHouse19, you&apos;re agreeing to these terms.
                     </p>
                   </blockquote>
                 </Grid>
@@ -93,8 +92,8 @@ const TermsOfService = (props: any) => {
                     benefits, features and levels of membership from
                     time-to-time by sending you an email or by posting the
                     changes on the Site. Our provision of the above benefits to
-                    you, including RDCArt Learning (defined in section 9), the
-                    Marketplace (defined in section 10(a)), and all other
+                    you, including artHouse19 Learning (defined in section 9),
+                    the Marketplace (defined in section 10(a)), and all other
                     services we provide on the Site, are collectively the
                     “Services”. Epic may use third parties to provide some or
                     all of the Services. The Services may be provided using
@@ -121,14 +120,14 @@ const TermsOfService = (props: any) => {
                   </p>
                   <Grid className="separator"></Grid>
                   <h3>3. Minors</h3>
-                  <p>Minors are not allowed to use RDCArt.</p>
+                  <p>Minors are not allowed to use artHouse19.</p>
                   <Grid className="separator"></Grid>
                 </Grid>
                 <Grid className="col-sm-4">
                   <blockquote>
                     <small>Basically...</small>
                     <p className="lead">
-                      You must be at least 18 to use RDCArt.
+                      You must be at least 18 to use artHouse19.
                     </p>
                   </blockquote>
                 </Grid>
@@ -185,8 +184,8 @@ const TermsOfService = (props: any) => {
                   <blockquote>
                     <small>Basically...</small>
                     <p className="lead">
-                      You can&apos;t use RDCArt to sell the service to someone
-                      else.
+                      You can&apos;t use artHouse19 to sell the service to
+                      someone else.
                     </p>
                   </blockquote>
                 </Grid>
@@ -245,11 +244,11 @@ const TermsOfService = (props: any) => {
               <hr />
               <Grid className="row">
                 <Grid className="col-sm-8">
-                  <h3>9. RDCArt Learning</h3>
+                  <h3>9. artHouse19 Learning</h3>
                   <h4>a. Overview</h4>
                   <p>
-                    RDCArt Learning (“RDCArt Learning”) is an optional Service
-                    that allows eligible members to access and stream
+                    artHouse19 Learning (“artHouse19 Learning”) is an optional
+                    Service that allows eligible members to access and stream
                     instructional and tutorial video content from the Site
                     (“Learning Content”) and download and use certain digital
                     resources (“Learning Resources”) (for example, digital
@@ -264,8 +263,9 @@ const TermsOfService = (props: any) => {
                     supported computers and devices. The Learning Content is or
                     may be protected by digital rights management or other
                     technological protection measures. All Learning Content is
-                    RDCArt Property subject to section 16 (Ownership), section
-                    24 (Use of the Services) and the remainder of these Terms.
+                    artHouse19 Property subject to section 16 (Ownership),
+                    section 24 (Use of the Services) and the remainder of these
+                    Terms.
                   </p>
                   <h4>c. Learning Resources</h4>
                   <p>
@@ -332,12 +332,12 @@ const TermsOfService = (props: any) => {
                   <blockquote>
                     <small>Basically...</small>
                     <p className="lead">
-                      If you&apos;re using RDCArt Learning, you cannot pirate
-                      the content. You cannot copy and redistribute the content.
-                      If a course has downloadable files, you can use it for
-                      your own projects, but you cannot redistribute it to
-                      others in any way, shape or form, including copying it to
-                      a shared server/drive.{" "}
+                      If you&apos;re using artHouse19 Learning, you cannot
+                      pirate the content. You cannot copy and redistribute the
+                      content. If a course has downloadable files, you can use
+                      it for your own projects, but you cannot redistribute it
+                      to others in any way, shape or form, including copying it
+                      to a shared server/drive.{" "}
                     </p>
                   </blockquote>
                 </Grid>
@@ -345,10 +345,10 @@ const TermsOfService = (props: any) => {
               <hr />
               <Grid className="row">
                 <Grid className="col-sm-8">
-                  <h3>10. RDCArt Marketplace for Content Providers</h3>
+                  <h3>10. artHouse19 Marketplace for Content Providers</h3>
                   <h4>a. Overview</h4>
                   <p>
-                    RDCArt Marketplace (the “Marketplace”) is a Service that
+                    artHouse19 Marketplace (the “Marketplace”) is a Service that
                     allows you to commercialize some of Your Content (defined in
                     section 15) through the Site. There are two types of
                     products that are now, or may in the future be, available
@@ -591,7 +591,7 @@ const TermsOfService = (props: any) => {
                   <blockquote>
                     <small>Basically...</small>
                     <p className="lead">
-                      If you are selling stuff on RDCArt via our Store /
+                      If you are selling stuff on artHouse19 via our Store /
                       Marketplace features, this applies to you.
                     </p>
                   </blockquote>
@@ -600,7 +600,7 @@ const TermsOfService = (props: any) => {
               <hr />
               <Grid className="row">
                 <Grid className="col-sm-8">
-                  <h3>11. RDCArt Marketplace for Content Acquirers</h3>
+                  <h3>11. artHouse19 Marketplace for Content Acquirers</h3>
                   <h4>a. Overview</h4>
                   <p>
                     The Marketplace is a Service that allows you to purchase
@@ -678,8 +678,8 @@ const TermsOfService = (props: any) => {
                   <blockquote>
                     <small>Basically...</small>
                     <p className="lead">
-                      If you buy stuff from the RDCArt Marketplace, this applies
-                      to you.
+                      If you buy stuff from the artHouse19 Marketplace, this
+                      applies to you.
                     </p>
                   </blockquote>
                 </Grid>
@@ -722,7 +722,7 @@ const TermsOfService = (props: any) => {
                   <p>
                     (b) acceptable-use policies and other policies implemented
                     by Epic with respect to the Site or the Services from
-                    time-to-time, as posted on RDCArt’s website; and
+                    time-to-time, as posted on artHouse19’s website; and
                   </p>
                   <p>
                     (c) other rules and policies or procedures that Epic
@@ -734,8 +734,8 @@ const TermsOfService = (props: any) => {
                     <small>Basically...</small>
                     <p className="lead">
                       You agree to any rules about acceptable behavior on
-                      RDCArt. Be nice and respectful to people and you&apos;ll
-                      be fine.
+                      artHouse19. Be nice and respectful to people and
+                      you&apos;ll be fine.
                     </p>
                   </blockquote>
                 </Grid>
@@ -761,7 +761,7 @@ const TermsOfService = (props: any) => {
                     information, including the purposes for which we and our
                     representatives may use your personal information, in our
                     Privacy Policy, which is currently available at
-                    www.RDCArt.com/privacy
+                    www.artHouse19.com/privacy
                   </p>
                   <p>
                     We may use aggregate, non-identifiable information about the
@@ -785,11 +785,12 @@ const TermsOfService = (props: any) => {
                   <blockquote>
                     <small>Basically...</small>
                     <p className="lead">
-                      When you submit your info on RDCArt, we save it somewhere
-                      and we use it internally to help make a good service for
-                      you. Because we depend on external services to run RDCArt
-                      (e.g. hosting), your info might be stored on their service
-                      and you&apos;re giving us permission to do this.
+                      When you submit your info on artHouse19, we save it
+                      somewhere and we use it internally to help make a good
+                      service for you. Because we depend on external services to
+                      run artHouse19 (e.g. hosting), your info might be stored
+                      on their service and you&apos;re giving us permission to
+                      do this.
                     </p>
                   </blockquote>
                 </Grid>
@@ -809,19 +810,19 @@ const TermsOfService = (props: any) => {
                   </p>
                   <p>
                     As between you and Epic, Epic or third parties solely own
-                    the following (the “RDCArt Property”):
+                    the following (the “artHouse19 Property”):
                   </p>
                   <p>
                     (a) all other content on the Site or provided through the
                     Services, including all Learning Content, all Learning
                     Resources, and all text, photos, videos, templates, and
-                    other content provided by Epic (collectively, the “RDCArt
-                    Content”) and all intellectual property rights in the RDCArt
-                    Content; and
+                    other content provided by Epic (collectively, the
+                    “artHouse19 Content”) and all intellectual property rights
+                    in the artHouse19 Content; and
                   </p>
                   <p>
                     (b) all tools, hardware and software used to provide the
-                    Services (collectively, the “RDCArt Tools”);
+                    Services (collectively, the “artHouse19 Tools”);
                   </p>
                   <p>
                     (c) the graphical design of the Site, the Site user
@@ -830,21 +831,21 @@ const TermsOfService = (props: any) => {
                   </p>
                   <p>
                     (d) the names, logos and trade-marks of Epic and on the Site
-                    (including third parties’ marks) and RDCArt.
+                    (including third parties’ marks) and artHouse19.
                   </p>
                   <p>
                     You must not copy, modify, distribute, use, exploit or make
-                    derivative works from any of the RDCArt Property except as
-                    explicitly permitted by Epic.
+                    derivative works from any of the artHouse19 Property except
+                    as explicitly permitted by Epic.
                   </p>
                 </Grid>
                 <Grid className="col-sm-4">
                   <blockquote>
                     <small>Basically...</small>
                     <p className="lead">
-                      Whatever original content you post on RDCArt belongs to
-                      you. We don&apos;t claim any ownership over your stuff.
-                      All the other stuff (the RDCArt UI, etc.) is ours.
+                      Whatever original content you post on artHouse19 belongs
+                      to you. We don&apos;t claim any ownership over your stuff.
+                      All the other stuff (the artHouse19 UI, etc.) is ours.
                     </p>
                   </blockquote>
                 </Grid>
@@ -882,9 +883,9 @@ const TermsOfService = (props: any) => {
                     <small>Basically...</small>
                     <p className="lead">
                       You&apos;re allowing us to use your artwork and name for
-                      things connected with RDCArt. E.g. if we want to post it
-                      on Facebook to promote you, we&apos;re allowed to do that.
-                      We won&apos;t sell your artwork.
+                      things connected with artHouse19. E.g. if we want to post
+                      it on Facebook to promote you, we&apos;re allowed to do
+                      that. We won&apos;t sell your artwork.
                     </p>
                   </blockquote>
                 </Grid>
@@ -907,8 +908,8 @@ const TermsOfService = (props: any) => {
                   <blockquote>
                     <small>Basically...</small>
                     <p className="lead">
-                      When you post stuff to RDCArt, make sure that you own it
-                      or that you have permission to post it.
+                      When you post stuff to artHouse19, make sure that you own
+                      it or that you have permission to post it.
                     </p>
                   </blockquote>
                 </Grid>
@@ -945,8 +946,9 @@ const TermsOfService = (props: any) => {
                     <small>Basically...</small>
                     <p className="lead">
                       We&apos;re not legally responsible for stuff posted on
-                      RDCArt. We can&apos;t monitor everything. You can report
-                      abuse to us and we&apos;ll do our best to deal with it.
+                      artHouse19. We can&apos;t monitor everything. You can
+                      report abuse to us and we&apos;ll do our best to deal with
+                      it.
                     </p>
                   </blockquote>
                 </Grid>
@@ -979,8 +981,8 @@ const TermsOfService = (props: any) => {
                     If you believe that any content that another user posts on
                     the Site infringes your rights, you may send us a notice.
                     Please follow the instructions at{" "}
-                    <a href="https://www.RDCArt.com/dmca">
-                      www.RDCArt.com/dmca
+                    <a href="https://www.artHouse19.com/dmca">
+                      www.artHouse19.com/dmca
                     </a>
                     .
                   </p>
@@ -994,8 +996,8 @@ const TermsOfService = (props: any) => {
                   <p>
                     (a) reverse engineer, de-compile, hack, disable, disrupt,
                     interfere with, disassemble, copy, decrypt, reassemble,
-                    supplement, translate, adapt or enhance any of the RDCArt
-                    Property or the Services;
+                    supplement, translate, adapt or enhance any of the
+                    artHouse19 Property or the Services;
                   </p>
                   <p>
                     (b) create a link, name or label, or otherwise upload to or
@@ -1049,8 +1051,8 @@ const TermsOfService = (props: any) => {
                     </li>
                     <li>
                       conduct or instigate any denial of service attack against
-                      the RDCArt website or network, any other Epic website or
-                      network, or any third party’s website or network;
+                      the artHouse19 website or network, any other Epic website
+                      or network, or any third party’s website or network;
                     </li>
                   </ol>
                   <p>
@@ -1118,7 +1120,7 @@ const TermsOfService = (props: any) => {
                     <small>Basically...</small>
                     <p className="lead">
                       If we find that someone is trying to hack or mess with
-                      RDCArt, we&apos;re allowed to prevent that person from
+                      artHouse19, we&apos;re allowed to prevent that person from
                       accessing it.
                     </p>
                   </blockquote>
@@ -1130,7 +1132,7 @@ const TermsOfService = (props: any) => {
                   <h3>26. Terms of Other Services</h3>
                   <p>
                     If you use any other service or software provided by or
-                    through RDCArt or the Services, you must comply with all
+                    through artHouse19 or the Services, you must comply with all
                     terms and conditions that are imposed upon your use of that
                     service or software.
                   </p>
@@ -1169,7 +1171,7 @@ const TermsOfService = (props: any) => {
                     <small>Basically...</small>
                     <p className="lead">
                       You&apos;re responsible for your own computer and
-                      hardware. RDCArt shouldn&apos;t cause your hardware to
+                      hardware. artHouse19 shouldn&apos;t cause your hardware to
                       fail. And in the ridiculously unlikely event that it does,
                       we&apos;re not responsible for it.
                     </p>
@@ -1216,7 +1218,7 @@ const TermsOfService = (props: any) => {
                   <blockquote>
                     <small>Basically...</small>
                     <p className="lead">
-                      We&apos;re allowed to change RDCArt as needed.
+                      We&apos;re allowed to change artHouse19 as needed.
                     </p>
                   </blockquote>
                 </Grid>
@@ -1253,8 +1255,8 @@ const TermsOfService = (props: any) => {
                   </p>
                   <p>(a) this agreement or our enforcement of it;</p>
                   <p>
-                    (b) the Site, the RDCArt Content, the RDCArt Tools or the
-                    Services; and
+                    (b) the Site, the artHouse19 Content, the artHouse19 Tools
+                    or the Services; and
                   </p>
                   <p>
                     (c) the amount, type or payment of fees in connection with
@@ -1265,7 +1267,7 @@ const TermsOfService = (props: any) => {
                   <p>Upon termination of your account or this agreement:</p>
                   <p>
                     (a) you will immediately cease all use of the Site, the
-                    RDCArt Content, the RDCArt Tools and the Services;
+                    artHouse19 Content, the artHouse19 Tools and the Services;
                   </p>
                   <p>
                     (b) you will have no further access to your account or
@@ -1303,10 +1305,10 @@ const TermsOfService = (props: any) => {
                   <blockquote>
                     <small>Basically...</small>
                     <p className="lead">
-                      If you don&apos;t use RDCArt for a really long time, we
-                      can remove your account. If you don&apos;t pay us, we can
-                      remove your account. You can also terminate the account
-                      yourself.
+                      If you don&apos;t use artHouse19 for a really long time,
+                      we can remove your account. If you don&apos;t pay us, we
+                      can remove your account. You can also terminate the
+                      account yourself.
                     </p>
                   </blockquote>
                 </Grid>
@@ -1353,7 +1355,8 @@ const TermsOfService = (props: any) => {
                   <blockquote>
                     <small>Basically...</small>
                     <p className="lead">
-                      Stuff that is linked from RDCArt is out of our control.
+                      Stuff that is linked from artHouse19 is out of our
+                      control.
                     </p>
                   </blockquote>
                 </Grid>
@@ -1393,8 +1396,8 @@ const TermsOfService = (props: any) => {
                   <blockquote>
                     <small>Basically...</small>
                     <p className="lead">
-                      You can link to RDCArt, but please don&apos;t post false
-                      or misleading information.
+                      You can link to artHouse19, but please don&apos;t post
+                      false or misleading information.
                     </p>
                   </blockquote>
                 </Grid>
@@ -1404,36 +1407,37 @@ const TermsOfService = (props: any) => {
                 <Grid className="col-sm-8">
                   <h3>38. Disclaimer</h3>
                   <p>
-                    THE SITE, THE RDCArt CONTENT, THE RDCArt TOOLS AND THE
-                    SERVICES ARE PROVIDED “AS IS” AND “AS AVAILABLE”. EPIC
+                    THE SITE, THE artHouse19 CONTENT, THE artHouse19 TOOLS AND
+                    THE SERVICES ARE PROVIDED “AS IS” AND “AS AVAILABLE”. EPIC
                     DISCLAIMS ALL TERMS, CONDITIONS, GUARANTEES, REPRESENTATIONS
                     AND WARRANTIES (EXPRESS, IMPLIED, STATUTORY AND OTHERWISE),
-                    IN RESPECT OF THE SITE, THE RDCArt CONTENT, THE RDCArt TOOLS
-                    AND THE SERVICES, INCLUDING THOSE OF MERCHANTABILITY,
-                    NON-INFRINGEMENT, TITLE, QUALITY AND FITNESS FOR A
-                    PARTICULAR PURPOSE.
+                    IN RESPECT OF THE SITE, THE artHouse19 CONTENT, THE
+                    artHouse19 TOOLS AND THE SERVICES, INCLUDING THOSE OF
+                    MERCHANTABILITY, NON-INFRINGEMENT, TITLE, QUALITY AND
+                    FITNESS FOR A PARTICULAR PURPOSE.
                   </p>
                   <Grid className="separator"></Grid>
                   <h3>39. Limitation of Liability</h3>
                   <p>
-                    YOU USE THE SITE, THE RDCArt CONTENT, THE RDCArt TOOLS AND
-                    THE SERVICES AT YOUR OWN RISK. EPIC WILL NOT BE LIABLE FOR
-                    ANY LOSS IN CONNECTION TO THE USE OF, OR INABILITY TO USE,
-                    THE SITE, THE RDCArt CONTENT, THE RDCArt TOOLS AND THE
-                    SERVICES, INCLUDING ANY LOSS TO YOUR CONTENT. TO THE MAXIMUM
-                    EXTENT PERMITTED BY APPLICABLE LAW, AND WITHOUT LIMITING THE
-                    PREVIOUS SENTENCE, EPIC WILL NOT BE LIABLE FOR ANY INDIRECT,
-                    CONSEQUENTIAL, INCIDENTAL, SPECIAL, PUNITIVE OR EXEMPLARY
-                    DAMAGES OR LOST PROFITS WHATSOEVER IN CONNECTION WITH THE
-                    SITE, THE RDCArt CONTENT, THE RDCArt TOOLS OR THE SERVICES.
+                    YOU USE THE SITE, THE artHouse19 CONTENT, THE artHouse19
+                    TOOLS AND THE SERVICES AT YOUR OWN RISK. EPIC WILL NOT BE
+                    LIABLE FOR ANY LOSS IN CONNECTION TO THE USE OF, OR
+                    INABILITY TO USE, THE SITE, THE artHouse19 CONTENT, THE
+                    artHouse19 TOOLS AND THE SERVICES, INCLUDING ANY LOSS TO
+                    YOUR CONTENT. TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE
+                    LAW, AND WITHOUT LIMITING THE PREVIOUS SENTENCE, EPIC WILL
+                    NOT BE LIABLE FOR ANY INDIRECT, CONSEQUENTIAL, INCIDENTAL,
+                    SPECIAL, PUNITIVE OR EXEMPLARY DAMAGES OR LOST PROFITS
+                    WHATSOEVER IN CONNECTION WITH THE SITE, THE artHouse19
+                    CONTENT, THE artHouse19 TOOLS OR THE SERVICES.
                   </p>
                   <Grid className="separator"></Grid>
                   <h3>40. Maximum Liability</h3>
                   <p>
                     IF, DESPITE THE ABOVE LIMITATIONS, EPIC BECOMES LIABLE TO
-                    YOU IN RESPECT OF THE SITE, THE RDCArt CONTENT, THE RDCArt
-                    TOOLS OR THE SERVICES, OR A COMBINATION OF THE FOREGOING,
-                    THAT LIABILITY WILL BE LIMITED TO USD $500.
+                    YOU IN RESPECT OF THE SITE, THE artHouse19 CONTENT, THE
+                    artHouse19 TOOLS OR THE SERVICES, OR A COMBINATION OF THE
+                    FOREGOING, THAT LIABILITY WILL BE LIMITED TO USD $500.
                   </p>
                   <Grid className="separator"></Grid>
                   <h3>41. Indemnity</h3>
@@ -1451,8 +1455,8 @@ const TermsOfService = (props: any) => {
                     OR VIOLATES THE RIGHTS OF ANY THIRD PARTY;
                   </p>
                   <p>
-                    (B) YOUR USE OF THE SITE, THE RDCArt CONTENT, THE RDCArt
-                    TOOLS OR THE SERVICES; OR
+                    (B) YOUR USE OF THE SITE, THE artHouse19 CONTENT, THE
+                    artHouse19 TOOLS OR THE SERVICES; OR
                   </p>
                   <p>
                     (C) THE UNTRUTHFULNESS OR INACCURACY OF ANY OF YOUR
@@ -1467,7 +1471,7 @@ const TermsOfService = (props: any) => {
                   <blockquote>
                     <small>Basically...</small>
                     <p className="lead">
-                      We&apos;re providing RDCArt to you as it is. If
+                      We&apos;re providing artHouse19 to you as it is. If
                       there&apos;s anything wrong with it, we&apos;re gonna do
                       our best to fix it, but we can&apos;t be held legally
                       responsible or liable.
@@ -1538,9 +1542,9 @@ const TermsOfService = (props: any) => {
                   <blockquote>
                     <small>Basically...</small>
                     <p className="lead">
-                      If you have a disagreement with another user on RDCArt,
-                      please figure it out with them and don&apos;t drag us into
-                      it.
+                      If you have a disagreement with another user on
+                      artHouse19, please figure it out with them and don&apos;t
+                      drag us into it.
                     </p>
                   </blockquote>
                 </Grid>

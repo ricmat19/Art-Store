@@ -24,7 +24,7 @@ const CartC = (props: any) => {
       <Grid className="main-body">
         <Grid>
           <Grid className="align-center">
-            <h1>Shopping Cart</h1>
+            <h1 className="main-title">Shopping Cart</h1>
           </Grid>
           <Grid className="cart-table">
             <Grid className="table-headers">

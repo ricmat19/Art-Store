@@ -49,7 +49,7 @@ const ContactC = (props: any) => {
       <div className="main-body">
         <div>
           <div className="align-center">
-            <h1>contact</h1>
+            <h1 className="main-title">contact</h1>
           </div>
           <div className="form-div">
             <form className="contact-form" method="POST" action="/contact">

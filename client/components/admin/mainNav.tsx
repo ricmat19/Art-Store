@@ -55,10 +55,6 @@ const AdminMainNav: FC = () => {
             <Grid container xs={1} sx={{ alignContent: "center" }}>
               <Grid container sx={{ justifyContent: "center" }}>
                 <h1>
-                  {/* <i
-                    className="fas fa-user-circle account-menu-icon"
-                    onClick={handleClick}
-                  ></i> */}
                   <FontAwesomeIcon
                     icon={faUserCircle}
                     className="account-menu-icon"
@@ -104,7 +100,6 @@ const AdminMainNav: FC = () => {
           >
             <MenuItem>
               <ListItemIcon>
-                {/* <i className="fas  account-menu-icon"></i> */}
                 <FontAwesomeIcon
                   className="account-menu-icon"
                   icon={faSignOutAlt}

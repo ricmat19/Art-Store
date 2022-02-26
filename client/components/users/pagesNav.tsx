@@ -126,7 +126,6 @@ const PagesNav = () => {
         <Grid container sx={{ pt: "5px", pb: "5px", justifyContent: "center" }}>
           <Grid container xs={3} sx={{ justifyContent: "center" }}>
             <Grid sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}>
-              {/* <i className="fas fa-store-alt"></i> */}
               <FontAwesomeIcon icon={faStoreAlt} />
             </Grid>
             <Grid sx={{ textAlign: "center", alignSelf: "center" }}>
@@ -140,7 +139,6 @@ const PagesNav = () => {
           </Grid>
           <Grid container xs={3} sx={{ justifyContent: "center" }}>
             <Grid sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}>
-              {/* <i className="fas fa-chalkboard-teacher"></i> */}
               <FontAwesomeIcon icon={faChalkboardTeacher} />
             </Grid>
             <Grid sx={{ textAlign: "center", alignSelf: "center" }}>
@@ -154,7 +152,6 @@ const PagesNav = () => {
           </Grid>
           <Grid container xs={3} sx={{ justifyContent: "center" }}>
             <Grid sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}>
-              {/* <i className="fas fa-tv"></i> */}
               <FontAwesomeIcon icon={faTv} />
             </Grid>
             <Grid
@@ -166,7 +163,6 @@ const PagesNav = () => {
           </Grid>
           {/* <Grid container xs={2} sx={{justifyContent: "center"}}>
             <Grid sx={{textAlign: 'center', alignSelf: "center", m: "5px"}}>
-              <i className="fas fa-paint-brush"></i>
               <FontAwesomeIcon icon={faPaintBrush} />
             </Grid>
             <Grid sx={{textAlign: 'center', alignSelf: "center"}}>
@@ -177,7 +173,6 @@ const PagesNav = () => {
           </Grid> */}
           <Grid container xs={3} sx={{ justifyContent: "center" }}>
             <Grid sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}>
-              {/* <i className="fas fa-calendar-check"></i> */}
               <FontAwesomeIcon icon={faCalendarCheck} />
             </Grid>
             <Grid className="nav-link" onClick={() => router.push("/events")}>
@@ -186,7 +181,6 @@ const PagesNav = () => {
           </Grid>
           {/* <Grid container xs={2} sx={{justifyContent: "center"}}>
             <Grid sx={{textAlign: 'center', alignSelf: "center", m: "5px"}}>
-              <i className="fas fa-comments"></i>
               <FontAwesomeIcon icon={faComments} />
             </Grid>
             <Grid sx={{textAlign: 'center', alignSelf: "center"}}>
@@ -378,7 +372,6 @@ const PagesNav = () => {
     //         </Grid>
     //         <Grid container xs={3} sx={{ justifyContent: "center" }}>
     //           <Grid sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}>
-    //             <i className="fas fa-chalkboard-teacher"></i>
     //             <FontAwesomeIcon icon={faChalkboardTeacher} />
     //           </Grid>
     //           <Grid sx={{ textAlign: "center", alignSelf: "center" }}>
@@ -390,7 +383,6 @@ const PagesNav = () => {
     //             <Grid
     //               sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}
     //             >
-    //               <i className="fas fa-tv"></i>
     //               <FontAwesomeIcon icon={faTv} />
     //             </Grid>
     //             <Grid sx={{ textAlign: "center", alignSelf: "center" }}>
@@ -402,7 +394,6 @@ const PagesNav = () => {
     //         </Grid>
     //         <Grid container xs={3} sx={{ justifyContent: "center" }}>
     //           <Grid sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}>
-    //             <i className="fas fa-calendar-check"></i>
     //             <FontAwesomeIcon icon={faCalendarCheck} />
     //           </Grid>
     //           <Grid sx={{ textAlign: "center", alignSelf: "center" }}>
@@ -413,7 +404,6 @@ const PagesNav = () => {
     //         </Grid>
     //         {/* <Grid container xs={2} sx={{justifyContent: "center"}}>
     //         <Grid sx={{textAlign: 'center', alignSelf: "center", m: "5px"}}>
-    //           <i className="fas fa-comments"></i>
     //           <FontAwesomeIcon icon={faComments} />
     //         </Grid>
     //         <Grid sx={{textAlign: 'center', alignSelf: "center"}}>

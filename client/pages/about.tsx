@@ -19,7 +19,7 @@ const AboutC = (props: any) => {
       <div className="main-body">
         <div>
           <div className="align-center">
-            <h1>about</h1>
+            <h1 className="main-title">about</h1>
           </div>
           <div className="profile-info">
             {/* <div> */}

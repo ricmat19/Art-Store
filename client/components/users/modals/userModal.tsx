@@ -7,17 +7,15 @@ const UserModal: FC = () => {
   return (
     <div>
       <a href="/profile">
-        <MenuItem>
+        <MenuItem sx={{ color: "black" }}>
           <ListItemIcon>
-            <i className="fas fa-user"></i>
             <FontAwesomeIcon icon={faUser} />
           </ListItemIcon>
           Profile
         </MenuItem>
       </a>
-      <MenuItem>
+      <MenuItem sx={{ color: "black" }}>
         <ListItemIcon>
-          <i className="fas fa-sign-out-alt"></i>
           <FontAwesomeIcon icon={faSignOutAlt} />
         </ListItemIcon>
         Logout

@@ -50,28 +50,15 @@ const NotificationModal: FC = () => {
             <div onClick={() => displayAll()}>All</div>
           </Grid>
           <Grid xs={2} sx={{ cursor: "pointer" }}>
-            <i
-              className="fas fa-store-alt"
-              onClick={() => displayProducts()}
-            ></i>
             <FontAwesomeIcon icon={faStoreAlt} />
           </Grid>
           <Grid xs={2} sx={{ cursor: "pointer" }}>
-            <i
-              className="fas fa-chalkboard-teacher"
-              onClick={() => displayCourses()}
-            ></i>
             <FontAwesomeIcon icon={faChalkboardTeacher} />
           </Grid>
           <Grid xs={2} sx={{ cursor: "pointer" }}>
-            <i className="fas fa-tv" onClick={() => displayMedia()}></i>
             <FontAwesomeIcon icon={faTv} />
           </Grid>
           <Grid xs={2} sx={{ cursor: "pointer" }}>
-            <i
-              className="fas fa-calendar-check"
-              onClick={() => displayEvents()}
-            ></i>
             <FontAwesomeIcon icon={faCalendarCheck} />
           </Grid>
         </Grid>

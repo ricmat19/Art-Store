@@ -10,7 +10,9 @@ const PrivacyPolicyC = (props: any) => {
       <MainNav cartQty={props.cartQty} />
       <PagesNav />
       <Grid>
-        <Grid>Privacy Policy</Grid>
+        <Grid>
+          <h1 className="main-title">privacy policy</h1>
+        </Grid>
         <Grid></Grid>
       </Grid>
       <FooterC />

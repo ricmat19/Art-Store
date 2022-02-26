@@ -13,7 +13,7 @@ const PageNotFoundC = (props: any) => {
       <MainNav cartQty={props.cartQty} />
       <PagesNav />
       <div className="main-body">
-        <h1>Page Not Found (404)</h1>
+        <h1 className="main-title">Page Not Found (404)</h1>
         <FooterC />
       </div>
     </div>

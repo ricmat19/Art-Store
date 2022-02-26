@@ -169,14 +169,12 @@ const Calendar = (props: any) => {
           <div>
             <button onClick={() => setNav(nav - 1)} className="month-back">
             <FontAwesomeIcon icon={faChevronLeft} />
-              {/* <i className="fas fa-chevron-left"></i> */}
             </button>
           </div>
           <div className="title month-title">{dateDisplay.toLowerCase()}</div>
           <div>
             <button onClick={() => setNav(nav + 1)} className="month-forward">
             <FontAwesomeIcon icon={faChevronRight} />
-              {/* <i className="fas fa-chevron-right"></i> */}
             </button>
           </div>
         </div>

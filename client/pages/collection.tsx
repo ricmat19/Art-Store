@@ -1,19 +1,31 @@
 import IndexAPI from "../apis/indexAPI";
+import { useState } from "react";
 import MainNav from "../components/users/mainNav";
 import PagesNav from "../components/users/pagesNav";
 import FooterC from "../components/footer";
 import { Grid } from "@mui/material";
+import { ICollection } from "../interfaces";
+import Head from "next/head";
 
-const HelpC = (props: any) => {
+const Collection = (props: any) => {
+  const [collections] = useState<ICollection[]>([]);
+
   return (
     <div>
+      <Head>
+        <title>artHouse19-Collection</title>
+        <meta name="description" content="Your collection."></meta>
+      </Head>
       <MainNav cartQty={props.cartQty} />
       <PagesNav />
       <Grid>
         <Grid>
-          <h1 className="main-title">help</h1>
+          <h1 className="main-title">collection</h1>
         </Grid>
-        <Grid></Grid>
+        <Grid sx={{ display: "grid", justifyContent: "center" }}>
+          <button>create collection</button>
+        </Grid>
+        <Grid>{collections}</Grid>
       </Grid>
       <FooterC />
     </div>
@@ -31,4 +43,4 @@ export async function getStaticProps() {
   };
 }
 
-export default HelpC;
+export default Collection;

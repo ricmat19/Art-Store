@@ -1,62 +1,53 @@
 import React, { FC } from "react";
 import { ListItemIcon, MenuItem } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGavel, faInfoCircle, faLock, faPaperPlane, faQuestion } from "@fortawesome/free-solid-svg-icons";
+import {
+  faGavel,
+  faInfoCircle,
+  faLock,
+  faPaperPlane,
+  faQuestion,
+} from "@fortawesome/free-solid-svg-icons";
 
 const EllipseModal: FC = () => {
   return (
     <div>
       <a href="/about">
-        <MenuItem>
+        <MenuItem sx={{ color: "black" }}>
           <ListItemIcon>
-            <i className="fas fa-info-circle"></i>
-            <FontAwesomeIcon
-              icon={faInfoCircle}
-            />
+            <FontAwesomeIcon icon={faInfoCircle} />
           </ListItemIcon>
           About
         </MenuItem>
       </a>
       <a href="/contact">
-        <MenuItem>
+        <MenuItem sx={{ color: "black" }}>
           <ListItemIcon>
-            <i className="far fa-paper-plane"></i>
-            <FontAwesomeIcon
-              icon={faPaperPlane}
-            />
+            <FontAwesomeIcon icon={faPaperPlane} />
           </ListItemIcon>
           Contact
         </MenuItem>
       </a>
       <a href="/help">
-        <MenuItem>
+        <MenuItem sx={{ color: "black" }}>
           <ListItemIcon>
-            <i className="fas fa-question"></i>
-            <FontAwesomeIcon
-              icon={faQuestion}
-            />
+            <FontAwesomeIcon icon={faQuestion} />
           </ListItemIcon>
           Help
         </MenuItem>
       </a>
       <a href="/termsOfService">
-        <MenuItem>
+        <MenuItem sx={{ color: "black" }}>
           <ListItemIcon>
-            <i className="fas fa-gavel"></i>
-            <FontAwesomeIcon
-              icon={faGavel}
-            />
+            <FontAwesomeIcon icon={faGavel} />
           </ListItemIcon>
           Terms of Service
         </MenuItem>
       </a>
       <a href="/privacyPolicy">
-        <MenuItem>
+        <MenuItem sx={{ color: "black" }}>
           <ListItemIcon>
-            <i className="fas fa-lock"></i>
-            <FontAwesomeIcon
-              icon={faLock}
-            />
+            <FontAwesomeIcon icon={faLock} />
           </ListItemIcon>
           Privacy Policy
         </MenuItem>
