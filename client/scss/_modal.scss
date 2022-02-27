@@ -76,6 +76,38 @@
   width: 200px;
 }
 
-.modal-icon{
+.modal-icon {
   color: black;
+}
+
+label,
+.file-input {
+  color: white;
+}
+
+.file-input {
+  padding-left: 0;
+}
+
+button {
+  padding: 5px 20px;
+  margin: 5px;
+  font-size: 15px;
+  background-color: black;
+  color: white;
+  font-family: "Rajdhani";
+}
+
+.admin-form-button {
+  display: grid;
+  grid-template-columns: 75px auto;
+  justify-content: center;
+}
+
+.type-selector {
+  background-color: white;
+  border: none;
+  outline: none;
+  border-radius: 0;
+  height: fit-content;
 }

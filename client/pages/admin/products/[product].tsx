@@ -5,47 +5,45 @@ import ReactPaginate from "react-paginate";
 import IndexAPI from "../../../apis/indexAPI";
 import AdminMainNav from "../../../components/admin/mainNav";
 import AdminPagesNav from "../../../components/admin/pagesNav";
-// import AdminCreateProductC from "../../components/admin/modals/createProduct";
 // import AdminUpdateProductC from "../../components/admin/modals/updateProduct";
 // import AdminDeleteProductC from "../../components/admin/modals/deleteProduct";
 import FooterC from "../../../components/footer";
 import { IProduct } from "../../../interfaces";
 import Head from "next/head";
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AdminProductsNav from "../../../components/admin/products/productNav";
+import AdminAddProduct from "../../../components/admin/products/addProduct";
+import { Button } from "@mui/material";
+import AdminDeleteProduct from "../../../components/admin/products/deleteProduct";
 
-const AdminProducts = (props: any) => {
+const AdminProduct = (props: any) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
-  // const [createProductModal, setCreateProductModal] =
-  //   useState<string>("modal-bg");
-  // const [updateItem, setUpdateItem] = useState<string>("");
-  // const [updateProductModal, setUpdateProductModal] =
-  //   useState<string>("modal-bg");
-  // const [deleteItem, setDeleteItem] = useState<string>("");
-  // const [deleteProductModal, setDeleteProductModal] =
-  //   useState<string>("modal-bg");
   const [products] = useState<IProduct[]>(props.products);
+  const [deletedItem, setDeletedItem] = useState();
   const [pageNumber, setPageNumber] = useState<number>(0);
+
+  const [addProductOpen, setAddProductOpen] = useState(false);
+  const handleAddProductOpen = () => setAddProductOpen(true);
+  const handleAddProductClose = () => setAddProductOpen(false);
+
+  const [deleteProductOpen, setDeleteProductOpen] = useState(false);
+  const handleDeleteProductOpen = () => setDeleteProductOpen(true);
+  const handleDeleteProductClose = () => setAddProductOpen(false);
 
   const itemsPerPage = 9;
   const pagesVisted = pageNumber * itemsPerPage;
-
-  // const displayCreateProductModal = () => {
-  //   setCreateProductModal("modal-bg active");
-  // };
 
   // const displayUpdateProductModal = (id: SetStateAction<string>) => {
   //   setUpdateItem(id);
   //   setUpdateProductModal("modal-bg active");
   // };
 
-  // const displayDeleteProductModal = (id: SetStateAction<string>) => {
-  //   setDeleteItem(id);
-  //   setDeleteProductModal("modal-bg active");
-  // };
+  const displayDeleteProductModal = (id: any) => {
+    setDeletedItem(id);
+    handleDeleteProductOpen;
+  };
 
-  // const createProductRef = useRef();
   // const updateProductRef = useRef();
   // const deleteProductRef = useRef();
 
@@ -70,10 +68,7 @@ const AdminProducts = (props: any) => {
           <div>
             <div className="admin-products-button-div">
               <div>
-                <button
-                  // onClick={() => displayDeleteProductModal(item.id)}
-                  className="delete"
-                >
+                <button onClick={() => displayDeleteProductModal(item.id)} className="delete">
                   Delete
                 </button>
               </div>
@@ -102,24 +97,6 @@ const AdminProducts = (props: any) => {
       try {
         const loginResponse = await IndexAPI.get(`/login`);
         setLoginStatus(loginResponse.data.data.loggedIn);
-
-        // document.addEventListener("mousedown", (event) => {
-        //   if (createProductRef.current !== null) {
-        //     if (!createProductRef.current.contains(event.target)) {
-        //       setCreateProductModal("modal-bg");
-        //     }
-        //   }
-        //   if (updateProductRef.current !== null) {
-        //     if (!updateProductRef.current.contains(event.target)) {
-        //       setUpdateProductModal("modal-bg");
-        //     }
-        //   }
-        //   if (deleteProductRef.current !== null) {
-        //     if (!deleteProductRef.current.contains(event.target)) {
-        //       setDeleteProductModal("modal-bg");
-        //     }
-        //   }
-        // });
       } catch (err) {
         console.log(err);
       }
@@ -134,17 +111,19 @@ const AdminProducts = (props: any) => {
         <Head>
           <title>artHouse19-Admin Products</title>
         </Head>
+        <AdminAddProduct
+          open={addProductOpen}
+          handleClose={handleAddProductClose}
+        />
+        <AdminDeleteProduct
+          deleteItem={deletedItem}
+          open={deleteProductOpen}
+          handleClose={handleDeleteProductClose}
+        />
         <AdminMainNav />
         <AdminPagesNav />
-        {/* <div className={createProductModal}>
-          <div
-            // ref={createProductRef}
-            className="create-product-container"
-          >
-            <AdminCreateProductC />
-          </div>
-        </div>
-        <div className={updateProductModal}>
+
+        {/*<div className={updateProductModal}>
           <div
             // ref={updateProductRef}
             className="update-product-container"
@@ -166,11 +145,19 @@ const AdminProducts = (props: any) => {
         </div> */}
         <div className="main-body">
           <div>
-            <AdminProductsNav products={props.products}/>
+            <AdminProductsNav products={props.products} />
             <div className="plus-icon-div">
-              {/* <span onClick={displayCreateProductModal}> */}
-              <FontAwesomeIcon className="plus-icon" icon={faPlus}/>
-              {/* </span> */}
+              <Button
+                onClick={handleAddProductOpen}
+                sx={{
+                  fontFamily: "Rajdhani",
+                  fontSize: "20px",
+                  color: "white",
+                  textTransform: "none",
+                }}
+              >
+                <FontAwesomeIcon className="plus-icon" icon={faPlus} />
+              </Button>
             </div>
             {/* <div className="align-center subtitle-div">
           <a className="no-decoration" href="/admin/products/print">
@@ -227,7 +214,6 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context: { params: { product: any } }) {
-
   const product = context.params.product;
   const productResponse = await IndexAPI.get(`/products/${product}`);
 
@@ -249,10 +235,10 @@ export async function getStaticProps(context: { params: { product: any } }) {
   }
   return {
     props: {
-      products: productResponse.data.data.product
+      products: productResponse.data.data.product,
     },
     revalidate: 1,
   };
 }
 
-export default AdminProducts;
+export default AdminProduct;

@@ -19,6 +19,27 @@ router.get("/admin/products", async (req, res) => {
   }
 });
 
+//Get a product
+router.get("/admin/products/:id", async (req, res) => {
+  try {
+    const product = await db.query("SELECT * FROM products WHERE id=$1", [
+      req.params.id,
+    ]);
+    console.log(req.params.id)
+    // console.log(product)
+
+    res.status(200).json({
+      status: "success",
+      results: product.rows.length,
+      data: {
+        product: product.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 //Get all products items
 router.get("/admin/products/:product", async (req, res) => {
   try {
