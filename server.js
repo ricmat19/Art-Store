@@ -5,10 +5,8 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const path = require("path");
 const app = express();
-const adminCreateRouter = require("./routes/admin/create");
-const adminLoginRouter = require("./routes/admin/login");
+const adminUserRouter = require("./routes/admin/user");
 const adminProductsRouter = require("./routes/admin/products");
-const adminUpdateRouter = require("./routes/admin/update");
 const cartRouter = require("./routes/users/cart");
 const collectionRouter = require("./routes/users/collection");
 const communityRouter = require("./routes/users/community");
@@ -56,10 +54,8 @@ app.use(morgan("dev"));
 // );
 
 //admin routes
-app.use(adminLoginRouter);
+app.use(adminUserRouter);
 app.use(adminProductsRouter);
-app.use(adminCreateRouter);
-app.use(adminUpdateRouter);
 
 //users routes
 app.use(cartRouter);

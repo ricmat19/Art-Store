@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useState, useRef } from "react";
 import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
@@ -100,7 +101,7 @@ const AdminCreateEvent = (props: IModalState) => {
               <Grid sx={{padding: "0 30px 0 0", width: "50%"}}>
                 <div className="image">
                   <div className="big-image-div">
-                    <img className="big-image" src={displayedImage} />
+                    <img className="big-image" src={displayedImage} alt="big-image"/>
                   </div>
                 </div>
               </Grid>

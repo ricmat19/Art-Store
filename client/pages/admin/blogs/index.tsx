@@ -2,184 +2,172 @@
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import IndexAPI from "../../../apis/indexAPI";
-import Footer from "../../../components/footer";
-import { IBlog } from "../../../interfaces";
 import AdminMainNav from "../../../components/admin/mainNav";
 import AdminPagesNav from "../../../components/admin/pagesNav";
-import AddBlog from "../../../components/admin/media/blog/addBlog";
-import { Button, Grid } from "@mui/material";
+import Footer from "../../../components/footer";
+import { IBlog } from "../../../interfaces";
+import Head from "next/head";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AdminMediaNav from "../../../components/admin/media/mediaNav";
+import AdminAddBlog from "../../../components/admin/media/blog/addBlog";
+import AdminDeleteBlog from "../../../components/admin/media/blog/deleteBlog";
+import { Button, Grid } from "@mui/material";
+import router from "next/router";
+
 // import { useNavigate } from "react-router-dom";
 
 const AdminBlogPostsC = (props: any) => {
-  // const [type, setType] = useState<string>("");
-  const [blogs, setBlogs] = useState<IBlog[]>([]);
+  const [loginStatus, setLoginStatus] = useState<boolean>(true);
+  const [blogs, setBlogs] = useState<IBlog[]>(props.blogs);
+  const [deleteBlog, setDeleteBlog] = useState<any>();
   const [pageNumber, setPageNumber] = useState<number>(0);
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
-  let blogResponse;
-  useEffect((): void => {
-    const fetchData = async () => {
-      try {
-        blogResponse = await IndexAPI.get(`/admin/medias/blog`);
+  const [addOpen, setAddOpen] = useState(false);
+  const handleAddOpen = () => setAddOpen(true);
+  const handleAddClose = () => setAddOpen(false);
 
-        for (let i = 0; i < blogResponse.data.data.blogs.length; i++) {
-          if (blogResponse.data.data.blogs[i].imagekey !== null) {
-            let imagesResponse = await IndexAPI.get(
-              `/images/${blogResponse.data.data.blogs[i].imagekey}`,
-              {
-                responseType: "arraybuffer",
-              }
-            ).then((response) =>
-              Buffer.from(response.data, "binary").toString("base64")
-            );
-
-            blogResponse.data.data.blogs[
-              i
-            ].imageBuffer = `data:image/png;base64,${imagesResponse}`;
-          }
-        }
-        setBlogs(blogResponse.data.data.blogs);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-  }, []);
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const handleDeleteOpen = () => setDeleteOpen(true);
+  const handleDeleteClose = () => setDeleteOpen(false);
 
   const itemsPerPage: number = 9;
   const pagesVisted: number = pageNumber * itemsPerPage;
   const pageCount = Math.ceil(blogs.length / itemsPerPage);
-
   const changePage = ({ selected }: { selected: number }): void => {
     setPageNumber(selected);
+  };
+
+  const displayDeleteModal = (id: any) => {
+    for (let i = 0; i < blogs.length; i++) {
+      if (blogs[i].id === id) {
+        setDeleteBlog(blogs[i]);
+      }
+    }
+    handleDeleteOpen();
+  };
+
+  const displayBlog = async (id: string) => {
+    try {
+      router.push(`/admin/medias/blog/${id}`);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const displayBlogs = blogs
     .slice(pagesVisted, pagesVisted + itemsPerPage)
     .map((blog) => {
       return (
-        <Grid className="collection-item-div" key={blog.id}>
-          <Grid
-            className="collection-item"
-            // onClick={() => displayBlog(blog.id)}
-          >
-            <img
-              className="collection-thumbnail"
-              src={blog.imageBuffer}
-              alt="collection-thumbnail"
-            />
-          </Grid>
-          <Grid container>
-            <Grid xs={6} sx={{ textAlign: "left" }}>
-              {blog.title}
+        <Grid className="blog-post-div" key={blog.id}>
+          <Grid className="pointer" onClick={() => displayBlog(blog.id)}>
+            <Grid className="blog-thumbnail-div">
+              <img
+                className="blog-thumbnail"
+                src={blog.imageBuffer}
+                alt="blog-thumbnail"
+              />
             </Grid>
-            <Grid xs={6} sx={{ textAlign: "right" }}>
-              <button
-                className="delete-button"
-                onClick={() => deleteBlog(blog.id)}
-              >
-                Delete
-              </button>
+            <Grid sx={{ textAlign: "left" }}>{blog.title}</Grid>
+          </Grid>
+          <Grid>
+            <Grid className="admin-products-button-div">
+              <Grid>
+                <button
+                  onClick={() => displayDeleteModal(blog.id)}
+                  className="delete"
+                >
+                  Delete
+                </button>
+              </Grid>
+              <Grid>
+                <button
+                  // onClick={() => displayUpdateProductModal(item.id)}
+                  type="submit"
+                >
+                  Update
+                </button>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
       );
     });
 
-  // let navigation = useNavigate();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const loginResponse = await IndexAPI.get(`/login`);
+        setLoginStatus(loginResponse.data.data.loggedIn);
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
-  // const displayBlog = async (id: string) => {
-  //   try {
-  //     navigation(`/admin/medias/blog/${id}`);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+    fetchData();
+  }, []);
 
-  const deleteBlog = async (id: string) => {
-    try {
-      await IndexAPI.delete(`/admin/medias/blog/delete/${id}`);
-      setBlogs(
-        blogs.filter((blog) => {
-          return blog.id !== id;
-        })
-      );
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  return (
-    <div>
-      <AddBlog open={open} handleClose={handleClose} />
-      <AdminMainNav />
-      <AdminPagesNav />
-      <div className="main-body">
-        <AdminMediaNav medias={props.media} />
-        <Grid sx={{ textAlign: "right", paddingRight: "50px" }}>
-          <Button
-            onClick={handleOpen}
-            sx={{
-              fontFamily: "Rajdhani",
-              fontSize: "20px",
-              color: "white",
-              textTransform: "none",
-            }}
-          >
-            <a>add blog</a>
-          </Button>
-        </Grid>
-        <div className="thumbnail-display">{displayBlogs}</div>
-        <ReactPaginate
-          previousLabel={"prev"}
-          nextLabel={"next"}
-          pageCount={pageCount}
-          onPageChange={changePage}
-          containerClassName={"paginationButtons"}
-          previousLinkClassName={"prevButton"}
-          nextLinkClassName={"nextButton"}
-          disabledClassName={"disabledButton"}
-          activeClassName={"activeButton"}
-          pageRangeDisplayed={5}
-          marginPagesDisplayed={5}
+  if (loginStatus) {
+    return (
+      <div>
+        <Head>
+          <title>artHouse19-Admin Blog</title>
+        </Head>
+        <AdminAddBlog open={addOpen} handleClose={handleAddClose} />
+        <AdminDeleteBlog
+          deleteBlog={deleteBlog}
+          blogs={blogs}
+          setBlogs={setBlogs}
+          open={deleteOpen}
+          handleClose={handleDeleteClose}
         />
+        <AdminMainNav />
+        <AdminPagesNav />
+        <div className="main-body">
+          <AdminMediaNav medias={props.media} />
+          <Grid className="plus-icon-div">
+            <Button
+              onClick={handleAddOpen}
+              sx={{
+                fontFamily: "Rajdhani",
+                fontSize: "20px",
+                color: "white",
+                textTransform: "none",
+              }}
+            >
+              <FontAwesomeIcon className="plus-icon" icon={faPlus} />
+            </Button>
+          </Grid>
+          <div className="thumbnail-display">{displayBlogs}</div>
+          <ReactPaginate
+            previousLabel={"prev"}
+            nextLabel={"next"}
+            pageCount={pageCount}
+            onPageChange={changePage}
+            containerClassName={"paginationButtons"}
+            previousLinkClassName={"prevButton"}
+            nextLinkClassName={"nextButton"}
+            disabledClassName={"disabledButton"}
+            activeClassName={"activeButton"}
+            pageRangeDisplayed={5}
+            marginPagesDisplayed={5}
+          />
+        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
-  );
+    );
+  } else {
+    return <div></div>;
+  }
 };
 
-export async function getStaticPaths() {
-  const mediaResponse = await IndexAPI.get(`/media`);
+export async function getStaticProps() {
+  const blogResponse = await IndexAPI.get(`/admin/medias/blog`);
 
-  const media: string[] = [];
-  for (let i = 0; i < mediaResponse.data.data.medias.length; i++) {
-    if (!media.includes(mediaResponse.data.data.medias.type)) {
-      media.push(mediaResponse.data.data.medias[i].type);
-    }
-  }
-
-  return {
-    fallback: false,
-    paths: media.map((media: any) => ({
-      params: {
-        media: media,
-      },
-    })),
-  };
-}
-
-export async function getStaticProps(context: { params: { media: any } }) {
-  const media = context.params.media;
-  const mediaResponse = await IndexAPI.get(`/media/${media}`);
-
-  for (let i = 0; i < mediaResponse.data.data.posts.length; i++) {
-    if (mediaResponse.data.data.posts[i].imagekey !== null) {
+  for (let i = 0; i < blogResponse.data.data.blogs.length; i++) {
+    if (blogResponse.data.data.blogs[i].imagekey !== null) {
       let imagesResponse = await IndexAPI.get(
-        `/images/${mediaResponse.data.data.posts[i].imagekey}`,
+        `/images/${blogResponse.data.data.blogs[i].imagekey}`,
         {
           responseType: "arraybuffer",
         }
@@ -187,14 +175,14 @@ export async function getStaticProps(context: { params: { media: any } }) {
         Buffer.from(response.data, "binary").toString("base64")
       );
 
-      mediaResponse.data.data.posts[
+      blogResponse.data.data.blogs[
         i
       ].imageBuffer = `data:image/png;base64,${imagesResponse}`;
     }
   }
   return {
     props: {
-      media: mediaResponse.data.data.posts,
+      blogs: blogResponse.data.data.blogs,
     },
     revalidate: 1,
   };

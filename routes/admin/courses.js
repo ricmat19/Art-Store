@@ -9,16 +9,16 @@ const unlinkFile = util.promisify(fs.unlink);
 
 const upload = multer({ dest: "images/" });
 
-//Get all products
-router.get("/admin/products", async (req, res) => {
+//Get all courses
+router.get("/admin/courses", async (req, res) => {
   try {
-    const products = await db.query("SELECT * FROM products");
+    const courses = await db.query("SELECT * FROM courses");
 
     res.status(200).json({
       status: "success",
-      results: products.rows.length,
+      results: courses.rows.length,
       data: {
-        products: products.rows,
+        courses: courses.rows,
       },
     });
   } catch (err) {
@@ -27,7 +27,7 @@ router.get("/admin/products", async (req, res) => {
 });
 
 //Get a product
-router.get("/admin/products/:id", async (req, res) => {
+router.get("/admin/courses/:id", async (req, res) => {
   try {
     const product = await db.query("SELECT * FROM products WHERE id=$1", [
       req.params.id,

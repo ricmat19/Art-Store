@@ -1,17 +1,18 @@
+/* eslint-disable @next/next/no-img-element */
 import { useState, useRef } from "react";
 import IndexAPI from "../../../../apis/indexAPI";
-import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
+import {
+  Backdrop,
+  Box,
+  Fade,
+  Modal,
+  Grid
+} from "@mui/material";
 
-interface IModalState {
-  open: boolean,
-  handleClose: () => void
-}
-
-const AdminAddBlog = (props: IModalState) => {
-
+const AdminAddBlog = (props: any) => {
   const [title, setTitle] = useState<string>("");
-  const [content, setContent] = useState<string>("");
   const [images, setImages] = useState<File>();
+  const [content, setContent] = useState<string>("");
 
   const titleInput = useRef(null);
   const contentInput = useRef(null);
@@ -22,10 +23,10 @@ const AdminAddBlog = (props: IModalState) => {
     require("dotenv").config();
   }
 
-  const createMedia = async (e: { preventDefault: () => void; }) => {
+  const createMedia = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
-      if(images){
+      if (images) {
         let formData = new FormData();
 
         formData.append("title", title);
@@ -35,8 +36,8 @@ const AdminAddBlog = (props: IModalState) => {
         await IndexAPI.post("/admin/media/blog/create", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         })
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
+          .then((res) => console.log(res))
+          .catch((err) => console.log(err));
       }
 
       // createItem(response);
@@ -57,7 +58,7 @@ const AdminAddBlog = (props: IModalState) => {
   }
 
   return (
-    <div>
+    <Grid>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -70,34 +71,50 @@ const AdminAddBlog = (props: IModalState) => {
         }}
       >
         <Fade in={props.open}>
-          <Box sx={{    
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            bgcolor: 'background.paper',
-            border: '2px solid #000',
-            boxShadow: 24,
-            width: '90vw',
-            p: 4
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              bgcolor: "background.paper",
+              border: "2px solid #000",
+              boxShadow: 24,
+              p: 4,
+              width: "90vw",
             }}
-          > 
-            <Grid container sx={{            
-              flexDirection: "row",
-              flexWrap: "nowrap",
-              alignItems: "center",
-              color: "#000",
-              justifyContent: "flex-end",
-              backgroundColor: "#000",
-              padding: "30px"}}>
-              <Grid sx={{padding: "0 30px 0 0", width: "50%"}}>
+          >
+            <Grid
+              container
+              sx={{
+                flexDirection: "row",
+                flexWrap: "nowrap",
+                alignItems: "center",
+                color: "#000",
+                justifyContent: "flex-end",
+                backgroundColor: "#000",
+                padding: "30px",
+              }}
+            >
+              <Grid sx={{ padding: "0 30px 0 0", width: "50%" }}>
                 <Grid className="image">
                   <Grid className="big-image-div">
-                    <img className="big-image" src={displayedImage} />
+                    <img
+                      className="big-image"
+                      src={displayedImage}
+                      alt="big image"
+                    />
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid sx={{width: "50%", padding: "0 0 0 30px", borderLeft: "1px #fff solid", height: "100%"}}>
+              <Grid
+                sx={{
+                  width: "50%",
+                  padding: "0 0 0 30px",
+                  borderLeft: "1px #fff solid",
+                  height: "100%",
+                }}
+              >
                 <form
                   className="admin-form"
                   action="/admin/media/create"
@@ -159,7 +176,7 @@ const AdminAddBlog = (props: IModalState) => {
           </Box>
         </Fade>
       </Modal>
-    </div>
+    </Grid>
   );
 };
 
