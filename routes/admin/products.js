@@ -32,8 +32,6 @@ router.get("/admin/products/:id", async (req, res) => {
     const product = await db.query("SELECT * FROM products WHERE id=$1", [
       req.params.id,
     ]);
-    console.log(req.params.id);
-    // console.log(product)
 
     res.status(200).json({
       status: "success",
@@ -67,11 +65,10 @@ router.get("/admin/products/:product", async (req, res) => {
 
 //Create a product
 router.post(
-  "/admin/product/create",
+  "/admin/product",
   upload.single("images"),
   async (req, res) => {
     try {
-      // const result = ""
       const file = req.file;
       const result = await uploadFile(file);
       res.send({ imagePath: `/images/${result.key}` });
@@ -87,13 +84,6 @@ router.post(
           req.body.info,
         ]
       );
-      // res.status(201).json({
-      //   status: "success",
-      //   results: newItem.rows.length,
-      //   data: {
-      //     newItem: newItem.rows[0],
-      //   },
-      // });
     } catch (err) {
       console.log(err);
     }
@@ -121,13 +111,6 @@ router.get("/admin/update/:id", async (req, res) => {
 // //Update a products item
 router.put("/admin/update/:id", async (req, res) => {
   try {
-    // if (req.body.primaryImage === "on") {
-    //   await db.query(
-    //     "UPDATE products SET primaryimage=false WHERE product=$1",
-    //     [req.body.type]
-    //   );
-    // }
-
     const item = await db.query(
       "UPDATE products SET title=$1, product=$2, qty=$3, price=$4, info=$5 WHERE id=$7",
       [

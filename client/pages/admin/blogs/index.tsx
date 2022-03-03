@@ -14,6 +14,7 @@ import AdminAddBlog from "../../../components/admin/media/blog/addBlog";
 import AdminDeleteBlog from "../../../components/admin/media/blog/deleteBlog";
 import { Button, Grid } from "@mui/material";
 import router from "next/router";
+import { Redirect } from "react-router";
 
 // import { useNavigate } from "react-router-dom";
 
@@ -157,7 +158,7 @@ const AdminBlogPostsC = (props: any) => {
       </div>
     );
   } else {
-    return <div></div>;
+    return <Redirect to="/admin/login" />;
   }
 };
 

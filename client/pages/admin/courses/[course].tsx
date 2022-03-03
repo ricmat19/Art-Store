@@ -11,8 +11,10 @@ import AdminPagesNav from "../../../components/admin/pagesNav";
 import AddCourse from "../../../components/admin/courses/addCourse";
 import { Button, Grid } from "@mui/material";
 import AdminCoursesNav from "../../../components/admin/courses/coursesNav";
+import { Redirect } from "react-router";
 
 const AdminCoursesC: FC = (props: any) => {
+  const [loginStatus, setLoginStatus] = useState<boolean>(true);
   const [courses] = useState(props.courses);
   const [pageNumber, setPageNumber] = useState<number>(0);
 
@@ -22,6 +24,19 @@ const AdminCoursesC: FC = (props: any) => {
 
   const itemsPerPage: number = 9;
   const pagesVisted: number = pageNumber * itemsPerPage;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const loginResponse = await IndexAPI.get(`/login`);
+        setLoginStatus(loginResponse.data.data.loggedIn);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const displayCourses = courses
     .slice(pagesVisted, pagesVisted + itemsPerPage)
@@ -66,45 +81,49 @@ const AdminCoursesC: FC = (props: any) => {
   //   }
   // };
 
-  return (
-    <div>
-      <AddCourse open={open} handleClose={handleClose} />
-      <AdminMainNav />
-      <AdminPagesNav />
-      <div className="main-body">
-        <AdminCoursesNav courses={courses} />
-        <Grid sx={{ textAlign: "right", paddingRight: "50px" }}>
-          <Button
-            onClick={handleOpen}
-            sx={{
-              fontFamily: "Rajdhani",
-              fontSize: "20px",
-              color: "white",
-              textTransform: "none",
-            }}
-          >
-            <a>add course</a>
-          </Button>
-        </Grid>
-        <CoursesNav />
-        <div className="thumbnail-display">{displayCourses}</div>
-        <ReactPaginate
-          previousLabel={"prev"}
-          nextLabel={"next"}
-          pageCount={pageCount}
-          onPageChange={changePage}
-          containerClassName={"paginationButtons"}
-          previousLinkClassName={"prevButton"}
-          nextLinkClassName={"nextButton"}
-          disabledClassName={"disabledButton"}
-          activeClassName={"activeButton"}
-          pageRangeDisplayed={5}
-          marginPagesDisplayed={5}
-        />
+  if (loginStatus) {
+    return (
+      <div>
+        <AddCourse open={open} handleClose={handleClose} />
+        <AdminMainNav />
+        <AdminPagesNav />
+        <div className="main-body">
+          <AdminCoursesNav courses={courses} />
+          <Grid sx={{ textAlign: "right", paddingRight: "50px" }}>
+            <Button
+              onClick={handleOpen}
+              sx={{
+                fontFamily: "Rajdhani",
+                fontSize: "20px",
+                color: "white",
+                textTransform: "none",
+              }}
+            >
+              <a>add course</a>
+            </Button>
+          </Grid>
+          <CoursesNav />
+          <div className="thumbnail-display">{displayCourses}</div>
+          <ReactPaginate
+            previousLabel={"prev"}
+            nextLabel={"next"}
+            pageCount={pageCount}
+            onPageChange={changePage}
+            containerClassName={"paginationButtons"}
+            previousLinkClassName={"prevButton"}
+            nextLinkClassName={"nextButton"}
+            disabledClassName={"disabledButton"}
+            activeClassName={"activeButton"}
+            pageRangeDisplayed={5}
+            marginPagesDisplayed={5}
+          />
+        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
-  );
+    );
+  } else {
+    return <Redirect to="/admin/login" />;
+  }
 };
 
 export async function getStaticPaths() {

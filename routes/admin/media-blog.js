@@ -32,8 +32,6 @@ router.get("/admin/media/blog/:id", async (req, res) => {
     const post = await db.query("SELECT * FROM blog WHERE id=$1", [
       req.params.id,
     ]);
-    console.log(req.params.id);
-    // console.log(product)
 
     res.status(200).json({
       status: "success",
@@ -61,46 +59,15 @@ router.post(
         "INSERT INTO blog (title, imagekey, post_date, content) values ($1, $2, $3, $4) RETURNING *",
         [req.body.title, result.key, req.body.postDate, req.body.content]
       );
-      // res.status(201).json({
-      //   status: "success",
-      //   results: newItem.rows.length,
-      //   data: {
-      //     newItem: newItem.rows[0],
-      //   },
-      // });
     } catch (err) {
       console.log(err);
     }
   }
 );
 
-//Get a specific blog post to update update
-router.get("/admin/media/blog/update/:id", async (req, res) => {
-  try {
-    const post = await db.query(`SELECT * FROM blog WHERE id=$1`, [
-      req.params.id,
-    ]);
-    res.status(200).json({
-      status: "success",
-      results: post.rows.length,
-      data: {
-        post: post.rows[0],
-      },
-    });
-  } catch (err) {
-    console.log(err);
-  }
-});
-
 //Update a blog post
-router.put("/admin/media/blog/update/:id", async (req, res) => {
+router.put("/admin/media/blog/:id", async (req, res) => {
   try {
-    // if (req.body.primaryImage === "on") {
-    //   await db.query(
-    //     "UPDATE products SET primaryimage=false WHERE product=$1",
-    //     [req.body.type]
-    //   );
-    // }
     const file = req.file;
     const result = await uploadFile(file);
     res.send({ imagePath: `/images/${result.key}` });
@@ -130,7 +97,7 @@ router.put("/admin/media/blog/update/:id", async (req, res) => {
 module.exports = router;
 
 //Delete a blog post
-router.delete("/admin/media/blog/delete/:id", async (req, res) => {
+router.delete("/admin/media/blog/:id", async (req, res) => {
   try {
     await db.query("DELETE FROM blog WHERE id = $1", [req.params.id]);
     res.status(204).json({

@@ -47,7 +47,7 @@ router.get("/admin/events/:id", async (req, res) => {
 
 //Create an event
 router.post(
-  "/admin/events/create",
+  "/admin/events",
   upload.single("images"),
   async (req, res) => {
     try {
@@ -72,34 +72,9 @@ router.post(
   }
 );
 
-//Get a specific event to update
-router.get("/admin/events/update/:id", async (req, res) => {
-  try {
-    const event = await db.query(`SELECT * FROM events WHERE id=$1`, [
-      req.params.id,
-    ]);
-    res.status(200).json({
-      status: "success",
-      results: event.rows.length,
-      data: {
-        event: event.rows[0],
-      },
-    });
-  } catch (err) {
-    console.log(err);
-  }
-});
-
 //Update an event
-router.put("/admin/events/update/:id", async (req, res) => {
+router.put("/admin/events/:id", async (req, res) => {
   try {
-    // if (req.body.primaryImage === "on") {
-    //   await db.query(
-    //     "UPDATE products SET primaryimage=false WHERE product=$1",
-    //     [req.body.type]
-    //   );
-    // }
-
     const file = req.file;
     const result = await uploadFile(file);
     res.send({ imagePath: `/images/${result.key}` });
@@ -128,7 +103,7 @@ router.put("/admin/events/update/:id", async (req, res) => {
 });
 
 //Delete an event
-router.delete("/admin/events/delete/:id", async (req, res) => {
+router.delete("/admin/events/:id", async (req, res) => {
   try {
     await db.query("DELETE FROM events WHERE id = $1", [req.params.id]);
     res.status(204).json({

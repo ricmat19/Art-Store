@@ -26,20 +26,18 @@ router.get("/admin/courses", async (req, res) => {
   }
 });
 
-//Get a product
-router.get("/admin/courses/:id", async (req, res) => {
+//Get a course
+router.get("/admin/courses/:subject/:id", async (req, res) => {
   try {
-    const product = await db.query("SELECT * FROM products WHERE id=$1", [
+    const course = await db.query("SELECT * FROM courses WHERE id=$1", [
       req.params.id,
     ]);
-    console.log(req.params.id);
-    // console.log(product)
 
     res.status(200).json({
       status: "success",
-      results: product.rows.length,
+      results: course.rows.length,
       data: {
-        product: product.rows,
+        course: course.rows,
       },
     });
   } catch (err) {
@@ -47,17 +45,17 @@ router.get("/admin/courses/:id", async (req, res) => {
   }
 });
 
-//Get a product type
-router.get("/admin/products/:product", async (req, res) => {
+//Get a course subject
+router.get("/admin/courses/:subject", async (req, res) => {
   try {
-    const product = await db.query("SELECT * FROM products WHERE PRODUCT=$1", [
+    const subject = await db.query("SELECT * FROM courses WHERE subject=$1", [
       req.params.product,
     ]);
     res.status(200).json({
       status: "success",
-      results: product.rows.length,
+      results: subject.rows.length,
       data: {
-        product: product.rows,
+        subject: subject.rows,
       },
     });
   } catch (err) {
@@ -65,99 +63,71 @@ router.get("/admin/products/:product", async (req, res) => {
   }
 });
 
-//Create a product
+//Create a course
 router.post(
-  "/admin/product/create",
+  "/admin/courses",
   upload.single("images"),
   async (req, res) => {
     try {
-      // const result = ""
       const file = req.file;
       const result = await uploadFile(file);
       res.send({ imagePath: `/images/${result.key}` });
       await unlinkFile(file.path);
       await db.query(
-        "INSERT INTO products (title, product, imagekey, qty, price, info) values ($1, $2, $3, $4, $5, $6) RETURNING *",
+        "INSERT INTO courses (title, subject, imagekey, content, info, price) values ($1, $2, $3, $4, $5, $6) RETURNING *",
         [
           req.body.title,
-          req.body.product,
+          req.body.subject,
           result.key,
-          req.body.quantity,
-          req.body.price,
+          req.body.content,
           req.body.info,
+          req.body.price,
         ]
       );
-      // res.status(201).json({
-      //   status: "success",
-      //   results: newItem.rows.length,
-      //   data: {
-      //     newItem: newItem.rows[0],
-      //   },
-      // });
     } catch (err) {
       console.log(err);
     }
   }
 );
 
-//Get a specific products item for update
-router.get("/admin/update/:id", async (req, res) => {
-  try {
-    const item = await db.query(`SELECT * FROM products WHERE id=$1`, [
-      req.params.id,
-    ]);
-    res.status(200).json({
-      status: "success",
-      results: item.rows.length,
-      data: {
-        item: item.rows[0],
-      },
-    });
-  } catch (err) {
-    console.log(err);
+//Update a course
+router.put(
+  "/admin/courses/:subject/:id",
+  upload.single("images"),
+  async (req, res) => {
+    try {
+      const file = req.file;
+      const result = await uploadFile(file);
+      res.send({ imagePath: `/images/${result.key}` });
+      await unlinkFile(file.path);
+      const course = await db.query(
+        "UPDATE products SET title=$1, subject=$2, imagekey=$3, qty=$4, price=$5, info=$6 WHERE id=$7",
+        [
+          req.body.title,
+          req.body.subejct,
+          result.key,
+          req.body.content,
+          req.body.info,
+          req.body.price,
+        ]
+      );
+      res.status(201).json({
+        status: "success",
+        results: course.rows.length,
+        data: {
+          course: course.rows[0],
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
-});
+);
 
-// //Update a products item
-router.put("/admin/update/:id", async (req, res) => {
+//Delete a course
+router.delete("/admin/courses/:subject/:id", async (req, res) => {
   try {
-    // if (req.body.primaryImage === "on") {
-    //   await db.query(
-    //     "UPDATE products SET primaryimage=false WHERE product=$1",
-    //     [req.body.type]
-    //   );
-    // }
-
-    const item = await db.query(
-      "UPDATE products SET title=$1, product=$2, qty=$3, price=$4, info=$5 WHERE id=$7",
-      [
-        req.body.title,
-        req.body.type,
-        req.body.quantity,
-        req.body.price,
-        req.body.info,
-        // req.body.primaryImage,
-        req.params.id,
-      ]
-    );
-    res.status(201).json({
-      status: "success",
-      results: item.rows.length,
-      data: {
-        item: item.rows[0],
-      },
-    });
-  } catch (err) {
-    console.log(err);
-  }
-});
-
-module.exports = router;
-
-//Delete a products item
-router.delete("/admin/delete/:id", async (req, res) => {
-  try {
-    await db.query("DELETE FROM products WHERE id = $1", [req.params.id]);
+    await db.query("DELETE FROM courses WHERE id = $1", [req.params.id]);
     res.status(204).json({
       status: "success",
     });

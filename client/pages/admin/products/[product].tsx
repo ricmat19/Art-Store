@@ -13,7 +13,7 @@ import AdminProductsNav from "../../../components/admin/products/productNav";
 import AdminAddProduct from "../../../components/admin/products/addProduct";
 import AdminDeleteProduct from "../../../components/admin/products/deleteProduct";
 import { Button, Grid } from "@mui/material";
-// import { Redirect } from "react-router";
+import { Redirect } from "react-router";
 
 const AdminProduct = (props: any) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
@@ -148,9 +148,7 @@ const AdminProduct = (props: any) => {
       </Grid>
     );
   } else {
-    return (
-      <div></div>
-    )
+    return <Redirect to="/admin/login" />;
   }
 };
 
