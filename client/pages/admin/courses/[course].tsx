@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 // import { useNavigate, useParams } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import IndexAPI from "../../../apis/indexAPI";
