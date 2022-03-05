@@ -11,7 +11,6 @@ import AdminPagesNav from "../../../components/admin/pagesNav";
 import AddCourse from "../../../components/admin/courses/addCourse";
 import { Button, Grid } from "@mui/material";
 import AdminCoursesNav from "../../../components/admin/courses/coursesNav";
-import { Redirect } from "react-router";
 
 const AdminCoursesC: FC = (props: any) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
@@ -122,7 +121,7 @@ const AdminCoursesC: FC = (props: any) => {
       </div>
     );
   } else {
-    return <Redirect to="/admin/login" />;
+    return <div></div>;
   }
 };
 

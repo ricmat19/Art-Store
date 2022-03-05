@@ -10,7 +10,7 @@ interface IModalState {
 
 const AdminCreateEvent = (props: IModalState) => {
   const [title, setTitle] = useState<string>("");
-  const [images, setImages] = useState<File>();
+  const [image, setImage] = useState<File>();
   const [date, setDate] = useState<string>("");
   const [spots, setSpots] = useState<string>("");
   const [price, setPrice] = useState<string>("");
@@ -27,11 +27,11 @@ const AdminCreateEvent = (props: IModalState) => {
   const createEvent = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
-      if (images) {
+      if (image) {
         let formData = new FormData();
 
         formData.append("title", title);
-        formData.append("images", images);
+        formData.append("images", image);
         formData.append("date", date);
         formData.append("spots", spots);
         formData.append("price", price);
@@ -48,9 +48,15 @@ const AdminCreateEvent = (props: IModalState) => {
     }
   };
 
-  let displayedImage = "";
-  if (images !== undefined) {
-    displayedImage = URL.createObjectURL(images);
+  let displayedImage;
+  if (image !== undefined) {
+    displayedImage = (
+      <img
+        className="big-image"
+        src={URL.createObjectURL(image)}
+        alt="big image"
+      />
+    );
   }
 
   return (
@@ -94,13 +100,7 @@ const AdminCreateEvent = (props: IModalState) => {
             >
               <Grid sx={{ padding: "0 30px 0 0", width: "50%" }}>
                 <div className="image">
-                  <div className="big-image-div">
-                    <img
-                      className="big-image"
-                      src={displayedImage}
-                      alt="big-image"
-                    />
-                  </div>
+                  <div className="big-image-div">{displayedImage}</div>
                 </div>
               </Grid>
               <Grid
@@ -133,10 +133,10 @@ const AdminCreateEvent = (props: IModalState) => {
                     />
                   </Grid>
                   <Grid className="admin-form-field">
-                    <label className="admin-label">Images:</label>
+                    <label className="admin-label">Image:</label>
                     <input
                       type="file"
-                      onChange={(e: any) => setImages(e.target.files[0])}
+                      onChange={(e: any) => setImage(e.target.files[0])}
                       name="images"
                       className="form-control file-input"
                       required

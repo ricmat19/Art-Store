@@ -1,26 +1,10 @@
 import { FC, useState } from "react";
-// import SignInModalC from "../auth/signinModal";
 import { Grid, Menu, MenuItem, ListItemIcon } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt, faUserCircle } from "@fortawesome/free-solid-svg-icons";
 
-// interface IModalState {
-//   open: boolean,
-//   onClose: boolean,
-//   show: boolean,
-//   onHide: () => void,
-//   email: string,
-//   password: string,
-// }
-
 const AdminMainNav: FC = () => {
-  // const [, setDisplaySignInModal] = useState<boolean>(false);
   const [signedIn] = useState<boolean>(true);
-  // const [email, ] = useState<string>("");
-  // const [password, ] = useState<string>("");
-
-  // const handleOpen = () => setDisplaySignInModal(true);
-  // const handleClose = () => setDisplaySignInModal(false);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);

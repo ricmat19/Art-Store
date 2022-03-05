@@ -4,17 +4,12 @@ import PagesNav from "../components/users/pagesNav";
 import FooterC from "../components/footer";
 import { Grid } from "@mui/material";
 
-const PrivacyPolicy = (props: any) => {
+const Home = (props: any) => {
   return (
     <div>
       <MainNav cartQty={props.cartQty} />
       <PagesNav />
-      <Grid>
-        <Grid>
-          <h1 className="main-title">privacy policy</h1>
-        </Grid>
-        <Grid></Grid>
-      </Grid>
+      <Grid></Grid>
       <FooterC />
     </div>
   );
@@ -31,4 +26,4 @@ export async function getStaticProps() {
   };
 }
 
-export default PrivacyPolicy;
+export default Home;

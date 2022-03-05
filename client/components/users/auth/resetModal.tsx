@@ -1,28 +1,20 @@
 import PropTypes from "prop-types";
-import { Grid, Button } from '@mui/material';
+import { Grid, Button } from "@mui/material";
 
 interface IModalState {
-  show: boolean,
-  onHide: () => void
+  show: boolean;
+  onHide: () => void;
 }
 
 const ResetModal = (props: IModalState) => {
-    return (
-        <Grid
-        // {...props}
-        // size="lg"
-        // aria-labelledby="contained-modal-title-vcenter"
-        // centered
-        >
-        <Grid>
-            <Grid id="contained-modal-title-vcenter">
-
-            </Grid>
-        </Grid>
-        <Grid>
+  return (
+    <Grid>
+      <Grid>
+        <Grid id="contained-modal-title-vcenter"></Grid>
+      </Grid>
+      <Grid>
         <form>
-          <div 
-          className="sign-content">
+          <div className="sign-content">
             <h1 className="sign-header">Reset Password</h1>
             <div className="sign-input">
               <div className="forgot-input-div">
@@ -39,13 +31,13 @@ const ResetModal = (props: IModalState) => {
             </div>
           </div>
         </form>
-        </Grid>
-        <Grid>
-            <Button onClick={props.onHide}>Close</Button>
-        </Grid>
-        </Grid>
+      </Grid>
+      <Grid>
+        <Button onClick={props.onHide}>Close</Button>
+      </Grid>
+    </Grid>
   );
-}
+};
 
 ResetModal.propTypes = {
   onHide: PropTypes.string,

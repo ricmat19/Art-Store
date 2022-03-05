@@ -6,8 +6,6 @@ import PropTypes from "prop-types";
 import { ICart } from "../../../interfaces";
 import { Grid } from "@mui/material";
 
-// import { CartContext } from "../context/CartContext";
-
 const CartProducts: FC = (props: any) => {
   const [cart, setCart] = useState<ICart[]>([]);
   const [prices, setPrices] = useState<number[]>([]);
@@ -16,8 +14,6 @@ const CartProducts: FC = (props: any) => {
   const [hasQty, setHasQty] = useState(false);
 
   const router = useRouter();
-
-  // const { cart } = useContext(CartContext);
 
   let sub: number = 0;
   let priceArray: number[] = [];
@@ -99,7 +95,6 @@ const CartProducts: FC = (props: any) => {
           if (prices[i] !== undefined) {
             priceArray[i] = prices[i];
           } else {
-            // priceArray[i] = parseInt(cart[i].price);
             priceArray[i] = 0;
           }
         }
@@ -144,13 +139,6 @@ const CartProducts: FC = (props: any) => {
     <Grid className="full-height">
       {cart &&
         cart.map((item: ICart) => {
-          // priceArray.push(parseInt(item.price));
-          // let itemPrice = ``;
-          // if (prices[index] === undefined) {
-          //   itemPrice = item.price;
-          // } else {
-          //   itemPrice = prices[index];
-          // }
           return (
             <Grid key={item.id}>
               <Grid className="cart-item-details">

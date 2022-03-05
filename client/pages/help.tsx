@@ -4,7 +4,7 @@ import PagesNav from "../components/users/pagesNav";
 import FooterC from "../components/footer";
 import { Grid } from "@mui/material";
 
-const HelpC = (props: any) => {
+const Help = (props: any) => {
   return (
     <div>
       <MainNav cartQty={props.cartQty} />
@@ -31,4 +31,4 @@ export async function getStaticProps() {
   };
 }
 
-export default HelpC;
+export default Help;

@@ -1,29 +1,28 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import IndexAPI from "../../../apis/indexAPI";
-import { Grid, Button } from '@mui/material';
+import { Grid, Button } from "@mui/material";
 
 interface IModalState {
-  show: boolean,
-  onHide: () => void,
-  email: string,
-  password: string,
-  passwordCopy: string,
-  firstName: string,
-  lastName: string
+  show: boolean;
+  onHide: () => void;
+  email: string;
+  password: string;
+  passwordCopy: string;
+  firstName: string;
+  lastName: string;
 }
 
 const SignUpModal = (props: IModalState) => {
-    const [firstName, setFirstName] = useState<string>("");
-    const [lastName, setLastName] = useState<string>("");
-    const [email, setEmail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-    const [passwordCopy, setPasswordCopy] = useState<string>("");
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [passwordCopy, setPasswordCopy] = useState<string>("");
 
-    const handleSignup = async (e: { preventDefault: () => void; }) => {
+  const handleSignup = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
-    //   const response = 
       await IndexAPI.post("/signup", {
         firstName: firstName,
         lastName: lastName,
@@ -31,20 +30,12 @@ const SignUpModal = (props: IModalState) => {
         password: password,
         passwordCopy: passwordCopy,
       });
-
-    //   createUser(response.data.data.user);
-
-    //   firstNameInput.current.value = "";
-    //   lastNameInput.current.value = "";
-    //   emailInput.current.value = "";
-    //   passwordInput.current.value = "";
-    //   passwordCopyInput.current.value = "";
     } catch (err) {
       console.log(err);
     }
   };
 
-  async (e: { preventDefault: () => void; }) => {
+  async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
       console.log("reset");
@@ -53,102 +44,93 @@ const SignUpModal = (props: IModalState) => {
     }
   };
 
-    return (
-        <Grid
-        // {...props}
-        // size="lg"
-        // aria-labelledby="contained-modal-title-vcenter"
-        // centered
-        >
-        <Grid>
-            <Grid id="contained-modal-title-vcenter">
-
-            </Grid>
-        </Grid>
-        <Grid>
+  return (
+    <Grid>
+      <Grid>
+        <Grid id="contained-modal-title-vcenter"></Grid>
+      </Grid>
+      <Grid>
         <form>
-            <Grid 
-            // ref={signupRef} 
-            className="sign-content">
-                <h1 className="sign-header">Create Account</h1>
-                <Grid className="sign-input">
-                <Grid className="name-input-div">
-                    <input
-                    type="text"
-                    value={props.firstName}
-                    name="firstName"
-                    placeholder="First Name"
-                    onChange={(e) => {
-                        setFirstName(e.target.value);
-                    }}
-                    />
-                    <input
-                    type="text"
-                    value={props.lastName}
-                    name="lastname"
-                    placeholder="Last Name"
-                    onChange={(e) => {
-                        setLastName(e.target.value);
-                    }}
-                    />
-                </Grid>
-                <Grid className="modal-input-div">
-                    <input
-                    type="email"
-                    value={props.email}
-                    name="email"
-                    placeholder="Email"
-                    onChange={(e) => {
-                        setEmail(e.target.value);
-                    }}
-                    />
-                </Grid>
-                <Grid className="modal-input-div">
-                    <input
-                    type="password"
-                    value={props.password}
-                    name="password"
-                    placeholder="Create Password"
-                    onChange={(e) => {
-                        setPassword(e.target.value);
-                    }}
-                    />
-                </Grid>
-                <Grid className="modal-input-div">
-                    <input
-                    type="password"
-                    value={props.passwordCopy}
-                    name="re-password"
-                    placeholder="Re-type Password"
-                    onChange={(e) => {
-                        setPasswordCopy(e.target.value);
-                    }}
-                    />
-                </Grid>
-                </Grid>
-                <Grid>
-                <button
-                    onClick={handleSignup}
-                    type="submit"
-                    className="btn form-button"
-                >
-                    Create Account
-                </button>
-                </Grid>
-                <Grid className="sign-footer">
-                <Grid className="modal-link">
-                    <span>Already have an account? Sign In</span>
-                </Grid>
-                </Grid>
+          <Grid className="sign-content">
+            <h1 className="sign-header">Create Account</h1>
+            <Grid className="sign-input">
+              <Grid className="name-input-div">
+                <input
+                  type="text"
+                  value={props.firstName}
+                  name="firstName"
+                  placeholder="First Name"
+                  onChange={(e) => {
+                    setFirstName(e.target.value);
+                  }}
+                />
+                <input
+                  type="text"
+                  value={props.lastName}
+                  name="lastname"
+                  placeholder="Last Name"
+                  onChange={(e) => {
+                    setLastName(e.target.value);
+                  }}
+                />
+              </Grid>
+              <Grid className="modal-input-div">
+                <input
+                  type="email"
+                  value={props.email}
+                  name="email"
+                  placeholder="Email"
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                />
+              </Grid>
+              <Grid className="modal-input-div">
+                <input
+                  type="password"
+                  value={props.password}
+                  name="password"
+                  placeholder="Create Password"
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                />
+              </Grid>
+              <Grid className="modal-input-div">
+                <input
+                  type="password"
+                  value={props.passwordCopy}
+                  name="re-password"
+                  placeholder="Re-type Password"
+                  onChange={(e) => {
+                    setPasswordCopy(e.target.value);
+                  }}
+                />
+              </Grid>
             </Grid>
-            </form>
-        </Grid>
-        <Grid>
-            <Button onClick={props.onHide}>Close</Button>
-        </Grid>
-        </Grid>
+            <Grid>
+              <button
+                onClick={handleSignup}
+                type="submit"
+                className="btn form-button"
+              >
+                Create Account
+              </button>
+            </Grid>
+            <Grid className="sign-footer">
+              <Grid className="modal-link">
+                <span>Already have an account? Sign In</span>
+              </Grid>
+            </Grid>
+          </Grid>
+        </form>
+      </Grid>
+      <Grid>
+        <Button onClick={props.onHide}>Close</Button>
+      </Grid>
+    </Grid>
   );
-}
+};
 
 SignUpModal.propTypes = {
   onHide: PropTypes.string,

@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { Grid } from '@mui/material';
+import { Grid } from "@mui/material";
 
 const AddToCart = (props: any) => {
   const [addedModal] = useState(props.modalStatus);
@@ -11,7 +11,7 @@ const AddToCart = (props: any) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log(props.modalStatus)
+        console.log(props.modalStatus);
       } catch (err) {
         console.log(err);
       }
@@ -24,17 +24,13 @@ const AddToCart = (props: any) => {
 
   return (
     <Grid>
-      {/* Added to Cart */}
       <Grid className={addedModal}>
         <form>
-          <Grid
-            // ref={addedRef}
-            className="added-content modal-content"
-          >
+          <Grid className="added-content modal-content">
             <h1 className="header">Item Added</h1>
             <Grid>
-              {product.title} has {!uniqueItem ? "already" : ""} been
-              added to your cart.
+              {product.title} has {!uniqueItem ? "already" : ""} been added to
+              your cart.
             </Grid>
             <Grid className="grid two-column-div">
               <button className="added-button" onClick={() => router.push("/")}>

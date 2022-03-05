@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { Grid } from '@mui/material';
+import { Grid } from "@mui/material";
 
 const DisclaimerModal: FC = () => {
   const [disclaimerModal, setDisclaimerModal] = useState("modal-bg active");

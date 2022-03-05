@@ -6,7 +6,7 @@ import FooterC from "../components/footer";
 import { Grid } from "@mui/material";
 import Head from "next/head";
 
-const ProfileC = (props: any) => {
+const Profile = (props: any) => {
   // const [user] = useState<IUser[]>(props.user);
 
   return (
@@ -55,4 +55,4 @@ export async function getStaticProps() {
   };
 }
 
-export default ProfileC;
+export default Profile;

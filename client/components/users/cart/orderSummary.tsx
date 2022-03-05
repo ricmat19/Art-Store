@@ -1,10 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState } from "react";
-// import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { ICart } from "../../../interfaces";
-import { Grid } from '@mui/material';
-// import { CartContext } from "../context/CartContext";
+import { Grid } from "@mui/material";
 
 interface ICartSummary {
   cartProducts: ICart[];
@@ -16,8 +14,6 @@ const OrderSummary = (props: ICartSummary) => {
   const [cart] = useState<ICart[]>(props.cartProducts);
   const [cartPrices] = useState(props.cartPrices);
   const [subtotal] = useState<number>(props.subtotal);
-
-  // const { cart, setCart } = useContext(CartContext);
 
   return (
     <Grid>

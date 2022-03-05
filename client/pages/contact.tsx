@@ -5,7 +5,7 @@ import PagesNav from "../components/users/pagesNav";
 import FooterC from "../components/footer";
 import Head from "next/head";
 
-const ContactC = (props: any) => {
+const Contact = (props: any) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
@@ -117,4 +117,4 @@ export async function getStaticProps() {
   };
 }
 
-export default ContactC;
+export default Contact;

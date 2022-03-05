@@ -5,13 +5,13 @@ import IndexAPI from "../../../apis/indexAPI";
 import { IProduct } from "../../../interfaces";
 
 interface IProducts {
-  updateItem: string,
-  products: IProduct[],
-  setProducts: () => void,
+  updateItem: string;
+  products: IProduct[];
+  setProducts: () => void;
 }
 
 const AdminUpdateProduct = (props: IProducts) => {
-  const [,setProducts] = useState<IProduct[]>([]);
+  const [, setProducts] = useState<IProduct[]>([]);
   const [image, setImage] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [type, setType] = useState<string>("");
@@ -55,18 +55,16 @@ const AdminUpdateProduct = (props: IProducts) => {
     fetchData();
   }, [props]);
 
-  const handleSubmit = async (e: { preventDefault: () => void; }) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
-      const update = await IndexAPI.put(`/admin/update/${props.updateItem}`, {
+      await IndexAPI.put(`/admin/update/${props.updateItem}`, {
         title,
         type,
         quantity,
         price,
         info,
       });
-      console.log(update)
-      // setProducts(update);
     } catch (err) {
       console.log(err);
     }

@@ -5,9 +5,7 @@ import { Backdrop, Box, Fade, Grid, Modal } from "@mui/material";
 const AdminDeleteBlog = (props: any) => {
   const handleDelete = async () => {
     try {
-      await IndexAPI.delete(
-        `/admin/medias/blog/delete/${props.deleteBlog[0].id}`
-      );
+      await IndexAPI.delete(`/admin/media/blog/${props.deleteBlog[0].id}`);
       props.setBlogs(
         props.blogs.filter((blog: any) => {
           return blog.id !== props.deleteBlog[0].id;

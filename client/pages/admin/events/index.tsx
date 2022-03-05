@@ -2,7 +2,6 @@ import FooterC from "../../../components/footer";
 import AdminMainNav from "../../../components/admin/mainNav";
 import AdminPagesNav from "../../../components/admin//pagesNav";
 import Calendar from "../../../components/calendar";
-import { Redirect } from "react-router";
 import { useEffect, useState } from "react";
 import IndexAPI from "../../../apis/indexAPI";
 
@@ -41,7 +40,7 @@ const AdminEvents = () => {
       </div>
     );
   } else {
-    return <Redirect to="/admin/login" />;
+    return <div></div>;
   }
 };
 

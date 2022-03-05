@@ -1,7 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState, useRef } from "react";
 import IndexAPI from "../../../apis/indexAPI";
-import { Backdrop, Box, Fade, Modal, Grid, Select, MenuItem } from "@mui/material";
+import {
+  Backdrop,
+  Box,
+  Fade,
+  Modal,
+  Grid,
+  Select,
+  MenuItem,
+} from "@mui/material";
 
 const AdminAddProduct = (props: any) => {
   const [title, setTitle] = useState<string>("");
@@ -15,12 +23,6 @@ const AdminAddProduct = (props: any) => {
   const quantityInput = useRef(null);
   const priceInput = useRef(null);
   const infoInput = useRef(null);
-
-  // //insures that the .env file is only run in a development environment and not a production environment
-  // if (process.env.NODE_ENV !== "production") {
-  //   //requires the the .env file configuration be run first hiding all info hidden via the .env file
-  //   require("dotenv").config();
-  // }
 
   const createProduct = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -41,22 +43,20 @@ const AdminAddProduct = (props: any) => {
           .then((res) => console.log(res))
           .catch((err) => console.log(err));
       }
-
-      // createItem(response);
-
-      // titleInput.current.value = "";
-      // typeInput.current.value = "";
-      // quantityInput.current.value = "";
-      // priceInput.current.value = "";
-      // infoInput.current.value = "";
     } catch (err) {
       console.log(err);
     }
   };
 
-  let displayedImage = "";
+  let displayedImage;
   if (image !== undefined) {
-    displayedImage = URL.createObjectURL(image);
+    displayedImage = (
+      <img
+        className="big-image"
+        src={URL.createObjectURL(image)}
+        alt="big image"
+      />
+    );
   }
 
   const handleChange = (event: any) => {
@@ -104,13 +104,7 @@ const AdminAddProduct = (props: any) => {
             >
               <Grid sx={{ padding: "0 30px 0 0", width: "50%" }}>
                 <Grid className="image">
-                  <Grid className="big-image-div">
-                    <img
-                      className="big-image"
-                      src={displayedImage}
-                      alt="big image"
-                    />
-                  </Grid>
+                  <Grid className="big-image-div">{displayedImage}</Grid>
                 </Grid>
               </Grid>
               <Grid

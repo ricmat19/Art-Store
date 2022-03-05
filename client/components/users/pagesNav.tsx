@@ -1,5 +1,3 @@
-// import { useState, useRef } from "react";
-// import React, { useContext, useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
 import { Grid } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,107 +7,9 @@ import {
   faStoreAlt,
   faTv,
 } from "@fortawesome/free-solid-svg-icons";
-// import { CartContext } from "../context/CartContext";
 
 const PagesNav = () => {
-  // const [signinModal, setSigninModal] = useState<string>("modal-bg");
-  // const [signupModal, setSignupModal] = useState<string>("modal-bg");
-  // const [resetModal, setResetModal] = useState<string>("modal-bg");
-
   const router = useRouter();
-
-  // const displaySignin = () => {
-  //   setSigninModal("modal-bg active");
-  //   setSignupModal("modal-bg");
-  //   setResetModal("modal-bg");
-  // };
-
-  // const displaySignup = () => {
-  //   setSignupModal("modal-bg active");
-  //   setSigninModal("modal-bg");
-  //   setResetModal("modal-bg");
-  // };
-
-  // const displayReset = () => {
-  //   setResetModal("modal-bg active");
-  //   setSignupModal("modal-bg");
-  //   setSigninModal("modal-bg");
-  // };
-
-  // const signinRef = useRef();
-  // const signupRef = useRef();
-  // const resetRef = useRef();
-
-  // const { cart } = useContext(CartContext);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       // document.addEventListener("mousedown", (event) => {
-  //       //   if (signinRef.current !== null) {
-  //       //     if (!signinRef.current.contains(event.target)) {
-  //       //       setSigninModal("modal-bg");
-  //       //     }
-  //       //     if (!signupRef.current.contains(event.target)) {
-  //       //       setSignupModal("modal-bg");
-  //       //     }
-  //       //     if (!resetRef.current.contains(event.target)) {
-  //       //       setResetModal("modal-bg");
-  //       //     }
-  //       //   }
-  //       // });
-
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   fetchData();
-  // }, [props]);
-
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [passwordCopy, setPasswordCopy] = useState("");
-  // const [firstname, setFirstName] = useState("");
-  // const [lastname, setLastName] = useState("");
-
-  // const emailInput = useRef(null);
-  // const passwordInput = useRef(null);
-  // const firstNameInput = useRef(null);
-  // const lastNameInput = useRef(null);
-  // const passwordCopyInput = useRef(null);
-
-  // const handleSignin = async (e: { preventDefault: () => void }) => {
-  //   e.preventDefault();
-  //   try {
-  //     await IndexAPI.post("/signin", {
-  //       email: email,
-  //       password: password,
-  //     });
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // const handleSignup = async (e: { preventDefault: () => void }) => {
-  //   e.preventDefault();
-  //   try {
-  //     await IndexAPI.post("/signup", {
-  //       firstname: firstname,
-  //       lastname: lastname,
-  //       email: email,
-  //       password: password,
-  //       passwordCopy: passwordCopy,
-  //     });
-
-  //     // firstNameInput.current.value = "";
-  //     // lastNameInput.current.value = "";
-  //     // emailInput.current.value = "";
-  //     // passwordInput.current.value = "";
-  //     // passwordCopyInput.current.value = "";
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
 
   async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -161,16 +61,6 @@ const PagesNav = () => {
               <h1 className="pointer">media</h1>
             </Grid>
           </Grid>
-          {/* <Grid container xs={2} sx={{justifyContent: "center"}}>
-            <Grid sx={{textAlign: 'center', alignSelf: "center", m: "5px"}}>
-              <FontAwesomeIcon icon={faPaintBrush} />
-            </Grid>
-            <Grid sx={{textAlign: 'center', alignSelf: "center"}}>
-              <a href="/projects">
-                <h1 className="pointer">projects</h1>
-              </a>
-            </Grid>
-          </Grid> */}
           <Grid container xs={3} sx={{ justifyContent: "center" }}>
             <Grid sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}>
               <FontAwesomeIcon icon={faCalendarCheck} />

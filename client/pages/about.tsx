@@ -4,7 +4,7 @@ import PagesNav from "../components/users/pagesNav";
 import FooterC from "../components/footer";
 import Head from "next/head";
 
-const AboutC = (props: any) => {
+const About = (props: any) => {
   return (
     <div>
       <Head>
@@ -57,4 +57,4 @@ export async function getStaticProps() {
   };
 }
 
-export default AboutC;
+export default About;

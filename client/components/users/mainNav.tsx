@@ -1,6 +1,5 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-// import SignInModalC from "../auth/signinModal";
 import { Grid, Menu } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,30 +9,15 @@ import {
   faUserCircle,
   faEllipsisV,
 } from "@fortawesome/free-solid-svg-icons";
-// import UserModalC from "./userModal";
-// import EllipseModalC from "./ellipseModal";
 import NotificationModal from "./modals/notificationModal";
 import UserModal from "./modals/userModal";
 import EllipseModal from "./modals/ellipseModal";
 
-// interface IModalState {
-//   open: boolean,
-//   onClose: boolean,
-//   show: boolean,
-//   onHide: () => void,
-//   email: string,
-//   password: string,
-// }
-
 const MainNav = () => {
   const [, setDisplaySignInModal] = useState<boolean>(false);
   const [signedIn] = useState<boolean>(true);
-  // const [mediasAmount] = useState(props.mediasAmount);
-  // const [email, ] = useState<string>("");
-  // const [password, ] = useState<string>("");
 
   const handleOpen = () => setDisplaySignInModal(true);
-  // const handleClose = () => setDisplaySignInModal(false);
 
   const [notificationOpen, setNotificationOpen] = useState(null);
   const [userOpen, setUserOpen] = useState(null);
@@ -185,7 +169,7 @@ const MainNav = () => {
           <Grid
             xs={12}
             sx={{
-              padding: "0 10px"
+              padding: "0 10px",
             }}
             container
           >
@@ -280,14 +264,6 @@ const MainNav = () => {
   } else {
     return (
       <header>
-        {/* Signin */}
-        {/* <SignInModalC 
-          open={displaySigninModal}
-          onClose={handleClose}
-          email={email}
-          password={password}
-        /> */}
-
         <nav>
           <Grid container>
             <Grid xs={1} sx={{ textAlign: "center", alignSelf: "center" }}>

@@ -5,7 +5,7 @@ import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 
 const AdminAddBlog = (props: any) => {
   const [title, setTitle] = useState<string>("");
-  const [images, setImages] = useState<File>();
+  const [image, setImage] = useState<File>();
   const [content, setContent] = useState<string>("");
 
   const titleInput = useRef(null);
@@ -18,12 +18,12 @@ const AdminAddBlog = (props: any) => {
   const createMedia = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
-      if (images) {
+      if (image) {
         let formData = new FormData();
 
         formData.append("title", title);
         formData.append("content", content);
-        formData.append("images", images);
+        formData.append("images", image);
 
         await IndexAPI.post("/admin/media/blog/create", formData, {
           headers: { "Content-Type": "multipart/form-data" },
@@ -36,9 +36,15 @@ const AdminAddBlog = (props: any) => {
     }
   };
 
-  let displayedImage = "";
-  if (images !== undefined) {
-    displayedImage = URL.createObjectURL(images);
+  let displayedImage;
+  if (image !== undefined) {
+    displayedImage = (
+      <img
+        className="big-image"
+        src={URL.createObjectURL(image)}
+        alt="big image"
+      />
+    );
   }
 
   return (
@@ -82,13 +88,7 @@ const AdminAddBlog = (props: any) => {
             >
               <Grid sx={{ padding: "0 30px 0 0", width: "50%" }}>
                 <Grid className="image">
-                  <Grid className="big-image-div">
-                    <img
-                      className="big-image"
-                      src={displayedImage}
-                      alt="big image"
-                    />
-                  </Grid>
+                  <Grid className="big-image-div">{displayedImage}</Grid>
                 </Grid>
               </Grid>
               <Grid
@@ -124,7 +124,7 @@ const AdminAddBlog = (props: any) => {
                     <label className="admin-label">Image:</label>
                     <input
                       type="file"
-                      onChange={(e: any) => setImages(e.target.files[0])}
+                      onChange={(e: any) => setImage(e.target.files[0])}
                       name="images"
                       className="form-control file-input"
                       required

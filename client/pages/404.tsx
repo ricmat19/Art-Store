@@ -4,7 +4,7 @@ import FooterC from "../components/footer";
 import Head from "next/head";
 import IndexAPI from "../apis/indexAPI";
 
-const PageNotFoundC = (props: any) => {
+const PageNotFound = (props: any) => {
   return (
     <div>
       <Head>
@@ -31,4 +31,4 @@ export async function getStaticProps() {
   };
 }
 
-export default PageNotFoundC;
+export default PageNotFound;
