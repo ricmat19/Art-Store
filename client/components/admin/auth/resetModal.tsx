@@ -40,7 +40,7 @@ const AdminResetModal = (props: IModalState) => {
       </Fade>
     </Modal>
   );
-}
+};
 
 AdminResetModal.propTypes = {
   onHide: PropTypes.string,

@@ -63,10 +63,7 @@ const AdminSignInModal = (props: IModalState) => {
         <Fade in={props.open}>
           <Box>
             <form>
-              <Grid
-                // ref={signinRef}
-                className="sign-content"
-              >
+              <Grid className="sign-content">
                 <h1 className="sign-header">welcome</h1>
                 <Grid>
                   <Grid className="modal-input-div">
@@ -116,7 +113,7 @@ const AdminSignInModal = (props: IModalState) => {
       </Modal>
     </Grid>
   );
-}
+};
 
 AdminSignInModal.propTypes = {
   onHide: PropTypes.string,

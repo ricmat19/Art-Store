@@ -23,7 +23,6 @@ const AdminSignUpModal = (props: IModalState) => {
   const handleSignup = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
-      //   const response =
       await IndexAPI.post("/signup", {
         firstName: firstName,
         lastName: lastName,
@@ -31,14 +30,6 @@ const AdminSignUpModal = (props: IModalState) => {
         password: password,
         passwordCopy: passwordCopy,
       });
-
-      //   createUser(response.data.data.user);
-
-      //   firstNameInput.current.value = "";
-      //   lastNameInput.current.value = "";
-      //   emailInput.current.value = "";
-      //   passwordInput.current.value = "";
-      //   passwordCopyInput.current.value = "";
     } catch (err) {
       console.log(err);
     }
@@ -62,87 +53,85 @@ const AdminSignUpModal = (props: IModalState) => {
     >
       <Fade in={props.open}>
         <Box>
-        <form>
-            <Grid 
-            // ref={signupRef} 
-            className="sign-content">
-                <h1 className="sign-header">Create Account</h1>
-                <Grid className="sign-input">
+          <form>
+            <Grid className="sign-content">
+              <h1 className="sign-header">Create Account</h1>
+              <Grid className="sign-input">
                 <Grid className="name-input-div">
-                    <input
+                  <input
                     type="text"
                     value={props.firstName}
                     name="firstName"
                     placeholder="First Name"
                     onChange={(e) => {
-                        setFirstName(e.target.value);
+                      setFirstName(e.target.value);
                     }}
-                    />
-                    <input
+                  />
+                  <input
                     type="text"
                     value={props.lastName}
                     name="lastname"
                     placeholder="Last Name"
                     onChange={(e) => {
-                        setLastName(e.target.value);
+                      setLastName(e.target.value);
                     }}
-                    />
+                  />
                 </Grid>
                 <Grid className="modal-input-div">
-                    <input
+                  <input
                     type="email"
                     value={props.email}
                     name="email"
                     placeholder="Email"
                     onChange={(e) => {
-                        setEmail(e.target.value);
+                      setEmail(e.target.value);
                     }}
-                    />
+                  />
                 </Grid>
                 <Grid className="modal-input-div">
-                    <input
+                  <input
                     type="password"
                     value={props.password}
                     name="password"
                     placeholder="Create Password"
                     onChange={(e) => {
-                        setPassword(e.target.value);
+                      setPassword(e.target.value);
                     }}
-                    />
+                  />
                 </Grid>
                 <Grid className="modal-input-div">
-                    <input
+                  <input
                     type="password"
                     value={props.passwordCopy}
                     name="re-password"
                     placeholder="Re-type Password"
                     onChange={(e) => {
-                        setPasswordCopy(e.target.value);
+                      setPasswordCopy(e.target.value);
                     }}
-                    />
+                  />
                 </Grid>
-                </Grid>
-                <Grid>
+              </Grid>
+              <Grid>
                 <button
-                    onClick={handleSignup}
-                    type="submit"
-                    className="btn form-button"
+                  onClick={handleSignup}
+                  type="submit"
+                  className="btn form-button"
                 >
-                    Create Account
+                  Create Account
                 </button>
-                </Grid>
-                <Grid className="sign-footer">
+              </Grid>
+              <Grid className="sign-footer">
                 <Grid className="modal-link">
-                    <span>Already have an account? Sign In</span>
+                  <span>Already have an account? Sign In</span>
                 </Grid>
-                </Grid>
+              </Grid>
             </Grid>
-            </form>
+          </form>
         </Box>
       </Fade>
     </Modal>
   );
-}
+};
 
 AdminSignUpModal.propTypes = {
   onHide: PropTypes.string,

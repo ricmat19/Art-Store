@@ -1,16 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
-import IndexAPI from "../../../../apis/indexAPI";
+import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Grid, Modal } from "@mui/material";
 
 const AdminDeleteEvent = (props: any) => {
   const handleDelete = async () => {
     try {
-      await IndexAPI.delete(
-        `/admin/medias/blog/delete/${props.deleteBlog[0].id}`
-      );
+      await IndexAPI.delete(`/admin/events/${props.deleteEvent[0].id}`);
       props.setBlogs(
-        props.blogs.filter((blog: any) => {
-          return blog.id !== props.deleteBlog[0].id;
+        props.event.filter((event: any) => {
+          return event.id !== props.deleteEvent[0].id;
         })
       );
     } catch (err) {
@@ -18,7 +16,7 @@ const AdminDeleteEvent = (props: any) => {
     }
   };
 
-  if (props.deleteBlog) {
+  if (props.deleteEvent) {
     return (
       <Grid>
         <Modal
@@ -59,20 +57,6 @@ const AdminDeleteEvent = (props: any) => {
                 }}
               >
                 <Grid
-                  className="image"
-                  sx={{
-                    justifyContent: "center",
-                  }}
-                >
-                  <Grid className="big-image-div">
-                    <img
-                      className="big-image"
-                      src={props.deleteBlog.imageBuffer}
-                      alt="big image"
-                    />
-                  </Grid>
-                </Grid>
-                <Grid
                   sx={{
                     padding: "0 0 0 30px",
                     height: "100%",
@@ -86,7 +70,7 @@ const AdminDeleteEvent = (props: any) => {
                     <Grid className="align-center">
                       <h1>
                         Are you sure you want to delete &quot;
-                        {props.deleteBlog.title}&quot; ?
+                        {props.deleteEvent.title}&quot; ?
                       </h1>
                     </Grid>
                     <button onClick={handleDelete} type="submit">
@@ -105,4 +89,4 @@ const AdminDeleteEvent = (props: any) => {
   }
 };
 
-export default AdminDeleteBlog;
+export default AdminDeleteEvent;

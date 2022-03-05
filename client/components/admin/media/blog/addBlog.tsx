@@ -1,13 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState, useRef } from "react";
 import IndexAPI from "../../../../apis/indexAPI";
-import {
-  Backdrop,
-  Box,
-  Fade,
-  Modal,
-  Grid
-} from "@mui/material";
+import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 
 const AdminAddBlog = (props: any) => {
   const [title, setTitle] = useState<string>("");
@@ -17,9 +11,7 @@ const AdminAddBlog = (props: any) => {
   const titleInput = useRef(null);
   const contentInput = useRef(null);
 
-  //insures that the .env file is only run in a development environment and not a production environment
   if (process.env.NODE_ENV !== "production") {
-    //requires the the .env file configuration be run first hiding all info hidden via the .env file
     require("dotenv").config();
   }
 
@@ -39,14 +31,6 @@ const AdminAddBlog = (props: any) => {
           .then((res) => console.log(res))
           .catch((err) => console.log(err));
       }
-
-      // createItem(response);
-
-      // titleInput.current.value = "";
-      // typeInput.current.value = "";
-      // quantityInput.current.value = "";
-      // priceInput.current.value = "";
-      // infoInput.current.value = "";
     } catch (err) {
       console.log(err);
     }
