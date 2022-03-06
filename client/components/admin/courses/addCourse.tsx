@@ -34,7 +34,7 @@ const AdminCreateCourse = (props: any) => {
         formData.append("info", info);
         formData.append("price", price);
 
-        await IndexAPI.post("/admin/course/create", formData, {
+        await IndexAPI.post("/admin/courses", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         })
           .then((res) => console.log(res))
@@ -100,9 +100,9 @@ const AdminCreateCourse = (props: any) => {
               }}
             >
               <Grid sx={{ padding: "0 30px 0 0", width: "50%" }}>
-                <div className="image">
-                  <div className="big-image-div">{displayedImage}</div>
-                </div>
+                <Grid className="image">
+                  <Grid className="big-image-div">{displayedImage}</Grid>
+                </Grid>
               </Grid>
               <Grid
                 sx={{
@@ -114,7 +114,7 @@ const AdminCreateCourse = (props: any) => {
               >
                 <form
                   className="admin-form"
-                  action="/admin/course/create"
+                  action="/admin/courses"
                   method="POST"
                   encType="multipart/form-data"
                 >

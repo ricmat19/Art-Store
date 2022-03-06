@@ -1,13 +1,35 @@
-import FooterC from "../../../components/footer";
-import AdminMainNav from "../../../components/admin/mainNav";
-import AdminPagesNav from "../../../components/admin//pagesNav";
-import Calendar from "../../../components/calendar";
 import { useEffect, useState } from "react";
 import IndexAPI from "../../../apis/indexAPI";
+import AdminMainNav from "../../../components/admin/mainNav";
+import AdminPagesNav from "../../../components/admin//pagesNav";
+import FooterC from "../../../components/footer";
+import Head from "next/head";
+import Calendar from "../../../components/calendar";
+import AdminAddEvent from "../../../components/admin/events/addEvent";
+import AdminDeleteEvent from "../../../components/admin/events/deleteEvent";
+import { Grid } from "@mui/material";
 
-const AdminEvents = () => {
+const AdminEvents = (props: any) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
-  // const [events] = useState(props.events);
+  const [events] = useState(props.events);
+  const [deleteEvent, setDeleteEvent] = useState<any>();
+
+  const [addOpen, setAddOpen] = useState(false);
+  const handleAddOpen = () => setAddOpen(true);
+  const handleAddClose = () => setAddOpen(false);
+
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const handleDeleteOpen = () => setDeleteOpen(true);
+  const handleDeleteClose = () => setDeleteOpen(false);
+
+  const displayDeleteModal = (id: any) => {
+    for (let i = 0; i < events.length; i++) {
+      if (events[i].id === id) {
+        setDeleteEvent(events[i]);
+      }
+    }
+    handleDeleteOpen();
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,25 +44,28 @@ const AdminEvents = () => {
     fetchData();
   }, []);
 
-  // const displayEvent = async (event: string) => {
-  //   try {
-  //     navigation(`/admin/events/${event}`);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
   if (loginStatus) {
     return (
-      <div>
+      <Grid>
+        <Head>
+          <title>artHouse19-Admin Courses</title>
+        </Head>
+        <AdminAddEvent open={addOpen} handleClose={handleAddClose} />
+        <AdminDeleteEvent
+          deleteProduct={deleteEvent}
+          open={deleteOpen}
+          handleClose={handleDeleteClose}
+        />
         <AdminMainNav />
         <AdminPagesNav />
-        <Calendar />
-        <FooterC />
-      </div>
+        <Grid className="main-body">
+          <Calendar handleAddOpen={handleAddOpen} displayDeleteModal={displayDeleteModal} />
+          <FooterC />
+        </Grid>
+      </Grid>
     );
   } else {
-    return <div></div>;
+    return <Grid></Grid>;
   }
 };
 

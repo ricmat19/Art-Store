@@ -39,7 +39,7 @@ router.get("/admin/community/:thread", async (req, res) => {
 });
 
 //Get a thread post
-router.get("/admin/community/:thread/:id", async (req, res) => {
+router.get("/admin/community/:id", async (req, res) => {
   try {
     const post = await db.query(
       "SELECT * FROM community WHERE thread=$1 AND id=$2",
@@ -59,7 +59,7 @@ router.get("/admin/community/:thread/:id", async (req, res) => {
 });
 
 //Delete a thread
-router.delete("/admin/community/:thread/:id", async (req, res) => {
+router.delete("/admin/community/:id", async (req, res) => {
   try {
     await db.query("DELETE FROM courses WHERE thread = $1 AND id = $2", [
       req.params.thread,

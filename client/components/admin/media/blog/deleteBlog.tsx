@@ -5,7 +5,7 @@ import { Backdrop, Box, Fade, Grid, Modal } from "@mui/material";
 const AdminDeleteBlog = (props: any) => {
   const handleDelete = async () => {
     try {
-      await IndexAPI.delete(`/admin/media/blog/${props.deleteBlog[0].id}`);
+      await IndexAPI.delete(`/admin/blog/${props.deleteBlog.id}`);
       props.setBlogs(
         props.blogs.filter((blog: any) => {
           return blog.id !== props.deleteBlog[0].id;
@@ -76,11 +76,7 @@ const AdminDeleteBlog = (props: any) => {
                     height: "100%",
                   }}
                 >
-                  <form
-                    className="admin-form"
-                    action="/routes/admin.js"
-                    method="POST"
-                  >
+                  <form className="admin-form">
                     <Grid className="align-center">
                       <h1>
                         Are you sure you want to delete &quot;

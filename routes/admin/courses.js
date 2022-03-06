@@ -9,23 +9,6 @@ const unlinkFile = util.promisify(fs.unlink);
 
 const upload = multer({ dest: "images/" });
 
-//Get all course subjects
-router.get("/admin/subjects", async (req, res) => {
-  try {
-    const subjects = await db.query("SELECT * FROM subjects");
-
-    res.status(200).json({
-      status: "success",
-      results: subjects.rows.length,
-      data: {
-        subjects: subjects.rows,
-      },
-    });
-  } catch (err) {
-    console.log(err);
-  }
-});
-
 //Get all courses
 router.get("/admin/courses", async (req, res) => {
   try {
@@ -43,18 +26,17 @@ router.get("/admin/courses", async (req, res) => {
   }
 });
 
-//Get a course
-router.get("/admin/courses/:subject/:id", async (req, res) => {
+
+//Get all course subjects
+router.get("/admin/subjects", async (req, res) => {
   try {
-    const course = await db.query("SELECT * FROM courses WHERE id=$1", [
-      req.params.id,
-    ]);
+    const subjects = await db.query("SELECT * FROM subjects");
 
     res.status(200).json({
       status: "success",
-      results: course.rows.length,
+      results: subjects.rows.length,
       data: {
-        course: course.rows,
+        subjects: subjects.rows,
       },
     });
   } catch (err) {
@@ -65,14 +47,32 @@ router.get("/admin/courses/:subject/:id", async (req, res) => {
 //Get a course subject
 router.get("/admin/courses/:subject", async (req, res) => {
   try {
-    const subject = await db.query("SELECT * FROM courses WHERE subject=$1", [
-      req.params.product,
-    ]);
+    const subjects = await db.query("SELECT * FROM subjects");
+
     res.status(200).json({
       status: "success",
-      results: subject.rows.length,
+      results: subjects.rows.length,
       data: {
-        subject: subject.rows,
+        subjects: subjects.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//Get a course
+router.get("/admin/courses/:id", async (req, res) => {
+  try {
+    const course = await db.query("SELECT * FROM courses WHERE id=$1", [
+      req.params.id,
+    ]);
+
+    res.status(200).json({
+      status: "success",
+      results: course.rows.length,
+      data: {
+        course: course.rows,
       },
     });
   } catch (err) {
@@ -109,7 +109,7 @@ router.post(
 
 //Update a course
 router.put(
-  "/admin/courses/:subject/:id",
+  "/admin/courses/:id",
   upload.single("images"),
   async (req, res) => {
     try {
@@ -142,7 +142,7 @@ router.put(
 );
 
 //Delete a course
-router.delete("/admin/courses/:subject/:id", async (req, res) => {
+router.delete("/admin/courses/:id", async (req, res) => {
   try {
     await db.query("DELETE FROM courses WHERE id = $1", [req.params.id]);
     res.status(204).json({

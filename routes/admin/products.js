@@ -26,6 +26,24 @@ router.get("/admin/products", async (req, res) => {
   }
 });
 
+//Get a product type
+router.get("/admin/products/:product", async (req, res) => {
+  try {
+    const product = await db.query("SELECT * FROM products WHERE PRODUCT=$1", [
+      req.params.product,
+    ]);
+    res.status(200).json({
+      status: "success",
+      results: product.rows.length,
+      data: {
+        product: product.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 //Get a product
 router.get("/admin/products/:id", async (req, res) => {
   try {
@@ -45,27 +63,9 @@ router.get("/admin/products/:id", async (req, res) => {
   }
 });
 
-//Get a product type
-router.get("/admin/products/:product", async (req, res) => {
-  try {
-    const product = await db.query("SELECT * FROM products WHERE PRODUCT=$1", [
-      req.params.product,
-    ]);
-    res.status(200).json({
-      status: "success",
-      results: product.rows.length,
-      data: {
-        product: product.rows,
-      },
-    });
-  } catch (err) {
-    console.log(err);
-  }
-});
-
 //Create a product
 router.post(
-  "/admin/product",
+  "/admin/products",
   upload.single("images"),
   async (req, res) => {
     try {
@@ -90,26 +90,8 @@ router.post(
   }
 );
 
-//Get a specific products item for update
-router.get("/admin/update/:id", async (req, res) => {
-  try {
-    const item = await db.query(`SELECT * FROM products WHERE id=$1`, [
-      req.params.id,
-    ]);
-    res.status(200).json({
-      status: "success",
-      results: item.rows.length,
-      data: {
-        item: item.rows[0],
-      },
-    });
-  } catch (err) {
-    console.log(err);
-  }
-});
-
-// //Update a products item
-router.put("/admin/update/:id", async (req, res) => {
+//Update a products item
+router.put("/admin/products/:id", async (req, res) => {
   try {
     const item = await db.query(
       "UPDATE products SET title=$1, product=$2, qty=$3, price=$4, info=$5 WHERE id=$7",
@@ -137,8 +119,8 @@ router.put("/admin/update/:id", async (req, res) => {
 
 module.exports = router;
 
-//Delete a products item
-router.delete("/admin/delete/:id", async (req, res) => {
+//Delete a product item
+router.delete("/admin/products/:id", async (req, res) => {
   try {
     await db.query("DELETE FROM products WHERE id = $1", [req.params.id]);
     res.status(204).json({

@@ -26,6 +26,24 @@ router.get("/admin/events", async (req, res) => {
   }
 });
 
+//Get a days events
+router.get("/admin/events/:date", async (req, res) => {
+  try {
+    const events = await db.query("SELECT * FROM events WHERE event_date=$1", [
+      req.params.date,
+    ]);
+    res.status(200).json({
+      status: "success",
+      results: events.rows.length,
+      data: {
+        events: events.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 //Get an event
 router.get("/admin/events/:id", async (req, res) => {
   try {

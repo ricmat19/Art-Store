@@ -5,7 +5,7 @@ import { Backdrop, Box, Fade, Grid, Modal } from "@mui/material";
 const AdminDeleteEvent = (props: any) => {
   const handleDelete = async () => {
     try {
-      await IndexAPI.delete(`/admin/events/${props.deleteEvent[0].id}`);
+      await IndexAPI.delete(`/admin/events/${props.deleteEvent.id}`);
       props.setBlogs(
         props.event.filter((event: any) => {
           return event.id !== props.deleteEvent[0].id;
@@ -64,8 +64,6 @@ const AdminDeleteEvent = (props: any) => {
                 >
                   <form
                     className="admin-form"
-                    action="/routes/admin.js"
-                    method="POST"
                   >
                     <Grid className="align-center">
                       <h1>

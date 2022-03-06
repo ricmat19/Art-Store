@@ -21,7 +21,7 @@ const AdminAddBlog = (props: any) => {
         formData.append("content", content);
         formData.append("images", image);
 
-        await IndexAPI.post("/admin/media/blog/create", formData, {
+        await IndexAPI.post("/admin/blog", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         })
           .then((res) => console.log(res))
@@ -97,7 +97,7 @@ const AdminAddBlog = (props: any) => {
               >
                 <form
                   className="admin-form"
-                  action="/admin/media/create"
+                  action="/admin/blog"
                   method="POST"
                   encType="multipart/form-data"
                 >

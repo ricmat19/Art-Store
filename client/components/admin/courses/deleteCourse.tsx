@@ -6,7 +6,7 @@ const AdminDeleteCourse = (props: any) => {
   const handleDelete = async () => {
     try {
       await IndexAPI.delete(
-        `/admin/courses/${props.deleteSubject[0].id}/${props.deleteCourse[0].id}`
+        `/admin/courses/${props.deleteCourse.id}`
       );
     } catch (err) {
       console.log(err);
@@ -75,8 +75,6 @@ const AdminDeleteCourse = (props: any) => {
                 >
                   <form
                     className="admin-form"
-                    action="/routes/admin.js"
-                    method="POST"
                   >
                     <Grid className="align-center">
                       <h1>

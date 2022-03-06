@@ -17,7 +17,7 @@ import Link from "next/link";
 
 const AdminBlogPostsC = (props: any) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
-  const [blogs, setBlogs] = useState<IBlog[]>(props.blogs);
+  const [blog] = useState<IBlog[]>(props.blog);
   const [deleteBlog, setDeleteBlog] = useState<any>();
   const [pageNumber, setPageNumber] = useState<number>(0);
 
@@ -31,15 +31,15 @@ const AdminBlogPostsC = (props: any) => {
 
   const itemsPerPage: number = 9;
   const pagesVisted: number = pageNumber * itemsPerPage;
-  const pageCount = Math.ceil(blogs.length / itemsPerPage);
+  const pageCount = Math.ceil(blog.length / itemsPerPage);
   const changePage = ({ selected }: { selected: number }): void => {
     setPageNumber(selected);
   };
 
   const displayDeleteModal = (id: any) => {
-    for (let i = 0; i < blogs.length; i++) {
-      if (blogs[i].id === id) {
-        setDeleteBlog(blogs[i]);
+    for (let i = 0; i < blog.length; i++) {
+      if (blog[i].id === id) {
+        setDeleteBlog(blog[i]);
       }
     }
     handleDeleteOpen();
@@ -47,44 +47,39 @@ const AdminBlogPostsC = (props: any) => {
 
   const displayBlog = async (id: string) => {
     try {
-      router.push(`/admin/medias/blog/${id}`);
+      router.push(`/admin/blog/${id}`);
     } catch (err) {
       console.log(err);
     }
   };
 
-  const displayBlogs = blogs
+  const displayBlogs = blog
     .slice(pagesVisted, pagesVisted + itemsPerPage)
-    .map((blog) => {
+    .map((post) => {
       return (
-        <Grid className="blog-post-div" key={blog.id}>
-          <Grid className="pointer" onClick={() => displayBlog(blog.id)}>
+        <Grid className="blog-post-div" key={post.id}>
+          <Grid className="pointer" onClick={() => displayBlog(post.id)}>
             <Grid className="blog-thumbnail-div">
               <img
                 className="blog-thumbnail"
-                src={blog.imageBuffer}
+                src={post.imageBuffer}
                 alt="blog-thumbnail"
               />
             </Grid>
-            <Grid sx={{ textAlign: "left" }}>{blog.title}</Grid>
+            <Grid sx={{ textAlign: "left" }}>{post.title}</Grid>
           </Grid>
           <Grid>
             <Grid className="admin-products-button-div">
               <Grid>
                 <button
-                  onClick={() => displayDeleteModal(blog.id)}
+                  onClick={() => displayDeleteModal(post.id)}
                   className="delete"
                 >
                   Delete
                 </button>
               </Grid>
               <Grid>
-                <button
-                  // onClick={() => displayUpdateProductModal(item.id)}
-                  type="submit"
-                >
-                  Update
-                </button>
+                <button type="submit">Update</button>
               </Grid>
             </Grid>
           </Grid>
@@ -114,15 +109,13 @@ const AdminBlogPostsC = (props: any) => {
         <AdminAddBlog open={addOpen} handleClose={handleAddClose} />
         <AdminDeleteBlog
           deleteBlog={deleteBlog}
-          blogs={blogs}
-          setBlogs={setBlogs}
           open={deleteOpen}
           handleClose={handleDeleteClose}
         />
         <AdminMainNav />
         <AdminPagesNav />
         <div className="main-body">
-          <Link passHref href="/admin/products/blog">
+          <Link passHref href="/admin/blog">
             <h1 className="main-title pointer">blog</h1>
           </Link>
           <Grid className="plus-icon-div">
@@ -162,7 +155,7 @@ const AdminBlogPostsC = (props: any) => {
 };
 
 export async function getStaticProps() {
-  const blogResponse = await IndexAPI.get(`/admin/media/blog`);
+  const blogResponse = await IndexAPI.get(`/admin/blog`);
 
   for (let i = 0; i < blogResponse.data.data.blog.length; i++) {
     if (blogResponse.data.data.blog[i].imagekey !== null) {

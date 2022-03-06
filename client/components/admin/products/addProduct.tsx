@@ -37,7 +37,7 @@ const AdminAddProduct = (props: any) => {
         formData.append("price", price);
         formData.append("info", info);
 
-        await IndexAPI.post("/admin/product/create", formData, {
+        await IndexAPI.post("/admin/products", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         })
           .then((res) => console.log(res))
@@ -117,7 +117,7 @@ const AdminAddProduct = (props: any) => {
               >
                 <form
                   className="admin-form"
-                  action="/admin/product/create"
+                  action="/admin/products"
                   method="POST"
                   encType="multipart/form-data"
                 >

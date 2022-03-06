@@ -3,7 +3,7 @@ import { useState, useRef } from "react";
 import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 
-const AdminCreateEvent = (props: any) => {
+const AdminViewDayEvents = (props: any) => {
   const [title, setTitle] = useState<string>("");
   const [image, setImage] = useState<File>();
   const [date, setDate] = useState<string>("");
@@ -28,7 +28,7 @@ const AdminCreateEvent = (props: any) => {
         formData.append("price", price);
         formData.append("info", info);
 
-        await IndexAPI.post("/admin/events", formData, {
+        await IndexAPI.post("/admin/event/create", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         })
           .then((res) => console.log(res))
@@ -104,7 +104,7 @@ const AdminCreateEvent = (props: any) => {
               >
                 <form
                   className="admin-form"
-                  action="/admin/events"
+                  action="/admin/event/create"
                   method="POST"
                   encType="multipart/form-data"
                 >
@@ -201,4 +201,4 @@ const AdminCreateEvent = (props: any) => {
   );
 };
 
-export default AdminCreateEvent;
+export default AdminViewDayEvents;

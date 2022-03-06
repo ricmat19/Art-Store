@@ -3,9 +3,11 @@ import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Grid, Modal } from "@mui/material";
 
 const AdminDeleteProduct = (props: any) => {
-  const handleDelete = async () => {
+
+  const handleDelete = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
     try {
-      await IndexAPI.delete(`/admin/delete/${props.deleteProduct}`);
+      await IndexAPI.delete(`/admin/products/${props.deleteProduct.id}`);
     } catch (err) {
       console.log(err);
     }
@@ -71,11 +73,7 @@ const AdminDeleteProduct = (props: any) => {
                     height: "100%",
                   }}
                 >
-                  <form
-                    className="admin-form"
-                    action="/routes/admin.js"
-                    method="POST"
-                  >
+                  <form className="admin-form">
                     <Grid className="align-center">
                       <h1>
                         Are you sure you want to delete &quot;

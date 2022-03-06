@@ -10,7 +10,7 @@ const unlinkFile = util.promisify(fs.unlink);
 const upload = multer({ dest: "images/" });
 
 //Get all blog posts
-router.get("/admin/media/blog", async (req, res) => {
+router.get("/admin/blog", async (req, res) => {
   try {
     const blog = await db.query("SELECT * FROM blog");
 
@@ -27,7 +27,7 @@ router.get("/admin/media/blog", async (req, res) => {
 });
 
 //Get a blog post
-router.get("/admin/media/blog/:id", async (req, res) => {
+router.get("/admin/blog/:id", async (req, res) => {
   try {
     const post = await db.query("SELECT * FROM blog WHERE id=$1", [
       req.params.id,
@@ -47,7 +47,7 @@ router.get("/admin/media/blog/:id", async (req, res) => {
 
 //Create a blog post
 router.post(
-  "/admin/media/blog/create",
+  "/admin/blog",
   upload.single("images"),
   async (req, res) => {
     try {
@@ -66,7 +66,7 @@ router.post(
 );
 
 //Update a blog post
-router.put("/admin/media/blog/:id", async (req, res) => {
+router.put("/admin/blog/:id", async (req, res) => {
   try {
     const file = req.file;
     const result = await uploadFile(file);
@@ -97,7 +97,7 @@ router.put("/admin/media/blog/:id", async (req, res) => {
 module.exports = router;
 
 //Delete a blog post
-router.delete("/admin/media/blog/:id", async (req, res) => {
+router.delete("/admin/blog/:id", async (req, res) => {
   try {
     await db.query("DELETE FROM blog WHERE id = $1", [req.params.id]);
     res.status(204).json({
