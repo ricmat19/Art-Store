@@ -3,22 +3,20 @@ import { useState } from "react";
 import Link from "next/link";
 
 const AdminProductsNav = (props: any) => {
-  const [products] = useState(props.products);
+  const [activeProducts] = useState(props.activeProducts);
 
-  const productTypes: any[] = [];
-  for (let i = 0; i < products.length; i++) {
-    if (!productTypes.includes(products[i].product)) {
-      productTypes.push(products[i].product);
-    }
+  let productPageLinks;
+  if (activeProducts !== undefined) {
+    productPageLinks = activeProducts.map((product: any) => {
+      return (
+        <Link passHref key={product} href={`/admin/products/${product}`}>
+          <h1 className="main-title pointer">{product}</h1>
+        </Link>
+      );
+    });
+  } else {
+    return <Grid></Grid>;
   }
-
-  const productPageLinks = productTypes.map((product: any) => {
-    return (
-      <Link passHref key={product} href={`/admin/products/${product}`}>
-        <h1 className="main-title pointer">{product}s</h1>
-      </Link>
-    );
-  });
 
   return (
     <Grid container sx={{ justifyContent: "center", gap: "25px", mt: "10px" }}>

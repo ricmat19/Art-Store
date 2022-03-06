@@ -16,3 +16,7 @@ CREATE TABLE cart(
     qty VARCHAR[]
 );
 
+CREATE TABLE subjects(
+    subject VARCHAR PRIMARY KEY
+);
+

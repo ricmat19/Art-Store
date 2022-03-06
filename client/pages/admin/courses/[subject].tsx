@@ -5,20 +5,20 @@ import IndexAPI from "../../../apis/indexAPI";
 import AdminMainNav from "../../../components/admin/mainNav";
 import AdminPagesNav from "../../../components/admin/pagesNav";
 import Footer from "../../../components/footer";
-import { IProduct } from "../../../interfaces";
+
 import Head from "next/head";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import AdminProductsNav from "../../../components/admin/products/productNav";
-import AdminAddProduct from "../../../components/admin/products/addProduct";
-import AdminDeleteProduct from "../../../components/admin/products/deleteProduct";
+import AdminCoursesNav from "../../../components/admin/courses/coursesNav";
+import AdminAddCourse from "../../../components/admin/courses/addCourse";
+import AdminDeleteCourse from "../../../components/admin/courses/deleteCourse";
 import { Button, Grid } from "@mui/material";
 
-const AdminProduct = (props: any) => {
+const AdminCourses = (props: any) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
-  const [product] = useState<IProduct[]>(props.product);
-  const [activeProducts] = useState<IProduct[]>(props.activeProducts);
-  const [deleteProduct, setDeleteProduct] = useState<any>();
+  const [courses] = useState(props.courses);
+  const [activeCourses] = useState(props.activeCourses);
+  const [deleteCourse, setDeleteCourse] = useState<any>();
   const [pageNumber, setPageNumber] = useState<number>(0);
 
   const [addOpen, setAddOpen] = useState(false);
@@ -31,43 +31,43 @@ const AdminProduct = (props: any) => {
 
   const itemsPerPage = 9;
   const pagesVisted = pageNumber * itemsPerPage;
-  const pageCount = Math.ceil(product.length / itemsPerPage);
+  const pageCount = Math.ceil(courses.length / itemsPerPage);
   const changePage = ({ selected }: any) => {
     setPageNumber(selected);
   };
 
   const displayDeleteModal = (id: any) => {
-    for (let i = 0; i < product.length; i++) {
-      if (product[i].id === id) {
-        setDeleteProduct(product[i]);
+    for (let i = 0; i < courses.length; i++) {
+      if (courses[i].id === id) {
+        setDeleteCourse(courses[i]);
       }
     }
     handleDeleteOpen();
   };
 
-  const displayProducts = product
+  const displayCourses = courses
     .slice(pagesVisted, pagesVisted + itemsPerPage)
-    .map((product: any) => {
+    .map((course: any) => {
       return (
-        <Grid key={product.id}>
+        <Grid key={course.id}>
           <Grid className="pointer">
             <Grid className="products-item">
               <img
                 className="products-thumbnail"
-                src={product.imageBuffer}
+                src={course.imageBuffer}
                 alt="Thumbnail"
               />
             </Grid>
             <Grid className="products-thumbnail-footer">
-              <h3 className="align-center">{product.title}</h3>
-              <h3 className="align-center">${product.price}.00</h3>
+              <h3 className="align-center">{course.title}</h3>
+              <h3 className="align-center">${course.price}.00</h3>
             </Grid>
           </Grid>
           <Grid>
             <Grid className="admin-products-button-div">
               <Grid>
                 <button
-                  onClick={() => displayDeleteModal(product.id)}
+                  onClick={() => displayDeleteModal(course.id)}
                   className="delete"
                 >
                   Delete
@@ -99,18 +99,18 @@ const AdminProduct = (props: any) => {
     return (
       <Grid>
         <Head>
-          <title>artHouse19-Admin Products</title>
+          <title>artHouse19-Admin Courses</title>
         </Head>
-        <AdminAddProduct open={addOpen} handleClose={handleAddClose} />
-        <AdminDeleteProduct
-          deleteProduct={deleteProduct}
+        <AdminAddCourse open={addOpen} handleClose={handleAddClose} />
+        <AdminDeleteCourse
+          deleteProduct={deleteCourse}
           open={deleteOpen}
           handleClose={handleDeleteClose}
         />
         <AdminMainNav />
         <AdminPagesNav />
         <Grid className="main-body">
-          <AdminProductsNav activeProducts={activeProducts} />
+          <AdminCoursesNav activeSubjects={activeCourses} />
           <Grid className="plus-icon-div">
             <Button
               onClick={handleAddOpen}
@@ -124,7 +124,7 @@ const AdminProduct = (props: any) => {
               <FontAwesomeIcon className="plus-icon" icon={faPlus} />
             </Button>
           </Grid>
-          <Grid className="products-menu">{displayProducts}</Grid>
+          <Grid className="thumbnail-display">{displayCourses}</Grid>
           <ReactPaginate
             previousLabel={"prev"}
             nextLabel={"next"}
@@ -148,43 +148,41 @@ const AdminProduct = (props: any) => {
 };
 
 export async function getStaticPaths() {
-  const productsResponse = await IndexAPI.get(`/admin/products`);
+  const subjectsResponse = await IndexAPI.get(`/admin/subjects`);
 
-  const products: string[] = [];
-  for (let i = 0; i < productsResponse.data.data.products.length; i++) {
-    if (!products.includes(productsResponse.data.data.products.product)) {
-      products.push(productsResponse.data.data.products[i].product);
+  const subjects: string[] = [];
+  for (let i = 0; i < subjectsResponse.data.data.subjects.length; i++) {
+    if (!subjects.includes(subjectsResponse.data.data.subjects.subject)) {
+      subjects.push(subjectsResponse.data.data.subjects[i].subject);
     }
   }
 
   return {
     fallback: false,
-    paths: products.map((product: any) => ({
+    paths: subjects.map((subject: any) => ({
       params: {
-        product: product,
+        subject: subject,
       },
     })),
   };
 }
 
-export async function getStaticProps(context: { params: { product: any } }) {
-  const activeProducts: string[] = [];
-  const productsResponse = await IndexAPI.get(`/admin/products`);
-  for (let i = 0; i < productsResponse.data.data.products.length; i++) {
-    if (
-      !activeProducts.includes(productsResponse.data.data.products[i].product)
-    ) {
-      activeProducts.push(productsResponse.data.data.products[i].product);
+export async function getStaticProps(context: { params: { subject: any } }) {
+  const activeSubjects: string[] = [];
+  const coursesResponse = await IndexAPI.get(`/admin/courses`);
+  for (let i = 0; i < coursesResponse.data.data.courses.length; i++) {
+    if (!activeSubjects.includes(coursesResponse.data.data.courses.subject)) {
+      activeSubjects.push(coursesResponse.data.data.courses.subject);
     }
   }
 
-  const product = context.params.product;
-  const productResponse = await IndexAPI.get(`/products/${product}`);
+  const subject = context.params.subject;
+  const subjectResponse = await IndexAPI.get(`/admin/courses/${subject}`);
 
-  for (let i = 0; i < productResponse.data.data.product.length; i++) {
-    if (productResponse.data.data.product[i].imagekey !== null) {
+  for (let i = 0; i < subjectResponse.data.data.subject.length; i++) {
+    if (subjectResponse.data.data.subject[i].imagekey !== null) {
       let imagesResponse = await IndexAPI.get(
-        `/images/${productResponse.data.data.product[i].imagekey}`,
+        `/images/${subjectResponse.data.data.subject[i].imagekey}`,
         {
           responseType: "arraybuffer",
         }
@@ -192,7 +190,7 @@ export async function getStaticProps(context: { params: { product: any } }) {
         Buffer.from(response.data, "binary").toString("base64")
       );
 
-      productResponse.data.data.product[
+      subjectResponse.data.data.subject[
         i
       ].imageBuffer = `data:image/png;base64,${imagesResponse}`;
     }
@@ -200,11 +198,11 @@ export async function getStaticProps(context: { params: { product: any } }) {
 
   return {
     props: {
-      activeProducts: activeProducts,
-      product: productResponse.data.data.product,
+      activeSubjects: activeSubjects,
+      courses: subjectResponse.data.data.subject,
     },
     revalidate: 1,
   };
 }
 
-export default AdminProduct;
+export default AdminCourses;

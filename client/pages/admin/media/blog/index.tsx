@@ -1,21 +1,19 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-import IndexAPI from "../../../apis/indexAPI";
-import AdminMainNav from "../../../components/admin/mainNav";
-import AdminPagesNav from "../../../components/admin/pagesNav";
-import Footer from "../../../components/footer";
-import { IBlog } from "../../../interfaces";
+import IndexAPI from "../../../../apis/indexAPI";
+import AdminMainNav from "../../../../components/admin/mainNav";
+import AdminPagesNav from "../../../../components/admin/pagesNav";
+import Footer from "../../../../components/footer";
+import { IBlog } from "../../../../interfaces";
 import Head from "next/head";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import AdminMediaNav from "../../../components/admin/media/mediaNav";
-import AdminAddBlog from "../../../components/admin/media/blog/addBlog";
-import AdminDeleteBlog from "../../../components/admin/media/blog/deleteBlog";
+import AdminAddBlog from "../../../../components/admin/media/blog/addBlog";
+import AdminDeleteBlog from "../../../../components/admin/media/blog/deleteBlog";
 import { Button, Grid } from "@mui/material";
 import router from "next/router";
-
-// import { useNavigate } from "react-router-dom";
+import Link from "next/link";
 
 const AdminBlogPostsC = (props: any) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
@@ -124,7 +122,9 @@ const AdminBlogPostsC = (props: any) => {
         <AdminMainNav />
         <AdminPagesNav />
         <div className="main-body">
-          <AdminMediaNav medias={props.media} />
+          <Link passHref href="/admin/products/blog">
+            <h1 className="main-title pointer">blog</h1>
+          </Link>
           <Grid className="plus-icon-div">
             <Button
               onClick={handleAddOpen}
@@ -162,12 +162,12 @@ const AdminBlogPostsC = (props: any) => {
 };
 
 export async function getStaticProps() {
-  const blogResponse = await IndexAPI.get(`/admin/medias/blog`);
+  const blogResponse = await IndexAPI.get(`/admin/media/blog`);
 
-  for (let i = 0; i < blogResponse.data.data.blogs.length; i++) {
-    if (blogResponse.data.data.blogs[i].imagekey !== null) {
+  for (let i = 0; i < blogResponse.data.data.blog.length; i++) {
+    if (blogResponse.data.data.blog[i].imagekey !== null) {
       let imagesResponse = await IndexAPI.get(
-        `/images/${blogResponse.data.data.blogs[i].imagekey}`,
+        `/images/${blogResponse.data.data.blog[i].imagekey}`,
         {
           responseType: "arraybuffer",
         }
@@ -175,14 +175,14 @@ export async function getStaticProps() {
         Buffer.from(response.data, "binary").toString("base64")
       );
 
-      blogResponse.data.data.blogs[
+      blogResponse.data.data.blog[
         i
       ].imageBuffer = `data:image/png;base64,${imagesResponse}`;
     }
   }
   return {
     props: {
-      blogs: blogResponse.data.data.blogs,
+      blog: blogResponse.data.data.blog,
     },
     revalidate: 1,
   };

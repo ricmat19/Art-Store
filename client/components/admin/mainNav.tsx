@@ -19,26 +19,28 @@ const AdminMainNav: FC = () => {
     return (
       <header>
         <nav>
-          <Grid container>
+          <Grid container xs={12}>
             <Grid
-              container
-              xs={11}
+              xs={6}
               sx={{
-                textAlign: "center",
+                textAlign: "left",
                 alignSelf: "center",
+                maxWidth: "fit-content",
+                paddingLeft: "30px",
               }}
             >
-              <div className="logo-div">
-                <div className="logo">
-                  <span className="logo-first">a</span>rt
-                  <span className="logo-first">H</span>ouse
-                  <span className="logo-first">19</span>
-                </div>
-              </div>
+              <span className="logo">
+                <span className="logo-first">a</span>rt
+                <span className="logo-first">H</span>ouse
+                <span className="logo-first">19</span>
+              </span>
             </Grid>
-            <Grid container xs={1} sx={{ alignContent: "center" }}>
-              <Grid container sx={{ justifyContent: "center" }}>
-                <h1>
+            <Grid container xs={6}>
+              <Grid
+                container
+                sx={{ justifyContent: "right", paddingRight: "30px" }}
+              >
+                <h1 className="pointer">
                   <FontAwesomeIcon
                     icon={faUserCircle}
                     className="account-menu-icon"
@@ -97,7 +99,7 @@ const AdminMainNav: FC = () => {
       </header>
     );
   } else {
-    return <div></div>;
+    return <Grid></Grid>;
   }
 };
 

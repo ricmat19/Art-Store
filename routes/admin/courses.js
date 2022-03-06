@@ -9,6 +9,23 @@ const unlinkFile = util.promisify(fs.unlink);
 
 const upload = multer({ dest: "images/" });
 
+//Get all course subjects
+router.get("/admin/subjects", async (req, res) => {
+  try {
+    const subjects = await db.query("SELECT * FROM subjects");
+
+    res.status(200).json({
+      status: "success",
+      results: subjects.rows.length,
+      data: {
+        subjects: subjects.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 //Get all courses
 router.get("/admin/courses", async (req, res) => {
   try {

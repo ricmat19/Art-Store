@@ -8,11 +8,6 @@ const AdminDeleteCourse = (props: any) => {
       await IndexAPI.delete(
         `/admin/courses/${props.deleteSubject[0].id}/${props.deleteCourse[0].id}`
       );
-      props.setBlogs(
-        props.blogs.filter((blog: any) => {
-          return blog.id !== props.deleteCourse[0].id;
-        })
-      );
     } catch (err) {
       console.log(err);
     }

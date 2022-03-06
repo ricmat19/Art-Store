@@ -5,8 +5,12 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const path = require("path");
 const app = express();
-const adminUserRouter = require("./routes/admin/user");
+const adminBlogRouter = require("./routes/admin/blog");
+const adminCommunityRouter = require("./routes/admin/community");
+const adminCoursesRouter = require("./routes/admin/courses");
+const adminEventsRouter = require("./routes/admin/events");
 const adminProductsRouter = require("./routes/admin/products");
+const adminUserRouter = require("./routes/admin/user");
 const cartRouter = require("./routes/users/cart");
 const collectionRouter = require("./routes/users/collection");
 const communityRouter = require("./routes/users/community");
@@ -54,8 +58,12 @@ app.use(morgan("dev"));
 // );
 
 //admin routes
-app.use(adminUserRouter);
+app.use(adminBlogRouter);
+app.use(adminCommunityRouter);
+app.use(adminCoursesRouter);
+app.use(adminEventsRouter);
 app.use(adminProductsRouter);
+app.use(adminUserRouter);
 
 //users routes
 app.use(cartRouter);

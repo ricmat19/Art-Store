@@ -1,14 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState, useRef } from "react";
 import IndexAPI from "../../../apis/indexAPI";
-import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
+import {
+  Backdrop,
+  Box,
+  Fade,
+  Modal,
+  Grid,
+  Select,
+  MenuItem,
+} from "@mui/material";
 
-interface IModalState {
-  open: boolean;
-  handleClose: () => void;
-}
-
-const AdminCreateCourse = (props: IModalState) => {
+const AdminCreateCourse = (props: any) => {
   const [title, setTitle] = useState<string>("");
   const [subject, setSubject] = useState<string>("");
   const [image, setImage] = useState<File>();
@@ -16,19 +19,13 @@ const AdminCreateCourse = (props: IModalState) => {
   const [info, setInfo] = useState<string>("");
 
   const titleInput = useRef(null);
-  const typeInput = useRef(null);
   const priceInput = useRef(null);
   const infoInput = useRef(null);
-
-  if (process.env.NODE_ENV !== "production") {
-    require("dotenv").config();
-  }
 
   const createCourse = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
       if (image) {
-        console.log(subject);
         let formData = new FormData();
 
         formData.append("title", title);
@@ -59,8 +56,12 @@ const AdminCreateCourse = (props: IModalState) => {
     );
   }
 
+  const handleChange = (event: any) => {
+    setSubject(event.target.value);
+  };
+
   return (
-    <div>
+    <Grid>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -82,8 +83,8 @@ const AdminCreateCourse = (props: IModalState) => {
               bgcolor: "background.paper",
               border: "2px solid #000",
               boxShadow: 24,
-              width: "90vw",
               p: 4,
+              width: "90vw",
             }}
           >
             <Grid
@@ -136,60 +137,23 @@ const AdminCreateCourse = (props: IModalState) => {
                     <Grid>
                       <label className="admin-label">Type:</label>
                     </Grid>
-                    <Grid className="radio-div">
-                      <Grid>
-                        <label className=" radio">drawing</label>
-                        <input
-                          value={subject}
-                          ref={typeInput}
-                          onChange={() => setSubject("drawing")}
-                          type="radio"
-                          name="course"
-                        />
-                      </Grid>
-                      <Grid>
-                        <label className=" radio">painting</label>
-                        <input
-                          value={subject}
-                          ref={typeInput}
-                          onChange={() => setSubject("painting")}
-                          type="radio"
-                          name="course"
-                        />
-                      </Grid>
-                      <Grid>
-                        <label className=" radio">modeling</label>
-                        <input
-                          value={subject}
-                          ref={typeInput}
-                          onChange={() => setSubject("modeling")}
-                          type="radio"
-                          name="course"
-                          required
-                        />
-                      </Grid>
-                      <Grid>
-                        <label className=" radio">sculpting</label>
-                        <input
-                          value={subject}
-                          ref={typeInput}
-                          onChange={() => setSubject("sculpting")}
-                          type="radio"
-                          name="course"
-                          required
-                        />
-                      </Grid>
-                      <Grid>
-                        <label className=" radio">writing</label>
-                        <input
-                          value={subject}
-                          ref={typeInput}
-                          onChange={() => setSubject("writing")}
-                          type="radio"
-                          name="course"
-                          required
-                        />
-                      </Grid>
+                    <Grid>
+                      <Select
+                        value={subject}
+                        onChange={handleChange}
+                        displayEmpty
+                        inputProps={{ "aria-label": "Without label" }}
+                        className="type-selector"
+                      >
+                        <MenuItem value="">
+                          <em>None</em>
+                        </MenuItem>
+                        <MenuItem value={"drawing"}>drawing</MenuItem>
+                        <MenuItem value={"painting"}>painting</MenuItem>
+                        <MenuItem value={"modeling"}>modeling</MenuItem>
+                        <MenuItem value={"sculpting"}>sculpting</MenuItem>
+                        <MenuItem value={"writing"}>writing</MenuItem>
+                      </Select>
                     </Grid>
                   </Grid>
                   <Grid className="admin-form-field">
@@ -244,7 +208,7 @@ const AdminCreateCourse = (props: IModalState) => {
           </Box>
         </Fade>
       </Modal>
-    </div>
+    </Grid>
   );
 };
 

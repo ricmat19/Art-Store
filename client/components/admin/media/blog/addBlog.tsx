@@ -11,10 +11,6 @@ const AdminAddBlog = (props: any) => {
   const titleInput = useRef(null);
   const contentInput = useRef(null);
 
-  if (process.env.NODE_ENV !== "production") {
-    require("dotenv").config();
-  }
-
   const createMedia = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
