@@ -37,7 +37,6 @@ const AdminDeleteProduct = (props: any) => {
                 bgcolor: "#000",
                 border: "2px solid #fff",
                 boxShadow: 24,
-                p: 4,
                 width: "60vw",
               }}
             >

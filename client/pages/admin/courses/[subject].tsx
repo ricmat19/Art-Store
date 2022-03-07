@@ -5,14 +5,13 @@ import IndexAPI from "../../../apis/indexAPI";
 import AdminMainNav from "../../../components/admin/mainNav";
 import AdminPagesNav from "../../../components/admin/pagesNav";
 import Footer from "../../../components/footer";
-
 import Head from "next/head";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AdminCoursesNav from "../../../components/admin/courses/coursesNav";
-import AdminAddCourse from "../../../components/admin/courses/addCourse";
 import AdminDeleteCourse from "../../../components/admin/courses/deleteCourse";
 import { Button, Grid } from "@mui/material";
+import Link from "next/link";
 
 const AdminCourses = (props: any) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
@@ -20,10 +19,6 @@ const AdminCourses = (props: any) => {
   const [activeCourses] = useState(props.activeCourses);
   const [deleteCourse, setDeleteCourse] = useState<any>();
   const [pageNumber, setPageNumber] = useState<number>(0);
-
-  const [addOpen, setAddOpen] = useState(false);
-  const handleAddOpen = () => setAddOpen(true);
-  const handleAddClose = () => setAddOpen(false);
 
   const [deleteOpen, setDeleteOpen] = useState(false);
   const handleDeleteOpen = () => setDeleteOpen(true);
@@ -101,7 +96,6 @@ const AdminCourses = (props: any) => {
         <Head>
           <title>artHouse19-Admin Courses</title>
         </Head>
-        <AdminAddCourse open={addOpen} handleClose={handleAddClose} />
         <AdminDeleteCourse
           deleteProduct={deleteCourse}
           open={deleteOpen}
@@ -112,17 +106,18 @@ const AdminCourses = (props: any) => {
         <Grid className="main-body">
           <AdminCoursesNav activeSubjects={activeCourses} />
           <Grid className="plus-icon-div">
-            <Button
-              onClick={handleAddOpen}
-              sx={{
-                fontFamily: "Rajdhani",
-                fontSize: "20px",
-                color: "white",
-                textTransform: "none",
-              }}
-            >
-              <FontAwesomeIcon className="plus-icon" icon={faPlus} />
-            </Button>
+            <Link passHref href="/admin/courses/create">
+              <Button
+                sx={{
+                  fontFamily: "Rajdhani",
+                  fontSize: "20px",
+                  color: "white",
+                  textTransform: "none",
+                }}
+              >
+                <FontAwesomeIcon className="plus-icon" icon={faPlus} />
+              </Button>
+            </Link>
           </Grid>
           <Grid className="thumbnail-display">{displayCourses}</Grid>
           <ReactPaginate

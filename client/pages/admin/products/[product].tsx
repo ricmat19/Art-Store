@@ -51,20 +51,20 @@ const AdminProduct = (props: any) => {
       return (
         <Grid key={product.id}>
           <Grid className="pointer">
-            <Grid className="products-item">
+            <Grid className="image-container">
               <img
-                className="products-thumbnail"
+                className="thumbnail"
                 src={product.imageBuffer}
                 alt="Thumbnail"
               />
             </Grid>
-            <Grid className="products-thumbnail-footer">
+            <Grid className="two-column-thumbnail-footer">
               <h3 className="align-center">{product.title}</h3>
               <h3 className="align-center">${product.price}.00</h3>
             </Grid>
           </Grid>
           <Grid>
-            <Grid className="admin-products-button-div">
+            <Grid className="admin-button-div">
               <Grid>
                 <button
                   onClick={() => displayDeleteModal(product.id)}
@@ -124,7 +124,7 @@ const AdminProduct = (props: any) => {
               <FontAwesomeIcon className="plus-icon" icon={faPlus} />
             </Button>
           </Grid>
-          <Grid className="products-menu">{displayProducts}</Grid>
+          <Grid className="gallery-menu">{displayProducts}</Grid>
           <ReactPaginate
             previousLabel={"prev"}
             nextLabel={"next"}

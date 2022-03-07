@@ -12,7 +12,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AdminAddBlog from "../../../../components/admin/media/blog/addBlog";
 import AdminDeleteBlog from "../../../../components/admin/media/blog/deleteBlog";
 import { Button, Grid } from "@mui/material";
-import router from "next/router";
 import Link from "next/link";
 
 const AdminBlogPostsC = (props: any) => {
@@ -45,31 +44,25 @@ const AdminBlogPostsC = (props: any) => {
     handleDeleteOpen();
   };
 
-  const displayBlog = async (id: string) => {
-    try {
-      router.push(`/admin/blog/${id}`);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   const displayBlogs = blog
     .slice(pagesVisted, pagesVisted + itemsPerPage)
     .map((post) => {
       return (
-        <Grid className="blog-post-div" key={post.id}>
-          <Grid className="pointer" onClick={() => displayBlog(post.id)}>
-            <Grid className="blog-thumbnail-div">
+        <Grid key={post.id}>
+          <Grid className="pointer">
+            <Grid className="image-container">
               <img
-                className="blog-thumbnail"
+                className="thumbnail"
                 src={post.imageBuffer}
                 alt="blog-thumbnail"
               />
             </Grid>
-            <Grid sx={{ textAlign: "left" }}>{post.title}</Grid>
+            <Grid className="one-column-thumbnail-footer">
+              <h3 className="align-center">{post.title}</h3>
+            </Grid>
           </Grid>
           <Grid>
-            <Grid className="admin-products-button-div">
+            <Grid className="admin-button-div">
               <Grid>
                 <button
                   onClick={() => displayDeleteModal(post.id)}
@@ -102,7 +95,7 @@ const AdminBlogPostsC = (props: any) => {
 
   if (loginStatus) {
     return (
-      <div>
+      <Grid>
         <Head>
           <title>artHouse19-Admin Blog</title>
         </Head>
@@ -114,7 +107,7 @@ const AdminBlogPostsC = (props: any) => {
         />
         <AdminMainNav />
         <AdminPagesNav />
-        <div className="main-body">
+        <Grid className="main-body">
           <Link passHref href="/admin/blog">
             <h1 className="main-title pointer">blog</h1>
           </Link>
@@ -131,7 +124,7 @@ const AdminBlogPostsC = (props: any) => {
               <FontAwesomeIcon className="plus-icon" icon={faPlus} />
             </Button>
           </Grid>
-          <div className="thumbnail-display">{displayBlogs}</div>
+          <Grid className="gallery-menu">{displayBlogs}</Grid>
           <ReactPaginate
             previousLabel={"prev"}
             nextLabel={"next"}
@@ -145,12 +138,12 @@ const AdminBlogPostsC = (props: any) => {
             pageRangeDisplayed={5}
             marginPagesDisplayed={5}
           />
-        </div>
+        </Grid>
         <Footer />
-      </div>
+      </Grid>
     );
   } else {
-    return <div></div>;
+    return <Grid></Grid>;
   }
 };
 

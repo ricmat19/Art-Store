@@ -3,7 +3,7 @@ import { useState, useRef } from "react";
 import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 
-const AdminViewDayEvents = (props: any) => {
+const AdminDay = (props: any) => {
   const [title, setTitle] = useState<string>("");
   const [image, setImage] = useState<File>();
   const [date, setDate] = useState<string>("");
@@ -201,4 +201,4 @@ const AdminViewDayEvents = (props: any) => {
   );
 };
 
-export default AdminViewDayEvents;
+export default AdminDay;

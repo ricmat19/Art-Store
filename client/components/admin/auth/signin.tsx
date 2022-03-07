@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import SignUpModalC from "./signupModal";
-import ResetModalC from "./resetModal";
+import SignUpModalC from "./signup";
+import ResetModalC from "./reset";
 import IndexAPI from "../../../apis/indexAPI";
 import { Modal, Fade, Box, Grid } from "@mui/material";
 

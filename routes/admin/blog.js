@@ -57,7 +57,7 @@ router.post(
       await unlinkFile(file.path);
       await db.query(
         "INSERT INTO blog (title, imagekey, post_date, content) values ($1, $2, $3, $4) RETURNING *",
-        [req.body.title, result.key, req.body.postDate, req.body.content]
+        [req.body.title, result.key, new Date(), req.body.content]
       );
     } catch (err) {
       console.log(err);

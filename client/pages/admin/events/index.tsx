@@ -4,7 +4,7 @@ import AdminMainNav from "../../../components/admin/mainNav";
 import AdminPagesNav from "../../../components/admin//pagesNav";
 import FooterC from "../../../components/footer";
 import Head from "next/head";
-import Calendar from "../../../components/calendar";
+import AdminCalendar from "../../../components/admin/events/calendar";
 import AdminAddEvent from "../../../components/admin/events/addEvent";
 import AdminDeleteEvent from "../../../components/admin/events/deleteEvent";
 import { Grid } from "@mui/material";
@@ -59,7 +59,10 @@ const AdminEvents = (props: any) => {
         <AdminMainNav />
         <AdminPagesNav />
         <Grid className="main-body">
-          <Calendar handleAddOpen={handleAddOpen} displayDeleteModal={displayDeleteModal} />
+          <AdminCalendar
+            handleAddOpen={handleAddOpen}
+            displayDeleteModal={displayDeleteModal}
+          />
           <FooterC />
         </Grid>
       </Grid>
