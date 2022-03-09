@@ -13,7 +13,7 @@ const CourseC: FC = (props: any) => {
   const [lessonDuration] = useState<string>("");
 
   return (
-    <div>
+    <Grid>
       <MainNav cartQty={props.cartQty} />
       <PagesNav />
       <Grid
@@ -21,58 +21,60 @@ const CourseC: FC = (props: any) => {
         sx={{ gap: "25px", justifyContent: "center", padding: "25px 0" }}
         className="main-body"
       >
-        <Grid container xs={8}>
-          <ReactPlayer
-            url="../../../homeVideo.mp4"
-            width="100%"
-            height="fit-content"
-            controls
-          />
+        <Grid container xs={12} className="course-container">
+          <Grid container xs={8}>
+            <ReactPlayer
+              url="../../../homeVideo.mp4"
+              width="100%"
+              height="fit-content"
+              controls
+            />
+          </Grid>
+          <Grid container xs={3} className="course-content">
+            <Grid container className="lesson-container">
+              <Grid>
+                <h2 className="course-content-name">Course Content</h2>
+              </Grid>
+              <Grid>{fullDuration}</Grid>
+            </Grid>
+            <Grid container className="lesson-container">
+              <Grid container className="lesson-name">
+                <Grid className="play-icon-container">
+                  <FontAwesomeIcon icon={faPlayCircle} />
+                </Grid>
+                <Grid>
+                  <p>Introduction</p>
+                </Grid>
+              </Grid>
+              <Grid>{lessonDuration}</Grid>
+            </Grid>
+            <Grid container className="lesson-container">
+              <Grid container className="lesson-name">
+                <Grid className="play-icon-container">
+                  <FontAwesomeIcon icon={faPlayCircle} />
+                </Grid>
+                <Grid>
+                  <p>Main Lesson</p>
+                </Grid>
+              </Grid>
+              <Grid>{lessonDuration}</Grid>
+            </Grid>
+            <Grid container className="lesson-container">
+              <Grid container className="lesson-name">
+                <Grid className="play-icon-container">
+                  <FontAwesomeIcon icon={faPlayCircle} />
+                </Grid>
+                <Grid>
+                  <p>Conclusion</p>
+                </Grid>
+              </Grid>
+              <Grid>{lessonDuration}</Grid>
+            </Grid>
+          </Grid>
         </Grid>
-        <Grid container xs={3} className="course-content">
-          <Grid container className="lesson-container">
-            <Grid>
-              <h2 className="course-content-name">Course Content</h2>
-            </Grid>
-            <Grid>{fullDuration}</Grid>
-          </Grid>
-          <Grid container className="lesson-container">
-            <Grid container className="lesson-name">
-              <Grid className="play-icon-container">
-                <FontAwesomeIcon icon={faPlayCircle} />
-              </Grid>
-              <Grid>
-                <p>Introduction</p>
-              </Grid>
-            </Grid>
-            <Grid>{lessonDuration}</Grid>
-          </Grid>
-          <Grid container className="lesson-container">
-            <Grid container className="lesson-name">
-              <Grid className="play-icon-container">
-                <FontAwesomeIcon icon={faPlayCircle} />
-              </Grid>
-              <Grid>
-                <p>Main Lesson</p>
-              </Grid>
-            </Grid>
-            <Grid>{lessonDuration}</Grid>
-          </Grid>
-          <Grid container className="lesson-container">
-            <Grid container className="lesson-name">
-              <Grid className="play-icon-container">
-                <FontAwesomeIcon icon={faPlayCircle} />
-              </Grid>
-              <Grid>
-                <p>Conclusion</p>
-              </Grid>
-            </Grid>
-            <Grid>{lessonDuration}</Grid>
-          </Grid>
-        </Grid>
+        <FooterC />
       </Grid>
-      <FooterC />
-    </div>
+    </Grid>
   );
 };
 
@@ -83,7 +85,7 @@ export async function getStaticPaths() {
     fallback: false,
     paths: coursesResponse.data.data.courses.map((courses: any) => ({
       params: {
-        courses: courses.course,
+        course: courses.subject,
         id: courses.id,
       },
     })),
@@ -97,12 +99,12 @@ export async function getStaticProps(context: {
 
   const course = context.params.course;
   const id = context.params.id;
-  const courseResponse = await IndexAPI.get(`/products/${course}/${id}`);
+  const courseResponse = await IndexAPI.get(`/courses/${course}/${id}`);
 
   let imageBuffer = "";
-  if (courseResponse.data.data.item.imagekey !== null) {
+  if (courseResponse.data.data.course.imagekey !== null) {
     let imagesResponse = await IndexAPI.get(
-      `/images/${courseResponse.data.data.item.imagekey}`,
+      `/images/${courseResponse.data.data.course.imagekey}`,
       {
         responseType: "arraybuffer",
       }
