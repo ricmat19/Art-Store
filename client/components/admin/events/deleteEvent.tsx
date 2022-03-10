@@ -61,9 +61,7 @@ const AdminDeleteEvent = (props: any) => {
                     height: "100%",
                   }}
                 >
-                  <form
-                    className="admin-form"
-                  >
+                  <form className="admin-form">
                     <Grid className="align-center">
                       <h1>
                         Are you sure you want to delete &quot;
@@ -82,7 +80,7 @@ const AdminDeleteEvent = (props: any) => {
       </Grid>
     );
   } else {
-    return <div></div>;
+    return <Grid></Grid>;
   }
 };
 

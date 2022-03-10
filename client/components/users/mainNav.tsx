@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { Grid, Menu } from "@mui/material";
@@ -16,6 +17,8 @@ import EllipseModal from "./modals/ellipseModal";
 const MainNav = () => {
   const [, setDisplaySignInModal] = useState<boolean>(false);
   const [signedIn] = useState<boolean>(true);
+
+  const router = useRouter();
 
   const handleOpen = () => setDisplaySignInModal(true);
 
@@ -181,11 +184,16 @@ const MainNav = () => {
                 maxWidth: "fit-content",
               }}
             >
-              <span className="logo">
-                <span className="logo-first">a</span>rt
-                <span className="logo-first">H</span>ouse
-                <span className="logo-first">19</span>
-              </span>
+              <Grid
+                className="nav-link"
+                onClick={() => router.push("/products/print")}
+              >
+                <span className="logo">
+                  <span className="logo-first">a</span>rt
+                  <span className="logo-first">H</span>ouse
+                  <span className="logo-first">19</span>
+                </span>
+              </Grid>
             </Grid>
             <Grid xs={8} container sx={{ alignContent: "center" }}>
               <Grid

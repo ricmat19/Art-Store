@@ -6,12 +6,12 @@ import { Grid } from "@mui/material";
 
 const Home = (props: any) => {
   return (
-    <div>
+    <Grid>
       <MainNav cartQty={props.cartQty} />
       <PagesNav />
       <Grid></Grid>
       <FooterC />
-    </div>
+    </Grid>
   );
 };
 

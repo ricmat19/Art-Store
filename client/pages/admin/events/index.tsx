@@ -5,31 +5,17 @@ import AdminPagesNav from "../../../components/admin//pagesNav";
 import FooterC from "../../../components/footer";
 import Head from "next/head";
 import AdminCalendar from "../../../components/admin/events/calendar";
-import AdminAddEvent from "../../../components/admin/events/addEvent";
-import AdminDeleteEvent from "../../../components/admin/events/deleteEvent";
+import AdminDay from "../../../components/admin/events/day";
 import { Grid } from "@mui/material";
 
 const AdminEvents = (props: any) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
+
   const [events] = useState(props.events);
-  const [deleteEvent, setDeleteEvent] = useState<any>();
 
-  const [addOpen, setAddOpen] = useState(false);
-  const handleAddOpen = () => setAddOpen(true);
-  const handleAddClose = () => setAddOpen(false);
-
-  const [deleteOpen, setDeleteOpen] = useState(false);
-  const handleDeleteOpen = () => setDeleteOpen(true);
-  const handleDeleteClose = () => setDeleteOpen(false);
-
-  const displayDeleteModal = (id: any) => {
-    for (let i = 0; i < events.length; i++) {
-      if (events[i].id === id) {
-        setDeleteEvent(events[i]);
-      }
-    }
-    handleDeleteOpen();
-  };
+  const [dayOpen, setDayOpen] = useState(false);
+  const handleDayOpen = () => setDayOpen(true);
+  const handleDayClose = () => setDayOpen(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,19 +36,11 @@ const AdminEvents = (props: any) => {
         <Head>
           <title>artHouse19-Admin Courses</title>
         </Head>
-        <AdminAddEvent open={addOpen} handleClose={handleAddClose} />
-        <AdminDeleteEvent
-          deleteProduct={deleteEvent}
-          open={deleteOpen}
-          handleClose={handleDeleteClose}
-        />
+        <AdminDay open={dayOpen} handleClose={handleDayClose}/>
         <AdminMainNav />
         <AdminPagesNav />
         <Grid className="main-body">
-          <AdminCalendar
-            handleAddOpen={handleAddOpen}
-            displayDeleteModal={displayDeleteModal}
-          />
+          <AdminCalendar handleDayOpen={handleDayOpen} events={events}/>
           <FooterC />
         </Grid>
       </Grid>
@@ -71,5 +49,16 @@ const AdminEvents = (props: any) => {
     return <Grid></Grid>;
   }
 };
+
+export async function getStaticProps() {
+  const eventsResponse = await IndexAPI.get(`/admin/events`);
+
+  return {
+    props: {
+      events: eventsResponse.data.data.events,
+    },
+    revalidate: 1,
+  };
+}
 
 export default AdminEvents;

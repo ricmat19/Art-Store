@@ -8,10 +8,11 @@ import {
   faPaperPlane,
   faQuestion,
 } from "@fortawesome/free-solid-svg-icons";
+import { Grid } from "@mui/material";
 
 const EllipseModal: FC = () => {
   return (
-    <div>
+    <Grid>
       <a href="/about">
         <MenuItem sx={{ color: "black" }}>
           <ListItemIcon>
@@ -52,7 +53,7 @@ const EllipseModal: FC = () => {
           Privacy Policy
         </MenuItem>
       </a>
-    </div>
+    </Grid>
   );
 };
 

@@ -14,22 +14,22 @@ const ResetModal = (props: IModalState) => {
       </Grid>
       <Grid>
         <form>
-          <div className="sign-content">
+          <Grid className="sign-content">
             <h1 className="sign-header">Reset Password</h1>
-            <div className="sign-input">
-              <div className="forgot-input-div">
+            <Grid className="sign-input">
+              <Grid className="forgot-input-div">
                 <input type="text" placeholder="Email" />
-              </div>
-            </div>
-            <div>
+              </Grid>
+            </Grid>
+            <Grid>
               <button>Send Reset Link</button>
-            </div>
-            <div className="sign-footer">
-              <div className="modal-link">
+            </Grid>
+            <Grid className="sign-footer">
+              <Grid className="modal-link">
                 <span>Back to signin in</span>
-              </div>
-            </div>
-          </div>
+              </Grid>
+            </Grid>
+          </Grid>
         </form>
       </Grid>
       <Grid>

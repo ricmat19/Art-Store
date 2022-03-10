@@ -4,6 +4,7 @@ import MainNav from "../components/users/mainNav";
 import PagesNav from "../components/users/pagesNav";
 import FooterC from "../components/footer";
 import Head from "next/head";
+import { Grid } from "@mui/material";
 
 const Contact = (props: any) => {
   const [name, setName] = useState("");
@@ -36,7 +37,7 @@ const Contact = (props: any) => {
   };
 
   return (
-    <div>
+    <Grid>
       <Head>
         <title>artHouse19-Contact</title>
         <meta
@@ -46,14 +47,14 @@ const Contact = (props: any) => {
       </Head>
       <MainNav cartQty={props.cartQty} />
       <PagesNav />
-      <div className="main-body">
-        <div>
-          <div className="align-center">
+      <Grid className="main-body">
+        <Grid>
+          <Grid className="align-center">
             <h1 className="main-title">contact</h1>
-          </div>
-          <div className="form-div">
+          </Grid>
+          <Grid className="form-div">
             <form className="contact-form" method="POST" action="/contact">
-              <div className="subject-line">
+              <Grid className="subject-line">
                 <input
                   type="text"
                   ref={nameInput}
@@ -61,8 +62,8 @@ const Contact = (props: any) => {
                   name="name"
                   placeholder="your name..."
                 />
-              </div>
-              <div className="subject-line">
+              </Grid>
+              <Grid className="subject-line">
                 <input
                   type="email"
                   ref={emailInput}
@@ -71,8 +72,8 @@ const Contact = (props: any) => {
                   placeholder="your email..."
                   required
                 />
-              </div>
-              <div className="subject-line">
+              </Grid>
+              <Grid className="subject-line">
                 <input
                   type="text"
                   ref={subjectInput}
@@ -81,8 +82,8 @@ const Contact = (props: any) => {
                   placeholder="the subject..."
                   required
                 />
-              </div>
-              <div className="subject-line">
+              </Grid>
+              <Grid className="subject-line">
                 <textarea
                   name="message"
                   ref={messageInput}
@@ -91,18 +92,18 @@ const Contact = (props: any) => {
                   rows={7}
                   required
                 ></textarea>
-              </div>
-              <div className="align-right">
+              </Grid>
+              <Grid className="align-right">
                 <button onClick={handleSubmit} type="submit">
                   submit
                 </button>
-              </div>
+              </Grid>
             </form>
-          </div>
-        </div>
+          </Grid>
+        </Grid>
         <FooterC />
-      </div>
-    </div>
+      </Grid>
+    </Grid>
   );
 };
 

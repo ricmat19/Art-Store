@@ -6,7 +6,7 @@ import { Grid } from "@mui/material";
 
 const Help = (props: any) => {
   return (
-    <div>
+    <Grid>
       <MainNav cartQty={props.cartQty} />
       <PagesNav />
       <Grid>
@@ -16,7 +16,7 @@ const Help = (props: any) => {
         <Grid></Grid>
       </Grid>
       <FooterC />
-    </div>
+    </Grid>
   );
 };
 

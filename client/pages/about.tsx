@@ -3,10 +3,11 @@ import MainNav from "../components/users/mainNav";
 import PagesNav from "../components/users/pagesNav";
 import FooterC from "../components/footer";
 import Head from "next/head";
+import { Grid } from "@mui/material";
 
 const About = (props: any) => {
   return (
-    <div>
+    <Grid>
       <Head>
         <title>artHouse19-About</title>
         <meta
@@ -16,33 +17,33 @@ const About = (props: any) => {
       </Head>
       <MainNav cartQty={props.cartQty} />
       <PagesNav />
-      <div className="main-body">
-        <div>
-          <div className="align-center">
+      <Grid className="main-body">
+        <Grid>
+          <Grid className="align-center">
             <h1 className="main-title">about</h1>
-          </div>
-          <div className="profile-info">
-            {/* <div> */}
-            {/* <div className="profile-image-div">
-              <div className="justify-center">
+          </Grid>
+          <Grid className="profile-info">
+            {/* <Grid> */}
+            {/* <Grid className="profile-image-div">
+              <Grid className="justify-center">
                 <img
                   className="big-image"
                   src="images/profile-image.jpg"
                   alt="profile"
                 />
-              </div>
-              <div></div>
-              <div></div>
-            </div> */}
-            <div className="about-info">
+              </Grid>
+              <Grid></Grid>
+              <Grid></Grid>
+            </Grid> */}
+            <Grid className="about-info">
               <h3>&emsp; &emsp; {process.env.NEXT_PUBLIC_INFO_PARAGRAPH_1}</h3>
               <h3>&emsp; &emsp; {process.env.NEXT_PUBLIC_INFO_PARAGRAPH_2}</h3>
-            </div>
-          </div>
-        </div>
+            </Grid>
+          </Grid>
+        </Grid>
         <FooterC />
-      </div>
-    </div>
+      </Grid>
+    </Grid>
   );
 };
 

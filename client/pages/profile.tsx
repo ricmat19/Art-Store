@@ -10,7 +10,7 @@ const Profile = (props: any) => {
   // const [user] = useState<IUser[]>(props.user);
 
   return (
-    <div>
+    <Grid>
       <Head>
         <title>artHouse19-Profile</title>
         <meta name="description" content="Your profile."></meta>
@@ -36,7 +36,7 @@ const Profile = (props: any) => {
         </Grid>
       </Grid>
       <FooterC />
-    </div>
+    </Grid>
   );
 };
 

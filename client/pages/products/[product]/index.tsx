@@ -26,14 +26,14 @@ const Products = (props: any) => {
           key={item.id}
           onClick={() => displayItem(item.product, item.id)}
         >
-          <Grid className="products-item">
+          <Grid className="image-container">
             <img
-              className="products-thumbnail"
+              className="thumbnail"
               src={item.imageBuffer}
               alt={item.title}
             />
           </Grid>
-          <Grid className="products-thumbnail-footer">
+          <Grid className="two-column-thumbnail-footer">
             <h3 className="align-center">{item.title}</h3>
             <h3 className="align-center">${item.price}.00</h3>
           </Grid>
@@ -71,7 +71,7 @@ const Products = (props: any) => {
       <Grid className="main-body">
         <Grid>
           <ProductsNav products={props.products} />
-          <Grid className="products-menu">{displayItems}</Grid>
+          <Grid className="gallery-menu">{displayItems}</Grid>
           <ReactPaginate
             previousLabel={"prev"}
             nextLabel={"next"}

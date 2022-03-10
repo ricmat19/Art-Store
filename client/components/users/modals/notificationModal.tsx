@@ -3,7 +3,12 @@ import IndexAPI from "../../../apis/indexAPI";
 import { Grid } from "@mui/material";
 import { INotification } from "../../../interfaces";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendarCheck, faChalkboardTeacher, faStoreAlt, faTv } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCalendarCheck,
+  faChalkboardTeacher,
+  faStoreAlt,
+  faTv,
+} from "@fortawesome/free-solid-svg-icons";
 
 const NotificationModal: FC = () => {
   const [notifications, setNotifications] = useState<INotification[]>([]);
@@ -34,7 +39,7 @@ const NotificationModal: FC = () => {
   };
 
   return (
-    <div className="notification-modal-container">
+    <Grid className="notification-modal-container">
       <nav>
         <Grid
           container
@@ -47,7 +52,7 @@ const NotificationModal: FC = () => {
           }}
         >
           <Grid xs={2} sx={{ cursor: "pointer", fontWeight: "900" }}>
-            <div onClick={() => displayAll()}>All</div>
+            <Grid onClick={() => displayAll()}>All</Grid>
           </Grid>
           <Grid xs={2} sx={{ cursor: "pointer" }}>
             <FontAwesomeIcon icon={faStoreAlt} />
@@ -65,7 +70,7 @@ const NotificationModal: FC = () => {
       </nav>
       <hr />
       {notifications}
-    </div>
+    </Grid>
   );
 };
 

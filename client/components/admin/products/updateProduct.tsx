@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import IndexAPI from "../../../apis/indexAPI";
 import { IProduct } from "../../../interfaces";
+import { Grid } from "@mui/material";
 
 interface IProducts {
   updateItem: string;
@@ -71,21 +72,21 @@ const AdminUpdateProduct = (props: IProducts) => {
   };
 
   return (
-    <div className="">
-      <div className="align-center">
+    <Grid className="">
+      <Grid className="align-center">
         <h1>admin</h1>
-      </div>
-      <div className="admin-item-div">
-        <div className="admin-image-div">
-          <div className="justify-center">
+      </Grid>
+      <Grid className="admin-item-div">
+        <Grid className="admin-image-div">
+          <Grid className="justify-center">
             <img className="big-image" src={image} alt="product" />
-          </div>
-        </div>
+          </Grid>
+        </Grid>
         <form className="admin-form" action="/routes/admin.js" method="POST">
-          <div className="grid">
+          <Grid className="grid">
             <h1>Update</h1>
-          </div>
-          <div className="admin-form-field">
+          </Grid>
+          <Grid className="admin-form-field">
             <label className="align-left" htmlFor="title">
               Title:
             </label>
@@ -96,15 +97,15 @@ const AdminUpdateProduct = (props: IProducts) => {
               name="name"
               required
             />
-          </div>
-          <div className="admin-form-field">
-            <div>
+          </Grid>
+          <Grid className="admin-form-field">
+            <Grid>
               <label className="align-left" htmlFor="product">
                 Type:
               </label>
-            </div>
-            <div className="radio-div">
-              <div>
+            </Grid>
+            <Grid className="radio-div">
+              <Grid>
                 <label className="radio">2D Print</label>
                 <input
                   value={type}
@@ -112,8 +113,8 @@ const AdminUpdateProduct = (props: IProducts) => {
                   type="radio"
                   name="product"
                 />
-              </div>
-              <div>
+              </Grid>
+              <Grid>
                 <label className="radio">3D Model</label>
                 <input
                   value={type}
@@ -121,8 +122,8 @@ const AdminUpdateProduct = (props: IProducts) => {
                   type="radio"
                   name="product"
                 />
-              </div>
-              <div>
+              </Grid>
+              <Grid>
                 <label className="radio">comic</label>
                 <input
                   value={type}
@@ -131,10 +132,10 @@ const AdminUpdateProduct = (props: IProducts) => {
                   name="product"
                   required
                 />
-              </div>
-            </div>
-          </div>
-          <div className="admin-form-field">
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid className="admin-form-field">
             <label className="align-left" htmlFor="qty">
               Quantity:
             </label>
@@ -145,8 +146,8 @@ const AdminUpdateProduct = (props: IProducts) => {
               name="quantity"
               required
             />
-          </div>
-          <div className="admin-form-field">
+          </Grid>
+          <Grid className="admin-form-field">
             <label className="align-left" htmlFor="price">
               Price:
             </label>
@@ -157,8 +158,8 @@ const AdminUpdateProduct = (props: IProducts) => {
               name="name"
               required
             />
-          </div>
-          <div className="admin-form-field">
+          </Grid>
+          <Grid className="admin-form-field">
             <label className="align-left" htmlFor="info">
               Info:
             </label>
@@ -169,8 +170,8 @@ const AdminUpdateProduct = (props: IProducts) => {
               rows={5}
               required
             ></textarea>
-          </div>
-          {/* <div className="admin-form-field">
+          </Grid>
+          {/* <Grid className="admin-form-field">
               <label className="align-left" htmlFor="primaryImage">
                 Primary:
               </label>
@@ -179,20 +180,20 @@ const AdminUpdateProduct = (props: IProducts) => {
                 type="checkbox"
                 name="primaryImage"
               />
-            </div> */}
-          <div className="admin-form-button">
-            <div></div>
-            <div className="text-center">
-              <div>
+            </Grid> */}
+          <Grid className="admin-form-button">
+            <Grid></Grid>
+            <Grid className="text-center">
+              <Grid>
                 <button onClick={handleSubmit} type="submit">
                   Submit
                 </button>
-              </div>
-            </div>
-          </div>
+              </Grid>
+            </Grid>
+          </Grid>
         </form>
-      </div>
-    </div>
+      </Grid>
+    </Grid>
   );
 };
 

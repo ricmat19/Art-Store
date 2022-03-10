@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 // import IndexAPI from "../../../apis/indexAPI";
 import { IDay } from "../../../interfaces";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,6 +6,7 @@ import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
+import { Grid } from "@mui/material";
 
 const AdminCalendar = (props: any) => {
   const [nav, setNav] = useState(0);
@@ -166,107 +167,53 @@ const AdminCalendar = (props: any) => {
   }, [events, nav]);
 
   return (
-    <div>
-      <div className="grid grid-center user-calendar-container">
-        <div className="grid month-row">
-          <div>
+    <Grid>
+      <Grid className="grid grid-center user-calendar-container">
+        <Grid className="grid month-row">
+          <Grid>
             <button onClick={() => setNav(nav - 1)} className="month-back">
               <FontAwesomeIcon icon={faChevronLeft} />
             </button>
-          </div>
-          <div className="title month-title">{dateDisplay.toLowerCase()}</div>
-          <div>
+          </Grid>
+          <Grid className="title month-title">{dateDisplay.toLowerCase()}</Grid>
+          <Grid>
             <button onClick={() => setNav(nav + 1)} className="month-forward">
               <FontAwesomeIcon icon={faChevronRight} />
             </button>
-          </div>
-        </div>
-        <div className="day-names">
-          <div className="day-name">sun</div>
-          <div className="day-name">mon</div>
-          <div className="day-name">tue</div>
-          <div className="day-name">wed</div>
-          <div className="day-name">thur</div>
-          <div className="day-name">fri</div>
-          <div className="day-name">sat</div>
-        </div>
-        <div className="title day-boxes">
+          </Grid>
+        </Grid>
+        <Grid className="day-names">
+          <Grid className="day-name">sun</Grid>
+          <Grid className="day-name">mon</Grid>
+          <Grid className="day-name">tue</Grid>
+          <Grid className="day-name">wed</Grid>
+          <Grid className="day-name">thur</Grid>
+          <Grid className="day-name">fri</Grid>
+          <Grid className="day-name">sat</Grid>
+        </Grid>
+        <Grid className="title day-boxes">
           {days.map((day, index) => (
-            <div key={index}>
+            <Grid key={index}>
               {day.value === "padding" ? (
                 ""
-              ) : //   ) : day.event.length > 0 && day.date === day.today ? (
-              //   day.event.length > 0 &&
-              day.date === day.today ? (
-                <div
-                  className="day-box day-box-task-today"
-                  onClick={() => {
-                    day.value !== "padding";
-                    //   ? setClicked(day.date)
-                    //   : setClicked("");
-                  }}
-                >
-                  <div
-                    // onClick={() => displayEventModal(day)}
-                    className="center-num"
-                  >
-                    {day.value}
-                  </div>
-                </div>
               ) : day.date === day.today ? (
-                <div
-                  className="day-box day-today"
-                  onClick={() => {
-                    day.value !== "padding";
-                    //   ? setClicked(day.date)
-                    //   : setClicked("");
-                  }}
-                >
-                  <div
-                    // onClick={() => displayEventModal(day)}
-                    className="center-num"
-                  >
+                <Grid className="day-box day-today">
+                  <Grid className="center-num" onClick={props.handleDayOpen}>
                     {day.value}
-                  </div>
-                </div>
+                  </Grid>
+                </Grid>
               ) : (
-                //   ) : day.event.length > 0 ? (
-                //     <div
-                //       className="day-box day-box-task"
-                //       onClick={() => {
-                //         day.value !== "padding"
-                //         //   ? setClicked(day.date)
-                //         //   : setClicked("");
-                //       }}
-                //     >
-                //       <div
-                //         onClick={() => displayEventModal(day)}
-                //         className="center-num"
-                //       >
-                //         {day.value}
-                //       </div>
-                //     </div>
-                <div
-                  className="day-box"
-                  onClick={() => {
-                    day.value !== "padding";
-                    //   ? setClicked(day.date)
-                    //   : setClicked("");
-                  }}
-                >
-                  <div
-                    // onClick={() => displayEventModal(day)}
-                    className="center-num"
-                  >
+                <Grid className="day-box">
+                  <Grid className="center-num" onClick={props.handleDayOpen}>
                     {day.value}
-                  </div>
-                </div>
+                  </Grid>
+                </Grid>
               )}
-            </div>
+            </Grid>
           ))}
-        </div>
-      </div>
-    </div>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
 

@@ -7,6 +7,7 @@ import PagesNav from "../../../components/users/pagesNav";
 import FooterC from "../../../components/footer";
 import Head from "next/head";
 import AddToCart from "../../../components/users/cart/addToCart";
+import { Grid } from "@mui/material";
 // import {CartContext} from "../../context/CartContext";
 
 const ProductDetailsC = (props: any) => {
@@ -59,7 +60,7 @@ const ProductDetailsC = (props: any) => {
   };
 
   return (
-    <div>
+    <Grid>
       <Head>
         {/* <title>artHouse19-{product.title}</title>
         <meta name="description" content={product.title}></meta> */}
@@ -70,18 +71,18 @@ const ProductDetailsC = (props: any) => {
         product={product}
         uniqueItem={uniqueItem}
       />
-      {/* <div className={addedModal}>
+      {/* <Grid className={addedModal}>
         <form>
-          <div
+          <Grid
             // ref={addedRef}
             className="added-content modal-content"
           >
             <h1 className="header">Item Added</h1>
-            <div>
+            <Grid>
               {product.title} has {!uniqueItem ? "already" : ""} been
               added to your cart.
-            </div>
-            <div className="grid two-column-div">
+            </Grid>
+            <Grid className="grid two-column-div">
               <button className="added-button" onClick={() => router.push("/")}>
                 continue shopping
               </button>
@@ -91,49 +92,45 @@ const ProductDetailsC = (props: any) => {
               >
                 view cart
               </button>
-            </div>
-          </div>
+            </Grid>
+          </Grid>
         </form>
-      </div> */}
+      </Grid> */}
 
       <MainNav cartQty={cartQty} />
       <PagesNav />
-      <div className="main-body">
-        <div className="item-details">
-          <div className="image-div">
-            <div className="justify-center">
+      <Grid className="main-body">
+        <Grid className="item-details">
+          <Grid className="image-div">
+            <Grid className="justify-center">
               <img
                 className="big-image"
                 src={imageBuffer}
                 alt="product image"
               />
-            </div>
-          </div>
+            </Grid>
+          </Grid>
           <form method="POST" action="/cart">
-            <div className="info-div">
+            <Grid className="info-div">
               <h1>{product && product.title}</h1>
-              <div className="info-detail-div">
+              <Grid className="info-detail-div">
                 <label>price:</label>
-                <h3 className="top-margin">
-                  ${product && product.price}.00
-                </h3>
-              </div>
-              <div className="info-detail-div">
+                <h3 className="top-margin">${product && product.price}.00</h3>
+              </Grid>
+              <Grid className="info-detail-div">
                 <label>info:</label>
-                <h3 className="top-margin">
-                  {product && product.info}
-                </h3>
-              </div>
+                <h3 className="top-margin">{product && product.info}</h3>
+              </Grid>
               <hr className="top-margin" />
-              <div className="align-center">
+              <Grid className="align-center">
                 <button onClick={(e) => addToCart(e)}>Add To Cart</button>
-              </div>
-            </div>
+              </Grid>
+            </Grid>
           </form>
-        </div>
+        </Grid>
         <FooterC />
-      </div>
-    </div>
+      </Grid>
+    </Grid>
   );
 };
 

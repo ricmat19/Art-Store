@@ -3,20 +3,21 @@ import PagesNav from "../components/users/pagesNav";
 import FooterC from "../components/footer";
 import Head from "next/head";
 import IndexAPI from "../apis/indexAPI";
+import { Grid } from "@mui/material";
 
 const PageNotFound = (props: any) => {
   return (
-    <div>
+    <Grid>
       <Head>
         <title>artHouse19-404</title>
       </Head>
       <MainNav cartQty={props.cartQty} />
       <PagesNav />
-      <div className="main-body">
+      <Grid className="main-body">
         <h1 className="main-title">Page Not Found (404)</h1>
         <FooterC />
-      </div>
-    </div>
+      </Grid>
+    </Grid>
   );
 };
 

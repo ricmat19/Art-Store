@@ -3,7 +3,6 @@ import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Grid, Modal } from "@mui/material";
 
 const AdminDeleteProduct = (props: any) => {
-
   const handleDelete = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
@@ -91,7 +90,7 @@ const AdminDeleteProduct = (props: any) => {
       </Grid>
     );
   } else {
-    return <div></div>;
+    return <Grid></Grid>;
   }
 };
 

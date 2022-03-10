@@ -94,7 +94,7 @@ const AdminDeleteBlog = (props: any) => {
       </Grid>
     );
   } else {
-    return <div></div>;
+    return <Grid></Grid>;
   }
 };
 

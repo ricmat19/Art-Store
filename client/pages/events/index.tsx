@@ -3,7 +3,8 @@ import FooterC from "../../components/footer";
 import MainNav from "../../components/users/mainNav";
 import PagesNav from "../../components/users/pagesNav";
 // import { IEvent } from "../../interfaces";
-import Calendar from "../../components/calendar";
+import Calendar from "../../components/users/events/calendar";
+import { Grid } from "@mui/material";
 
 const EventsC = (props: any) => {
   // const [events] = useState(props.events);
@@ -17,12 +18,12 @@ const EventsC = (props: any) => {
   // };
 
   return (
-    <div>
+    <Grid>
       <MainNav cartQty={props.cartQty} />
       <PagesNav />
       <Calendar />
       <FooterC />
-    </div>
+    </Grid>
   );
 };
 

@@ -30,7 +30,6 @@
 
 .day-box {
   height: 80px;
-  width: 80px;
   cursor: pointer;
   border: #fff 3px solid;
   display: flex;
@@ -97,4 +96,14 @@
 .fa-chevron-left,
 .fa-chevron-right {
   color: white;
+}
+
+.admin-day-nav{
+  grid-template-columns: auto auto;
+  width: 100%;
+}
+
+.day-icon{
+  font-size: 35px;
+  cursor: pointer;
 }

@@ -5,9 +5,7 @@ import { Backdrop, Box, Fade, Grid, Modal } from "@mui/material";
 const AdminDeleteCourse = (props: any) => {
   const handleDelete = async () => {
     try {
-      await IndexAPI.delete(
-        `/admin/courses/${props.deleteCourse.id}`
-      );
+      await IndexAPI.delete(`/admin/courses/${props.deleteCourse.id}`);
     } catch (err) {
       console.log(err);
     }
@@ -72,9 +70,7 @@ const AdminDeleteCourse = (props: any) => {
                     height: "100%",
                   }}
                 >
-                  <form
-                    className="admin-form"
-                  >
+                  <form className="admin-form">
                     <Grid className="align-center">
                       <h1>
                         Are you sure you want to delete &quot;
@@ -93,7 +89,7 @@ const AdminDeleteCourse = (props: any) => {
       </Grid>
     );
   } else {
-    return <div></div>;
+    return <Grid></Grid>;
   }
 };
 

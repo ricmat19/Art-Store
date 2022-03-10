@@ -2,10 +2,11 @@ import React, { FC } from "react";
 import { ListItemIcon, MenuItem } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt, faUser } from "@fortawesome/free-solid-svg-icons";
+import { Grid } from "@mui/material";
 
 const UserModal: FC = () => {
   return (
-    <div>
+    <Grid>
       <a href="/profile">
         <MenuItem sx={{ color: "black" }}>
           <ListItemIcon>
@@ -20,7 +21,7 @@ const UserModal: FC = () => {
         </ListItemIcon>
         Logout
       </MenuItem>
-    </div>
+    </Grid>
   );
 };
 

@@ -2,13 +2,14 @@ import type { AppProps } from "next/app";
 import DisclaimerC from "../components/users/disclaimerModal";
 ("../components/modals/disclaimer");
 import "../public/css/index.css";
+import { Grid } from "@mui/material";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <div>
+    <Grid>
       <DisclaimerC />
       <Component {...pageProps} />
-    </div>
+    </Grid>
   );
 }
 

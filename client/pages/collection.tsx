@@ -11,7 +11,7 @@ const Collection = (props: any) => {
   const [collections] = useState<ICollection[]>([]);
 
   return (
-    <div>
+    <Grid>
       <Head>
         <title>artHouse19-Collection</title>
         <meta name="description" content="Your collection."></meta>
@@ -28,7 +28,7 @@ const Collection = (props: any) => {
         <Grid>{collections}</Grid>
       </Grid>
       <FooterC />
-    </div>
+    </Grid>
   );
 };
 
