@@ -1,12 +1,40 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState } from "react";
+import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarDay, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const AdminDay = (props: any) => {
-  const [view] = useState("calendar");
+  const [view, setView] = useState("events");
   const [events] = useState(props.events);
+  const [title, setTitle] = useState<string>("");
+  const [date, ] = useState<string>("")
+  const [price, setPrice] = useState<string>("");
+  const [spots, setSpots] = useState<string>("");
+  const [info, setInfo] = useState<string>("");
+
+  const createEvent = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    try {
+      let formData = new FormData();
+
+      formData.append("title", title);
+      formData.append("date", date);
+      formData.append("price", price);
+      formData.append("spots", spots);
+      formData.append("info", info);
+
+      await IndexAPI.post("/admin/events", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <Grid>
       <Modal
@@ -43,48 +71,108 @@ const AdminDay = (props: any) => {
                 justifyContent: "flex-end",
                 backgroundColor: "#000",
                 padding: "30px",
+                minHeight: "500px",
               }}
             >
               <Grid
                 sx={{
-                  padding: "0 0 0 30px",
                   width: "100%",
+                  display: "grid",
+                  alignSelf: "flex-start",
                 }}
               >
+                <h1>Date</h1>
                 <nav className="grid admin-day-nav">
                   <h1>
                     <FontAwesomeIcon
                       className="day-icon"
                       icon={faCalendarDay}
+                      onClick={() => setView("events")}
                     />
                   </h1>
                   <h1>
-                    <FontAwesomeIcon className="day-icon" icon={faPlus} />
+                    <FontAwesomeIcon
+                      className="day-icon"
+                      icon={faPlus}
+                      onClick={() => setView("create-event")}
+                    />
                   </h1>
                 </nav>
                 <Grid>
-                  {view === "calendar" ? (
+                  {view === "events" ? (
                     <Grid>
-                      <Grid>
-                        <Grid>Title</Grid>
-                        <Grid>Date</Grid>
-                        <Grid>Price</Grid>
-                        <Grid>Spots</Grid>
+                      <Grid className="day-events-table">
+                        <h3>Title</h3>
+                        <h3>Price</h3>
+                        <h3>Spots</h3>
                       </Grid>
                       <Grid>
-                        {events.map((event: any, index: number) => (
-                          <Grid key={index}>
-                            <Grid>{event.title}</Grid>
-                            <Grid>{event.event_date}</Grid>
-                            <Grid>{event.price}</Grid>
-                            <Grid>{event.spots}</Grid>
-                          </Grid>
-                        ))}
+                        {events !== undefined ? (
+                          events.map((event: any, index: number) => (
+                            <Grid key={index}>
+                              <Grid>{event.title}</Grid>
+                              <Grid>{event.price}</Grid>
+                              <Grid>{event.spots}</Grid>
+                            </Grid>
+                          ))
+                        ) : (
+                          <Grid></Grid>
+                        )}
                       </Grid>
                     </Grid>
                   ) : (
-                    <Grid className="">
-                      <form className="admin-form"></form>
+                    <Grid className="create-event">
+                      <form>
+                        <h1>New Event</h1>
+                        <Grid className="admin-form-field">
+                          <label className="event-form-label">Event</label>
+                          <input
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            type="text"
+                            name="eventTitle"
+                            className="form-control"
+                            required
+                          />
+                        </Grid>
+                        <Grid className="admin-form-field">
+                          <label className="event-form-label">Price</label>
+                          <input
+                            value={price}
+                            onChange={(e) => setPrice(e.target.value)}
+                            type="number"
+                            name="eventPrice"
+                            className="form-control"
+                            required
+                          />
+                        </Grid>
+                        <Grid className="admin-form-field">
+                          <label className="event-form-label">Spots</label>
+                          <input
+                            value={spots}
+                            onChange={(e) => setSpots(e.target.value)}
+                            type="number"
+                            name="eventSpots"
+                            className="form-control"
+                            required
+                          />
+                        </Grid>
+                        <Grid className="admin-form-field">
+                          <label className="event-form-label">Info</label>
+                          <textarea
+                            value={info}
+                            onChange={(e) => setInfo(e.target.value)}
+                            className="form-control"
+                            required
+                            rows={7}
+                          />
+                        </Grid>
+                        <Grid className="align-center">
+                          <button type="submit" onClick={createEvent}>
+                            Submit
+                          </button>
+                        </Grid>
+                      </form>
                     </Grid>
                   )}
                 </Grid>

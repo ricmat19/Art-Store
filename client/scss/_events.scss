@@ -101,9 +101,23 @@
 .admin-day-nav{
   grid-template-columns: auto auto;
   width: 100%;
+  margin-bottom: 25px;
 }
 
 .day-icon{
   font-size: 35px;
   cursor: pointer;
+}
+
+.day-events-table{
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+
+.day-events-table h3{
+  text-align: center;
+}
+
+.event-form-label{
+  text-align: left;
 }
