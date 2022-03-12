@@ -176,14 +176,11 @@ const AdminCalendar = (props: any) => {
       props.setDate(selectedDate);
 
       const daysEvents = [];
-      for (let i = 0; i < props.events.lenght; i++) {
-        console.log(props.events[i].event_date);
-        console.log(selectedDate);
-        if (new Date(props.events[i].event_date) === new Date(selectedDate)) {
+      for (let i = 0; i < props.events.length; i++) {
+        if ((new Date(props.events[i].event_date)).toString() === (new Date(selectedDate)).toString()) {
           daysEvents.push(props.events[i]);
         }
       }
-      console.log(daysEvents);
       props.setDateEvents(daysEvents);
     } catch (err) {
       console.log(err);

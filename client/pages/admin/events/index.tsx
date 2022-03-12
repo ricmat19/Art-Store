@@ -30,7 +30,7 @@ const AdminEvents = (props: any) => {
     };
 
     fetchData();
-  }, []);
+  }, [dateEvents]);
 
   if (loginStatus) {
     return (

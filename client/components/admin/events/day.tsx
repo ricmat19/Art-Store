@@ -1,13 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState } from "react";
-// import IndexAPI from "../../../apis/indexAPI";
+import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendarDay, faPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBinoculars,
+  faCalendarDay,
+  faPencil,
+  faPlus,
+  faTrashCan,
+} from "@fortawesome/free-solid-svg-icons";
 
 const AdminDay = (props: any) => {
   const [view, setView] = useState("events");
-  const [events] = useState(props.events);
   const [title, setTitle] = useState<string>("");
   const [price, setPrice] = useState<string>("");
   const [spots, setSpots] = useState<string>("");
@@ -31,11 +36,38 @@ const AdminDay = (props: any) => {
       //   .catch((err) => console.log(err));
 
       const selectedDate = props.date;
-      console.log(selectedDate)
 
-      // await IndexAPI.post("/admin/events", {
+      await IndexAPI.post("/admin/events", {
+        title,
+        selectedDate,
+        price,
+        spots,
+        info,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const editEvent = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    try {
+      // await IndexAPI.put("/admin/events/id", {
       //   title,
-      //   selectedDate,
+      //   price,
+      //   spots,
+      //   info,
+      // });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const deleteEvent = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    try {
+      // await IndexAPI.delet("/admin/events/id", {
+      //   title,
       //   price,
       //   spots,
       //   info,
@@ -110,20 +142,54 @@ const AdminDay = (props: any) => {
                 </nav>
                 <Grid>
                   {view === "events" ? (
-                    <Grid>
-                      <Grid className="day-events-table">
+                    <Grid container sx={{ width: "100%" }}>
+                      <Grid xs={1}></Grid>
+                      <Grid xs={4}>
                         <h3>Title</h3>
+                      </Grid>
+                      <Grid xs={3}>
                         <h3>Price</h3>
+                      </Grid>
+                      <Grid xs={2}>
                         <h3>Spots</h3>
                       </Grid>
-                      <Grid>
-                        {console.log(events)}
-                        {events !== undefined ? (
-                          events.map((event: any, index: number) => (
-                            <Grid key={index}>
-                              <Grid>{event.title}</Grid>
-                              <Grid>{event.price}</Grid>
-                              <Grid>{event.spots}</Grid>
+                      <hr className="days-events-hr" />
+                      <Grid sx={{ width: "100%" }}>
+                        {props.dateEvents !== undefined ? (
+                          props.dateEvents.map((event: any, index: number) => (
+                            <Grid
+                              key={index}
+                              container
+                              sx={{ gridTemplateColumns: "auto auto auto" }}
+                            >
+                              <Grid xs={1} sx={{ alignSelf: "center" }}>
+                                <FontAwesomeIcon
+                                  className="day-event-icon"
+                                  icon={faTrashCan}
+                                  onClick={deleteEvent}
+                                />
+                              </Grid>
+                              <Grid xs={4}>
+                                <h3>{event.title}</h3>
+                              </Grid>
+                              <Grid xs={3}>
+                                <h3>{event.price}</h3>
+                              </Grid>
+                              <Grid xs={2}>
+                                <h3>{event.spots}</h3>
+                              </Grid>
+                              <Grid xs={2} sx={{ alignSelf: "center" }}>
+                                <FontAwesomeIcon
+                                  className="day-event-icon"
+                                  icon={faPencil}
+                                  onClick={editEvent}
+                                />
+                                <FontAwesomeIcon
+                                  className="day-event-icon"
+                                  icon={faBinoculars}
+                                  onClick={editEvent}
+                                />
+                              </Grid>
                             </Grid>
                           ))
                         ) : (

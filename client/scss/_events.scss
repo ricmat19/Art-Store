@@ -98,26 +98,39 @@
   color: white;
 }
 
-.admin-day-nav{
+.admin-day-nav {
   grid-template-columns: auto auto;
   width: 100%;
   margin-bottom: 25px;
 }
 
-.day-icon{
+.day-icon {
   font-size: 35px;
   cursor: pointer;
 }
 
-.day-events-table{
-  display: grid;
-  grid-template-columns: auto auto auto;
+.day-event-icon {
+  font-size: 23px;
+  color: white;
+  cursor: pointer;
+  margin: 0 6px;
 }
 
-.day-events-table h3{
+.day-events-table {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  text-align: left;
+}
+
+.day-events-table h3 {
   text-align: center;
 }
 
-.event-form-label{
+.event-form-label {
   text-align: left;
+}
+
+.days-events-hr {
+  width: 100%;
+  margin-bottom: 10px;
 }
