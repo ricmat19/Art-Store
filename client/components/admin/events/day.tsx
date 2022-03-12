@@ -63,20 +63,6 @@ const AdminDay = (props: any) => {
     }
   };
 
-  const deleteEvent = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    try {
-      // await IndexAPI.delet("/admin/events/id", {
-      //   title,
-      //   price,
-      //   spots,
-      //   info,
-      // });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   return (
     <Grid>
       <Modal
@@ -145,13 +131,13 @@ const AdminDay = (props: any) => {
                     <Grid container sx={{ width: "100%" }}>
                       <Grid xs={1}></Grid>
                       <Grid xs={4}>
-                        <h3>Title</h3>
+                        <h3 className="align-left">Title</h3>
                       </Grid>
                       <Grid xs={3}>
-                        <h3>Price</h3>
+                        <h3 className="align-left">Price</h3>
                       </Grid>
                       <Grid xs={2}>
-                        <h3>Spots</h3>
+                        <h3 className="align-left">Spots</h3>
                       </Grid>
                       <hr className="days-events-hr" />
                       <Grid sx={{ width: "100%" }}>
@@ -166,17 +152,20 @@ const AdminDay = (props: any) => {
                                 <FontAwesomeIcon
                                   className="day-event-icon"
                                   icon={faTrashCan}
-                                  onClick={deleteEvent}
+                                  onClick={() =>
+                                    props.displayDeleteModal(event.id)
+                                  }
                                 />
+                                {console.log(event.id)}
                               </Grid>
                               <Grid xs={4}>
-                                <h3>{event.title}</h3>
+                                <h4 className="align-left">{event.title}</h4>
                               </Grid>
                               <Grid xs={3}>
-                                <h3>{event.price}</h3>
+                                <h4 className="align-left">{event.price}</h4>
                               </Grid>
                               <Grid xs={2}>
-                                <h3>{event.spots}</h3>
+                                <h4 className="align-left">{event.spots}</h4>
                               </Grid>
                               <Grid xs={2} sx={{ alignSelf: "center" }}>
                                 <FontAwesomeIcon

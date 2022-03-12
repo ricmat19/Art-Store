@@ -40,7 +40,7 @@ const AdminDeleteEvent = (props: any) => {
                 bgcolor: "#000",
                 border: "2px solid #fff",
                 boxShadow: 24,
-                width: "60vw",
+                width: "450px",
               }}
             >
               <Grid
@@ -57,7 +57,6 @@ const AdminDeleteEvent = (props: any) => {
               >
                 <Grid
                   sx={{
-                    padding: "0 0 0 30px",
                     height: "100%",
                   }}
                 >

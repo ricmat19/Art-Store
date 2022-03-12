@@ -147,10 +147,6 @@ const AdminCalendar = (props: any) => {
 
           let hasEvent = false;
           for (let j = 0; j < props.events.length; j++) {
-            console.log(
-              dayMonth,
-              new Date(props.events[j].event_date).getMonth() + 1
-            );
             const calendarMonth = new Date(props.events[j].event_date).getMonth() + 1;
             if (
               dayMonth === calendarMonth &&

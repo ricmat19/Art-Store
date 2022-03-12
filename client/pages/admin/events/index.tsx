@@ -6,6 +6,7 @@ import FooterC from "../../../components/footer";
 import Head from "next/head";
 import AdminCalendar from "../../../components/admin/events/calendar";
 import AdminDay from "../../../components/admin/events/day";
+import AdminDeleteEvent from "../../../components/admin/events/deleteEvent";
 import { Grid } from "@mui/material";
 
 const AdminEvents = (props: any) => {
@@ -14,10 +15,15 @@ const AdminEvents = (props: any) => {
   const [events] = useState(props.events);
   const [date, setDate] = useState();
   const [dateEvents, setDateEvents] = useState();
+  const [deleteEvent, setDeleteEvent] = useState<any>();
 
   const [dayOpen, setDayOpen] = useState(false);
   const handleDayOpen = () => setDayOpen(true);
   const handleDayClose = () => setDayOpen(false);
+
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const handleDeleteOpen = () => setDeleteOpen(true);
+  const handleDeleteClose = () => setDeleteOpen(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,17 +38,42 @@ const AdminEvents = (props: any) => {
     fetchData();
   }, [dateEvents]);
 
+  const displayDeleteModal = (id: any) => {
+    for (let i = 0; i < props.events.length; i++) {
+      if (props.events[i].id === id) {
+        setDeleteEvent(props.events[i]);
+      }
+    }
+    handleDeleteOpen();
+  };
+
   if (loginStatus) {
     return (
       <Grid>
         <Head>
           <title>artHouse19-Admin Courses</title>
         </Head>
-        <AdminDay open={dayOpen} handleClose={handleDayClose} date={date} dateEvents={dateEvents}/>
+        <AdminDay
+          open={dayOpen}
+          handleClose={handleDayClose}
+          date={date}
+          dateEvents={dateEvents}
+          displayDeleteModal={displayDeleteModal}
+        />
+        <AdminDeleteEvent
+          deleteEvent={deleteEvent}
+          open={deleteOpen}
+          handleClose={handleDeleteClose}
+        />
         <AdminMainNav />
         <AdminPagesNav />
         <Grid className="main-body">
-          <AdminCalendar handleDayOpen={handleDayOpen} events={events} setDate={setDate} setDateEvents={setDateEvents}/>
+          <AdminCalendar
+            handleDayOpen={handleDayOpen}
+            events={events}
+            setDate={setDate}
+            setDateEvents={setDateEvents}
+          />
           <FooterC />
         </Grid>
       </Grid>

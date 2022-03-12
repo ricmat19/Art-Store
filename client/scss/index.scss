@@ -76,6 +76,10 @@ label {
   height: 100%;
 }
 
+.full-width {
+  width: 100%;
+}
+
 .title-margin {
   margin: 30px 0;
 }
@@ -487,3 +491,4 @@ input {
 @import "navbar";
 @import "events";
 @import "course";
+@import "blog";

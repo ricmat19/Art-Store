@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import ReactPaginate from "react-paginate";
 import IndexAPI from "../../../../apis/indexAPI";
 import AdminMainNav from "../../../../components/admin/mainNav";
@@ -14,7 +15,7 @@ import AdminDeleteBlog from "../../../../components/admin/media/blog/deleteBlog"
 import { Button, Grid } from "@mui/material";
 import Link from "next/link";
 
-const AdminBlogPostsC = (props: any) => {
+const AdminBlog = (props: any) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
   const [blog] = useState<IBlog[]>(props.blog);
   const [deleteBlog, setDeleteBlog] = useState<any>();
@@ -35,6 +36,16 @@ const AdminBlogPostsC = (props: any) => {
     setPageNumber(selected);
   };
 
+  const router = useRouter();
+
+  const displayBlogPost = async (id: string) => {
+    try {
+      router.push(`/admin/media/blog/${id}`);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const displayDeleteModal = (id: any) => {
     for (let i = 0; i < blog.length; i++) {
       if (blog[i].id === id) {
@@ -49,7 +60,7 @@ const AdminBlogPostsC = (props: any) => {
     .map((post) => {
       return (
         <Grid key={post.id}>
-          <Grid className="pointer">
+          <Grid className="pointer" onClick={() => displayBlogPost(post.id)}>
             <Grid className="image-container">
               <img
                 className="thumbnail"
@@ -62,7 +73,7 @@ const AdminBlogPostsC = (props: any) => {
             </Grid>
           </Grid>
           <Grid>
-            <Grid className="admin-button-div">
+            <Grid>
               <Grid>
                 <button
                   onClick={() => displayDeleteModal(post.id)}
@@ -70,9 +81,6 @@ const AdminBlogPostsC = (props: any) => {
                 >
                   Delete
                 </button>
-              </Grid>
-              <Grid>
-                <button type="submit">Update</button>
               </Grid>
             </Grid>
           </Grid>
@@ -174,4 +182,4 @@ export async function getStaticProps() {
   };
 }
 
-export default AdminBlogPostsC;
+export default AdminBlog;
