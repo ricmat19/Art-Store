@@ -144,20 +144,38 @@ const AdminCalendar = (props: any) => {
 
           const dayString = `${dayStringYear}-${dayStringMonth.toString()}-${dayStringDay.toString()}`;
           const today = `${todayYearString}-${todayMonthString}-${todayDayString}`;
+
+          let hasEvent = false;
+          for (let j = 0; j < props.events.length; j++) {
+            console.log(
+              dayMonth,
+              new Date(props.events[j].event_date).getMonth() + 1
+            );
+            const calendarMonth = new Date(props.events[j].event_date).getMonth() + 1;
+            if (
+              dayMonth === calendarMonth &&
+              dayDay.toString() ===
+                new Date(props.events[j].event_date).getDate().toString() &&
+              dayStringYear ===
+                new Date(props.events[j].event_date).getFullYear().toString()
+            ) {
+              hasEvent = true;
+            }
+          }
           if (i > paddingDays) {
             daysArray.push({
               value: i - paddingDays,
-              event: "test",
-              //   event: eventForDate(dayString),
               date: dayString,
               today: today,
+              hasEvent: hasEvent,
             });
+            hasEvent = false;
           } else {
             daysArray.push({
               value: "padding",
-              event: null,
               date: "",
               today: "",
+              hasEvent: hasEvent,
             });
           }
         }
@@ -177,7 +195,10 @@ const AdminCalendar = (props: any) => {
 
       const daysEvents = [];
       for (let i = 0; i < props.events.length; i++) {
-        if ((new Date(props.events[i].event_date)).toString() === (new Date(selectedDate)).toString()) {
+        if (
+          new Date(props.events[i].event_date).toString() ===
+          new Date(selectedDate).toString()
+        ) {
           daysEvents.push(props.events[i]);
         }
       }
@@ -213,10 +234,20 @@ const AdminCalendar = (props: any) => {
           <Grid className="day-name">sat</Grid>
         </Grid>
         <Grid className="title day-boxes">
+          {/* {console.log(days)} */}
           {days.map((day, index) => (
             <Grid key={index}>
               {day.value === "padding" ? (
                 ""
+              ) : day.hasEvent ? (
+                <Grid className="day-box event-day">
+                  <Grid
+                    className="center-num"
+                    onClick={() => handleDayClicked(day.value)}
+                  >
+                    {day.value}
+                  </Grid>
+                </Grid>
               ) : day.date === day.today ? (
                 <Grid className="day-box day-today">
                   <Grid
