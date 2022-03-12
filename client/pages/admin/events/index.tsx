@@ -12,6 +12,8 @@ const AdminEvents = (props: any) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
 
   const [events] = useState(props.events);
+  const [date, setDate] = useState();
+  const [dateEvents, setDateEvents] = useState();
 
   const [dayOpen, setDayOpen] = useState(false);
   const handleDayOpen = () => setDayOpen(true);
@@ -36,11 +38,11 @@ const AdminEvents = (props: any) => {
         <Head>
           <title>artHouse19-Admin Courses</title>
         </Head>
-        <AdminDay open={dayOpen} handleClose={handleDayClose}/>
+        <AdminDay open={dayOpen} handleClose={handleDayClose} date={date} dateEvents={dateEvents}/>
         <AdminMainNav />
         <AdminPagesNav />
         <Grid className="main-body">
-          <AdminCalendar handleDayOpen={handleDayOpen} events={events}/>
+          <AdminCalendar handleDayOpen={handleDayOpen} events={events} setDate={setDate} setDateEvents={setDateEvents}/>
           <FooterC />
         </Grid>
       </Grid>

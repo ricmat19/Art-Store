@@ -1,13 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../../db");
-const multer = require("multer");
+// const multer = require("multer");
 const { uploadFile } = require("../../s3");
 const fs = require("fs");
 const util = require("util");
 const unlinkFile = util.promisify(fs.unlink);
 
-const upload = multer({ dest: "images/" });
+// const upload = multer({ dest: "images/" });
 
 //Get all events
 router.get("/admin/events", async (req, res) => {
@@ -66,24 +66,28 @@ router.get("/admin/events/:id", async (req, res) => {
 //Create an event
 router.post(
   "/admin/events",
-  upload.single("images"),
+  // upload.single("images"),
   async (req, res) => {
     try {
-      const file = req.file;
-      const result = await uploadFile(file);
-      res.send({ imagePath: `/images/${result.key}` });
-      await unlinkFile(file.path);
+      // const file = req.file;
+      // const result = await uploadFile(file);
+      // res.send({ imagePath: `/images/${result.key}` });
+      // await unlinkFile(file.path);
       await db.query(
-        "INSERT INTO events (title, event_date, imagekey, price, info, spots) values ($1, $2, $3, $4, $5, $6) RETURNING *",
+        "INSERT INTO events (title, event_date, price, spots, info) values ($1, $2, $3, $4, $5) RETURNING *",
         [
           req.body.title,
-          req.body.eventDate,
-          result.key,
+          req.body.selectedDate,
+          // result.key,
           req.body.price,
-          req.body.info,
           req.body.spots,
+          req.body.info,
         ]
       );
+
+      res.status(200).json({
+        status: "success",
+      });
     } catch (err) {
       console.log(err);
     }

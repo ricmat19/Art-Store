@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState } from "react";
-import IndexAPI from "../../../apis/indexAPI";
+// import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarDay, faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -9,7 +9,6 @@ const AdminDay = (props: any) => {
   const [view, setView] = useState("events");
   const [events] = useState(props.events);
   const [title, setTitle] = useState<string>("");
-  const [date, ] = useState<string>("")
   const [price, setPrice] = useState<string>("");
   const [spots, setSpots] = useState<string>("");
   const [info, setInfo] = useState<string>("");
@@ -17,19 +16,30 @@ const AdminDay = (props: any) => {
   const createEvent = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
-      let formData = new FormData();
+      // let formData = new FormData();
 
-      formData.append("title", title);
-      formData.append("date", date);
-      formData.append("price", price);
-      formData.append("spots", spots);
-      formData.append("info", info);
+      // formData.append("title", title);
+      // formData.append("date", props.date);
+      // formData.append("price", price);
+      // formData.append("spots", spots);
+      // formData.append("info", info);
 
-      await IndexAPI.post("/admin/events", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      })
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
+      // await IndexAPI.post("/admin/events", formData, {
+      //   headers: { "Content-Type": "multipart/form-data" },
+      // })
+      //   .then((res) => console.log(res))
+      //   .catch((err) => console.log(err));
+
+      const selectedDate = props.date;
+      console.log(selectedDate)
+
+      // await IndexAPI.post("/admin/events", {
+      //   title,
+      //   selectedDate,
+      //   price,
+      //   spots,
+      //   info,
+      // });
     } catch (err) {
       console.log(err);
     }
@@ -81,7 +91,7 @@ const AdminDay = (props: any) => {
                   alignSelf: "flex-start",
                 }}
               >
-                <h1>Date</h1>
+                <h1>{props.date}</h1>
                 <nav className="grid admin-day-nav">
                   <h1>
                     <FontAwesomeIcon
@@ -107,6 +117,7 @@ const AdminDay = (props: any) => {
                         <h3>Spots</h3>
                       </Grid>
                       <Grid>
+                        {console.log(events)}
                         {events !== undefined ? (
                           events.map((event: any, index: number) => (
                             <Grid key={index}>
@@ -125,7 +136,7 @@ const AdminDay = (props: any) => {
                       <form>
                         <h1>New Event</h1>
                         <Grid className="admin-form-field">
-                          <label className="event-form-label">Event</label>
+                          <label className="event-form-label">Title</label>
                           <input
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
@@ -168,7 +179,7 @@ const AdminDay = (props: any) => {
                           />
                         </Grid>
                         <Grid className="align-center">
-                          <button type="submit" onClick={createEvent}>
+                          <button type="submit" onClick={(e) => createEvent(e)}>
                             Submit
                           </button>
                         </Grid>

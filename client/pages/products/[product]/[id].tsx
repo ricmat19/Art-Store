@@ -115,11 +115,15 @@ const ProductDetailsC = (props: any) => {
               <h1>{product && product.title}</h1>
               <Grid className="info-detail-div">
                 <label>price:</label>
-                <h3 className="top-margin">${product && product.price}.00</h3>
+                <h3 className="top-margin">
+                  ${product && product.price}.00
+                </h3>
               </Grid>
               <Grid className="info-detail-div">
                 <label>info:</label>
-                <h3 className="top-margin">{product && product.info}</h3>
+                <h3 className="top-margin">
+                  {product && product.info}
+                </h3>
               </Grid>
               <hr className="top-margin" />
               <Grid className="align-center">
