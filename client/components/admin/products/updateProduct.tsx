@@ -1,52 +1,37 @@
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import IndexAPI from "../../../apis/indexAPI";
-import { IProduct } from "../../../interfaces";
-import { Grid } from "@mui/material";
+import {
+  Backdrop,
+  Box,
+  Fade,
+  Grid,
+  Modal,
+  Select,
+  MenuItem,
+} from "@mui/material";
 
-interface IProducts {
-  updateItem: string;
-  products: IProduct[];
-  setProducts: () => void;
-}
-
-const AdminUpdateProduct = (props: IProducts) => {
-  const [, setProducts] = useState<IProduct[]>([]);
-  const [image, setImage] = useState<string>("");
+const AdminUpdateProduct = (props: any) => {
   const [title, setTitle] = useState<string>("");
-  const [type, setType] = useState<string>("");
-  const [quantity, setQuantity] = useState<string>("");
+  const [product, setProduct] = useState<string>("");
   const [price, setPrice] = useState<string>("");
   const [info, setInfo] = useState<string>("");
+  const [fileImage] = useState<File>();
+  const [, setImagekey] = useState<string>("");
+  const [imageBuffer, setImageBuffer] = useState<string>("");
+  const [qty, setQty] = useState<string>("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (props.updateItem !== "") {
-          const response = await IndexAPI.get(
-            `/admin/update/${props.updateItem}`
-          );
-          setTitle(response.data.data.item.title);
-          setType(response.data.data.item.product);
-          setPrice(response.data.data.item.price);
-          setInfo(response.data.data.item.info);
-          setQuantity(response.data.data.item.qty);
-
-          if (response.data.data.item.imagekey !== null) {
-            let imagesResponse = await IndexAPI.get(
-              `/images/${response.data.data.item.imagekey}`,
-              {
-                responseType: "arraybuffer",
-              }
-            ).then((response) =>
-              Buffer.from(response.data, "binary").toString("base64")
-            );
-
-            setImage(`data:image/png;base64,${imagesResponse}`);
-          }
-
-          setProducts(response.data.data.item);
+        if (props.updateProduct) {
+          setTitle(props.updateProduct.title);
+          setProduct(props.updateProduct.product);
+          setPrice(props.updateProduct.price);
+          setInfo(props.updateProduct.info);
+          setImagekey(props.updateProduct.imagekey);
+          setImageBuffer(props.updateProduct.imageBuffer);
+          setQty(props.updateProduct.qty);
         }
       } catch (err) {
         console.log(err);
@@ -56,149 +41,212 @@ const AdminUpdateProduct = (props: IProducts) => {
     fetchData();
   }, [props]);
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
+  const updateProduct = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
-      await IndexAPI.put(`/admin/update/${props.updateItem}`, {
-        title,
-        type,
-        quantity,
-        price,
-        info,
-      });
+      if (fileImage) {
+        let formData = new FormData();
+
+        formData.append("title", title);
+        formData.append("product", product);
+        formData.append("price", price);
+        formData.append("info", info);
+        formData.append("qty", qty);
+        formData.append("image", fileImage);
+
+        await IndexAPI.put(
+          `/admin/products/${props.updateProduct.id}`,
+          formData,
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+          }
+        )
+          .then((res) => console.log(res))
+          .catch((err) => console.log(err));
+      } else {
+        await IndexAPI.put(`/admin/products/${props.updateProduct.id}`, {
+          title,
+          product,
+          price,
+          info,
+          qty,
+        });
+      }
     } catch (err) {
       console.log(err);
     }
   };
 
-  return (
-    <Grid className="">
-      <Grid className="align-center">
-        <h1>admin</h1>
-      </Grid>
-      <Grid className="admin-item-div">
-        <Grid className="admin-image-div">
-          <Grid className="justify-center">
-            <img className="big-image" src={image} alt="product" />
-          </Grid>
-        </Grid>
-        <form className="admin-form" action="/routes/admin.js" method="POST">
-          <Grid className="grid">
-            <h1>Update</h1>
-          </Grid>
-          <Grid className="admin-form-field">
-            <label className="align-left" htmlFor="title">
-              Title:
-            </label>
-            <input
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              type="text"
-              name="name"
-              required
-            />
-          </Grid>
-          <Grid className="admin-form-field">
-            <Grid>
-              <label className="align-left" htmlFor="product">
-                Type:
-              </label>
-            </Grid>
-            <Grid className="radio-div">
-              <Grid>
-                <label className="radio">2D Print</label>
-                <input
-                  value={type}
-                  onChange={() => setType("print")}
-                  type="radio"
-                  name="product"
-                />
-              </Grid>
-              <Grid>
-                <label className="radio">3D Model</label>
-                <input
-                  value={type}
-                  onChange={() => setType("model")}
-                  type="radio"
-                  name="product"
-                />
-              </Grid>
-              <Grid>
-                <label className="radio">comic</label>
-                <input
-                  value={type}
-                  onChange={() => setType("comic")}
-                  type="radio"
-                  name="product"
-                  required
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid className="admin-form-field">
-            <label className="align-left" htmlFor="qty">
-              Quantity:
-            </label>
-            <input
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-              type="number"
-              name="quantity"
-              required
-            />
-          </Grid>
-          <Grid className="admin-form-field">
-            <label className="align-left" htmlFor="price">
-              Price:
-            </label>
-            <input
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-              type="text"
-              name="name"
-              required
-            />
-          </Grid>
-          <Grid className="admin-form-field">
-            <label className="align-left" htmlFor="info">
-              Info:
-            </label>
-            <textarea
-              value={info}
-              onChange={(e) => setInfo(e.target.value)}
-              name="message"
-              rows={5}
-              required
-            ></textarea>
-          </Grid>
-          {/* <Grid className="admin-form-field">
-              <label className="align-left" htmlFor="primaryImage">
-                Primary:
-              </label>
-              <input
-                onChange={(e) => setPrimaryImage(e.target.value)}
-                type="checkbox"
-                name="primaryImage"
-              />
-            </Grid> */}
-          <Grid className="admin-form-button">
-            <Grid></Grid>
-            <Grid className="text-center">
-              <Grid>
-                <button onClick={handleSubmit} type="submit">
-                  Submit
-                </button>
-              </Grid>
-            </Grid>
-          </Grid>
-        </form>
-      </Grid>
-    </Grid>
-  );
-};
+  const handleChange = (event: any) => {
+    setProduct(event.target.value);
+  };
 
-AdminUpdateProduct.propTypes = {
-  updateItem: PropTypes.string,
+  if (props.updateProduct) {
+    return (
+      <Grid>
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          open={props.open}
+          onClose={props.handleClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={props.open}>
+            <Box
+              sx={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                bgcolor: "background.paper",
+                border: "2px solid #fff",
+                boxShadow: 24,
+                width: "90vw",
+              }}
+            >
+              <Grid
+                container
+                sx={{
+                  flexDirection: "row",
+                  flexWrap: "nowrap",
+                  alignItems: "center",
+                  color: "#000",
+                  justifyContent: "flex-end",
+                  backgroundColor: "#000",
+                  padding: "30px",
+                }}
+              >
+                <Grid sx={{ padding: "0 30px 0 0", width: "50%" }}>
+                  <Grid className="image align-center">
+                    {fileImage ? (
+                      <img
+                        className="big-image"
+                        src={URL.createObjectURL(fileImage)}
+                        alt="big image"
+                      />
+                    ) : (
+                      <img
+                        className="big-image"
+                        src={imageBuffer}
+                        alt="product"
+                      />
+                    )}
+                  </Grid>
+                </Grid>
+                <Grid
+                  sx={{
+                    width: "50%",
+                    padding: "0 0 0 30px",
+                    borderLeft: "1px #fff solid",
+                    height: "100%",
+                  }}
+                >
+                  <form className="admin-form">
+                    <Grid className="admin-form-field">
+                      <label className="admin-label">Title:</label>
+                      <input
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        type="text"
+                        name="name"
+                        className="form-control"
+                        required
+                      />
+                    </Grid>
+                    <Grid className="admin-form-field">
+                      <Grid>
+                        <label className="admin-label">Product:</label>
+                      </Grid>
+                      <Grid>
+                        <Select
+                          value={product}
+                          onChange={handleChange}
+                          displayEmpty
+                          inputProps={{ "aria-label": "Without label" }}
+                          className="type-selector"
+                        >
+                          <MenuItem value="">
+                            <em>None</em>
+                          </MenuItem>
+                          <MenuItem value={"print"}>print</MenuItem>
+                          <MenuItem value={"painting"}>painting</MenuItem>
+                          <MenuItem value={"sculpture"}>sculpture</MenuItem>
+                          <MenuItem value={"model"}>model</MenuItem>
+                          <MenuItem value={"book"}>book</MenuItem>
+                          <MenuItem value={"comic"}>comic</MenuItem>
+                        </Select>
+                      </Grid>
+                    </Grid>
+                    {/* <Grid className="admin-form-field">
+                      <label className="admin-label">Image:</label>
+                      <input
+                        type="file"
+                        onChange={(e: any) => setFileImage(e.target.files[0])}
+                        name="image"
+                        className="form-control file-input"
+                        required
+                      />
+                    </Grid> */}
+                    <Grid className="admin-form-field">
+                      <label className="admin-label">Quantity:</label>
+                      <input
+                        value={qty}
+                        onChange={(e) => setQty(e.target.value)}
+                        type="number"
+                        name="quantity"
+                        className="form-control"
+                        required
+                      />
+                    </Grid>
+                    <Grid className="admin-form-field">
+                      <label className="admin-label">Price:</label>
+                      <input
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
+                        type="number"
+                        name="price"
+                        className="form-control"
+                        required
+                      />
+                    </Grid>
+                    <Grid className="admin-form-field">
+                      <label className="admin-label">Info:</label>
+                      <textarea
+                        value={info}
+                        onChange={(e) => setInfo(e.target.value)}
+                        name="message"
+                        rows={5}
+                        required
+                      ></textarea>
+                    </Grid>
+                    <Grid className="admin-form-button">
+                      <Grid className="text-center">
+                        <Grid>
+                          <button
+                            onClick={updateProduct}
+                            type="submit"
+                            className="btn form-button"
+                          >
+                            Submit
+                          </button>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </form>
+                </Grid>
+              </Grid>
+            </Box>
+          </Fade>
+        </Modal>
+      </Grid>
+    );
+  } else {
+    return <Grid></Grid>;
+  }
 };
 
 export default AdminUpdateProduct;

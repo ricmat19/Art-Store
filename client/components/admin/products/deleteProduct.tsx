@@ -49,6 +49,7 @@ const AdminDeleteProduct = (props: any) => {
                   textAlign: "center",
                   color: "#000",
                   backgroundColor: "#000",
+                  padding: "30px",
                 }}
               >
                 <Grid

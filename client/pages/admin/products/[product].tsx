@@ -11,6 +11,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AdminProductsNav from "../../../components/admin/products/productNav";
 import AdminAddProduct from "../../../components/admin/products/addProduct";
+import AdminUpdateProduct from "../../../components/admin/products/updateProduct";
 import AdminDeleteProduct from "../../../components/admin/products/deleteProduct";
 import { Button, Grid } from "@mui/material";
 
@@ -18,13 +19,19 @@ const AdminProduct = (props: any) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
   const [product] = useState<IProduct[]>(props.product);
   const [activeProducts] = useState<IProduct[]>(props.activeProducts);
-  const [deleteProduct, setDeleteProduct] = useState<any>();
+
   const [pageNumber, setPageNumber] = useState<number>(0);
 
   const [addOpen, setAddOpen] = useState(false);
   const handleAddOpen = () => setAddOpen(true);
   const handleAddClose = () => setAddOpen(false);
 
+  const [updateProduct, setUpdateProduct] = useState<any>();
+  const [updateOpen, setUpdateOpen] = useState(false);
+  const handleUpdateOpen = () => setUpdateOpen(true);
+  const handleUpdateClose = () => setUpdateOpen(false);
+
+  const [deleteProduct, setDeleteProduct] = useState<any>();
   const [deleteOpen, setDeleteOpen] = useState(false);
   const handleDeleteOpen = () => setDeleteOpen(true);
   const handleDeleteClose = () => setDeleteOpen(false);
@@ -34,6 +41,15 @@ const AdminProduct = (props: any) => {
   const pageCount = Math.ceil(product.length / itemsPerPage);
   const changePage = ({ selected }: any) => {
     setPageNumber(selected);
+  };
+
+  const displayUpdateModal = (id: any) => {
+    for (let i = 0; i < product.length; i++) {
+      if (product[i].id === id) {
+        setUpdateProduct(product[i]);
+      }
+    }
+    handleUpdateOpen();
   };
 
   const displayDeleteModal = (id: any) => {
@@ -74,7 +90,12 @@ const AdminProduct = (props: any) => {
                 </button>
               </Grid>
               <Grid>
-                <button type="submit">Update</button>
+                <button
+                  onClick={() => displayUpdateModal(product.id)}
+                  type="submit"
+                >
+                  Update
+                </button>
               </Grid>
             </Grid>
           </Grid>
@@ -102,6 +123,11 @@ const AdminProduct = (props: any) => {
           <title>artHouse19-Admin Products</title>
         </Head>
         <AdminAddProduct open={addOpen} handleClose={handleAddClose} />
+        <AdminUpdateProduct
+          updateProduct={updateProduct}
+          open={updateOpen}
+          handleClose={handleUpdateClose}
+        />
         <AdminDeleteProduct
           deleteProduct={deleteProduct}
           open={deleteOpen}

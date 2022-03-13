@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import ReactPaginate from "react-paginate";
 import IndexAPI from "../../../../apis/indexAPI";
@@ -10,8 +10,7 @@ import { IBlog } from "../../../../interfaces";
 import Head from "next/head";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import AdminAddBlog from "../../../../components/admin/media/blog/addBlog";
-import AdminDeleteBlog from "../../../../components/admin/media/blog/deleteBlog";
+import AdminDeleteBlog from "../../../../components/admin/media/blog/deletePost";
 import { Button, Grid } from "@mui/material";
 import Link from "next/link";
 
@@ -20,10 +19,6 @@ const AdminBlog = (props: any) => {
   const [blog] = useState<IBlog[]>(props.blog);
   const [deleteBlog, setDeleteBlog] = useState<any>();
   const [pageNumber, setPageNumber] = useState<number>(0);
-
-  const [addOpen, setAddOpen] = useState(false);
-  const handleAddOpen = () => setAddOpen(true);
-  const handleAddClose = () => setAddOpen(false);
 
   const [deleteOpen, setDeleteOpen] = useState(false);
   const handleDeleteOpen = () => setDeleteOpen(true);
@@ -107,7 +102,6 @@ const AdminBlog = (props: any) => {
         <Head>
           <title>artHouse19-Admin Blog</title>
         </Head>
-        <AdminAddBlog open={addOpen} handleClose={handleAddClose} />
         <AdminDeleteBlog
           deleteBlog={deleteBlog}
           open={deleteOpen}
@@ -121,7 +115,7 @@ const AdminBlog = (props: any) => {
           </Link>
           <Grid className="plus-icon-div">
             <Button
-              onClick={handleAddOpen}
+              onClick={() => router.push("/admin/media/blog/create")}
               sx={{
                 fontFamily: "Rajdhani",
                 fontSize: "20px",

@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 // import { useRouter } from "next/router";
+import { useState } from "react";
 import IndexAPI from "../../../../apis/indexAPI";
 import FooterC from "../../../../components/footer";
 import MainNav from "../../../../components/users/mainNav";
@@ -7,9 +8,45 @@ import PagesNav from "../../../../components/users/pagesNav";
 import { Grid } from "@mui/material";
 
 const AdminBlogPost = (props: any) => {
+  const [title, setTitle] = useState<string>(props.selectedBlog[0].title);
+  const [content, setContent] = useState<string>(props.selectedBlog[0].content);
+
   const postMonth = new Date(props.selectedBlog[0].post_date).getMonth() + 1;
   const postDate = new Date(props.selectedBlog[0].post_date).getDate();
   const postYear = new Date(props.selectedBlog[0].post_date).getFullYear();
+
+  const updateBlog = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    try {
+      // if (fileImage) {
+      //   let formData = new FormData();
+
+      //   formData.append("title", title);
+      //   formData.append("product", product);
+      //   formData.append("price", price);
+      //   formData.append("info", info);
+      //   formData.append("qty", qty);
+      //   formData.append("image", fileImage);
+
+      //   await IndexAPI.put(
+      //     `/admin/products/${props.updateProduct.id}`,
+      //     formData,
+      //     {
+      //       headers: { "Content-Type": "multipart/form-data" },
+      //     }
+      //   )
+      //     .then((res) => console.log(res))
+      //     .catch((err) => console.log(err));
+      // } else {
+      await IndexAPI.put(`/admin/blog/${props.selectedBlog[0].id}`, {
+        title,
+        content,
+      });
+      // }
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <Grid>
       <MainNav cartQty={props.cartQty} />
@@ -24,7 +61,7 @@ const AdminBlogPost = (props: any) => {
             />
           </Grid>
           <form>
-            <Grid sx={{ display: "grid", gap: "10px", margin: "50px 100px" }}>
+            <Grid sx={{ display: "grid", gap: "10px", margin: "50px 20vw" }}>
               <Grid>
                 <h3>
                   {postMonth} - {postDate} - {postYear}
@@ -32,18 +69,25 @@ const AdminBlogPost = (props: any) => {
               </Grid>
               <Grid>
                 <label>Title:</label>
-                <input value={props.selectedBlog[0].title} />
+                <input
+                  className="full-width"
+                  onChange={(e) => setTitle(e.target.value)}
+                  value={title}
+                />
               </Grid>
-              <Grid sx={{ margin: "50px 150px" }}>
+              <Grid>
                 <label>Content:</label>
                 <textarea
                   className="full-width"
-                  value={props.selectedBlog[0].content}
+                  onChange={(e) => setContent(e.target.value)}
+                  value={content}
                   rows={50}
                 />
               </Grid>
-              <Grid sx={{textAlign: "center"}}>
-                <button type="submit">Submit</button>
+              <Grid sx={{ textAlign: "center" }}>
+                <button type="submit" onClick={updateBlog}>
+                  Submit
+                </button>
               </Grid>
             </Grid>
           </form>

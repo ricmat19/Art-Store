@@ -4,7 +4,6 @@ import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faBinoculars,
   faCalendarDay,
   faPencil,
   faPlus,
@@ -130,7 +129,7 @@ const AdminDay = (props: any) => {
                   {view === "events" ? (
                     <Grid container sx={{ width: "100%" }}>
                       <Grid xs={1}></Grid>
-                      <Grid xs={4}>
+                      <Grid xs={5}>
                         <h3 className="align-left">Title</h3>
                       </Grid>
                       <Grid xs={3}>
@@ -158,7 +157,7 @@ const AdminDay = (props: any) => {
                                 />
                                 {console.log(event.id)}
                               </Grid>
-                              <Grid xs={4}>
+                              <Grid xs={5}>
                                 <h4 className="align-left">{event.title}</h4>
                               </Grid>
                               <Grid xs={3}>
@@ -167,15 +166,10 @@ const AdminDay = (props: any) => {
                               <Grid xs={2}>
                                 <h4 className="align-left">{event.spots}</h4>
                               </Grid>
-                              <Grid xs={2} sx={{ alignSelf: "center" }}>
+                              <Grid xs={1} sx={{ alignSelf: "center" }}>
                                 <FontAwesomeIcon
                                   className="day-event-icon"
                                   icon={faPencil}
-                                  onClick={editEvent}
-                                />
-                                <FontAwesomeIcon
-                                  className="day-event-icon"
-                                  icon={faBinoculars}
                                   onClick={editEvent}
                                 />
                               </Grid>

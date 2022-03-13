@@ -64,47 +64,63 @@ router.get("/admin/products/:id", async (req, res) => {
 });
 
 //Create a product
-router.post(
-  "/admin/products",
-  upload.single("images"),
-  async (req, res) => {
-    try {
-      const file = req.file;
-      const result = await uploadFile(file);
-      res.send({ imagePath: `/images/${result.key}` });
-      await unlinkFile(file.path);
-      await db.query(
-        "INSERT INTO products (title, product, imagekey, qty, price, info) values ($1, $2, $3, $4, $5, $6) RETURNING *",
-        [
-          req.body.title,
-          req.body.product,
-          result.key,
-          req.body.quantity,
-          req.body.price,
-          req.body.info,
-        ]
-      );
-    } catch (err) {
-      console.log(err);
-    }
-  }
-);
-
-//Update a products item
-router.put("/admin/products/:id", async (req, res) => {
+router.post("/admin/products", upload.single("images"), async (req, res) => {
   try {
-    const item = await db.query(
-      "UPDATE products SET title=$1, product=$2, qty=$3, price=$4, info=$5 WHERE id=$7",
+    const file = req.file;
+    const result = await uploadFile(file);
+    res.send({ imagePath: `/images/${result.key}` });
+    await unlinkFile(file.path);
+    await db.query(
+      "INSERT INTO products (title, product, imagekey, qty, price, info) values ($1, $2, $3, $4, $5, $6) RETURNING *",
       [
         req.body.title,
-        req.body.type,
+        req.body.product,
+        result.key,
         req.body.quantity,
         req.body.price,
         req.body.info,
-        // req.body.primaryImage,
+      ]
+    );
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//Update a products item
+router.put("/admin/products/:id", upload.single("images"), async (req, res) => {
+  try {
+    let item;
+    // if (req.file) {
+    //   const file = req.file;
+    //   const result = await uploadFile(file);
+    //   res.send({ imagePath: `/images/${result.key}` });
+    //   await unlinkFile(file.path);
+    //   item = await db.query(
+    //     "UPDATE products SET title=$1, product=$2, price=$3, info=$4, qty=$5, imagekey=$6 WHERE id=$7",
+    //     [
+    //       req.body.title,
+    //       req.body.product,
+    //       req.body.price,
+    //       req.body.info,
+    //       req.body.qty,
+    //       result.key,
+    //       req.params.id,
+    //     ]
+    //   );
+    // } else {
+    item = await db.query(
+      "UPDATE products SET title=$1, product=$2, price=$3, info=$4, qty=$5 WHERE id=$6",
+      [
+        req.body.title,
+        req.body.product,
+        req.body.price,
+        req.body.info,
+        req.body.qty,
         req.params.id,
       ]
     );
+    // }
+
     res.status(201).json({
       status: "success",
       results: item.rows.length,

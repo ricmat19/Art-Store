@@ -46,41 +46,32 @@ router.get("/admin/blog/:id", async (req, res) => {
 });
 
 //Create a blog post
-router.post(
-  "/admin/blog",
-  upload.single("images"),
-  async (req, res) => {
-    try {
-      const file = req.file;
-      const result = await uploadFile(file);
-      res.send({ imagePath: `/images/${result.key}` });
-      await unlinkFile(file.path);
-      await db.query(
-        "INSERT INTO blog (title, imagekey, post_date, content) values ($1, $2, $3, $4) RETURNING *",
-        [req.body.title, result.key, new Date(), req.body.content]
-      );
-    } catch (err) {
-      console.log(err);
-    }
-  }
-);
-
-//Update a blog post
-router.put("/admin/blog/:id", async (req, res) => {
+router.post("/admin/blog", upload.single("images"), async (req, res) => {
   try {
     const file = req.file;
     const result = await uploadFile(file);
     res.send({ imagePath: `/images/${result.key}` });
     await unlinkFile(file.path);
+    await db.query(
+      "INSERT INTO blog (title, imagekey, post_date, content) values ($1, $2, $3, $4) RETURNING *",
+      [req.body.title, result.key, new Date(), req.body.content]
+    );
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//Update a blog post
+router.put("/admin/blog/:id", async (req, res) => {
+  try {
+    // const file = req.file;
+    // const result = await uploadFile(file);
+    // res.send({ imagePath: `/images/${result.key}` });
+    // await unlinkFile(file.path);
+
     const post = await db.query(
-      "UPDATE blog SET title=$1, imagekey=$2, post_date=$3, content=$4 WHERE id=$5",
-      [
-        req.body.title,
-        result.key,
-        req.body.postDate,
-        req.body.content,
-        req.body.id,
-      ]
+      "UPDATE blog SET title=$1, content=$2, update_date=$3 WHERE id=$4",
+      [req.body.title, req.body.content, new Date(), req.params.id]
     );
     res.status(201).json({
       status: "success",
