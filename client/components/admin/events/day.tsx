@@ -3,12 +3,10 @@ import { useState } from "react";
 import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCalendarDay,
-  faPencil,
-  faPlus,
-  faTrashCan,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCalendarDay, faPlus } from "@fortawesome/free-solid-svg-icons";
+import AdminEvents from "./events";
+import AdminCreateEvent from "./create";
+import AdminUpdateEvent from "./updateEvent";
 
 const AdminDay = (props: any) => {
   const [view, setView] = useState("events");
@@ -16,6 +14,7 @@ const AdminDay = (props: any) => {
   const [price, setPrice] = useState<string>("");
   const [spots, setSpots] = useState<string>("");
   const [info, setInfo] = useState<string>("");
+  const [editSelectedEvent, setEditSelectedEvent] = useState();
 
   const createEvent = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -121,119 +120,29 @@ const AdminDay = (props: any) => {
                     <FontAwesomeIcon
                       className="day-icon"
                       icon={faPlus}
-                      onClick={() => setView("create-event")}
+                      onClick={() => setView("create")}
                     />
                   </h1>
                 </nav>
                 <Grid>
                   {view === "events" ? (
-                    <Grid container sx={{ width: "100%" }}>
-                      <Grid xs={1}></Grid>
-                      <Grid xs={5}>
-                        <h3 className="align-left">Title</h3>
-                      </Grid>
-                      <Grid xs={3}>
-                        <h3 className="align-left">Price</h3>
-                      </Grid>
-                      <Grid xs={2}>
-                        <h3 className="align-left">Spots</h3>
-                      </Grid>
-                      <hr className="days-events-hr" />
-                      <Grid sx={{ width: "100%" }}>
-                        {props.dateEvents !== undefined ? (
-                          props.dateEvents.map((event: any, index: number) => (
-                            <Grid
-                              key={index}
-                              container
-                              sx={{ gridTemplateColumns: "auto auto auto" }}
-                            >
-                              <Grid xs={1} sx={{ alignSelf: "center" }}>
-                                <FontAwesomeIcon
-                                  className="day-event-icon"
-                                  icon={faTrashCan}
-                                  onClick={() =>
-                                    props.displayDeleteModal(event.id)
-                                  }
-                                />
-                                {console.log(event.id)}
-                              </Grid>
-                              <Grid xs={5}>
-                                <h4 className="align-left">{event.title}</h4>
-                              </Grid>
-                              <Grid xs={3}>
-                                <h4 className="align-left">{event.price}</h4>
-                              </Grid>
-                              <Grid xs={2}>
-                                <h4 className="align-left">{event.spots}</h4>
-                              </Grid>
-                              <Grid xs={1} sx={{ alignSelf: "center" }}>
-                                <FontAwesomeIcon
-                                  className="day-event-icon"
-                                  icon={faPencil}
-                                  onClick={editEvent}
-                                />
-                              </Grid>
-                            </Grid>
-                          ))
-                        ) : (
-                          <Grid></Grid>
-                        )}
-                      </Grid>
-                    </Grid>
+                    <AdminEvents
+                      dateEvents = {props.dateEvents}
+                      displayDeleteModal={props.displayDeleteModal}
+                      editEvent={editEvent}
+                      setEditSelectedEvent={setEditSelectedEvent}
+                      setView={setView}
+                    />
+                  ) : view === "create" ? (
+                    <AdminCreateEvent
+                      setTitle={setTitle}
+                      setPrice={setPrice}
+                      setSpots={setSpots}
+                      setInfo={setInfo}
+                      createEvent={createEvent}
+                    />
                   ) : (
-                    <Grid className="create-event">
-                      <form>
-                        <h1>New Event</h1>
-                        <Grid className="admin-form-field">
-                          <label className="event-form-label">Title</label>
-                          <input
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                            type="text"
-                            name="eventTitle"
-                            className="form-control"
-                            required
-                          />
-                        </Grid>
-                        <Grid className="admin-form-field">
-                          <label className="event-form-label">Price</label>
-                          <input
-                            value={price}
-                            onChange={(e) => setPrice(e.target.value)}
-                            type="number"
-                            name="eventPrice"
-                            className="form-control"
-                            required
-                          />
-                        </Grid>
-                        <Grid className="admin-form-field">
-                          <label className="event-form-label">Spots</label>
-                          <input
-                            value={spots}
-                            onChange={(e) => setSpots(e.target.value)}
-                            type="number"
-                            name="eventSpots"
-                            className="form-control"
-                            required
-                          />
-                        </Grid>
-                        <Grid className="admin-form-field">
-                          <label className="event-form-label">Info</label>
-                          <textarea
-                            value={info}
-                            onChange={(e) => setInfo(e.target.value)}
-                            className="form-control"
-                            required
-                            rows={7}
-                          />
-                        </Grid>
-                        <Grid className="align-center">
-                          <button type="submit" onClick={(e) => createEvent(e)}>
-                            Submit
-                          </button>
-                        </Grid>
-                      </form>
-                    </Grid>
+                    <AdminUpdateEvent editEvent={editSelectedEvent}/>
                   )}
                 </Grid>
               </Grid>

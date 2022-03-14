@@ -1,15 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 import { Grid } from "@mui/material";
 
-const AdminUpdateEvent = (props: any) => {
+const AdminCreateEvent = (props: any) => {
   return (
     <Grid className="create-event">
       <form>
-        <h1>Edit Event</h1>
+        <h1>New Event</h1>
         <Grid className="admin-form-field">
           <label className="event-form-label">Title</label>
           <input
-            value={props.editSelectedEvent.title}
+            value={props.title}
             onChange={(e) => props.setTitle(e.target.value)}
             type="text"
             name="eventTitle"
@@ -20,7 +20,7 @@ const AdminUpdateEvent = (props: any) => {
         <Grid className="admin-form-field">
           <label className="event-form-label">Price</label>
           <input
-            value={props.editSelectedEvent.price}
+            value={props.price}
             onChange={(e) => props.setPrice(e.target.value)}
             type="number"
             name="eventPrice"
@@ -31,7 +31,7 @@ const AdminUpdateEvent = (props: any) => {
         <Grid className="admin-form-field">
           <label className="event-form-label">Spots</label>
           <input
-            value={props.editSelectedEvent.spots}
+            value={props.spots}
             onChange={(e) => props.setSpots(e.target.value)}
             type="number"
             name="eventSpots"
@@ -42,7 +42,7 @@ const AdminUpdateEvent = (props: any) => {
         <Grid className="admin-form-field">
           <label className="event-form-label">Info</label>
           <textarea
-            value={props.editSelectedEvent.info}
+            value={props.info}
             onChange={(e) => props.setInfo(e.target.value)}
             className="form-control"
             required
@@ -59,4 +59,4 @@ const AdminUpdateEvent = (props: any) => {
   );
 };
 
-export default AdminUpdateEvent;
+export default AdminCreateEvent;
