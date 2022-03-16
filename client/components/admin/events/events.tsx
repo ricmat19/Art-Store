@@ -1,12 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 import { Grid } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPencil,
-  faTrashCan,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPencil, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 const AdminEvents = (props: any) => {
+  const displayEditModal = (event: any) => {
+    props.setSelectedEvent(event);
+    props.setView("edit");
+  };
+
   return (
     <Grid container sx={{ width: "100%" }}>
       <Grid xs={1}></Grid>
@@ -48,7 +50,7 @@ const AdminEvents = (props: any) => {
                 <FontAwesomeIcon
                   className="day-event-icon"
                   icon={faPencil}
-                  onClick={() => props.setView("edit")}
+                  onClick={() => displayEditModal(event)}
                 />
               </Grid>
             </Grid>

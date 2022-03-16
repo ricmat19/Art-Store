@@ -14,7 +14,7 @@ const AdminDay = (props: any) => {
   const [price, setPrice] = useState<string>("");
   const [spots, setSpots] = useState<string>("");
   const [info, setInfo] = useState<string>("");
-  const [editSelectedEvent, setEditSelectedEvent] = useState();
+  const [selectedEvent, setSelectedEvent] = useState();
 
   const createEvent = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -42,20 +42,6 @@ const AdminDay = (props: any) => {
         spots,
         info,
       });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const editEvent = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    try {
-      // await IndexAPI.put("/admin/events/id", {
-      //   title,
-      //   price,
-      //   spots,
-      //   info,
-      // });
     } catch (err) {
       console.log(err);
     }
@@ -127,10 +113,9 @@ const AdminDay = (props: any) => {
                 <Grid>
                   {view === "events" ? (
                     <AdminEvents
-                      dateEvents = {props.dateEvents}
+                      dateEvents={props.dateEvents}
                       displayDeleteModal={props.displayDeleteModal}
-                      editEvent={editEvent}
-                      setEditSelectedEvent={setEditSelectedEvent}
+                      setSelectedEvent={setSelectedEvent}
                       setView={setView}
                     />
                   ) : view === "create" ? (
@@ -142,7 +127,9 @@ const AdminDay = (props: any) => {
                       createEvent={createEvent}
                     />
                   ) : (
-                    <AdminUpdateEvent editEvent={editSelectedEvent}/>
+                    <AdminUpdateEvent
+                      selectedEvent={selectedEvent}
+                    />
                   )}
                 </Grid>
               </Grid>

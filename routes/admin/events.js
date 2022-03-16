@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router();
 const db = require("../../db");
 // const multer = require("multer");
-const { uploadFile } = require("../../s3");
-const fs = require("fs");
-const util = require("util");
-const unlinkFile = util.promisify(fs.unlink);
+// const { uploadFile } = require("../../s3");
+// const fs = require("fs");
+// const util = require("util");
+// const unlinkFile = util.promisify(fs.unlink);
 
 // const upload = multer({ dest: "images/" });
 
@@ -97,19 +97,20 @@ router.post(
 //Update an event
 router.put("/admin/events/:id", async (req, res) => {
   try {
-    const file = req.file;
-    const result = await uploadFile(file);
-    res.send({ imagePath: `/images/${result.key}` });
-    await unlinkFile(file.path);
+    // const file = req.file;
+    // const result = await uploadFile(file);
+    // res.send({ imagePath: `/images/${result.key}` });
+    // await unlinkFile(file.path);
     const event = await db.query(
-      "UPDATE events SET title=$1, event_date=$2, imagekey=$3, price=$4, info=$5, spots=$6 WHERE id=$7",
+      "UPDATE events SET title=$1, price=$2, info=$3, spots=$4 WHERE id=$5",
       [
-        req.body.title,
-        req.body.eventDate,
-        result.key,
-        req.body.price,
-        req.body.info,
-        req.body.spots,
+        req.body.selectedTitle,
+        // req.body.eventDate,
+        // result.key,
+        req.body.selectedPrice,
+        req.body.selectedInfo,
+        req.body.selectedSpots,
+        req.params.id
       ]
     );
     res.status(201).json({
