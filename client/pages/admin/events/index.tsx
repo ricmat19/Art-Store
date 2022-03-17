@@ -51,7 +51,7 @@ const AdminEvents = (props: any) => {
     return (
       <Grid>
         <Head>
-          <title>artHouse19-Admin Courses</title>
+          <title>artHouse19-Admin Events</title>
         </Head>
         <AdminDay
           open={dayOpen}

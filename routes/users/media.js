@@ -7,8 +7,7 @@ const youtubeBaseURL = "https://www.googleapis.com/youtube/v3/";
 //Get all blog posts
 router.get("/media", async (req, res) => {
   try {
-    const medias = await db.query(
-      "SELECT * FROM medias");
+    const medias = await db.query("SELECT * FROM medias");
 
     res.status(200).json({
       status: "success",
@@ -25,8 +24,7 @@ router.get("/media", async (req, res) => {
 //Get all blog posts
 router.get("/media/blog", async (req, res) => {
   try {
-    const posts = await db.query(
-      "SELECT * FROM blogs");
+    const posts = await db.query("SELECT * FROM blog");
 
     res.status(200).json({
       status: "success",
@@ -43,7 +41,7 @@ router.get("/media/blog", async (req, res) => {
 //Get a specific media post
 router.get("/media/blog/:id", async (req, res) => {
   try {
-    const post = await db.query(`SELECT * FROM blogs WHERE id=$1`, [
+    const post = await db.query(`SELECT * FROM blog WHERE id=$1`, [
       req.params.id,
     ]);
     res.status(200).json({
@@ -61,14 +59,35 @@ router.get("/media/blog/:id", async (req, res) => {
 //Get all youtube videos in my channel
 router.get("/media/channel", async (req, res) => {
   try {
-    const videos = await axios.get(youtubeBaseURL + "search?key=" + process.env.YOUTUBE_API_KEY + "&channelId=" + "UCaem2HqM0PPak4fvf-uxlnQ")
-    console.log(videos.data)
+    const videos = await axios.get(
+      youtubeBaseURL +
+        "search?key=" +
+        process.env.YOUTUBE_API_KEY +
+        "&channelId=" +
+        "UCaem2HqM0PPak4fvf-uxlnQ"
+    );
+    console.log(videos.data);
     res.status(200).json({
       status: "success",
       results: videos.data,
       data: {
         videos: videos.data,
       },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//Get all youtube videos in my channel
+router.get("/media/podcast", async (req, res) => {
+  try {
+    res.status(200).json({
+      status: "success",
+      // results: videos.data,
+      // data: {
+      //   videos: videos.data,
+      // },
     });
   } catch (err) {
     console.log(err);

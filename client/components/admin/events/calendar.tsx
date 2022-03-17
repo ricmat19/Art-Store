@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-// import IndexAPI from "../../../apis/indexAPI";
 import { IDay } from "../../../interfaces";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -230,7 +229,6 @@ const AdminCalendar = (props: any) => {
           <Grid className="day-name">sat</Grid>
         </Grid>
         <Grid className="title day-boxes">
-          {/* {console.log(days)} */}
           {days.map((day, index) => (
             <Grid key={index}>
               {day.value === "padding" ? (

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-// import IndexAPI from "../../../apis/indexAPI";
+import { useEffect, useState } from "react";
 import { IDay } from "../../../interfaces";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -11,9 +10,10 @@ import { Grid } from "@mui/material";
 const Calendar = (props: any) => {
   const [nav, setNav] = useState(0);
   //   const [setClicked] = useState();
-  const [events] = useState(props.events);
   const [days, setDays] = useState<IDay[]>([]);
   const [dateDisplay, setDateDisplay] = useState("");
+  const [month, setMonth] = useState("");
+  const [year, setYear] = useState("");
   //   const [daysEventsModal, setDaysEventsModal] = useState("modal");
   //   const [selectedDay, setSelectedDay] = useState("");
 
@@ -112,6 +112,8 @@ const Calendar = (props: any) => {
         setDateDisplay(
           `${date.toLocaleDateString("en-us", { month: "long" })} ${year}`
         );
+        setMonth(`${date.toLocaleDateString("en-us", { month: "long" })}`);
+        setYear(year.toString());
 
         const paddingDays = weekdays.indexOf(dateString.split(", ")[0]);
 
@@ -141,20 +143,35 @@ const Calendar = (props: any) => {
 
           const dayString = `${dayStringYear}-${dayStringMonth.toString()}-${dayStringDay.toString()}`;
           const today = `${todayYearString}-${todayMonthString}-${todayDayString}`;
+
+          let hasEvent = false;
+          for (let j = 0; j < props.events.length; j++) {
+            const calendarMonth =
+              new Date(props.events[j].event_date).getMonth() + 1;
+            if (
+              dayMonth === calendarMonth &&
+              dayDay.toString() ===
+                new Date(props.events[j].event_date).getDate().toString() &&
+              dayStringYear ===
+                new Date(props.events[j].event_date).getFullYear().toString()
+            ) {
+              hasEvent = true;
+            }
+          }
           if (i > paddingDays) {
             daysArray.push({
               value: i - paddingDays,
-              event: "test",
-              //   event: eventForDate(dayString),
               date: dayString,
               today: today,
+              hasEvent: hasEvent,
             });
+            hasEvent = false;
           } else {
             daysArray.push({
               value: "padding",
-              event: null,
               date: "",
               today: "",
+              hasEvent: hasEvent,
             });
           }
         }
@@ -164,7 +181,28 @@ const Calendar = (props: any) => {
       }
     };
     fetchData();
-  }, [events, nav]);
+  }, [props.events, nav]);
+
+  const handleDayClicked = async (day: any) => {
+    try {
+      props.handleDayOpen();
+      const selectedDate = `${month} ${day}, ${year}`;
+      props.setDate(selectedDate);
+
+      const daysEvents = [];
+      for (let i = 0; i < props.events.length; i++) {
+        if (
+          new Date(props.events[i].event_date).toString() ===
+          new Date(selectedDate).toString()
+        ) {
+          daysEvents.push(props.events[i]);
+        }
+      }
+      props.setDateEvents(daysEvents);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <Grid>
@@ -192,72 +230,33 @@ const Calendar = (props: any) => {
           <Grid className="day-name">sat</Grid>
         </Grid>
         <Grid className="title day-boxes">
-          {days.map((day, index) => (
+        {days.map((day, index) => (
             <Grid key={index}>
               {day.value === "padding" ? (
                 ""
-              ) : //   ) : day.event.length > 0 && day.date === day.today ? (
-              //   day.event.length > 0 &&
-              day.date === day.today ? (
-                <Grid
-                  className="day-box day-box-task-today"
-                  onClick={() => {
-                    day.value !== "padding";
-                    //   ? setClicked(day.date)
-                    //   : setClicked("");
-                  }}
-                >
+              ) : day.hasEvent ? (
+                <Grid className="day-box event-day">
                   <Grid
-                    // onClick={() => displayEventModal(day)}
                     className="center-num"
+                    onClick={() => handleDayClicked(day.value)}
                   >
                     {day.value}
                   </Grid>
                 </Grid>
               ) : day.date === day.today ? (
-                <Grid
-                  className="day-box day-today"
-                  onClick={() => {
-                    day.value !== "padding";
-                    //   ? setClicked(day.date)
-                    //   : setClicked("");
-                  }}
-                >
+                <Grid className="day-box day-today">
                   <Grid
-                    // onClick={() => displayEventModal(day)}
                     className="center-num"
+                    onClick={() => handleDayClicked(day.value)}
                   >
                     {day.value}
                   </Grid>
                 </Grid>
               ) : (
-                //   ) : day.event.length > 0 ? (
-                //     <Grid
-                //       className="day-box day-box-task"
-                //       onClick={() => {
-                //         day.value !== "padding"
-                //         //   ? setClicked(day.date)
-                //         //   : setClicked("");
-                //       }}
-                //     >
-                //       <Grid
-                //         onClick={() => displayEventModal(day)}
-                //         className="center-num"
-                //       >
-                //         {day.value}
-                //       </Grid>
-                //     </Grid>
-                <Grid
-                  className="day-box"
-                  onClick={() => {
-                    day.value !== "padding";
-                    //   ? setClicked(day.date)
-                    //   : setClicked("");
-                  }}
-                >
+                <Grid className="day-box">
                   <Grid
-                    // onClick={() => displayEventModal(day)}
                     className="center-num"
+                    onClick={() => handleDayClicked(day.value)}
                   >
                     {day.value}
                   </Grid>

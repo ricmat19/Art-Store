@@ -14,8 +14,8 @@ const MediaNav = (props: any) => {
 
   const mediaPageLinks = mediaTypes.map((media: any) => {
     return (
-      <Link passHref key={media} href={`/products/${media}`}>
-        <h1 className="main-title pointer">{media}s</h1>
+      <Link passHref key={media} href={`/media/${media}`}>
+        <h1 className="main-title pointer">{media}</h1>
       </Link>
     );
   });

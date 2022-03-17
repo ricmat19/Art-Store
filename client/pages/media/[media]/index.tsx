@@ -1,5 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import { FC, useState } from "react";
+import { useState } from "react";
+import { useRouter } from "next/router";
+import Head from "next/head";
 import IndexAPI from "../../../apis/indexAPI";
 import FooterC from "../../../components/footer";
 import MediaNav from "../../../components/users/media/mediaNav";
@@ -9,60 +11,60 @@ import PagesNav from "../../../components/users/pagesNav";
 import ReactPaginate from "react-paginate";
 import { Grid } from "@mui/material";
 
-const Media: FC = (props: any) => {
-  const [media] = useState(props.media);
+const Media = (props: any) => {
+  const [media] = useState(props.mediaListing);
   const [pageNumber, setPageNumber] = useState<number>(0);
 
   const itemsPerPage: number = 9;
   const pagesVisted: number = pageNumber * itemsPerPage;
   const pageCount = Math.ceil(media.length / itemsPerPage);
-
   const changePage = ({ selected }: { selected: number }): void => {
     setPageNumber(selected);
   };
 
-  const displayBlog = media
-    .slice(pagesVisted, pagesVisted + itemsPerPage)
-    .map((post: any) => {
-      return (
-        <Grid
-          className="collection-item-div"
-          key={post.id}
-          onClick={() => displayPost(post.id)}
-        >
-          <Grid className="collection-item">
-            <img
-              className="collection-thumbnail"
-              src={post.imageBuffer}
-              alt="collection-thumbnail"
-            />
-          </Grid>
-          <Grid>
-            <Grid>{post.title}</Grid>
-          </Grid>
-        </Grid>
-      );
-    });
+  const router = useRouter();
 
-  //   let navigation = useNavigate();
-
-  const displayPost = async (id: string) => {
+  const displayPostDetails = async (id: string) => {
     try {
-      console.log(id);
-      //   navigation(`/medias/blog/${id}`);
+      router.push(`/media/blog/${id}`);
     } catch (err) {
       console.log(err);
     }
   };
 
+  const displayPost = media
+    .slice(pagesVisted, pagesVisted + itemsPerPage)
+    .map((post: any) => {
+      return (
+        <Grid key={post.id}>
+          <Grid className="pointer" onClick={() => displayPostDetails(post.id)}>
+            <Grid className="image-container">
+              <img
+                className="thumbnail"
+                src={post.imageBuffer}
+                alt="blog-thumbnail"
+              />
+            </Grid>
+            <Grid className="one-column-thumbnail-footer">
+              <h3 className="align-center">{post.title}</h3>
+            </Grid>
+          </Grid>
+        </Grid>
+      );
+    });
+
   return (
     <Grid>
+      <Head>
+        <title>artHouse19-Media</title>
+      </Head>
       <MainNav cartQty={props.cartQty} />
       <PagesNav />
       <Grid className="main-body">
-        <MediaNav medias={media} />
-        <Grid className="collection-menu">{}</Grid>
-        <Grid className="thumbnail-display">{displayBlog}</Grid>
+        <Grid>
+          <MediaNav medias={props.mediaCategories} />
+          <Grid className="gallery-menu">{displayPost}</Grid>
+        </Grid>
         <ReactPaginate
           previousLabel={"prev"}
           nextLabel={"next"}
@@ -83,12 +85,12 @@ const Media: FC = (props: any) => {
 };
 
 export async function getStaticPaths() {
-  const mediaResponse = await IndexAPI.get(`/media`);
+  const mediasResponse = await IndexAPI.get(`/media`);
 
   const media: string[] = [];
-  for (let i = 0; i < mediaResponse.data.data.medias.length; i++) {
-    if (!media.includes(mediaResponse.data.data.medias.type)) {
-      media.push(mediaResponse.data.data.medias[i].type);
+  for (let i = 0; i < mediasResponse.data.data.medias.length; i++) {
+    if (!media.includes(mediasResponse.data.data.medias.type)) {
+      media.push(mediasResponse.data.data.medias[i].type);
     }
   }
 
@@ -104,6 +106,8 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context: { params: { media: any } }) {
   const cartResponse = await IndexAPI.get(`/cart`);
+
+  const mediasResponse = await IndexAPI.get(`/media`);
 
   const media = context.params.media;
   const mediaResponse = await IndexAPI.get(`/media/${media}`);
@@ -126,7 +130,8 @@ export async function getStaticProps(context: { params: { media: any } }) {
   }
   return {
     props: {
-      media: mediaResponse.data.data.posts,
+      mediaCategories: mediasResponse.data.data.medias,
+      mediaListing: mediaResponse.data.data.posts,
       cartQty: cartResponse.data.data.cart.length,
     },
     revalidate: 1,
