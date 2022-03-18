@@ -42,6 +42,18 @@ const ProductDetailsC = (props: any) => {
   //   fetchData();
   // }, []);
 
+  const addToCollection = async (e: { preventDefault: () => void }) => {
+    try {
+      e.preventDefault();
+      const collectionPost = await IndexAPI.post("/collection", {
+        id: id,
+      });
+      setUniqueItem(collectionPost.data.data.uniqueItem);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const addToCart = async (e: { preventDefault: () => void }) => {
     try {
       e.preventDefault();
@@ -115,18 +127,17 @@ const ProductDetailsC = (props: any) => {
               <h1>{product && product.title}</h1>
               <Grid className="info-detail-div">
                 <label>price:</label>
-                <h3 className="top-margin">
-                  ${product && product.price}.00
-                </h3>
+                <h3 className="top-margin">${product && product.price}.00</h3>
               </Grid>
               <Grid className="info-detail-div">
                 <label>info:</label>
-                <h3 className="top-margin">
-                  {product && product.info}
-                </h3>
+                <h3 className="top-margin">{product && product.info}</h3>
               </Grid>
               <hr className="top-margin" />
               <Grid className="align-center">
+                <button onClick={(e) => addToCollection(e)}>
+                  Add To Collection
+                </button>
                 <button onClick={(e) => addToCart(e)}>Add To Cart</button>
               </Grid>
             </Grid>

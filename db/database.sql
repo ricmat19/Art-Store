@@ -20,3 +20,10 @@ CREATE TABLE subjects(
     subject VARCHAR PRIMARY KEY
 );
 
+CREATE TABLE collection(
+    id BIGSERIAL PRIMARY KEY,
+    user BIGINT,
+    group VARCHAR,
+    items BIGINT[]
+);
+

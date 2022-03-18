@@ -1,9 +1,10 @@
+/* eslint-disable @next/next/no-img-element */
 // import { useRouter } from "next/router";
 import IndexAPI from "../../../apis/indexAPI";
 import FooterC from "../../../components/footer";
 import MainNav from "../../../components/users/mainNav";
-import PagesNav from "../../../components/users/pagesNav";
 import { Grid } from "@mui/material";
+import ReactHtmlParser from "react-html-parser";
 
 const BlogPost = (props: any) => {
   // const [title] = useState(props.title);
@@ -14,12 +15,22 @@ const BlogPost = (props: any) => {
   return (
     <Grid>
       <MainNav cartQty={props.cartQty} />
-      <PagesNav />
-      <Grid
-        className="main-body item-details"
-        // dangerouslySetInnerHTML={{__html: props.selectedMedia.content}}
-      ></Grid>
-      <FooterC />
+      <Grid className="main-body">
+        <Grid>
+        <Grid xs={12} sx={{ textAlign: "center"}}>
+            <img
+              className="banner-image"
+              src={props.imageBuffer}
+              alt="banner-image"
+            />
+          </Grid>
+          <h1>{props.selectedMedia.title}</h1>
+          <Grid sx={{margin: "50px 20vw", textAlign: "justify"}}>
+            {ReactHtmlParser(props.selectedMedia.content)}
+          </Grid>
+        </Grid>
+        <FooterC />
+      </Grid>
     </Grid>
   );
 };
