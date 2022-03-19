@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,6 +15,18 @@ const AdminDay = (props: any) => {
   const [spots, setSpots] = useState<string>("");
   const [info, setInfo] = useState<string>("");
   const [selectedEvent, setSelectedEvent] = useState();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setView("events")
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchData();
+  }, [props]);
 
   const createEvent = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -42,6 +54,8 @@ const AdminDay = (props: any) => {
         spots,
         info,
       });
+
+      props.handleClose();
     } catch (err) {
       console.log(err);
     }
@@ -129,6 +143,7 @@ const AdminDay = (props: any) => {
                   ) : (
                     <AdminUpdateEvent
                       selectedEvent={selectedEvent}
+                      handleClose={props.handleClose}
                     />
                   )}
                 </Grid>

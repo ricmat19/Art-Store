@@ -7,6 +7,10 @@ const AdminUpdateEvent = (props: any) => {
   const [selectedTitle, setSelectedTitle] = useState<string>(
     props.selectedEvent.title
   );
+  const [selectedDate, setSelectedDate] = useState<string>(
+    props.selectedEvent.event_date
+  );
+  console.log(props.selectedEvent.event_date);
   const [selectedPrice, setSelectedPrice] = useState<number>(
     parseInt(props.selectedEvent.price.replace("$", ""))
   );
@@ -22,10 +26,13 @@ const AdminUpdateEvent = (props: any) => {
     try {
       await IndexAPI.put(`/admin/events/${props.selectedEvent.id}`, {
         selectedTitle,
+        selectedDate,
         selectedPrice,
         selectedInfo,
         selectedSpots,
       });
+
+      props.handleClose();
     } catch (err) {
       console.log(err);
     }
@@ -42,6 +49,17 @@ const AdminUpdateEvent = (props: any) => {
             onChange={(e) => setSelectedTitle(e.target.value)}
             type="text"
             name="eventTitle"
+            className="form-control"
+            required
+          />
+        </Grid>
+        <Grid className="admin-form-field">
+          <label className="event-form-label">Date</label>
+          <input
+            value={new Date(selectedDate).toLocaleDateString('en-CA')}
+            onChange={(e) => setSelectedDate(e.target.value)}
+            type="date"
+            name="eventDate"
             className="form-control"
             required
           />

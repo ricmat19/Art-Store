@@ -11,6 +11,7 @@ const AdminDeleteEvent = (props: any) => {
           return event.id !== props.deleteEvent[0].id;
         })
       );
+      props.handleClose();
     } catch (err) {
       console.log(err);
     }

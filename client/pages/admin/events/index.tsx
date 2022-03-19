@@ -12,7 +12,7 @@ import { Grid } from "@mui/material";
 const AdminEvents = (props: any) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
 
-  const [events] = useState(props.events);
+  const [events, setEvents] = useState(props.events);
   const [date, setDate] = useState();
   const [dateEvents, setDateEvents] = useState();
   const [deleteEvent, setDeleteEvent] = useState<any>();
@@ -30,6 +30,9 @@ const AdminEvents = (props: any) => {
       try {
         const loginResponse = await IndexAPI.get(`/login`);
         setLoginStatus(loginResponse.data.data.loggedIn);
+
+        const eventsResponse = await IndexAPI.get(`/admin/events`);
+        setEvents(eventsResponse.data.data.events);
       } catch (err) {
         console.log(err);
       }

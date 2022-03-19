@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 // import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import IndexAPI from "../../../../apis/indexAPI";
 import FooterC from "../../../../components/footer";
 import MainNav from "../../../../components/users/mainNav";
@@ -8,12 +8,26 @@ import PagesNav from "../../../../components/users/pagesNav";
 import { Grid } from "@mui/material";
 
 const AdminBlogPost = (props: any) => {
+  const [loginStatus, setLoginStatus] = useState<boolean>(true);
   const [title, setTitle] = useState<string>(props.selectedBlog[0].title);
   const [content, setContent] = useState<string>(props.selectedBlog[0].content);
 
   const postMonth = new Date(props.selectedBlog[0].post_date).getMonth() + 1;
   const postDate = new Date(props.selectedBlog[0].post_date).getDate();
   const postYear = new Date(props.selectedBlog[0].post_date).getFullYear();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const loginResponse = await IndexAPI.get(`/login`);
+        setLoginStatus(loginResponse.data.data.loggedIn);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const updateBlog = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -47,55 +61,60 @@ const AdminBlogPost = (props: any) => {
       console.log(err);
     }
   };
-  return (
-    <Grid>
-      <MainNav cartQty={props.cartQty} />
-      <PagesNav />
-      <Grid container className="main-body">
-        <Grid>
-          <Grid xs={12} sx={{ textAlign: "center" }}>
-            <img
-              className="banner-image"
-              src={props.selectedBlog[0].imageBuffer}
-              alt="banner-image"
-            />
-          </Grid>
-          <form>
-            <Grid sx={{ display: "grid", gap: "10px", margin: "50px 20vw" }}>
-              <Grid>
-                <h3>
-                  {postMonth} - {postDate} - {postYear}
-                </h3>
-              </Grid>
-              <Grid>
-                <label>Title:</label>
-                <input
-                  className="full-width"
-                  onChange={(e) => setTitle(e.target.value)}
-                  value={title}
-                />
-              </Grid>
-              <Grid>
-                <label>Content:</label>
-                <textarea
-                  className="full-width"
-                  onChange={(e) => setContent(e.target.value)}
-                  value={content}
-                  rows={50}
-                />
-              </Grid>
-              <Grid sx={{ textAlign: "center" }}>
-                <button type="submit" onClick={updateBlog}>
-                  Submit
-                </button>
-              </Grid>
+
+  if (loginStatus) {
+    return (
+      <Grid>
+        <MainNav cartQty={props.cartQty} />
+        <PagesNav />
+        <Grid container className="main-body">
+          <Grid>
+            <Grid xs={12} sx={{ textAlign: "center" }}>
+              <img
+                className="banner-image"
+                src={props.selectedBlog[0].imageBuffer}
+                alt="banner-image"
+              />
             </Grid>
-          </form>
+            <form>
+              <Grid sx={{ display: "grid", gap: "10px", margin: "50px 20vw" }}>
+                <Grid>
+                  <h3>
+                    {postMonth} - {postDate} - {postYear}
+                  </h3>
+                </Grid>
+                <Grid>
+                  <label>Title:</label>
+                  <input
+                    className="full-width"
+                    onChange={(e) => setTitle(e.target.value)}
+                    value={title}
+                  />
+                </Grid>
+                <Grid>
+                  <label>Content:</label>
+                  <textarea
+                    className="full-width"
+                    onChange={(e) => setContent(e.target.value)}
+                    value={content}
+                    rows={50}
+                  />
+                </Grid>
+                <Grid sx={{ textAlign: "center" }}>
+                  <button type="submit" onClick={updateBlog}>
+                    Submit
+                  </button>
+                </Grid>
+              </Grid>
+            </form>
+          </Grid>
+          <FooterC />
         </Grid>
-        <FooterC />
       </Grid>
-    </Grid>
-  );
+    );
+  } else {
+    return <Grid></Grid>;
+  }
 };
 
 export async function getStaticPaths() {
