@@ -1,26 +1,41 @@
 import { useState } from "react";
-// import PropTypes from "prop-types";
-// import SignUpModalC from "./signup";
-// import ResetPasswordModalC from "./reset";
 import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 
 const SignIn = (props: any) => {
-  // const [displayReset, setDisplayReset] = useState<boolean>(false);
-  // const [displaySignup, setDisplaySignup] = useState<boolean>(false);
+  const [loginMessage, setLoginMessage] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  // const [firstName] = useState<string>("");
-  // const [lastName] = useState<string>("");
-  // const [passwordCopy] = useState<string>("");
 
   const handleSignin = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
-      await IndexAPI.post("/signin", {
+      const loginStatus = await IndexAPI.post("/signin", {
         email: email,
         password: password,
       });
+      setLoginMessage(loginStatus.data.data.message)
+      props.setLoginStatus(loginStatus.data.data.loginStatus);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const displaySignUp = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    try {
+      props.handleSignInClose();
+      props.handleSignUpOpen();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const displayReset = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    try {
+      props.handleSignInClose();
+      props.handleResetOpen();
     } catch (err) {
       console.log(err);
     }
@@ -31,15 +46,15 @@ const SignIn = (props: any) => {
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
-        open={props.signUpOpen}
-        onClose={props.handleSignUpClose}
+        open={props.signInOpen}
+        onClose={props.handleSignInClose}
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
           timeout: 500,
         }}
       >
-        <Fade in={props.signUpOpen}>
+        <Fade in={props.signInOpen}>
           <Box
             sx={{
               position: "absolute",
@@ -62,7 +77,6 @@ const SignIn = (props: any) => {
                 justifyContent: "flex-end",
                 backgroundColor: "#000",
                 padding: "30px",
-                minHeight: "500px",
               }}
             >
               <Grid
@@ -73,23 +87,6 @@ const SignIn = (props: any) => {
                 }}
               >
                 <Grid>
-                  {/* signup */}
-                  {/* <SignUpModalC
-                  show={displaySignup}
-                  onHide={() => setDisplaySignup(false)}
-                  firstName={firstName}
-                  lastName={lastName}
-                  email={email}
-                  password={password}
-                  passwordCopy={passwordCopy}
-                  /> */}
-
-                  {/* reset */}
-                  {/* <ResetPasswordModalC
-                  show={displayReset}
-                  onHide={() => setDisplayReset(false)}
-                   /> */}
-
                   <Grid>
                     <Grid>
                       <Grid id="contained-modal-title-vcenter"></Grid>
@@ -98,7 +95,7 @@ const SignIn = (props: any) => {
                       <form>
                         <Grid className="sign-content">
                           <h1 className="sign-header">welcome</h1>
-                          <Grid>
+                          <Grid className="grid">
                             <Grid className="modal-input-div">
                               <input
                                 type="email"
@@ -122,19 +119,20 @@ const SignIn = (props: any) => {
                               />
                             </Grid>
                           </Grid>
-                          <Grid>
+                          <Grid><label>{loginMessage}</label></Grid>
+                          <Grid sx={{ textAlign: "center" }}>
                             <button onClick={handleSignin}>sign in</button>
                           </Grid>
-                          <Grid className="sign-footer">
+                          <Grid className="sign-footer two-column-div">
                             <Grid
-                              className="modal-link"
-                              onClick={() => props.setDisplayReset(true)}
+                              className="modal-link align-right pointer"
+                              onClick={displayReset}
                             >
                               <span>forgot password?</span>
                             </Grid>
                             <Grid
-                              className="modal-link"
-                              onClick={() => props.setDisplaySignup(true)}
+                              className="modal-link align-left pointer"
+                              onClick={displaySignUp}
                             >
                               <span>create account</span>
                             </Grid>

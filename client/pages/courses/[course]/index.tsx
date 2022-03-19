@@ -1,9 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import { useEffect, useState } from "react";
-// import { useRouter } from "next/router";
+import { useState } from "react";
 import ReactPaginate from "react-paginate";
 import IndexAPI from "../../../apis/indexAPI";
-// import { ICourse } from "../../../interfaces";
 import MainNav from "../../../components/users/mainNav";
 import PagesNav from "../../../components/users/pagesNav";
 import FooterC from "../../../components/footer";
@@ -11,37 +9,8 @@ import CoursesNav from "../../../components/users/courses/coursesNav";
 import { Grid } from "@mui/material";
 
 const Courses = (props: any) => {
-  // const { course } = useRouter();
   const [courses] = useState([]);
   const [pageNumber, setPageNumber] = useState<number>(0);
-
-  //   let courseResponse;
-  useEffect((): void => {
-    const fetchData = async () => {
-      try {
-        // courseResponse = await IndexAPI.get(`/courses/${subject}`);
-        // for (let i = 0; i < courseResponse.data.data.courses.length; i++) {
-        //   if (courseResponse.data.data.courses[i].imagekey !== null) {
-        //     let imagesResponse = await IndexAPI.get(
-        //       `/images/${courseResponse.data.data.courses[i].imagekey}`,
-        //       {
-        //         responseType: "arraybuffer",
-        //       }
-        //     ).then((response) =>
-        //       Buffer.from(response.data, "binary").toString("base64")
-        //     );
-        //     courseResponse.data.data.courses[
-        //       i
-        //     ].imageBuffer = `data:image/png;base64,${imagesResponse}`;
-        //   }
-        // }
-        // setCourses(courseResponse.data.data.courses);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-  }, []);
 
   const itemsPerPage: number = 9;
   const pagesVisted: number = pageNumber * itemsPerPage;

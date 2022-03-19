@@ -109,10 +109,6 @@ select,
   font-family: "Rajdhani";
 }
 
-input {
-  padding: 5px;
-}
-
 .grid {
   display: grid;
 }
@@ -492,3 +488,4 @@ input {
 @import "events";
 @import "course";
 @import "blog";
+@import "auth";

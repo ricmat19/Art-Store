@@ -8,17 +8,29 @@ const SignUp = (props: any) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [passwordCopy, setPasswordCopy] = useState<string>("");
+  const [error, setError] = useState("");
 
-  const handleSignup = async (e: { preventDefault: () => void }) => {
+  const handleSignUp = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
-      await IndexAPI.post("/signup", {
+      const signup = await IndexAPI.post("/signup", {
         firstName: firstName,
         lastName: lastName,
         email: email,
         password: password,
         passwordCopy: passwordCopy,
       });
+      setError(signup.data.data.error);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const displaySignIn = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    try {
+      props.handleSignUpClose();
+      props.handleSignInOpen();
     } catch (err) {
       console.log(err);
     }
@@ -69,7 +81,6 @@ const SignUp = (props: any) => {
                 justifyContent: "flex-end",
                 backgroundColor: "#000",
                 padding: "30px",
-                minHeight: "500px",
               }}
             >
               <Grid
@@ -82,8 +93,8 @@ const SignUp = (props: any) => {
                 <form>
                   <Grid className="sign-content">
                     <h1 className="sign-header">Create Account</h1>
-                    <Grid className="sign-input">
-                      <Grid className="name-input-div">
+                    <Grid className="grid">
+                      <Grid className="two-column-div">
                         <input
                           type="text"
                           value={props.firstName}
@@ -137,18 +148,23 @@ const SignUp = (props: any) => {
                         />
                       </Grid>
                     </Grid>
-                    <Grid>
+                    <Grid sx={{ textAlign: "center" }}>
+                      <label>{error}</label>
+                    </Grid>
+                    <Grid sx={{ textAlign: "center" }}>
                       <button
-                        onClick={handleSignup}
+                        onClick={handleSignUp}
                         type="submit"
                         className="btn form-button"
                       >
                         Create Account
                       </button>
                     </Grid>
-                    <Grid className="sign-footer">
-                      <Grid className="modal-link">
-                        <span>Already have an account? Sign In</span>
+                    <Grid sx={{ textAlign: "center" }} className="sign-footer">
+                      <Grid className="modal-link pointer">
+                        <span onClick={displaySignIn}>
+                          Already have an account? Sign In
+                        </span>
                       </Grid>
                     </Grid>
                   </Grid>
@@ -159,18 +175,6 @@ const SignUp = (props: any) => {
         </Fade>
       </Modal>
     </Grid>
-
-    // <Grid>
-    //   <Grid>
-    //     <Grid id="contained-modal-title-vcenter"></Grid>
-    //   </Grid>
-    //   <Grid>
-
-    //   </Grid>
-    //   <Grid>
-    //     <Button onClick={props.onHide}>Close</Button>
-    //   </Grid>
-    // </Grid>
   );
 };
 

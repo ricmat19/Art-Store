@@ -1,26 +1,29 @@
-import PropTypes from "prop-types";
-import { Backdrop, Box, Fade, Modal, Grid, Button } from "@mui/material";
-
-// interface IModalState {
-//   show: boolean;
-//   onHide: () => void;
-// }
+import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 
 const Reset = (props: any) => {
+  const displaySignIn = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    try {
+      props.handleResetClose();
+      props.handleSignInOpen();
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <Grid>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
-        open={props.signUpOpen}
-        onClose={props.handleSignUpClose}
+        open={props.resetOpen}
+        onClose={props.handleResetClose}
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
           timeout: 500,
         }}
       >
-        <Fade in={props.signUpOpen}>
+        <Fade in={props.resetOpen}>
           <Box
             sx={{
               position: "absolute",
@@ -43,7 +46,6 @@ const Reset = (props: any) => {
                 justifyContent: "flex-end",
                 backgroundColor: "#000",
                 padding: "30px",
-                minHeight: "500px",
               }}
             >
               <Grid
@@ -66,19 +68,19 @@ const Reset = (props: any) => {
                             <input type="text" placeholder="Email" />
                           </Grid>
                         </Grid>
-                        <Grid>
+                        <Grid className="align-center">
                           <button>Send Reset Link</button>
                         </Grid>
-                        <Grid className="sign-footer">
-                          <Grid className="modal-link">
-                            <span>Back to signin in</span>
+                        <Grid className="sign-footer pointer">
+                          <Grid
+                            className="align-center modal-link"
+                            onClick={displaySignIn}
+                          >
+                            <span>Back to signin</span>
                           </Grid>
                         </Grid>
                       </Grid>
                     </form>
-                  </Grid>
-                  <Grid>
-                    <Button onClick={props.onHide}>Close</Button>
                   </Grid>
                 </Grid>
               </Grid>
@@ -88,10 +90,6 @@ const Reset = (props: any) => {
       </Modal>
     </Grid>
   );
-};
-
-Reset.propTypes = {
-  onHide: PropTypes.string,
 };
 
 export default Reset;

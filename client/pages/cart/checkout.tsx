@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-// import React, { useContext, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import OrderSummaryC from "../../components/users/cart/orderSummary";
 import MainNav from "../../components/users/mainNav";
@@ -15,7 +14,6 @@ import {
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Head from "next/head";
-// import { ICart } from "../../interfaces";
 // import { CartContext } from "../context/CartContext";
 
 const CheckoutC = (props: any) => {
@@ -267,7 +265,7 @@ const CheckoutC = (props: any) => {
             <Grid>
               <h1>payment information</h1>
               <Grid>
-                <Grid>
+                <Grid className="grid">
                   <Grid className="grid payment-input">
                     <CardElement
                       className="card-element"
@@ -316,18 +314,11 @@ export async function getStaticProps() {
       cartResponse.data.data.cart[i].price * cartResponse.data.data.qty[i];
     cartPriceArray.push(itemSummaryPrice);
   }
-  // for (let i = 0; i < cart.length; i++) {
-  //   let itemSummaryPrice = cart[i].price * qty[i];
-  //   cartPriceArray.push(parseInt(itemSummaryPrice));
-  // }
 
   for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
     if (cartResponse.data.data.cart[i].imagekey !== null) {
-      // for (let i = 0; i < cart.length; i++) {
-      //   if (cart[i].imagekey !== null) {
       let imagesResponse = await IndexAPI.get(
         `/images/${cartResponse.data.data.cart[i].imagekey}`,
-        // `/images/${cart[i].imagekey}`,
         {
           responseType: "arraybuffer",
         }
@@ -336,7 +327,6 @@ export async function getStaticProps() {
       );
 
       cartResponse.data.data.cart[i].imageBuffer = imagesResponse;
-      // cart[i].imageBuffer = imagesResponse;
     }
   }
 

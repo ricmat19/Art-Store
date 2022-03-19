@@ -12,17 +12,15 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import SignUp from "./auth/signup";
 import SignIn from "./auth/signin";
+import Reset from "./auth/reset";
 import Notifications from "./menuModals/notification";
 import User from "./menuModals/user";
 import Ellipse from "./menuModals/ellipse";
 
 const MainNav = () => {
-  // const [, setDisplaySignInModal] = useState<boolean>(false);
-  const [signedIn] = useState<boolean>(false);
+  const [loginStatus, setLoginStatus] = useState<boolean>(false);
 
   const router = useRouter();
-
-  // const handleOpen = () => setDisplaySignInModal(true);
 
   const [signUpOpen, setSignUpOpen] = useState(false);
   const handleSignUpOpen = () => setSignUpOpen(true);
@@ -31,6 +29,10 @@ const MainNav = () => {
   const [signInOpen, setSignInOpen] = useState(false);
   const handleSignInOpen = () => setSignInOpen(true);
   const handleSignInClose = () => setSignInOpen(false);
+
+  const [resetOpen, setResetOpen] = useState(false);
+  const handleResetOpen = () => setResetOpen(true);
+  const handleResetClose = () => setResetOpen(false);
 
   const [notificationOpen, setNotificationOpen] = useState(null);
   const [userOpen, setUserOpen] = useState(null);
@@ -60,7 +62,7 @@ const MainNav = () => {
     setEllipseOpen(null);
   };
 
-  if (signedIn) {
+  if (loginStatus) {
     return (
       <header>
         <nav>
@@ -186,10 +188,20 @@ const MainNav = () => {
           <SignUp
             signUpOpen={signUpOpen}
             handleSignUpClose={handleSignUpClose}
+            handleSignInOpen={handleSignInOpen}
           />
           <SignIn
             signInOpen={signInOpen}
-            handleSignUpClose={handleSignInClose}
+            handleSignInClose={handleSignInClose}
+            handleSignUpOpen={handleSignUpOpen}
+            handleResetOpen={handleResetOpen}
+            setLoginStatus={setLoginStatus}
+          />
+          <Reset
+            resetOpen={resetOpen}
+            handleResetClose={handleResetClose}
+            handleSignUpOpen={handleSignUpOpen}
+            handleSignInOpen={handleSignInOpen}
           />
           <Grid container>
             <Grid xs={1} sx={{ textAlign: "center", alignSelf: "center" }}>
@@ -214,7 +226,9 @@ const MainNav = () => {
                 sx={{ justifyContent: "center", alignSelf: "center" }}
               >
                 <a href="/cart">
-                  <FontAwesomeIcon icon={faShoppingCart} />
+                  <h1 className="grid">
+                    <FontAwesomeIcon icon={faShoppingCart} />
+                  </h1>
                 </a>
               </Grid>
               <Grid xs={5} container sx={{ justifyContent: "center" }}>

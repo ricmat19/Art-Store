@@ -5,13 +5,6 @@ import PagesNav from "../../components/users/pagesNav";
 import { Grid } from "@mui/material";
 
 const AdminThreadC = (props: any) => {
-  //   const displayItem = async (event: string) => {
-  //     try {
-  //       navigation(`/admin/events/${event}`);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
 
   return (
     <Grid>

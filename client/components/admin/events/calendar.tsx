@@ -9,69 +9,11 @@ import { Grid } from "@mui/material";
 
 const AdminCalendar = (props: any) => {
   const [nav, setNav] = useState(0);
-  //   const [setClicked] = useState();
   const [days, setDays] = useState<IDay[]>([]);
   const [dateDisplay, setDateDisplay] = useState("");
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
-  //   const [daysEventsModal, setDaysEventsModal] = useState("modal");
-  //   const [selectedDay, setSelectedDay] = useState("");
 
-  //   const daysEventsRef = useRef();
-
-  //Get a list of the days to dos
-  //   const eventForDate = (date: string) => {
-  //     let daysEvents = [];
-  //     for (let i = 0; i < events.length; i++) {
-  //       if (events[i].event_date === date) {
-  //         daysEvents.push(events[i].title);
-  //       }
-  //     }
-  //     return daysEvents;
-  //   };
-
-  //   const displayEventsModal = (day) => {
-  //     if (day.events.length > 0) {
-  //       setDaysEventsModal("modal modal-active");
-  //       setSelectedDay(day.date);
-  //     }
-  //   };
-
-  //   const eventsArray = [];
-  //   useEffect(() => {
-  //     const fetchData = async () => {
-  //       try {
-  //         document.addEventListener("mousedown", (event) => {
-  //           if (dayseventsRef.current !== null) {
-  //             if (!dayseventsRef.current.contains(event.target)) {
-  //               setDaysEventsModal("modal");
-  //             }
-  //           }
-  //         });
-  //       } catch (err) {
-  //         console.log(err);
-  //       }
-  //     };
-  //     fetchData();
-  //   }, []);
-
-  //   useEffect(() => {
-  //     const fetchData = async () => {
-  //       try {
-  //         //Get a list of all of the events in the DB
-  //         const eventsResponse = await IndexAPI.get(`/events`);
-  //         for (let i = 0; i < eventsResponse.data.data.events.length; i++) {
-  //             eventsArray.push(eventsResponse.data.data.events[i]);
-  //         }
-  //         setEvents(eventsArray);
-  //       } catch (err) {
-  //         console.log(err);
-  //       }
-  //     };
-  //     fetchData();
-  //   }, []);
-
-  //Setup Calendar
   useEffect(() => {
     const fetchData = async () => {
       try {

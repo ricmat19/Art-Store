@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import IndexAPI from "../../../apis/indexAPI";
 import { Grid, Menu } from "@mui/material";
-// import { INotification } from "../../../interfaces";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCalendarCheck,

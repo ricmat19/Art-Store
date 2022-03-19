@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import IndexAPI from "../../../apis/indexAPI";
 import AdminMainNav from "../../../components/admin/mainNav";
-import AdminPagesNav from "../../../components/admin//pagesNav";
+import AdminPagesNav from "../../../components/admin/pagesNav";
 import FooterC from "../../../components/footer";
 import Head from "next/head";
 import AdminCalendar from "../../../components/admin/events/calendar";

@@ -1,10 +1,10 @@
 const express = require("express");
-const { validationResult } = require("express-validator");
-const {
-  checkEmail,
-  checkPassword,
-  checkPasswordCopy,
-} = require("../../validator");
+// const { validationResult } = require("express-validator");
+// const {
+//   checkEmail,
+//   checkPassword,
+//   checkPasswordCopy,
+// } = require("../../validator");
 const router = express.Router();
 const db = require("../../db");
 const { signup, signin } = require("../../encryptionHandler");
@@ -12,37 +12,48 @@ const { signup, signin } = require("../../encryptionHandler");
 //User Sign Up
 router.post(
   "/signup",
-  [checkEmail, checkPassword, checkPasswordCopy],
+  // [checkEmail, checkPassword, checkPasswordCopy],
   async (req, res) => {
     try {
-      const errors = validationResult(req);
+      // const errors = validationResult(req);
+      // if (!errors.isEmpty()) {
+      //   return errors;
+      // }
 
-      if (!errors.isEmpty()) {
-        return errors;
-      }
-
-      req.session.email = req.body.email;
+      // req.session.email = req.body.email;
 
       const encryptedPassword = await signup(req.body.password);
+      const checkUser = await db.query("SELECT * FROM users WHERE email=$1", [
+        req.body.email,
+      ]);
 
-      const user = await db.query(
-        "INSERT INTO users (email, password, firstname, lastname) values ($1, $2, $3, $4) RETURNING *",
-        [
-          req.body.email,
-          encryptedPassword.password,
-          req.body.firstname,
-          req.body.lastname,
-        ]
-      );
-
-      res.status(201).json({
-        status: "success",
-        results: user.rows.length,
-        data: {
-          user: user.rows[0],
-          errors: errors,
-        },
-      });
+      let user;
+      if (checkUser.rows.length === 0) {
+        user = await db.query(
+          "INSERT INTO users (email, password, firstname, lastname) values ($1, $2, $3, $4) RETURNING *",
+          [
+            req.body.email,
+            encryptedPassword.password,
+            req.body.firstName,
+            req.body.lastName,
+          ]
+        );
+        res.status(201).json({
+          status: "success",
+          results: user.rows.length,
+          data: {
+            user: user.rows[0],
+            // errors: errors,
+          },
+        });
+      } else {
+        res.status(201).json({
+          status: "success",
+          data: {
+            error: "User already exists",
+          },
+        });
+      }
     } catch (err) {
       console.log(err);
     }
@@ -50,44 +61,51 @@ router.post(
 );
 
 //User Sign In
-router.post("/signin", [checkEmail, checkPassword], async (req, res) => {
-  try {
-    const user = await db.query("SELECT password FROM users WHERE email=$1", [
-      req.body.email,
-    ]);
+router.post(
+  "/signin",
+  // [checkEmail, checkPassword],
+  async (req, res) => {
+    try {
+      const user = await db.query("SELECT password FROM users WHERE email=$1", [
+        req.body.email,
+      ]);
 
-    const storedPassword = user.rows[0].password;
-    const validPassword = await signin(storedPassword, req.body.password);
+      const storedPassword = user.rows[0].password;
+      const validPassword = await signin(storedPassword, req.body.password);
 
-    if (!user) {
-      res.status(404).json({
-        status: "failure",
-        data: {
-          user: "No user found!",
-        },
-      });
-    } else if (!validPassword) {
-      res.status(404).json({
-        status: "failure",
-        data: {
-          user: "Password Incorrect!",
-        },
-      });
-    } else {
-      req.session.email = req.body.email;
+      if (!user) {
+        res.status(404).json({
+          status: "failure",
+          data: {
+            message: "No user found!",
+            loginStatus: false
+          },
+        });
+      } else if (!validPassword) {
+        res.status(404).json({
+          status: "failure",
+          data: {
+            message: "Password Incorrect!",
+            loginStatus: false
+          },
+        });
+      } else {
+        req.session.email = req.body.email;
 
-      res.status(201).json({
-        status: "success",
-        results: user.rows.length,
-        data: {
-          user: user.rows[0],
-        },
-      });
+        res.status(201).json({
+          status: "success",
+          results: user.rows.length,
+          data: {
+            message: "",
+            loginStatus: true
+          },
+        });
+      }
+    } catch (err) {
+      console.log(err);
     }
-  } catch (err) {
-    console.log(err);
   }
-});
+);
 
 //User Sign Out
 router.get("/signout", async (req, res) => {
