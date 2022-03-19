@@ -11,6 +11,7 @@ const AdminDeleteBlog = (props: any) => {
           return blog.id !== props.deleteBlog[0].id;
         })
       );
+      props.handleClose();
     } catch (err) {
       console.log(err);
     }

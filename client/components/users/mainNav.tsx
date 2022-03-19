@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { Grid, Menu } from "@mui/material";
+import { Grid } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBell,
@@ -10,17 +10,27 @@ import {
   faUserCircle,
   faEllipsisV,
 } from "@fortawesome/free-solid-svg-icons";
-import NotificationModal from "./modals/notificationModal";
-import UserModal from "./modals/userModal";
-import EllipseModal from "./modals/ellipseModal";
+import SignUp from "./auth/signup";
+import SignIn from "./auth/signin";
+import Notifications from "./menuModals/notification";
+import User from "./menuModals/user";
+import Ellipse from "./menuModals/ellipse";
 
 const MainNav = () => {
-  const [, setDisplaySignInModal] = useState<boolean>(false);
-  const [signedIn] = useState<boolean>(true);
+  // const [, setDisplaySignInModal] = useState<boolean>(false);
+  const [signedIn] = useState<boolean>(false);
 
   const router = useRouter();
 
-  const handleOpen = () => setDisplaySignInModal(true);
+  // const handleOpen = () => setDisplaySignInModal(true);
+
+  const [signUpOpen, setSignUpOpen] = useState(false);
+  const handleSignUpOpen = () => setSignUpOpen(true);
+  const handleSignUpClose = () => setSignUpOpen(false);
+
+  const [signInOpen, setSignInOpen] = useState(false);
+  const handleSignInOpen = () => setSignInOpen(true);
+  const handleSignInClose = () => setSignInOpen(false);
 
   const [notificationOpen, setNotificationOpen] = useState(null);
   const [userOpen, setUserOpen] = useState(null);
@@ -54,121 +64,21 @@ const MainNav = () => {
     return (
       <header>
         <nav>
-          {/* Notification menu modal */}
-          <Menu
-            anchorEl={notificationOpen}
-            open={openNotificaition}
-            onClose={handleNotificationClose}
-            onClick={handleNotificationClose}
-            PaperProps={{
-              elevation: 0,
-              sx: {
-                overflow: "visible",
-                filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-                mt: 1.5,
-                "& .MuiAvatar-root": {
-                  width: 32,
-                  height: 32,
-                  ml: -0.5,
-                  mr: 1,
-                },
-                "&:before": {
-                  content: '""',
-                  display: "block",
-                  position: "absolute",
-                  top: 0,
-                  right: 14,
-                  width: 10,
-                  height: 10,
-                  bgcolor: "background.paper",
-                  transform: "translateY(-50%) rotate(45deg)",
-                  zIndex: 0,
-                },
-              },
-            }}
-            transformOrigin={{ horizontal: "right", vertical: "top" }}
-            anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-          >
-            <NotificationModal />
-          </Menu>
-
-          {/* User menu modal */}
-          <Menu
-            anchorEl={userOpen}
-            open={openUser}
-            onClose={handleUserClose}
-            onClick={handleUserClose}
-            PaperProps={{
-              elevation: 0,
-              sx: {
-                overflow: "visible",
-                filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-                mt: 1.5,
-                "& .MuiAvatar-root": {
-                  width: 32,
-                  height: 32,
-                  ml: -0.5,
-                  mr: 1,
-                },
-                "&:before": {
-                  content: '""',
-                  display: "block",
-                  position: "absolute",
-                  top: 0,
-                  right: 14,
-                  width: 10,
-                  height: 10,
-                  bgcolor: "background.paper",
-                  transform: "translateY(-50%) rotate(45deg)",
-                  zIndex: 0,
-                },
-              },
-            }}
-            transformOrigin={{ horizontal: "right", vertical: "top" }}
-            anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-          >
-            <UserModal />
-          </Menu>
-
-          {/* Ellipse menu modal */}
-          <Menu
-            anchorEl={ellipseOpen}
-            open={openEllipse}
-            onClose={handleEllipseClose}
-            onClick={handleEllipseClose}
-            PaperProps={{
-              elevation: 0,
-              sx: {
-                overflow: "visible",
-                filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-                mt: 1.5,
-                "& .MuiAvatar-root": {
-                  width: 32,
-                  height: 32,
-                  ml: -0.5,
-                  mr: 1,
-                },
-                "&:before": {
-                  content: '""',
-                  display: "block",
-                  position: "absolute",
-                  top: 0,
-                  right: 14,
-                  width: 10,
-                  height: 10,
-                  bgcolor: "background.paper",
-                  transform: "translateY(-50%) rotate(45deg)",
-                  zIndex: 0,
-                },
-              },
-            }}
-            transformOrigin={{ horizontal: "right", vertical: "top" }}
-            anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-          >
-            <EllipseModal />
-          </Menu>
-
-          {/* Account Navigation */}
+          <Notifications
+            notificationOpen={notificationOpen}
+            openNotificaition={openNotificaition}
+            handleNotificationClose={handleNotificationClose}
+          />
+          <User
+            userOpen={userOpen}
+            openUser={openUser}
+            handleUserClose={handleUserClose}
+          />
+          <Ellipse
+            ellipseOpen={ellipseOpen}
+            openEllipse={openEllipse}
+            handleEllipseClose={handleEllipseClose}
+          />
           <Grid
             xs={12}
             sx={{
@@ -273,6 +183,14 @@ const MainNav = () => {
     return (
       <header>
         <nav>
+          <SignUp
+            signUpOpen={signUpOpen}
+            handleSignUpClose={handleSignUpClose}
+          />
+          <SignIn
+            signInOpen={signInOpen}
+            handleSignUpClose={handleSignInClose}
+          />
           <Grid container>
             <Grid xs={1} sx={{ textAlign: "center", alignSelf: "center" }}>
               <h1>logo</h1>
@@ -300,12 +218,12 @@ const MainNav = () => {
                 </a>
               </Grid>
               <Grid xs={5} container sx={{ justifyContent: "center" }}>
-                <h2 className="pointer" onClick={() => handleOpen}>
+                <h2 className="pointer" onClick={() => handleSignUpOpen()}>
                   sign up
                 </h2>
               </Grid>
               <Grid xs={5} container sx={{ justifyContent: "center" }}>
-                <h2 className="pointer" onClick={() => handleOpen}>
+                <h2 className="pointer" onClick={() => handleSignInOpen()}>
                   sign in
                 </h2>
               </Grid>

@@ -5,12 +5,15 @@ import FooterC from "../../../../components/footer";
 import MainNav from "../../../../components/users/mainNav";
 import PagesNav from "../../../../components/users/pagesNav";
 import { Grid } from "@mui/material";
+import { useRouter } from "next/router";
 
 const AdminAddBlogPost = (props: any) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
   const [title, setTitle] = useState<string>("");
   const [image, setImage] = useState<File>();
   const [content, setContent] = useState<string>("");
+
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,6 +44,7 @@ const AdminAddBlogPost = (props: any) => {
           .then((res) => console.log(res))
           .catch((err) => console.log(err));
       }
+      router.push("/admin/media/blog");
     } catch (err) {
       console.log(err);
     }

@@ -63,6 +63,7 @@ const AdminUpdateProduct = (props: any) => {
         )
           .then((res) => console.log(res))
           .catch((err) => console.log(err));
+        props.handleClose();
       } else {
         await IndexAPI.put(`/admin/products/${props.updateProduct.id}`, {
           title,
@@ -71,6 +72,7 @@ const AdminUpdateProduct = (props: any) => {
           info,
           qty,
         });
+        props.handleClose();
       }
     } catch (err) {
       console.log(err);

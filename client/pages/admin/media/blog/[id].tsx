@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-// import { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import IndexAPI from "../../../../apis/indexAPI";
 import FooterC from "../../../../components/footer";
@@ -11,6 +11,8 @@ const AdminBlogPost = (props: any) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
   const [title, setTitle] = useState<string>(props.selectedBlog[0].title);
   const [content, setContent] = useState<string>(props.selectedBlog[0].content);
+
+  const router = useRouter();
 
   const postMonth = new Date(props.selectedBlog[0].post_date).getMonth() + 1;
   const postDate = new Date(props.selectedBlog[0].post_date).getDate();
@@ -56,6 +58,7 @@ const AdminBlogPost = (props: any) => {
         title,
         content,
       });
+      router.push("/admin/media/blog");
       // }
     } catch (err) {
       console.log(err);

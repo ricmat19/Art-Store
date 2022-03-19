@@ -42,6 +42,8 @@ const AdminAddProduct = (props: any) => {
         })
           .then((res) => console.log(res))
           .catch((err) => console.log(err));
+
+          props.handleClose();
       }
     } catch (err) {
       console.log(err);

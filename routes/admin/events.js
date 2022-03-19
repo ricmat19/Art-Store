@@ -102,15 +102,15 @@ router.put("/admin/events/:id", async (req, res) => {
     // res.send({ imagePath: `/images/${result.key}` });
     // await unlinkFile(file.path);
     const event = await db.query(
-      "UPDATE events SET title=$1, price=$2, info=$3, spots=$4 WHERE id=$5",
+      "UPDATE events SET title=$1, event_date=$2, price=$3, info=$4, spots=$5 WHERE id=$6",
       [
         req.body.selectedTitle,
-        // req.body.eventDate,
-        // result.key,
+        req.body.selectedDate,
         req.body.selectedPrice,
         req.body.selectedInfo,
         req.body.selectedSpots,
-        req.params.id
+        // result.key,
+        req.params.id,
       ]
     );
     res.status(201).json({

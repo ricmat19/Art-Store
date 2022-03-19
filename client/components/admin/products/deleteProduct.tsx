@@ -7,6 +7,7 @@ const AdminDeleteProduct = (props: any) => {
     e.preventDefault();
     try {
       await IndexAPI.delete(`/admin/products/${props.deleteProduct.id}`);
+      props.handleClose();
     } catch (err) {
       console.log(err);
     }
