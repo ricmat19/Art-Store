@@ -7,7 +7,7 @@ import Footer from "../../../../components/footer";
 import Head from "next/head";
 import { Grid, Button } from "@mui/material";
 
-const AdminCreateCourse = () => {
+const AdminCreateCurriculum = () => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
 
   const [newSection, setNewSection] = useState<string>("");
@@ -128,4 +128,4 @@ const AdminCreateCourse = () => {
   }
 };
 
-export default AdminCreateCourse;
+export default AdminCreateCurriculum;

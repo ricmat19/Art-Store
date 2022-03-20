@@ -8,14 +8,18 @@ import Head from "next/head";
 import { Grid, Select, MenuItem } from "@mui/material";
 import { useRouter } from "next/router";
 
-const AdminCourse = () => {
+const AdminCourse = (props: any) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
 
-  const [title, setTitle] = useState<string>("");
-  const [image, setImage] = useState<File>();
-  const [subject, setSubject] = useState<string>("");
-  const [price, setPrice] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
+  const [title, setTitle] = useState<string>(props.selectedCourse[0].title);
+  // const [image] = useState<File>();
+  const [subject, setSubject] = useState<string>(
+    props.selectedCourse[0].subject
+  );
+  const [price, setPrice] = useState<string>(props.selectedCourse[0].price);
+  const [description, setDescription] = useState<string>(
+    props.selectedCourse[0].description
+  );
 
   const router = useRouter();
 
@@ -32,42 +36,58 @@ const AdminCourse = () => {
     fetchData();
   }, []);
 
-  const createCourse = async (e: { preventDefault: () => void }) => {
+  const updateCourse = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
-      if (image) {
-        let formData = new FormData();
+      // if (image) {
+      //   let formData = new FormData();
+      //   console.log(formData)
+        // formData.append("title", title);
+        // formData.append("subject", subject);
+        // formData.append("images", image);
+        // formData.append("description", description);
+        // formData.append("price", price);
 
-        formData.append("title", title);
-        formData.append("subject", subject);
-        formData.append("images", image);
-        formData.append("description", description);
-        formData.append("price", price);
-
-        await IndexAPI.post("/admin/courses", formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        })
-          .then((res) => {
-            console.log(res);
-            router.push("/admin/courses/create/curriculum");
-          })
-          .catch((err) => console.log(err));
-      }
+        // await IndexAPI.put("/admin/courses", formData, {
+        //   headers: { "Content-Type": "multipart/form-data" },
+        // })
+        //   .then((res) => {
+        //     console.log(res);
+        //     router.push("/admin/courses/create/curriculum");
+        //   })
+        //   .catch((err) => console.log(err));
+      // }else{
+        await IndexAPI.put(`/admin/courses/${props.selectedCourse[0].id}`, {
+          title,
+          subject,
+          description,
+          price
+        });
+        router.push(`/admin/courses/${props.selectedCourse[0].subject}/${props.selectedCourse[0].id}/curriculum`);
+      // }
     } catch (err) {
       console.log(err);
     }
   };
 
   let displayedImage;
-  if (image !== undefined) {
-    displayedImage = (
-      <img
-        className="big-image"
-        src={URL.createObjectURL(image)}
-        alt="big image"
-      />
-    );
-  }
+  // if (image !== undefined) {
+  //   displayedImage = (
+  //     <img
+  //       className="big-image"
+  //       src={URL.createObjectURL(image)}
+  //       alt="big image"
+  //     />
+  //   );
+  // } else {
+  displayedImage = (
+    <img
+      className="big-image"
+      src={props.selectedCourse[0].imageBuffer}
+      alt="big image"
+    />
+  );
+  // }
 
   const handleChange = (event: any) => {
     setSubject(event.target.value);
@@ -120,7 +140,7 @@ const AdminCourse = () => {
                       required
                     />
                   </Grid>
-                  <Grid className="admin-form-field">
+                  {/* <Grid className="admin-form-field">
                     <label className="admin-label">Image:</label>
                     <input
                       type="file"
@@ -129,7 +149,7 @@ const AdminCourse = () => {
                       className="form-control file-input"
                       required
                     />
-                  </Grid>
+                  </Grid> */}
                   <Grid className="admin-form-field">
                     <Grid>
                       <label className="admin-label">Subject:</label>
@@ -177,11 +197,11 @@ const AdminCourse = () => {
                     <Grid className="text-center">
                       <Grid>
                         <button
-                          onClick={createCourse}
+                          onClick={updateCourse}
                           type="submit"
                           className="btn form-button"
                         >
-                          CreateCourse
+                          Update Course
                         </button>
                       </Grid>
                     </Grid>
@@ -205,18 +225,21 @@ export async function getStaticPaths() {
     fallback: false,
     paths: coursesResponse.data.data.courses.map((course: any) => ({
       params: {
-        id: course.id,
+        subject: course.subject,
+        course: course.id,
       },
     })),
   };
 }
 
 export async function getStaticProps(context: {
-  params: { id: any };
+  params: { subject: any; course: any };
 }) {
-  const id = context.params.id;
-  const courseResponse = await IndexAPI.get(`/admin/courses/${id}`);
-  console.log(courseResponse.data.data.course);
+  const subject = context.params.subject;
+  const course = context.params.course;
+  const courseResponse = await IndexAPI.get(
+    `/admin/courses/${subject}/${course}`
+  );
 
   for (let i = 0; i < courseResponse.data.data.course.length; i++) {
     if (courseResponse.data.data.course[i].imagekey !== null) {

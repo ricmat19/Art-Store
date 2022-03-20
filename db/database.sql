@@ -28,10 +28,17 @@ CREATE TABLE collection(
 );
 
 
-CREATE TABLE courseContent(
+CREATE TABLE courseSections(
     id BIGSERIAL,
     section VARCHAR,
-    lecture BIGINT,
     CONSTRAINT fk_id FOREIGN KEY(id) REFERENCES courses(id),
+    PRIMARY KEY (id, section)
+);
+
+CREATE TABLE courseLectures(
+    id BIGSERIAL,
+    section VARCHAR,
+    lecture VARCHAR,
+    CONSTRAINT fk_id FOREIGN KEY(id, section) REFERENCES courseSections(id, section),
     PRIMARY KEY (id, section, lecture)
 );
