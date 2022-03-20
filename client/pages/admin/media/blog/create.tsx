@@ -73,7 +73,7 @@ const AdminAddBlogPost = (props: any) => {
             </Grid>
             <form>
               <Grid sx={{ display: "grid", gap: "10px", margin: "50px 20vw" }}>
-                <Grid>
+                <Grid className="admin-form-field">
                   <label>Title:</label>
                   <input
                     className="full-width"

@@ -27,3 +27,11 @@ CREATE TABLE collection(
     items BIGINT[]
 );
 
+
+CREATE TABLE courseContent(
+    id BIGSERIAL,
+    section VARCHAR,
+    lecture BIGINT,
+    CONSTRAINT fk_id FOREIGN KEY(id) REFERENCES courses(id),
+    PRIMARY KEY (id, section, lecture)
+);

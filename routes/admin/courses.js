@@ -86,16 +86,16 @@ router.post("/admin/courses", upload.single("images"), async (req, res) => {
   try {
     const file = req.file;
     const result = await uploadFile(file);
+    console.log(result)
     res.send({ imagePath: `/images/${result.key}` });
     await unlinkFile(file.path);
     await db.query(
-      "INSERT INTO courses (title, subject, imagekey, content, info, price) values ($1, $2, $3, $4, $5, $6) RETURNING *",
+      "INSERT INTO courses (title, subject, imagekey, description, price) values ($1, $2, $3, $4, $5) RETURNING *",
       [
         req.body.title,
         req.body.subject,
         result.key,
-        req.body.content,
-        req.body.info,
+        req.body.description,
         req.body.price,
       ]
     );
