@@ -6,13 +6,17 @@ import AdminPagesNav from "../../../../../components/admin/pagesNav";
 import Footer from "../../../../../components/footer";
 import Head from "next/head";
 import { Grid, Button } from "@mui/material";
+import { useRouter } from "next/router";
 
-const AdminCourseCurriculum = () => {
+const AdminCourseCurriculum = (props: any) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
 
-  const [newSection, setNewSection] = useState<string>("");
-  const [sections, setSections] = useState<string[]>([]);
+  const [section, setSection] = useState<string>("");
   const [newLecture] = useState<string>("");
+  const [courseSections] = useState<string[]>(props.courseSections);
+  //   const [lectures] = useState<string[]>(props.courseLectures);
+
+  const { query } = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,9 +34,9 @@ const AdminCourseCurriculum = () => {
   const createSection = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
-      const createdSections: string[] = sections;
-      createdSections.push(newSection);
-      setSections(createdSections);
+      await IndexAPI.post(`/admin/courses/${query.course}/section`, {
+        section,
+      });
     } catch (err) {
       console.log(err);
     }
@@ -76,8 +80,8 @@ const AdminCourseCurriculum = () => {
                     <Grid className="admin-section-form-field">
                       <label>Section:</label>
                       <input
-                        value={newSection}
-                        onChange={(e) => setNewSection(e.target.value)}
+                        value={section}
+                        onChange={(e) => setSection(e.target.value)}
                         type="text"
                         name="section"
                         required
@@ -102,11 +106,17 @@ const AdminCourseCurriculum = () => {
                 </Grid>
                 <Grid>
                   <Grid sx={{ border: "white 2px solid", padding: "30px" }}>
-                    {sections.map((section: any) => {
+                    {courseSections.map((section: any, index: any) => {
                       return (
-                        <Grid key={section}>
+                        <Grid
+                          sx={{ border: "white 2px solid", padding: "30px" }}
+                          className="two-column-div"
+                          key={index}
+                        >
                           <Grid>
-                            <h2 className="align-left">{section}</h2>
+                            <h2 className="align-left">
+                              Lecture {index + 1}: {section.section}
+                            </h2>
                           </Grid>
                           <Grid className="plus-icon" onClick={createLecture}>
                             Create Lecture
@@ -128,7 +138,41 @@ const AdminCourseCurriculum = () => {
   }
 };
 
+export async function getStaticPaths() {
+  const coursesResponse = await IndexAPI.get(`/admin/courses`);
+  return {
+    fallback: false,
+    paths: coursesResponse.data.data.courses.map((course: any) => ({
+      params: {
+        subject: course.subject,
+        course: course.id,
+      },
+    })),
+  };
+}
+
+export async function getStaticProps(context: {
+  params: { subject: any; course: any };
+}) {
+  const subject = context.params.subject;
+  console.log(subject);
+  const course = context.params.course;
+  const courseSections = await IndexAPI.get(
+    `/admin/courses/sections/${course}`
+  );
+
+  //   const courseLectures = await IndexAPI.get(
+  //     `/admin/courses/${course}/lectures`
+  //   );
+  //   console.log(courseLectures);
+
+  return {
+    props: {
+      courseSections: courseSections.data.data.sections,
+      //   courseLectures: courseLectures.data.data.course,
+    },
+    revalidate: 1,
+  };
+}
+
 export default AdminCourseCurriculum;
-
-
-// /admin/courses/${props.selectedCourse[0].subject}/${props.selectedCourse[0].id}/curriculum

@@ -43,8 +43,27 @@ router.get("/admin/subjects", async (req, res) => {
   }
 });
 
+//Get a course
+router.get("/admin/courses/course/:id", async (req, res) => {
+  try {
+    const course = await db.query("SELECT * FROM courses WHERE id=$1", [
+      req.params.id,
+    ]);
+
+    res.status(200).json({
+      status: "success",
+      results: course.rows.length,
+      data: {
+        course: course.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 //Get a course subject
-router.get("/admin/courses/:subject", async (req, res) => {
+router.get("/admin/courses/subject/:subject", async (req, res) => {
   try {
     const subject = await db.query("SELECT * FROM courses WHERE subject=$1", [
       req.params.subject,
@@ -62,18 +81,39 @@ router.get("/admin/courses/:subject", async (req, res) => {
   }
 });
 
-//Get a course
-router.get("/admin/courses/:subject/:id", async (req, res) => {
+//Get a course's sections
+router.get("/admin/courses/sections/:id", async (req, res) => {
   try {
-    const course = await db.query("SELECT * FROM courses WHERE id=$1", [
-      req.params.id,
-    ]);
+    const courseSections = await db.query(
+      "SELECT * FROM courseSections WHERE id=$1",
+      [req.params.id]
+    );
 
     res.status(200).json({
       status: "success",
-      results: course.rows.length,
+      results: courseSections.rows.length,
       data: {
-        course: course.rows,
+        sections: courseSections.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//Get a course's lectures
+router.get("/admin/courses/lectures/:id", async (req, res) => {
+  try {
+    const courseLectures = await db.query(
+      "SELECT * FROM courseLectures WHERE id=$1",
+      [req.params.id]
+    );
+
+    res.status(200).json({
+      status: "success",
+      results: courseLectures.rows.length,
+      data: {
+        courseLectures: courseLectures.rows,
       },
     });
   } catch (err) {
@@ -174,11 +214,7 @@ router.put("/admin/courses/:id/:section", async (req, res) => {
   try {
     const course = await db.query(
       "UPDATE courseSections SET section=$1 WHERE id=$2 AND section=$3",
-      [
-        req.body.section,
-        req.params.id,
-        req.params.section,
-      ]
+      [req.body.section, req.params.id, req.params.section]
     );
 
     res.status(201).json({
@@ -218,12 +254,7 @@ router.put("/admin/courses/:id/:section/:lecture", async (req, res) => {
   try {
     const course = await db.query(
       "UPDATE courseLectures SET lecture=$1 WHERE id=$2 AND section=$3 AND lecture=$4",
-      [
-        req.body.lecture,
-        req.params.id,
-        req.params.section,
-        req.params.lecture,
-      ]
+      [req.body.lecture, req.params.id, req.params.section, req.params.lecture]
     );
 
     res.status(201).json({

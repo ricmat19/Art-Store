@@ -42,28 +42,37 @@ const AdminCourse = (props: any) => {
       // if (image) {
       //   let formData = new FormData();
       //   console.log(formData)
-        // formData.append("title", title);
-        // formData.append("subject", subject);
-        // formData.append("images", image);
-        // formData.append("description", description);
-        // formData.append("price", price);
+      // formData.append("title", title);
+      // formData.append("subject", subject);
+      // formData.append("images", image);
+      // formData.append("description", description);
+      // formData.append("price", price);
 
-        // await IndexAPI.put("/admin/courses", formData, {
-        //   headers: { "Content-Type": "multipart/form-data" },
-        // })
-        //   .then((res) => {
-        //     console.log(res);
-        //     router.push("/admin/courses/create/curriculum");
-        //   })
-        //   .catch((err) => console.log(err));
+      // await IndexAPI.put("/admin/courses", formData, {
+      //   headers: { "Content-Type": "multipart/form-data" },
+      // })
+      //   .then((res) => {
+      //     console.log(res);
+      //     router.push("/admin/courses/create/curriculum");
+      //   })
+      //   .catch((err) => console.log(err));
       // }else{
-        await IndexAPI.put(`/admin/courses/${props.selectedCourse[0].id}`, {
-          title,
-          subject,
-          description,
-          price
-        });
-        router.push(`/admin/courses/${props.selectedCourse[0].subject}/${props.selectedCourse[0].id}/curriculum`);
+      await IndexAPI.put(`/admin/courses/subject/${props.selectedCourse[0].id}`, {
+        title,
+        subject,
+        description,
+        price,
+      });
+      router.push(
+        {
+          pathname: `/admin/courses/[subject]/[course]/curriculum`,
+          query: {
+            subject: props.selectedCourse[0].subject,
+            course: props.selectedCourse[0].id,
+          },
+        },
+        `/admin/courses/${props.selectedCourse[0].subject}/${props.selectedCourse[0].id}/curriculum`
+      );
       // }
     } catch (err) {
       console.log(err);
@@ -235,10 +244,9 @@ export async function getStaticPaths() {
 export async function getStaticProps(context: {
   params: { subject: any; course: any };
 }) {
-  const subject = context.params.subject;
   const course = context.params.course;
   const courseResponse = await IndexAPI.get(
-    `/admin/courses/${subject}/${course}`
+    `/admin/courses/course/${course}`
   );
 
   for (let i = 0; i < courseResponse.data.data.course.length; i++) {
