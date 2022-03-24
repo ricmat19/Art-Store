@@ -113,7 +113,7 @@ router.get("/admin/courses/lectures/:id", async (req, res) => {
       status: "success",
       results: courseLectures.rows.length,
       data: {
-        courseLectures: courseLectures.rows,
+        lectures: courseLectures.rows,
       },
     });
   } catch (err) {
@@ -143,6 +143,65 @@ router.post("/admin/courses", upload.single("images"), async (req, res) => {
     console.log(err);
   }
 });
+
+//Create a course section
+router.post("/admin/courses/section/:id", async (req, res) => {
+  try {
+    const courseSection = await db.query(
+      "INSERT INTO courseSections (id, section) values ($1, $2) RETURNING *",
+      [req.params.id, req.body.section]
+    );
+
+    res.status(201).json({
+      status: "success",
+      results: courseSection.rows.length,
+      data: {
+        course: courseSection.rows[0],
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//Create a course lecture
+router.post("/admin/courses/lecture/:id", async (req, res) => {
+  try {
+    const courseLecture = await db.query(
+      "INSERT INTO courseLectures (id, section, lecture) values ($1, $2, $3) RETURNING *",
+      [req.params.id, req.body.section, req.body.lecture]
+    );
+
+    res.status(201).json({
+      status: "success",
+      results: courseLecture.rows.length,
+      data: {
+        course: courseLecture.rows[0],
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //Update a course
 router.put("/admin/courses/:id", upload.single("images"), async (req, res) => {
@@ -189,28 +248,10 @@ router.put("/admin/courses/:id", upload.single("images"), async (req, res) => {
   }
 });
 
-//Create a course section
-router.post("/admin/courses/:id/section", async (req, res) => {
-  try {
-    const courseSection = await db.query(
-      "INSERT INTO courseSections (id, section) values ($1, $2) RETURNING *",
-      [req.params.id, req.body.section]
-    );
 
-    res.status(201).json({
-      status: "success",
-      results: courseSection.rows.length,
-      data: {
-        course: courseSection.rows[0],
-      },
-    });
-  } catch (err) {
-    console.log(err);
-  }
-});
 
 //Update a course section
-router.put("/admin/courses/:id/:section", async (req, res) => {
+router.put("/admin/courses/section/:section/:id", async (req, res) => {
   try {
     const course = await db.query(
       "UPDATE courseSections SET section=$1 WHERE id=$2 AND section=$3",
@@ -229,28 +270,10 @@ router.put("/admin/courses/:id/:section", async (req, res) => {
   }
 });
 
-//Create a course lecture
-router.post("/admin/courses/:id/:section/lecture", async (req, res) => {
-  try {
-    const courseLecture = await db.query(
-      "INSERT INTO courseLectures (id, section, lecture) values ($1, $2, $3) RETURNING *",
-      [req.params.id, req.params.section, req.body.lecture]
-    );
 
-    res.status(201).json({
-      status: "success",
-      results: courseLecture.rows.length,
-      data: {
-        course: courseLecture.rows[0],
-      },
-    });
-  } catch (err) {
-    console.log(err);
-  }
-});
 
 //Update a course lecture
-router.put("/admin/courses/:id/:section/:lecture", async (req, res) => {
+router.put("/admin/courses/lecture/:lecture/:section/:id", async (req, res) => {
   try {
     const course = await db.query(
       "UPDATE courseLectures SET lecture=$1 WHERE id=$2 AND section=$3 AND lecture=$4",

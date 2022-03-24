@@ -187,7 +187,7 @@ export async function getStaticProps(context: { params: { subject: any } }) {
   }
 
   const subject = context.params.subject;
-  const subjectResponse = await IndexAPI.get(`/admin/courses/${subject}`);
+  const subjectResponse = await IndexAPI.get(`/admin/courses/subject/${subject}`);
 
   if (subjectResponse.data.data.subject !== undefined) {
     for (let i = 0; i < subjectResponse.data.data.subject.length; i++) {

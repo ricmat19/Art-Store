@@ -57,7 +57,7 @@ const AdminCourse = (props: any) => {
       //   })
       //   .catch((err) => console.log(err));
       // }else{
-      await IndexAPI.put(`/admin/courses/subject/${props.selectedCourse[0].id}`, {
+      await IndexAPI.put(`/admin/courses/${props.selectedCourse[0].id}`, {
         title,
         subject,
         description,
