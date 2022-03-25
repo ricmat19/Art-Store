@@ -5,11 +5,25 @@ import AdminMainNav from "../../../../../components/admin/mainNav";
 import AdminPagesNav from "../../../../../components/admin/pagesNav";
 import Footer from "../../../../../components/footer";
 import Head from "next/head";
-import { Grid } from "@mui/material";
+import { Grid, Button } from "@mui/material";
 import { useRouter } from "next/router";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Content from "../../../../../components/admin/courses/contentModal";
 
 const AdminCourseCurriculum = (props: any) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
+
+  const [contentOpen, setContentOpen] = useState(null);
+  const openContent = Boolean(contentOpen);
+
+  const handleContentClick = (event: any) => {
+    setContentOpen(event.currentTarget);
+  };
+
+  const handleContentClose = () => {
+    setContentOpen(null);
+  };
 
   const [section, setSection] = useState<string>("");
   const [lecture, setLecture] = useState<string>("");
@@ -56,6 +70,11 @@ const AdminCourseCurriculum = (props: any) => {
   if (loginStatus) {
     return (
       <Grid>
+        <Content
+          contentOpen={contentOpen}
+          openContent={openContent}
+          handleContentClose={handleContentClose}
+        />
         <Head>
           <title>artHouse19-Admin Create Course Curriculum</title>
         </Head>
@@ -166,8 +185,32 @@ const AdminCourseCurriculum = (props: any) => {
                           {courseLectures.map((lecture: any, index: any) => {
                             console.log(lecture.section === section.section);
                             return lecture.section === section.section ? (
-                              <Grid key={index}>
-                                <h3>{lecture.lecture}</h3>
+                              <Grid
+                                key={index}
+                                sx={{
+                                  display: "grid",
+                                  gridTemplateColumns: "75px auto auto",
+                                  alignItems: "center",
+                                  padding: "20px 0",
+                                }}
+                              >
+                                <Grid>
+                                  <h3>Lecture:</h3>
+                                </Grid>
+                                <Grid>
+                                  <h3>{lecture.lecture}</h3>
+                                </Grid>
+                                <Grid sx={{ textAlign: "right" }}>
+                                  <Button
+                                    className="plus-icon"
+                                    onClick={handleContentClick}
+                                  >
+                                    <FontAwesomeIcon icon={faPlus} />
+                                    <Grid sx={{ paddingLeft: "5px" }}>
+                                      Content
+                                    </Grid>
+                                  </Button>
+                                </Grid>
                               </Grid>
                             ) : (
                               <Grid key={index}></Grid>
