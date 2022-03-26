@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Content from "../../../../../components/admin/courses/contentModal";
+import AdminCreateVideoLecture from "../../../../../components/admin/courses/createVideoLecture";
 
 const AdminCourseCurriculum = (props: any) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
@@ -21,10 +22,12 @@ const AdminCourseCurriculum = (props: any) => {
     setContentOpen(event.currentTarget);
   };
 
-  const handleContentClose = () => {
+  const handleContentClose = (id: any) => {
+    setId(id)
     setContentOpen(null);
   };
 
+  const [id, setId] = useState<string>("");
   const [section, setSection] = useState<string>("");
   const [lecture, setLecture] = useState<string>("");
   const [courseSections] = useState<string[]>(props.courseSections);
@@ -74,6 +77,11 @@ const AdminCourseCurriculum = (props: any) => {
           contentOpen={contentOpen}
           openContent={openContent}
           handleContentClose={handleContentClose}
+        />
+        <AdminCreateVideoLecture
+            id={id}
+            section={section}
+            lecture={lecture}
         />
         <Head>
           <title>artHouse19-Admin Create Course Curriculum</title>
@@ -183,34 +191,36 @@ const AdminCourseCurriculum = (props: any) => {
                           </Grid>
                           <hr />
                           {courseLectures.map((lecture: any, index: any) => {
-                            console.log(lecture.section === section.section);
                             return lecture.section === section.section ? (
-                              <Grid
-                                key={index}
-                                sx={{
-                                  display: "grid",
-                                  gridTemplateColumns: "75px auto auto",
-                                  alignItems: "center",
-                                  padding: "20px 0",
-                                }}
-                              >
-                                <Grid>
-                                  <h3>Lecture:</h3>
+                              <Grid>
+                                <Grid
+                                  key={index}
+                                  sx={{
+                                    display: "grid",
+                                    gridTemplateColumns: "75px auto auto",
+                                    alignItems: "center",
+                                    padding: "20px 0",
+                                  }}
+                                >
+                                  <Grid>
+                                    <h3>Lecture:</h3>
+                                  </Grid>
+                                  <Grid>
+                                    <h3>{lecture.lecture}</h3>
+                                  </Grid>
+                                  <Grid sx={{ textAlign: "right" }}>
+                                    <Button
+                                      className="plus-icon"
+                                      onClick={() => handleContentClick(lecture.id)}
+                                    >
+                                      <FontAwesomeIcon icon={faPlus} />
+                                      <Grid sx={{ paddingLeft: "5px" }}>
+                                        Content
+                                      </Grid>
+                                    </Button>
+                                  </Grid>
                                 </Grid>
-                                <Grid>
-                                  <h3>{lecture.lecture}</h3>
-                                </Grid>
-                                <Grid sx={{ textAlign: "right" }}>
-                                  <Button
-                                    className="plus-icon"
-                                    onClick={handleContentClick}
-                                  >
-                                    <FontAwesomeIcon icon={faPlus} />
-                                    <Grid sx={{ paddingLeft: "5px" }}>
-                                      Content
-                                    </Grid>
-                                  </Button>
-                                </Grid>
+                                <hr />
                               </Grid>
                             ) : (
                               <Grid key={index}></Grid>
@@ -249,9 +259,9 @@ export async function getStaticPaths() {
 export async function getStaticProps(context: {
   params: { subject: any; course: any };
 }) {
-  const subject = context.params.subject;
-  console.log(subject);
+//   const subject = context.params.subject;
   const course = context.params.course;
+  console.log(course);
   const courseSections = await IndexAPI.get(
     `/admin/courses/sections/${course}`
   );
