@@ -30,3 +30,25 @@
   padding-bottom: 40px;
   margin: 0 10%;
 }
+
+.single-line-profile-form-field{
+  display: grid;
+  grid-template-columns: 100px auto;
+  margin: 15px 0 15px 15px;
+}
+
+.profile-form-field{
+  display: grid;
+  grid-template-columns: 100px auto;
+  margin: 15px;
+}
+
+.middle-admin-form-field {
+  display: grid;
+  grid-template-columns: 100px auto;
+  margin: 15px;
+}
+
+.inner-form-label{
+  margin-right: 5px;
+}

@@ -42,13 +42,13 @@ const ProductDetailsC = (props: any) => {
   //   fetchData();
   // }, []);
 
-  const addToCollection = async (e: { preventDefault: () => void }) => {
+  const addToWishlist = async (e: { preventDefault: () => void }) => {
     try {
       e.preventDefault();
-      const collectionPost = await IndexAPI.post("/collection", {
+      const wishlistPost = await IndexAPI.post("/wishlist", {
         id: id,
       });
-      setUniqueItem(collectionPost.data.data.uniqueItem);
+      setUniqueItem(wishlistPost.data.data.uniqueItem);
     } catch (err) {
       console.log(err);
     }
@@ -135,8 +135,8 @@ const ProductDetailsC = (props: any) => {
               </Grid>
               <hr className="top-margin" />
               <Grid className="align-center">
-                <button onClick={(e) => addToCollection(e)}>
-                  Add To Collection
+                <button onClick={(e) => addToWishlist(e)}>
+                  Add To Wishlist
                 </button>
                 <button onClick={(e) => addToCart(e)}>Add To Cart</button>
               </Grid>

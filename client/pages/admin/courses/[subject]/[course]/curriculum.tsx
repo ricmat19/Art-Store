@@ -11,6 +11,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Content from "../../../../../components/admin/courses/contentModal";
 import AdminCreateVideoLecture from "../../../../../components/admin/courses/createVideoLecture";
+import AdminCreateArticleLecture from "../../../../../components/admin/courses/createArticleLecture";
 
 const AdminCourseCurriculum = (props: any) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
@@ -18,14 +19,24 @@ const AdminCourseCurriculum = (props: any) => {
   const [contentOpen, setContentOpen] = useState(null);
   const openContent = Boolean(contentOpen);
 
-  const handleContentClick = (event: any) => {
+  const handleContentClick = (event: any, lecture: any) => {
+    setId(lecture.id);
+    setSection(lecture.section);
+    setLecture(lecture.lecture);
     setContentOpen(event.currentTarget);
   };
 
-  const handleContentClose = (id: any) => {
-    setId(id)
+  const handleContentClose = () => {
     setContentOpen(null);
   };
+
+  const [addVideoOpen, setAddVideoOpen] = useState(false);
+  const handleAddVideoOpen = () => setAddVideoOpen(true);
+  const handleAddVideoClose = () => setAddVideoOpen(false);
+
+  const [addArticleOpen, setAddArticleOpen] = useState(false);
+  const handleAddArticleOpen = () => setAddArticleOpen(true);
+  const handleAddArticleClose = () => setAddArticleOpen(false);
 
   const [id, setId] = useState<string>("");
   const [section, setSection] = useState<string>("");
@@ -77,11 +88,22 @@ const AdminCourseCurriculum = (props: any) => {
           contentOpen={contentOpen}
           openContent={openContent}
           handleContentClose={handleContentClose}
+          handleAddVideoOpen={handleAddVideoOpen}
+          handleAddArticleOpen={handleAddArticleOpen}
         />
         <AdminCreateVideoLecture
-            id={id}
-            section={section}
-            lecture={lecture}
+          id={id}
+          section={section}
+          lecture={lecture}
+          open={addVideoOpen}
+          handleClose={handleAddVideoClose}
+        />
+        <AdminCreateArticleLecture
+          id={id}
+          section={section}
+          lecture={lecture}
+          open={addArticleOpen}
+          handleClose={handleAddArticleClose}
         />
         <Head>
           <title>artHouse19-Admin Create Course Curriculum</title>
@@ -211,7 +233,9 @@ const AdminCourseCurriculum = (props: any) => {
                                   <Grid sx={{ textAlign: "right" }}>
                                     <Button
                                       className="plus-icon"
-                                      onClick={() => handleContentClick(lecture.id)}
+                                      onClick={(e) =>
+                                        handleContentClick(e, lecture)
+                                      }
                                     >
                                       <FontAwesomeIcon icon={faPlus} />
                                       <Grid sx={{ paddingLeft: "5px" }}>
@@ -259,9 +283,7 @@ export async function getStaticPaths() {
 export async function getStaticProps(context: {
   params: { subject: any; course: any };
 }) {
-//   const subject = context.params.subject;
   const course = context.params.course;
-  console.log(course);
   const courseSections = await IndexAPI.get(
     `/admin/courses/sections/${course}`
   );

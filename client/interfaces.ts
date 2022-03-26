@@ -120,7 +120,7 @@ export interface INotification {
   imageBuffer?: string,
 }
 
-export interface ICollection {
+export interface IWishlist {
 
 }
 

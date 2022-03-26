@@ -1,6 +1,6 @@
 import { ListItemIcon, MenuItem } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignOutAlt, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faBriefcase, faDollar, faHeart, faSignOutAlt, faUser } from "@fortawesome/free-solid-svg-icons";
 import { Grid, Menu } from "@mui/material";
 
 const User = (props: any) => {
@@ -46,6 +46,30 @@ const User = (props: any) => {
               <FontAwesomeIcon icon={faUser} />
             </ListItemIcon>
             Profile
+          </MenuItem>
+        </a>
+        <a href="/purchases">
+          <MenuItem sx={{ color: "black" }}>
+            <ListItemIcon>
+              <FontAwesomeIcon icon={faBriefcase} />
+            </ListItemIcon>
+            Purchases
+          </MenuItem>
+        </a>
+        <a href="/wishlist">
+          <MenuItem sx={{ color: "black" }}>
+            <ListItemIcon>
+              <FontAwesomeIcon icon={faHeart} />
+            </ListItemIcon>
+            Wishlist
+          </MenuItem>
+        </a>
+        <a href="/purchaseHistory">
+          <MenuItem sx={{ color: "black" }}>
+            <ListItemIcon>
+            <FontAwesomeIcon icon={faDollar} />
+            </ListItemIcon>
+            Purchase History
           </MenuItem>
         </a>
         <MenuItem sx={{ color: "black" }}>

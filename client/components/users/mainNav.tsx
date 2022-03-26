@@ -18,7 +18,7 @@ import User from "./menuModals/user";
 import Ellipse from "./menuModals/ellipse";
 
 const MainNav = () => {
-  const [loginStatus, setLoginStatus] = useState<boolean>(false);
+  const [loginStatus, setLoginStatus] = useState<boolean>(true);
 
   const router = useRouter();
 
@@ -111,9 +111,9 @@ const MainNav = () => {
               <Grid
                 xs={2}
                 sx={{
-                  textAlign: "right",
-                  alignSelf: "right",
                   maxWidth: "fit-content",
+                  textAlign: "center",
+                  alignSelf: "center",
                 }}
               >
                 <h1>search</h1>
@@ -141,7 +141,7 @@ const MainNav = () => {
                 </h1>
               </Grid>
               <Grid xs={2} container sx={{ justifyContent: "center" }}>
-                <a href="/collection">
+                <a href="/wishlist">
                   <h1>
                     <FontAwesomeIcon className="pointer" icon={faHeart} />
                   </h1>
@@ -204,10 +204,23 @@ const MainNav = () => {
             handleSignInOpen={handleSignInOpen}
           />
           <Grid container>
-            <Grid xs={1} sx={{ textAlign: "center", alignSelf: "center" }}>
-              <h1>logo</h1>
+            <Grid
+              xs={2}
+              sx={{
+                maxWidth: "fit-content",
+                textAlign: "center",
+                alignSelf: "center",
+              }}
+              className="nav-link"
+              onClick={() => router.push("/products/print")}
+            >
+              <span className="logo">
+                <span className="logo-first">a</span>rt
+                <span className="logo-first">H</span>ouse
+                <span className="logo-first">19</span>
+              </span>
             </Grid>
-            <Grid xs={9} container sx={{ alignContent: "center" }}>
+            <Grid xs={8} container sx={{ alignContent: "center" }}>
               <Grid xs={1} sx={{ textAlign: "center", alignSelf: "center" }}>
                 <h1>search</h1>
               </Grid>

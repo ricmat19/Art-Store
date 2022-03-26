@@ -175,7 +175,7 @@
   align-items: center;
   justify-content: center;
   grid-template-columns: 100px 1fr;
-  gap: 10px; 
+  gap: 10px;
 }
 
 .order-item {
@@ -216,6 +216,13 @@
   display: grid;
   justify-content: center;
   grid-template-columns: 1fr 100px minmax(50px, 100px);
+}
+
+.select-three-column-div {
+  display: grid;
+  grid-template-columns: 1fr 100px 100px;
+  margin: 5px 0;
+  gap: 10px;
 }
 
 @media (max-width: 1417px) {

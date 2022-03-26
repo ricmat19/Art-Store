@@ -13,7 +13,38 @@ const Help = (props: any) => {
         <Grid>
           <h1 className="main-title">help</h1>
         </Grid>
-        <Grid></Grid>
+        <Grid className="gallery-menu">
+          <Grid
+            className="help-menu-button"
+            sx={{ border: "solid white 2px", padding: "30px" }}
+          >
+            <h2>Getting Started</h2>
+          </Grid>
+          <Grid
+            className="help-menu-button"
+            sx={{ border: "solid white 2px", padding: "30px" }}
+          >
+            <h2>Account / Profile</h2>
+          </Grid>
+          <Grid
+            className="help-menu-button"
+            sx={{ border: "solid white 2px", padding: "30px" }}
+          >
+            <h2>Troubleshooting</h2>
+          </Grid>
+          <Grid
+            className="help-menu-button"
+            sx={{ border: "solid white 2px", padding: "30px" }}
+          >
+            <h2>Course Taking</h2>
+          </Grid>
+          <Grid
+            className="help-menu-button"
+            sx={{ border: "solid white 2px", padding: "30px" }}
+          >
+            <h2>Purchases / Refunds</h2>
+          </Grid>
+        </Grid>
       </Grid>
       <FooterC />
     </Grid>

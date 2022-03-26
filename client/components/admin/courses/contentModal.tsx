@@ -40,13 +40,13 @@ const Content = (props: any) => {
       anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
     >
       <Grid>
-        <MenuItem sx={{ color: "black" }}>
+        <MenuItem sx={{ color: "black" }} onClick={props.handleAddVideoOpen}>
           <ListItemIcon>
             <FontAwesomeIcon icon={faVideoCamera} />
           </ListItemIcon>
           Video
         </MenuItem>
-        <MenuItem sx={{ color: "black" }}>
+        <MenuItem sx={{ color: "black" }} onClick={props.handleAddArticleOpen}>
           <ListItemIcon>
             <FontAwesomeIcon icon={faFile} />
           </ListItemIcon>

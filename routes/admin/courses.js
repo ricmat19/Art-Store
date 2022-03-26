@@ -184,25 +184,6 @@ router.post("/admin/courses/lecture/:id", async (req, res) => {
   }
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //Update a course
 router.put("/admin/courses/:id", upload.single("images"), async (req, res) => {
   try {
@@ -248,8 +229,6 @@ router.put("/admin/courses/:id", upload.single("images"), async (req, res) => {
   }
 });
 
-
-
 //Update a course section
 router.put("/admin/courses/section/:section/:id", async (req, res) => {
   try {
@@ -270,21 +249,39 @@ router.put("/admin/courses/section/:section/:id", async (req, res) => {
   }
 });
 
-
-
 //Update a course lecture
 router.put("/admin/courses/lecture/:lecture/:section/:id", async (req, res) => {
   try {
-    const course = await db.query(
-      "UPDATE courseLectures SET lecture=$1 WHERE id=$2 AND section=$3 AND lecture=$4",
-      [req.body.lecture, req.params.id, req.params.section, req.params.lecture]
-    );
+    let lecture;
+    if (req.body.video) {
+      lecture = await db.query(
+        "UPDATE courseLectures SET lecture=$1 WHERE id=$2 AND section=$3 AND lecture=$4",
+        [
+          req.params.lecture,
+          req.params.id,
+          req.params.section,
+          req.params.lecture,
+        ]
+      );
+    }
+
+    if (req.body.article) {
+      lecture = await db.query(
+        "UPDATE courseLectures SET lecture=$1 WHERE id=$2 AND section=$3 AND lecture=$4",
+        [
+          req.body.article,
+          req.params.id,
+          req.params.section,
+          req.params.lecture,
+        ]
+      );
+    }
 
     res.status(201).json({
       status: "success",
-      results: course.rows.length,
+      results: lecture.rows.length,
       data: {
-        course: course.rows[0],
+        course: lecture.rows[0],
       },
     });
   } catch (err) {

@@ -57,6 +57,7 @@ const AdminCreateVideoLecture = (props: any) => {
               border: "2px solid #fff",
               boxShadow: 24,
               width: "90vw",
+              maxWidth: "600px",
             }}
           >
             <Grid
@@ -73,9 +74,7 @@ const AdminCreateVideoLecture = (props: any) => {
             >
               <Grid
                 sx={{
-                  width: "50%",
-                  padding: "0 0 0 30px",
-                  borderLeft: "1px #fff solid",
+                  width: "100%",
                   height: "100%",
                 }}
               >
@@ -86,7 +85,7 @@ const AdminCreateVideoLecture = (props: any) => {
                   encType="multipart/form-data"
                 >
                   <Grid className="admin-form-title">
-                    <h1 className="align-center">{props.title}</h1>
+                    <h1 className="align-center">Video Lecture: {props.lecture}</h1>
                   </Grid>
                   <Grid className="admin-form-field">
                     <label className="admin-label">Video:</label>
@@ -100,11 +99,11 @@ const AdminCreateVideoLecture = (props: any) => {
                   </Grid>
                   <Grid className="admin-form-field">
                     <label className="admin-label">Description:</label>
-                    <input
+                    <textarea
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
-                      type="text"
                       name="description"
+                      rows={5}
                       className="form-control"
                       required
                     />

@@ -164,7 +164,7 @@ const CheckoutC = (props: any) => {
                   }}
                 />
               </Grid>
-              <Grid className="three-column-div">
+              <Grid className="select-three-column-div">
                 <input
                   type="text"
                   ref={cityInput}
