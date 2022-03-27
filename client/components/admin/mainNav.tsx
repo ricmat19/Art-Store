@@ -1,27 +1,48 @@
 import { FC, useState } from "react";
-import { Grid, Menu, MenuItem, ListItemIcon } from "@mui/material";
+import { Grid } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignOutAlt, faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsisV, faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import AdminUser from "./menuModals/user";
+import AdminEllipse from "./menuModals/ellipse";
 
 const AdminMainNav: FC = () => {
   const [signedIn] = useState<boolean>(true);
 
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event: any) => {
-    setAnchorEl(event.currentTarget);
+  const [userOpen, setUserOpen] = useState(null);
+  const [ellipseOpen, setEllipseOpen] = useState(null);
+  const openUser = Boolean(userOpen);
+  const openEllipse = Boolean(ellipseOpen);
+
+  const handleUserClick = (event: any) => {
+    setUserOpen(event.currentTarget);
   };
-  const handleAccountMenuClose = () => {
-    setAnchorEl(null);
+  const handleEllipseClick = (event: any) => {
+    setEllipseOpen(event.currentTarget);
+  };
+  const handleUserClose = () => {
+    setUserOpen(null);
+  };
+  const handleEllipseClose = () => {
+    setEllipseOpen(null);
   };
 
   if (signedIn) {
     return (
       <header>
         <nav>
+          <AdminUser
+            userOpen={userOpen}
+            openUser={openUser}
+            handleUserClose={handleUserClose}
+          />
+          <AdminEllipse
+            ellipseOpen={ellipseOpen}
+            openEllipse={openEllipse}
+            handleEllipseClose={handleEllipseClose}
+          />
           <Grid container xs={12}>
             <Grid
-              xs={6}
+              xs={11}
               sx={{
                 textAlign: "left",
                 alignSelf: "center",
@@ -35,65 +56,35 @@ const AdminMainNav: FC = () => {
                 <span className="logo-first">19</span>
               </span>
             </Grid>
-            <Grid container xs={6}>
+            <Grid
+              container
+              xs={1}
+              className="two-column-div"
+              sx={{ display: "grid" }}
+            >
+              <Grid container sx={{ justifyContent: "right" }}>
+                <h1 className="pointer">
+                  <FontAwesomeIcon
+                    icon={faUserCircle}
+                    className="account-menu-icon"
+                    onClick={handleUserClick}
+                  />
+                </h1>
+              </Grid>
               <Grid
                 container
                 sx={{ justifyContent: "right", paddingRight: "30px" }}
               >
                 <h1 className="pointer">
                   <FontAwesomeIcon
-                    icon={faUserCircle}
+                    icon={faEllipsisV}
                     className="account-menu-icon"
-                    onClick={handleClick}
+                    onClick={handleEllipseClick}
                   />
                 </h1>
               </Grid>
             </Grid>
           </Grid>
-          <Menu
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleAccountMenuClose}
-            onClick={handleAccountMenuClose}
-            PaperProps={{
-              elevation: 0,
-              sx: {
-                overflow: "visible",
-                filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-                mt: 1.5,
-                "& .MuiAvatar-root": {
-                  width: 32,
-                  height: 32,
-                  ml: -0.5,
-                  mr: 1,
-                },
-                "&:before": {
-                  content: '""',
-                  display: "block",
-                  position: "absolute",
-                  top: 0,
-                  right: 14,
-                  width: 10,
-                  height: 10,
-                  bgcolor: "background.paper",
-                  transform: "translateY(-50%) rotate(45deg)",
-                  zIndex: 0,
-                },
-              },
-            }}
-            transformOrigin={{ horizontal: "right", vertical: "top" }}
-            anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-          >
-            <MenuItem>
-              <ListItemIcon>
-                <FontAwesomeIcon
-                  className="account-menu-icon"
-                  icon={faSignOutAlt}
-                />
-              </ListItemIcon>
-              Logout
-            </MenuItem>
-          </Menu>
         </nav>
         <hr />
       </header>

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import IndexAPI from "../apis/indexAPI";
 import MainNav from "../components/users/mainNav";
 import PagesNav from "../components/users/pagesNav";
@@ -23,25 +24,22 @@ const About = (props: any) => {
             <h1 className="main-title">about</h1>
           </Grid>
           <Grid className="profile-info">
-            {/* <Grid> */}
-            {/* <Grid className="profile-image-div">
+            <Grid className="profile-image-div">
               <Grid className="justify-center">
                 <img
                   className="big-image"
-                  src="images/profile-image.jpg"
+                  src="images/smiles.jpg"
                   alt="profile"
                 />
               </Grid>
-              <Grid></Grid>
-              <Grid></Grid>
-            </Grid> */}
+            </Grid>
             <Grid className="about-info">
               <h3>&emsp; &emsp; {process.env.NEXT_PUBLIC_INFO_PARAGRAPH_1}</h3>
               <h3>&emsp; &emsp; {process.env.NEXT_PUBLIC_INFO_PARAGRAPH_2}</h3>
             </Grid>
           </Grid>
+          <FooterC />
         </Grid>
-        <FooterC />
       </Grid>
     </Grid>
   );

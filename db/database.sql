@@ -42,3 +42,15 @@ CREATE TABLE courseLectures(
     CONSTRAINT fk_id FOREIGN KEY(id, section) REFERENCES courseSections(id, section),
     PRIMARY KEY (id, section, lecture)
 );
+
+CREATE TABLE help(
+    id BIGSERIAL,
+    category VARCHAR,
+    title VARCHAR,
+    article VARCHAR
+);
+
+CREATE TABLE generalArticles(
+    article VARCHAR PRIMARY KEY,
+    content VARCHAR
+);

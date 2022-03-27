@@ -11,7 +11,8 @@ import PaymentMethods from "../components/users/profile/paymentMethods";
 import Head from "next/head";
 
 const Profile = (props: any) => {
-  const [view, setView] = useState("events");
+  const [view, setView] = useState("info");
+
   return (
     <Grid>
       <Head>
@@ -55,11 +56,11 @@ const Profile = (props: any) => {
           >
             <form className="admin-form">
               {view === "info" ? (
-                <Info />
+                <Info profile={props.profile[0]} />
               ) : view === "bio" ? (
-                <Bio />
+                <Bio profile={props.profile[0]} />
               ) : view === "links" ? (
-                <Links />
+                <Links profile={props.profile[0]} />
               ) : (
                 <PaymentMethods />
               )}
@@ -75,13 +76,12 @@ const Profile = (props: any) => {
 export async function getStaticProps() {
   const cartResponse = await IndexAPI.get(`/cart`);
 
-  const userResponse = await IndexAPI.get(`/profile`);
+  const profileResponse = await IndexAPI.get(`/profile`);
 
   return {
     props: {
       cartQty: cartResponse.data.data.cart.length,
-      // user: userResponse.data.data.user,
-      user: userResponse.data.data,
+      profile: profileResponse.data.data.user,
     },
     revalidate: 1,
   };
