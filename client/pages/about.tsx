@@ -5,8 +5,10 @@ import PagesNav from "../components/users/pagesNav";
 import FooterC from "../components/footer";
 import Head from "next/head";
 import { Grid } from "@mui/material";
+import ReactHtmlParser from "react-html-parser";
 
 const About = (props: any) => {
+
   return (
     <Grid>
       <Head>
@@ -34,8 +36,7 @@ const About = (props: any) => {
               </Grid>
             </Grid>
             <Grid className="about-info">
-              <h3>&emsp; &emsp; {process.env.NEXT_PUBLIC_INFO_PARAGRAPH_1}</h3>
-              <h3>&emsp; &emsp; {process.env.NEXT_PUBLIC_INFO_PARAGRAPH_2}</h3>
+              {ReactHtmlParser(props.aboutContent)}
             </Grid>
           </Grid>
           <FooterC />
@@ -48,9 +49,12 @@ const About = (props: any) => {
 export async function getStaticProps() {
   const cartResponse = await IndexAPI.get(`/cart`);
 
+  const aboutResponse = await IndexAPI.get(`/about`);
+
   return {
     props: {
       cartQty: cartResponse.data.data.cart.length,
+      aboutContent: aboutResponse.data.data.about[0].content,
     },
     revalidate: 1,
   };

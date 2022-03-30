@@ -8,7 +8,7 @@ import Head from "next/head";
 import { Grid } from "@mui/material";
 
 const About = (props: any) => {
-  const [content, setContent] = useState<string>("");
+  const [content, setContent] = useState<string>(props.aboutContent);
 
   const updateAbout = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -43,7 +43,7 @@ const About = (props: any) => {
                 className="full-width"
                 onChange={(e) => setContent(e.target.value)}
                 value={content}
-                rows={50}
+                rows={10}
               />
             </Grid>
             <Grid sx={{ textAlign: "center" }}>
@@ -59,15 +59,15 @@ const About = (props: any) => {
   );
 };
 
-// export async function getStaticProps() {
-//   const aboutResponse = await IndexAPI.get(`/admin/about`);
+export async function getStaticProps() {
+  const aboutResponse = await IndexAPI.get(`/admin/about`);
 
-//   return {
-//     props: {
-//       about: aboutResponse.data.data.about,
-//     },
-//     revalidate: 1,
-//   };
-// }
+  return {
+    props: {
+      aboutContent: aboutResponse.data.data.about[0].content,
+    },
+    revalidate: 1,
+  };
+}
 
 export default About;

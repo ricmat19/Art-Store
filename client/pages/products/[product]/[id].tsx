@@ -10,7 +10,7 @@ import AddToCart from "../../../components/users/cart/addToCart";
 import { Grid } from "@mui/material";
 // import {CartContext} from "../../context/CartContext";
 
-const ProductDetailsC = (props: any) => {
+const ProductDetails = (props: any) => {
   const [addedModal, setAddedModal] = useState("modal-bg");
   const [imageBuffer] = useState(props.imageBuffer);
   const [product] = useState(props.product);
@@ -196,4 +196,4 @@ export async function getStaticProps(context: {
   };
 }
 
-export default ProductDetailsC;
+export default ProductDetails;

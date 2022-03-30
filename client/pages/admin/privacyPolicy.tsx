@@ -1,10 +1,23 @@
 import IndexAPI from "../../apis/indexAPI";
+import { useState } from "react";
 import MainNav from "../../components/users/mainNav";
 import PagesNav from "../../components/users/pagesNav";
 import FooterC from "../../components/footer";
 import { Grid } from "@mui/material";
 
 const PrivacyPolicy = (props: any) => {
+  const [content, setContent] = useState<string>(props.privacyPolicyContent);
+
+  const updatePrivacyPolicy = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    try {
+      await IndexAPI.put(`/admin/privacyPolicy`, {
+        content,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <Grid>
       <MainNav cartQty={props.cartQty} />
@@ -13,9 +26,23 @@ const PrivacyPolicy = (props: any) => {
         <Grid>
           <h1 className="main-title">privacy policy</h1>
         </Grid>
-        <Grid></Grid>
+        <Grid>
+          <Grid sx={{ margin: "50px 20vw" }}>
+            <textarea
+              className="full-width"
+              onChange={(e) => setContent(e.target.value)}
+              value={content}
+              rows={50}
+            />
+          </Grid>
+          <Grid sx={{ textAlign: "center" }}>
+            <button type="submit" onClick={updatePrivacyPolicy}>
+              Submit
+            </button>
+          </Grid>
+        </Grid>
+        <FooterC />
       </Grid>
-      <FooterC />
     </Grid>
   );
 };
@@ -23,9 +50,12 @@ const PrivacyPolicy = (props: any) => {
 export async function getStaticProps() {
   const cartResponse = await IndexAPI.get(`/cart`);
 
+  const privacyPolicyResponse = await IndexAPI.get(`/admin/privacyPolicy`);
+
   return {
     props: {
       cartQty: cartResponse.data.data.cart.length,
+      privacyPolicyContent: privacyPolicyResponse.data.data.privacyPolicy[0].content,
     },
     revalidate: 1,
   };
