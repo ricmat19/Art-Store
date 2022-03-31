@@ -131,7 +131,24 @@
   margin-bottom: 10px;
 }
 
-.event-day{
+.event-day {
   background-color: rgb(150, 71, 126);
   color: white;
+}
+
+.summary-event:hover {
+  background-color: rgb(34, 34, 34);
+  cursor: pointer;
+}
+
+.summary-list-container {
+  border-left: solid white 2px;
+  border-bottom: solid white 2px;
+  height: 100%;
+  overflow-y: scroll;
+  position: absolute;
+  z-index: 1;
+  // position: fixed;
+  right: 0;
+  width: 25%;
 }

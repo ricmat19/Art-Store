@@ -7,6 +7,7 @@ import Head from "next/head";
 import Calendar from "../../components/users/events/calendar";
 import Day from "../../components/users/events/day";
 import { Grid } from "@mui/material";
+import SummaryList from "../../components/users/events/summaryList";
 
 const EventsC = (props: any) => {
   const [events] = useState(props.events);
@@ -30,12 +31,19 @@ const EventsC = (props: any) => {
       />
       <MainNav cartQty={props.cartQty} />
       <PagesNav />
-      <Calendar
-        handleDayOpen={handleDayOpen}
-        events={events}
-        setDate={setDate}
-        setDateEvents={setDateEvents}
-      />
+      <Grid sx={{ display: "grid", gridTemplateColumns: "1fr auto" }}>
+        <Grid>
+          <Calendar
+            handleDayOpen={handleDayOpen}
+            events={events}
+            setDate={setDate}
+            setDateEvents={setDateEvents}
+          />
+        </Grid>
+        <Grid className="summary-list-container">
+          <SummaryList events={events} />
+        </Grid>
+      </Grid>
       <FooterC />
     </Grid>
   );
