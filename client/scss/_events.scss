@@ -144,11 +144,18 @@
 .summary-list-container {
   border-left: solid white 2px;
   border-bottom: solid white 2px;
-  height: 100%;
-  overflow-y: scroll;
   position: absolute;
-  z-index: 1;
-  // position: fixed;
   right: 0;
+  height: calc(100vh - 114px);
   width: 25%;
+  z-index: 1;
+}
+
+.mapped-events-summary-container {
+  overflow-y: scroll;
+  width: 100%;
+  height: calc(100% - 100px);
+  position: absolute;
+  right: 0;
+  top: 100px;
 }

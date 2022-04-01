@@ -1,8 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
+import { useState } from "react";
 import Events from "./events";
+import AddToCart from "./addToCart";
 
 const Day = (props: any) => {
+  const [view] = useState("events");
   return (
     <Grid>
       <Modal
@@ -51,7 +54,14 @@ const Day = (props: any) => {
               >
                 <h1>{props.date}</h1>
                 <Grid>
-                  <Events dateEvents={props.dateEvents} />
+                  {view === "events" ? (
+                    <Events dateEvents={props.dateEvents} />
+                  ) : (
+                    <AddToCart
+                      // selectedEvent={selectedEvent}
+                      handleClose={props.handleClose}
+                    />
+                  )}
                 </Grid>
               </Grid>
             </Grid>

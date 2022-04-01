@@ -6,7 +6,7 @@ import MainNav from "../../../components/users/mainNav";
 import PagesNav from "../../../components/users/pagesNav";
 import FooterC from "../../../components/footer";
 import Head from "next/head";
-import AddToCart from "../../../components/users/cart/addToCart";
+import AddToCart from "../../../components/users/products/addToCart";
 import { Grid } from "@mui/material";
 // import {CartContext} from "../../context/CartContext";
 

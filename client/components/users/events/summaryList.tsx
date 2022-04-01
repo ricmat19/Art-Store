@@ -23,46 +23,48 @@ const SummaryList = (props: any) => {
         </Grid>
       </Grid>
       <hr className="full-width" />
-      {props.events !== undefined ? (
-        props.events.map((event: any, index: number) => (
-          <Grid
-            key={index}
-            container
-            className="summary-event-container"
-            sx={{
-              gridTemplateColumns: "auto auto auto auto",
-            }}
-          >
+      <Grid className="mapped-events-summary-container">
+        {props.events !== undefined ? (
+          props.events.reverse().map((event: any, index: number) => (
             <Grid
+              key={index}
               container
-              className="summary-event"
+              className="summary-event-container"
               sx={{
-                padding: "10px",
+                gridTemplateColumns: "auto auto auto auto",
               }}
             >
-              <Grid xs={3}>
-                <h4 className="align-left">
-                  {(new Date(event.event_date).getMonth() + 1).toString()}/
-                  {new Date(event.event_date).getDate().toString()}/
-                  {new Date(event.event_date).getFullYear().toString()}
-                </h4>
+              <Grid
+                container
+                className="summary-event"
+                sx={{
+                  padding: "10px",
+                }}
+              >
+                <Grid xs={3}>
+                  <h4 className="align-left">
+                    {(new Date(event.event_date).getMonth() + 1).toString()}/
+                    {new Date(event.event_date).getDate().toString()}/
+                    {new Date(event.event_date).getFullYear().toString()}
+                  </h4>
+                </Grid>
+                <Grid xs={4}>
+                  <h4 className="align-left">{event.title}</h4>
+                </Grid>
+                <Grid xs={3}>
+                  <h4 className="align-left">{event.price}</h4>
+                </Grid>
+                <Grid xs={2}>
+                  <h4 className="align-left">{event.spots}</h4>
+                </Grid>
               </Grid>
-              <Grid xs={4}>
-                <h4 className="align-left">{event.title}</h4>
-              </Grid>
-              <Grid xs={3}>
-                <h4 className="align-left">{event.price}</h4>
-              </Grid>
-              <Grid xs={2}>
-                <h4 className="align-left">{event.spots}</h4>
-              </Grid>
+              <hr className="full-width" />
             </Grid>
-            <hr className="full-width" />
-          </Grid>
-        ))
-      ) : (
-        <Grid></Grid>
-      )}
+          ))
+        ) : (
+          <Grid></Grid>
+        )}
+      </Grid>
     </Grid>
   );
 };
