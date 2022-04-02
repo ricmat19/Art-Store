@@ -5,7 +5,8 @@ import Events from "./events";
 import AddToCart from "./addToCart";
 
 const Day = (props: any) => {
-  const [view] = useState("events");
+  const [view, setView] = useState("events");
+  const [selectedEvent, setSelectedEvent] = useState();
   return (
     <Grid>
       <Modal
@@ -55,11 +56,14 @@ const Day = (props: any) => {
                 <h1>{props.date}</h1>
                 <Grid>
                   {view === "events" ? (
-                    <Events dateEvents={props.dateEvents} />
+                    <Events
+                      setView={setView}
+                      setSelectedEvent={setSelectedEvent}
+                      dateEvents={props.dateEvents}
+                    />
                   ) : (
                     <AddToCart
-                      // selectedEvent={selectedEvent}
-                      handleClose={props.handleClose}
+                      selectedEvent={selectedEvent}
                     />
                   )}
                 </Grid>

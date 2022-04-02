@@ -1,9 +1,23 @@
 /* eslint-disable @next/next/no-img-element */
+// import { useState } from "react";
 import { Grid } from "@mui/material";
+import IndexAPI from "../../../apis/indexAPI";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTicket } from "@fortawesome/free-solid-svg-icons";
 
 const Events = (props: any) => {
+  const addToCart = async (event: any) => {
+    try {
+      await IndexAPI.post("/cart", {
+        id: event.id,
+      });
+      props.setSelectedEvent(event);
+
+      props.setView("addToCart");
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <Grid container sx={{ width: "100%" }}>
       {/* <Grid xs={1}></Grid> */}
@@ -37,11 +51,11 @@ const Events = (props: any) => {
               <Grid xs={3}>
                 <h4 className="align-left">{event.spots}</h4>
               </Grid>
-              <Grid xs={1} sx={{ textAlign: "center", alignSelf: "center"}}>
+              <Grid xs={1} sx={{ textAlign: "center", alignSelf: "center" }}>
                 <FontAwesomeIcon
                   className="day-event-icon"
                   icon={faTicket}
-                  // onClick={() => displayEditModal(event)}
+                  onClick={() => addToCart(event)}
                 />
               </Grid>
             </Grid>

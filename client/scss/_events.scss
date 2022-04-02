@@ -144,10 +144,9 @@
 .summary-list-container {
   border-left: solid white 2px;
   border-bottom: solid white 2px;
-  position: absolute;
+  position: relative;
   right: 0;
-  height: calc(100vh - 114px);
-  width: 25%;
+  width: 100%;
   z-index: 1;
 }
 
