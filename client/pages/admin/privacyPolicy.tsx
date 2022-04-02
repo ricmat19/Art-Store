@@ -1,7 +1,7 @@
 import IndexAPI from "../../apis/indexAPI";
 import { useState } from "react";
-import MainNav from "../../components/users/mainNav";
-import PagesNav from "../../components/users/pagesNav";
+import AdminMainNav from "../../../../components/admin/mainNav";
+import AdminPagesNav from "../../../../components/admin/pagesNav";
 import FooterC from "../../components/footer";
 import { Grid } from "@mui/material";
 
@@ -20,8 +20,8 @@ const PrivacyPolicy = (props: any) => {
   };
   return (
     <Grid>
-      <MainNav cartQty={props.cartQty} />
-      <PagesNav />
+      <AdminMainNav cartQty={props.cartQty} />
+      <AdminPagesNav />
       <Grid>
         <Grid>
           <h1 className="main-title">privacy policy</h1>

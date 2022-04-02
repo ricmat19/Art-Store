@@ -5,7 +5,7 @@ import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarDay, faPlus } from "@fortawesome/free-solid-svg-icons";
 import AdminEvents from "./events";
-import AdminCreateEvent from "./create";
+import AdminCreateEvent from "./createEvent";
 import AdminUpdateEvent from "./updateEvent";
 
 const AdminDay = (props: any) => {

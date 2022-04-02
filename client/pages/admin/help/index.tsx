@@ -1,25 +1,17 @@
 import IndexAPI from "../../../apis/indexAPI";
 import { useRouter } from "next/router";
-import MainNav from "../../../components/users/mainNav";
-import PagesNav from "../../../components/users/pagesNav";
+import AdminMainNav from "../../../components/admin/mainNav";
+import AdminPagesNav from "../../../components/admin/pagesNav";
 import FooterC from "../../../components/footer";
 import { Grid } from "@mui/material";
 
 const Help = (props: any) => {
   const router = useRouter();
-  const displayHelpCategory = async (category: string) => {
-    try {
-      console.log(category);
-      router.push(`/help/${category}`);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   return (
     <Grid>
-      <MainNav cartQty={props.cartQty} />
-      <PagesNav />
+      <AdminMainNav cartQty={props.cartQty} />
+      <AdminPagesNav />
       <Grid>
         <Grid>
           <h1 className="main-title">help</h1>
@@ -28,35 +20,35 @@ const Help = (props: any) => {
           <Grid
             className="help-menu-button"
             sx={{ border: "solid white 2px", padding: "30px" }}
-            onClick={() => displayHelpCategory("getting-started")}
+            onClick={() => router.push(`/admin/help/gettingStarted`)}
           >
             <h2>Getting Started</h2>
           </Grid>
           <Grid
             className="help-menu-button"
             sx={{ border: "solid white 2px", padding: "30px" }}
-            onClick={() => displayHelpCategory("account-profile")}
+            onClick={() => router.push(`/admin/help/accountProfile`)}
           >
             <h2>Account / Profile</h2>
           </Grid>
           <Grid
             className="help-menu-button"
             sx={{ border: "solid white 2px", padding: "30px" }}
-            onClick={() => displayHelpCategory("troubleshooting")}
+            onClick={() => router.push(`/admin/help/troubleshooting`)}
           >
             <h2>Troubleshooting</h2>
           </Grid>
           <Grid
             className="help-menu-button"
             sx={{ border: "solid white 2px", padding: "30px" }}
-            onClick={() => displayHelpCategory("course-taking")}
+            onClick={() => router.push(`/admin/help/courseTaking`)}
           >
             <h2>Course Taking</h2>
           </Grid>
           <Grid
             className="help-menu-button"
             sx={{ border: "solid white 2px", padding: "30px" }}
-            onClick={() => displayHelpCategory("purchases-refunds")}
+            onClick={() => router.push(`/admin/help/purchasesRefunds`)}
           >
             <h2>Purchases / Refunds</h2>
           </Grid>

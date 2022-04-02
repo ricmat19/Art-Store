@@ -3,8 +3,8 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import IndexAPI from "../../../../apis/indexAPI";
 import FooterC from "../../../../components/footer";
-import MainNav from "../../../../components/users/mainNav";
-import PagesNav from "../../../../components/users/pagesNav";
+import AdminMainNav from "../../../../components/admin/mainNav";
+import AdminPagesNav from "../../../../components/admin/pagesNav";
 import { Grid } from "@mui/material";
 
 const AdminBlogPost = (props: any) => {
@@ -68,8 +68,8 @@ const AdminBlogPost = (props: any) => {
   if (loginStatus) {
     return (
       <Grid>
-        <MainNav cartQty={props.cartQty} />
-        <PagesNav />
+        <AdminMainNav cartQty={props.cartQty} />
+        <AdminPagesNav />
         <Grid container className="main-body">
           <Grid>
             <Grid xs={12} sx={{ textAlign: "center" }}>

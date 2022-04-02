@@ -85,22 +85,25 @@ const Media = (props: any) => {
 };
 
 export async function getStaticPaths() {
-  const mediasResponse = await IndexAPI.get(`/media`);
-
-  const media: string[] = [];
-  for (let i = 0; i < mediasResponse.data.data.medias.length; i++) {
-    if (!media.includes(mediasResponse.data.data.medias.type)) {
-      media.push(mediasResponse.data.data.medias[i].type);
-    }
-  }
-
   return {
     fallback: false,
-    paths: media.map((media: any) => ({
-      params: {
-        media: media,
+    paths: [
+      {
+        params: {
+          media: "blog",
+        },
       },
-    })),
+      {
+        params: {
+          media: "channel",
+        },
+      },
+      {
+        params: {
+          media: "podcast",
+        },
+      },
+    ],
   };
 }
 

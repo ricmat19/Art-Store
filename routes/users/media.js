@@ -5,23 +5,6 @@ const axios = require("axios");
 const youtubeBaseURL = "https://www.googleapis.com/youtube/v3/";
 
 //Get all blog posts
-router.get("/media", async (req, res) => {
-  try {
-    const medias = await db.query("SELECT * FROM medias");
-
-    res.status(200).json({
-      status: "success",
-      results: medias.rows.length,
-      data: {
-        medias: medias.rows,
-      },
-    });
-  } catch (err) {
-    console.log(err);
-  }
-});
-
-//Get all blog posts
 router.get("/media/blog", async (req, res) => {
   try {
     const posts = await db.query("SELECT * FROM blog");

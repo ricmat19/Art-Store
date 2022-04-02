@@ -1,14 +1,14 @@
 import IndexAPI from "../../../../apis/indexAPI";
-import MainNav from "../../../../components/users/mainNav";
-import PagesNav from "../../../../components/users/pagesNav";
+import AdminMainNav from "../../../../components/admin/mainNav";
+import AdminPagesNav from "../../../../components/admin/pagesNav";
 import FooterC from "../../../../components/footer";
 import { Grid } from "@mui/material";
 
-const Help = (props: any) => {
+const HelpArticle = (props: any) => {
   return (
     <Grid>
-      <MainNav cartQty={props.cartQty} />
-      <PagesNav />
+      <AdminMainNav cartQty={props.cartQty} />
+      <AdminPagesNav />
       <Grid></Grid>
       <FooterC />
     </Grid>
@@ -29,7 +29,9 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps(context: { params: { category: any, id: any } }) {
+export async function getStaticProps(context: {
+  params: { category: any; id: any };
+}) {
   const category = context.params.category;
   const id = context.params.id;
   const helpArticle = await IndexAPI.get(`/help/${category}/${id}`);
@@ -45,4 +47,4 @@ export async function getStaticProps(context: { params: { category: any, id: any
   };
 }
 
-export default Help;
+export default HelpArticle;
