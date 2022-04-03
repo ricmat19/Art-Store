@@ -5,14 +5,14 @@ import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 
 const AdminCreateHelpArticle = (props: any) => {
   const [title, setTitle] = useState("");
+  const [section, setSection] = useState<string>("");
   const [article, setArticle] = useState("");
-  const [description, setDescription] = useState<string>("");
 
-  const createVideoLecture = async (e: { preventDefault: () => void }) => {
+  const createHelpArticle = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
-      await IndexAPI.put(
-        `/admin/courses/lecture/${props.lecture}/${props.section}/${props.id}`,
+      await IndexAPI.post(
+        `/admin/help/lecture/${props.lecture}/${props.section}/${props.id}`,
         {
           article,
           description,

@@ -2,6 +2,7 @@ import { useState } from "react";
 import IndexAPI from "../../../../apis/indexAPI";
 import AdminMainNav from "../../../../components/admin/mainNav";
 import AdminPagesNav from "../../../../components/admin/pagesNav";
+import AdminAddHelp from "../../../../components/admin/help/createHelpArticle";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FooterC from "../../../../components/footer";
@@ -18,7 +19,11 @@ const HelpCategory = (props: any) => {
       <Head>
         <title>artHouse19-Admin Products</title>
       </Head>
-      <AdminAddHelp open={addOpen} handleClose={handleAddClose} />
+      <AdminAddHelp
+        open={addOpen}
+        handleClose={handleAddClose}
+        category={props.category}
+      />
       <AdminMainNav cartQty={props.cartQty} />
       <AdminPagesNav />
       <Grid>
@@ -35,7 +40,7 @@ const HelpCategory = (props: any) => {
             <FontAwesomeIcon className="plus-icon" icon={faPlus} />
           </Button>
         </Grid>
-        <Grid></Grid>
+        <Grid>{props.categoryTitle}</Grid>
         <Grid></Grid>
       </Grid>
       <FooterC />
@@ -78,13 +83,29 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context: { params: { category: any } }) {
   const category = context.params.category;
+
+  let categoryTitle = "";
+  if (category === "gettingStarted") {
+    categoryTitle = "Getting Started";
+  } else if (category === "accountProfile") {
+    categoryTitle = "Account / Profile";
+  } else if (category === "troubleshooting") {
+    categoryTitle = "Troubleshooting";
+  } else if (category === "courseTaking") {
+    categoryTitle = "Course Taking";
+  } else if (category === "purchasesRefunds") {
+    categoryTitle = "Purchases / Refunds";
+  }
+
   const helpCategoryResponse = await IndexAPI.get(`/help/${category}`);
 
   const cartResponse = await IndexAPI.get(`/cart`);
 
   return {
     props: {
-      helpCategory: helpCategoryResponse.data.data.helpCategory,
+      category: category,
+      categoryTitle: categoryTitle,
+      helpCategoryArticles: helpCategoryResponse.data.data.helpCategory,
       cartQty: cartResponse.data.data.cart.length,
     },
     revalidate: 1,
