@@ -5,19 +5,17 @@ import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 
 const AdminCreateHelpArticle = (props: any) => {
   const [title, setTitle] = useState("");
-  const [section, setSection] = useState<string>("");
   const [article, setArticle] = useState("");
+  const [section, setSection] = useState<string>("");
 
   const createHelpArticle = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
-      await IndexAPI.post(
-        `/admin/help/lecture/${props.lecture}/${props.section}/${props.id}`,
-        {
-          article,
-          description,
-        }
-      );
+      await IndexAPI.post(`/admin/help/${props.category}`, {
+        title,
+        article,
+        section,
+      });
 
       props.handleClose();
     } catch (err) {
@@ -61,7 +59,7 @@ const AdminCreateHelpArticle = (props: any) => {
                 color: "#000",
                 justifyContent: "flex-end",
                 backgroundColor: "#000",
-                padding: "30px",
+                padding: "15px",
               }}
             >
               <Grid
@@ -79,39 +77,52 @@ const AdminCreateHelpArticle = (props: any) => {
                   <Grid className="admin-form-title">
                     <h1 className="align-center">Article: {props.lecture}</h1>
                   </Grid>
-                  <Grid sx={{ display: "grid", padding: "30px" }}>
+                  <Grid
+                    sx={{
+                      display: "grid",
+                      padding: "15px",
+                      gridTemplateColumns: "75px auto",
+                    }}
+                  >
+                    <label>Title: </label>
+                    <input
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                      name="title"
+                      required
+                    />
+                  </Grid>
+                  <Grid
+                    sx={{
+                      display: "grid",
+                      padding: "15px",
+                      gridTemplateColumns: "75px auto",
+                    }}
+                  >
+                    <label>Section:</label>
+                    <input
+                      value={section}
+                      onChange={(e) => setSection(e.target.value)}
+                      name="section"
+                      required
+                    />
+                  </Grid>
+                  <Grid
+                    sx={{
+                      display: "grid",
+                      padding: "15px",
+                      gridTemplateColumns: "75px auto",
+                    }}
+                  >
+                    <label>Article:</label>
                     <textarea
                       value={article}
                       onChange={(e) => setArticle(e.target.value)}
                       name="description"
-                      rows={25}
+                      rows={20}
                       className="form-control"
                       required
                     />
-                  </Grid>
-                  <Grid className="admin-form-field">
-                    <label className="admin-label">Description:</label>
-                    <textarea
-                      value={description}
-                      onChange={(e) => setDescription(e.target.value)}
-                      name="description"
-                      rows={5}
-                      className="form-control"
-                      required
-                    />
-                  </Grid>
-                  <Grid className="admin-form-button">
-                    <Grid className="text-center">
-                      <Grid>
-                        <button
-                          onClick={createVideoLecture}
-                          type="submit"
-                          className="btn form-button"
-                        >
-                          Submit
-                        </button>
-                      </Grid>
-                    </Grid>
                   </Grid>
                 </form>
               </Grid>
