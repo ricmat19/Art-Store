@@ -65,7 +65,7 @@ router.post("/admin/help/:category", async (req, res) => {
   try {
     const helpArticle = await db.query(
       "INSERT INTO help (category, title, article, section) values ($1, $2, $3, $4) RETURNING *",
-      [req.params.category, req.body.title, req.body.article, req.body.section]
+      [req.params.category, req.body.title, req.body.article, req.body.selectedSection]
     );
     res.status(201).json({
       status: "success",

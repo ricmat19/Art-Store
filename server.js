@@ -10,6 +10,7 @@ const adminCommunityRouter = require("./routes/admin/community");
 const adminCoursesRouter = require("./routes/admin/courses");
 const adminEventsRouter = require("./routes/admin/events");
 const adminGeneralArticlesRouter = require("./routes/admin/generalArticles");
+const adminHelpRouter = require("./routes/admin/help");
 const adminProductsRouter = require("./routes/admin/products");
 const adminUserRouter = require("./routes/admin/user");
 const cartRouter = require("./routes/users/cart");
@@ -66,6 +67,7 @@ app.use(adminCommunityRouter);
 app.use(adminCoursesRouter);
 app.use(adminEventsRouter);
 app.use(adminGeneralArticlesRouter);
+app.use(adminHelpRouter)
 app.use(adminProductsRouter);
 app.use(adminUserRouter);
 
