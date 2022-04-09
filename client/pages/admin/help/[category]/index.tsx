@@ -40,8 +40,31 @@ const HelpCategory = (props: any) => {
             <FontAwesomeIcon className="plus-icon" icon={faPlus} />
           </Button>
         </Grid>
-        <Grid>{props.categoryTitle}</Grid>
-        <Grid></Grid>
+        <Grid>{props.categoryContent.categoryTitle}</Grid>
+        <Grid>
+          {props.categoryContent.categorySections.map(
+            (categorySection: any, sectionIndex: number) => {
+              return (
+                <Grid key={sectionIndex}>
+                  <Grid>{categorySection.sectionTitle}</Grid>
+                  <Grid>
+                    {props.categoryArticles.map(
+                      (article: any, index: number) => {
+                        if (article.section === categorySection.section) {
+                          return (
+                            <Grid key={index}>
+                              <Grid>{article.title}</Grid>
+                            </Grid>
+                          );
+                        }
+                      }
+                    )}
+                  </Grid>
+                </Grid>
+              );
+            }
+          )}
+        </Grid>
       </Grid>
       <FooterC />
     </Grid>
@@ -84,28 +107,72 @@ export async function getStaticPaths() {
 export async function getStaticProps(context: { params: { category: any } }) {
   const category = context.params.category;
 
-  let categoryTitle = "";
+  let categoryContent = {};
   if (category === "gettingStarted") {
-    categoryTitle = "Getting Started";
+    categoryContent = {
+      categoryTitle: "Getting Started",
+      categorySections: [
+        {
+          section: "gettingStarted",
+          sectionTitle: "Get Started",
+        },
+        {
+          section: "learnMore",
+          sectionTitle: "Learn More",
+        },
+      ],
+    };
   } else if (category === "accountProfile") {
-    categoryTitle = "Account / Profile";
+    categoryContent = {
+      categoryTitle: "Account / Profile",
+      categorySections: [
+        {
+          section: "settings",
+          sectionTitle: "Settings",
+        },
+        {
+          section: "security",
+          sectionTitle: "Security",
+        },
+      ],
+    };
   } else if (category === "troubleshooting") {
-    categoryTitle = "Troubleshooting";
+    categoryContent = {
+      categoryTitle: "Troubleshooting",
+      categorySections: {
+        sections: ["site", "product", "course", "payments"],
+        sectionTitles: ["Site", "Product", "Course", "Payments"],
+      },
+    };
   } else if (category === "courseTaking") {
-    categoryTitle = "Course Taking";
+    categoryContent = {
+      categoryTitle: "Course Taking",
+      categorySections: {
+        sections: ["player", "settings"],
+        sectionTitles: ["Player", "Settings"],
+      },
+    };
   } else if (category === "purchasesRefunds") {
-    categoryTitle = "Purchases / Refunds";
+    categoryContent = {
+      categoryTitle: "Purchases / Refunds",
+      categorySections: {
+        sections: ["purchasing", "promotions", "refunds"],
+        sectionTitles: ["Purchasing", "Promotions", "Refunds"],
+      },
+    };
   }
 
-  const helpCategoryResponse = await IndexAPI.get(`/help/${category}`);
+  const categoryArticlesResponse = await IndexAPI.get(
+    `/admin/help/${category}`
+  );
 
   const cartResponse = await IndexAPI.get(`/cart`);
 
   return {
     props: {
       category: category,
-      categoryTitle: categoryTitle,
-      helpCategoryArticles: helpCategoryResponse.data.data.helpCategory,
+      categoryContent: categoryContent,
+      categoryArticles: categoryArticlesResponse.data.data.categoryArticles,
       cartQty: cartResponse.data.data.cart.length,
     },
     revalidate: 1,

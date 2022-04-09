@@ -5,15 +5,15 @@ const db = require("../../db");
 //Get all help articles of a category
 router.get("/admin/help/:category", async (req, res) => {
   try {
-    const help = await db.query("SELECT * FROM help WHERE category=$1", [
+    const categoryArticles = await db.query("SELECT * FROM help WHERE category=$1", [
       req.params.category,
     ]);
 
     res.status(200).json({
       status: "success",
-      results: help.rows.length,
+      results: categoryArticles.rows.length,
       data: {
-        help: help.rows,
+        categoryArticles: categoryArticles.rows,
       },
     });
   } catch (err) {
