@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import IndexAPI from "../../apis/indexAPI";
 import { useState } from "react";
-import AdminMainNav from "../../../../components/admin/mainNav";
-import AdminPagesNav from "../../../../components/admin/pagesNav";
+import AdminMainNav from "../../components/admin/mainNav";
+import AdminPagesNav from "../../components/admin/pagesNav";
 import FooterC from "../../components/footer";
 import Head from "next/head";
 import { Grid } from "@mui/material";
@@ -30,7 +30,7 @@ const About = (props: any) => {
           content="About the artHouse19 and its creator."
         ></meta>
       </Head>
-      <AdminMainNav cartQty={props.cartQty} />
+      <AdminMainNav />
       <AdminPagesNav />
       <Grid className="main-body">
         <Grid>

@@ -4,10 +4,10 @@ import AdminPagesNav from "../../../../components/admin/pagesNav";
 import FooterC from "../../../../components/footer";
 import { Grid } from "@mui/material";
 
-const HelpArticle = (props: any) => {
+const HelpArticle = () => {
   return (
     <Grid>
-      <AdminMainNav cartQty={props.cartQty} />
+      <AdminMainNav/>
       <AdminPagesNav />
       <Grid></Grid>
       <FooterC />
@@ -34,7 +34,7 @@ export async function getStaticProps(context: {
 }) {
   const category = context.params.category;
   const id = context.params.id;
-  const helpArticle = await IndexAPI.get(`/help/${category}/${id}`);
+  const helpArticle = await IndexAPI.get(`/admin/help/${category}/${id}`);
 
   const cartResponse = await IndexAPI.get(`/cart`);
 

@@ -68,7 +68,7 @@ const AdminBlogPost = (props: any) => {
   if (loginStatus) {
     return (
       <Grid>
-        <AdminMainNav cartQty={props.cartQty} />
+        <AdminMainNav />
         <AdminPagesNav />
         <Grid container className="main-body">
           <Grid>

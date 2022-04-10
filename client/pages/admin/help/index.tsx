@@ -5,12 +5,12 @@ import AdminPagesNav from "../../../components/admin/pagesNav";
 import FooterC from "../../../components/footer";
 import { Grid } from "@mui/material";
 
-const Help = (props: any) => {
+const Help = () => {
   const router = useRouter();
 
   return (
     <Grid>
-      <AdminMainNav cartQty={props.cartQty} />
+      <AdminMainNav />
       <AdminPagesNav />
       <Grid>
         <Grid>

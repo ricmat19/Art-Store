@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 import IndexAPI from "../../../../apis/indexAPI";
 import AdminMainNav from "../../../../components/admin/mainNav";
 import AdminPagesNav from "../../../../components/admin/pagesNav";
@@ -14,6 +15,16 @@ const HelpCategory = (props: any) => {
   const handleAddOpen = () => setAddOpen(true);
   const handleAddClose = () => setAddOpen(false);
 
+  const router = useRouter();
+
+  const displayArticle = async (id: string) => {
+    try {
+      router.push(`/admin/help/${props.category}/${id}`);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <Grid>
       <Head>
@@ -24,7 +35,7 @@ const HelpCategory = (props: any) => {
         handleClose={handleAddClose}
         category={props.category}
       />
-      <AdminMainNav cartQty={props.cartQty} />
+      <AdminMainNav />
       <AdminPagesNav />
       <Grid>
         <Grid className="plus-icon-div">
@@ -53,7 +64,12 @@ const HelpCategory = (props: any) => {
                         if (article.section === categorySection.section) {
                           return (
                             <Grid key={index}>
-                              <Grid>{article.title}</Grid>
+                              <Grid
+                                className="pointer"
+                                onClick={() => displayArticle(article.id)}
+                              >
+                                {article.title}
+                              </Grid>
                             </Grid>
                           );
                         }
@@ -139,26 +155,56 @@ export async function getStaticProps(context: { params: { category: any } }) {
   } else if (category === "troubleshooting") {
     categoryContent = {
       categoryTitle: "Troubleshooting",
-      categorySections: {
-        sections: ["site", "product", "course", "payments"],
-        sectionTitles: ["Site", "Product", "Course", "Payments"],
-      },
+      categorySections: [
+        {
+          section: "site",
+          sectionTitle: "Site",
+        },
+        {
+          section: "product",
+          sectionTitle: "Product",
+        },
+        {
+          section: "course",
+          sectionTitle: "Course",
+        },
+        {
+          section: "payments",
+          sectionTitle: "Payments",
+        },
+      ],
     };
   } else if (category === "courseTaking") {
     categoryContent = {
       categoryTitle: "Course Taking",
-      categorySections: {
-        sections: ["player", "settings"],
-        sectionTitles: ["Player", "Settings"],
-      },
+      categorySections: [
+        {
+          section: "player",
+          sectionTitle: "Player",
+        },
+        {
+          section: "settings",
+          sectionTitle: "Settings",
+        },
+      ],
     };
   } else if (category === "purchasesRefunds") {
     categoryContent = {
       categoryTitle: "Purchases / Refunds",
-      categorySections: {
-        sections: ["purchasing", "promotions", "refunds"],
-        sectionTitles: ["Purchasing", "Promotions", "Refunds"],
-      },
+      categorySections: [
+        {
+          section: "purchasing",
+          sectionTitle: "Purchasing",
+        },
+        {
+          section: "promotions",
+          sectionTitle: "Promotions",
+        },
+        {
+          section: "refunds",
+          sectionTitle: "Refunds",
+        },
+      ],
     };
   }
 
