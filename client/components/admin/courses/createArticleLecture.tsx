@@ -14,7 +14,7 @@ const AdminCreateArticleLecture = (props: any) => {
         `/admin/courses/lecture/${props.lecture}/${props.section}/${props.id}`,
         {
           article,
-          description
+          description,
         }
       );
 
@@ -47,7 +47,7 @@ const AdminCreateArticleLecture = (props: any) => {
               bgcolor: "background.paper",
               border: "2px solid #fff",
               boxShadow: 24,
-              width: "90vw",
+              width: "80vw",
               maxWidth: "1000px",
             }}
           >
@@ -59,8 +59,7 @@ const AdminCreateArticleLecture = (props: any) => {
                 alignItems: "center",
                 color: "#000",
                 justifyContent: "flex-end",
-                backgroundColor: "#000",
-                padding: "30px",
+                backgroundColor: "#000"
               }}
             >
               <Grid
@@ -78,23 +77,30 @@ const AdminCreateArticleLecture = (props: any) => {
                   <Grid className="admin-form-title">
                     <h1 className="align-center">Article: {props.lecture}</h1>
                   </Grid>
-                  <Grid sx={{ display: "grid", padding: "30px" }}>
-                    <textarea
-                      value={article}
-                      onChange={(e) => setArticle(e.target.value)}
-                      name="description"
-                      rows={25}
-                      className="form-control"
-                      required
-                    />
-                  </Grid>
-                  <Grid className="admin-form-field">
+                  <Grid
+                    className="admin-form-field"
+                    sx={{ display: "grid", padding: "15px" }}
+                  >
                     <label className="admin-label">Description:</label>
                     <textarea
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
                       name="description"
-                      rows={5}
+                      rows={2}
+                      className="form-control"
+                      required
+                    />
+                  </Grid>
+                  <Grid
+                    className="admin-form-field"
+                    sx={{ display: "grid", padding: "15px" }}
+                  >
+                    <label className="admin-label">Article:</label>
+                    <textarea
+                      value={article}
+                      onChange={(e) => setArticle(e.target.value)}
+                      name="description"
+                      rows={15}
                       className="form-control"
                       required
                     />
