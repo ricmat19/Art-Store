@@ -2,14 +2,24 @@ import IndexAPI from "../../../apis/indexAPI";
 import MainNav from "../../../components/users/mainNav";
 import PagesNav from "../../../components/users/pagesNav";
 import FooterC from "../../../components/footer";
+import ReactHtmlParser from "react-html-parser";
 import { Grid } from "@mui/material";
 
-const Help = (props: any) => {
+const HelpArticle = (props: any) => {
   return (
     <Grid>
-      <MainNav cartQty={props.cartQty} />
+      <MainNav />
       <PagesNav />
-      <Grid></Grid>
+      <Grid>
+        <form>
+          <Grid sx={{ display: "grid", gap: "10px", margin: "50px 20vw" }}>
+            <Grid>
+              <h1>{props.helpArticle[0].title}</h1>
+            </Grid>
+            <Grid>{ReactHtmlParser(props.helpArticle[0].article)}</Grid>
+          </Grid>
+        </form>
+      </Grid>
       <FooterC />
     </Grid>
   );
@@ -29,7 +39,9 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps(context: { params: { category: any, id: any } }) {
+export async function getStaticProps(context: {
+  params: { category: any; id: any };
+}) {
   const category = context.params.category;
   const id = context.params.id;
   const helpArticle = await IndexAPI.get(`/help/${category}/${id}`);
@@ -45,4 +57,4 @@ export async function getStaticProps(context: { params: { category: any, id: any
   };
 }
 
-export default Help;
+export default HelpArticle;

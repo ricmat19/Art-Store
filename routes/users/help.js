@@ -6,7 +6,7 @@ const db = require("../../db");
 router.get("/help", async (req, res) => {
   try {
     const helpArticles = await db.query("SELECT * FROM help");
-    console.log('help')
+    console.log("help");
 
     res.status(200).json({
       status: "success",
@@ -23,17 +23,16 @@ router.get("/help", async (req, res) => {
 //Get all help articles of a category
 router.get("/help/:category", async (req, res) => {
   try {
-    console.log('help category')
-    const helpCategory = await db.query(
+    const categoryArticles = await db.query(
       "SELECT * FROM help WHERE category=$1",
       [req.params.category]
     );
 
     res.status(200).json({
       status: "success",
-      results: helpCategory.rows.length,
+      results: categoryArticles.rows.length,
       data: {
-        helpCategory: helpCategory.rows,
+        categoryArticles: categoryArticles.rows,
       },
     });
   } catch (err) {

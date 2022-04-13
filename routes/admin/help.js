@@ -45,7 +45,7 @@ router.put("/admin/help/:category/:id", async (req, res) => {
   try {
     const helpArticle = await db.query(
       "UPDATE help SET article=$1 WHERE id=$2",
-      [req.body.article, req.params.id]
+      [req.body.content, req.params.id]
     );
 
     res.status(201).json({

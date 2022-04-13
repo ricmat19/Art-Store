@@ -7,7 +7,7 @@ const AdminCreateArticleLecture = (props: any) => {
   const [article, setArticle] = useState("");
   const [description, setDescription] = useState<string>("");
 
-  const createVideoLecture = async (e: { preventDefault: () => void }) => {
+  const createArticleLecture = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
       await IndexAPI.put(
@@ -59,7 +59,7 @@ const AdminCreateArticleLecture = (props: any) => {
                 alignItems: "center",
                 color: "#000",
                 justifyContent: "flex-end",
-                backgroundColor: "#000"
+                backgroundColor: "#000",
               }}
             >
               <Grid
@@ -109,7 +109,7 @@ const AdminCreateArticleLecture = (props: any) => {
                     <Grid className="text-center">
                       <Grid>
                         <button
-                          onClick={createVideoLecture}
+                          onClick={createArticleLecture}
                           type="submit"
                           className="btn form-button"
                         >

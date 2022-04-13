@@ -28,7 +28,7 @@ const HelpCategory = (props: any) => {
   return (
     <Grid>
       <Head>
-        <title>artHouse19-Admin Products</title>
+        <title>artHouse19-Admin Help</title>
       </Head>
       <AdminAddHelp
         open={addOpen}
@@ -51,35 +51,84 @@ const HelpCategory = (props: any) => {
             <FontAwesomeIcon className="plus-icon" icon={faPlus} />
           </Button>
         </Grid>
-        <Grid>{props.categoryContent.categoryTitle}</Grid>
         <Grid>
-          {props.categoryContent.categorySections.map(
-            (categorySection: any, sectionIndex: number) => {
-              return (
-                <Grid key={sectionIndex}>
-                  <Grid>{categorySection.sectionTitle}</Grid>
-                  <Grid>
-                    {props.categoryArticles.map(
-                      (article: any, index: number) => {
-                        if (article.section === categorySection.section) {
-                          return (
-                            <Grid key={index}>
-                              <Grid
-                                className="pointer"
-                                onClick={() => displayArticle(article.id)}
-                              >
-                                {article.title}
-                              </Grid>
-                            </Grid>
-                          );
-                        }
-                      }
-                    )}
+          <h1>{props.categoryContent.categoryTitle}</h1>
+        </Grid>
+        <Grid
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "200px 1fr",
+            margin: "50px 10vw",
+            gap: "0 100px",
+          }}
+        >
+          <Grid>
+            <Grid
+              className="nav-link"
+              onClick={() => router.push("/admin/help/gettingStarted")}
+            >
+              <p className="pointer">Getting Started</p>
+            </Grid>
+            <Grid
+              className="nav-link"
+              onClick={() => router.push("/admin/help/accountProfile")}
+            >
+              <p className="pointer">Account Profile</p>
+            </Grid>
+            <Grid
+              className="nav-link"
+              onClick={() => router.push("/admin/help/troubleshooting")}
+            >
+              <p className="pointer">Troubleshooting</p>
+            </Grid>
+            <Grid
+              className="nav-link"
+              onClick={() => router.push("/admin/help/courseTaking")}
+            >
+              <p className="pointer">Course Taking</p>
+            </Grid>
+            <Grid
+              className="nav-link"
+              onClick={() => router.push("/admin/help/purchasesRefunds")}
+            >
+              <p className="pointer">Purchases Refunds</p>
+            </Grid>
+          </Grid>
+          <Grid>
+            {props.categoryContent.categorySections.map(
+              (categorySection: any, sectionIndex: number) => {
+                return (
+                  <Grid key={sectionIndex}>
+                    <Grid sx={{ fontSize: "20px", fontWeight: "500" }}>
+                      <p>{categorySection.sectionTitle}</p>
+                    </Grid>
+                    <Grid>
+                      <ul>
+                        {props.categoryArticles.map(
+                          (article: any, index: number) => {
+                            if (article.section === categorySection.section) {
+                              return (
+                                <li key={index}>
+                                  <Grid>
+                                    <Grid
+                                      className="pointer"
+                                      onClick={() => displayArticle(article.id)}
+                                    >
+                                      <p>{article.title}</p>
+                                    </Grid>
+                                  </Grid>
+                                </li>
+                              );
+                            }
+                          }
+                        )}
+                      </ul>
+                    </Grid>
                   </Grid>
-                </Grid>
-              );
-            }
-          )}
+                );
+              }
+            )}
+          </Grid>
         </Grid>
       </Grid>
       <FooterC />
@@ -209,7 +258,7 @@ export async function getStaticProps(context: { params: { category: any } }) {
   }
 
   const categoryArticlesResponse = await IndexAPI.get(
-    `/admin/help/${category}`
+    `/admin/help/${category}` 
   );
 
   const cartResponse = await IndexAPI.get(`/cart`);

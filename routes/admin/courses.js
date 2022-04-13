@@ -255,9 +255,10 @@ router.put("/admin/courses/lecture/:lecture/:section/:id", async (req, res) => {
     let lecture;
     if (req.body.video) {
       lecture = await db.query(
-        "UPDATE courseLectures SET lecture=$1 WHERE id=$2 AND section=$3 AND lecture=$4",
+        "UPDATE courseLectures SET video=$1, description=$2 WHERE id=$3 AND section=$4 AND lecture=$5",
         [
-          req.params.lecture,
+          req.body.video,
+          req.body.description,
           req.params.id,
           req.params.section,
           req.params.lecture,
@@ -267,9 +268,10 @@ router.put("/admin/courses/lecture/:lecture/:section/:id", async (req, res) => {
 
     if (req.body.article) {
       lecture = await db.query(
-        "UPDATE courseLectures SET lecture=$1 WHERE id=$2 AND section=$3 AND lecture=$4",
+        "UPDATE courseLectures SET article=$1, description=$2 WHERE id=$3 AND section=$4 AND lecture=$5",
         [
           req.body.article,
+          req.body.description,
           req.params.id,
           req.params.section,
           req.params.lecture,

@@ -1,15 +1,68 @@
 import IndexAPI from "../../../../apis/indexAPI";
+import { useState } from "react";
+import { useRouter } from "next/router";
 import AdminMainNav from "../../../../components/admin/mainNav";
 import AdminPagesNav from "../../../../components/admin/pagesNav";
 import FooterC from "../../../../components/footer";
 import { Grid } from "@mui/material";
 
-const HelpArticle = () => {
+const HelpArticle = (props: any) => {
+  const [title, setTitle] = useState<string>(props.helpArticle[0].title);
+  const [content, setContent] = useState<string>(props.helpArticle[0].article);
+
+  const router = useRouter();
+
+  const updateArticle = async (e: { preventDefault: () => void }) => {
+    e.preventDefault()
+    try {
+      await IndexAPI.put(
+        `/admin/help/${props.helpArticle[0].category}/${props.helpArticle[0].id}`,
+        {
+          title,
+          content,
+        }
+      );
+      router.push(`/admin/help/${props.helpArticle[0].category}`);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <Grid>
-      <AdminMainNav/>
+      <AdminMainNav />
       <AdminPagesNav />
-      <Grid></Grid>
+      <Grid>
+        <form>
+          <Grid sx={{ display: "grid", gap: "10px", margin: "50px 20vw" }}>
+            <Grid>
+              <label>Title:</label>
+              <input
+                className="full-width"
+                onChange={(e) => setTitle(e.target.value)}
+                value={title}
+              />
+            </Grid>
+            <Grid>
+              <label>Content:</label>
+              <textarea
+                className="full-width"
+                onChange={(e) => setContent(e.target.value)}
+                value={content}
+                rows={50}
+              />
+            </Grid>
+            <Grid sx={{ textAlign: "center" }}>
+              <button type="submit" onClick={updateArticle}>
+                Submit
+              </button>
+            </Grid>
+          </Grid>
+        </form>
+
+        <Grid>{props.helpArticle.title}</Grid>
+        <Grid>{props.helpArticle.article}</Grid>
+      </Grid>
       <FooterC />
     </Grid>
   );
