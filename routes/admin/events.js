@@ -74,7 +74,7 @@ router.post(
       // res.send({ imagePath: `/images/${result.key}` });
       // await unlinkFile(file.path);
       await db.query(
-        "INSERT INTO events (title, event_date, price, spots, info) values ($1, $2, $3, $4, $5) RETURNING *",
+        "INSERT INTO events (title, event_date, price, spots, info, create_date) values ($1, $2, $3, $4, $5, $6) RETURNING *",
         [
           req.body.title,
           req.body.selectedDate,
@@ -82,6 +82,7 @@ router.post(
           req.body.price,
           req.body.spots,
           req.body.info,
+          new Date(),
         ]
       );
 
@@ -102,13 +103,14 @@ router.put("/admin/events/:id", async (req, res) => {
     // res.send({ imagePath: `/images/${result.key}` });
     // await unlinkFile(file.path);
     const event = await db.query(
-      "UPDATE events SET title=$1, event_date=$2, price=$3, info=$4, spots=$5 WHERE id=$6",
+      "UPDATE events SET title=$1, event_date=$2, price=$3, info=$4, spots=$5, update_date=$6 WHERE id=$7",
       [
         req.body.selectedTitle,
         req.body.selectedDate,
         req.body.selectedPrice,
         req.body.selectedInfo,
         req.body.selectedSpots,
+        new Date(),
         // result.key,
         req.params.id,
       ]

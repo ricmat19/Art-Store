@@ -53,7 +53,7 @@ router.post("/admin/blog", upload.single("images"), async (req, res) => {
     res.send({ imagePath: `/images/${result.key}` });
     await unlinkFile(file.path);
     await db.query(
-      "INSERT INTO blog (title, imagekey, post_date, content) values ($1, $2, $3, $4) RETURNING *",
+      "INSERT INTO blog (title, imagekey, create_date, content) values ($1, $2, $3, $4) RETURNING *",
       [req.body.title, result.key, new Date(), req.body.content]
     );
   } catch (err) {

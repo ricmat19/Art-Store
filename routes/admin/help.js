@@ -5,9 +5,10 @@ const db = require("../../db");
 //Get all help articles of a category
 router.get("/admin/help/:category", async (req, res) => {
   try {
-    const categoryArticles = await db.query("SELECT * FROM help WHERE category=$1", [
-      req.params.category,
-    ]);
+    const categoryArticles = await db.query(
+      "SELECT * FROM help WHERE category=$1",
+      [req.params.category]
+    );
 
     res.status(200).json({
       status: "success",
@@ -40,14 +41,19 @@ router.get("/admin/help/:category/:id", async (req, res) => {
   }
 });
 
-//Update a help article
-router.put("/admin/help/:category/:id", async (req, res) => {
+//Create a help article
+router.post("/admin/help/:category", async (req, res) => {
   try {
     const helpArticle = await db.query(
-      "UPDATE help SET article=$1 WHERE id=$2",
-      [req.body.content, req.params.id]
+      "INSERT INTO help (category, title, article, section, create_date) values ($1, $2, $3, $4, $5) RETURNING *",
+      [
+        req.params.category,
+        req.body.title,
+        req.body.article,
+        req.body.selectedSection,
+        new Date(),
+      ]
     );
-
     res.status(201).json({
       status: "success",
       results: helpArticle.rows.length,
@@ -60,13 +66,14 @@ router.put("/admin/help/:category/:id", async (req, res) => {
   }
 });
 
-//Create a help article
-router.post("/admin/help/:category", async (req, res) => {
+//Update a help article
+router.put("/admin/help/:category/:id", async (req, res) => {
   try {
     const helpArticle = await db.query(
-      "INSERT INTO help (category, title, article, section) values ($1, $2, $3, $4) RETURNING *",
-      [req.params.category, req.body.title, req.body.article, req.body.selectedSection]
+      "UPDATE help SET article=$1, update_date=$2 WHERE id=$3",
+      [req.body.content, new Date(), req.params.id]
     );
+
     res.status(201).json({
       status: "success",
       results: helpArticle.rows.length,

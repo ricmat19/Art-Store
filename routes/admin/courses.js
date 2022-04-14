@@ -130,13 +130,14 @@ router.post("/admin/courses", upload.single("images"), async (req, res) => {
     res.send({ imagePath: `/images/${result.key}` });
     await unlinkFile(file.path);
     await db.query(
-      "INSERT INTO courses (title, subject, imagekey, description, price) values ($1, $2, $3, $4, $5) RETURNING *",
+      "INSERT INTO courses (title, subject, imagekey, description, price, create_date) values ($1, $2, $3, $4, $5, $6) RETURNING *",
       [
         req.body.title,
         req.body.subject,
         result.key,
         req.body.description,
         req.body.price,
+        new Date(),
       ]
     );
   } catch (err) {
@@ -148,8 +149,8 @@ router.post("/admin/courses", upload.single("images"), async (req, res) => {
 router.post("/admin/courses/section/:id", async (req, res) => {
   try {
     const courseSection = await db.query(
-      "INSERT INTO courseSections (id, section) values ($1, $2) RETURNING *",
-      [req.params.id, req.body.section]
+      "INSERT INTO courseSections (id, section, create_date) values ($1, $2, $3) RETURNING *",
+      [req.params.id, req.body.section, new Date()]
     );
 
     res.status(201).json({
@@ -168,8 +169,8 @@ router.post("/admin/courses/section/:id", async (req, res) => {
 router.post("/admin/courses/lecture/:id", async (req, res) => {
   try {
     const courseLecture = await db.query(
-      "INSERT INTO courseLectures (id, section, lecture) values ($1, $2, $3) RETURNING *",
-      [req.params.id, req.body.section, req.body.lecture]
+      "INSERT INTO courseLectures (id, section, lecture, create_date) values ($1, $2, $3, $4) RETURNING *",
+      [req.params.id, req.body.section, req.body.lecture, new Date()]
     );
 
     res.status(201).json({
@@ -194,24 +195,26 @@ router.put("/admin/courses/:id", upload.single("images"), async (req, res) => {
       res.send({ imagePath: `/images/${result.key}` });
       await unlinkFile(file.path);
       course = await db.query(
-        "UPDATE courses SET title=$1, subject=$2, imagekey=$3, qty=$4, price=$5, info=$6 WHERE id=$7",
+        "UPDATE courses SET title=$1, subject=$2, imagekey=$3, qty=$4, price=$5, info=$6, update_date=$7 WHERE id=$8",
         [
           req.body.title,
           req.body.subject,
           result.key,
           req.body.content,
           req.body.info,
+          new Date(),
           req.body.price,
         ]
       );
     } else {
       course = await db.query(
-        "UPDATE courses SET title=$1, subject=$2, price=$3, description=$4 WHERE id=$5",
+        "UPDATE courses SET title=$1, subject=$2, price=$3, description=$4, update_date=$5 WHERE id=$6",
         [
           req.body.title,
           req.body.subject,
           req.body.price,
           req.body.description,
+          new Date(),
           req.body.id,
         ]
       );
@@ -233,8 +236,8 @@ router.put("/admin/courses/:id", upload.single("images"), async (req, res) => {
 router.put("/admin/courses/section/:section/:id", async (req, res) => {
   try {
     const course = await db.query(
-      "UPDATE courseSections SET section=$1 WHERE id=$2 AND section=$3",
-      [req.body.section, req.params.id, req.params.section]
+      "UPDATE courseSections SET section=$1, update_date=$2 WHERE id=$3 AND section=$4",
+      [req.body.section, new Date(), req.params.id, req.params.section]
     );
 
     res.status(201).json({
@@ -255,10 +258,11 @@ router.put("/admin/courses/lecture/:lecture/:section/:id", async (req, res) => {
     let lecture;
     if (req.body.video) {
       lecture = await db.query(
-        "UPDATE courseLectures SET video=$1, description=$2 WHERE id=$3 AND section=$4 AND lecture=$5",
+        "UPDATE courseLectures SET video=$1, description=$2, update_date=$3 WHERE id=$4 AND section=$5 AND lecture=$6",
         [
           req.body.video,
           req.body.description,
+          new Date(),
           req.params.id,
           req.params.section,
           req.params.lecture,
@@ -268,10 +272,11 @@ router.put("/admin/courses/lecture/:lecture/:section/:id", async (req, res) => {
 
     if (req.body.article) {
       lecture = await db.query(
-        "UPDATE courseLectures SET article=$1, description=$2 WHERE id=$3 AND section=$4 AND lecture=$5",
+        "UPDATE courseLectures SET article=$1, description=$2, update_date=$3 WHERE id=$4 AND section=$5 AND lecture=$6",
         [
           req.body.article,
           req.body.description,
+          new Date(),
           req.params.id,
           req.params.section,
           req.params.lecture,

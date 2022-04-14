@@ -63,8 +63,8 @@ router.get("/admin/termsOfService", async (req, res) => {
 router.put("/admin/about", async (req, res) => {
   try {
     const about = await db.query(
-      "UPDATE generalArticles SET content=$1 WHERE article=$2",
-      [req.body.content, "about"]
+      "UPDATE generalArticles SET content=$1, update_date=$2 WHERE article=$3",
+      [req.body.content, new Date(), "about"]
     );
 
     res.status(201).json({
@@ -83,8 +83,8 @@ router.put("/admin/about", async (req, res) => {
 router.put("/admin/privacyPolicy", async (req, res) => {
   try {
     const privacyPolicy = await db.query(
-      "UPDATE generalArticles SET content=$1 WHERE article=$2",
-      [req.body.content, "privacyPolicy"]
+      "UPDATE generalArticles SET content=$1, update_date=$2 WHERE article=$3",
+      [req.body.content, new Date(), "privacyPolicy"]
     );
 
     res.status(201).json({
@@ -103,8 +103,8 @@ router.put("/admin/privacyPolicy", async (req, res) => {
 router.put("/admin/termsOfService", async (req, res) => {
   try {
     const termsOfService = await db.query(
-      "UPDATE generalArticles SET content=$1 WHERE article=$2",
-      [req.body.content, "termsOfService"]
+      "UPDATE generalArticles SET content=$1, update_date=$2 WHERE article=$3",
+      [req.body.content, new Date(), "termsOfService"]
     );
 
     res.status(201).json({
