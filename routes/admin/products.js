@@ -71,7 +71,7 @@ router.post("/admin/products", upload.single("images"), async (req, res) => {
     res.send({ imagePath: `/images/${result.key}` });
     await unlinkFile(file.path);
     await db.query(
-      "INSERT INTO products (title, product, imagekey, qty, price, info, create_date) values ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
+      "INSERT INTO products (title, product, imagekey, qty, price, info, create_date, update_date) values ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
       [
         req.body.title,
         req.body.product,
@@ -79,6 +79,7 @@ router.post("/admin/products", upload.single("images"), async (req, res) => {
         req.body.quantity,
         req.body.price,
         req.body.info,
+        new Date(),
         new Date(),
       ]
     );

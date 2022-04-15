@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import IndexAPI from "../../../apis/indexAPI";
 import { Grid, Menu } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,33 +10,28 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const Notifications = (props: any) => {
-  
   const [notifications, setNotifications] = useState([]);
+  const [product, setProduct] = useState("");
 
-  const displayAll = async () => {
-    const notificationsResponse = await IndexAPI.get(`/notifications`);
-    setNotifications(notificationsResponse.data.data.notifications);
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let notificationsResponse;
+        if (product === "") {
+          notificationsResponse = await IndexAPI.get(`/notifications`);
+        } else {
+          notificationsResponse = await IndexAPI.get(
+            `/notifications/${product}`
+          );
+        }
+        setNotifications(notificationsResponse.data.data.notifications);
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
-  const displayProducts = async () => {
-    const notificationsResponse = await IndexAPI.get(`/notifications/products`);
-    setNotifications(notificationsResponse.data.data.notifications);
-  };
-
-  const displayCourses = async () => {
-    const notificationsResponse = await IndexAPI.get(`/notifications/courses`);
-    setNotifications(notificationsResponse.data.data.notificationsd);
-  };
-
-  const displayMedia = async () => {
-    const notificationsResponse = await IndexAPI.get(`/notifications/media`);
-    setNotifications(notificationsResponse.data.data.notifications);
-  };
-
-  const displayEvents = async () => {
-    const notificationsResponse = await IndexAPI.get(`/notifications/events`);
-    setNotifications(notificationsResponse.data.data.notifications);
-  };
+    fetchData();
+  }, [product]);
 
   return (
     <Menu
@@ -86,24 +81,36 @@ const Notifications = (props: any) => {
             }}
           >
             <Grid xs={2} sx={{ cursor: "pointer", fontWeight: "900" }}>
-              <Grid onClick={() => displayAll()}>All</Grid>
+              <Grid onClick={() => setProduct("")}>All</Grid>
             </Grid>
             <Grid xs={2} sx={{ cursor: "pointer" }}>
-              <FontAwesomeIcon icon={faStoreAlt} onClick={() => displayProducts()} />
+              <FontAwesomeIcon
+                icon={faStoreAlt}
+                onClick={() => setProduct("products")}
+              />
             </Grid>
             <Grid xs={2} sx={{ cursor: "pointer" }}>
-              <FontAwesomeIcon icon={faChalkboardTeacher} onClick={() => displayCourses()}/>
+              <FontAwesomeIcon
+                icon={faChalkboardTeacher}
+                onClick={() => setProduct("courses")}
+              />
             </Grid>
             <Grid xs={2} sx={{ cursor: "pointer" }}>
-              <FontAwesomeIcon icon={faTv} onClick={() => displayMedia()}/>
+              <FontAwesomeIcon
+                icon={faTv}
+                onClick={() => setProduct("media")}
+              />
             </Grid>
             <Grid xs={2} sx={{ cursor: "pointer" }}>
-              <FontAwesomeIcon icon={faCalendarCheck} onClick={() => displayEvents()}/>
+              <FontAwesomeIcon
+                icon={faCalendarCheck}
+                onClick={() => setProduct("events")}
+              />
             </Grid>
           </Grid>
         </nav>
         <hr />
-        {notifications}
+        {/* {notifications[0].id !== undefined ? console.log(notifications[0]) : ""} */}
       </Grid>
     </Menu>
   );

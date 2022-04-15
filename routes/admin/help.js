@@ -45,12 +45,13 @@ router.get("/admin/help/:category/:id", async (req, res) => {
 router.post("/admin/help/:category", async (req, res) => {
   try {
     const helpArticle = await db.query(
-      "INSERT INTO help (category, title, article, section, create_date) values ($1, $2, $3, $4, $5) RETURNING *",
+      "INSERT INTO help (category, title, article, section, create_date, update_date) values ($1, $2, $3, $4, $5, $6) RETURNING *",
       [
         req.params.category,
         req.body.title,
         req.body.article,
         req.body.selectedSection,
+        new Date(),
         new Date(),
       ]
     );

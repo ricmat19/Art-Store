@@ -44,7 +44,7 @@ const AdminCourses = (props: any) => {
 
   const displayCourse = async (subject: string, id: string) => {
     try {
-      console.log(subject)
+      console.log(subject);
       router.push(`/admin/courses/${subject}/${id}`);
     } catch (err) {
       console.log(err);
@@ -156,22 +156,35 @@ const AdminCourses = (props: any) => {
 };
 
 export async function getStaticPaths() {
-  const subjectsResponse = await IndexAPI.get(`/admin/subjects`);
-
-  const subjects: string[] = [];
-  for (let i = 0; i < subjectsResponse.data.data.subjects.length; i++) {
-    if (!subjects.includes(subjectsResponse.data.data.subjects.subject)) {
-      subjects.push(subjectsResponse.data.data.subjects[i].subject);
-    }
-  }
-
   return {
     fallback: false,
-    paths: subjects.map((subject: any) => ({
-      params: {
-        subject: subject,
+    paths: [
+      {
+        params: {
+          subject: "drawing",
+        },
       },
-    })),
+      {
+        params: {
+          subject: "painting",
+        },
+      },
+      {
+        params: {
+          subject: "modeling",
+        },
+      },
+      {
+        params: {
+          subject: "sculpting",
+        },
+      },
+      {
+        params: {
+          subject: "writing",
+        },
+      },
+    ],
   };
 }
 
@@ -187,7 +200,9 @@ export async function getStaticProps(context: { params: { subject: any } }) {
   }
 
   const subject = context.params.subject;
-  const subjectResponse = await IndexAPI.get(`/admin/courses/subject/${subject}`);
+  const subjectResponse = await IndexAPI.get(
+    `/admin/courses/subject/${subject}`
+  );
 
   if (subjectResponse.data.data.subject !== undefined) {
     for (let i = 0; i < subjectResponse.data.data.subject.length; i++) {

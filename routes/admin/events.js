@@ -74,7 +74,7 @@ router.post(
       // res.send({ imagePath: `/images/${result.key}` });
       // await unlinkFile(file.path);
       await db.query(
-        "INSERT INTO events (title, event_date, price, spots, info, create_date) values ($1, $2, $3, $4, $5, $6) RETURNING *",
+        "INSERT INTO events (title, event_date, price, spots, info, create_date, update_date) values ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
         [
           req.body.title,
           req.body.selectedDate,
@@ -82,6 +82,7 @@ router.post(
           req.body.price,
           req.body.spots,
           req.body.info,
+          new Date(),
           new Date(),
         ]
       );

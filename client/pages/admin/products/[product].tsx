@@ -174,22 +174,40 @@ const AdminProduct = (props: any) => {
 };
 
 export async function getStaticPaths() {
-  const productsResponse = await IndexAPI.get(`/admin/products`);
-
-  const products: string[] = [];
-  for (let i = 0; i < productsResponse.data.data.products.length; i++) {
-    if (!products.includes(productsResponse.data.data.products.product)) {
-      products.push(productsResponse.data.data.products[i].product);
-    }
-  }
-
   return {
     fallback: false,
-    paths: products.map((product: any) => ({
-      params: {
-        product: product,
+    paths: [
+      {
+        params: {
+          product: "print",
+        },
       },
-    })),
+      {
+        params: {
+          product: "painting",
+        },
+      },
+      {
+        params: {
+          product: "sculpture",
+        },
+      },
+      {
+        params: {
+          product: "model",
+        },
+      },
+      {
+        params: {
+          product: "book",
+        },
+      },
+      {
+        params: {
+          product: "comic",
+        },
+      },
+    ],
   };
 }
 
@@ -205,22 +223,25 @@ export async function getStaticProps(context: { params: { product: any } }) {
   }
 
   const product = context.params.product;
+  console.log(product);
   const productResponse = await IndexAPI.get(`/products/${product}`);
 
-  for (let i = 0; i < productResponse.data.data.product.length; i++) {
-    if (productResponse.data.data.product[i].imagekey !== null) {
-      let imagesResponse = await IndexAPI.get(
-        `/images/${productResponse.data.data.product[i].imagekey}`,
-        {
-          responseType: "arraybuffer",
-        }
-      ).then((response) =>
-        Buffer.from(response.data, "binary").toString("base64")
-      );
+  if (productResponse.data.data.product !== undefined) {
+    for (let i = 0; i < productResponse.data.data.product.length; i++) {
+      if (productResponse.data.data.product[i].imagekey !== null) {
+        let imagesResponse = await IndexAPI.get(
+          `/images/${productResponse.data.data.product[i].imagekey}`,
+          {
+            responseType: "arraybuffer",
+          }
+        ).then((response) =>
+          Buffer.from(response.data, "binary").toString("base64")
+        );
 
-      productResponse.data.data.product[
-        i
-      ].imageBuffer = `data:image/png;base64,${imagesResponse}`;
+        productResponse.data.data.product[
+          i
+        ].imageBuffer = `data:image/png;base64,${imagesResponse}`;
+      }
     }
   }
 

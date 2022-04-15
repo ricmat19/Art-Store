@@ -84,30 +84,43 @@ const Courses = (props: any) => {
 };
 
 export async function getStaticPaths() {
-  const coursesResponse = await IndexAPI.get(`/courses`);
-
-  const courseType: string[] = [];
-  for (let i = 0; i < coursesResponse.data.data.courses.length; i++) {
-    if (!courseType.includes(coursesResponse.data.data.courses.subject)) {
-      courseType.push(coursesResponse.data.data.courses[i].subject);
-    }
-  }
-
   return {
     fallback: false,
-    paths: courseType.map((course: any) => ({
-      params: {
-        course: course,
+    paths: [
+      {
+        params: {
+          subject: "drawing",
+        },
       },
-    })),
+      {
+        params: {
+          subject: "painting",
+        },
+      },
+      {
+        params: {
+          subject: "modeling",
+        },
+      },
+      {
+        params: {
+          subject: "sculpting",
+        },
+      },
+      {
+        params: {
+          subject: "writing",
+        },
+      },
+    ],
   };
 }
 
-export async function getStaticProps(context: { params: { course: any } }) {
+export async function getStaticProps(context: { params: { subject: any } }) {
   const cartResponse = await IndexAPI.get(`/cart`);
 
-  const course = context.params.course;
-  const coursesResponse = await IndexAPI.get(`/courses/${course}`);
+  const subject = context.params.subject;
+  const coursesResponse = await IndexAPI.get(`/courses/${subject}`);
 
   for (let i = 0; i < coursesResponse.data.data.courses.length; i++) {
     if (coursesResponse.data.data.courses[i].imagekey !== null) {

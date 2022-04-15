@@ -91,22 +91,40 @@ const Products = (props: any) => {
 };
 
 export async function getStaticPaths() {
-  const productsResponse = await IndexAPI.get(`/products`);
-
-  const products: string[] = [];
-  for (let i = 0; i < productsResponse.data.data.products.length; i++) {
-    if (!products.includes(productsResponse.data.data.products.product)) {
-      products.push(productsResponse.data.data.products[i].product);
-    }
-  }
-
   return {
     fallback: false,
-    paths: products.map((product: any) => ({
-      params: {
-        product: product,
+    paths: [
+      {
+        params: {
+          product: "print",
+        },
       },
-    })),
+      {
+        params: {
+          product: "painting",
+        },
+      },
+      {
+        params: {
+          product: "sculpture",
+        },
+      },
+      {
+        params: {
+          product: "model",
+        },
+      },
+      {
+        params: {
+          product: "book",
+        },
+      },
+      {
+        params: {
+          product: "comic",
+        },
+      },
+    ],
   };
 }
 
