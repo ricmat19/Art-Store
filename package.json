@@ -39,6 +39,7 @@
     "node-postgres": "^0.6.2",
     "nodemailer": "^6.6.2",
     "pg": "^8.6.0",
+    "sharp": "^0.30.3",
     "stripe": "^8.167.0"
   },
   "devDependencies": {

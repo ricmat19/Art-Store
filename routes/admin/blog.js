@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../../db");
 const multer = require("multer");
+const sharp = require("sharp");
 const { uploadFile } = require("../../s3");
 const fs = require("fs");
 const util = require("util");
@@ -49,12 +50,20 @@ router.get("/admin/blog/:id", async (req, res) => {
 router.post("/admin/blog", upload.single("images"), async (req, res) => {
   try {
     const file = req.file;
-    const result = await uploadFile(file);
+    const resizedFile = sharp(file).resize({ height: 500 });
+    const result = await uploadFile(resizedFile);
     res.send({ imagePath: `/images/${result.key}` });
     await unlinkFile(file.path);
     await db.query(
       "INSERT INTO blog (title, imagekey, create_date, content, update_date, type) values ($1, $2, $3, $4, $5, $6) RETURNING *",
-      [req.body.title, result.key, new Date(), req.body.content, new Date(), "blog"]
+      [
+        req.body.title,
+        result.key,
+        new Date(),
+        req.body.content,
+        new Date(),
+        "blog",
+      ]
     );
   } catch (err) {
     console.log(err);

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../../db");
 const multer = require("multer");
+const sharp = require("sharp");
 const { uploadFile } = require("../../s3");
 const fs = require("fs");
 const util = require("util");
@@ -66,11 +67,17 @@ router.get("/admin/products/:id", async (req, res) => {
 //Create a product
 router.post("/admin/products", upload.single("images"), async (req, res) => {
   try {
-    const file = req.file;
-    const result = await uploadFile(file);
+    const filePath = req.file.path;
+    await sharp(filePath)
+      .resize({ width: 1400 })
+      .toFile(`imagesOutput/${req.file.filename}`);
+    // .then(() => {
+    req.file.path = `imagesOutput\\${req.file.filename}`;
+    const result = uploadFile(req.file);
     res.send({ imagePath: `/images/${result.key}` });
-    await unlinkFile(file.path);
-    await db.query(
+    unlinkFile(`images\\${req.file.filename}`);
+    unlinkFile(`imagesOutput\\${req.file.filename}`);
+    db.query(
       "INSERT INTO products (title, product, imagekey, qty, price, info, create_date, update_date, type) values ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
       [
         req.body.title,
@@ -84,6 +91,7 @@ router.post("/admin/products", upload.single("images"), async (req, res) => {
         "product",
       ]
     );
+    // });
   } catch (err) {
     console.log(err);
   }

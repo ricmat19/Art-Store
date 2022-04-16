@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../../db");
 const multer = require("multer");
+const sharp = require("sharp");
 const { uploadFile } = require("../../s3");
 const fs = require("fs");
 const util = require("util");
@@ -108,8 +109,8 @@ router.get("/admin/courses/lectures/:id", async (req, res) => {
 router.post("/admin/courses", upload.single("images"), async (req, res) => {
   try {
     const file = req.file;
-    const result = await uploadFile(file);
-    console.log(result);
+    const resizedFile = sharp(file).resize({ height: 500 });
+    const result = await uploadFile(resizedFile);
     res.send({ imagePath: `/images/${result.key}` });
     await unlinkFile(file.path);
     await db.query(
@@ -122,7 +123,7 @@ router.post("/admin/courses", upload.single("images"), async (req, res) => {
         req.body.price,
         new Date(),
         new Date(),
-        "course"
+        "course",
       ]
     );
   } catch (err) {
@@ -155,7 +156,14 @@ router.post("/admin/courses/lecture/:id", async (req, res) => {
   try {
     const courseLecture = await db.query(
       "INSERT INTO courseLectures (id, section, lecture, create_date, update_date, type) values ($1, $2, $3, $4, $5, $6) RETURNING *",
-      [req.params.id, req.body.section, req.body.lecture, new Date(), new Date(), "course"]
+      [
+        req.params.id,
+        req.body.section,
+        req.body.lecture,
+        new Date(),
+        new Date(),
+        "course",
+      ]
     );
 
     res.status(201).json({
@@ -176,7 +184,8 @@ router.put("/admin/courses/:id", upload.single("images"), async (req, res) => {
     let course;
     if (req.file) {
       const file = req.file;
-      const result = await uploadFile(file);
+      const resizedFile = sharp(file).resize({ height: 500 });
+      const result = await uploadFile(resizedFile);
       res.send({ imagePath: `/images/${result.key}` });
       await unlinkFile(file.path);
       course = await db.query(
