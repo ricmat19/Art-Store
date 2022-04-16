@@ -7,6 +7,7 @@ import {
   faChalkboardTeacher,
   faStoreAlt,
   faTv,
+  faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
 
 const Notifications = (props: any) => {
@@ -110,7 +111,43 @@ const Notifications = (props: any) => {
           </Grid>
         </nav>
         <hr />
-        {/* {notifications[0].id !== undefined ? console.log(notifications[0]) : ""} */}
+        <Grid>
+          {notifications.map((notification: any) => {
+            return (
+              <Grid
+                key={notification.id}
+                sx={{
+                  display: "grid",
+                  gridTemplateColumns: "30px 1fr",
+                  padding: "10px",
+                }}
+              >
+                <Grid sx={{ display: "grid", gap: "5px" }}>
+                  {notification.type === "product" ? (
+                    <Grid>
+                      <FontAwesomeIcon icon={faStoreAlt} />
+                    </Grid>
+                  ) : notification.type === "event" ? (
+                    <Grid>
+                      <FontAwesomeIcon icon={faCalendarCheck} />
+                    </Grid>
+                  ) : notification.type === "course" ? (
+                    <Grid>
+                      <FontAwesomeIcon icon={faChalkboardTeacher} />
+                    </Grid>
+                  ) : (
+                    <Grid>
+                      <FontAwesomeIcon icon={faPenToSquare} />
+                    </Grid>
+                  )}
+                </Grid>
+                <Grid>
+                  {notification !== undefined ? notification.title : ""}
+                </Grid>
+              </Grid>
+            );
+          })}
+        </Grid>
       </Grid>
     </Menu>
   );

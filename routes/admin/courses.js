@@ -113,7 +113,7 @@ router.post("/admin/courses", upload.single("images"), async (req, res) => {
     res.send({ imagePath: `/images/${result.key}` });
     await unlinkFile(file.path);
     await db.query(
-      "INSERT INTO courses (title, subject, imagekey, description, price, create_date, update_date) values ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
+      "INSERT INTO courses (title, subject, imagekey, description, price, create_date, update_date, type) values ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
       [
         req.body.title,
         req.body.subject,
@@ -122,6 +122,7 @@ router.post("/admin/courses", upload.single("images"), async (req, res) => {
         req.body.price,
         new Date(),
         new Date(),
+        "course"
       ]
     );
   } catch (err) {
@@ -133,8 +134,8 @@ router.post("/admin/courses", upload.single("images"), async (req, res) => {
 router.post("/admin/courses/section/:id", async (req, res) => {
   try {
     const courseSection = await db.query(
-      "INSERT INTO courseSections (id, section, create_date, update_date) values ($1, $2, $3, $4) RETURNING *",
-      [req.params.id, req.body.section, new Date(), new Date()]
+      "INSERT INTO courseSections (id, section, create_date, update_date, type) values ($1, $2, $3, $4, $6) RETURNING *",
+      [req.params.id, req.body.section, new Date(), new Date(), "type"]
     );
 
     res.status(201).json({
@@ -153,8 +154,8 @@ router.post("/admin/courses/section/:id", async (req, res) => {
 router.post("/admin/courses/lecture/:id", async (req, res) => {
   try {
     const courseLecture = await db.query(
-      "INSERT INTO courseLectures (id, section, lecture, create_date, update_date) values ($1, $2, $3, $4, $5) RETURNING *",
-      [req.params.id, req.body.section, req.body.lecture, new Date(), new Date()]
+      "INSERT INTO courseLectures (id, section, lecture, create_date, update_date, type) values ($1, $2, $3, $4, $5, $6) RETURNING *",
+      [req.params.id, req.body.section, req.body.lecture, new Date(), new Date(), "course"]
     );
 
     res.status(201).json({
