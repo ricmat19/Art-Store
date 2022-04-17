@@ -108,17 +108,26 @@ router.get("/admin/courses/lectures/:id", async (req, res) => {
 //Create a course
 router.post("/admin/courses", upload.single("images"), async (req, res) => {
   try {
-    const file = req.file;
-    const resizedFile = sharp(file).resize({ height: 500 });
-    const result = await uploadFile(resizedFile);
-    res.send({ imagePath: `/images/${result.key}` });
-    await unlinkFile(file.path);
+    const filePath = req.file.path;
+    await sharp(filePath)
+      .resize({ height: 500 })
+      .toFile(`imagesOutput/${req.file.filename}`);
+
+    const resizedFile = {
+      key: req.file.filename,
+      fileStream: fs.createReadStream(`imagesOutput/${req.file.filename}`),
+    };
+
+    const result = uploadFile(resizedFile);
+    res.send({ imagePath: `/imagesOutput/${result.key}` });
+    unlinkFile(`images\\${req.file.filename}`);
+    unlinkFile(`imagesOutput\\${req.file.filename}`);
     await db.query(
       "INSERT INTO courses (title, subject, imagekey, description, price, create_date, update_date, type) values ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
       [
         req.body.title,
         req.body.subject,
-        result.key,
+        req.file.filename,
         req.body.description,
         req.body.price,
         new Date(),

@@ -5,8 +5,6 @@ const { getFileStream } = require("../../s3");
 
 router.get("/images/:key", async (req, res) => {
   try {
-
-    console.log(req.params.key)
     const key = req.params.key;
     const readStream = getFileStream(key);
     readStream.pipe(res);

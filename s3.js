@@ -1,4 +1,4 @@
-const fs = require("fs");
+// const fs = require("fs");
 const S3 = require("aws-sdk/clients/s3");
 
 //insures that the .env file is only run in a development environment and not a production environment
@@ -21,13 +21,14 @@ const s3 = new S3({
 
 module.exports = {
   uploadFile: function uploadFile(file) {
-    const fileStream = fs.createReadStream(file.path);
+    // const fileStream = fs.createReadStream(file.path);
 
     const uploadParams = {
       Bucket: bucketName,
-      Body: fileStream,
-      Key: file.filename,
+      Body: file.fileStream,
+      Key: file.key,
     };
+    console.log("Upload Params: ", uploadParams)
 
     return s3.upload(uploadParams).promise();
   },

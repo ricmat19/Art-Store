@@ -49,16 +49,25 @@ router.get("/admin/blog/:id", async (req, res) => {
 //Create a blog post
 router.post("/admin/blog", upload.single("images"), async (req, res) => {
   try {
-    const file = req.file;
-    const resizedFile = sharp(file).resize({ height: 500 });
-    const result = await uploadFile(resizedFile);
-    res.send({ imagePath: `/images/${result.key}` });
-    await unlinkFile(file.path);
+    const filePath = req.file.path;
+    await sharp(filePath)
+      .resize({ width: 1400 })
+      .toFile(`imagesOutput/${req.file.filename}`);
+
+    const resizedFile = {
+      key: req.file.filename,
+      fileStream: fs.createReadStream(`imagesOutput/${req.file.filename}`),
+    };
+
+    const result = uploadFile(resizedFile);
+    res.send({ imagePath: `/imagesOutput/${result.key}` });
+    unlinkFile(`images\\${req.file.filename}`);
+    unlinkFile(`imagesOutput\\${req.file.filename}`);
     await db.query(
       "INSERT INTO blog (title, imagekey, create_date, content, update_date, type) values ($1, $2, $3, $4, $5, $6) RETURNING *",
       [
         req.body.title,
-        result.key,
+        req.file.filename,
         new Date(),
         req.body.content,
         new Date(),

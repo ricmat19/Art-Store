@@ -136,21 +136,23 @@ const AdminProduct = (props: any) => {
         <AdminMainNav />
         <AdminPagesNav />
         <Grid className="main-body">
-          <AdminProductsNav activeProducts={activeProducts} />
-          <Grid className="plus-icon-div">
-            <Button
-              onClick={handleAddOpen}
-              sx={{
-                fontFamily: "Rajdhani",
-                fontSize: "20px",
-                color: "white",
-                textTransform: "none",
-              }}
-            >
-              <FontAwesomeIcon className="plus-icon" icon={faPlus} />
-            </Button>
+          <Grid>
+            <AdminProductsNav activeProducts={activeProducts} />
+            <Grid className="plus-icon-div">
+              <Button
+                onClick={handleAddOpen}
+                sx={{
+                  fontFamily: "Rajdhani",
+                  fontSize: "20px",
+                  color: "white",
+                  textTransform: "none",
+                }}
+              >
+                <FontAwesomeIcon className="plus-icon" icon={faPlus} />
+              </Button>
+            </Grid>
+            <Grid className="gallery-menu">{displayProducts}</Grid>
           </Grid>
-          <Grid className="gallery-menu">{displayProducts}</Grid>
           <ReactPaginate
             previousLabel={"prev"}
             nextLabel={"next"}
@@ -164,8 +166,8 @@ const AdminProduct = (props: any) => {
             pageRangeDisplayed={5}
             marginPagesDisplayed={5}
           />
+          <Footer />
         </Grid>
-        <Footer />
       </Grid>
     );
   } else {
@@ -223,7 +225,6 @@ export async function getStaticProps(context: { params: { product: any } }) {
   }
 
   const product = context.params.product;
-  console.log(product);
   const productResponse = await IndexAPI.get(`/products/${product}`);
 
   if (productResponse.data.data.product !== undefined) {

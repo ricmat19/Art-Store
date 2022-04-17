@@ -69,12 +69,16 @@ router.post("/admin/products", upload.single("images"), async (req, res) => {
   try {
     const filePath = req.file.path;
     await sharp(filePath)
-      .resize({ width: 1400 })
+      .resize({ height: 500 })
       .toFile(`imagesOutput/${req.file.filename}`);
-    // .then(() => {
-    req.file.path = `imagesOutput\\${req.file.filename}`;
-    const result = uploadFile(req.file);
-    res.send({ imagePath: `/images/${result.key}` });
+
+    const resizedFile = {
+      key: req.file.filename,
+      fileStream: fs.createReadStream(`imagesOutput/${req.file.filename}`),
+    };
+
+    const result = uploadFile(resizedFile);
+    res.send({ imagePath: `/imagesOutput/${result.key}` });
     unlinkFile(`images\\${req.file.filename}`);
     unlinkFile(`imagesOutput\\${req.file.filename}`);
     db.query(
@@ -82,7 +86,7 @@ router.post("/admin/products", upload.single("images"), async (req, res) => {
       [
         req.body.title,
         req.body.product,
-        result.key,
+        req.file.filename,
         req.body.quantity,
         req.body.price,
         req.body.info,
@@ -91,7 +95,6 @@ router.post("/admin/products", upload.single("images"), async (req, res) => {
         "product",
       ]
     );
-    // });
   } catch (err) {
     console.log(err);
   }

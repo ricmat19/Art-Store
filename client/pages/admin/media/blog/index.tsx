@@ -110,38 +110,42 @@ const AdminBlog = (props: any) => {
         <AdminMainNav />
         <AdminPagesNav />
         <Grid className="main-body">
-          <Link passHref href="/admin/blog">
-            <h1 className="main-title pointer">blog</h1>
-          </Link>
-          <Grid className="plus-icon-div">
-            <Button
-              onClick={() => router.push("/admin/media/blog/create")}
-              sx={{
-                fontFamily: "Rajdhani",
-                fontSize: "20px",
-                color: "white",
-                textTransform: "none",
-              }}
-            >
-              <FontAwesomeIcon className="plus-icon" icon={faPlus} />
-            </Button>
+          <Grid>
+            <Grid>
+              <Link passHref href="/admin/blog">
+                <h1 className="main-title pointer">blog</h1>
+              </Link>
+            </Grid>
+            <Grid className="plus-icon-div">
+              <Button
+                onClick={() => router.push("/admin/media/blog/create")}
+                sx={{
+                  fontFamily: "Rajdhani",
+                  fontSize: "20px",
+                  color: "white",
+                  textTransform: "none",
+                }}
+              >
+                <FontAwesomeIcon className="plus-icon" icon={faPlus} />
+              </Button>
+            </Grid>
+            <Grid className="gallery-menu">{displayBlogs}</Grid>
+            <ReactPaginate
+              previousLabel={"prev"}
+              nextLabel={"next"}
+              pageCount={pageCount}
+              onPageChange={changePage}
+              containerClassName={"paginationButtons"}
+              previousLinkClassName={"prevButton"}
+              nextLinkClassName={"nextButton"}
+              disabledClassName={"disabledButton"}
+              activeClassName={"activeButton"}
+              pageRangeDisplayed={5}
+              marginPagesDisplayed={5}
+            />
           </Grid>
-          <Grid className="gallery-menu">{displayBlogs}</Grid>
-          <ReactPaginate
-            previousLabel={"prev"}
-            nextLabel={"next"}
-            pageCount={pageCount}
-            onPageChange={changePage}
-            containerClassName={"paginationButtons"}
-            previousLinkClassName={"prevButton"}
-            nextLinkClassName={"nextButton"}
-            disabledClassName={"disabledButton"}
-            activeClassName={"activeButton"}
-            pageRangeDisplayed={5}
-            marginPagesDisplayed={5}
-          />
+          <Footer />
         </Grid>
-        <Footer />
       </Grid>
     );
   } else {
