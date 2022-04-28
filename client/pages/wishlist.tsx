@@ -23,7 +23,7 @@ const Wishlist = (props: any) => {
           <h1 className="main-title">wishlist</h1>
         </Grid>
         <Grid sx={{ display: "grid", justifyContent: "center" }}>
-          <button>create wishlist</button>
+          <button>create collection</button>
         </Grid>
         <Grid>{wishlist}</Grid>
       </Grid>

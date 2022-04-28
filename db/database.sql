@@ -20,14 +20,6 @@ CREATE TABLE subjects(
     subject VARCHAR PRIMARY KEY
 );
 
-CREATE TABLE collection(
-    id BIGSERIAL PRIMARY KEY,
-    user BIGINT,
-    group VARCHAR,
-    items BIGINT[]
-);
-
-
 CREATE TABLE courseSections(
     id BIGSERIAL,
     section VARCHAR,
@@ -53,4 +45,11 @@ CREATE TABLE help(
 CREATE TABLE generalArticles(
     article VARCHAR PRIMARY KEY,
     content VARCHAR
+);
+
+CREATE TABLE wishlist(
+    wishlist_user VARCHAR,
+    item BIGINT,
+    wishlist_group VARCHAR,
+    PRIMARY KEY (wishlist_user, item, wishlist_group)
 );

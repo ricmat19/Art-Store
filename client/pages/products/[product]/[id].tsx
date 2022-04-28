@@ -46,7 +46,9 @@ const ProductDetails = (props: any) => {
     try {
       e.preventDefault();
       const wishlistPost = await IndexAPI.post("/wishlist", {
-        id: id,
+        // user: user,
+        user: "ric19mat@gmail.com",
+        item: id,
       });
       setUniqueItem(wishlistPost.data.data.uniqueItem);
     } catch (err) {
