@@ -7,11 +7,13 @@ import PagesNav from "../../../components/users/pagesNav";
 import FooterC from "../../../components/footer";
 import Head from "next/head";
 import AddToCart from "../../../components/users/products/addToCart";
+import AddToWishlist from "../../../components/users/products/addToWishlist";
 import { Grid } from "@mui/material";
 // import {CartContext} from "../../context/CartContext";
 
 const ProductDetails = (props: any) => {
   const [addedModal, setAddedModal] = useState("modal-bg");
+  const [wishlistModal, setWishlistModal] = useState("modal-bg");
   const [imageBuffer] = useState(props.imageBuffer);
   const [product] = useState(props.product);
   const [cartQty, setCartQty] = useState(props.cart.length);
@@ -51,6 +53,7 @@ const ProductDetails = (props: any) => {
         item: id,
       });
       setUniqueItem(wishlistPost.data.data.uniqueItem);
+      setWishlistModal("modal-bg active");
     } catch (err) {
       console.log(err);
     }
@@ -82,6 +85,11 @@ const ProductDetails = (props: any) => {
       {/* Added to Cart */}
       <AddToCart
         modalStatus={addedModal}
+        product={product}
+        uniqueItem={uniqueItem}
+      />
+      <AddToWishlist
+        modalStatus={wishlistModal}
         product={product}
         uniqueItem={uniqueItem}
       />
