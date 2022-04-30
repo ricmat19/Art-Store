@@ -12,12 +12,11 @@ import ReactPaginate from "react-paginate";
 import { Grid } from "@mui/material";
 
 const Media = (props: any) => {
-  const [media] = useState(props.mediaListing);
   const [pageNumber, setPageNumber] = useState<number>(0);
 
   const itemsPerPage: number = 9;
   const pagesVisted: number = pageNumber * itemsPerPage;
-  const pageCount = Math.ceil(media.length / itemsPerPage);
+  const pageCount = Math.ceil(props.mediaListings.length / itemsPerPage);
   const changePage = ({ selected }: { selected: number }): void => {
     setPageNumber(selected);
   };
@@ -32,7 +31,7 @@ const Media = (props: any) => {
     }
   };
 
-  const displayPost = media
+  const displayPost = props.mediaListings
     .slice(pagesVisted, pagesVisted + itemsPerPage)
     .map((post: any) => {
       return (
@@ -110,8 +109,6 @@ export async function getStaticPaths() {
 export async function getStaticProps(context: { params: { media: any } }) {
   const cartResponse = await IndexAPI.get(`/cart`);
 
-  const mediasResponse = await IndexAPI.get(`/media`);
-
   const media = context.params.media;
   const mediaResponse = await IndexAPI.get(`/media/${media}`);
 
@@ -126,15 +123,15 @@ export async function getStaticProps(context: { params: { media: any } }) {
         Buffer.from(response.data, "binary").toString("base64")
       );
 
-      mediaResponse.data.data.posts[
+      mediaResponse.data.data.posts[ 
         i
       ].imageBuffer = `data:image/png;base64,${imagesResponse}`;
     }
   }
   return {
     props: {
-      mediaCategories: mediasResponse.data.data.medias,
-      mediaListing: mediaResponse.data.data.posts,
+      mediaCategories: media,
+      mediaListings: mediaResponse.data.data.posts,
       cartQty: cartResponse.data.data.cart.length,
     },
     revalidate: 1,

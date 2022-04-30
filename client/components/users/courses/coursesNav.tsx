@@ -1,21 +1,12 @@
-import { useState } from "react";
 import { Grid } from "@mui/material";
 import Link from "next/link";
 
 const CoursesNav = (props: any) => {
-  const [courses] = useState(props.courses);
 
-  const courseTypes: any[] = [];
-  for (let i = 0; i < courses.length; i++) {
-    if (!courseTypes.includes(courses[i].subject)) {
-      courseTypes.push(courses[i].subject);
-    }
-  }
-
-  const coursePageLinks = courseTypes.map((course: any) => {
+  const coursePageLinks = props.courses.map((course: any) => {
     return (
-      <Link passHref key={course} href={`/products/${course}`}>
-        <h1 className="main-title pointer">{course}s</h1>
+      <Link passHref key={course} href={`/courses/${course}`}>
+        <h1 className="main-title pointer">{course}</h1>
       </Link>
     );
   });

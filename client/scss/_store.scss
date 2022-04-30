@@ -1,33 +1,3 @@
-.paginationButtons {
-  margin-bottom: 40px;
-  padding: 0px;
-  list-style: none;
-  display: grid;
-  justify-content: center;
-  grid-template-columns: repeat(auto-fit, minmax(50px, 50px));
-  gap: 5px;
-}
-
-.paginationButtons a {
-  padding: 10px 0;
-  margin: 1px;
-  border-style: none;
-  cursor: pointer;
-}
-
-.paginationButtons a:hover {
-  color: white;
-  background-color: rgb(44, 44, 44);
-}
-
-.paginationButtons li {
-  text-align: center;
-  display: grid;
-  background-color: black;
-  color: white;
-  border: white solid 2px;
-}
-
 .store-menu {
   display: grid;
   justify-content: center;

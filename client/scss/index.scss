@@ -479,7 +479,7 @@ select,
   justify-content: center;
   grid-template-columns: repeat(auto-fit, minmax(13rem, 350px));
   gap: 30px;
-  margin: 0 50px 10%;
+  margin: 30px 10%;
 }
 
 .help-menu-button:hover {
@@ -487,6 +487,36 @@ select,
   box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.7);
   transition: all 0.3s;
   cursor: pointer;
+}
+
+.paginationButtons {
+  margin: 30px 0;
+  padding: 0px;
+  list-style: none;
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 50px));
+  gap: 5px;
+}
+
+.paginationButtons a {
+  padding: 10px 0;
+  margin: 1px;
+  border-style: none;
+  cursor: pointer;
+}
+
+.paginationButtons a:hover {
+  color: white;
+  background-color: rgb(44, 44, 44);
+}
+
+.paginationButtons li {
+  text-align: center;
+  display: grid;
+  background-color: black;
+  color: white;
+  border: white solid 2px;
 }
 
 @import "about";

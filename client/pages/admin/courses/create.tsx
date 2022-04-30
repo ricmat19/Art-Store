@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState, useEffect } from "react";
-import IndexAPI from "../../../../apis/indexAPI";
-import AdminMainNav from "../../../../components/admin/mainNav";
-import AdminPagesNav from "../../../../components/admin/pagesNav";
-import Footer from "../../../../components/footer";
+import IndexAPI from "../../../apis/indexAPI";
+import AdminMainNav from "../../../components/admin/mainNav";
+import AdminPagesNav from "../../../components/admin/pagesNav";
+import Footer from "../../../components/footer";
 import Head from "next/head";
 import { Grid, Select, MenuItem } from "@mui/material";
 import { useRouter } from "next/router";
@@ -47,9 +47,14 @@ const AdminCreateCourse = () => {
         await IndexAPI.post("/admin/courses", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         })
-          .then((res) => {
-            console.log(res);
-            router.push("/admin/courses/create/curriculum");
+          .then(async () => {
+            const currentCourse = await IndexAPI.get("/admin/courses/last");
+            router.push(
+              {
+                pathname: `/admin/courses/[subject]/[course]/curriculum`,
+              },
+              `/admin/courses/${subject}/${currentCourse.data.data.course[0].id}/curriculum`
+            );
           })
           .catch((err) => console.log(err));
       }
@@ -181,7 +186,7 @@ const AdminCreateCourse = () => {
                           type="submit"
                           className="btn form-button"
                         >
-                          CreateCourse
+                          Create Course
                         </button>
                       </Grid>
                     </Grid>

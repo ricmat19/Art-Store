@@ -7,7 +7,7 @@ import AdminPagesNav from "../../../../components/admin/pagesNav";
 import { Grid } from "@mui/material";
 import { useRouter } from "next/router";
 
-const AdminAddBlogPost = (props: any) => {
+const AdminAddBlogPost = () => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
   const [title, setTitle] = useState<string>("");
   const [image, setImage] = useState<File>();
@@ -64,7 +64,7 @@ const AdminAddBlogPost = (props: any) => {
   if (loginStatus) {
     return (
       <Grid>
-        <AdminMainNav cartQty={props.cartQty} />
+        <AdminMainNav />
         <AdminPagesNav />
         <Grid container className="main-body">
           <Grid>

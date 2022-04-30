@@ -46,6 +46,25 @@ router.get("/admin/courses/course/:id", async (req, res) => {
   }
 });
 
+//Get last course
+router.get("/admin/courses/last", async (req, res) => {
+  try {
+    const course = await db.query(
+      `SELECT id FROM courses ORDER BY id DESC LIMIT 1`
+    );
+
+    res.status(200).json({
+      status: "success",
+      results: course.rows.length,
+      data: {
+        course: course.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 //Get a course subject
 router.get("/admin/courses/subject/:subject", async (req, res) => {
   try {
@@ -144,7 +163,7 @@ router.post("/admin/courses", upload.single("images"), async (req, res) => {
 router.post("/admin/courses/section/:id", async (req, res) => {
   try {
     const courseSection = await db.query(
-      "INSERT INTO courseSections (id, section, create_date, update_date, type) values ($1, $2, $3, $4, $6) RETURNING *",
+      "INSERT INTO courseSections (id, section, create_date, update_date, type) values ($1, $2, $3, $4, $5) RETURNING *",
       [req.params.id, req.body.section, new Date(), new Date(), "type"]
     );
 

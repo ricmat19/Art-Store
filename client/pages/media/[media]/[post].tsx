@@ -11,7 +11,6 @@ const BlogPost = (props: any) => {
   // const [info] = useState(props.info);
   // const [imageBuffer] = useState(props.imageBuffer);
 
-  console.log(props.selectedMedia.content);
   return (
     <Grid>
       <MainNav cartQty={props.cartQty} />
