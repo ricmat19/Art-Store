@@ -47,9 +47,9 @@ CREATE TABLE generalArticles(
     content VARCHAR
 );
 
-CREATE TABLE wishlist(
-    wishlist_user VARCHAR,
+CREATE TABLE collections(
+    collection_user VARCHAR,
+    collection_name BIGINT,
     item BIGINT,
-    wishlist_group VARCHAR,
-    PRIMARY KEY (wishlist_user, item, wishlist_group)
+    PRIMARY KEY (collection_user, collection_name)
 );

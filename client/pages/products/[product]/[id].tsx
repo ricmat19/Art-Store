@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState } from "react";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import IndexAPI from "../../../apis/indexAPI";
 import MainNav from "../../../components/users/mainNav";
 import PagesNav from "../../../components/users/pagesNav";
@@ -9,18 +9,23 @@ import Head from "next/head";
 import AddToCart from "../../../components/users/products/addToCart";
 import AddToWishlist from "../../../components/users/products/addToWishlist";
 import { Grid } from "@mui/material";
-// import {CartContext} from "../../context/CartContext";
 
 const ProductDetails = (props: any) => {
-  const [addedModal, setAddedModal] = useState("modal-bg");
-  const [wishlistModal, setWishlistModal] = useState("modal-bg");
+  const [addToCartOpen, setAddToCartOpen] = useState(false);
+  const handleAddToCartOpen = () => setAddToCartOpen(true);
+  const handleAddToCartClose = () => setAddToCartOpen(false);
+
+  const [addToWishlistOpen, setAddToWishlistOpen] = useState(false);
+  const handleAddToWishlistOpen = () => setAddToWishlistOpen(true);
+  const handleAddToWishlistClose = () => setAddToWishlistOpen(false);
+
   const [imageBuffer] = useState(props.imageBuffer);
   const [product] = useState(props.product);
   const [cartQty, setCartQty] = useState(props.cart.length);
   const [uniqueItem, setUniqueItem] = useState();
 
-  const router = useRouter();
-  const id = router.query.id;
+  // const router = useRouter();
+  // const id = router.query.id;
 
   // const addedRef = useRef();
 
@@ -44,33 +49,19 @@ const ProductDetails = (props: any) => {
   //   fetchData();
   // }, []);
 
-  const addToWishlist = async (e: { preventDefault: () => void }) => {
+  const displayCartModal = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
     try {
-      e.preventDefault();
-      const wishlistPost = await IndexAPI.post("/wishlist", {
-        // user: user,
-        user: "ric19mat@gmail.com",
-        item: id,
-      });
-      setUniqueItem(wishlistPost.data.data.uniqueItem);
-      setWishlistModal("modal-bg active");
+      handleAddToCartOpen();
     } catch (err) {
       console.log(err);
     }
   };
 
-  const addToCart = async (e: { preventDefault: () => void }) => {
+  const displayWishlistModal = async (e: { preventDefault: () => void }) => {
     try {
       e.preventDefault();
-      const cartPostResponse = await IndexAPI.post("/cart", {
-        id: id,
-      });
-      setUniqueItem(cartPostResponse.data.data.uniqueItem);
-
-      const cartResponse = await IndexAPI.get(`/cart`);
-      setCartQty(cartResponse.data.data.cart.length);
-
-      setAddedModal("modal-bg active");
+      handleAddToWishlistOpen();
     } catch (err) {
       console.log(err);
     }
@@ -84,14 +75,21 @@ const ProductDetails = (props: any) => {
       </Head>
       {/* Added to Cart */}
       <AddToCart
-        modalStatus={addedModal}
+        open={addToCartOpen}
+        handleClose={handleAddToCartClose}
         product={product}
         uniqueItem={uniqueItem}
+        setUniqueItem={setUniqueItem}
+        setCartQty={setCartQty}
+        // id={id}
       />
       <AddToWishlist
-        modalStatus={wishlistModal}
+        open={addToWishlistOpen}
+        handleClose={handleAddToWishlistClose}
         product={product}
+        collections={props.collections}
         uniqueItem={uniqueItem}
+        setUniqueItem={setUniqueItem}
       />
       {/* <Grid className={addedModal}>
         <form>
@@ -132,7 +130,7 @@ const ProductDetails = (props: any) => {
               />
             </Grid>
           </Grid>
-          <form method="POST" action="/cart">
+          <form>
             <Grid className="info-div">
               <h1>{product && product.title}</h1>
               <Grid className="info-detail-div">
@@ -145,10 +143,12 @@ const ProductDetails = (props: any) => {
               </Grid>
               <hr className="top-margin" />
               <Grid className="align-center">
-                <button onClick={(e) => addToWishlist(e)}>
+                <button onClick={(e) => displayWishlistModal(e)}>
                   Add To Wishlist
                 </button>
-                <button onClick={(e) => addToCart(e)}>Add To Cart</button>
+                <button onClick={(e) => displayCartModal(e)}>
+                  Add To Cart
+                </button>
               </Grid>
             </Grid>
           </form>
@@ -194,12 +194,15 @@ export async function getStaticProps(context: {
     imageBuffer = `data:image/png;base64,${imagesResponse}`;
   }
 
+  const collectionsResponse = await IndexAPI.get(`/collections`);
+
   const cartResponse = await IndexAPI.get(`/cart`);
 
   return {
     props: {
       imageBuffer: imageBuffer,
       product: productResponse.data.data.item,
+      collections: collectionsResponse.data.data.collections,
       cart: cartResponse.data.data.cart,
     },
     revalidate: 1,

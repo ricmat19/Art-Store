@@ -22,9 +22,6 @@ router.get("/wishlist", async (req, res) => {
 //Add to wishlist
 router.post("/wishlist", async (req) => {
   try {
-    if (req.body.group === undefined) {
-      req.body.group = "none";
-    }
     await db.query(
       "INSERT INTO wishlist (wishlist_group, wishlist_user, item) values ($1, $2, $3) RETURNING *",
       [req.body.group, req.body.user, req.body.item]

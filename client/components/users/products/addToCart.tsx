@@ -1,51 +1,109 @@
 /* eslint-disable @next/next/no-img-element */
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
-import { Grid } from "@mui/material";
+import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 
 const AddToCart = (props: any) => {
-  const [addedModal] = useState(props.modalStatus);
   const [product] = useState(props.product);
   const [uniqueItem] = useState(props.uniqueItem);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        console.log(props.modalStatus);
-      } catch (err) {
-        console.log(err);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       console.log(props.modalStatus);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
 
-    fetchData();
-  }, [props]);
+  //   fetchData();
+  // }, [props]);
 
   const router = useRouter();
 
+  // const addToCart = async (e: { preventDefault: () => void }) => {
+  //   try {
+  //     e.preventDefault();
+  //     const cartPostResponse = await IndexAPI.post("/cart", {
+  //       id: id,
+  //     });
+  //     setUniqueItem(cartPostResponse.data.data.uniqueItem);
+
+  //     const cartResponse = await IndexAPI.get(`/cart`);
+  //     setCartQty(cartResponse.data.data.cart.length);
+
+  //     setAddedModal("modal-bg active");
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
   return (
     <Grid>
-      <Grid className={addedModal}>
-        <form>
-          <Grid className="added-content modal-content">
-            <h1 className="header">Item Added</h1>
-            <Grid>
-              {product.title} has {!uniqueItem ? "already" : ""} been added to
-              your cart.
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={props.open}
+        onClose={props.handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={props.open}>
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              bgcolor: "background.paper",
+              border: "2px solid #fff",
+              boxShadow: 24,
+            }}
+          >
+            <Grid
+              container
+              sx={{
+                flexDirection: "row",
+                flexWrap: "nowrap",
+                alignItems: "center",
+                color: "#000",
+                justifyContent: "flex-end",
+                backgroundColor: "#000",
+                padding: "30px",
+              }}
+            >
+              <form>
+                <Grid>
+                  <h3 className="align-center">
+                    {product.title} has {!uniqueItem ? "already" : ""} been
+                    added to your cart.
+                  </h3>
+                </Grid>
+                <Grid
+                  sx={{ padding: "10px 0" }}
+                  className="grid two-column-div"
+                >
+                  <button
+                    className="added-button"
+                    onClick={() => router.push("/")}
+                  >
+                    continue shopping
+                  </button>
+                  <button
+                    className="added-button"
+                    onClick={() => router.push("/cart")}
+                  >
+                    view cart
+                  </button>
+                </Grid>
+              </form>
             </Grid>
-            <Grid className="grid two-column-div">
-              <button className="added-button" onClick={() => router.push("/")}>
-                continue shopping
-              </button>
-              <button
-                className="added-button"
-                onClick={() => router.push("/cart")}
-              >
-                view cart
-              </button>
-            </Grid>
-          </Grid>
-        </form>
-      </Grid>
+          </Box>
+        </Fade>
+      </Modal>
     </Grid>
   );
 };
