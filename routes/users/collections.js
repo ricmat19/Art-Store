@@ -2,16 +2,39 @@ const express = require("express");
 const router = express.Router();
 const db = require("../../db");
 
-//Get collections
-router.get("/collections", async (req, res) => {
+//Get collection groups
+router.get("/collection/groups", async (req, res) => {
   try {
-    const collections = await db.query("SELECT * FROM collections");
+    const groups = await db.query(
+      "SELECT * FROM collections WHERE collection_user=$1 AND item=$2",
+      ["ric19mat@gmail.com", 0]
+    );
 
     res.status(200).json({
       status: "success",
-      results: collections.rows.length,
+      results: groups.rows.length,
       data: {
-        collections: collections.rows,
+        groups: groups.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//Get collection products
+router.get("/collection/group/:group", async (req, res) => {
+  try {
+    const groupItems = await db.query(
+      "SELECT * FROM collections WHERE collection_user=$1 AND item!=$2 AND collection_group=$3",
+      ["ric19mat@gmail.com", 0, req.params.group]
+    );
+
+    res.status(200).json({
+      status: "success",
+      results: groupItems.rows.length,
+      data: {
+        groupItems: groupItems.rows,
       },
     });
   } catch (err) {
@@ -26,8 +49,8 @@ router.post("/collections", async (req) => {
       req.body.item = 0;
     }
     await db.query(
-      "INSERT INTO collections (collection_user, collection_name, item) values ($1, $2, $3) RETURNING *",
-      [req.body.user, req.body.collectionName, req.body.item]
+      "INSERT INTO collections (collection_user, collection_group, item) values ($1, $2, $3) RETURNING *",
+      [req.body.user, req.body.collectionGroup, req.body.item]
     );
   } catch (err) {
     console.log(err);
@@ -35,10 +58,12 @@ router.post("/collections", async (req) => {
 });
 
 //Remove from collections
-router.delete("/collections/delete/:id", async (req, res) => {
+router.delete("/collections/delete/:group/:item", async (req, res) => {
   try {
-    await db.query("DELETE FROM collections WHERE user = $1", [
-      req.params.user,
+    await db.query("DELETE FROM collections WHERE collection_user = $1 AND collection_group=$2 AND item=$3", [
+      "ric19mat@gmail.com",
+      req.params.group,
+      req.params.item
     ]);
     res.status(204).json({
       status: "success",

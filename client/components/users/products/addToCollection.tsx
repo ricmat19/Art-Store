@@ -26,7 +26,7 @@ const AddToCollection = (props: any) => {
       e.preventDefault();
       await IndexAPI.post("/collections", {
         user: "ric19mat@gmail.com",
-        collectionName: collection,
+        collectionGroup: collection,
         item: props.product.id,
       });
     } catch (err) {
@@ -39,7 +39,7 @@ const AddToCollection = (props: any) => {
     try {
       await IndexAPI.post(`/collections`, {
         user: "ric19mat@gmail.com",
-        collectionName: newCollection,
+        collectionGroup: newCollection,
       });
     } catch (err) {
       console.log(err);
@@ -131,10 +131,10 @@ const AddToCollection = (props: any) => {
                         {props.collections.map((collection: any) => {
                           return (
                             <MenuItem
-                              key={collection.collection_name}
-                              value={collection.collection_name}
+                              key={collection.collection_group}
+                              value={collection.collection_group}
                             >
-                              {collection.collection_name}
+                              {collection.collection_group}
                             </MenuItem>
                           );
                         })}

@@ -87,7 +87,7 @@ const ProductDetails = (props: any) => {
         open={addToCollectionOpen}
         handleClose={handleAddToCollectionClose}
         product={product}
-        collections={props.collections}
+        collections={props.groups}
         uniqueItem={uniqueItem}
         setUniqueItem={setUniqueItem}
       />
@@ -194,7 +194,7 @@ export async function getStaticProps(context: {
     imageBuffer = `data:image/png;base64,${imagesResponse}`;
   }
 
-  const collectionsResponse = await IndexAPI.get(`/collections`);
+  const collectionsResponse = await IndexAPI.get(`/collection/groups`);
 
   const cartResponse = await IndexAPI.get(`/cart`);
 
@@ -202,7 +202,7 @@ export async function getStaticProps(context: {
     props: {
       imageBuffer: imageBuffer,
       product: productResponse.data.data.item,
-      collections: collectionsResponse.data.data.collections,
+      groups: collectionsResponse.data.data.groups,
       cart: cartResponse.data.data.cart,
     },
     revalidate: 1,

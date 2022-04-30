@@ -1,42 +1,70 @@
 /* eslint-disable @next/next/no-img-element */
-import IndexAPI from "../apis/indexAPI";
+import IndexAPI from "../../apis/indexAPI";
 import { useState } from "react";
-import MainNav from "../components/users/mainNav";
-import PagesNav from "../components/users/pagesNav";
-import FooterC from "../components/footer";
+import MainNav from "../../components/users/mainNav";
+import PagesNav from "../../components/users/pagesNav";
+import FooterC from "../../components/footer";
 import { Grid } from "@mui/material";
 import ReactPaginate from "react-paginate";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
-const Collection = (props: any) => {
+const CollectionGroups = (props: any) => {
   const [pageNumber, setPageNumber] = useState<number>(0);
 
   const itemsPerPage = 9;
   const pagesVisted = pageNumber * itemsPerPage;
 
+  const router = useRouter();
+  const group = router.query.group;
+
+  const removeFromCollectionGroup = async (
+    e: { preventDefault: () => void },
+    group: any,
+    item: any
+  ) => {
+    try {
+      await IndexAPI.delete(`/collections/delete/${group}/${item}`);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const displayCollectionItems = props.collection
     .slice(pagesVisted, pagesVisted + itemsPerPage)
     .map((item: any) => {
       return (
-        <Grid
-          className="pointer"
-          key={item.id}
-          onClick={() => displayCollectionItems(item.product, item.id)}
-        >
-          <Grid className="image-container">
-            <img
-              className="thumbnail"
-              src={item.imageBuffer}
-              alt={item.title}
-            />
+        <Grid key={item.id}>
+          <Grid
+            className="pointer"
+            onClick={() => displayItem(item.product, item.id)}
+          >
+            <Grid className="image-container">
+              <img
+                className="thumbnail"
+                src={item.imageBuffer}
+                alt={item.title}
+              />
+            </Grid>
           </Grid>
-          <Grid className="two-column-thumbnail-footer">
-            <h3 className="align-center">{item.title}</h3>
-            <h3 className="align-center">${item.price}.00</h3>
+          <Grid>
+            <button
+              onClick={(e) => removeFromCollectionGroup(e, group, item.id)}
+            >
+              Remove
+            </button>
           </Grid>
         </Grid>
       );
     });
+
+  const displayItem = async (product: string, id: string) => {
+    try {
+      router.push(`/products/${product}/${id}`);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const pageCount = Math.ceil(props.collection.length / itemsPerPage);
 
@@ -54,10 +82,7 @@ const Collection = (props: any) => {
       <PagesNav />
       <Grid>
         <Grid>
-          <h1 className="main-title">collection</h1>
-        </Grid>
-        <Grid sx={{ display: "grid", justifyContent: "center" }}>
-          <button>create collection</button>
+          <h1 className="main-title">Collection: {group}</h1>
         </Grid>
         <Grid className="gallery-menu">{displayCollectionItems}</Grid>
         <ReactPaginate
@@ -77,18 +102,38 @@ const Collection = (props: any) => {
   );
 };
 
-export async function getStaticProps() {
+export async function getStaticPaths() {
+  const collectionGroupsResponse = await IndexAPI.get(`/collection/groups`);
+
+  return {
+    fallback: false,
+    paths: collectionGroupsResponse.data.data.groups.map((groups: any) => ({
+      params: {
+        group: groups.collection_group,
+      },
+    })),
+  };
+}
+
+export async function getStaticProps(context: { params: { group: any } }) {
   const cartResponse = await IndexAPI.get(`/cart`);
 
-  const collectionResponse = await IndexAPI.get(`/collections`);
+  const group = context.params.group;
+  const collectionGroupResponse = await IndexAPI.get(
+    `/collection/group/${group}`
+  );
 
   const userCollection = [];
-  for (let i = 0; i < collectionResponse.data.data.collection.length; i++) {
+  for (
+    let i = 0;
+    i < collectionGroupResponse.data.data.groupItems.length;
+    i++
+  ) {
     if (
-      collectionResponse.data.data.collection[i].collection_user ===
+      collectionGroupResponse.data.data.groupItems[i].collection_user ===
       "ric19mat@gmail.com"
     ) {
-      userCollection.push(collectionResponse.data.data.collection[i].item);
+      userCollection.push(collectionGroupResponse.data.data.groupItems[i].item);
     }
   }
 
@@ -128,4 +173,4 @@ export async function getStaticProps() {
   };
 }
 
-export default Collection;
+export default CollectionGroups;
