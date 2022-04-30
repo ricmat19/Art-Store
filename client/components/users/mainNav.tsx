@@ -141,7 +141,7 @@ const MainNav = () => {
                 </h1>
               </Grid>
               <Grid xs={2} container sx={{ justifyContent: "center" }}>
-                <a href="/wishlist">
+                <a href="/collection">
                   <h1>
                     <FontAwesomeIcon className="pointer" icon={faHeart} />
                   </h1>

@@ -7,7 +7,7 @@ import PagesNav from "../../../components/users/pagesNav";
 import FooterC from "../../../components/footer";
 import Head from "next/head";
 import AddToCart from "../../../components/users/products/addToCart";
-import AddToWishlist from "../../../components/users/products/addToWishlist";
+import AddToCollection from "../../../components/users/products/addToCollection";
 import { Grid } from "@mui/material";
 
 const ProductDetails = (props: any) => {
@@ -15,9 +15,9 @@ const ProductDetails = (props: any) => {
   const handleAddToCartOpen = () => setAddToCartOpen(true);
   const handleAddToCartClose = () => setAddToCartOpen(false);
 
-  const [addToWishlistOpen, setAddToWishlistOpen] = useState(false);
-  const handleAddToWishlistOpen = () => setAddToWishlistOpen(true);
-  const handleAddToWishlistClose = () => setAddToWishlistOpen(false);
+  const [addToCollectionOpen, setAddToCollectionOpen] = useState(false);
+  const handleAddToCollectionOpen = () => setAddToCollectionOpen(true);
+  const handleAddToCollectionClose = () => setAddToCollectionOpen(false);
 
   const [imageBuffer] = useState(props.imageBuffer);
   const [product] = useState(props.product);
@@ -58,10 +58,10 @@ const ProductDetails = (props: any) => {
     }
   };
 
-  const displayWishlistModal = async (e: { preventDefault: () => void }) => {
+  const displayCollectionModal = async (e: { preventDefault: () => void }) => {
     try {
       e.preventDefault();
-      handleAddToWishlistOpen();
+      handleAddToCollectionOpen();
     } catch (err) {
       console.log(err);
     }
@@ -83,9 +83,9 @@ const ProductDetails = (props: any) => {
         setCartQty={setCartQty}
         // id={id}
       />
-      <AddToWishlist
-        open={addToWishlistOpen}
-        handleClose={handleAddToWishlistClose}
+      <AddToCollection
+        open={addToCollectionOpen}
+        handleClose={handleAddToCollectionClose}
         product={product}
         collections={props.collections}
         uniqueItem={uniqueItem}
@@ -143,8 +143,8 @@ const ProductDetails = (props: any) => {
               </Grid>
               <hr className="top-margin" />
               <Grid className="align-center">
-                <button onClick={(e) => displayWishlistModal(e)}>
-                  Add To Wishlist
+                <button onClick={(e) => displayCollectionModal(e)}>
+                  Add To Collection
                 </button>
                 <button onClick={(e) => displayCartModal(e)}>
                   Add To Cart

@@ -49,7 +49,7 @@ CREATE TABLE generalArticles(
 
 CREATE TABLE collections(
     collection_user VARCHAR,
-    collection_name BIGINT,
+    collection_name VARCHAR,
     item BIGINT,
-    PRIMARY KEY (collection_user, collection_name)
+    PRIMARY KEY (collection_user, collection_name, item)
 );

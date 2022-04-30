@@ -8,20 +8,20 @@ import { Grid } from "@mui/material";
 import ReactPaginate from "react-paginate";
 import Head from "next/head";
 
-const Wishlist = (props: any) => {
+const Collection = (props: any) => {
   const [pageNumber, setPageNumber] = useState<number>(0);
 
   const itemsPerPage = 9;
   const pagesVisted = pageNumber * itemsPerPage;
 
-  const displayWishlistItems = props.wishlist
+  const displayCollectionItems = props.collection
     .slice(pagesVisted, pagesVisted + itemsPerPage)
     .map((item: any) => {
       return (
         <Grid
           className="pointer"
           key={item.id}
-          onClick={() => displayWishlistItems(item.product, item.id)}
+          onClick={() => displayCollectionItems(item.product, item.id)}
         >
           <Grid className="image-container">
             <img
@@ -38,7 +38,7 @@ const Wishlist = (props: any) => {
       );
     });
 
-  const pageCount = Math.ceil(props.wishlist.length / itemsPerPage);
+  const pageCount = Math.ceil(props.collection.length / itemsPerPage);
 
   const changePage = ({ selected }: any) => {
     setPageNumber(selected);
@@ -47,19 +47,19 @@ const Wishlist = (props: any) => {
   return (
     <Grid>
       <Head>
-        <title>artHouse19-Wishlist</title>
-        <meta name="description" content="Your wishlist."></meta>
+        <title>artHouse19-Collection</title>
+        <meta name="description" content="Your collection."></meta>
       </Head>
       <MainNav cartQty={props.cartQty} />
       <PagesNav />
       <Grid>
         <Grid>
-          <h1 className="main-title">wishlist</h1>
+          <h1 className="main-title">collection</h1>
         </Grid>
         <Grid sx={{ display: "grid", justifyContent: "center" }}>
           <button>create collection</button>
         </Grid>
-        <Grid className="gallery-menu">{displayWishlistItems}</Grid>
+        <Grid className="gallery-menu">{displayCollectionItems}</Grid>
         <ReactPaginate
           previousLabel={"prev"}
           nextLabel={"next"}
@@ -80,32 +80,32 @@ const Wishlist = (props: any) => {
 export async function getStaticProps() {
   const cartResponse = await IndexAPI.get(`/cart`);
 
-  const wishlistResponse = await IndexAPI.get(`/wishlist`);
+  const collectionResponse = await IndexAPI.get(`/collections`);
 
-  const userWishlist = [];
-  for (let i = 0; i < wishlistResponse.data.data.wishlist.length; i++) {
+  const userCollection = [];
+  for (let i = 0; i < collectionResponse.data.data.collection.length; i++) {
     if (
-      wishlistResponse.data.data.wishlist[i].wishlist_user ===
+      collectionResponse.data.data.collection[i].collection_user ===
       "ric19mat@gmail.com"
     ) {
-      userWishlist.push(wishlistResponse.data.data.wishlist[i].item);
+      userCollection.push(collectionResponse.data.data.collection[i].item);
     }
   }
 
-  const userWishlistProducts = [];
+  const userCollectionProducts = [];
   const productsResponse = await IndexAPI.get(`/products`);
   for (let i = 0; i < productsResponse.data.data.products.length; i++) {
-    for (let j = 0; j < userWishlist.length; j++) {
-      if (productsResponse.data.data.products[i].id === userWishlist[j]) {
-        userWishlistProducts.push(productsResponse.data.data.products[i]);
+    for (let j = 0; j < userCollection.length; j++) {
+      if (productsResponse.data.data.products[i].id === userCollection[j]) {
+        userCollectionProducts.push(productsResponse.data.data.products[i]);
       }
     }
   }
 
-  for (let i = 0; i < userWishlistProducts.length; i++) {
-    if (userWishlistProducts[i].imagekey !== null) {
+  for (let i = 0; i < userCollectionProducts.length; i++) {
+    if (userCollectionProducts[i].imagekey !== null) {
       let imagesResponse = await IndexAPI.get(
-        `/images/${userWishlistProducts[i].imagekey}`,
+        `/images/${userCollectionProducts[i].imagekey}`,
         {
           responseType: "arraybuffer",
         }
@@ -113,7 +113,7 @@ export async function getStaticProps() {
         Buffer.from(response.data, "binary").toString("base64")
       );
 
-      userWishlistProducts[
+      userCollectionProducts[
         i
       ].imageBuffer = `data:image/png;base64,${imagesResponse}`;
     }
@@ -121,11 +121,11 @@ export async function getStaticProps() {
 
   return {
     props: {
-      wishlist: userWishlistProducts,
+      collection: userCollectionProducts,
       cartQty: cartResponse.data.data.cart.length,
     },
     revalidate: 1,
   };
 }
 
-export default Wishlist;
+export default Collection;

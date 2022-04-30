@@ -14,7 +14,7 @@ const adminHelpRouter = require("./routes/admin/help");
 const adminProductsRouter = require("./routes/admin/products");
 const adminUserRouter = require("./routes/admin/user");
 const cartRouter = require("./routes/users/cart");
-const wishlistRouter = require("./routes/users/wishlist");
+const collectionsRouter = require("./routes/users/collections");
 const communityRouter = require("./routes/users/community");
 const contactRouter = require("./routes/users/contact");
 const coursesRouter = require("./routes/users/courses");
@@ -73,7 +73,7 @@ app.use(adminUserRouter);
 
 //users routes
 app.use(cartRouter);
-app.use(wishlistRouter);
+app.use(collectionsRouter);
 app.use(communityRouter);
 app.use(contactRouter);
 app.use(coursesRouter);
