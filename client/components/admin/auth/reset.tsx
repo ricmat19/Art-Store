@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Modal, Fade, Box, Grid } from "@mui/material";
+import * as Yup from "yup";
 
 interface IModalState {
   open: boolean;
@@ -7,6 +9,18 @@ interface IModalState {
   email: string;
   password: string;
 }
+
+const initialValues = {
+  email: "",
+};
+const onSubmit = (values: any) => {
+  console.log(values);
+};
+const validationSchema = Yup.object({
+  email: Yup.string()
+    .email("Invalid email format")
+    .required("Email is required"),
+});
 
 const AdminResetModal = (props: IModalState) => {
   return (
@@ -18,24 +32,31 @@ const AdminResetModal = (props: IModalState) => {
     >
       <Fade in={props.open}>
         <Box>
-          <form>
-            <Grid className="sign-content">
-              <h1 className="sign-header">Reset Password</h1>
-              <Grid className="sign-input">
-                <Grid className="forgot-input-div">
-                  <input type="text" placeholder="Email" />
+          <Formik
+            initialValues={initialValues}
+            onSubmit={onSubmit}
+            validationSchema={validationSchema}
+          >
+            <Form>
+              <Grid className="sign-content">
+                <h1 className="sign-header">Reset Password</h1>
+                <Grid className="sign-input">
+                  <Grid className="forgot-input-div">
+                    <Field type="email" name="email" placeholder="Email" />
+                    <ErrorMessage name="email" />
+                  </Grid>
+                </Grid>
+                <Grid>
+                  <button type="submit">Send Reset Link</button>
+                </Grid>
+                <Grid className="sign-footer">
+                  <Grid className="modal-link">
+                    <span>Back to signin in</span>
+                  </Grid>
                 </Grid>
               </Grid>
-              <Grid>
-                <button>Send Reset Link</button>
-              </Grid>
-              <Grid className="sign-footer">
-                <Grid className="modal-link">
-                  <span>Back to signin in</span>
-                </Grid>
-              </Grid>
-            </Grid>
-          </form>
+            </Form>
+          </Formik>
         </Box>
       </Fade>
     </Modal>
