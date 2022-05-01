@@ -24,49 +24,64 @@ const PagesNav = () => {
     <header>
       <nav>
         <Grid container sx={{ pt: "5px", pb: "5px", justifyContent: "center" }}>
-          <Grid container xs={3} sx={{ justifyContent: "center" }}>
+          <Grid
+            container
+            xs={3}
+            onClick={() => router.push("/products/print")}
+            className="pointer"
+            sx={{ justifyContent: "center", display: "grid" }}
+          >
             <Grid sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}>
               <FontAwesomeIcon icon={faStoreAlt} />
             </Grid>
             <Grid sx={{ textAlign: "center", alignSelf: "center" }}>
-              <Grid
-                className="nav-link"
-                onClick={() => router.push("/products/print")}
-              >
-                <h1 className="pointer">store</h1>
+              <Grid className="nav-link">
+                <h1>store</h1>
               </Grid>
             </Grid>
           </Grid>
-          <Grid container xs={3} sx={{ justifyContent: "center" }}>
+          <Grid
+            container
+            xs={3}
+            onClick={() => router.push("/courses/drawing")}
+            className="pointer"
+            sx={{ justifyContent: "center", display: "grid" }}
+          >
             <Grid sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}>
               <FontAwesomeIcon icon={faChalkboardTeacher} />
             </Grid>
             <Grid sx={{ textAlign: "center", alignSelf: "center" }}>
-              <Grid
-                className="nav-link"
-                onClick={() => router.push("/courses/drawing")}
-              >
-                <h1 className="pointer">courses</h1>
+              <Grid className="nav-link">
+                <h1>courses</h1>
               </Grid>
             </Grid>
           </Grid>
-          <Grid container xs={3} sx={{ justifyContent: "center" }}>
+          <Grid
+            container
+            xs={3}
+            onClick={() => router.push("/media/blog")}
+            className="pointer"
+            sx={{ justifyContent: "center", display: "grid" }}
+          >
             <Grid sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}>
               <FontAwesomeIcon icon={faTv} />
             </Grid>
-            <Grid
-              className="nav-link"
-              onClick={() => router.push("/media/blog")}
-            >
-              <h1 className="pointer">media</h1>
+            <Grid className="nav-link">
+              <h1>media</h1>
             </Grid>
           </Grid>
-          <Grid container xs={3} sx={{ justifyContent: "center" }}>
+          <Grid
+            container
+            xs={3}
+            onClick={() => router.push("/events")}
+            className="pointer"
+            sx={{ justifyContent: "center", display: "grid" }}
+          >
             <Grid sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}>
               <FontAwesomeIcon icon={faCalendarCheck} />
             </Grid>
-            <Grid className="nav-link" onClick={() => router.push("/events")}>
-              <h1 className="pointer">events</h1>
+            <Grid className="nav-link">
+              <h1>events</h1>
             </Grid>
           </Grid>
           {/* <Grid container xs={2} sx={{justifyContent: "center"}}>

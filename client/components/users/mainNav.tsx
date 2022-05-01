@@ -9,6 +9,7 @@ import {
   faShoppingCart,
   faUserCircle,
   faEllipsisV,
+  faHamburger,
 } from "@fortawesome/free-solid-svg-icons";
 import SignUp from "./auth/signup";
 import SignIn from "./auth/signin";
@@ -42,6 +43,18 @@ const MainNav = () => {
   const openUser = Boolean(userOpen);
   const openEllipse = Boolean(ellipseOpen);
 
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       console.log(innerWidth);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
+
   const handleNotificationClick = (event: any) => {
     setNotificationOpen(event.currentTarget);
   };
@@ -60,6 +73,16 @@ const MainNav = () => {
   };
   const handleEllipseClose = () => {
     setEllipseOpen(null);
+  };
+
+  const [iconMenu, setIconMenu] = useState("iconMenu");
+
+  const displayMenu = () => {
+    if (iconMenu === "iconMenu iconMenu-show") {
+      setIconMenu("iconMenu");
+    } else {
+      setIconMenu("iconMenu iconMenu-show");
+    }
   };
 
   if (loginStatus) {
@@ -83,17 +106,17 @@ const MainNav = () => {
           />
           <Grid
             xs={12}
-            sx={{
-              padding: "0 10px",
-            }}
             container
+            sx={{ display: "grid", margin: "5px 0", gridTemplateColumns: "auto 1fr auto" }}
           >
             <Grid
-              xs={2}
+              xs={12}
               sx={{
                 textAlign: "center",
                 alignSelf: "center",
                 maxWidth: "fit-content",
+                minWidth: "fit-content",
+                padding: "0 10px",
               }}
             >
               <Grid
@@ -107,73 +130,93 @@ const MainNav = () => {
                 </span>
               </Grid>
             </Grid>
-            <Grid xs={8} container sx={{ alignContent: "center" }}>
-              <Grid
-                xs={2}
-                sx={{
-                  maxWidth: "fit-content",
-                  textAlign: "center",
-                  alignSelf: "center",
-                }}
-              >
-                <h1>search</h1>
-              </Grid>
-              <Grid xs={10} container sx={{ pt: "10px", pb: "10px" }}>
-                <input type="text" className="search-field" />
-              </Grid>
+            <Grid xs={12} container sx={{ alignContent: "center" }}>
+              <input
+                type="text"
+                className="search-field"
+                placeholder="Search"
+              />
             </Grid>
             <Grid
               container
-              xs={2}
+              xs={12}
               sx={{
                 alignContent: "center",
                 justifyContent: "center",
                 minWidth: "fit-content",
               }}
             >
-              <Grid xs={2} container sx={{ justifyContent: "center" }}>
+              <Grid
+                xs={12}
+                container
+                className="hamburger"
+                sx={{ justifyContent: "center", margin: "0 10px" }}
+                onClick={() => displayMenu()}
+              >
                 <h1>
-                  <FontAwesomeIcon
-                    className="pointer"
-                    icon={faBell}
-                    onClick={handleNotificationClick}
-                  />
+                  <FontAwesomeIcon className="pointer" icon={faHamburger} />
                 </h1>
               </Grid>
-              <Grid xs={2} container sx={{ justifyContent: "center" }}>
-                <a href="/collection">
-                  <h1>
-                    <FontAwesomeIcon className="pointer" icon={faHeart} />
-                  </h1>
-                </a>
-              </Grid>
-              <Grid xs={2} container sx={{ justifyContent: "center" }}>
-                <a href="/cart">
+              <Grid
+                xs={12}
+                container
+                className={iconMenu}
+                sx={{
+                  display: "grid",
+                  margin: "0 10px",
+                  gridTemplateColumns: "auto auto auto auto auto",
+                  gap: "5px",
+                  justifyContent: "center",
+                }}
+              >
+                <Grid xs={12} container sx={{ justifyContent: "center" }}>
                   <h1>
                     <FontAwesomeIcon
                       className="pointer"
-                      icon={faShoppingCart}
+                      icon={faBell}
+                      onClick={handleNotificationClick}
                     />
                   </h1>
-                </a>
-              </Grid>
-              <Grid xs={2} container sx={{ justifyContent: "center" }}>
-                <h1>
-                  <FontAwesomeIcon
-                    className="pointer"
-                    icon={faUserCircle}
-                    onClick={handleUserClick}
-                  />
-                </h1>
-              </Grid>
-              <Grid xs={2} container sx={{ justifyContent: "center" }}>
-                <h1>
-                  <FontAwesomeIcon
-                    className="pointer"
-                    icon={faEllipsisV}
-                    onClick={handleEllipseClick}
-                  />
-                </h1>
+                </Grid>
+                <Grid
+                  xs={12}
+                  container
+                  sx={{ justifyContent: "center" }}
+                >
+                  <a href="/collection">
+                    <h1>
+                      <FontAwesomeIcon className="pointer" icon={faHeart} />
+                    </h1>
+                  </a>
+                </Grid>
+                <Grid xs={12} container sx={{ justifyContent: "center" }}>
+                  <a href="/cart">
+                    <h1>
+                      <FontAwesomeIcon
+                        className="pointer"
+                        icon={faShoppingCart}
+                      />
+                    </h1>
+                  </a>
+                </Grid>
+                <Grid xs={12} container sx={{ justifyContent: "center" }}>
+                  <h1>
+                    <FontAwesomeIcon
+                      className="pointer"
+                      icon={faUserCircle}
+                      onClick={handleUserClick}
+                    />
+                  </h1>
+                </Grid>
+                <Grid xs={12} container sx={{ justifyContent: "center" }}>
+                  <h1>
+                    <FontAwesomeIcon
+                      className="pointer"
+                      icon={faEllipsisV}
+                      onClick={handleEllipseClick}
+                    />
+                  </h1>
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
