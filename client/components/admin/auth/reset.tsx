@@ -36,6 +36,8 @@ const AdminResetModal = (props: IModalState) => {
             initialValues={initialValues}
             onSubmit={onSubmit}
             validationSchema={validationSchema}
+            validateOnChange={false}
+            validateOnBlur={false}
           >
             <Form>
               <Grid className="sign-content">
@@ -43,7 +45,11 @@ const AdminResetModal = (props: IModalState) => {
                 <Grid className="sign-input">
                   <Grid className="forgot-input-div">
                     <Field type="email" name="email" placeholder="Email" />
-                    <ErrorMessage name="email" />
+                    <ErrorMessage name="email" component="div">
+                      {(errorMsg) => (
+                        <Grid className="errorMsg">{errorMsg}</Grid>
+                      )}
+                    </ErrorMessage>
                   </Grid>
                 </Grid>
                 <Grid>
