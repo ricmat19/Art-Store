@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Modal, Fade, Box, Grid } from "@mui/material";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 interface IModalState {
@@ -13,8 +13,8 @@ interface IModalState {
 const initialValues = {
   email: "",
 };
-const onSubmit = (values: any) => {
-  console.log(values);
+const onSubmit = (onSubmitProps: any) => {
+  onSubmitProps.resetForm();
 };
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -38,30 +38,35 @@ const AdminResetModal = (props: IModalState) => {
             validationSchema={validationSchema}
             validateOnChange={false}
             validateOnBlur={false}
+            validateOnMount
           >
-            <Form>
-              <Grid className="sign-content">
-                <h1 className="sign-header">Reset Password</h1>
-                <Grid className="sign-input">
-                  <Grid className="forgot-input-div">
-                    <Field type="email" name="email" placeholder="Email" />
-                    <ErrorMessage name="email" component="div">
-                      {(errorMsg) => (
-                        <Grid className="errorMsg">{errorMsg}</Grid>
-                      )}
-                    </ErrorMessage>
+            {(formik) => {
+              <Form>
+                <Grid className="sign-content">
+                  <h1 className="sign-header">Reset Password</h1>
+                  <Grid className="sign-input">
+                    <Grid className="forgot-input-div">
+                      <Field type="email" name="email" placeholder="Email" />
+                      <ErrorMessage name="email" component="div">
+                        {(errorMsg) => (
+                          <Grid className="errorMsg">{errorMsg}</Grid>
+                        )}
+                      </ErrorMessage>
+                    </Grid>
+                  </Grid>
+                  <Grid>
+                    <button type="submit" disabled={!formik.isValid}>
+                      Send Reset Link
+                    </button>
+                  </Grid>
+                  <Grid className="sign-footer">
+                    <Grid className="modal-link">
+                      <span>Back to signin in</span>
+                    </Grid>
                   </Grid>
                 </Grid>
-                <Grid>
-                  <button type="submit">Send Reset Link</button>
-                </Grid>
-                <Grid className="sign-footer">
-                  <Grid className="modal-link">
-                    <span>Back to signin in</span>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Form>
+              </Form>;
+            }}
           </Formik>
         </Box>
       </Fade>
