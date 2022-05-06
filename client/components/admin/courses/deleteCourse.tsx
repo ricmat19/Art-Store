@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Grid, Modal } from "@mui/material";
+import { Form } from "formik";
 
 const AdminDeleteCourse = (props: any) => {
   const handleDelete = async () => {
@@ -70,7 +71,7 @@ const AdminDeleteCourse = (props: any) => {
                     height: "100%",
                   }}
                 >
-                  <form className="admin-form">
+                  <Form className="admin-form">
                     <Grid className="align-center">
                       <h1>
                         Are you sure you want to delete &quot;
@@ -80,7 +81,7 @@ const AdminDeleteCourse = (props: any) => {
                     <button onClick={handleDelete} type="submit">
                       Delete
                     </button>
-                  </form>
+                  </Form>
                 </Grid>
               </Grid>
             </Box>

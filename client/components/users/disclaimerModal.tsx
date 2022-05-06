@@ -1,5 +1,6 @@
 import { FC, useState } from "react";
 import { Grid } from "@mui/material";
+import { Form } from "formik";
 
 const DisclaimerModal: FC = () => {
   const [disclaimerModal, setDisclaimerModal] = useState("modal-bg active");
@@ -13,7 +14,7 @@ const DisclaimerModal: FC = () => {
     <Grid>
       {/* Disclaimer Modal */}
       <Grid className={disclaimerModal}>
-        <form>
+        <Form>
           <Grid className="disclaimer-content modal-content">
             <h1 className="header">
               welcome to{" "}
@@ -39,7 +40,7 @@ const DisclaimerModal: FC = () => {
               <button onClick={(e) => closeDisclaimer(e)}>i accept</button>
             </Grid>
           </Grid>
-        </form>
+        </Form>
       </Grid>
     </Grid>
   );

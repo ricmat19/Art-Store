@@ -1,6 +1,20 @@
 import { useState } from "react";
 import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+
+const initialValues = {
+  email: "",
+};
+const onSubmit = (onSubmitProps: any) => {
+  onSubmitProps.resetForm();
+};
+const validationSchema = Yup.object({
+  email: Yup.string()
+    .email("Invalid email format")
+    .required("Email is required"),
+});
 
 const SignIn = (props: any) => {
   const [loginMessage, setLoginMessage] = useState<string>("");
@@ -14,7 +28,7 @@ const SignIn = (props: any) => {
         email: email,
         password: password,
       });
-      setLoginMessage(loginStatus.data.data.message)
+      setLoginMessage(loginStatus.data.data.message);
       props.setLoginStatus(loginStatus.data.data.loginStatus);
     } catch (err) {
       console.log(err);
@@ -92,53 +106,85 @@ const SignIn = (props: any) => {
                       <Grid id="contained-modal-title-vcenter"></Grid>
                     </Grid>
                     <Grid>
-                      <form>
-                        <Grid className="sign-content">
-                          <h1 className="sign-header">welcome</h1>
-                          <Grid className="grid">
-                            <Grid className="modal-input-div">
-                              <input
-                                type="email"
-                                value={props.email}
-                                name="email"
-                                placeholder="Email"
-                                onChange={(e) => {
-                                  setEmail(e.target.value);
-                                }}
-                              />
+                      <Formik
+                        initialValues={initialValues}
+                        onSubmit={onSubmit}
+                        validationSchema={validationSchema}
+                        validateOnChange={false}
+                        validateOnBlur={false}
+                        validateOnMount
+                      >
+                        {(formik) => {
+                          <Form>
+                            <Grid className="sign-content">
+                              <h1 className="sign-header">welcome</h1>
+                              <Grid className="grid">
+                                <Grid className="modal-input-div">
+                                  <Field
+                                    type="email"
+                                    value={props.email}
+                                    name="email"
+                                    placeholder="Email"
+                                    onChange={(e) => {
+                                      setEmail(e.target.value);
+                                    }}
+                                  />
+                                  <ErrorMessage name="email" component="div">
+                                    {(errorMsg) => (
+                                      <Grid className="errorMsg">
+                                        {errorMsg}
+                                      </Grid>
+                                    )}
+                                  </ErrorMessage>
+                                </Grid>
+                                <Grid className="modal-input-div">
+                                  <Field
+                                    type="password"
+                                    value={props.password}
+                                    name="password"
+                                    placeholder="Create Password"
+                                    onChange={(e) => {
+                                      setPassword(e.target.value);
+                                    }}
+                                  />
+                                  <ErrorMessage name="email" component="div">
+                                    {(errorMsg) => (
+                                      <Grid className="errorMsg">
+                                        {errorMsg}
+                                      </Grid>
+                                    )}
+                                  </ErrorMessage>
+                                </Grid>
+                              </Grid>
+                              <Grid>
+                                <label>{loginMessage}</label>
+                              </Grid>
+                              <Grid sx={{ textAlign: "center" }}>
+                                <button
+                                  onClick={handleSignin}
+                                  disabled={!formik.isValid}
+                                >
+                                  sign in
+                                </button>
+                              </Grid>
+                              <Grid className="sign-footer two-column-div">
+                                <Grid
+                                  className="modal-link align-right pointer"
+                                  onClick={displayReset}
+                                >
+                                  <span>forgot password?</span>
+                                </Grid>
+                                <Grid
+                                  className="modal-link align-left pointer"
+                                  onClick={displaySignUp}
+                                >
+                                  <span>create account</span>
+                                </Grid>
+                              </Grid>
                             </Grid>
-                            <Grid className="modal-input-div">
-                              <input
-                                type="password"
-                                value={props.password}
-                                name="password"
-                                placeholder="Create Password"
-                                onChange={(e) => {
-                                  setPassword(e.target.value);
-                                }}
-                              />
-                            </Grid>
-                          </Grid>
-                          <Grid><label>{loginMessage}</label></Grid>
-                          <Grid sx={{ textAlign: "center" }}>
-                            <button onClick={handleSignin}>sign in</button>
-                          </Grid>
-                          <Grid className="sign-footer two-column-div">
-                            <Grid
-                              className="modal-link align-right pointer"
-                              onClick={displayReset}
-                            >
-                              <span>forgot password?</span>
-                            </Grid>
-                            <Grid
-                              className="modal-link align-left pointer"
-                              onClick={displaySignUp}
-                            >
-                              <span>create account</span>
-                            </Grid>
-                          </Grid>
-                        </Grid>
-                      </form>
+                          </Form>;
+                        }}
+                      </Formik>
                     </Grid>
                   </Grid>
                 </Grid>

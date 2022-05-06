@@ -8,6 +8,25 @@ import Head from "next/head";
 import { Grid, Select, MenuItem } from "@mui/material";
 import { useRouter } from "next/router";
 
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+
+const initialValues = {
+  title: "",
+  subject: "",
+  price: "",
+  description: "",
+};
+const onSubmit = (onSubmitProps: any) => {
+  onSubmitProps.resetForm();
+};
+const validationSchema = Yup.object({
+  title: Yup.string().required("Email is required"),
+  subject: Yup.string().required("Email is required"),
+  price: Yup.string().required("Email is required"),
+  description: Yup.string().required("Email is required"),
+});
+
 const AdminCourse = (props: any) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
 
@@ -136,20 +155,34 @@ const AdminCourse = (props: any) => {
                 height: "100%",
               }}
             >
-              <form className="admin-form">
-                <Grid>
-                  <Grid className="admin-form-field">
-                    <label className="admin-label">Title:</label>
-                    <input
-                      value={title}
-                      onChange={(e) => setTitle(e.target.value)}
-                      type="text"
-                      name="name"
-                      className="form-control"
-                      required
-                    />
-                  </Grid>
-                  {/* <Grid className="admin-form-field">
+              <Formik
+                initialValues={initialValues}
+                onSubmit={onSubmit}
+                validationSchema={validationSchema}
+                validateOnChange={false}
+                validateOnBlur={false}
+                validateOnMount
+              >
+                {(formik) => {
+                  <Form className="admin-form">
+                    <Grid>
+                      <Grid className="admin-form-field">
+                        <label className="admin-label">Title:</label>
+                        <Field
+                          value={title}
+                          onChange={(e) => setTitle(e.target.value)}
+                          type="text"
+                          name="title"
+                          className="form-control"
+                          required
+                        />
+                        <ErrorMessage name="email" component="div">
+                          {(errorMsg) => (
+                            <Grid className="errorMsg">{errorMsg}</Grid>
+                          )}
+                        </ErrorMessage>
+                      </Grid>
+                      {/* <Grid className="admin-form-field">
                     <label className="admin-label">Image:</label>
                     <input
                       type="file"
@@ -159,64 +192,74 @@ const AdminCourse = (props: any) => {
                       required
                     />
                   </Grid> */}
-                  <Grid className="admin-form-field">
-                    <Grid>
-                      <label className="admin-label">Subject:</label>
-                    </Grid>
-                    <Grid>
-                      <Select
-                        value={subject}
-                        onChange={handleChange}
-                        displayEmpty
-                        inputProps={{ "aria-label": "Without label" }}
-                        className="type-selector"
-                      >
-                        <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={"drawing"}>drawing</MenuItem>
-                        <MenuItem value={"painting"}>painting</MenuItem>
-                        <MenuItem value={"modeling"}>modeling</MenuItem>
-                        <MenuItem value={"sculpting"}>sculpting</MenuItem>
-                        <MenuItem value={"writing"}>writing</MenuItem>
-                      </Select>
-                    </Grid>
-                  </Grid>
-                  <Grid className="admin-form-field">
-                    <label className="admin-label">Price:</label>
-                    <input
-                      value={price}
-                      onChange={(e) => setPrice(e.target.value)}
-                      type="number"
-                      name="price"
-                      className="form-control"
-                      required
-                    />
-                  </Grid>
-                  <Grid className="admin-form-field">
-                    <label className="admin-label">Description:</label>
-                    <textarea
-                      value={description}
-                      onChange={(e) => setDescription(e.target.value)}
-                      rows={12}
-                      required
-                    />
-                  </Grid>
-                  <Grid className="admin-form-button">
-                    <Grid className="text-center">
-                      <Grid>
-                        <button
-                          onClick={updateCourse}
-                          type="submit"
-                          className="btn form-button"
-                        >
-                          Update Course
-                        </button>
+                      <Grid className="admin-form-field">
+                        <Grid>
+                          <label className="admin-label">Subject:</label>
+                        </Grid>
+                        <Grid>
+                          <Select
+                            value={subject}
+                            onChange={handleChange}
+                            displayEmpty
+                            inputProps={{ "aria-label": "Without label" }}
+                            className="type-selector"
+                            name="subject"
+                          >
+                            <MenuItem value="">
+                              <em>None</em>
+                            </MenuItem>
+                            <MenuItem value={"drawing"}>drawing</MenuItem>
+                            <MenuItem value={"painting"}>painting</MenuItem>
+                            <MenuItem value={"modeling"}>modeling</MenuItem>
+                            <MenuItem value={"sculpting"}>sculpting</MenuItem>
+                            <MenuItem value={"writing"}>writing</MenuItem>
+                          </Select>
+                        </Grid>
+                      </Grid>
+                      <Grid className="admin-form-field">
+                        <label className="admin-label">Price:</label>
+                        <Field
+                          value={price}
+                          onChange={(e) => setPrice(e.target.value)}
+                          type="number"
+                          name="price"
+                          className="form-control"
+                          required
+                        />
+                        <ErrorMessage name="email" component="div">
+                          {(errorMsg) => (
+                            <Grid className="errorMsg">{errorMsg}</Grid>
+                          )}
+                        </ErrorMessage>
+                      </Grid>
+                      <Grid className="admin-form-field">
+                        <label className="admin-label">Description:</label>
+                        <Field
+                          value={description}
+                          onChange={(e) => setDescription(e.target.value)}
+                          rows={12}
+                          name="description"
+                          required
+                        />
+                      </Grid>
+                      <Grid className="admin-form-button">
+                        <Grid className="text-center">
+                          <Grid>
+                            <button
+                              onClick={updateCourse}
+                              type="submit"
+                              className="btn form-button"
+                              disabled={!formik.isValid}
+                            >
+                              Update Course
+                            </button>
+                          </Grid>
+                        </Grid>
                       </Grid>
                     </Grid>
-                  </Grid>
-                </Grid>
-              </form>
+                  </Form>;
+                }}
+              </Formik>
             </Grid>
           </Grid>
         </Grid>
@@ -245,9 +288,7 @@ export async function getStaticProps(context: {
   params: { subject: any; course: any };
 }) {
   const course = context.params.course;
-  const courseResponse = await IndexAPI.get(
-    `/admin/courses/course/${course}`
-  );
+  const courseResponse = await IndexAPI.get(`/admin/courses/course/${course}`);
 
   for (let i = 0; i < courseResponse.data.data.course.length; i++) {
     if (courseResponse.data.data.course[i].imagekey !== null) {

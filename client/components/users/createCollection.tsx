@@ -10,6 +10,28 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+
+const initialValues = {
+  title: "",
+  type: "",
+  image: "",
+  quantity: "",
+  price: "",
+  info: "",
+};
+const onSubmit = (onSubmitProps: any) => {
+  onSubmitProps.resetForm();
+};
+const validationSchema = Yup.object({
+  title: Yup.string().required("Email is required"),
+  type: Yup.string().required("Email is required"),
+  image: Yup.string().required("Email is required"),
+  quantity: Yup.string().required("Email is required"),
+  price: Yup.string().required("Email is required"),
+  info: Yup.string().required("Email is required"),
+});
 
 const AdminAddProduct = (props: any) => {
   const [title, setTitle] = useState<string>("");
@@ -116,110 +138,142 @@ const AdminAddProduct = (props: any) => {
                   height: "100%",
                 }}
               >
-                <form
-                  className="admin-form"
-                  action="/admin/products"
-                  method="POST"
-                  encType="multipart/form-data"
+                <Formik
+                  initialValues={initialValues}
+                  onSubmit={onSubmit}
+                  validationSchema={validationSchema}
+                  validateOnChange={false}
+                  validateOnBlur={false}
+                  validateOnMount
                 >
-                  <Grid className="admin-form-title">
-                    <h1 className="align-center">Create</h1>
-                  </Grid>
-                  <Grid className="admin-form-field">
-                    <label className="admin-label">Title:</label>
-                    <input
-                      value={title}
-                      ref={titleInput}
-                      onChange={(e) => setTitle(e.target.value)}
-                      type="text"
-                      name="name"
-                      className="form-control"
-                      required
-                    />
-                  </Grid>
-                  <Grid className="admin-form-field">
-                    <Grid>
-                      <label className="admin-label">Type:</label>
-                    </Grid>
-                    <Grid>
-                      <Select
-                        value={type}
-                        onChange={handleChange}
-                        displayEmpty
-                        inputProps={{ "aria-label": "Without label" }}
-                        className="type-selector"
-                      >
-                        <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={"print"}>print</MenuItem>
-                        <MenuItem value={"painting"}>painting</MenuItem>
-                        <MenuItem value={"sculpture"}>sculpture</MenuItem>
-                        <MenuItem value={"model"}>model</MenuItem>
-                        <MenuItem value={"book"}>book</MenuItem>
-                        <MenuItem value={"comic"}>comic</MenuItem>
-                      </Select>
-                    </Grid>
-                  </Grid>
-                  <Grid className="admin-form-field">
-                    <label className="admin-label">Image:</label>
-                    <input
-                      type="file"
-                      onChange={(e: any) => setImage(e.target.files[0])}
-                      name="image"
-                      className="form-control file-input"
-                      required
-                    />
-                  </Grid>
-                  <Grid className="admin-form-field">
-                    <label className="admin-label">Quantity:</label>
-                    <input
-                      value={quantity}
-                      ref={quantityInput}
-                      onChange={(e) => setQuantity(e.target.value)}
-                      type="number"
-                      name="quantity"
-                      className="form-control"
-                      required
-                    />
-                  </Grid>
-                  <Grid className="admin-form-field">
-                    <label className="admin-label">Price:</label>
-                    <input
-                      value={price}
-                      ref={priceInput}
-                      onChange={(e) => setPrice(e.target.value)}
-                      type="number"
-                      name="price"
-                      className="form-control"
-                      required
-                    />
-                  </Grid>
-                  <Grid className="admin-form-field">
-                    <label className="admin-label">Info:</label>
-                    <textarea
-                      value={info}
-                      ref={infoInput}
-                      onChange={(e) => setInfo(e.target.value)}
-                      name="message"
-                      rows={5}
-                      required
-                    ></textarea>
-                  </Grid>
-                  <Grid className="admin-form-button">
-                    <Grid className="text-center">
-                      <Grid>
-                        <button
-                          onClick={createProduct}
-                          type="submit"
-                          className="btn form-button"
-                        >
-                          Submit
-                        </button>
+                  {(formik) => {
+                    <Form
+                      className="admin-form"
+                      action="/admin/products"
+                      method="POST"
+                      encType="multipart/form-data"
+                    >
+                      <Grid className="admin-form-title">
+                        <h1 className="align-center">Create</h1>
                       </Grid>
-                    </Grid>
-                  </Grid>
-                </form>
+                      <Grid className="admin-form-field">
+                        <label className="admin-label">Title:</label>
+                        <Field
+                          value={title}
+                          ref={titleInput}
+                          onChange={(e) => setTitle(e.target.value)}
+                          type="text"
+                          name="name"
+                          className="form-control"
+                          required
+                        />
+                        <ErrorMessage name="email" component="div">
+                          {(errorMsg) => (
+                            <Grid className="errorMsg">{errorMsg}</Grid>
+                          )}
+                        </ErrorMessage>
+                      </Grid>
+                      <Grid className="admin-form-field">
+                        <Grid>
+                          <label className="admin-label">Type:</label>
+                        </Grid>
+                        <Grid>
+                          <Select
+                            value={type}
+                            onChange={handleChange}
+                            displayEmpty
+                            inputProps={{ "aria-label": "Without label" }}
+                            className="type-selector"
+                          >
+                            <MenuItem value="">
+                              <em>None</em>
+                            </MenuItem>
+                            <MenuItem value={"print"}>print</MenuItem>
+                            <MenuItem value={"painting"}>painting</MenuItem>
+                            <MenuItem value={"sculpture"}>sculpture</MenuItem>
+                            <MenuItem value={"model"}>model</MenuItem>
+                            <MenuItem value={"book"}>book</MenuItem>
+                            <MenuItem value={"comic"}>comic</MenuItem>
+                          </Select>
+                        </Grid>
+                      </Grid>
+                      <Grid className="admin-form-field">
+                        <label className="admin-label">Image:</label>
+                        <Field
+                          type="file"
+                          onChange={(e: any) => setImage(e.target.files[0])}
+                          name="image"
+                          className="form-control file-input"
+                          required
+                        />
+                        <ErrorMessage name="email" component="div">
+                          {(errorMsg) => (
+                            <Grid className="errorMsg">{errorMsg}</Grid>
+                          )}
+                        </ErrorMessage>
+                      </Grid>
+                      <Grid className="admin-form-field">
+                        <label className="admin-label">Quantity:</label>
+                        <Field
+                          value={quantity}
+                          ref={quantityInput}
+                          onChange={(e) => setQuantity(e.target.value)}
+                          type="number"
+                          name="quantity"
+                          className="form-control"
+                          required
+                        />
+                        <ErrorMessage name="email" component="div">
+                          {(errorMsg) => (
+                            <Grid className="errorMsg">{errorMsg}</Grid>
+                          )}
+                        </ErrorMessage>
+                      </Grid>
+                      <Grid className="admin-form-field">
+                        <label className="admin-label">Price:</label>
+                        <Field
+                          value={price}
+                          ref={priceInput}
+                          onChange={(e) => setPrice(e.target.value)}
+                          type="number"
+                          name="price"
+                          className="form-control"
+                          required
+                        />
+                        <ErrorMessage name="email" component="div">
+                          {(errorMsg) => (
+                            <Grid className="errorMsg">{errorMsg}</Grid>
+                          )}
+                        </ErrorMessage>
+                      </Grid>
+                      <Grid className="admin-form-field">
+                        <label className="admin-label">Info:</label>
+                        <Field
+                          value={info}
+                          ref={infoInput}
+                          onChange={(e) => setInfo(e.target.value)}
+                          name="message"
+                          rows={5}
+                          required
+                        />
+                      </Grid>
+                      <Grid className="admin-form-button">
+                        <Grid className="text-center">
+                          <Grid>
+                            <button
+                              onClick={createProduct}
+                              type="submit"
+                              className="btn form-button"
+                              disabled={!formik.isValid}
+                            >
+                              Submit
+                            </button>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    </Form>;
+                  }}
+                </Formik>
               </Grid>
             </Grid>
           </Box>

@@ -14,6 +14,19 @@ import {
   Select,
   Button,
 } from "@mui/material";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+
+const initialValues = {
+  collection: "",
+};
+const onSubmit = (onSubmitProps: any) => {
+  onSubmitProps.resetForm();
+};
+const validationSchema = Yup.object({
+  collection: Yup.string()
+    .required("Email is required"),
+});
 
 const AddToCollection = (props: any) => {
   const [collection, setCollection] = useState("");
@@ -87,67 +100,91 @@ const AddToCollection = (props: any) => {
                 padding: "30px",
               }}
             >
-              <form>
-                <Grid sx={{ gap: "10px" }} className="grid">
-                  <h1 className="header">Add to Collection</h1>
-                  <Grid sx={{ display: "grid", gap: "10px" }}>
-                    <Grid
-                      sx={{
-                        display: "grid",
-                        gridTemplateColumns: "min-content 1fr",
-                      }}
-                    >
-                      <input
-                        placeholder="Create new collection..."
-                        onChange={(e) => setNewCollection(e.target.value)}
-                      />
-                      <Button
-                        onClick={createCollection}
-                        sx={{
-                          fontFamily: "Rajdhani",
-                          fontSize: "20px",
-                          color: "white",
-                          textTransform: "none",
-                        }}
-                      >
-                        <FontAwesomeIcon className="plus-icon" icon={faPlus} />
-                      </Button>
-                    </Grid>
-                    <Grid
-                      sx={{
-                        display: "grid",
-                      }}
-                    >
-                      <Select
-                        value={collection}
-                        onChange={handleChange}
-                        displayEmpty
-                        inputProps={{ "aria-label": "Without label" }}
-                        className="type-selector"
-                      >
-                        <MenuItem value="">
-                          <em>Select Collection...</em>
-                        </MenuItem>
-                        {props.collections.map((collection: any) => {
-                          return (
-                            <MenuItem
-                              key={collection.collection_group}
-                              value={collection.collection_group}
-                            >
-                              {collection.collection_group}
+              <Formik
+                initialValues={initialValues}
+                onSubmit={onSubmit}
+                validationSchema={validationSchema}
+                validateOnChange={false}
+                validateOnBlur={false}
+                validateOnMount
+              >
+                {(formik) => {
+                  <Form>
+                    <Grid sx={{ gap: "10px" }} className="grid">
+                      <h1 className="header">Add to Collection</h1>
+                      <Grid sx={{ display: "grid", gap: "10px" }}>
+                        <Grid
+                          sx={{
+                            display: "grid",
+                            gridTemplateColumns: "min-content 1fr",
+                          }}
+                        >
+                          <Field
+                            placeholder="Create new collection..."
+                            name="collection"
+                            onChange={(e) => setNewCollection(e.target.value)}
+                          />
+                          <ErrorMessage name="email" component="div">
+                            {(errorMsg) => (
+                              <Grid className="errorMsg">{errorMsg}</Grid>
+                            )}
+                          </ErrorMessage>
+                          <Button
+                            onClick={createCollection}
+                            sx={{
+                              fontFamily: "Rajdhani",
+                              fontSize: "20px",
+                              color: "white",
+                              textTransform: "none",
+                            }}
+                          >
+                            <FontAwesomeIcon
+                              className="plus-icon"
+                              icon={faPlus}
+                            />
+                          </Button>
+                        </Grid>
+                        <Grid
+                          sx={{
+                            display: "grid",
+                          }}
+                        >
+                          <Select
+                            value={collection}
+                            onChange={handleChange}
+                            displayEmpty
+                            inputProps={{ "aria-label": "Without label" }}
+                            className="type-selector"
+                          >
+                            <MenuItem value="">
+                              <em>Select Collection...</em>
                             </MenuItem>
-                          );
-                        })}
-                      </Select>
+                            {props.collections.map((collection: any) => {
+                              return (
+                                <MenuItem
+                                  key={collection.collection_group}
+                                  value={collection.collection_group}
+                                >
+                                  {collection.collection_group}
+                                </MenuItem>
+                              );
+                            })}
+                          </Select>
+                        </Grid>
+                      </Grid>
+                      <Grid sx={{ display: "grid", justifyContent: "center" }}>
+                        <button
+                          className="added-button"
+                          onClick={addToCollections}
+                          disabled={!formik.isValid}
+                        >
+                          Add to Collection
+                        </button>
+                      </Grid>
                     </Grid>
-                  </Grid>
-                  <Grid sx={{ display: "grid", justifyContent: "center" }}>
-                    <button className="added-button" onClick={addToCollections}>
-                      Add to Collection
-                    </button>
-                  </Grid>
-                </Grid>
-              </form>
+                  </Form>;
+                }}
+              </Formik>
             </Grid>
           </Box>
         </Fade>

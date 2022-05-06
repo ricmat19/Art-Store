@@ -1,4 +1,18 @@
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+
+const initialValues = {
+  email: "",
+};
+const onSubmit = (onSubmitProps: any) => {
+  onSubmitProps.resetForm();
+};
+const validationSchema = Yup.object({
+  email: Yup.string()
+    .email("Invalid email format")
+    .required("Email is required"),
+});
 
 const Reset = (props: any) => {
   const displaySignIn = async (e: { preventDefault: () => void }) => {
@@ -60,27 +74,49 @@ const Reset = (props: any) => {
                     <Grid id="contained-modal-title-vcenter"></Grid>
                   </Grid>
                   <Grid>
-                    <form>
-                      <Grid className="sign-content">
-                        <h1 className="sign-header">Reset Password</h1>
-                        <Grid className="sign-input">
-                          <Grid className="forgot-input-div">
-                            <input type="text" placeholder="Email" />
+                    <Formik
+                      initialValues={initialValues}
+                      onSubmit={onSubmit}
+                      validationSchema={validationSchema}
+                      validateOnChange={false}
+                      validateOnBlur={false}
+                      validateOnMount
+                    >
+                      {(formik) => {
+                        <Form>
+                          <Grid className="sign-content">
+                            <h1 className="sign-header">Reset Password</h1>
+                            <Grid className="sign-input">
+                              <Grid className="forgot-input-div">
+                                <Field
+                                  type="text"
+                                  name="email"
+                                  placeholder="Email"
+                                />
+                                <ErrorMessage name="email" component="div">
+                                  {(errorMsg) => (
+                                    <Grid className="errorMsg">{errorMsg}</Grid>
+                                  )}
+                                </ErrorMessage>
+                              </Grid>
+                            </Grid>
+                            <Grid className="align-center">
+                              <button type="submit" disabled={!formik.isValid}>
+                                Send Reset Link
+                              </button>
+                            </Grid>
+                            <Grid className="sign-footer pointer">
+                              <Grid
+                                className="align-center modal-link"
+                                onClick={displaySignIn}
+                              >
+                                <span>Back to signin</span>
+                              </Grid>
+                            </Grid>
                           </Grid>
-                        </Grid>
-                        <Grid className="align-center">
-                          <button>Send Reset Link</button>
-                        </Grid>
-                        <Grid className="sign-footer pointer">
-                          <Grid
-                            className="align-center modal-link"
-                            onClick={displaySignIn}
-                          >
-                            <span>Back to signin</span>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </form>
+                        </Form>;
+                      }}
+                    </Formik>
                   </Grid>
                 </Grid>
               </Grid>

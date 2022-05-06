@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { Grid } from "@mui/material";
+import { Form } from "formik";
 
 const AddToCart = (props: any) => {
   //   const [event] = useState(props.event);
@@ -24,7 +25,7 @@ const AddToCart = (props: any) => {
   return (
     <Grid>
       <Grid>
-        <form>
+        <Form>
           <Grid>
             <h1 className="header">Item Added</h1>
             <Grid>
@@ -44,7 +45,7 @@ const AddToCart = (props: any) => {
               </button>
             </Grid>
           </Grid>
-        </form>
+        </Form>
       </Grid>
     </Grid>
   );

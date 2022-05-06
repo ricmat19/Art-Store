@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
+import { Form } from "formik";
 
 const AddToCart = (props: any) => {
   const [product] = useState(props.product);
@@ -75,7 +76,7 @@ const AddToCart = (props: any) => {
                 padding: "30px",
               }}
             >
-              <form>
+              <Form>
                 <Grid>
                   <h3 className="align-center">
                     {product.title} has {!uniqueItem ? "already" : ""} been
@@ -99,7 +100,7 @@ const AddToCart = (props: any) => {
                     view cart
                   </button>
                 </Grid>
-              </form>
+              </Form>
             </Grid>
           </Box>
         </Fade>
