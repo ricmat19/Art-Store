@@ -82,71 +82,82 @@ const Contact = (props: any) => {
               validateOnMount
             >
               {(formik) => {
-                <Form className="contact-form" method="POST" action="/contact">
-                  <Grid className="subject-line">
-                    <Field
-                      type="text"
-                      ref={nameInput}
-                      onChange={(e: any) => setName(e.target.value)}
-                      name="name"
-                      placeholder="your name..."
-                    />
-                    <ErrorMessage name="email" component="div">
-                      {(errorMsg) => (
-                        <Grid className="errorMsg">{errorMsg}</Grid>
-                      )}
-                    </ErrorMessage>
-                  </Grid>
-                  <Grid className="subject-line">
-                    <Field
-                      type="email"
-                      ref={emailInput}
-                      onChange={(e: any) => setEmail(e.target.value)}
-                      name="email"
-                      placeholder="your email..."
-                      required
-                    />
-                    <ErrorMessage name="email" component="div">
-                      {(errorMsg) => (
-                        <Grid className="errorMsg">{errorMsg}</Grid>
-                      )}
-                    </ErrorMessage>
-                  </Grid>
-                  <Grid className="subject-line">
-                    <Field
-                      type="text"
-                      ref={subjectInput}
-                      onChange={(e: any) => setSubject(e.target.value)}
-                      name="subject"
-                      placeholder="the subject..."
-                      required
-                    />
-                    <ErrorMessage name="email" component="div">
-                      {(errorMsg) => (
-                        <Grid className="errorMsg">{errorMsg}</Grid>
-                      )}
-                    </ErrorMessage>
-                  </Grid>
-                  <Grid className="subject-line">
-                    <Field
-                      name="message"
-                      ref={messageInput}
-                      onChange={(e: any) => setMessage(e.target.value)}
-                      placeholder="your message..."
-                      rows={7}
-                      required
-                    />
-                  </Grid>
-                  <Grid className="align-right">
-                    <button
-                      onClick={handleSubmit}
-                      type="submit"
-                      disabled={!formik.isValid}
-                    >
-                      submit
-                    </button>
-                  </Grid>
-                </Form>;
+                return (
+                  <Form
+                    className="contact-form"
+                    method="POST"
+                    action="/contact"
+                  >
+                    <Grid className="subject-line">
+                      <Field
+                        type="text"
+                        ref={nameInput}
+                        onChange={(e: any) => setName(e.target.value)}
+                        name="name"
+                        placeholder="your name..."
+                      />
+                      <ErrorMessage name="email" component="div">
+                        {(errorMsg) => (
+                          <Grid className="errorMsg">{errorMsg}</Grid>
+                        )}
+                      </ErrorMessage>
+                    </Grid>
+                    <Grid className="subject-line">
+                      <Field
+                        type="email"
+                        ref={emailInput}
+                        onChange={(e: any) => setEmail(e.target.value)}
+                        name="email"
+                        placeholder="your email..."
+                        required
+                      />
+                      <ErrorMessage name="email" component="div">
+                        {(errorMsg) => (
+                          <Grid className="errorMsg">{errorMsg}</Grid>
+                        )}
+                      </ErrorMessage>
+                    </Grid>
+                    <Grid className="subject-line">
+                      <Field
+                        type="text"
+                        ref={subjectInput}
+                        onChange={(e: any) => setSubject(e.target.value)}
+                        name="subject"
+                        placeholder="the subject..."
+                        required
+                      />
+                      <ErrorMessage name="email" component="div">
+                        {(errorMsg) => (
+                          <Grid className="errorMsg">{errorMsg}</Grid>
+                        )}
+                      </ErrorMessage>
+                    </Grid>
+                    <Grid className="subject-line">
+                      <Field
+                        name="message"
+                        ref={messageInput}
+                        onChange={(e: any) => setMessage(e.target.value)}
+                        placeholder="your message..."
+                        rows={7}
+                        required
+                      />
+                      <ErrorMessage name="email" component="div">
+                        {(errorMsg) => (
+                          <Grid className="errorMsg">{errorMsg}</Grid>
+                        )}
+                      </ErrorMessage>
+                    </Grid>
+                    <Grid className="align-right">
+                      <button
+                        onClick={handleSubmit}
+                        type="submit"
+                        disabled={!formik.isValid}
+                      >
+                        submit
+                      </button>
+                    </Grid>
+                  </Form>
+                );
               }}
             </Formik>
           </Grid>

@@ -32,7 +32,6 @@ const validationSchema = Yup.object({
     .required("Price is required"),
   description: Yup.string()
     .required("Description is required"),
-
 });
 
 const AdminCreateCourse = () => {
@@ -147,7 +146,8 @@ const AdminCreateCourse = () => {
                 validateOnBlur={false}
                 validateOnMount
               >
-                {(formik) => {
+               {(formik) => {
+                return (
                   <Form className="admin-form">
                     <Grid>
                       <Grid className="admin-form-field">
@@ -255,7 +255,7 @@ const AdminCreateCourse = () => {
                         </Grid>
                       </Grid>
                     </Grid>
-                  </Form>;
+                  </Form>);
                 }}
               </Formik>
             </Grid>

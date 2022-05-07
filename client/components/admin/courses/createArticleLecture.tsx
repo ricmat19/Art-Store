@@ -7,16 +7,14 @@ import * as Yup from "yup";
 
 const initialValues = {
   article: "",
-  description: ""
+  description: "",
 };
 const onSubmit = (onSubmitProps: any) => {
   onSubmitProps.resetForm();
 };
 const validationSchema = Yup.object({
-  article: Yup.string()
-    .required("Article is required"),
-  description: Yup.string()
-    .required("Description is required")
+  article: Yup.string().required("Article is required"),
+  description: Yup.string().required("Description is required"),
 });
 
 const AdminCreateArticleLecture = (props: any) => {
@@ -93,70 +91,74 @@ const AdminCreateArticleLecture = (props: any) => {
                   validateOnMount
                 >
                   {(formik) => {
-                    <Form
-                      className="admin-form"
-                      action="/admin/products"
-                      method="POST"
-                      encType="multipart/form-data"
-                    >
-                      <Grid className="admin-form-title">
-                        <h1 className="align-center">
-                          Article: {props.lecture}
-                        </h1>
-                      </Grid>
-                      <Grid
-                        className="admin-form-field"
-                        sx={{ display: "grid", padding: "15px" }}
+                    return (
+                      <Form
+                        className="admin-form"
+                        action="/admin/products"
+                        method="POST"
+                        encType="multipart/form-data"
                       >
-                        <label className="admin-label">Description:</label>
-                        <Field
-                          value={description}
-                          onChange={(e: any) => setDescription(e.target.value)}
-                          name="description"
-                          rows={2}
-                          className="form-control"
-                          required
-                        />
-                        <ErrorMessage name="email" component="div">
-                          {(errorMsg) => (
-                            <Grid className="errorMsg">{errorMsg}</Grid>
-                          )}
-                        </ErrorMessage>
-                      </Grid>
-                      <Grid
-                        className="admin-form-field"
-                        sx={{ display: "grid", padding: "15px" }}
-                      >
-                        <label className="admin-label">Article:</label>
-                        <Field
-                          value={article}
-                          onChange={(e: any) => setArticle(e.target.value)}
-                          name="description"
-                          rows={15}
-                          className="form-control"
-                          required
-                        />
-                        <ErrorMessage name="email" component="div">
-                          {(errorMsg) => (
-                            <Grid className="errorMsg">{errorMsg}</Grid>
-                          )}
-                        </ErrorMessage>
-                      </Grid>
-                      <Grid className="admin-form-button">
-                        <Grid className="text-center">
-                          <Grid>
-                            <button
-                              onClick={createArticleLecture}
-                              type="submit"
-                              className="btn form-button"
-                              disabled={!formik.isValid}
-                            >
-                              Submit
-                            </button>
+                        <Grid className="admin-form-title">
+                          <h1 className="align-center">
+                            Article: {props.lecture}
+                          </h1>
+                        </Grid>
+                        <Grid
+                          className="admin-form-field"
+                          sx={{ display: "grid", padding: "15px" }}
+                        >
+                          <label className="admin-label">Description:</label>
+                          <Field
+                            value={description}
+                            onChange={(e: any) =>
+                              setDescription(e.target.value)
+                            }
+                            name="description"
+                            rows={2}
+                            className="form-control"
+                            required
+                          />
+                          <ErrorMessage name="email" component="div">
+                            {(errorMsg) => (
+                              <Grid className="errorMsg">{errorMsg}</Grid>
+                            )}
+                          </ErrorMessage>
+                        </Grid>
+                        <Grid
+                          className="admin-form-field"
+                          sx={{ display: "grid", padding: "15px" }}
+                        >
+                          <label className="admin-label">Article:</label>
+                          <Field
+                            value={article}
+                            onChange={(e: any) => setArticle(e.target.value)}
+                            name="description"
+                            rows={15}
+                            className="form-control"
+                            required
+                          />
+                          <ErrorMessage name="email" component="div">
+                            {(errorMsg) => (
+                              <Grid className="errorMsg">{errorMsg}</Grid>
+                            )}
+                          </ErrorMessage>
+                        </Grid>
+                        <Grid className="admin-form-button">
+                          <Grid className="text-center">
+                            <Grid>
+                              <button
+                                onClick={createArticleLecture}
+                                type="submit"
+                                className="btn form-button"
+                                disabled={!formik.isValid}
+                              >
+                                Submit
+                              </button>
+                            </Grid>
                           </Grid>
                         </Grid>
-                      </Grid>
-                    </Form>;
+                      </Form>
+                    );
                   }}
                 </Formik>
               </Grid>

@@ -56,44 +56,52 @@ const HelpArticle = (props: any) => {
           validateOnMount
         >
           {(formik) => {
-            <Form>
-              <Grid sx={{ display: "grid", gap: "10px", margin: "50px 20vw" }}>
-                <Grid>
-                  <label>Title:</label>
-                  <Field
-                    className="full-width"
-                    onChange={(e: any) => setTitle(e.target.value)}
-                    value={title}
-                    name="title"
-                  />
-                  <ErrorMessage name="email" component="div">
-                    {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
-                  </ErrorMessage>
+            return (
+              <Form>
+                <Grid
+                  sx={{ display: "grid", gap: "10px", margin: "50px 20vw" }}
+                >
+                  <Grid>
+                    <label>Title:</label>
+                    <Field
+                      className="full-width"
+                      onChange={(e: any) => setTitle(e.target.value)}
+                      value={title}
+                      name="title"
+                    />
+                    <ErrorMessage name="email" component="div">
+                      {(errorMsg) => (
+                        <Grid className="errorMsg">{errorMsg}</Grid>
+                      )}
+                    </ErrorMessage>
+                  </Grid>
+                  <Grid>
+                    <label>Content:</label>
+                    <Field
+                      className="full-width"
+                      onChange={(e: any) => setContent(e.target.value)}
+                      value={content}
+                      rows={50}
+                      name="content"
+                    />
+                    <ErrorMessage name="email" component="div">
+                      {(errorMsg) => (
+                        <Grid className="errorMsg">{errorMsg}</Grid>
+                      )}
+                    </ErrorMessage>
+                  </Grid>
+                  <Grid sx={{ textAlign: "center" }}>
+                    <button
+                      type="submit"
+                      onClick={updateArticle}
+                      disabled={!formik.isValid}
+                    >
+                      Submit
+                    </button>
+                  </Grid>
                 </Grid>
-                <Grid>
-                  <label>Content:</label>
-                  <Field
-                    className="full-width"
-                    onChange={(e: any) => setContent(e.target.value)}
-                    value={content}
-                    rows={50}
-                    name="content"
-                  />
-                  <ErrorMessage name="email" component="div">
-                    {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
-                  </ErrorMessage>
-                </Grid>
-                <Grid sx={{ textAlign: "center" }}>
-                  <button
-                    type="submit"
-                    onClick={updateArticle}
-                    disabled={!formik.isValid}
-                  >
-                    Submit
-                  </button>
-                </Grid>
-              </Grid>
-            </Form>;
+              </Form>
+            );
           }}
         </Formik>
         <Grid>{props.helpArticle.title}</Grid>

@@ -170,48 +170,51 @@ const AdminUpdateProduct = (props: any) => {
                     validateOnMount
                   >
                     {(formik) => {
-                      <Form className="admin-form">
-                        <Grid className="admin-form-field">
-                          <label className="admin-label">Title:</label>
-                          <Field
-                            value={title}
-                            onChange={(e: any) => setTitle(e.target.value)}
-                            type="text"
-                            name="name"
-                            className="form-control"
-                            required
-                          />
-                          <ErrorMessage name="email" component="div">
-                            {(errorMsg) => (
-                              <Grid className="errorMsg">{errorMsg}</Grid>
-                            )}
-                          </ErrorMessage>
-                        </Grid>
-                        <Grid className="admin-form-field">
-                          <Grid>
-                            <label className="admin-label">Product:</label>
+                      return (
+                        <Form className="admin-form">
+                          <Grid className="admin-form-field">
+                            <label className="admin-label">Title:</label>
+                            <Field
+                              value={title}
+                              onChange={(e: any) => setTitle(e.target.value)}
+                              type="text"
+                              name="name"
+                              className="form-control"
+                              required
+                            />
+                            <ErrorMessage name="email" component="div">
+                              {(errorMsg) => (
+                                <Grid className="errorMsg">{errorMsg}</Grid>
+                              )}
+                            </ErrorMessage>
                           </Grid>
-                          <Grid>
-                            <Select
-                              value={product}
-                              onChange={handleChange}
-                              displayEmpty
-                              inputProps={{ "aria-label": "Without label" }}
-                              className="type-selector"
-                            >
-                              <MenuItem value="">
-                                <em>None</em>
-                              </MenuItem>
-                              <MenuItem value={"print"}>print</MenuItem>
-                              <MenuItem value={"painting"}>painting</MenuItem>
-                              <MenuItem value={"sculpture"}>sculpture</MenuItem>
-                              <MenuItem value={"model"}>model</MenuItem>
-                              <MenuItem value={"book"}>book</MenuItem>
-                              <MenuItem value={"comic"}>comic</MenuItem>
-                            </Select>
+                          <Grid className="admin-form-field">
+                            <Grid>
+                              <label className="admin-label">Product:</label>
+                            </Grid>
+                            <Grid>
+                              <Select
+                                value={product}
+                                onChange={handleChange}
+                                displayEmpty
+                                inputProps={{ "aria-label": "Without label" }}
+                                className="type-selector"
+                              >
+                                <MenuItem value="">
+                                  <em>None</em>
+                                </MenuItem>
+                                <MenuItem value={"print"}>print</MenuItem>
+                                <MenuItem value={"painting"}>painting</MenuItem>
+                                <MenuItem value={"sculpture"}>
+                                  sculpture
+                                </MenuItem>
+                                <MenuItem value={"model"}>model</MenuItem>
+                                <MenuItem value={"book"}>book</MenuItem>
+                                <MenuItem value={"comic"}>comic</MenuItem>
+                              </Select>
+                            </Grid>
                           </Grid>
-                        </Grid>
-                        {/* <Grid className="admin-form-field">
+                          {/* <Grid className="admin-form-field">
                       <label className="admin-label">Image:</label>
                       <input
                         type="file"
@@ -221,63 +224,64 @@ const AdminUpdateProduct = (props: any) => {
                         required
                       />
                     </Grid> */}
-                        <Grid className="admin-form-field">
-                          <label className="admin-label">Quantity:</label>
-                          <Field
-                            value={qty}
-                            onChange={(e: any) => setQty(e.target.value)}
-                            type="number"
-                            name="quantity"
-                            className="form-control"
-                            required
-                          />
-                          <ErrorMessage name="email" component="div">
-                            {(errorMsg) => (
-                              <Grid className="errorMsg">{errorMsg}</Grid>
-                            )}
-                          </ErrorMessage>
-                        </Grid>
-                        <Grid className="admin-form-field">
-                          <label className="admin-label">Price:</label>
-                          <input
-                            value={price}
-                            onChange={(e: any) => setPrice(e.target.value)}
-                            type="number"
-                            name="price"
-                            className="form-control"
-                            required
-                          />
-                        </Grid>
-                        <Grid className="admin-form-field">
-                          <label className="admin-label">Info:</label>
-                          <Field
-                            value={info}
-                            onChange={(e: any) => setInfo(e.target.value)}
-                            name="message"
-                            rows={5}
-                            required
-                          />
-                          <ErrorMessage name="email" component="div">
-                            {(errorMsg) => (
-                              <Grid className="errorMsg">{errorMsg}</Grid>
-                            )}
-                          </ErrorMessage>
-                        </Grid>
-                        <Grid className="admin-form-button">
-                          <Grid className="text-center">
-                            <Grid>
-                              <button
-                                onClick={updateProduct}
-                                type="submit"
-                                className="btn form-button"
-                                disabled={!formik.isValid}
-                              >
-                                Submit
-                              </button>
+                          <Grid className="admin-form-field">
+                            <label className="admin-label">Quantity:</label>
+                            <Field
+                              value={qty}
+                              onChange={(e: any) => setQty(e.target.value)}
+                              type="number"
+                              name="quantity"
+                              className="form-control"
+                              required
+                            />
+                            <ErrorMessage name="email" component="div">
+                              {(errorMsg) => (
+                                <Grid className="errorMsg">{errorMsg}</Grid>
+                              )}
+                            </ErrorMessage>
+                          </Grid>
+                          <Grid className="admin-form-field">
+                            <label className="admin-label">Price:</label>
+                            <input
+                              value={price}
+                              onChange={(e: any) => setPrice(e.target.value)}
+                              type="number"
+                              name="price"
+                              className="form-control"
+                              required
+                            />
+                          </Grid>
+                          <Grid className="admin-form-field">
+                            <label className="admin-label">Info:</label>
+                            <Field
+                              value={info}
+                              onChange={(e: any) => setInfo(e.target.value)}
+                              name="message"
+                              rows={5}
+                              required
+                            />
+                            <ErrorMessage name="email" component="div">
+                              {(errorMsg) => (
+                                <Grid className="errorMsg">{errorMsg}</Grid>
+                              )}
+                            </ErrorMessage>
+                          </Grid>
+                          <Grid className="admin-form-button">
+                            <Grid className="text-center">
+                              <Grid>
+                                <button
+                                  onClick={updateProduct}
+                                  type="submit"
+                                  className="btn form-button"
+                                  disabled={!formik.isValid}
+                                >
+                                  Submit
+                                </button>
+                              </Grid>
                             </Grid>
                           </Grid>
-                        </Grid>
-                      </Form>;
+                        </Form>
+                      );
                     }}
                   </Formik>
                 </Grid>

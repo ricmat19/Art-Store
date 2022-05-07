@@ -96,68 +96,70 @@ const AdminAddBlogPost = () => {
               validateOnMount
             >
               {(formik) => {
-                <Form>
-                  <Grid
-                    sx={{ display: "grid", gap: "10px", margin: "50px 20vw" }}
-                  >
-                    <Grid className="admin-form-field">
-                      <label>Title:</label>
-                      <Field
-                        className="full-width"
-                        value={title}
-                        onChange={(e: any) => setTitle(e.target.value)}
-                        type="text"
-                        name="title"
-                        required
-                      />
-                      <ErrorMessage name="email" component="div">
-                        {(errorMsg) => (
-                          <Grid className="errorMsg">{errorMsg}</Grid>
-                        )}
-                      </ErrorMessage>
+                return (
+                  <Form>
+                    <Grid
+                      sx={{ display: "grid", gap: "10px", margin: "50px 20vw" }}
+                    >
+                      <Grid className="admin-form-field">
+                        <label>Title:</label>
+                        <Field
+                          className="full-width"
+                          value={title}
+                          onChange={(e: any) => setTitle(e.target.value)}
+                          type="text"
+                          name="title"
+                          required
+                        />
+                        <ErrorMessage name="email" component="div">
+                          {(errorMsg) => (
+                            <Grid className="errorMsg">{errorMsg}</Grid>
+                          )}
+                        </ErrorMessage>
+                      </Grid>
+                      <Grid className="admin-form-field">
+                        <label className="admin-label">Image:</label>
+                        <Field
+                          type="file"
+                          onChange={(e: any) => setImage(e.target.files[0])}
+                          name="images"
+                          className="form-control file-input"
+                          required
+                        />
+                        <ErrorMessage name="email" component="div">
+                          {(errorMsg) => (
+                            <Grid className="errorMsg">{errorMsg}</Grid>
+                          )}
+                        </ErrorMessage>
+                      </Grid>
+                      <Grid>
+                        <label>Content:</label>
+                        <Field
+                          className="full-width"
+                          rows={50}
+                          value={content}
+                          onChange={(e: any) => setContent(e.target.value)}
+                          name="content"
+                          required
+                        />
+                        <ErrorMessage name="email" component="div">
+                          {(errorMsg) => (
+                            <Grid className="errorMsg">{errorMsg}</Grid>
+                          )}
+                        </ErrorMessage>
+                      </Grid>
+                      <Grid sx={{ textAlign: "center" }}>
+                        <button
+                          type="submit"
+                          onClick={createBlogPost}
+                          disabled={!formik.isValid}
+                        >
+                          Submit
+                        </button>
+                      </Grid>
                     </Grid>
-                    <Grid className="admin-form-field">
-                      <label className="admin-label">Image:</label>
-                      <Field
-                        type="file"
-                        onChange={(e: any) => setImage(e.target.files[0])}
-                        name="images"
-                        className="form-control file-input"
-                        required
-                      />
-                      <ErrorMessage name="email" component="div">
-                        {(errorMsg) => (
-                          <Grid className="errorMsg">{errorMsg}</Grid>
-                        )}
-                      </ErrorMessage>
-                    </Grid>
-                    <Grid>
-                      <label>Content:</label>
-                      <Field
-                        className="full-width"
-                        rows={50}
-                        value={content}
-                        onChange={(e: any) => setContent(e.target.value)}
-                        name="content"
-                        required
-                      />
-                      <ErrorMessage name="email" component="div">
-                        {(errorMsg) => (
-                          <Grid className="errorMsg">{errorMsg}</Grid>
-                        )}
-                      </ErrorMessage>
-                    </Grid>
-                    <Grid sx={{ textAlign: "center" }}>
-                      <button
-                        type="submit"
-                        onClick={createBlogPost}
-                        disabled={!formik.isValid}
-                      >
-                        Submit
-                      </button>
-                    </Grid>
-                  </Grid>
-                </Form>;
+                  </Form>
+                );
               }}
             </Formik>
           </Grid>

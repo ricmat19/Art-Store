@@ -137,251 +137,262 @@ const CheckoutC = (props: any) => {
             validateOnMount
           >
             {(formik) => {
-              <Form className="checkout-info" onSubmit={handlePayment}>
-                <h1>checkout information</h1>
-                <Grid className="checkout-info-div">
-                  <Grid className="checkout-email-div">
-                    <Field
-                      type="email"
-                      ref={emailInput}
-                      value={email}
-                      name="email"
-                      placeholder="email"
-                      required
-                      onChange={(e: any) => {
-                        setEmail(e.target.value);
-                      }}
-                    />
-                    <ErrorMessage name="email" component="div">
-                      {(errorMsg) => (
-                        <Grid className="errorMsg">{errorMsg}</Grid>
-                      )}
-                    </ErrorMessage>
+              return (
+                <Form className="checkout-info" onSubmit={handlePayment}>
+                  <h1>checkout information</h1>
+                  <Grid className="checkout-info-div">
+                    <Grid className="checkout-email-div">
+                      <Field
+                        type="email"
+                        ref={emailInput}
+                        value={email}
+                        name="email"
+                        placeholder="email"
+                        required
+                        onChange={(e: any) => {
+                          setEmail(e.target.value);
+                        }}
+                      />
+                      <ErrorMessage name="email" component="div">
+                        {(errorMsg) => (
+                          <Grid className="errorMsg">{errorMsg}</Grid>
+                        )}
+                      </ErrorMessage>
+                    </Grid>
+                    <Grid className="two-column-div">
+                      <Field
+                        type="text"
+                        ref={firstNameInput}
+                        value={firstname}
+                        name="firstName"
+                        placeholder="First Name"
+                        required
+                        onChange={(e: any) => {
+                          setFirstName(e.target.value);
+                        }}
+                      />
+                      <ErrorMessage name="email" component="div">
+                        {(errorMsg) => (
+                          <Grid className="errorMsg">{errorMsg}</Grid>
+                        )}
+                      </ErrorMessage>
+                      <Field
+                        type="text"
+                        ref={lastNameInput}
+                        value={lastname}
+                        name="lastName"
+                        placeholder="Last Name"
+                        required
+                        onChange={(e: any) => {
+                          setLastName(e.target.value);
+                        }}
+                      />
+                      <ErrorMessage name="email" component="div">
+                        {(errorMsg) => (
+                          <Grid className="errorMsg">{errorMsg}</Grid>
+                        )}
+                      </ErrorMessage>
+                    </Grid>
+                    <Grid className="checkout-address-div">
+                      <Field
+                        type="text"
+                        ref={addressInput}
+                        value={address}
+                        name="address"
+                        placeholder="Address"
+                        required
+                        onChange={(e: any) => {
+                          setAddress(e.target.value);
+                        }}
+                      />
+                      <ErrorMessage name="email" component="div">
+                        {(errorMsg) => (
+                          <Grid className="errorMsg">{errorMsg}</Grid>
+                        )}
+                      </ErrorMessage>
+                    </Grid>
+                    <Grid className="checkout-suite-div">
+                      <Field
+                        type="text"
+                        ref={suiteInput}
+                        value={suite}
+                        name="suite"
+                        placeholder="apartment, suite, etc. (MenuItemal)"
+                        onChange={(e: any) => {
+                          setSuite(e.target.value);
+                        }}
+                      />
+                      <ErrorMessage name="email" component="div">
+                        {(errorMsg) => (
+                          <Grid className="errorMsg">{errorMsg}</Grid>
+                        )}
+                      </ErrorMessage>
+                    </Grid>
+                    <Grid className="select-three-column-div">
+                      <Field
+                        type="text"
+                        ref={cityInput}
+                        value={city}
+                        name="city"
+                        placeholder="city"
+                        required
+                        onChange={(e: any) => {
+                          setCity(e.target.value);
+                        }}
+                      />
+                      <ErrorMessage name="email" component="div">
+                        {(errorMsg) => (
+                          <Grid className="errorMsg">{errorMsg}</Grid>
+                        )}
+                      </ErrorMessage>
+                      <Select
+                        ref={stateInput}
+                        value={state}
+                        name="state"
+                        placeholder="state"
+                        required
+                        onChange={(e: any) => {
+                          setState(e.target.value);
+                        }}
+                      >
+                        <MenuItem value={"Alabama"}>Alabama</MenuItem>
+                        <MenuItem value={"Alaska"}>Alaska</MenuItem>
+                        <MenuItem value={"Arizona"}>Arizona</MenuItem>
+                        <MenuItem value={"Arkansas"}>Arkansas</MenuItem>
+                        <MenuItem value={"California"}>California</MenuItem>
+                        <MenuItem value={"Colorado"}>Colorado</MenuItem>
+                        <MenuItem value={"Connecticut"}>Connecticut</MenuItem>
+                        <MenuItem value={"Delaware"}>Delaware</MenuItem>
+                        <MenuItem value={"Florida"}>Florida</MenuItem>
+                        <MenuItem value={"Georgia"}>Georgia</MenuItem>
+                        <MenuItem value={"Hawaii"}>Hawaii</MenuItem>
+                        <MenuItem value={"Idaho"}>Idaho</MenuItem>
+                        <MenuItem value={"Illinois"}>Illinois</MenuItem>
+                        <MenuItem value={"Indiana"}>Indiana</MenuItem>
+                        <MenuItem value={"Iowa"}>Iowa</MenuItem>
+                        <MenuItem value={"Kansas"}>Kansas</MenuItem>
+                        <MenuItem value={"Kentucky"}>Kentucky</MenuItem>
+                        <MenuItem value={"Louisiana"}>Louisiana</MenuItem>
+                        <MenuItem value={"Maine"}>Maine</MenuItem>
+                        <MenuItem value={"Maryland"}>Maryland</MenuItem>
+                        <MenuItem value={"Michigan"}>Michigan</MenuItem>
+                        <MenuItem value={"Minnesota"}>Minnesota</MenuItem>
+                        <MenuItem value={"Mississippi"}>Mississippi</MenuItem>
+                        <MenuItem value={"Missouri"}>Missouri</MenuItem>
+                        <MenuItem value={"Montana"}>Montana</MenuItem>
+                        <MenuItem value={"Nebraska"}>Nebraska</MenuItem>
+                        <MenuItem value={"Nevada"}>Nevada</MenuItem>
+                        <MenuItem value={"New Hampshire"}>
+                          New Hampshire
+                        </MenuItem>
+                        <MenuItem value={"New Jersey"}>New Jersey</MenuItem>
+                        <MenuItem value={"New Mexico"}>New Mexico</MenuItem>
+                        <MenuItem value={"New York"}>New York</MenuItem>
+                        <MenuItem value={"North Carolina"}>
+                          North Carolina
+                        </MenuItem>
+                        <MenuItem value={"North Dakota"}>North Dakota</MenuItem>
+                        <MenuItem value={"Ohio"}>Ohio</MenuItem>
+                        <MenuItem value={"Oklahoma"}>Oklahoma</MenuItem>
+                        <MenuItem value={"Oregon"}>Oregon</MenuItem>
+                        <MenuItem value={"Pennsylvania"}>Pennsylvania</MenuItem>
+                        <MenuItem value={"Rhode Island"}>Rhode Island</MenuItem>
+                        <MenuItem value={"South Carolina"}>
+                          South Carolina
+                        </MenuItem>
+                        <MenuItem value={"South Dakota"}>South Dakota</MenuItem>
+                        <MenuItem value={"Tennessee"}>Tennessee</MenuItem>
+                        <MenuItem value={"Texas"}>Texas</MenuItem>
+                        <MenuItem value={"Utah"}>Utah</MenuItem>
+                        <MenuItem value={"Vermont"}>Vermont</MenuItem>
+                        <MenuItem value={"Virginia"}>Virginia</MenuItem>
+                        <MenuItem value={"Washington"}>Washington</MenuItem>
+                        <MenuItem value={"West Virginia"}>
+                          West Virginia
+                        </MenuItem>
+                        <MenuItem value={"Wisconsin"}>Wisconsin</MenuItem>
+                        <MenuItem value={"Wyoming"}>Wyoming</MenuItem>
+                      </Select>
+                      <Field
+                        type="number"
+                        ref={zipcodeInput}
+                        value={zipcode}
+                        name="zipcode"
+                        placeholder="ZIP code"
+                        required
+                        onChange={(e: any) => {
+                          setZipcode(e.target.value);
+                        }}
+                      />
+                      <ErrorMessage name="email" component="div">
+                        {(errorMsg) => (
+                          <Grid className="errorMsg">{errorMsg}</Grid>
+                        )}
+                      </ErrorMessage>
+                    </Grid>
+                    <Grid className="checkout-phone-div">
+                      <Field
+                        type="tel"
+                        ref={phoneInput}
+                        value={phone}
+                        name="phone"
+                        placeholder="phone (MenuItemal)"
+                        onChange={(e: any) => {
+                          setPhone(e.target.value);
+                        }}
+                      />
+                      <ErrorMessage name="email" component="div">
+                        {(errorMsg) => (
+                          <Grid className="errorMsg">{errorMsg}</Grid>
+                        )}
+                      </ErrorMessage>
+                    </Grid>
                   </Grid>
-                  <Grid className="two-column-div">
-                    <Field
-                      type="text"
-                      ref={firstNameInput}
-                      value={firstname}
-                      name="firstName"
-                      placeholder="First Name"
-                      required
-                      onChange={(e: any) => {
-                        setFirstName(e.target.value);
-                      }}
-                    />
-                    <ErrorMessage name="email" component="div">
-                      {(errorMsg) => (
-                        <Grid className="errorMsg">{errorMsg}</Grid>
-                      )}
-                    </ErrorMessage>
-                    <Field
-                      type="text"
-                      ref={lastNameInput}
-                      value={lastname}
-                      name="lastName"
-                      placeholder="Last Name"
-                      required
-                      onChange={(e: any) => {
-                        setLastName(e.target.value);
-                      }}
-                    />
-                    <ErrorMessage name="email" component="div">
-                      {(errorMsg) => (
-                        <Grid className="errorMsg">{errorMsg}</Grid>
-                      )}
-                    </ErrorMessage>
-                  </Grid>
-                  <Grid className="checkout-address-div">
-                    <Field
-                      type="text"
-                      ref={addressInput}
-                      value={address}
-                      name="address"
-                      placeholder="Address"
-                      required
-                      onChange={(e: any) => {
-                        setAddress(e.target.value);
-                      }}
-                    />
-                    <ErrorMessage name="email" component="div">
-                      {(errorMsg) => (
-                        <Grid className="errorMsg">{errorMsg}</Grid>
-                      )}
-                    </ErrorMessage>
-                  </Grid>
-                  <Grid className="checkout-suite-div">
-                    <Field
-                      type="text"
-                      ref={suiteInput}
-                      value={suite}
-                      name="suite"
-                      placeholder="apartment, suite, etc. (MenuItemal)"
-                      onChange={(e: any) => {
-                        setSuite(e.target.value);
-                      }}
-                    />
-                    <ErrorMessage name="email" component="div">
-                      {(errorMsg) => (
-                        <Grid className="errorMsg">{errorMsg}</Grid>
-                      )}
-                    </ErrorMessage>
-                  </Grid>
-                  <Grid className="select-three-column-div">
-                    <Field
-                      type="text"
-                      ref={cityInput}
-                      value={city}
-                      name="city"
-                      placeholder="city"
-                      required
-                      onChange={(e: any) => {
-                        setCity(e.target.value);
-                      }}
-                    />
-                    <ErrorMessage name="email" component="div">
-                      {(errorMsg) => (
-                        <Grid className="errorMsg">{errorMsg}</Grid>
-                      )}
-                    </ErrorMessage>
-                    <Select
-                      ref={stateInput}
-                      value={state}
-                      name="state"
-                      placeholder="state"
-                      required
-                      onChange={(e: any) => {
-                        setState(e.target.value);
-                      }}
-                    >
-                      <MenuItem value={"Alabama"}>Alabama</MenuItem>
-                      <MenuItem value={"Alaska"}>Alaska</MenuItem>
-                      <MenuItem value={"Arizona"}>Arizona</MenuItem>
-                      <MenuItem value={"Arkansas"}>Arkansas</MenuItem>
-                      <MenuItem value={"California"}>California</MenuItem>
-                      <MenuItem value={"Colorado"}>Colorado</MenuItem>
-                      <MenuItem value={"Connecticut"}>Connecticut</MenuItem>
-                      <MenuItem value={"Delaware"}>Delaware</MenuItem>
-                      <MenuItem value={"Florida"}>Florida</MenuItem>
-                      <MenuItem value={"Georgia"}>Georgia</MenuItem>
-                      <MenuItem value={"Hawaii"}>Hawaii</MenuItem>
-                      <MenuItem value={"Idaho"}>Idaho</MenuItem>
-                      <MenuItem value={"Illinois"}>Illinois</MenuItem>
-                      <MenuItem value={"Indiana"}>Indiana</MenuItem>
-                      <MenuItem value={"Iowa"}>Iowa</MenuItem>
-                      <MenuItem value={"Kansas"}>Kansas</MenuItem>
-                      <MenuItem value={"Kentucky"}>Kentucky</MenuItem>
-                      <MenuItem value={"Louisiana"}>Louisiana</MenuItem>
-                      <MenuItem value={"Maine"}>Maine</MenuItem>
-                      <MenuItem value={"Maryland"}>Maryland</MenuItem>
-                      <MenuItem value={"Michigan"}>Michigan</MenuItem>
-                      <MenuItem value={"Minnesota"}>Minnesota</MenuItem>
-                      <MenuItem value={"Mississippi"}>Mississippi</MenuItem>
-                      <MenuItem value={"Missouri"}>Missouri</MenuItem>
-                      <MenuItem value={"Montana"}>Montana</MenuItem>
-                      <MenuItem value={"Nebraska"}>Nebraska</MenuItem>
-                      <MenuItem value={"Nevada"}>Nevada</MenuItem>
-                      <MenuItem value={"New Hampshire"}>New Hampshire</MenuItem>
-                      <MenuItem value={"New Jersey"}>New Jersey</MenuItem>
-                      <MenuItem value={"New Mexico"}>New Mexico</MenuItem>
-                      <MenuItem value={"New York"}>New York</MenuItem>
-                      <MenuItem value={"North Carolina"}>
-                        North Carolina
-                      </MenuItem>
-                      <MenuItem value={"North Dakota"}>North Dakota</MenuItem>
-                      <MenuItem value={"Ohio"}>Ohio</MenuItem>
-                      <MenuItem value={"Oklahoma"}>Oklahoma</MenuItem>
-                      <MenuItem value={"Oregon"}>Oregon</MenuItem>
-                      <MenuItem value={"Pennsylvania"}>Pennsylvania</MenuItem>
-                      <MenuItem value={"Rhode Island"}>Rhode Island</MenuItem>
-                      <MenuItem value={"South Carolina"}>
-                        South Carolina
-                      </MenuItem>
-                      <MenuItem value={"South Dakota"}>South Dakota</MenuItem>
-                      <MenuItem value={"Tennessee"}>Tennessee</MenuItem>
-                      <MenuItem value={"Texas"}>Texas</MenuItem>
-                      <MenuItem value={"Utah"}>Utah</MenuItem>
-                      <MenuItem value={"Vermont"}>Vermont</MenuItem>
-                      <MenuItem value={"Virginia"}>Virginia</MenuItem>
-                      <MenuItem value={"Washington"}>Washington</MenuItem>
-                      <MenuItem value={"West Virginia"}>West Virginia</MenuItem>
-                      <MenuItem value={"Wisconsin"}>Wisconsin</MenuItem>
-                      <MenuItem value={"Wyoming"}>Wyoming</MenuItem>
-                    </Select>
-                    <Field
-                      type="number"
-                      ref={zipcodeInput}
-                      value={zipcode}
-                      name="zipcode"
-                      placeholder="ZIP code"
-                      required
-                      onChange={(e: any) => {
-                        setZipcode(e.target.value);
-                      }}
-                    />
-                    <ErrorMessage name="email" component="div">
-                      {(errorMsg) => (
-                        <Grid className="errorMsg">{errorMsg}</Grid>
-                      )}
-                    </ErrorMessage>
-                  </Grid>
-                  <Grid className="checkout-phone-div">
-                    <Field
-                      type="tel"
-                      ref={phoneInput}
-                      value={phone}
-                      name="phone"
-                      placeholder="phone (MenuItemal)"
-                      onChange={(e: any) => {
-                        setPhone(e.target.value);
-                      }}
-                    />
-                  </Grid>
-                </Grid>
-                <Grid>
-                  <h1>payment information</h1>
                   <Grid>
-                    <Grid className="grid">
-                      <Grid className="grid payment-input">
-                        <CardElement
-                          className="card-element"
-                          options={cardElementMenuItems}
-                        />
-                      </Grid>
-                      <Grid className="grid payment-input">
-                        <Field
-                          type="text"
-                          placeholder="name on card"
-                          required
-                        />
-                        <ErrorMessage name="email" component="div">
-                          {(errorMsg) => (
-                            <Grid className="errorMsg">{errorMsg}</Grid>
-                          )}
-                        </ErrorMessage>
-                      </Grid>
-                      <Grid className="two-column-div checkout-disclaimer-container">
-                        <Field type="checkbox" required />
-                        <Grid className="align-justify">
-                          By clicking the button below, you are accepting that
-                          no real purchases will be made, no payments will be
-                          processed, and no personal information, such as:
-                          names, addresses, and credit card information will be
-                          used.
+                    <h1>payment information</h1>
+                    <Grid>
+                      <Grid className="grid">
+                        <Grid className="grid payment-input">
+                          <CardElement
+                            className="card-element"
+                            options={cardElementMenuItems}
+                          />
                         </Grid>
-                      </Grid>
-                      <Grid className="credit-card-MenuItem">
-                        <button
-                          className="justify-right"
-                          disabled={!formik.isValid}
-                        >
-                          pay
-                        </button>
+                        <Grid className="grid payment-input">
+                          <Field
+                            type="text"
+                            placeholder="name on card"
+                            required
+                          />
+                          <ErrorMessage name="email" component="div">
+                            {(errorMsg) => (
+                              <Grid className="errorMsg">{errorMsg}</Grid>
+                            )}
+                          </ErrorMessage>
+                        </Grid>
+                        <Grid className="two-column-div checkout-disclaimer-container">
+                          <Field type="checkbox" required />
+                          <Grid className="align-justify">
+                            By clicking the button below, you are accepting that
+                            no real purchases will be made, no payments will be
+                            processed, and no personal information, such as:
+                            names, addresses, and credit card information will
+                            be used.
+                          </Grid>
+                        </Grid>
+                        <Grid className="credit-card-MenuItem">
+                          <button
+                            className="justify-right"
+                            disabled={!formik.isValid}
+                          >
+                            pay
+                          </button>
+                        </Grid>
                       </Grid>
                     </Grid>
                   </Grid>
-                </Grid>
-              </Form>;
+                </Form>
+              );
             }}
           </Formik>
         </Elements>

@@ -84,106 +84,108 @@ const AdminSignUpModal = (props: IModalState) => {
             validateOnMount
           >
             {(formik) => {
-              <Form>
-                <Grid className="sign-content">
-                  <h1 className="sign-header">Create Account</h1>
-                  <Grid className="sign-input">
-                    <Grid className="name-input-div">
-                      <Field
-                        type="text"
-                        value={props.firstName}
-                        name="firstName"
-                        placeholder="First Name"
-                        onChange={(e: any) => {
-                          setFirstName(e.target.value);
-                        }}
-                      />
-                      <ErrorMessage name="email" component="div">
-                        {(errorMsg) => (
-                          <Grid className="errorMsg">{errorMsg}</Grid>
-                        )}
-                      </ErrorMessage>
-                      <Field
-                        type="text"
-                        value={props.lastName}
-                        name="lastname"
-                        placeholder="Last Name"
-                        onChange={(e: any) => {
-                          setLastName(e.target.value);
-                        }}
-                      />
-                      <ErrorMessage name="email" component="div">
-                        {(errorMsg) => (
-                          <Grid className="errorMsg">{errorMsg}</Grid>
-                        )}
-                      </ErrorMessage>
+              return (
+                <Form>
+                  <Grid className="sign-content">
+                    <h1 className="sign-header">Create Account</h1>
+                    <Grid className="sign-input">
+                      <Grid className="name-input-div">
+                        <Field
+                          type="text"
+                          value={props.firstName}
+                          name="firstName"
+                          placeholder="First Name"
+                          onChange={(e: any) => {
+                            setFirstName(e.target.value);
+                          }}
+                        />
+                        <ErrorMessage name="email" component="div">
+                          {(errorMsg) => (
+                            <Grid className="errorMsg">{errorMsg}</Grid>
+                          )}
+                        </ErrorMessage>
+                        <Field
+                          type="text"
+                          value={props.lastName}
+                          name="lastname"
+                          placeholder="Last Name"
+                          onChange={(e: any) => {
+                            setLastName(e.target.value);
+                          }}
+                        />
+                        <ErrorMessage name="email" component="div">
+                          {(errorMsg) => (
+                            <Grid className="errorMsg">{errorMsg}</Grid>
+                          )}
+                        </ErrorMessage>
+                      </Grid>
+                      <Grid className="modal-input-div">
+                        <Field
+                          type="email"
+                          value={props.email}
+                          name="email"
+                          placeholder="Email"
+                          onChange={(e: any) => {
+                            setEmail(e.target.value);
+                          }}
+                        />
+                        <ErrorMessage name="email" component="div">
+                          {(errorMsg) => (
+                            <Grid className="errorMsg">{errorMsg}</Grid>
+                          )}
+                        </ErrorMessage>
+                      </Grid>
+                      <Grid className="modal-input-div">
+                        <Field
+                          type="password"
+                          value={props.password}
+                          name="password"
+                          placeholder="Create Password"
+                          onChange={(e: any) => {
+                            setPassword(e.target.value);
+                          }}
+                        />
+                        <ErrorMessage name="email" component="div">
+                          {(errorMsg) => (
+                            <Grid className="errorMsg">{errorMsg}</Grid>
+                          )}
+                        </ErrorMessage>
+                      </Grid>
+                      <Grid className="modal-input-div">
+                        <Field
+                          type="password"
+                          value={props.passwordCopy}
+                          name="re-password"
+                          placeholder="Re-type Password"
+                          onChange={(e: any) => {
+                            setPasswordCopy(e.target.value);
+                          }}
+                        />
+                        <ErrorMessage name="email" component="div">
+                          {(errorMsg) => (
+                            <Grid className="errorMsg">{errorMsg}</Grid>
+                          )}
+                        </ErrorMessage>
+                      </Grid>
                     </Grid>
-                    <Grid className="modal-input-div">
-                      <Field
-                        type="email"
-                        value={props.email}
-                        name="email"
-                        placeholder="Email"
-                        onChange={(e: any) => {
-                          setEmail(e.target.value);
-                        }}
-                      />
-                      <ErrorMessage name="email" component="div">
-                        {(errorMsg) => (
-                          <Grid className="errorMsg">{errorMsg}</Grid>
-                        )}
-                      </ErrorMessage>
+                    <Grid>
+                      <button
+                        onClick={handleSignup}
+                        type="submit"
+                        className="btn form-button"
+                        disabled={!formik.isValid}
+                      >
+                        Create Account
+                      </button>
                     </Grid>
-                    <Grid className="modal-input-div">
-                      <Field
-                        type="password"
-                        value={props.password}
-                        name="password"
-                        placeholder="Create Password"
-                        onChange={(e: any) => {
-                          setPassword(e.target.value);
-                        }}
-                      />
-                      <ErrorMessage name="email" component="div">
-                        {(errorMsg) => (
-                          <Grid className="errorMsg">{errorMsg}</Grid>
-                        )}
-                      </ErrorMessage>
-                    </Grid>
-                    <Grid className="modal-input-div">
-                      <Field
-                        type="password"
-                        value={props.passwordCopy}
-                        name="re-password"
-                        placeholder="Re-type Password"
-                        onChange={(e: any) => {
-                          setPasswordCopy(e.target.value);
-                        }}
-                      />
-                      <ErrorMessage name="email" component="div">
-                        {(errorMsg) => (
-                          <Grid className="errorMsg">{errorMsg}</Grid>
-                        )}
-                      </ErrorMessage>
+                    <Grid className="sign-footer">
+                      <Grid className="modal-link">
+                        <span>Already have an account? Sign In</span>
+                      </Grid>
                     </Grid>
                   </Grid>
-                  <Grid>
-                    <button
-                      onClick={handleSignup}
-                      type="submit"
-                      className="btn form-button"
-                      disabled={!formik.isValid}
-                    >
-                      Create Account
-                    </button>
-                  </Grid>
-                  <Grid className="sign-footer">
-                    <Grid className="modal-link">
-                      <span>Already have an account? Sign In</span>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Form>;
+                </Form>
+              );
             }}
           </Formik>
         </Box>

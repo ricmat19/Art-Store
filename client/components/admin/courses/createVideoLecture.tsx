@@ -101,63 +101,67 @@ const AdminCreateVideoLecture = (props: any) => {
                   validateOnMount
                 >
                   {(formik) => {
-                    <Form
-                      className="admin-form"
-                      action="/admin/products"
-                      method="POST"
-                      encType="multipart/form-data"
-                    >
-                      <Grid className="admin-form-title">
-                        <h1 className="align-center">
-                          Video Lecture: {props.lecture}
-                        </h1>
-                      </Grid>
-                      <Grid className="admin-form-field">
-                        <label className="admin-label">Video:</label>
-                        <Field
-                          type="file"
-                          onChange={(e: any) => setVideo(e.target.files[0])}
-                          name="video"
-                          className="form-control file-input"
-                          required
-                        />
-                        <ErrorMessage name="email" component="div">
-                          {(errorMsg) => (
-                            <Grid className="errorMsg">{errorMsg}</Grid>
-                          )}
-                        </ErrorMessage>
-                      </Grid>
-                      <Grid className="admin-form-field">
-                        <label className="admin-label">Description:</label>
-                        <Field
-                          value={description}
-                          onChange={(e: any) => setDescription(e.target.value)}
-                          name="description"
-                          rows={5}
-                          className="form-control"
-                          required
-                        />
-                        <ErrorMessage name="email" component="div">
-                          {(errorMsg) => (
-                            <Grid className="errorMsg">{errorMsg}</Grid>
-                          )}
-                        </ErrorMessage>
-                      </Grid>
-                      <Grid className="admin-form-button">
-                        <Grid className="text-center">
-                          <Grid>
-                            <button
-                              onClick={createVideoLecture}
-                              type="submit"
-                              className="btn form-button"
-                              disabled={!formik.isValid}
-                            >
-                              Submit
-                            </button>
+                    return (
+                      <Form
+                        className="admin-form"
+                        action="/admin/products"
+                        method="POST"
+                        encType="multipart/form-data"
+                      >
+                        <Grid className="admin-form-title">
+                          <h1 className="align-center">
+                            Video Lecture: {props.lecture}
+                          </h1>
+                        </Grid>
+                        <Grid className="admin-form-field">
+                          <label className="admin-label">Video:</label>
+                          <Field
+                            type="file"
+                            onChange={(e: any) => setVideo(e.target.files[0])}
+                            name="video"
+                            className="form-control file-input"
+                            required
+                          />
+                          <ErrorMessage name="email" component="div">
+                            {(errorMsg) => (
+                              <Grid className="errorMsg">{errorMsg}</Grid>
+                            )}
+                          </ErrorMessage>
+                        </Grid>
+                        <Grid className="admin-form-field">
+                          <label className="admin-label">Description:</label>
+                          <Field
+                            value={description}
+                            onChange={(e: any) =>
+                              setDescription(e.target.value)
+                            }
+                            name="description"
+                            rows={5}
+                            className="form-control"
+                            required
+                          />
+                          <ErrorMessage name="email" component="div">
+                            {(errorMsg) => (
+                              <Grid className="errorMsg">{errorMsg}</Grid>
+                            )}
+                          </ErrorMessage>
+                        </Grid>
+                        <Grid className="admin-form-button">
+                          <Grid className="text-center">
+                            <Grid>
+                              <button
+                                onClick={createVideoLecture}
+                                type="submit"
+                                className="btn form-button"
+                                disabled={!formik.isValid}
+                              >
+                                Submit
+                              </button>
+                            </Grid>
                           </Grid>
                         </Grid>
-                      </Grid>
-                    </Form>;
+                      </Form>
+                    );
                   }}
                 </Formik>
               </Grid>

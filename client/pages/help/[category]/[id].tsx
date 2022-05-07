@@ -4,7 +4,6 @@ import PagesNav from "../../../components/users/pagesNav";
 import FooterC from "../../../components/footer";
 import ReactHtmlParser from "react-html-parser";
 import { Grid } from "@mui/material";
-import { Form } from "formik";
 
 const HelpArticle = (props: any) => {
   return (
@@ -12,14 +11,14 @@ const HelpArticle = (props: any) => {
       <MainNav />
       <PagesNav />
       <Grid>
-        <Form>
+        <form>
           <Grid sx={{ display: "grid", gap: "10px", margin: "50px 20vw" }}>
             <Grid>
               <h1>{props.helpArticle[0].title}</h1>
             </Grid>
             <Grid>{ReactHtmlParser(props.helpArticle[0].article)}</Grid>
           </Grid>
-        </Form>
+        </form>
       </Grid>
       <FooterC />
     </Grid>

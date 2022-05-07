@@ -31,74 +31,76 @@ const AdminCreateEvent = (props: any) => {
         validateOnMount
       >
         {(formik) => {
-          <Form>
-            <h1>New Event</h1>
-            <Grid className="admin-form-field">
-              <label className="event-form-label">Title</label>
-              <Field
-                value={props.title}
-                onChange={(e: any) => props.setTitle(e.target.value)}
-                type="text"
-                name="title"
-                className="form-control"
-                required
-              />
-              <ErrorMessage name="email" component="div">
-                {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
-              </ErrorMessage>
-            </Grid>
-            <Grid className="admin-form-field">
-              <label className="event-form-label">Price</label>
-              <Field
-                value={props.price}
-                onChange={(e: any) => props.setPrice(e.target.value)}
-                type="number"
-                name="price"
-                className="form-control"
-                required
-              />
-              <ErrorMessage name="email" component="div">
-                {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
-              </ErrorMessage>
-            </Grid>
-            <Grid className="admin-form-field">
-              <label className="event-form-label">Spots</label>
-              <Field
-                value={props.spots}
-                onChange={(e: any) => props.setSpots(e.target.value)}
-                type="number"
-                name="spots"
-                className="form-control"
-                required
-              />
-              <ErrorMessage name="email" component="div">
-                {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
-              </ErrorMessage>
-            </Grid>
-            <Grid className="admin-form-field">
-              <label className="event-form-label">Info</label>
-              <Field
-                value={props.info}
-                onChange={(e: any) => props.setInfo(e.target.value)}
-                className="form-control"
-                name="info"
-                required
-                rows={7}
-              />
-              <ErrorMessage name="email" component="div">
-                {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
-              </ErrorMessage>
-            </Grid>
-            <Grid className="align-center">
-              <button
-                type="submit"
-                onClick={(e) => props.createEvent(e)}
-                disabled={!formik.isValid}
-              >
-                Submit
-              </button>
-            </Grid>
-          </Form>;
+          return (
+            <Form>
+              <h1>New Event</h1>
+              <Grid className="admin-form-field">
+                <label className="event-form-label">Title</label>
+                <Field
+                  value={props.title}
+                  onChange={(e: any) => props.setTitle(e.target.value)}
+                  type="text"
+                  name="title"
+                  className="form-control"
+                  required
+                />
+                <ErrorMessage name="email" component="div">
+                  {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
+                </ErrorMessage>
+              </Grid>
+              <Grid className="admin-form-field">
+                <label className="event-form-label">Price</label>
+                <Field
+                  value={props.price}
+                  onChange={(e: any) => props.setPrice(e.target.value)}
+                  type="number"
+                  name="price"
+                  className="form-control"
+                  required
+                />
+                <ErrorMessage name="email" component="div">
+                  {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
+                </ErrorMessage>
+              </Grid>
+              <Grid className="admin-form-field">
+                <label className="event-form-label">Spots</label>
+                <Field
+                  value={props.spots}
+                  onChange={(e: any) => props.setSpots(e.target.value)}
+                  type="number"
+                  name="spots"
+                  className="form-control"
+                  required
+                />
+                <ErrorMessage name="email" component="div">
+                  {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
+                </ErrorMessage>
+              </Grid>
+              <Grid className="admin-form-field">
+                <label className="event-form-label">Info</label>
+                <Field
+                  value={props.info}
+                  onChange={(e: any) => props.setInfo(e.target.value)}
+                  className="form-control"
+                  name="info"
+                  required
+                  rows={7}
+                />
+                <ErrorMessage name="email" component="div">
+                  {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
+                </ErrorMessage>
+              </Grid>
+              <Grid className="align-center">
+                <button
+                  type="submit"
+                  onClick={(e) => props.createEvent(e)}
+                  disabled={!formik.isValid}
+                >
+                  Submit
+                </button>
+              </Grid>
+            </Form>
+          );
         }}
       </Formik>
     </Grid>

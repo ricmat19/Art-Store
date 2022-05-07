@@ -83,38 +83,45 @@ const Reset = (props: any) => {
                       validateOnMount
                     >
                       {(formik) => {
-                        <Form>
-                          <Grid className="sign-content">
-                            <h1 className="sign-header">Reset Password</h1>
-                            <Grid className="sign-input">
-                              <Grid className="forgot-input-div">
-                                <Field
-                                  type="text"
-                                  name="email"
-                                  placeholder="Email"
-                                />
-                                <ErrorMessage name="email" component="div">
-                                  {(errorMsg) => (
-                                    <Grid className="errorMsg">{errorMsg}</Grid>
-                                  )}
-                                </ErrorMessage>
+                        return (
+                          <Form>
+                            <Grid className="sign-content">
+                              <h1 className="sign-header">Reset Password</h1>
+                              <Grid className="sign-input">
+                                <Grid className="forgot-input-div">
+                                  <Field
+                                    type="text"
+                                    name="email"
+                                    placeholder="Email"
+                                  />
+                                  <ErrorMessage name="email" component="div">
+                                    {(errorMsg) => (
+                                      <Grid className="errorMsg">
+                                        {errorMsg}
+                                      </Grid>
+                                    )}
+                                  </ErrorMessage>
+                                </Grid>
+                              </Grid>
+                              <Grid className="align-center">
+                                <button
+                                  type="submit"
+                                  disabled={!formik.isValid}
+                                >
+                                  Send Reset Link
+                                </button>
+                              </Grid>
+                              <Grid className="sign-footer pointer">
+                                <Grid
+                                  className="align-center modal-link"
+                                  onClick={displaySignIn}
+                                >
+                                  <span>Back to signin</span>
+                                </Grid>
                               </Grid>
                             </Grid>
-                            <Grid className="align-center">
-                              <button type="submit" disabled={!formik.isValid}>
-                                Send Reset Link
-                              </button>
-                            </Grid>
-                            <Grid className="sign-footer pointer">
-                              <Grid
-                                className="align-center modal-link"
-                                onClick={displaySignIn}
-                              >
-                                <span>Back to signin</span>
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                        </Form>;
+                          </Form>
+                        );
                       }}
                     </Formik>
                   </Grid>
