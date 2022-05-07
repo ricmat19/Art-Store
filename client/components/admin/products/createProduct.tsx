@@ -157,7 +157,7 @@ const AdminAddProduct = (props: any) => {
                         <Field
                           value={title}
                           ref={titleInput}
-                          onChange={(e) => setTitle(e.target.value)}
+                          onChange={(e: any) => setTitle(e.target.value)}
                           type="text"
                           name="title"
                           className="form-control"
@@ -213,7 +213,7 @@ const AdminAddProduct = (props: any) => {
                         <Field
                           value={quantity}
                           ref={quantityInput}
-                          onChange={(e) => setQuantity(e.target.value)}
+                          onChange={(e: any) => setQuantity(e.target.value)}
                           type="number"
                           name="quantity"
                           className="form-control"
@@ -230,7 +230,7 @@ const AdminAddProduct = (props: any) => {
                         <Field
                           value={price}
                           ref={priceInput}
-                          onChange={(e) => setPrice(e.target.value)}
+                          onChange={(e: any) => setPrice(e.target.value)}
                           type="number"
                           name="price"
                           className="form-control"
@@ -247,7 +247,7 @@ const AdminAddProduct = (props: any) => {
                         <Field
                           value={info}
                           ref={infoInput}
-                          onChange={(e) => setInfo(e.target.value)}
+                          onChange={(e: any) => setInfo(e.target.value)}
                           name="info"
                           rows={5}
                           required

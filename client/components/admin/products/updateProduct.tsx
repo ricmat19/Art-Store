@@ -175,7 +175,7 @@ const AdminUpdateProduct = (props: any) => {
                           <label className="admin-label">Title:</label>
                           <Field
                             value={title}
-                            onChange={(e) => setTitle(e.target.value)}
+                            onChange={(e: any) => setTitle(e.target.value)}
                             type="text"
                             name="name"
                             className="form-control"
@@ -225,7 +225,7 @@ const AdminUpdateProduct = (props: any) => {
                           <label className="admin-label">Quantity:</label>
                           <Field
                             value={qty}
-                            onChange={(e) => setQty(e.target.value)}
+                            onChange={(e: any) => setQty(e.target.value)}
                             type="number"
                             name="quantity"
                             className="form-control"
@@ -241,7 +241,7 @@ const AdminUpdateProduct = (props: any) => {
                           <label className="admin-label">Price:</label>
                           <input
                             value={price}
-                            onChange={(e) => setPrice(e.target.value)}
+                            onChange={(e: any) => setPrice(e.target.value)}
                             type="number"
                             name="price"
                             className="form-control"
@@ -252,7 +252,7 @@ const AdminUpdateProduct = (props: any) => {
                           <label className="admin-label">Info:</label>
                           <Field
                             value={info}
-                            onChange={(e) => setInfo(e.target.value)}
+                            onChange={(e: any) => setInfo(e.target.value)}
                             name="message"
                             rows={5}
                             required

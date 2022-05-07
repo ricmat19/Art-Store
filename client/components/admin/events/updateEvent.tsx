@@ -80,7 +80,7 @@ const AdminUpdateEvent = (props: any) => {
               <label className="event-form-label">Title</label>
               <Field
                 value={selectedTitle}
-                onChange={(e) => setSelectedTitle(e.target.value)}
+                onChange={(e: any) => setSelectedTitle(e.target.value)}
                 type="text"
                 name="title"
                 className="form-control"
@@ -94,7 +94,7 @@ const AdminUpdateEvent = (props: any) => {
               <label className="event-form-label">Date</label>
               <Field
                 value={new Date(selectedDate).toLocaleDateString("en-CA")}
-                onChange={(e) => setSelectedDate(e.target.value)}
+                onChange={(e: any) => setSelectedDate(e.target.value)}
                 type="date"
                 name="date"
                 className="form-control"
@@ -108,7 +108,9 @@ const AdminUpdateEvent = (props: any) => {
               <label className="event-form-label">Price</label>
               <Field
                 value={selectedPrice}
-                onChange={(e) => setSelectedPrice(parseInt(e.target.value))}
+                onChange={(e: any) =>
+                  setSelectedPrice(parseInt(e.target.value))
+                }
                 type="number"
                 name="price"
                 className="form-control"
@@ -122,7 +124,7 @@ const AdminUpdateEvent = (props: any) => {
               <label className="event-form-label">Spots</label>
               <Field
                 value={selectedSpots}
-                onChange={(e) => setSelectedSpots(e.target.value)}
+                onChange={(e: any) => setSelectedSpots(e.target.value)}
                 type="number"
                 name="spots"
                 className="form-control"
@@ -136,7 +138,7 @@ const AdminUpdateEvent = (props: any) => {
               <label className="event-form-label">Info</label>
               <Field
                 value={selectedInfo}
-                onChange={(e) => setSelectedInfo(e.target.value)}
+                onChange={(e: any) => setSelectedInfo(e.target.value)}
                 className="form-control"
                 name="info"
                 required
@@ -149,7 +151,7 @@ const AdminUpdateEvent = (props: any) => {
             <Grid className="align-center">
               <button
                 type="submit"
-                onClick={(e) => editEvent(e)}
+                onClick={(e: any) => editEvent(e)}
                 disabled={!formik.isValid}
               >
                 Submit

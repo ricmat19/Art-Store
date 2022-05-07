@@ -5,6 +5,26 @@ import PagesNav from "../components/users/pagesNav";
 import FooterC from "../components/footer";
 import Head from "next/head";
 import { Grid } from "@mui/material";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+
+const initialValues = {
+  name: "",
+  email: "",
+  subject: "",
+  message: "",
+};
+const onSubmit = (onSubmitProps: any) => {
+  onSubmitProps.resetForm();
+};
+const validationSchema = Yup.object({
+  name: Yup.string().required("Name is required"),
+  email: Yup.string()
+    .email("Invalid email format")
+    .required("Email is required"),
+  subject: Yup.string().required("Subject is required"),
+  message: Yup.string().required("Message is required"),
+});
 
 const Contact = (props: any) => {
   const [name, setName] = useState("");
@@ -53,52 +73,82 @@ const Contact = (props: any) => {
             <h1 className="main-title">contact</h1>
           </Grid>
           <Grid className="form-div">
-            <form className="contact-form" method="POST" action="/contact">
-              <Grid className="subject-line">
-                <input
-                  type="text"
-                  ref={nameInput}
-                  onChange={(e) => setName(e.target.value)}
-                  name="name"
-                  placeholder="your name..."
-                />
-              </Grid>
-              <Grid className="subject-line">
-                <input
-                  type="email"
-                  ref={emailInput}
-                  onChange={(e) => setEmail(e.target.value)}
-                  name="email"
-                  placeholder="your email..."
-                  required
-                />
-              </Grid>
-              <Grid className="subject-line">
-                <input
-                  type="text"
-                  ref={subjectInput}
-                  onChange={(e) => setSubject(e.target.value)}
-                  name="subject"
-                  placeholder="the subject..."
-                  required
-                />
-              </Grid>
-              <Grid className="subject-line">
-                <textarea
-                  name="message"
-                  ref={messageInput}
-                  onChange={(e) => setMessage(e.target.value)}
-                  placeholder="your message..."
-                  rows={7}
-                  required
-                ></textarea>
-              </Grid>
-              <Grid className="align-right">
-                <button onClick={handleSubmit} type="submit">
-                  submit
-                </button>
-              </Grid>
-            </form>
+            <Formik
+              initialValues={initialValues}
+              onSubmit={onSubmit}
+              validationSchema={validationSchema}
+              validateOnChange={false}
+              validateOnBlur={false}
+              validateOnMount
+            >
+              {(formik) => {
+                <Form className="contact-form" method="POST" action="/contact">
+                  <Grid className="subject-line">
+                    <Field
+                      type="text"
+                      ref={nameInput}
+                      onChange={(e: any) => setName(e.target.value)}
+                      name="name"
+                      placeholder="your name..."
+                    />
+                    <ErrorMessage name="email" component="div">
+                      {(errorMsg) => (
+                        <Grid className="errorMsg">{errorMsg}</Grid>
+                      )}
+                    </ErrorMessage>
+                  </Grid>
+                  <Grid className="subject-line">
+                    <Field
+                      type="email"
+                      ref={emailInput}
+                      onChange={(e: any) => setEmail(e.target.value)}
+                      name="email"
+                      placeholder="your email..."
+                      required
+                    />
+                    <ErrorMessage name="email" component="div">
+                      {(errorMsg) => (
+                        <Grid className="errorMsg">{errorMsg}</Grid>
+                      )}
+                    </ErrorMessage>
+                  </Grid>
+                  <Grid className="subject-line">
+                    <Field
+                      type="text"
+                      ref={subjectInput}
+                      onChange={(e: any) => setSubject(e.target.value)}
+                      name="subject"
+                      placeholder="the subject..."
+                      required
+                    />
+                    <ErrorMessage name="email" component="div">
+                      {(errorMsg) => (
+                        <Grid className="errorMsg">{errorMsg}</Grid>
+                      )}
+                    </ErrorMessage>
+                  </Grid>
+                  <Grid className="subject-line">
+                    <Field
+                      name="message"
+                      ref={messageInput}
+                      onChange={(e: any) => setMessage(e.target.value)}
+                      placeholder="your message..."
+                      rows={7}
+                      required
+                    />
+                  </Grid>
+                  <Grid className="align-right">
+                    <button
+                      onClick={handleSubmit}
+                      type="submit"
+                      disabled={!formik.isValid}
+                    >
+                      submit
+                    </button>
+                  </Grid>
+                </Form>;
+              }}
+            </Formik>
           </Grid>
         </Grid>
         <FooterC />

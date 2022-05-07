@@ -122,7 +122,9 @@ const AddToCollection = (props: any) => {
                           <Field
                             placeholder="Create new collection..."
                             name="collection"
-                            onChange={(e) => setNewCollection(e.target.value)}
+                            onChange={(e: any) =>
+                              setNewCollection(e.target.value)
+                            }
                           />
                           <ErrorMessage name="email" component="div">
                             {(errorMsg) => (

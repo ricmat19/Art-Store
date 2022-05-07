@@ -5,7 +5,7 @@ import MainNav from "../../components/users/mainNav";
 import PagesNav from "../../components/users/pagesNav";
 import FooterC from "../../components/footer";
 import IndexAPI from "../../apis/indexAPI";
-import { Grid } from '@mui/material';
+import { Grid, Select, MenuItem } from "@mui/material";
 import {
   CardElement,
   // useStripe,
@@ -14,7 +14,36 @@ import {
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Head from "next/head";
-// import { CartContext } from "../context/CartContext";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+
+const initialValues = {
+  email: "",
+  firstName: "",
+  lastName: "",
+  address: "",
+  suite: "",
+  city: "",
+  state: "",
+  zipcode: "",
+  phone: "",
+};
+const onSubmit = (onSubmitProps: any) => {
+  onSubmitProps.resetForm();
+};
+const validationSchema = Yup.object({
+  email: Yup.string()
+    .email("Invalid email format")
+    .required("Email is required"),
+  firstName: Yup.string().required("First Name is required"),
+  lastName: Yup.string().required("Last Name is required"),
+  address: Yup.string().required("Address is required"),
+  suite: Yup.string().required("Suite is required"),
+  city: Yup.string().required("City is required"),
+  state: Yup.string().required("State is required"),
+  zipcode: Yup.string().required("Zipcode is required"),
+  phone: Yup.string().required("Phone Number is required"),
+});
 
 const CheckoutC = (props: any) => {
   // const stripe: any = useStripe();
@@ -80,7 +109,7 @@ const CheckoutC = (props: any) => {
     // }
   };
 
-  const cardElementOptions = {
+  const cardElementMenuItems = {
     style: {
       base: {
         fontFamily: "Rajdhani",
@@ -99,198 +128,262 @@ const CheckoutC = (props: any) => {
       <PagesNav />
       <Grid className="checkout-div">
         <Elements stripe={stripePromise}>
-          <form className="checkout-info" onSubmit={handlePayment}>
-            <h1>checkout information</h1>
-            <Grid className="checkout-info-div">
-              <Grid className="checkout-email-div">
-                <input
-                  type="email"
-                  ref={emailInput}
-                  value={email}
-                  name="email"
-                  placeholder="email"
-                  required
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                  }}
-                />
-              </Grid>
-              <Grid className="two-column-div">
-                <input
-                  type="text"
-                  ref={firstNameInput}
-                  value={firstname}
-                  name="firstname"
-                  placeholder="First Name"
-                  required
-                  onChange={(e) => {
-                    setFirstName(e.target.value);
-                  }}
-                />
-                <input
-                  type="text"
-                  ref={lastNameInput}
-                  value={lastname}
-                  name="lastname"
-                  placeholder="Last Name"
-                  required
-                  onChange={(e) => {
-                    setLastName(e.target.value);
-                  }}
-                />
-              </Grid>
-              <Grid className="checkout-address-div">
-                <input
-                  type="text"
-                  ref={addressInput}
-                  value={address}
-                  name="address"
-                  placeholder="Address"
-                  required
-                  onChange={(e) => {
-                    setAddress(e.target.value);
-                  }}
-                />
-              </Grid>
-              <Grid className="checkout-suite-div">
-                <input
-                  type="text"
-                  ref={suiteInput}
-                  value={suite}
-                  name="suite"
-                  placeholder="apartment, suite, etc. (optional)"
-                  onChange={(e) => {
-                    setSuite(e.target.value);
-                  }}
-                />
-              </Grid>
-              <Grid className="select-three-column-div">
-                <input
-                  type="text"
-                  ref={cityInput}
-                  value={city}
-                  name="city"
-                  placeholder="city"
-                  required
-                  onChange={(e) => {
-                    setCity(e.target.value);
-                  }}
-                />
-                <select
-                  ref={stateInput}
-                  value={state}
-                  name="state"
-                  placeholder="state"
-                  required
-                  onChange={(e) => {
-                    setState(e.target.value);
-                  }}
-                >
-                  <option>Alabama</option>
-                  <option>Alaska</option>
-                  <option>Arizona</option>
-                  <option>Arkansas</option>
-                  <option>California</option>
-                  <option>Colorado</option>
-                  <option>Connecticut</option>
-                  <option>Delaware</option>
-                  <option>Florida</option>
-                  <option>Georgia</option>
-                  <option>Hawaii</option>
-                  <option>Idaho</option>
-                  <option>Illinois</option>
-                  <option>Indiana</option>
-                  <option>Iowa</option>
-                  <option>Kansas</option>
-                  <option>Kentucky</option>
-                  <option>Louisiana</option>
-                  <option>Maine</option>
-                  <option>Maryland</option>
-                  <option>Massachusetts</option>
-                  <option>Michigan</option>
-                  <option>Minnesota</option>
-                  <option>Mississippi</option>
-                  <option>Missouri</option>
-                  <option>Montana</option>
-                  <option>Nebraska</option>
-                  <option>Nevada</option>
-                  <option>New Hampshire</option>
-                  <option>New Jersey</option>
-                  <option>New Mexico</option>
-                  <option>New York</option>
-                  <option>North Carolina</option>
-                  <option>North Dakota</option>
-                  <option>Ohio</option>
-                  <option>Oklahoma</option>
-                  <option>Oregon</option>
-                  <option>Pennsylvania</option>
-                  <option>Rhode Island</option>
-                  <option>South Carolina</option>
-                  <option>South Dakota</option>
-                  <option>Tennessee</option>
-                  <option>Texas</option>
-                  <option>Utah</option>
-                  <option>Vermont</option>
-                  <option>Virginia</option>
-                  <option>Washington</option>
-                  <option>West Virginia</option>
-                  <option>Wisconsin</option>
-                  <option>Wyoming</option>
-                </select>
-                <input
-                  type="number"
-                  ref={zipcodeInput}
-                  value={zipcode}
-                  name="zipcode"
-                  placeholder="ZIP code"
-                  required
-                  onChange={(e) => {
-                    setZipcode(e.target.value);
-                  }}
-                />
-              </Grid>
-              <Grid className="checkout-phone-div">
-                <input
-                  type="tel"
-                  ref={phoneInput}
-                  value={phone}
-                  name="phone"
-                  placeholder="phone (optional)"
-                  onChange={(e) => {
-                    setPhone(e.target.value);
-                  }}
-                />
-              </Grid>
-            </Grid>
-            <Grid>
-              <h1>payment information</h1>
-              <Grid>
-                <Grid className="grid">
-                  <Grid className="grid payment-input">
-                    <CardElement
-                      className="card-element"
-                      options={cardElementOptions}
+          <Formik
+            initialValues={initialValues}
+            onSubmit={onSubmit}
+            validationSchema={validationSchema}
+            validateOnChange={false}
+            validateOnBlur={false}
+            validateOnMount
+          >
+            {(formik) => {
+              <Form className="checkout-info" onSubmit={handlePayment}>
+                <h1>checkout information</h1>
+                <Grid className="checkout-info-div">
+                  <Grid className="checkout-email-div">
+                    <Field
+                      type="email"
+                      ref={emailInput}
+                      value={email}
+                      name="email"
+                      placeholder="email"
+                      required
+                      onChange={(e: any) => {
+                        setEmail(e.target.value);
+                      }}
+                    />
+                    <ErrorMessage name="email" component="div">
+                      {(errorMsg) => (
+                        <Grid className="errorMsg">{errorMsg}</Grid>
+                      )}
+                    </ErrorMessage>
+                  </Grid>
+                  <Grid className="two-column-div">
+                    <Field
+                      type="text"
+                      ref={firstNameInput}
+                      value={firstname}
+                      name="firstName"
+                      placeholder="First Name"
+                      required
+                      onChange={(e: any) => {
+                        setFirstName(e.target.value);
+                      }}
+                    />
+                    <ErrorMessage name="email" component="div">
+                      {(errorMsg) => (
+                        <Grid className="errorMsg">{errorMsg}</Grid>
+                      )}
+                    </ErrorMessage>
+                    <Field
+                      type="text"
+                      ref={lastNameInput}
+                      value={lastname}
+                      name="lastName"
+                      placeholder="Last Name"
+                      required
+                      onChange={(e: any) => {
+                        setLastName(e.target.value);
+                      }}
+                    />
+                    <ErrorMessage name="email" component="div">
+                      {(errorMsg) => (
+                        <Grid className="errorMsg">{errorMsg}</Grid>
+                      )}
+                    </ErrorMessage>
+                  </Grid>
+                  <Grid className="checkout-address-div">
+                    <Field
+                      type="text"
+                      ref={addressInput}
+                      value={address}
+                      name="address"
+                      placeholder="Address"
+                      required
+                      onChange={(e: any) => {
+                        setAddress(e.target.value);
+                      }}
+                    />
+                    <ErrorMessage name="email" component="div">
+                      {(errorMsg) => (
+                        <Grid className="errorMsg">{errorMsg}</Grid>
+                      )}
+                    </ErrorMessage>
+                  </Grid>
+                  <Grid className="checkout-suite-div">
+                    <Field
+                      type="text"
+                      ref={suiteInput}
+                      value={suite}
+                      name="suite"
+                      placeholder="apartment, suite, etc. (MenuItemal)"
+                      onChange={(e: any) => {
+                        setSuite(e.target.value);
+                      }}
+                    />
+                    <ErrorMessage name="email" component="div">
+                      {(errorMsg) => (
+                        <Grid className="errorMsg">{errorMsg}</Grid>
+                      )}
+                    </ErrorMessage>
+                  </Grid>
+                  <Grid className="select-three-column-div">
+                    <Field
+                      type="text"
+                      ref={cityInput}
+                      value={city}
+                      name="city"
+                      placeholder="city"
+                      required
+                      onChange={(e: any) => {
+                        setCity(e.target.value);
+                      }}
+                    />
+                    <ErrorMessage name="email" component="div">
+                      {(errorMsg) => (
+                        <Grid className="errorMsg">{errorMsg}</Grid>
+                      )}
+                    </ErrorMessage>
+                    <Select
+                      ref={stateInput}
+                      value={state}
+                      name="state"
+                      placeholder="state"
+                      required
+                      onChange={(e: any) => {
+                        setState(e.target.value);
+                      }}
+                    >
+                      <MenuItem value={"Alabama"}>Alabama</MenuItem>
+                      <MenuItem value={"Alaska"}>Alaska</MenuItem>
+                      <MenuItem value={"Arizona"}>Arizona</MenuItem>
+                      <MenuItem value={"Arkansas"}>Arkansas</MenuItem>
+                      <MenuItem value={"California"}>California</MenuItem>
+                      <MenuItem value={"Colorado"}>Colorado</MenuItem>
+                      <MenuItem value={"Connecticut"}>Connecticut</MenuItem>
+                      <MenuItem value={"Delaware"}>Delaware</MenuItem>
+                      <MenuItem value={"Florida"}>Florida</MenuItem>
+                      <MenuItem value={"Georgia"}>Georgia</MenuItem>
+                      <MenuItem value={"Hawaii"}>Hawaii</MenuItem>
+                      <MenuItem value={"Idaho"}>Idaho</MenuItem>
+                      <MenuItem value={"Illinois"}>Illinois</MenuItem>
+                      <MenuItem value={"Indiana"}>Indiana</MenuItem>
+                      <MenuItem value={"Iowa"}>Iowa</MenuItem>
+                      <MenuItem value={"Kansas"}>Kansas</MenuItem>
+                      <MenuItem value={"Kentucky"}>Kentucky</MenuItem>
+                      <MenuItem value={"Louisiana"}>Louisiana</MenuItem>
+                      <MenuItem value={"Maine"}>Maine</MenuItem>
+                      <MenuItem value={"Maryland"}>Maryland</MenuItem>
+                      <MenuItem value={"Michigan"}>Michigan</MenuItem>
+                      <MenuItem value={"Minnesota"}>Minnesota</MenuItem>
+                      <MenuItem value={"Mississippi"}>Mississippi</MenuItem>
+                      <MenuItem value={"Missouri"}>Missouri</MenuItem>
+                      <MenuItem value={"Montana"}>Montana</MenuItem>
+                      <MenuItem value={"Nebraska"}>Nebraska</MenuItem>
+                      <MenuItem value={"Nevada"}>Nevada</MenuItem>
+                      <MenuItem value={"New Hampshire"}>New Hampshire</MenuItem>
+                      <MenuItem value={"New Jersey"}>New Jersey</MenuItem>
+                      <MenuItem value={"New Mexico"}>New Mexico</MenuItem>
+                      <MenuItem value={"New York"}>New York</MenuItem>
+                      <MenuItem value={"North Carolina"}>
+                        North Carolina
+                      </MenuItem>
+                      <MenuItem value={"North Dakota"}>North Dakota</MenuItem>
+                      <MenuItem value={"Ohio"}>Ohio</MenuItem>
+                      <MenuItem value={"Oklahoma"}>Oklahoma</MenuItem>
+                      <MenuItem value={"Oregon"}>Oregon</MenuItem>
+                      <MenuItem value={"Pennsylvania"}>Pennsylvania</MenuItem>
+                      <MenuItem value={"Rhode Island"}>Rhode Island</MenuItem>
+                      <MenuItem value={"South Carolina"}>
+                        South Carolina
+                      </MenuItem>
+                      <MenuItem value={"South Dakota"}>South Dakota</MenuItem>
+                      <MenuItem value={"Tennessee"}>Tennessee</MenuItem>
+                      <MenuItem value={"Texas"}>Texas</MenuItem>
+                      <MenuItem value={"Utah"}>Utah</MenuItem>
+                      <MenuItem value={"Vermont"}>Vermont</MenuItem>
+                      <MenuItem value={"Virginia"}>Virginia</MenuItem>
+                      <MenuItem value={"Washington"}>Washington</MenuItem>
+                      <MenuItem value={"West Virginia"}>West Virginia</MenuItem>
+                      <MenuItem value={"Wisconsin"}>Wisconsin</MenuItem>
+                      <MenuItem value={"Wyoming"}>Wyoming</MenuItem>
+                    </Select>
+                    <Field
+                      type="number"
+                      ref={zipcodeInput}
+                      value={zipcode}
+                      name="zipcode"
+                      placeholder="ZIP code"
+                      required
+                      onChange={(e: any) => {
+                        setZipcode(e.target.value);
+                      }}
+                    />
+                    <ErrorMessage name="email" component="div">
+                      {(errorMsg) => (
+                        <Grid className="errorMsg">{errorMsg}</Grid>
+                      )}
+                    </ErrorMessage>
+                  </Grid>
+                  <Grid className="checkout-phone-div">
+                    <Field
+                      type="tel"
+                      ref={phoneInput}
+                      value={phone}
+                      name="phone"
+                      placeholder="phone (MenuItemal)"
+                      onChange={(e: any) => {
+                        setPhone(e.target.value);
+                      }}
                     />
                   </Grid>
-                  <Grid className="grid payment-input">
-                    <input type="text" placeholder="name on card" required />
-                  </Grid>
-                  <Grid className="two-column-div checkout-disclaimer-container">
-                    <input type="checkbox" required />
-                    <Grid className="align-justify">
-                      By clicking the button below, you are accepting that no
-                      real purchases will be made, no payments will be
-                      processed, and no personal information, such as: names,
-                      addresses, and credit card information will be used.
+                </Grid>
+                <Grid>
+                  <h1>payment information</h1>
+                  <Grid>
+                    <Grid className="grid">
+                      <Grid className="grid payment-input">
+                        <CardElement
+                          className="card-element"
+                          options={cardElementMenuItems}
+                        />
+                      </Grid>
+                      <Grid className="grid payment-input">
+                        <Field
+                          type="text"
+                          placeholder="name on card"
+                          required
+                        />
+                        <ErrorMessage name="email" component="div">
+                          {(errorMsg) => (
+                            <Grid className="errorMsg">{errorMsg}</Grid>
+                          )}
+                        </ErrorMessage>
+                      </Grid>
+                      <Grid className="two-column-div checkout-disclaimer-container">
+                        <Field type="checkbox" required />
+                        <Grid className="align-justify">
+                          By clicking the button below, you are accepting that
+                          no real purchases will be made, no payments will be
+                          processed, and no personal information, such as:
+                          names, addresses, and credit card information will be
+                          used.
+                        </Grid>
+                      </Grid>
+                      <Grid className="credit-card-MenuItem">
+                        <button
+                          className="justify-right"
+                          disabled={!formik.isValid}
+                        >
+                          pay
+                        </button>
+                      </Grid>
                     </Grid>
                   </Grid>
-                  <Grid className="credit-card-option">
-                    <button className="justify-right">pay</button>
-                  </Grid>
                 </Grid>
-              </Grid>
-            </Grid>
-          </form>
+              </Form>;
+            }}
+          </Formik>
         </Elements>
         <Grid className="order-summary-container">
           <OrderSummaryC

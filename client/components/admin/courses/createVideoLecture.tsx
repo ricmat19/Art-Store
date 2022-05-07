@@ -131,7 +131,7 @@ const AdminCreateVideoLecture = (props: any) => {
                         <label className="admin-label">Description:</label>
                         <Field
                           value={description}
-                          onChange={(e) => setDescription(e.target.value)}
+                          onChange={(e: any) => setDescription(e.target.value)}
                           name="description"
                           rows={5}
                           className="form-control"

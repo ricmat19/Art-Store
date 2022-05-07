@@ -125,7 +125,7 @@ const SignIn = (props: any) => {
                                     value={props.email}
                                     name="email"
                                     placeholder="Email"
-                                    onChange={(e) => {
+                                    onChange={(e: any) => {
                                       setEmail(e.target.value);
                                     }}
                                   />
@@ -143,7 +143,7 @@ const SignIn = (props: any) => {
                                     value={props.password}
                                     name="password"
                                     placeholder="Create Password"
-                                    onChange={(e) => {
+                                    onChange={(e: any) => {
                                       setPassword(e.target.value);
                                     }}
                                   />

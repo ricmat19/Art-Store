@@ -131,7 +131,7 @@ const SignUp = (props: any) => {
                               value={props.firstName}
                               name="firstName"
                               placeholder="First Name"
-                              onChange={(e) => {
+                              onChange={(e: any) => {
                                 setFirstName(e.target.value);
                               }}
                             />
@@ -145,7 +145,7 @@ const SignUp = (props: any) => {
                               value={props.lastName}
                               name="lastname"
                               placeholder="Last Name"
-                              onChange={(e) => {
+                              onChange={(e: any) => {
                                 setLastName(e.target.value);
                               }}
                             />
@@ -161,7 +161,7 @@ const SignUp = (props: any) => {
                               value={props.email}
                               name="email"
                               placeholder="Email"
-                              onChange={(e) => {
+                              onChange={(e: any) => {
                                 setEmail(e.target.value);
                               }}
                             />
@@ -172,7 +172,7 @@ const SignUp = (props: any) => {
                               value={props.password}
                               name="password"
                               placeholder="Create Password"
-                              onChange={(e) => {
+                              onChange={(e: any) => {
                                 setPassword(e.target.value);
                               }}
                             />
@@ -183,7 +183,7 @@ const SignUp = (props: any) => {
                               value={props.passwordCopy}
                               name="re-password"
                               placeholder="Re-type Password"
-                              onChange={(e) => {
+                              onChange={(e: any) => {
                                 setPasswordCopy(e.target.value);
                               }}
                             />

@@ -171,7 +171,7 @@ const AdminCourseCurriculum = (props: any) => {
                           <h2 className="align-left">Section:</h2>
                           <Field
                             value={section}
-                            onChange={(e) => setSection(e.target.value)}
+                            onChange={(e: any) => setSection(e.target.value)}
                             type="text"
                             name="section"
                             required
@@ -226,7 +226,9 @@ const AdminCourseCurriculum = (props: any) => {
                                 >
                                   <h2 className="align-left">Lecture:</h2>
                                   <Field
-                                    onChange={(e) => setLecture(e.target.value)}
+                                    onChange={(e: any) =>
+                                      setLecture(e.target.value)
+                                    }
                                     type="text"
                                     name="lecture"
                                     required

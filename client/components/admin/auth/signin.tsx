@@ -97,7 +97,7 @@ const AdminSignInModal = (props: IModalState) => {
                           name="email"
                           placeholder="Email"
                           value={props.email}
-                          onChange={(e) => {
+                          onChange={(e: any) => {
                             setEmail(e.target.value);
                           }}
                         />
@@ -113,7 +113,7 @@ const AdminSignInModal = (props: IModalState) => {
                           value={props.password}
                           name="password"
                           placeholder="Create Password"
-                          onChange={(e) => {
+                          onChange={(e: any) => {
                             setPassword(e.target.value);
                           }}
                         />

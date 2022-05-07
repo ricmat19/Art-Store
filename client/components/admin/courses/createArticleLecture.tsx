@@ -111,7 +111,7 @@ const AdminCreateArticleLecture = (props: any) => {
                         <label className="admin-label">Description:</label>
                         <Field
                           value={description}
-                          onChange={(e) => setDescription(e.target.value)}
+                          onChange={(e: any) => setDescription(e.target.value)}
                           name="description"
                           rows={2}
                           className="form-control"
@@ -130,7 +130,7 @@ const AdminCreateArticleLecture = (props: any) => {
                         <label className="admin-label">Article:</label>
                         <Field
                           value={article}
-                          onChange={(e) => setArticle(e.target.value)}
+                          onChange={(e: any) => setArticle(e.target.value)}
                           name="description"
                           rows={15}
                           className="form-control"

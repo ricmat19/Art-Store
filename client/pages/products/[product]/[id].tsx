@@ -9,6 +9,7 @@ import Head from "next/head";
 import AddToCart from "../../../components/users/products/addToCart";
 import AddToCollection from "../../../components/users/products/addToCollection";
 import { Grid } from "@mui/material";
+import { Form } from "formik";
 
 const ProductDetails = (props: any) => {
   const [addToCartOpen, setAddToCartOpen] = useState(false);
@@ -130,7 +131,7 @@ const ProductDetails = (props: any) => {
               />
             </Grid>
           </Grid>
-          <form>
+          <Form>
             <Grid className="info-div">
               <h1>{product && product.title}</h1>
               <Grid className="info-detail-div">
@@ -151,7 +152,7 @@ const ProductDetails = (props: any) => {
                 </button>
               </Grid>
             </Grid>
-          </form>
+          </Form>
         </Grid>
         <FooterC />
       </Grid>

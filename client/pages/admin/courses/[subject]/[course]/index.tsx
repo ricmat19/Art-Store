@@ -170,7 +170,7 @@ const AdminCourse = (props: any) => {
                         <label className="admin-label">Title:</label>
                         <Field
                           value={title}
-                          onChange={(e) => setTitle(e.target.value)}
+                          onChange={(e: any) => setTitle(e.target.value)}
                           type="text"
                           name="title"
                           className="form-control"
@@ -220,7 +220,7 @@ const AdminCourse = (props: any) => {
                         <label className="admin-label">Price:</label>
                         <Field
                           value={price}
-                          onChange={(e) => setPrice(e.target.value)}
+                          onChange={(e: any) => setPrice(e.target.value)}
                           type="number"
                           name="price"
                           className="form-control"
@@ -236,7 +236,7 @@ const AdminCourse = (props: any) => {
                         <label className="admin-label">Description:</label>
                         <Field
                           value={description}
-                          onChange={(e) => setDescription(e.target.value)}
+                          onChange={(e: any) => setDescription(e.target.value)}
                           rows={12}
                           name="description"
                           required

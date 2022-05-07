@@ -153,7 +153,7 @@ const AdminCreateHelpArticle = (props: any) => {
                           <label>Title: </label>
                           <Field
                             value={title}
-                            onChange={(e) => setTitle(e.target.value)}
+                            onChange={(e: any) => setTitle(e.target.value)}
                             name="title"
                             required
                           />
@@ -205,7 +205,7 @@ const AdminCreateHelpArticle = (props: any) => {
                         <label>Article:</label>
                         <Field
                           value={article}
-                          onChange={(e) => setArticle(e.target.value)}
+                          onChange={(e: any) => setArticle(e.target.value)}
                           name="description"
                           rows={20}
                           className="form-control"
