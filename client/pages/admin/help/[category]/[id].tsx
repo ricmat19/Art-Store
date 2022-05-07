@@ -1,5 +1,4 @@
 import IndexAPI from "../../../../apis/indexAPI";
-import { useState } from "react";
 import { useRouter } from "next/router";
 import AdminMainNav from "../../../../components/admin/mainNav";
 import AdminPagesNav from "../../../../components/admin/pagesNav";
@@ -11,7 +10,15 @@ import * as Yup from "yup";
 const initialValues = {
   email: "",
 };
-const onSubmit = (onSubmitProps: any) => {
+const onSubmit = (values: any, onSubmitProps: any) => {
+  IndexAPI.put(
+    `/admin/help/${values.helpArticle[0].category}/${values.helpArticle[0].id}`,
+    {
+      title: values.title,
+      content: values.content,
+    }
+  );
+  values.router.push(`/admin/help/${values.helpArticle[0].category}`);
   onSubmitProps.resetForm();
 };
 const validationSchema = Yup.object({
@@ -21,26 +28,7 @@ const validationSchema = Yup.object({
 });
 
 const HelpArticle = (props: any) => {
-  const [title, setTitle] = useState<string>(props.helpArticle[0].title);
-  const [content, setContent] = useState<string>(props.helpArticle[0].article);
-
   const router = useRouter();
-
-  const updateArticle = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    try {
-      await IndexAPI.put(
-        `/admin/help/${props.helpArticle[0].category}/${props.helpArticle[0].id}`,
-        {
-          title,
-          content,
-        }
-      );
-      router.push(`/admin/help/${props.helpArticle[0].category}`);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   return (
     <Grid>
@@ -48,61 +36,44 @@ const HelpArticle = (props: any) => {
       <AdminPagesNav />
       <Grid>
         <Formik
-          initialValues={initialValues}
+          initialValues={{
+            initialValues: initialValues,
+            router: router,
+            title: props.helpArticle[0].title,
+            content: props.helpArticle[0].article,
+          }}
           onSubmit={onSubmit}
           validationSchema={validationSchema}
           validateOnChange={false}
           validateOnBlur={false}
           validateOnMount
         >
-          {(formik) => {
-            return (
-              <Form>
-                <Grid
-                  sx={{ display: "grid", gap: "10px", margin: "50px 20vw" }}
-                >
-                  <Grid>
-                    <label>Title:</label>
-                    <Field
-                      className="full-width"
-                      onChange={(e: any) => setTitle(e.target.value)}
-                      value={title}
-                      name="title"
-                    />
-                    <ErrorMessage name="email" component="div">
-                      {(errorMsg) => (
-                        <Grid className="errorMsg">{errorMsg}</Grid>
-                      )}
-                    </ErrorMessage>
-                  </Grid>
-                  <Grid>
-                    <label>Content:</label>
-                    <Field
-                      className="full-width"
-                      onChange={(e: any) => setContent(e.target.value)}
-                      value={content}
-                      rows={50}
-                      name="content"
-                    />
-                    <ErrorMessage name="email" component="div">
-                      {(errorMsg) => (
-                        <Grid className="errorMsg">{errorMsg}</Grid>
-                      )}
-                    </ErrorMessage>
-                  </Grid>
-                  <Grid sx={{ textAlign: "center" }}>
-                    <button
-                      type="submit"
-                      onClick={updateArticle}
-                      disabled={!formik.isValid}
-                    >
-                      Submit
-                    </button>
-                  </Grid>
-                </Grid>
-              </Form>
-            );
-          }}
+          <Form>
+            <Grid sx={{ display: "grid", gap: "10px", margin: "50px 20vw" }}>
+              <Grid>
+                <label>Title:</label>
+                <Field as="input" className="full-width" name="title" />
+                <ErrorMessage name="title" component="div">
+                  {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
+                </ErrorMessage>
+              </Grid>
+              <Grid>
+                <label>Content:</label>
+                <Field
+                  as="textarea"
+                  className="full-width"
+                  rows={50}
+                  name="content"
+                />
+                <ErrorMessage name="content" component="div">
+                  {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
+                </ErrorMessage>
+              </Grid>
+              <Grid sx={{ textAlign: "center" }}>
+                <button type="submit">Submit</button>
+              </Grid>
+            </Grid>
+          </Form>
         </Formik>
         <Grid>{props.helpArticle.title}</Grid>
         <Grid>{props.helpArticle.article}</Grid>

@@ -1,4 +1,3 @@
-import { useState, useRef } from "react";
 import IndexAPI from "../apis/indexAPI";
 import MainNav from "../components/users/mainNav";
 import PagesNav from "../components/users/pagesNav";
@@ -14,7 +13,13 @@ const initialValues = {
   subject: "",
   message: "",
 };
-const onSubmit = (onSubmitProps: any) => {
+const onSubmit = (values: any, onSubmitProps: any) => {
+  IndexAPI.post("/contact", {
+    name: values.name,
+    email: values.email,
+    subject: values.subject,
+    message: values.message,
+  });
   onSubmitProps.resetForm();
 };
 const validationSchema = Yup.object({
@@ -27,35 +32,6 @@ const validationSchema = Yup.object({
 });
 
 const Contact = (props: any) => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [subject, setSubject] = useState("");
-  const [message, setMessage] = useState("");
-
-  const nameInput = useRef(null);
-  const emailInput = useRef(null);
-  const subjectInput = useRef(null);
-  const messageInput = useRef(null);
-
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    try {
-      await IndexAPI.post("/contact", {
-        name: name,
-        email: email,
-        subject: subject,
-        message: message,
-      });
-
-      // nameInput.current.value = "";
-      // emailInput.current.value = "";
-      // subjectInput.current.value = "";
-      // messageInput.current.value = "";
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   return (
     <Grid>
       <Head>
@@ -81,84 +57,50 @@ const Contact = (props: any) => {
               validateOnBlur={false}
               validateOnMount
             >
-              {(formik) => {
-                return (
-                  <Form
-                    className="contact-form"
-                    method="POST"
-                    action="/contact"
-                  >
-                    <Grid className="subject-line">
-                      <Field
-                        type="text"
-                        ref={nameInput}
-                        onChange={(e: any) => setName(e.target.value)}
-                        name="name"
-                        placeholder="your name..."
-                      />
-                      <ErrorMessage name="email" component="div">
-                        {(errorMsg) => (
-                          <Grid className="errorMsg">{errorMsg}</Grid>
-                        )}
-                      </ErrorMessage>
-                    </Grid>
-                    <Grid className="subject-line">
-                      <Field
-                        type="email"
-                        ref={emailInput}
-                        onChange={(e: any) => setEmail(e.target.value)}
-                        name="email"
-                        placeholder="your email..."
-                        required
-                      />
-                      <ErrorMessage name="email" component="div">
-                        {(errorMsg) => (
-                          <Grid className="errorMsg">{errorMsg}</Grid>
-                        )}
-                      </ErrorMessage>
-                    </Grid>
-                    <Grid className="subject-line">
-                      <Field
-                        type="text"
-                        ref={subjectInput}
-                        onChange={(e: any) => setSubject(e.target.value)}
-                        name="subject"
-                        placeholder="the subject..."
-                        required
-                      />
-                      <ErrorMessage name="email" component="div">
-                        {(errorMsg) => (
-                          <Grid className="errorMsg">{errorMsg}</Grid>
-                        )}
-                      </ErrorMessage>
-                    </Grid>
-                    <Grid className="subject-line">
-                      <Field
-                        name="message"
-                        ref={messageInput}
-                        onChange={(e: any) => setMessage(e.target.value)}
-                        placeholder="your message..."
-                        rows={7}
-                        required
-                      />
-                      <ErrorMessage name="email" component="div">
-                        {(errorMsg) => (
-                          <Grid className="errorMsg">{errorMsg}</Grid>
-                        )}
-                      </ErrorMessage>
-                    </Grid>
-                    <Grid className="align-right">
-                      <button
-                        onClick={handleSubmit}
-                        type="submit"
-                        disabled={!formik.isValid}
-                      >
-                        submit
-                      </button>
-                    </Grid>
-                  </Form>
-                );
-              }}
+              <Form className="contact-form" method="POST" action="/contact">
+                <Grid className="subject-line">
+                  <Field as="input" name="name" placeholder="your name..." />
+                  <ErrorMessage name="name" component="div">
+                    {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
+                  </ErrorMessage>
+                </Grid>
+                <Grid className="subject-line">
+                  <Field
+                    as="input"
+                    type="email"
+                    name="email"
+                    placeholder="your email..."
+                  />
+                  <ErrorMessage name="email" component="div">
+                    {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
+                  </ErrorMessage>
+                </Grid>
+                <Grid className="subject-line">
+                  <Field
+                    as="input"
+                    type="text"
+                    name="subject"
+                    placeholder="the subject..."
+                  />
+                  <ErrorMessage name="subject" component="div">
+                    {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
+                  </ErrorMessage>
+                </Grid>
+                <Grid className="subject-line">
+                  <Field
+                    as="textarea"
+                    name="message"
+                    placeholder="your message..."
+                    rows={7}
+                  />
+                  <ErrorMessage name="message" component="div">
+                    {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
+                  </ErrorMessage>
+                </Grid>
+                <Grid className="align-right">
+                  <button type="submit">submit</button>
+                </Grid>
+              </Form>
             </Formik>
           </Grid>
         </Grid>

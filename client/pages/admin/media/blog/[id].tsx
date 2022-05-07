@@ -13,7 +13,12 @@ const initialValues = {
   title: "",
   content: "",
 };
-const onSubmit = (onSubmitProps: any) => {
+const onSubmit = (values: any, onSubmitProps: any) => {
+  IndexAPI.put(`/admin/blog/${values.selectedBlog[0].id}`, {
+    title: values.title,
+    content: values.content,
+  });
+  values.router.push("/admin/media/blog");
   onSubmitProps.resetForm();
 };
 const validationSchema = Yup.object({
@@ -23,8 +28,6 @@ const validationSchema = Yup.object({
 
 const AdminBlogPost = (props: any) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
-  const [title, setTitle] = useState<string>(props.selectedBlog[0].title);
-  const [content, setContent] = useState<string>(props.selectedBlog[0].content);
 
   const router = useRouter();
 
@@ -45,40 +48,6 @@ const AdminBlogPost = (props: any) => {
     fetchData();
   }, []);
 
-  const updateBlog = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    try {
-      // if (fileImage) {
-      //   let formData = new FormData();
-
-      //   formData.append("title", title);
-      //   formData.append("product", product);
-      //   formData.append("price", price);
-      //   formData.append("info", info);
-      //   formData.append("qty", qty);
-      //   formData.append("image", fileImage);
-
-      //   await IndexAPI.put(
-      //     `/admin/products/${props.updateProduct.id}`,
-      //     formData,
-      //     {
-      //       headers: { "Content-Type": "multipart/form-data" },
-      //     }
-      //   )
-      //     .then((res) => console.log(res))
-      //     .catch((err) => console.log(err));
-      // } else {
-      await IndexAPI.put(`/admin/blog/${props.selectedBlog[0].id}`, {
-        title,
-        content,
-      });
-      router.push("/admin/media/blog");
-      // }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   if (loginStatus) {
     return (
       <Grid>
@@ -94,66 +63,55 @@ const AdminBlogPost = (props: any) => {
               />
             </Grid>
             <Formik
-              initialValues={initialValues}
+              initialValues={{
+                initialValues: initialValues,
+                router: router,
+                title: props.selectedBlog[0].title,
+                content: props.selectedBlog[0].content,
+              }}
               onSubmit={onSubmit}
               validationSchema={validationSchema}
               validateOnChange={false}
               validateOnBlur={false}
               validateOnMount
             >
-              {(formik) => {
-                return (
-                  <Form>
-                    <Grid
-                      sx={{ display: "grid", gap: "10px", margin: "50px 20vw" }}
-                    >
-                      <Grid>
-                        <h3>
-                          {postMonth} - {postDate} - {postYear}
-                        </h3>
-                      </Grid>
-                      <Grid>
-                        <label>Title:</label>
-                        <Field
-                          className="full-width"
-                          onChange={(e: any) => setTitle(e.target.value)}
-                          value={title}
-                          name="title"
-                        />
-                        <ErrorMessage name="email" component="div">
-                          {(errorMsg) => (
-                            <Grid className="errorMsg">{errorMsg}</Grid>
-                          )}
-                        </ErrorMessage>
-                      </Grid>
-                      <Grid>
-                        <label>Content:</label>
-                        <Field
-                          className="full-width"
-                          onChange={(e: any) => setContent(e.target.value)}
-                          value={content}
-                          rows={50}
-                          name="content"
-                        />
-                        <ErrorMessage name="email" component="div">
-                          {(errorMsg) => (
-                            <Grid className="errorMsg">{errorMsg}</Grid>
-                          )}
-                        </ErrorMessage>
-                      </Grid>
-                      <Grid sx={{ textAlign: "center" }}>
-                        <button
-                          type="submit"
-                          onClick={updateBlog}
-                          disabled={!formik.isValid}
-                        >
-                          Submit
-                        </button>
-                      </Grid>
-                    </Grid>
-                  </Form>
-                );
-              }}
+              <Form>
+                <Grid
+                  sx={{ display: "grid", gap: "10px", margin: "50px 20vw" }}
+                >
+                  <Grid>
+                    <h3>
+                      {postMonth} - {postDate} - {postYear}
+                    </h3>
+                  </Grid>
+                  <Grid>
+                    <label>Title:</label>
+                    <Field as="input" className="full-width" name="title" />
+                    <ErrorMessage name="title" component="div">
+                      {(errorMsg) => (
+                        <Grid className="errorMsg">{errorMsg}</Grid>
+                      )}
+                    </ErrorMessage>
+                  </Grid>
+                  <Grid>
+                    <label>Content:</label>
+                    <Field
+                      as="textarea"
+                      className="full-width"
+                      rows={50}
+                      name="content"
+                    />
+                    <ErrorMessage name="content" component="div">
+                      {(errorMsg) => (
+                        <Grid className="errorMsg">{errorMsg}</Grid>
+                      )}
+                    </ErrorMessage>
+                  </Grid>
+                  <Grid sx={{ textAlign: "center" }}>
+                    <button type="submit">Submit</button>
+                  </Grid>
+                </Grid>
+              </Form>
             </Formik>
           </Grid>
           <FooterC />

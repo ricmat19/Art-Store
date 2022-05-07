@@ -1,3 +1,4 @@
+import IndexAPI from "../../../apis/indexAPI";
 import PropTypes from "prop-types";
 import { Modal, Fade, Box, Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -13,7 +14,10 @@ interface IModalState {
 const initialValues = {
   email: "",
 };
-const onSubmit = (onSubmitProps: any) => {
+const onSubmit = (values: any, onSubmitProps: any) => {
+  IndexAPI.post("/reset", {
+    email: values.email,
+  });
   onSubmitProps.resetForm();
 };
 const validationSchema = Yup.object({
@@ -40,35 +44,34 @@ const AdminResetModal = (props: IModalState) => {
             validateOnBlur={false}
             validateOnMount
           >
-            {(formik) => {
-              return (
-                <Form>
-                  <Grid className="sign-content">
-                    <h1 className="sign-header">Reset Password</h1>
-                    <Grid className="sign-input">
-                      <Grid className="forgot-input-div">
-                        <Field type="email" name="email" placeholder="Email" />
-                        <ErrorMessage name="email" component="div">
-                          {(errorMsg) => (
-                            <Grid className="errorMsg">{errorMsg}</Grid>
-                          )}
-                        </ErrorMessage>
-                      </Grid>
-                    </Grid>
-                    <Grid>
-                      <button type="submit" disabled={!formik.isValid}>
-                        Send Reset Link
-                      </button>
-                    </Grid>
-                    <Grid className="sign-footer">
-                      <Grid className="modal-link">
-                        <span>Back to signin in</span>
-                      </Grid>
-                    </Grid>
+            <Form>
+              <Grid className="sign-content">
+                <h1 className="sign-header">Reset Password</h1>
+                <Grid className="sign-input">
+                  <Grid className="forgot-input-div">
+                    <Field
+                      as="input"
+                      type="email"
+                      name="email"
+                      placeholder="Email"
+                    />
+                    <ErrorMessage name="email" component="div">
+                      {(errorMsg) => (
+                        <Grid className="errorMsg">{errorMsg}</Grid>
+                      )}
+                    </ErrorMessage>
                   </Grid>
-                </Form>
-              );
-            }}
+                </Grid>
+                <Grid>
+                  <button type="submit">Send Reset Link</button>
+                </Grid>
+                <Grid className="sign-footer">
+                  <Grid className="modal-link">
+                    <span>Back to signin in</span>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Form>
           </Formik>
         </Box>
       </Fade>

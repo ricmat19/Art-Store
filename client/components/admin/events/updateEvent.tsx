@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import { useState } from "react";
 import IndexAPI from "../../../apis/indexAPI";
 import { Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -12,7 +11,16 @@ const initialValues = {
   spots: "",
   info: "",
 };
-const onSubmit = (onSubmitProps: any) => {
+const onSubmit = (values: any, onSubmitProps: any) => {
+  IndexAPI.put(`/admin/events/${values.id}`, {
+    selectedTitle: values.selectedTitle,
+    selectedDate: values.selectedDate,
+    selectedPrice: values.selectedPrice,
+    selectedInfo: values.selectedInfo,
+    selectedSpots: values.selectedSpots,
+  });
+
+  values.handleClose();
   onSubmitProps.resetForm();
 };
 const validationSchema = Yup.object({
@@ -24,138 +32,60 @@ const validationSchema = Yup.object({
 });
 
 const AdminUpdateEvent = (props: any) => {
-  const [selectedTitle, setSelectedTitle] = useState<string>(
-    props.selectedEvent.title
-  );
-  const [selectedDate, setSelectedDate] = useState<string>(
-    props.selectedEvent.event_date
-  );
-  console.log(props.selectedEvent.event_date);
-  const [selectedPrice, setSelectedPrice] = useState<number>(
-    parseInt(props.selectedEvent.price.replace("$", ""))
-  );
-  const [selectedSpots, setSelectedSpots] = useState<string>(
-    props.selectedEvent.spots
-  );
-  const [selectedInfo, setSelectedInfo] = useState<string>(
-    props.selectedEvent.info
-  );
-
-  const editEvent = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    try {
-      await IndexAPI.put(`/admin/events/${props.selectedEvent.id}`, {
-        selectedTitle,
-        selectedDate,
-        selectedPrice,
-        selectedInfo,
-        selectedSpots,
-      });
-
-      props.handleClose();
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   return (
     <Grid className="create-event">
       <Formik
-        initialValues={initialValues}
+        initialValues={{
+          initialValues,
+          id: props.selectedEvent.id,
+        }}
         onSubmit={onSubmit}
         validationSchema={validationSchema}
         validateOnChange={false}
         validateOnBlur={false}
         validateOnMount
       >
-        {(formik) => {
-          return (
-            <Form>
-              <h1>Edit Event</h1>
-              <Grid className="admin-form-field">
-                <label className="event-form-label">Title</label>
-                <Field
-                  value={selectedTitle}
-                  onChange={(e: any) => setSelectedTitle(e.target.value)}
-                  type="text"
-                  name="title"
-                  className="form-control"
-                  required
-                />
-                <ErrorMessage name="email" component="div">
-                  {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
-                </ErrorMessage>
-              </Grid>
-              <Grid className="admin-form-field">
-                <label className="event-form-label">Date</label>
-                <Field
-                  value={new Date(selectedDate).toLocaleDateString("en-CA")}
-                  onChange={(e: any) => setSelectedDate(e.target.value)}
-                  type="date"
-                  name="date"
-                  className="form-control"
-                  required
-                />
-                <ErrorMessage name="email" component="div">
-                  {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
-                </ErrorMessage>
-              </Grid>
-              <Grid className="admin-form-field">
-                <label className="event-form-label">Price</label>
-                <Field
-                  value={selectedPrice}
-                  onChange={(e: any) =>
-                    setSelectedPrice(parseInt(e.target.value))
-                  }
-                  type="number"
-                  name="price"
-                  className="form-control"
-                  required
-                />
-                <ErrorMessage name="email" component="div">
-                  {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
-                </ErrorMessage>
-              </Grid>
-              <Grid className="admin-form-field">
-                <label className="event-form-label">Spots</label>
-                <Field
-                  value={selectedSpots}
-                  onChange={(e: any) => setSelectedSpots(e.target.value)}
-                  type="number"
-                  name="spots"
-                  className="form-control"
-                  required
-                />
-                <ErrorMessage name="email" component="div">
-                  {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
-                </ErrorMessage>
-              </Grid>
-              <Grid className="admin-form-field">
-                <label className="event-form-label">Info</label>
-                <Field
-                  value={selectedInfo}
-                  onChange={(e: any) => setSelectedInfo(e.target.value)}
-                  className="form-control"
-                  name="info"
-                  required
-                  rows={7}
-                />
-                <ErrorMessage name="email" component="div">
-                  {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
-                </ErrorMessage>
-              </Grid>
-              <Grid className="align-center">
-                <button
-                  type="submit"
-                  onClick={(e: any) => editEvent(e)}
-                  disabled={!formik.isValid}
-                >
-                  Submit
-                </button>
-              </Grid>
-            </Form>
-          );
-        }}
+        <Form>
+          <h1>Edit Event</h1>
+          <Grid className="admin-form-field">
+            <label className="event-form-label">Title</label>
+            <Field as="input" type="text" name="title" />
+            <ErrorMessage name="title" component="div">
+              {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
+            </ErrorMessage>
+          </Grid>
+          <Grid className="admin-form-field">
+            <label className="event-form-label">Date</label>
+            <Field as="input" type="date" name="date" />
+            <ErrorMessage name="date" component="div">
+              {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
+            </ErrorMessage>
+          </Grid>
+          <Grid className="admin-form-field">
+            <label className="event-form-label">Price</label>
+            <Field as="input" type="number" name="price" />
+            <ErrorMessage name="price" component="div">
+              {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
+            </ErrorMessage>
+          </Grid>
+          <Grid className="admin-form-field">
+            <label className="event-form-label">Spots</label>
+            <Field as="input" type="number" name="spots" />
+            <ErrorMessage name="spots" component="div">
+              {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
+            </ErrorMessage>
+          </Grid>
+          <Grid className="admin-form-field">
+            <label className="event-form-label">Info</label>
+            <Field as="textarea" name="info" rows={7} />
+            <ErrorMessage name="info" component="div">
+              {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
+            </ErrorMessage>
+          </Grid>
+          <Grid className="align-center">
+            <button type="submit">Submit</button>
+          </Grid>
+        </Form>
       </Formik>
     </Grid>
   );

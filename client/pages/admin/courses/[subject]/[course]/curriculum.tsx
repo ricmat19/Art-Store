@@ -6,7 +6,7 @@ import AdminPagesNav from "../../../../../components/admin/pagesNav";
 import Footer from "../../../../../components/footer";
 import Head from "next/head";
 import { Grid, Button } from "@mui/material";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Content from "../../../../../components/admin/courses/contentModal";
@@ -18,7 +18,17 @@ import * as Yup from "yup";
 const initialValues = {
   email: "",
 };
-const onSubmit = (onSubmitProps: any) => {
+const onSubmit = (values: any, onSubmitProps: any) => {
+  // if (values.create = "section") {
+  //         IndexAPI.post(`/admin/courses/section/${values.course}`, {
+  //           values.section
+  //         });
+  // } else {
+  //     IndexAPI.post(`/admin/courses/lecture/${values.course}`, {
+  //       values.section,
+  //       values.lecture,
+  //     });
+  // }
   onSubmitProps.resetForm();
 };
 const validationSchema = Yup.object({
@@ -58,7 +68,7 @@ const AdminCourseCurriculum = (props: any) => {
   const [courseSections] = useState<string[]>(props.courseSections);
   const [courseLectures] = useState<string[]>(props.courseLectures);
 
-  const { query } = useRouter();
+  // const { query } = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -73,27 +83,22 @@ const AdminCourseCurriculum = (props: any) => {
     fetchData();
   }, []);
 
-  const createSection = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    try {
-      await IndexAPI.post(`/admin/courses/section/${query.course}`, {
-        section,
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const createSection = async (e: { preventDefault: () => void }) => {
+  //   e.preventDefault();
+  //   try {
 
-  const createLecture = async (section: any) => {
-    try {
-      await IndexAPI.post(`/admin/courses/lecture/${query.course}`, {
-        section,
-        lecture,
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  // const createLecture = async (section: any) => {
+  //   try {
+
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   if (loginStatus) {
     return (
@@ -145,165 +150,143 @@ const AdminCourseCurriculum = (props: any) => {
               validateOnBlur={false}
               validateOnMount
             >
-              {(formik) => {
-                return (
-                  <Form className="admin-form">
-                    <Grid sx={{ display: "grid", gap: "30px" }}>
+              <Form className="admin-form">
+                <Grid sx={{ display: "grid", gap: "30px" }}>
+                  <Grid
+                    sx={{
+                      display: "grid",
+                      border: "white 2px solid",
+                      padding: "30px",
+                    }}
+                  >
+                    <Grid
+                      sx={{
+                        display: "grid",
+                        gridTemplateColumns: "80% 20%",
+                      }}
+                    >
                       <Grid
                         sx={{
                           display: "grid",
-                          border: "white 2px solid",
-                          padding: "30px",
+                          gridTemplateColumns: "100px auto",
+                          marginRight: "10px",
                         }}
                       >
-                        <Grid
-                          sx={{
-                            display: "grid",
-                            gridTemplateColumns: "80% 20%",
-                          }}
-                        >
-                          <Grid
-                            sx={{
-                              display: "grid",
-                              gridTemplateColumns: "100px auto",
-                              marginRight: "10px",
-                            }}
-                          >
-                            <h2 className="align-left">Section:</h2>
-                            <Field
-                              value={section}
-                              onChange={(e: any) => setSection(e.target.value)}
-                              type="text"
-                              name="section"
-                              required
-                            />
-                            <ErrorMessage name="email" component="div">
-                              {(errorMsg) => (
-                                <Grid className="errorMsg">{errorMsg}</Grid>
-                              )}
-                            </ErrorMessage>
-                          </Grid>
-                          <Grid className="plus-icon align-center">
-                            <Grid onClick={createSection}>Create Section</Grid>
-                          </Grid>
-                        </Grid>
+                        <h2 className="align-left">Section:</h2>
+                        <Field as="input" type="text" name="section" />
+                        <ErrorMessage name="section" component="div">
+                          {(errorMsg) => (
+                            <Grid className="errorMsg">{errorMsg}</Grid>
+                          )}
+                        </ErrorMessage>
                       </Grid>
-                      <Grid>
+                      <Grid className="plus-icon align-center">
                         <Grid
-                          sx={{
-                            display: "grid",
-                            border: "white 2px solid",
-                            padding: "30px",
-                            gap: "10px",
-                          }}
+                        // onClick={createSection}
                         >
-                          {courseSections.map((section: any, index: any) => {
-                            return (
-                              <Grid
-                                sx={{
-                                  border: "white 2px solid",
-                                  padding: "30px",
-                                }}
-                                key={index}
-                              >
-                                <Grid sx={{ paddingBottom: "50px" }}>
-                                  <h2 className="align-left">
-                                    Section {index + 1}: {section.section}
-                                  </h2>
-                                </Grid>
-                                <Grid
-                                  sx={{
-                                    display: "grid",
-                                    gridTemplateColumns: "80% 20%",
-                                    paddingBottom: "20px",
-                                  }}
-                                >
-                                  <Grid
-                                    sx={{
-                                      display: "grid",
-                                      gridTemplateColumns: "100px auto",
-                                      marginRight: "10px",
-                                    }}
-                                  >
-                                    <h2 className="align-left">Lecture:</h2>
-                                    <Field
-                                      onChange={(e: any) =>
-                                        setLecture(e.target.value)
-                                      }
-                                      type="text"
-                                      name="lecture"
-                                      required
-                                    />
-                                    <ErrorMessage name="email" component="div">
-                                      {(errorMsg) => (
-                                        <Grid className="errorMsg">
-                                          {errorMsg}
-                                        </Grid>
-                                      )}
-                                    </ErrorMessage>
-                                  </Grid>
-                                  <Grid
-                                    className="plus-icon align-center"
-                                    onClick={() =>
-                                      createLecture(section.section)
-                                    }
-                                  >
-                                    Create Lecture
-                                  </Grid>
-                                </Grid>
-                                <hr />
-                                {courseLectures.map(
-                                  (lecture: any, index: any) => {
-                                    return lecture.section ===
-                                      section.section ? (
-                                      <Grid>
-                                        <Grid
-                                          key={index}
-                                          sx={{
-                                            display: "grid",
-                                            gridTemplateColumns:
-                                              "75px auto auto",
-                                            alignItems: "center",
-                                            padding: "20px 0",
-                                          }}
-                                        >
-                                          <Grid>
-                                            <h3>Lecture:</h3>
-                                          </Grid>
-                                          <Grid>
-                                            <h3>{lecture.lecture}</h3>
-                                          </Grid>
-                                          <Grid sx={{ textAlign: "right" }}>
-                                            <Button
-                                              className="plus-icon"
-                                              onClick={(e) =>
-                                                handleContentClick(e, lecture)
-                                              }
-                                              disabled={!formik.isValid}
-                                            >
-                                              <FontAwesomeIcon icon={faPlus} />
-                                              <Grid sx={{ paddingLeft: "5px" }}>
-                                                Content
-                                              </Grid>
-                                            </Button>
-                                          </Grid>
-                                        </Grid>
-                                        <hr />
-                                      </Grid>
-                                    ) : (
-                                      <Grid key={index}></Grid>
-                                    );
-                                  }
-                                )}
-                              </Grid>
-                            );
-                          })}
+                          Create Section
                         </Grid>
                       </Grid>
                     </Grid>
-                  </Form>
-                );
-              }}
+                  </Grid>
+                  <Grid>
+                    <Grid
+                      sx={{
+                        display: "grid",
+                        border: "white 2px solid",
+                        padding: "30px",
+                        gap: "10px",
+                      }}
+                    >
+                      {courseSections.map((section: any, index: any) => {
+                        return (
+                          <Grid
+                            sx={{
+                              border: "white 2px solid",
+                              padding: "30px",
+                            }}
+                            key={index}
+                          >
+                            <Grid sx={{ paddingBottom: "50px" }}>
+                              <h2 className="align-left">
+                                Section {index + 1}: {section.section}
+                              </h2>
+                            </Grid>
+                            <Grid
+                              sx={{
+                                display: "grid",
+                                gridTemplateColumns: "80% 20%",
+                                paddingBottom: "20px",
+                              }}
+                            >
+                              <Grid
+                                sx={{
+                                  display: "grid",
+                                  gridTemplateColumns: "100px auto",
+                                  marginRight: "10px",
+                                }}
+                              >
+                                <h2 className="align-left">Lecture:</h2>
+                                <Field as="input" type="text" name="lecture" />
+                                <ErrorMessage name="lecture" component="div">
+                                  {(errorMsg) => (
+                                    <Grid className="errorMsg">{errorMsg}</Grid>
+                                  )}
+                                </ErrorMessage>
+                              </Grid>
+                              <Grid
+                                className="plus-icon align-center"
+                                // onClick={() => createLecture(section.section)}
+                              >
+                                Create Lecture
+                              </Grid>
+                            </Grid>
+                            <hr />
+                            {courseLectures.map((lecture: any, index: any) => {
+                              return lecture.section === section.section ? (
+                                <Grid>
+                                  <Grid
+                                    key={index}
+                                    sx={{
+                                      display: "grid",
+                                      gridTemplateColumns: "75px auto auto",
+                                      alignItems: "center",
+                                      padding: "20px 0",
+                                    }}
+                                  >
+                                    <Grid>
+                                      <h3>Lecture:</h3>
+                                    </Grid>
+                                    <Grid>
+                                      <h3>{lecture.lecture}</h3>
+                                    </Grid>
+                                    <Grid sx={{ textAlign: "right" }}>
+                                      <Button
+                                        className="plus-icon"
+                                        onClick={(e) =>
+                                          handleContentClick(e, lecture)
+                                        }
+                                      >
+                                        <FontAwesomeIcon icon={faPlus} />
+                                        <Grid sx={{ paddingLeft: "5px" }}>
+                                          Content
+                                        </Grid>
+                                      </Button>
+                                    </Grid>
+                                  </Grid>
+                                  <hr />
+                                </Grid>
+                              ) : (
+                                <Grid key={index}></Grid>
+                              );
+                            })}
+                          </Grid>
+                        );
+                      })}
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Form>
             </Formik>
           </Grid>
         </Grid>

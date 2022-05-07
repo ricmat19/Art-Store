@@ -6,34 +6,24 @@ import * as Yup from "yup";
 
 const initialValues = {
   email: "",
+  password: "",
 };
-const onSubmit = (onSubmitProps: any) => {
+const onSubmit = (values: any, onSubmitProps: any) => {
+  IndexAPI.post("/signin", {
+    email: values.email,
+    password: values.password,
+  });
   onSubmitProps.resetForm();
 };
 const validationSchema = Yup.object({
   email: Yup.string()
     .email("Invalid email format")
     .required("Email is required"),
+  password: Yup.string().required("Password is required"),
 });
 
 const SignIn = (props: any) => {
-  const [loginMessage, setLoginMessage] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-
-  const handleSignin = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    try {
-      const loginStatus = await IndexAPI.post("/signin", {
-        email: email,
-        password: password,
-      });
-      setLoginMessage(loginStatus.data.data.message);
-      props.setLoginStatus(loginStatus.data.data.loginStatus);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const [loginMessage] = useState<string>("");
 
   const displaySignUp = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -107,85 +97,68 @@ const SignIn = (props: any) => {
                     </Grid>
                     <Grid>
                       <Formik
-                        initialValues={initialValues}
+                        initialValues={{
+                          initialValues: initialValues,
+                        }}
                         onSubmit={onSubmit}
                         validationSchema={validationSchema}
                         validateOnChange={false}
                         validateOnBlur={false}
                         validateOnMount
                       >
-                        {(formik) => {
-                          return (
-                            <Form>
-                              <Grid className="sign-content">
-                                <h1 className="sign-header">welcome</h1>
-                                <Grid className="grid">
-                                  <Grid className="modal-input-div">
-                                    <Field
-                                      type="email"
-                                      value={props.email}
-                                      name="email"
-                                      placeholder="Email"
-                                      onChange={(e: any) => {
-                                        setEmail(e.target.value);
-                                      }}
-                                    />
-                                    <ErrorMessage name="email" component="div">
-                                      {(errorMsg) => (
-                                        <Grid className="errorMsg">
-                                          {errorMsg}
-                                        </Grid>
-                                      )}
-                                    </ErrorMessage>
-                                  </Grid>
-                                  <Grid className="modal-input-div">
-                                    <Field
-                                      type="password"
-                                      value={props.password}
-                                      name="password"
-                                      placeholder="Create Password"
-                                      onChange={(e: any) => {
-                                        setPassword(e.target.value);
-                                      }}
-                                    />
-                                    <ErrorMessage name="email" component="div">
-                                      {(errorMsg) => (
-                                        <Grid className="errorMsg">
-                                          {errorMsg}
-                                        </Grid>
-                                      )}
-                                    </ErrorMessage>
-                                  </Grid>
-                                </Grid>
-                                <Grid>
-                                  <label>{loginMessage}</label>
-                                </Grid>
-                                <Grid sx={{ textAlign: "center" }}>
-                                  <button
-                                    onClick={handleSignin}
-                                    disabled={!formik.isValid}
-                                  >
-                                    sign in
-                                  </button>
-                                </Grid>
-                                <Grid className="sign-footer two-column-div">
-                                  <Grid
-                                    className="modal-link align-right pointer"
-                                    onClick={displayReset}
-                                  >
-                                    <span>forgot password?</span>
-                                  </Grid>
-                                  <Grid
-                                    className="modal-link align-left pointer"
-                                    onClick={displaySignUp}
-                                  >
-                                    <span>create account</span>
-                                  </Grid>
-                                </Grid>
+                        <Form>
+                          <Grid className="sign-content">
+                            <h1 className="sign-header">welcome</h1>
+                            <Grid className="grid">
+                              <Grid className="modal-input-div">
+                                <Field
+                                  as="input"
+                                  type="email"
+                                  name="email"
+                                  placeholder="Email"
+                                />
+                                <ErrorMessage name="email" component="div">
+                                  {(errorMsg) => (
+                                    <Grid className="errorMsg">{errorMsg}</Grid>
+                                  )}
+                                </ErrorMessage>
                               </Grid>
-                            </Form>
-                          );
-                        }}
+                              <Grid className="modal-input-div">
+                                <Field
+                                  as="input"
+                                  type="password"
+                                  name="password"
+                                  placeholder="Create Password"
+                                />
+                                <ErrorMessage name="password" component="div">
+                                  {(errorMsg) => (
+                                    <Grid className="errorMsg">{errorMsg}</Grid>
+                                  )}
+                                </ErrorMessage>
+                              </Grid>
+                            </Grid>
+                            <Grid>
+                              <label>{loginMessage}</label>
+                            </Grid>
+                            <Grid sx={{ textAlign: "center" }}>
+                              <button type="submit">sign in</button>
+                            </Grid>
+                            <Grid className="sign-footer two-column-div">
+                              <Grid
+                                className="modal-link align-right pointer"
+                                onClick={displayReset}
+                              >
+                                <span>forgot password?</span>
+                              </Grid>
+                              <Grid
+                                className="modal-link align-left pointer"
+                                onClick={displaySignUp}
+                              >
+                                <span>create account</span>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                        </Form>
                       </Formik>
                     </Grid>
                   </Grid>

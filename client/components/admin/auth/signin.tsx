@@ -18,7 +18,11 @@ const initialValues = {
   email: "",
   password: "",
 };
-const onSubmit = (onSubmitProps: any) => {
+const onSubmit = (values: any, onSubmitProps: any) => {
+  IndexAPI.post("/signin", {
+    email: values.email,
+    password: values.password,
+  });
   onSubmitProps.resetForm();
 };
 const validationSchema = Yup.object({
@@ -31,23 +35,6 @@ const validationSchema = Yup.object({
 const AdminSignInModal = (props: IModalState) => {
   const [displayReset, setDisplayReset] = useState<boolean>(false);
   const [displaySignup, setDisplaySignup] = useState<boolean>(false);
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [firstName] = useState<string>("");
-  const [lastName] = useState<string>("");
-  const [passwordCopy] = useState<string>("");
-
-  const handleSignin = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    try {
-      await IndexAPI.post("/signin", {
-        email: email,
-        password: password,
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   return (
     <Grid>
@@ -55,11 +42,6 @@ const AdminSignInModal = (props: IModalState) => {
       <SignUpModalC
         open={displaySignup}
         handleClose={() => setDisplaySignup(false)}
-        firstName={firstName}
-        lastName={lastName}
-        email={email}
-        password={password}
-        passwordCopy={passwordCopy}
       />
 
       {/* reset */}
@@ -86,71 +68,56 @@ const AdminSignInModal = (props: IModalState) => {
               validateOnBlur={false}
               validateOnMount
             >
-              {(formik) => {
-                return (
-                  <Form>
-                    <Grid className="sign-content">
-                      <h1 className="sign-header">welcome</h1>
-                      <Grid>
-                        <Grid className="modal-input-div">
-                          <Field
-                            type="email"
-                            name="email"
-                            placeholder="Email"
-                            value={props.email}
-                            onChange={(e: any) => {
-                              setEmail(e.target.value);
-                            }}
-                          />
-                          <ErrorMessage name="email" component="div">
-                            {(errorMsg) => (
-                              <Grid className="errorMsg">{errorMsg}</Grid>
-                            )}
-                          </ErrorMessage>
-                        </Grid>
-                        <Grid className="modal-input-div">
-                          <Field
-                            type="password"
-                            value={props.password}
-                            name="password"
-                            placeholder="Create Password"
-                            onChange={(e: any) => {
-                              setPassword(e.target.value);
-                            }}
-                          />
-                          <ErrorMessage name="password" component="div">
-                            {(errorMsg) => (
-                              <Grid className="errorMsg">{errorMsg}</Grid>
-                            )}
-                          </ErrorMessage>
-                        </Grid>
-                      </Grid>
-                      <Grid>
-                        <button
-                          onClick={handleSignin}
-                          disabled={!formik.isValid}
-                        >
-                          sign in
-                        </button>
-                      </Grid>
-                      <Grid className="sign-footer">
-                        <Grid
-                          className="modal-link"
-                          onClick={() => setDisplayReset(true)}
-                        >
-                          <span>forgot password?</span>
-                        </Grid>
-                        <Grid
-                          className="modal-link"
-                          onClick={() => setDisplaySignup(true)}
-                        >
-                          <span>create account</span>
-                        </Grid>
-                      </Grid>
+              <Form>
+                <Grid className="sign-content">
+                  <h1 className="sign-header">welcome</h1>
+                  <Grid>
+                    <Grid className="modal-input-div">
+                      <Field
+                        as="input"
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                      />
+                      <ErrorMessage name="email" component="div">
+                        {(errorMsg) => (
+                          <Grid className="errorMsg">{errorMsg}</Grid>
+                        )}
+                      </ErrorMessage>
                     </Grid>
-                  </Form>
-                );
-              }}
+                    <Grid className="modal-input-div">
+                      <Field
+                        as="input"
+                        type="password"
+                        name="password"
+                        placeholder="Create Password"
+                      />
+                      <ErrorMessage name="password" component="div">
+                        {(errorMsg) => (
+                          <Grid className="errorMsg">{errorMsg}</Grid>
+                        )}
+                      </ErrorMessage>
+                    </Grid>
+                  </Grid>
+                  <Grid>
+                    <button type="submit">sign in</button>
+                  </Grid>
+                  <Grid className="sign-footer">
+                    <Grid
+                      className="modal-link"
+                      onClick={() => setDisplayReset(true)}
+                    >
+                      <span>forgot password?</span>
+                    </Grid>
+                    <Grid
+                      className="modal-link"
+                      onClick={() => setDisplaySignup(true)}
+                    >
+                      <span>create account</span>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Form>
             </Formik>
           </Box>
         </Fade>

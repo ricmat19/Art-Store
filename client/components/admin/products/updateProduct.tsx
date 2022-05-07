@@ -7,7 +7,6 @@ import {
   Fade,
   Grid,
   Modal,
-  Select,
   MenuItem,
 } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -16,7 +15,33 @@ import * as Yup from "yup";
 const initialValues = {
   email: "",
 };
-const onSubmit = (onSubmitProps: any) => {
+const onSubmit = (values: any, onSubmitProps: any) => {
+  if (values.fileImage) {
+    let formData = new FormData();
+
+    formData.append("title", values.title);
+    formData.append("product", values.product);
+    formData.append("price", values.price);
+    formData.append("info", values.info);
+    formData.append("qty", values.qty);
+    formData.append("image", values.fileImage);
+
+    IndexAPI.put(`/admin/products/${values.updateProduct.id}`, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+    values.handleClose();
+  } else {
+    IndexAPI.put(`/admin/products/${values.updateProduct.id}`, {
+      title: values.title,
+      product: values.product,
+      price: values.price,
+      info: values.info,
+      qty: values.qty,
+    });
+    values.handleClose();
+  }
   onSubmitProps.resetForm();
 };
 const validationSchema = Yup.object({
@@ -26,14 +51,14 @@ const validationSchema = Yup.object({
 });
 
 const AdminUpdateProduct = (props: any) => {
-  const [title, setTitle] = useState<string>("");
-  const [product, setProduct] = useState<string>("");
-  const [price, setPrice] = useState<string>("");
-  const [info, setInfo] = useState<string>("");
+  const [, setTitle] = useState<string>("");
+  const [, setProduct] = useState<string>("");
+  const [, setPrice] = useState<string>("");
+  const [, setInfo] = useState<string>("");
   const [fileImage] = useState<File>();
   const [, setImagekey] = useState<string>("");
   const [imageBuffer, setImageBuffer] = useState<string>("");
-  const [qty, setQty] = useState<string>("");
+  const [, setQty] = useState<string>("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,48 +79,6 @@ const AdminUpdateProduct = (props: any) => {
 
     fetchData();
   }, [props]);
-
-  const updateProduct = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    try {
-      if (fileImage) {
-        let formData = new FormData();
-
-        formData.append("title", title);
-        formData.append("product", product);
-        formData.append("price", price);
-        formData.append("info", info);
-        formData.append("qty", qty);
-        formData.append("image", fileImage);
-
-        await IndexAPI.put(
-          `/admin/products/${props.updateProduct.id}`,
-          formData,
-          {
-            headers: { "Content-Type": "multipart/form-data" },
-          }
-        )
-          .then((res) => console.log(res))
-          .catch((err) => console.log(err));
-        props.handleClose();
-      } else {
-        await IndexAPI.put(`/admin/products/${props.updateProduct.id}`, {
-          title,
-          product,
-          price,
-          info,
-          qty,
-        });
-        props.handleClose();
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const handleChange = (event: any) => {
-    setProduct(event.target.value);
-  };
 
   if (props.updateProduct) {
     return (
@@ -169,52 +152,35 @@ const AdminUpdateProduct = (props: any) => {
                     validateOnBlur={false}
                     validateOnMount
                   >
-                    {(formik) => {
-                      return (
-                        <Form className="admin-form">
-                          <Grid className="admin-form-field">
-                            <label className="admin-label">Title:</label>
-                            <Field
-                              value={title}
-                              onChange={(e: any) => setTitle(e.target.value)}
-                              type="text"
-                              name="name"
-                              className="form-control"
-                              required
-                            />
-                            <ErrorMessage name="email" component="div">
-                              {(errorMsg) => (
-                                <Grid className="errorMsg">{errorMsg}</Grid>
-                              )}
-                            </ErrorMessage>
-                          </Grid>
-                          <Grid className="admin-form-field">
-                            <Grid>
-                              <label className="admin-label">Product:</label>
-                            </Grid>
-                            <Grid>
-                              <Select
-                                value={product}
-                                onChange={handleChange}
-                                displayEmpty
-                                inputProps={{ "aria-label": "Without label" }}
-                                className="type-selector"
-                              >
-                                <MenuItem value="">
-                                  <em>None</em>
-                                </MenuItem>
-                                <MenuItem value={"print"}>print</MenuItem>
-                                <MenuItem value={"painting"}>painting</MenuItem>
-                                <MenuItem value={"sculpture"}>
-                                  sculpture
-                                </MenuItem>
-                                <MenuItem value={"model"}>model</MenuItem>
-                                <MenuItem value={"book"}>book</MenuItem>
-                                <MenuItem value={"comic"}>comic</MenuItem>
-                              </Select>
-                            </Grid>
-                          </Grid>
-                          {/* <Grid className="admin-form-field">
+                    <Form className="admin-form">
+                      <Grid className="admin-form-field">
+                        <label className="admin-label">Title:</label>
+                        <Field as="input" type="text" name="name" />
+                        <ErrorMessage name="name" component="div">
+                          {(errorMsg) => (
+                            <Grid className="errorMsg">{errorMsg}</Grid>
+                          )}
+                        </ErrorMessage>
+                      </Grid>
+                      <Grid className="admin-form-field">
+                        <Grid>
+                          <label className="admin-label">Product:</label>
+                        </Grid>
+                        <Grid>
+                          <Field as="select" className="type-selector">
+                            <MenuItem value="">
+                              <em>None</em>
+                            </MenuItem>
+                            <MenuItem value={"print"}>print</MenuItem>
+                            <MenuItem value={"painting"}>painting</MenuItem>
+                            <MenuItem value={"sculpture"}>sculpture</MenuItem>
+                            <MenuItem value={"model"}>model</MenuItem>
+                            <MenuItem value={"book"}>book</MenuItem>
+                            <MenuItem value={"comic"}>comic</MenuItem>
+                          </Field>
+                        </Grid>
+                      </Grid>
+                      {/* <Grid className="admin-form-field">
                       <label className="admin-label">Image:</label>
                       <input
                         type="file"
@@ -224,65 +190,43 @@ const AdminUpdateProduct = (props: any) => {
                         required
                       />
                     </Grid> */}
-                          <Grid className="admin-form-field">
-                            <label className="admin-label">Quantity:</label>
-                            <Field
-                              value={qty}
-                              onChange={(e: any) => setQty(e.target.value)}
-                              type="number"
-                              name="quantity"
-                              className="form-control"
-                              required
-                            />
-                            <ErrorMessage name="email" component="div">
-                              {(errorMsg) => (
-                                <Grid className="errorMsg">{errorMsg}</Grid>
-                              )}
-                            </ErrorMessage>
+                      <Grid className="admin-form-field">
+                        <label className="admin-label">Quantity:</label>
+                        <Field as="input" type="number" name="quantity" />
+                        <ErrorMessage name="quantity" component="div">
+                          {(errorMsg) => (
+                            <Grid className="errorMsg">{errorMsg}</Grid>
+                          )}
+                        </ErrorMessage>
+                      </Grid>
+                      <Grid className="admin-form-field">
+                        <label className="admin-label">Price:</label>
+                        <Field as="input" type="number" name="price" />
+                        <ErrorMessage name="price" component="div">
+                          {(errorMsg) => (
+                            <Grid className="errorMsg">{errorMsg}</Grid>
+                          )}
+                        </ErrorMessage>
+                      </Grid>
+                      <Grid className="admin-form-field">
+                        <label className="admin-label">Info:</label>
+                        <Field as="textarea" name="message" rows={5} />
+                        <ErrorMessage name="message" component="div">
+                          {(errorMsg) => (
+                            <Grid className="errorMsg">{errorMsg}</Grid>
+                          )}
+                        </ErrorMessage>
+                      </Grid>
+                      <Grid className="admin-form-button">
+                        <Grid className="text-center">
+                          <Grid>
+                            <button type="submit" className="btn form-button">
+                              Submit
+                            </button>
                           </Grid>
-                          <Grid className="admin-form-field">
-                            <label className="admin-label">Price:</label>
-                            <input
-                              value={price}
-                              onChange={(e: any) => setPrice(e.target.value)}
-                              type="number"
-                              name="price"
-                              className="form-control"
-                              required
-                            />
-                          </Grid>
-                          <Grid className="admin-form-field">
-                            <label className="admin-label">Info:</label>
-                            <Field
-                              value={info}
-                              onChange={(e: any) => setInfo(e.target.value)}
-                              name="message"
-                              rows={5}
-                              required
-                            />
-                            <ErrorMessage name="email" component="div">
-                              {(errorMsg) => (
-                                <Grid className="errorMsg">{errorMsg}</Grid>
-                              )}
-                            </ErrorMessage>
-                          </Grid>
-                          <Grid className="admin-form-button">
-                            <Grid className="text-center">
-                              <Grid>
-                                <button
-                                  onClick={updateProduct}
-                                  type="submit"
-                                  className="btn form-button"
-                                  disabled={!formik.isValid}
-                                >
-                                  Submit
-                                </button>
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                        </Form>
-                      );
-                    }}
+                        </Grid>
+                      </Grid>
+                    </Form>
                   </Formik>
                 </Grid>
               </Grid>

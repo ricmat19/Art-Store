@@ -14,7 +14,21 @@ const initialValues = {
   image: "",
   content: "",
 };
-const onSubmit = (onSubmitProps: any) => {
+const onSubmit = (values: any, onSubmitProps: any) => {
+  if (values.image) {
+    let formData = new FormData();
+
+    formData.append("title", values.title);
+    formData.append("content", values.content);
+    formData.append("images", values.image);
+
+    IndexAPI.post("/admin/blog", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  }
+  values.router.push("/admin/media/blog");
   onSubmitProps.resetForm();
 };
 const validationSchema = Yup.object({
@@ -25,9 +39,7 @@ const validationSchema = Yup.object({
 
 const AdminAddBlogPost = () => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
-  const [title, setTitle] = useState<string>("");
   const [image, setImage] = useState<File>();
-  const [content, setContent] = useState<string>("");
 
   const router = useRouter();
 
@@ -43,28 +55,6 @@ const AdminAddBlogPost = () => {
 
     fetchData();
   }, []);
-
-  const createBlogPost = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    try {
-      if (image) {
-        let formData = new FormData();
-
-        formData.append("title", title);
-        formData.append("content", content);
-        formData.append("images", image);
-
-        await IndexAPI.post("/admin/blog", formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        })
-          .then((res) => console.log(res))
-          .catch((err) => console.log(err));
-      }
-      router.push("/admin/media/blog");
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   let displayedImage;
   if (image !== undefined) {
@@ -88,79 +78,67 @@ const AdminAddBlogPost = () => {
               {displayedImage}
             </Grid>
             <Formik
-              initialValues={initialValues}
+              initialValues={{
+                initialValues: initialValues,
+                router: router,
+              }}
               onSubmit={onSubmit}
               validationSchema={validationSchema}
               validateOnChange={false}
               validateOnBlur={false}
               validateOnMount
             >
-              {(formik) => {
-                return (
-                  <Form>
-                    <Grid
-                      sx={{ display: "grid", gap: "10px", margin: "50px 20vw" }}
-                    >
-                      <Grid className="admin-form-field">
-                        <label>Title:</label>
-                        <Field
-                          className="full-width"
-                          value={title}
-                          onChange={(e: any) => setTitle(e.target.value)}
-                          type="text"
-                          name="title"
-                          required
-                        />
-                        <ErrorMessage name="email" component="div">
-                          {(errorMsg) => (
-                            <Grid className="errorMsg">{errorMsg}</Grid>
-                          )}
-                        </ErrorMessage>
-                      </Grid>
-                      <Grid className="admin-form-field">
-                        <label className="admin-label">Image:</label>
-                        <Field
-                          type="file"
-                          onChange={(e: any) => setImage(e.target.files[0])}
-                          name="images"
-                          className="form-control file-input"
-                          required
-                        />
-                        <ErrorMessage name="email" component="div">
-                          {(errorMsg) => (
-                            <Grid className="errorMsg">{errorMsg}</Grid>
-                          )}
-                        </ErrorMessage>
-                      </Grid>
-                      <Grid>
-                        <label>Content:</label>
-                        <Field
-                          className="full-width"
-                          rows={50}
-                          value={content}
-                          onChange={(e: any) => setContent(e.target.value)}
-                          name="content"
-                          required
-                        />
-                        <ErrorMessage name="email" component="div">
-                          {(errorMsg) => (
-                            <Grid className="errorMsg">{errorMsg}</Grid>
-                          )}
-                        </ErrorMessage>
-                      </Grid>
-                      <Grid sx={{ textAlign: "center" }}>
-                        <button
-                          type="submit"
-                          onClick={createBlogPost}
-                          disabled={!formik.isValid}
-                        >
-                          Submit
-                        </button>
-                      </Grid>
-                    </Grid>
-                  </Form>
-                );
-              }}
+              <Form>
+                <Grid
+                  sx={{ display: "grid", gap: "10px", margin: "50px 20vw" }}
+                >
+                  <Grid className="admin-form-field">
+                    <label>Title:</label>
+                    <Field
+                      as="input"
+                      className="full-width"
+                      type="text"
+                      name="title"
+                    />
+                    <ErrorMessage name="title" component="div">
+                      {(errorMsg) => (
+                        <Grid className="errorMsg">{errorMsg}</Grid>
+                      )}
+                    </ErrorMessage>
+                  </Grid>
+                  <Grid className="admin-form-field">
+                    <label className="admin-label">Image:</label>
+                    <Field
+                      type="file"
+                      onChange={(e: any) => setImage(e.target.files[0])}
+                      name="images"
+                      className="form-control file-input"
+                    />
+                    <ErrorMessage name="images" component="div">
+                      {(errorMsg) => (
+                        <Grid className="errorMsg">{errorMsg}</Grid>
+                      )}
+                    </ErrorMessage>
+                  </Grid>
+                  <Grid>
+                    <label>Content:</label>
+                    <Field
+                      as="textarea"
+                      className="full-width"
+                      rows={50}
+                      name="content"
+                    />
+                    <ErrorMessage name="content" component="div">
+                      {(errorMsg) => (
+                        <Grid className="errorMsg">{errorMsg}</Grid>
+                      )}
+                    </ErrorMessage>
+                  </Grid>
+                  <Grid sx={{ textAlign: "center" }}>
+                    <button type="submit">Submit</button>
+                  </Grid>
+                </Grid>
+              </Form>
             </Formik>
           </Grid>
           <FooterC />

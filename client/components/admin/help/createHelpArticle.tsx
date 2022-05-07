@@ -1,15 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState, useEffect } from "react";
 import IndexAPI from "../../../apis/indexAPI";
-import {
-  Backdrop,
-  Box,
-  Fade,
-  Modal,
-  Grid,
-  Select,
-  MenuItem,
-} from "@mui/material";
+import { Backdrop, Box, Fade, Modal, Grid, MenuItem } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
@@ -17,7 +9,14 @@ const initialValues = {
   title: "",
   description: "",
 };
-const onSubmit = (onSubmitProps: any) => {
+const onSubmit = (values: any, onSubmitProps: any) => {
+  IndexAPI.post(`/admin/help/${values.category}`, {
+    title: values.title,
+    article: values.article,
+    selectedSection: values.selectedSection,
+  });
+
+  values.handleClose();
   onSubmitProps.resetForm();
 };
 const validationSchema = Yup.object({
@@ -26,10 +25,7 @@ const validationSchema = Yup.object({
 });
 
 const AdminCreateHelpArticle = (props: any) => {
-  const [title, setTitle] = useState("");
-  const [article, setArticle] = useState("");
   const [sections, setSections] = useState<string[]>([]);
-  const [selectedSection, setSelectedSection] = useState<string>("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,25 +47,6 @@ const AdminCreateHelpArticle = (props: any) => {
     };
     fetchData();
   }, [props]);
-
-  const createHelpArticle = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    try {
-      await IndexAPI.post(`/admin/help/${props.category}`, {
-        title,
-        article,
-        selectedSection,
-      });
-
-      props.handleClose();
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const handleChange = (event: any) => {
-    setSelectedSection(event.target.value);
-  };
 
   return (
     <Grid>
@@ -117,119 +94,92 @@ const AdminCreateHelpArticle = (props: any) => {
                 }}
               >
                 <Formik
-                  initialValues={initialValues}
+                  initialValues={{
+                    initialValues: initialValues,
+                    category: props.category,
+                  }}
                   onSubmit={onSubmit}
                   validationSchema={validationSchema}
                   validateOnChange={false}
                   validateOnBlur={false}
                   validateOnMount
                 >
-                  {(formik) => {
-                    return (
-                      <Form
-                        className="admin-form"
-                        action="/admin/products"
-                        method="POST"
-                        encType="multipart/form-data"
+                  <Form
+                    className="admin-form"
+                    action="/admin/products"
+                    method="POST"
+                    encType="multipart/form-data"
+                  >
+                    <Grid className="admin-form-title">
+                      <h1 className="align-center">Article: {props.lecture}</h1>
+                    </Grid>
+                    <Grid
+                      sx={{
+                        display: "grid",
+                        padding: "15px",
+                        gridTemplateColumns: "1fr auto",
+                        gap: "15px",
+                      }}
+                    >
+                      <Grid
+                        sx={{
+                          display: "grid",
+                          gridTemplateColumns: "75px auto",
+                        }}
                       >
-                        <Grid className="admin-form-title">
-                          <h1 className="align-center">
-                            Article: {props.lecture}
-                          </h1>
+                        <label>Title: </label>
+                        <Field as="input" type="text" name="title" />
+                        <ErrorMessage name="title" component="div">
+                          {(errorMsg) => (
+                            <Grid className="errorMsg">{errorMsg}</Grid>
+                          )}
+                        </ErrorMessage>
+                      </Grid>
+                      <Grid
+                        sx={{
+                          display: "grid",
+                          gridTemplateColumns: "75px auto",
+                        }}
+                      >
+                        <Grid>
+                          <label>Section:</label>
                         </Grid>
-                        <Grid
-                          sx={{
-                            display: "grid",
-                            padding: "15px",
-                            gridTemplateColumns: "1fr auto",
-                            gap: "15px",
-                          }}
-                        >
-                          <Grid
-                            sx={{
-                              display: "grid",
-                              gridTemplateColumns: "75px auto",
-                            }}
-                          >
-                            <label>Title: </label>
-                            <Field
-                              value={title}
-                              onChange={(e: any) => setTitle(e.target.value)}
-                              name="title"
-                              required
-                            />
-                            <ErrorMessage name="email" component="div">
-                              {(errorMsg) => (
-                                <Grid className="errorMsg">{errorMsg}</Grid>
-                              )}
-                            </ErrorMessage>
-                          </Grid>
-                          <Grid
-                            sx={{
-                              display: "grid",
-                              gridTemplateColumns: "75px auto",
-                            }}
-                          >
-                            <Grid>
-                              <label>Section:</label>
-                            </Grid>
-                            <Grid>
-                              <Select
-                                value={selectedSection}
-                                onChange={handleChange}
-                                displayEmpty
-                                inputProps={{ "aria-label": "Without label" }}
-                                className="type-selector"
-                              >
-                                <MenuItem value="">
-                                  <em>None</em>
-                                </MenuItem>
+                        <Grid>
+                          <Field type="select" className="type-selector">
+                            <MenuItem value="">
+                              <em>None</em>
+                            </MenuItem>
 
-                                {sections.map((section: any) => {
-                                  return (
-                                    <MenuItem key={section} value={section}>
-                                      {section}
-                                    </MenuItem>
-                                  );
-                                })}
-                              </Select>
-                            </Grid>
-                          </Grid>
+                            {sections.map((section: any) => {
+                              return (
+                                <MenuItem key={section} value={section}>
+                                  {section}
+                                </MenuItem>
+                              );
+                            })}
+                          </Field>
                         </Grid>
-                        <Grid
-                          sx={{
-                            display: "grid",
-                            padding: "15px",
-                            gridTemplateColumns: "75px auto",
-                          }}
-                        >
-                          <label>Article:</label>
-                          <Field
-                            value={article}
-                            onChange={(e: any) => setArticle(e.target.value)}
-                            name="description"
-                            rows={20}
-                            className="form-control"
-                            required
-                          />
-                          <ErrorMessage name="email" component="div">
-                            {(errorMsg) => (
-                              <Grid className="errorMsg">{errorMsg}</Grid>
-                            )}
-                          </ErrorMessage>
-                        </Grid>
-                        <Grid className="align-center">
-                          <button
-                            type="submit"
-                            onClick={(e) => createHelpArticle(e)}
-                            disabled={!formik.isValid}
-                          >
-                            Submit
-                          </button>
-                        </Grid>
-                      </Form>
-                    );
-                  }}
+                      </Grid>
+                    </Grid>
+                    <Grid
+                      sx={{
+                        display: "grid",
+                        padding: "15px",
+                        gridTemplateColumns: "75px auto",
+                      }}
+                    >
+                      <label>Article:</label>
+                      <Field as="textarea" name="description" rows={20} />
+                      <ErrorMessage name="description" component="div">
+                        {(errorMsg) => (
+                          <Grid className="errorMsg">{errorMsg}</Grid>
+                        )}
+                      </ErrorMessage>
+                    </Grid>
+                    <Grid className="align-center">
+                      <button type="submit">Submit</button>
+                    </Grid>
+                  </Form>
                 </Formik>
               </Grid>
             </Grid>
