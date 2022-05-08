@@ -3,13 +3,17 @@ import DisclaimerC from "../components/users/disclaimerModal";
 ("../components/modals/disclaimer");
 import "../public/css/index.css";
 import { Grid } from "@mui/material";
+import { store } from "../store";
+import { Provider } from "react-redux";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Grid>
-      <DisclaimerC />
-      <Component {...pageProps} />
-    </Grid>
+    <Provider store={store}>
+      <Grid>
+        <DisclaimerC />
+        <Component {...pageProps} />
+      </Grid>
+    </Provider>
   );
 }
 

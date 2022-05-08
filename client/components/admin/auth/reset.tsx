@@ -49,17 +49,19 @@ const AdminResetModal = (props: IModalState) => {
                 <h1 className="sign-header">Reset Password</h1>
                 <Grid className="sign-input">
                   <Grid className="forgot-input-div">
-                    <Field
-                      as="input"
-                      type="email"
-                      name="email"
-                      placeholder="Email"
-                    />
-                    <ErrorMessage name="email" component="div">
-                      {(errorMsg) => (
-                        <Grid className="errorMsg">{errorMsg}</Grid>
-                      )}
-                    </ErrorMessage>
+                    <Grid sx={{ display: "grid" }}>
+                      <Field
+                        as="input"
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                      />
+                      <ErrorMessage name="email" component="div">
+                        {(errorMsg) => (
+                          <Grid className="errorMsg">{errorMsg}</Grid>
+                        )}
+                      </ErrorMessage>
+                    </Grid>
                   </Grid>
                 </Grid>
                 <Grid>

@@ -128,12 +128,14 @@ const AdminCreateHelpArticle = (props: any) => {
                         }}
                       >
                         <label>Title: </label>
-                        <Field as="input" type="text" name="title" />
-                        <ErrorMessage name="title" component="div">
-                          {(errorMsg) => (
-                            <Grid className="errorMsg">{errorMsg}</Grid>
-                          )}
-                        </ErrorMessage>
+                        <Grid sx={{ display: "grid" }}>
+                          <Field as="input" type="text" name="title" />
+                          <ErrorMessage name="title" component="div">
+                            {(errorMsg) => (
+                              <Grid className="errorMsg">{errorMsg}</Grid>
+                            )}
+                          </ErrorMessage>
+                        </Grid>
                       </Grid>
                       <Grid
                         sx={{
@@ -169,12 +171,14 @@ const AdminCreateHelpArticle = (props: any) => {
                       }}
                     >
                       <label>Article:</label>
-                      <Field as="textarea" name="description" rows={20} />
-                      <ErrorMessage name="description" component="div">
-                        {(errorMsg) => (
-                          <Grid className="errorMsg">{errorMsg}</Grid>
-                        )}
-                      </ErrorMessage>
+                      <Grid sx={{ display: "grid" }}>
+                        <Field as="textarea" name="description" rows={20} />
+                        <ErrorMessage name="description" component="div">
+                          {(errorMsg) => (
+                            <Grid className="errorMsg">{errorMsg}</Grid>
+                          )}
+                        </ErrorMessage>
+                      </Grid>
                     </Grid>
                     <Grid className="align-center">
                       <button type="submit">Submit</button>

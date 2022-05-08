@@ -49,38 +49,48 @@ const AdminUpdateEvent = (props: any) => {
           <h1>Edit Event</h1>
           <Grid className="admin-form-field">
             <label className="event-form-label">Title</label>
-            <Field as="input" type="text" name="title" />
-            <ErrorMessage name="title" component="div">
-              {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
-            </ErrorMessage>
+            <Grid sx={{ display: "grid" }}>
+              <Field as="input" type="text" name="title" />
+              <ErrorMessage name="title" component="div">
+                {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
+              </ErrorMessage>
+            </Grid>
           </Grid>
           <Grid className="admin-form-field">
             <label className="event-form-label">Date</label>
-            <Field as="input" type="date" name="date" />
-            <ErrorMessage name="date" component="div">
-              {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
-            </ErrorMessage>
+            <Grid sx={{ display: "grid" }}>
+              <Field as="input" type="date" name="date" />
+              <ErrorMessage name="date" component="div">
+                {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
+              </ErrorMessage>
+            </Grid>
           </Grid>
           <Grid className="admin-form-field">
             <label className="event-form-label">Price</label>
-            <Field as="input" type="number" name="price" />
-            <ErrorMessage name="price" component="div">
-              {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
-            </ErrorMessage>
+            <Grid sx={{ display: "grid" }}>
+              <Field as="input" type="number" name="price" />
+              <ErrorMessage name="price" component="div">
+                {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
+              </ErrorMessage>
+            </Grid>
           </Grid>
           <Grid className="admin-form-field">
             <label className="event-form-label">Spots</label>
-            <Field as="input" type="number" name="spots" />
-            <ErrorMessage name="spots" component="div">
-              {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
-            </ErrorMessage>
+            <Grid sx={{ display: "grid" }}>
+              <Field as="input" type="number" name="spots" />
+              <ErrorMessage name="spots" component="div">
+                {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
+              </ErrorMessage>
+            </Grid>
           </Grid>
           <Grid className="admin-form-field">
             <label className="event-form-label">Info</label>
-            <Field as="textarea" name="info" rows={7} />
-            <ErrorMessage name="info" component="div">
-              {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
-            </ErrorMessage>
+            <Grid sx={{ display: "grid" }}>
+              <Field as="textarea" name="info" rows={7} />
+              <ErrorMessage name="info" component="div">
+                {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
+              </ErrorMessage>
+            </Grid>
           </Grid>
           <Grid className="align-center">
             <button type="submit">Submit</button>

@@ -519,6 +519,10 @@ select,
   border: white solid 2px;
 }
 
+.errorMsg {
+  color: red;
+}
+
 @import "about";
 @import "cart-checkout";
 @import "contact";

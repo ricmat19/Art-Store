@@ -106,30 +106,34 @@ const AdminCreateVideoLecture = (props: any) => {
                     </Grid>
                     <Grid className="admin-form-field">
                       <label className="admin-label">Video:</label>
-                      <Field
-                        type="file"
-                        name="video"
-                        className="form-control file-input"
-                      />
-                      <ErrorMessage name="video" component="div">
-                        {(errorMsg) => (
-                          <Grid className="errorMsg">{errorMsg}</Grid>
-                        )}
-                      </ErrorMessage>
+                      <Grid sx={{ display: "grid" }}>
+                        <Field
+                          type="file"
+                          name="video"
+                          className="form-control file-input"
+                        />
+                        <ErrorMessage name="video" component="div">
+                          {(errorMsg) => (
+                            <Grid className="errorMsg">{errorMsg}</Grid>
+                          )}
+                        </ErrorMessage>
+                      </Grid>
                     </Grid>
                     <Grid className="admin-form-field">
                       <label className="admin-label">Description:</label>
-                      <Field
-                        as="textarea"
-                        name="description"
-                        rows={5}
-                        className="form-control"
-                      />
-                      <ErrorMessage name="video" component="div">
-                        {(errorMsg) => (
-                          <Grid className="errorMsg">{errorMsg}</Grid>
-                        )}
-                      </ErrorMessage>
+                      <Grid sx={{ display: "grid" }}>
+                        <Field
+                          as="textarea"
+                          name="description"
+                          rows={5}
+                          className="form-control"
+                        />
+                        <ErrorMessage name="video" component="div">
+                          {(errorMsg) => (
+                            <Grid className="errorMsg">{errorMsg}</Grid>
+                          )}
+                        </ErrorMessage>
+                      </Grid>
                     </Grid>
                     <Grid className="admin-form-button">
                       <Grid className="text-center">

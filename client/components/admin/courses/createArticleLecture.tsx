@@ -95,24 +95,28 @@ const AdminCreateArticleLecture = (props: any) => {
                       sx={{ display: "grid", padding: "15px" }}
                     >
                       <label className="admin-label">Description:</label>
-                      <Field as="textarea" name="description" rows={2} />
-                      <ErrorMessage name="description" component="div">
-                        {(errorMsg) => (
-                          <Grid className="errorMsg">{errorMsg}</Grid>
-                        )}
-                      </ErrorMessage>
+                      <Grid sx={{ display: "grid" }}>
+                        <Field as="textarea" name="description" rows={2} />
+                        <ErrorMessage name="description" component="div">
+                          {(errorMsg) => (
+                            <Grid className="errorMsg">{errorMsg}</Grid>
+                          )}
+                        </ErrorMessage>
+                      </Grid>
                     </Grid>
                     <Grid
                       className="admin-form-field"
                       sx={{ display: "grid", padding: "15px" }}
                     >
                       <label className="admin-label">Article:</label>
-                      <Field as="textarea" name="article" rows={15} />
-                      <ErrorMessage name="article" component="div">
-                        {(errorMsg) => (
-                          <Grid className="errorMsg">{errorMsg}</Grid>
-                        )}
-                      </ErrorMessage>
+                      <Grid sx={{ display: "grid" }}>
+                        <Field as="textarea" name="article" rows={15} />
+                        <ErrorMessage name="article" component="div">
+                          {(errorMsg) => (
+                            <Grid className="errorMsg">{errorMsg}</Grid>
+                          )}
+                        </ErrorMessage>
+                      </Grid>
                     </Grid>
                     <Grid className="admin-form-button">
                       <Grid className="text-center">

@@ -68,67 +68,77 @@ const AdminSignUpModal = (props: IModalState) => {
                 <h1 className="sign-header">Create Account</h1>
                 <Grid className="sign-input">
                   <Grid className="name-input-div">
-                    <Field
-                      as="input"
-                      type="text"
-                      name="firstName"
-                      placeholder="First Name"
-                    />
-                    <ErrorMessage name="firstName" component="div">
-                      {(errorMsg) => (
-                        <Grid className="errorMsg">{errorMsg}</Grid>
-                      )}
-                    </ErrorMessage>
-                    <Field
-                      as="input"
-                      type="text"
-                      name="lastname"
-                      placeholder="Last Name"
-                    />
-                    <ErrorMessage name="lastname" component="div">
-                      {(errorMsg) => (
-                        <Grid className="errorMsg">{errorMsg}</Grid>
-                      )}
-                    </ErrorMessage>
+                    <Grid sx={{ display: "grid" }}>
+                      <Field
+                        as="input"
+                        type="text"
+                        name="firstName"
+                        placeholder="First Name"
+                      />
+                      <ErrorMessage name="firstName" component="div">
+                        {(errorMsg) => (
+                          <Grid className="errorMsg">{errorMsg}</Grid>
+                        )}
+                      </ErrorMessage>
+                    </Grid>
+                    <Grid sx={{ display: "grid" }}>
+                      <Field
+                        as="input"
+                        type="text"
+                        name="lastname"
+                        placeholder="Last Name"
+                      />
+                      <ErrorMessage name="lastname" component="div">
+                        {(errorMsg) => (
+                          <Grid className="errorMsg">{errorMsg}</Grid>
+                        )}
+                      </ErrorMessage>
+                    </Grid>
                   </Grid>
                   <Grid className="modal-input-div">
-                    <Field
-                      as="input"
-                      type="email"
-                      name="email"
-                      placeholder="Email"
-                    />
-                    <ErrorMessage name="email" component="div">
-                      {(errorMsg) => (
-                        <Grid className="errorMsg">{errorMsg}</Grid>
-                      )}
-                    </ErrorMessage>
+                    <Grid sx={{ display: "grid" }}>
+                      <Field
+                        as="input"
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                      />
+                      <ErrorMessage name="email" component="div">
+                        {(errorMsg) => (
+                          <Grid className="errorMsg">{errorMsg}</Grid>
+                        )}
+                      </ErrorMessage>
+                    </Grid>
                   </Grid>
                   <Grid className="modal-input-div">
-                    <Field
-                      as="input"
-                      type="password"
-                      name="password"
-                      placeholder="Create Password"
-                    />
-                    <ErrorMessage name="password" component="div">
-                      {(errorMsg) => (
-                        <Grid className="errorMsg">{errorMsg}</Grid>
-                      )}
-                    </ErrorMessage>
+                    <Grid sx={{ display: "grid" }}>
+                      <Field
+                        as="input"
+                        type="password"
+                        name="password"
+                        placeholder="Create Password"
+                      />
+                      <ErrorMessage name="password" component="div">
+                        {(errorMsg) => (
+                          <Grid className="errorMsg">{errorMsg}</Grid>
+                        )}
+                      </ErrorMessage>
+                    </Grid>
                   </Grid>
                   <Grid className="modal-input-div">
-                    <Field
-                      as="input"
-                      type="password"
-                      name="re-password"
-                      placeholder="Re-type Password"
-                    />
-                    <ErrorMessage name="re-password" component="div">
-                      {(errorMsg) => (
-                        <Grid className="errorMsg">{errorMsg}</Grid>
-                      )}
-                    </ErrorMessage>
+                    <Grid sx={{ display: "grid" }}>
+                      <Field
+                        as="input"
+                        type="password"
+                        name="re-password"
+                        placeholder="Re-type Password"
+                      />
+                      <ErrorMessage name="re-password" component="div">
+                        {(errorMsg) => (
+                          <Grid className="errorMsg">{errorMsg}</Grid>
+                        )}
+                      </ErrorMessage>
+                    </Grid>
                   </Grid>
                 </Grid>
                 <Grid>

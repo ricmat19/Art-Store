@@ -114,17 +114,19 @@ const AdminCourse = (props: any) => {
                   <Grid>
                     <Grid className="admin-form-field">
                       <label className="admin-label">Title:</label>
-                      <Field
-                        as="input"
-                        type="text"
-                        name="title"
-                        className="form-control"
-                      />
-                      <ErrorMessage name="title" component="div">
-                        {(errorMsg) => (
-                          <Grid className="errorMsg">{errorMsg}</Grid>
-                        )}
-                      </ErrorMessage>
+                      <Grid sx={{ display: "grid" }}>
+                        <Field
+                          as="input"
+                          type="text"
+                          name="title"
+                          className="form-control"
+                        />
+                        <ErrorMessage name="title" component="div">
+                          {(errorMsg) => (
+                            <Grid className="errorMsg">{errorMsg}</Grid>
+                          )}
+                        </ErrorMessage>
+                      </Grid>
                     </Grid>
                     {/* <Grid className="admin-form-field">
                     <label className="admin-label">Image:</label>
@@ -140,14 +142,14 @@ const AdminCourse = (props: any) => {
                       <Grid>
                         <label className="admin-label">Subject:</label>
                       </Grid>
-                      <Grid>
+                      <Grid sx={{ display: "grid" }}>
                         <Field
                           as="select"
                           className="type-selector"
                           name="subject"
                         >
-                          <MenuItem value="">
-                            <em>None</em>
+                          <MenuItem value={"select subject..."}>
+                            select subject...
                           </MenuItem>
                           <MenuItem value={"drawing"}>drawing</MenuItem>
                           <MenuItem value={"painting"}>painting</MenuItem>
@@ -164,27 +166,31 @@ const AdminCourse = (props: any) => {
                     </Grid>
                     <Grid className="admin-form-field">
                       <label className="admin-label">Price:</label>
-                      <Field
-                        as="input"
-                        type="number"
-                        name="price"
-                        className="form-control"
-                        required
-                      />
-                      <ErrorMessage name="price" component="div">
-                        {(errorMsg) => (
-                          <Grid className="errorMsg">{errorMsg}</Grid>
-                        )}
-                      </ErrorMessage>
+                      <Grid sx={{ display: "grid" }}>
+                        <Field
+                          as="input"
+                          type="number"
+                          name="price"
+                          className="form-control"
+                          required
+                        />
+                        <ErrorMessage name="price" component="div">
+                          {(errorMsg) => (
+                            <Grid className="errorMsg">{errorMsg}</Grid>
+                          )}
+                        </ErrorMessage>
+                      </Grid>
                     </Grid>
                     <Grid className="admin-form-field">
                       <label className="admin-label">Description:</label>
+                      <Grid sx={{ display: "grid" }}>
                       <Field as="textarea" rows={12} name="description" />
                       <ErrorMessage name="description" component="div">
                         {(errorMsg) => (
                           <Grid className="errorMsg">{errorMsg}</Grid>
                         )}
                       </ErrorMessage>
+                      </Grid>
                     </Grid>
                     <Grid className="admin-form-button">
                       <Grid className="text-center">

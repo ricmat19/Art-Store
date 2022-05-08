@@ -1,14 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useState } from "react";
 import IndexAPI from "../../../apis/indexAPI";
-import {
-  Backdrop,
-  Box,
-  Fade,
-  Grid,
-  Modal,
-  MenuItem,
-} from "@mui/material";
+import { Backdrop, Box, Fade, Grid, Modal } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
@@ -155,12 +148,14 @@ const AdminUpdateProduct = (props: any) => {
                     <Form className="admin-form">
                       <Grid className="admin-form-field">
                         <label className="admin-label">Title:</label>
-                        <Field as="input" type="text" name="name" />
-                        <ErrorMessage name="name" component="div">
-                          {(errorMsg) => (
-                            <Grid className="errorMsg">{errorMsg}</Grid>
-                          )}
-                        </ErrorMessage>
+                        <Grid sx={{ display: "grid" }}>
+                          <Field as="input" type="text" name="name" />
+                          <ErrorMessage name="name" component="div">
+                            {(errorMsg) => (
+                              <Grid className="errorMsg">{errorMsg}</Grid>
+                            )}
+                          </ErrorMessage>
+                        </Grid>
                       </Grid>
                       <Grid className="admin-form-field">
                         <Grid>
@@ -168,15 +163,15 @@ const AdminUpdateProduct = (props: any) => {
                         </Grid>
                         <Grid>
                           <Field as="select" className="type-selector">
-                            <MenuItem value="">
-                              <em>None</em>
-                            </MenuItem>
-                            <MenuItem value={"print"}>print</MenuItem>
-                            <MenuItem value={"painting"}>painting</MenuItem>
-                            <MenuItem value={"sculpture"}>sculpture</MenuItem>
-                            <MenuItem value={"model"}>model</MenuItem>
-                            <MenuItem value={"book"}>book</MenuItem>
-                            <MenuItem value={"comic"}>comic</MenuItem>
+                            <option value={"select product..."}>
+                              select product...
+                            </option>
+                            <option value={"print"}>print</option>
+                            <option value={"painting"}>painting</option>
+                            <option value={"sculpture"}>sculpture</option>
+                            <option value={"model"}>model</option>
+                            <option value={"book"}>book</option>
+                            <option value={"comic"}>comic</option>
                           </Field>
                         </Grid>
                       </Grid>
@@ -192,30 +187,36 @@ const AdminUpdateProduct = (props: any) => {
                     </Grid> */}
                       <Grid className="admin-form-field">
                         <label className="admin-label">Quantity:</label>
-                        <Field as="input" type="number" name="quantity" />
-                        <ErrorMessage name="quantity" component="div">
-                          {(errorMsg) => (
-                            <Grid className="errorMsg">{errorMsg}</Grid>
-                          )}
-                        </ErrorMessage>
+                        <Grid sx={{ display: "grid" }}>
+                          <Field as="input" type="number" name="quantity" />
+                          <ErrorMessage name="quantity" component="div">
+                            {(errorMsg) => (
+                              <Grid className="errorMsg">{errorMsg}</Grid>
+                            )}
+                          </ErrorMessage>
+                        </Grid>
                       </Grid>
                       <Grid className="admin-form-field">
                         <label className="admin-label">Price:</label>
-                        <Field as="input" type="number" name="price" />
-                        <ErrorMessage name="price" component="div">
-                          {(errorMsg) => (
-                            <Grid className="errorMsg">{errorMsg}</Grid>
-                          )}
-                        </ErrorMessage>
+                        <Grid sx={{ display: "grid" }}>
+                          <Field as="input" type="number" name="price" />
+                          <ErrorMessage name="price" component="div">
+                            {(errorMsg) => (
+                              <Grid className="errorMsg">{errorMsg}</Grid>
+                            )}
+                          </ErrorMessage>
+                        </Grid>
                       </Grid>
                       <Grid className="admin-form-field">
                         <label className="admin-label">Info:</label>
-                        <Field as="textarea" name="message" rows={5} />
-                        <ErrorMessage name="message" component="div">
-                          {(errorMsg) => (
-                            <Grid className="errorMsg">{errorMsg}</Grid>
-                          )}
-                        </ErrorMessage>
+                        <Grid sx={{ display: "grid" }}>
+                          <Field as="textarea" name="message" rows={5} />
+                          <ErrorMessage name="message" component="div">
+                            {(errorMsg) => (
+                              <Grid className="errorMsg">{errorMsg}</Grid>
+                            )}
+                          </ErrorMessage>
+                        </Grid>
                       </Grid>
                       <Grid className="admin-form-button">
                         <Grid className="text-center">

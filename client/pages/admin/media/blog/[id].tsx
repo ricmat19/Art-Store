@@ -86,26 +86,30 @@ const AdminBlogPost = (props: any) => {
                   </Grid>
                   <Grid>
                     <label>Title:</label>
-                    <Field as="input" className="full-width" name="title" />
-                    <ErrorMessage name="title" component="div">
-                      {(errorMsg) => (
-                        <Grid className="errorMsg">{errorMsg}</Grid>
-                      )}
-                    </ErrorMessage>
+                    <Grid sx={{ display: "grid" }}>
+                      <Field as="input" className="full-width" name="title" />
+                      <ErrorMessage name="title" component="div">
+                        {(errorMsg) => (
+                          <Grid className="errorMsg">{errorMsg}</Grid>
+                        )}
+                      </ErrorMessage>
+                    </Grid>
                   </Grid>
                   <Grid>
                     <label>Content:</label>
-                    <Field
-                      as="textarea"
-                      className="full-width"
-                      rows={50}
-                      name="content"
-                    />
-                    <ErrorMessage name="content" component="div">
-                      {(errorMsg) => (
-                        <Grid className="errorMsg">{errorMsg}</Grid>
-                      )}
-                    </ErrorMessage>
+                    <Grid sx={{ display: "grid" }}>
+                      <Field
+                        as="textarea"
+                        className="full-width"
+                        rows={50}
+                        name="content"
+                      />
+                      <ErrorMessage name="content" component="div">
+                        {(errorMsg) => (
+                          <Grid className="errorMsg">{errorMsg}</Grid>
+                        )}
+                      </ErrorMessage>
+                    </Grid>
                   </Grid>
                   <Grid sx={{ textAlign: "center" }}>
                     <button type="submit">Submit</button>

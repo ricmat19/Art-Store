@@ -32,7 +32,6 @@ const validationSchema = Yup.object({
 });
 
 const SignUp = (props: any) => {
-
   const displaySignIn = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
@@ -110,28 +109,32 @@ const SignUp = (props: any) => {
                       <h1 className="sign-header">Create Account</h1>
                       <Grid className="grid">
                         <Grid className="two-column-div">
-                          <Field
-                            as="input"
-                            type="text"
-                            name="firstName"
-                            placeholder="First Name"
-                          />
-                          <ErrorMessage name="firstName" component="div">
-                            {(errorMsg) => (
-                              <Grid className="errorMsg">{errorMsg}</Grid>
-                            )}
-                          </ErrorMessage>
-                          <Field
-                            as="input"
-                            type="text"
-                            name="lastname"
-                            placeholder="Last Name"
-                          />
-                          <ErrorMessage name="lastname" component="div">
-                            {(errorMsg) => (
-                              <Grid className="errorMsg">{errorMsg}</Grid>
-                            )}
-                          </ErrorMessage>
+                          <Grid sx={{ display: "grid" }}>
+                            <Field
+                              as="input"
+                              type="text"
+                              name="firstName"
+                              placeholder="First Name"
+                            />
+                            <ErrorMessage name="firstName" component="div">
+                              {(errorMsg) => (
+                                <Grid className="errorMsg">{errorMsg}</Grid>
+                              )}
+                            </ErrorMessage>
+                          </Grid>
+                          <Grid sx={{ display: "grid" }}>
+                            <Field
+                              as="input"
+                              type="text"
+                              name="lastname"
+                              placeholder="Last Name"
+                            />
+                            <ErrorMessage name="lastname" component="div">
+                              {(errorMsg) => (
+                                <Grid className="errorMsg">{errorMsg}</Grid>
+                              )}
+                            </ErrorMessage>
+                          </Grid>
                         </Grid>
                         <Grid className="modal-input-div">
                           <Field

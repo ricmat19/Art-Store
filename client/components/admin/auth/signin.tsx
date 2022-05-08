@@ -73,30 +73,34 @@ const AdminSignInModal = (props: IModalState) => {
                   <h1 className="sign-header">welcome</h1>
                   <Grid>
                     <Grid className="modal-input-div">
-                      <Field
-                        as="input"
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                      />
-                      <ErrorMessage name="email" component="div">
-                        {(errorMsg) => (
-                          <Grid className="errorMsg">{errorMsg}</Grid>
-                        )}
-                      </ErrorMessage>
+                      <Grid sx={{ display: "grid" }}>
+                        <Field
+                          as="input"
+                          type="email"
+                          name="email"
+                          placeholder="Email"
+                        />
+                        <ErrorMessage name="email" component="div">
+                          {(errorMsg) => (
+                            <Grid className="errorMsg">{errorMsg}</Grid>
+                          )}
+                        </ErrorMessage>
+                      </Grid>
                     </Grid>
                     <Grid className="modal-input-div">
-                      <Field
-                        as="input"
-                        type="password"
-                        name="password"
-                        placeholder="Create Password"
-                      />
-                      <ErrorMessage name="password" component="div">
-                        {(errorMsg) => (
-                          <Grid className="errorMsg">{errorMsg}</Grid>
-                        )}
-                      </ErrorMessage>
+                      <Grid sx={{ display: "grid" }}>
+                        <Field
+                          as="input"
+                          type="password"
+                          name="password"
+                          placeholder="Create Password"
+                        />
+                        <ErrorMessage name="password" component="div">
+                          {(errorMsg) => (
+                            <Grid className="errorMsg">{errorMsg}</Grid>
+                          )}
+                        </ErrorMessage>
+                      </Grid>
                     </Grid>
                   </Grid>
                   <Grid>

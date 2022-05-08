@@ -4,15 +4,7 @@
 import IndexAPI from "../../../apis/indexAPI";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import {
-  Backdrop,
-  Box,
-  Fade,
-  Modal,
-  Grid,
-  MenuItem,
-  Button,
-} from "@mui/material";
+import { Backdrop, Box, Fade, Modal, Grid, Button } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
@@ -101,16 +93,18 @@ const AddToCollection = (props: any) => {
                           gridTemplateColumns: "min-content 1fr",
                         }}
                       >
-                        <Field
-                          as="input"
-                          placeholder="Create new collection..."
-                          name="collection"
-                        />
-                        <ErrorMessage name="collection" component="div">
-                          {(errorMsg) => (
-                            <Grid className="errorMsg">{errorMsg}</Grid>
-                          )}
-                        </ErrorMessage>
+                        <Grid sx={{ display: "grid" }}>
+                          <Field
+                            as="input"
+                            placeholder="Create new collection..."
+                            name="collection"
+                          />
+                          <ErrorMessage name="collection" component="div">
+                            {(errorMsg) => (
+                              <Grid className="errorMsg">{errorMsg}</Grid>
+                            )}
+                          </ErrorMessage>
+                        </Grid>
                         <Button
                           // onClick={createCollection}
                           sx={{
@@ -136,17 +130,17 @@ const AddToCollection = (props: any) => {
                           displayEmpty
                           className="type-selector"
                         >
-                          <MenuItem value="">
-                            <em>Select Collection...</em>
-                          </MenuItem>
+                          <option value={"select collection..."}>
+                            select collection...
+                          </option>
                           {props.collections.map((collection: any) => {
                             return (
-                              <MenuItem
+                              <option
                                 key={collection.collection_group}
                                 value={collection.collection_group}
                               >
                                 {collection.collection_group}
-                              </MenuItem>
+                              </option>
                             );
                           })}
                         </Field>

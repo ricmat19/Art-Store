@@ -173,12 +173,14 @@ const AdminCourseCurriculum = (props: any) => {
                         }}
                       >
                         <h2 className="align-left">Section:</h2>
-                        <Field as="input" type="text" name="section" />
-                        <ErrorMessage name="section" component="div">
-                          {(errorMsg) => (
-                            <Grid className="errorMsg">{errorMsg}</Grid>
-                          )}
-                        </ErrorMessage>
+                        <Grid sx={{ display: "grid" }}>
+                          <Field as="input" type="text" name="section" />
+                          <ErrorMessage name="section" component="div">
+                            {(errorMsg) => (
+                              <Grid className="errorMsg">{errorMsg}</Grid>
+                            )}
+                          </ErrorMessage>
+                        </Grid>
                       </Grid>
                       <Grid className="plus-icon align-center">
                         <Grid
@@ -227,12 +229,20 @@ const AdminCourseCurriculum = (props: any) => {
                                 }}
                               >
                                 <h2 className="align-left">Lecture:</h2>
-                                <Field as="input" type="text" name="lecture" />
-                                <ErrorMessage name="lecture" component="div">
-                                  {(errorMsg) => (
-                                    <Grid className="errorMsg">{errorMsg}</Grid>
-                                  )}
-                                </ErrorMessage>
+                                <Grid sx={{ display: "grid" }}>
+                                  <Field
+                                    as="input"
+                                    type="text"
+                                    name="lecture"
+                                  />
+                                  <ErrorMessage name="lecture" component="div">
+                                    {(errorMsg) => (
+                                      <Grid className="errorMsg">
+                                        {errorMsg}
+                                      </Grid>
+                                    )}
+                                  </ErrorMessage>
+                                </Grid>
                               </Grid>
                               <Grid
                                 className="plus-icon align-center"
