@@ -17,11 +17,14 @@ import Reset from "./auth/reset";
 import Notifications from "./menuModals/notification";
 import User from "./menuModals/user";
 import Ellipse from "./menuModals/ellipse";
+import { useSelector } from "react-redux";
 
 const MainNav = () => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
 
   const router = useRouter();
+
+  const cartAmt = useSelector((store: any) => store.cart.amount);
 
   const [signUpOpen, setSignUpOpen] = useState(false);
   const handleSignUpOpen = () => setSignUpOpen(true);
@@ -107,7 +110,11 @@ const MainNav = () => {
           <Grid
             xs={12}
             container
-            sx={{ display: "grid", margin: "5px 0", gridTemplateColumns: "auto 1fr auto" }}
+            sx={{
+              display: "grid",
+              margin: "5px 0",
+              gridTemplateColumns: "auto 1fr auto",
+            }}
           >
             <Grid
               xs={12}
@@ -178,11 +185,7 @@ const MainNav = () => {
                     />
                   </h1>
                 </Grid>
-                <Grid
-                  xs={12}
-                  container
-                  sx={{ justifyContent: "center" }}
-                >
+                <Grid xs={12} container sx={{ justifyContent: "center" }}>
                   <a href="/collection">
                     <h1>
                       <FontAwesomeIcon className="pointer" icon={faHeart} />
@@ -192,6 +195,7 @@ const MainNav = () => {
                 <Grid xs={12} container sx={{ justifyContent: "center" }}>
                   <a href="/cart">
                     <h1>
+                      {cartAmt}
                       <FontAwesomeIcon
                         className="pointer"
                         icon={faShoppingCart}

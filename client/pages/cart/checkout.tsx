@@ -11,6 +11,8 @@ import { loadStripe } from "@stripe/stripe-js";
 import Head from "next/head";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useDispatch } from "react-redux";
+import { clearCart } from "../../features/cart/cartSlice";
 
 const initialValues = {
   email: "",
@@ -56,6 +58,8 @@ const CheckoutC = (props: any) => {
   const [subtotal] = useState<number>(props.sub);
 
   const router = useRouter();
+
+  const dispatch = useDispatch();
 
   // const {cart, setCart, qty} = useContext(CartContext);
 
@@ -288,7 +292,12 @@ const CheckoutC = (props: any) => {
                       </Grid>
                     </Grid>
                     <Grid className="credit-card-MenuItem">
-                      <button className="justify-right">pay</button>
+                      <button
+                        className="justify-right"
+                        onClick={() => dispatch(clearCart())}
+                      >
+                        pay
+                      </button>
                     </Grid>
                   </Grid>
                 </Grid>
