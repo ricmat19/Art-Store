@@ -5,6 +5,8 @@ import IndexAPI from "../../../apis/indexAPI";
 import PropTypes from "prop-types";
 import { ICart } from "../../../interfaces";
 import { Grid } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { removeFromCartState } from "../../../features/cart/cartSlice";
 
 const CartProducts: FC = (props: any) => {
   const [cart, setCart] = useState<ICart[]>([]);
@@ -14,6 +16,8 @@ const CartProducts: FC = (props: any) => {
   const [hasQty, setHasQty] = useState(false);
 
   const router = useRouter();
+
+  const dispatch = useDispatch();
 
   let sub: number = 0;
   let priceArray: number[] = [];
@@ -80,6 +84,8 @@ const CartProducts: FC = (props: any) => {
         resetPricesArray.push(parseInt(cart[i].price));
       }
       setPrices(resetPricesArray);
+
+      dispatch(removeFromCartState(props.product.id));
     } catch (err) {
       console.log(err);
     }

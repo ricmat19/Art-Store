@@ -9,6 +9,8 @@ import Head from "next/head";
 import AddToCart from "../../../components/users/products/addToCart";
 import AddToCollection from "../../../components/users/products/addToCollection";
 import { Grid } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { addToCartState } from "../../../features/cart/cartSlice";
 
 const ProductDetails = (props: any) => {
   const [addToCartOpen, setAddToCartOpen] = useState(false);
@@ -23,6 +25,8 @@ const ProductDetails = (props: any) => {
   const [product] = useState(props.product);
   const [cartQty, setCartQty] = useState(props.cart.length);
   const [uniqueItem, setUniqueItem] = useState();
+
+  const dispatch = useDispatch();
 
   // const router = useRouter();
   // const id = router.query.id;
@@ -49,10 +53,19 @@ const ProductDetails = (props: any) => {
   //   fetchData();
   // }, []);
 
-  const displayCartModal = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
+  const addToCart = async (e: { preventDefault: () => void }) => {
     try {
+      e.preventDefault();
+      const cartPostResponse = await IndexAPI.post("/cart", {
+        id: props.product.id,
+      });
+      setUniqueItem(cartPostResponse.data.data.uniqueItem);
+
+      const cartResponse = await IndexAPI.get(`/cart`);
+      setCartQty(cartResponse.data.data.cart.length);
+
       handleAddToCartOpen();
+      dispatch(addToCartState(props.product.id));
     } catch (err) {
       console.log(err);
     }
@@ -146,9 +159,7 @@ const ProductDetails = (props: any) => {
                 <button onClick={(e) => displayCollectionModal(e)}>
                   Add To Collection
                 </button>
-                <button onClick={(e) => displayCartModal(e)}>
-                  Add To Cart
-                </button>
+                <button onClick={(e) => addToCart(e)}>Add To Cart</button>
               </Grid>
             </Grid>
           </form>

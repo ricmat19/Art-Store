@@ -21,23 +21,6 @@ const AddToCart = (props: any) => {
 
   const router = useRouter();
 
-  // const addToCart = async (e: { preventDefault: () => void }) => {
-  //   try {
-  //     e.preventDefault();
-  //     const cartPostResponse = await IndexAPI.post("/cart", {
-  //       id: id,
-  //     });
-  //     setUniqueItem(cartPostResponse.data.data.uniqueItem);
-
-  //     const cartResponse = await IndexAPI.get(`/cart`);
-  //     setCartQty(cartResponse.data.data.cart.length);
-
-  //     setAddedModal("modal-bg active");
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
   return (
     <Grid>
       <Modal

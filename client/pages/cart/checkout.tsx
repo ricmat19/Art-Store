@@ -12,7 +12,7 @@ import Head from "next/head";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
-import { clearCart } from "../../features/cart/cartSlice";
+import { clearCartState } from "../../features/cart/cartSlice";
 
 const initialValues = {
   email: "",
@@ -294,7 +294,7 @@ const CheckoutC = (props: any) => {
                     <Grid className="credit-card-MenuItem">
                       <button
                         className="justify-right"
-                        onClick={() => dispatch(clearCart())}
+                        onClick={() => dispatch(clearCartState())}
                       >
                         pay
                       </button>
