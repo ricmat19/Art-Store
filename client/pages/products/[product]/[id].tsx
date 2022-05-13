@@ -10,7 +10,7 @@ import AddToCart from "../../../components/users/products/addToCart";
 import AddToCollection from "../../../components/users/products/addToCollection";
 import { Grid } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { addToCartState } from "../../../features/cart/cartSlice";
+import { addToCartState } from "../../../reducers/cartReducers";
 
 const ProductDetails = (props: any) => {
   const [addToCartOpen, setAddToCartOpen] = useState(false);

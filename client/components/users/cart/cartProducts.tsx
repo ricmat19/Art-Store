@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import { ICart } from "../../../interfaces";
 import { Grid } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { removeFromCartState } from "../../../features/cart/cartSlice";
+import { removeFromCartState } from "../../../reducers/cartReducers";
 
 const CartProducts: FC = (props: any) => {
   const [cart, setCart] = useState<ICart[]>([]);

@@ -108,6 +108,29 @@ router.post(
   }
 );
 
+//Check if user is signed in
+router.get("/signedIn", async (req, res) => {
+  try {
+    if (req.session !== null) {
+      res.status(200).json({
+        status: "success",
+        data: {
+          loginStatus: true,
+        },
+      });
+    } else {
+      res.status(200).json({
+        status: "success",
+        data: {
+          loginStatus: false,
+        },
+      });
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 //User Sign Out
 router.get("/signout", async (req, res) => {
   try {

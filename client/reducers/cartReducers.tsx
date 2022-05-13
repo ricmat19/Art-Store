@@ -1,4 +1,4 @@
-import IndexAPI from "../../apis/indexAPI";
+import IndexAPI from "../apis/indexAPI";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -18,7 +18,7 @@ export const getCart = createAsyncThunk("/cart", async (name, thunkAPI) => {
   }
 });
 
-const cartSlice = createSlice({
+const cartReducers = createSlice({
   name: "cart",
   initialState: initialState,
   reducers: {
@@ -51,15 +51,26 @@ const cartSlice = createSlice({
         total: 0,
       };
     },
-    // extraReducers: {
-    //   [getCart.fulfilled]: (state: any, action: any) => {
-    //     state.cartItems = action.payload;
-    //   },
-    // },
+    extraReducers(builder: any) {
+      builder
+        .addCase(getCart.pending, (state: any) => {
+          state.status = "loading";
+        })
+        .addCase(getCart.fulfilled, (state: any, action: any) => {
+          state.status = "succeeded";
+          const signedInStatus = action.payload;
+          console.log(signedInStatus);
+          state.signedIn = signedInStatus;
+        })
+        .addCase(getCart.rejected, (state: any, action: any) => {
+          state.status = "failed";
+          state.error = action.error.message;
+        });
+    },
   },
 });
 
 export const { clearCartState, addToCartState, removeFromCartState } =
-  cartSlice.actions;
+  cartReducers.actions;
 
-export default cartSlice.reducer;
+export default cartReducers.reducer;

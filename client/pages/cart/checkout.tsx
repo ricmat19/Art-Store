@@ -12,7 +12,7 @@ import Head from "next/head";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
-import { clearCartState } from "../../features/cart/cartSlice";
+import { clearCartState } from "../../reducers/cartReducers";
 
 const initialValues = {
   email: "",
