@@ -1,5 +1,6 @@
+import IndexAPI from "../../apis/indexAPI";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Grid } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,44 +19,39 @@ import Notifications from "./menuModals/notification";
 import User from "./menuModals/user";
 import Ellipse from "./menuModals/ellipse";
 import {
-  getSignedInState,
-  getSignedInUser,
-  getSignedInStatus,
-  getSignedInError,
-  getSignedIn,
-} from "../../reducers/signedInReducers";
-import {
-  getCartContent,
-  getCartStatus,
-  getCartError,
+  selectCart,
+  clearCart,
+  addToCart,
   getCart,
 } from "../../reducers/cartReducers";
-import { useSelector } from "react-redux";
+import { useAppSelector, useAppDispatch } from "../../hooks";
 
 const MainNav = () => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
 
   const router = useRouter();
 
-  const signedInState = useSelector(getSignedInState);
-  console.log(signedInState);
-  const signedInUser = useSelector(getSignedInUser);
-  console.log(signedInUser);
-  const signedInStatus = useSelector(getSignedInStatus);
-  console.log(signedInStatus);
-  const signedInError = useSelector(getSignedInError);
-  console.log(signedInError);
-  // const signedIn = useSelector(getSignedIn);
+  const cart = useAppSelector(selectCart);
+  console.log(cart);
 
-  const cartContent = useSelector(getCartContent);
-  console.log(cartContent);
-  const cartStatus = useSelector(getCartStatus);
-  console.log(cartStatus);
-  const cartError = useSelector(getCartError);
-  console.log(cartError);
-  // const cart = useSelector(getCart);
+  const dispatch = useAppDispatch();
 
-  const cartAmt = useSelector((store: any) => store.cart.amount);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const clearCartResponse = dispatch(clearCart());
+        console.log(clearCartResponse);
+        const addToResponse = dispatch(addToCart([]));
+        console.log(addToResponse);
+        const cartResponse = await dispatch(getCart());
+        console.log(cartResponse);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const [signUpOpen, setSignUpOpen] = useState(false);
   const handleSignUpOpen = () => setSignUpOpen(true);
@@ -226,7 +222,7 @@ const MainNav = () => {
                 <Grid xs={12} container sx={{ justifyContent: "center" }}>
                   <a href="/cart">
                     <h1>
-                      {cartAmt}
+                      {/* {cartAmt} */}
                       <FontAwesomeIcon
                         className="pointer"
                         icon={faShoppingCart}

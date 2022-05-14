@@ -1,65 +1,56 @@
 import IndexAPI from "../apis/indexAPI";
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+import type { RootState } from "../store";
 
-export const getSignedIn = createAsyncThunk(
-  "/signedIn",
-  async (name, thunkAPI) => {
-    try {
-      console.log(name);
-      console.log(thunkAPI);
-      const signedInResponse = await IndexAPI.get(`/signedIn`);
-      return signedInResponse.data;
-    } catch (err) {
-      console.log(err);
-    }
-  }
-);
+const getSignedIn = createAsyncThunk("/signedIn", async () => {
+  const signedInResponse = await IndexAPI.get(`/signedIn`);
+  return signedInResponse.data;
+});
 
-const initialState = {
-  signedIn: true,
-  user: "ric19mat@gmail.com",
+interface signedInState {
+  signedInValues: {};
+}
+
+const initialState: signedInState = {
+  signedInValues: {},
 };
 
 const signedInReducers = createSlice({
   name: "signedIn",
   initialState: initialState,
   reducers: {
-    login: () => {
-      return {
+    setSignedIn: (state, action: PayloadAction<Object>) => {
+      state.signedInValues = action.payload;
+    },
+    login: (state) => {
+      state.signedInValues = {
         signedIn: true,
         user: "ric19mat@gmail.com",
       };
     },
-    logout: () => {
-      return {
+    logout: (state) => {
+      state.signedInValues = {
         signedIn: false,
         user: "ric19mat@gmail.com",
       };
     },
     extraReducers(builder: any) {
-      builder
-        .addCase(getSignedIn.pending, (state: any) => {
-          state.status = "loading";
-        })
-        .addCase(getSignedIn.fulfilled, (state: any, action: any) => {
-          state.status = "succeeded";
-          const signedInStatus = action.payload;
-          console.log(signedInStatus);
-          state.signedIn = signedInStatus;
-        })
-        .addCase(getSignedIn.rejected, (state: any, action: any) => {
-          state.status = "failed";
-          state.error = action.error.message;
-        });
+      builder.addCase(getSignedIn.fulfilled, (state: any, action: any) => {
+        state.status = "succeeded";
+        const signedInStatus = action.payload;
+        return signedInStatus;
+      });
     },
   },
 });
 
-export const getSignedInState = (state: any) => state.signedIn.signedIn;
-export const getSignedInUser = (state: any) => state.signedIn.user;
-export const getSignedInStatus = (state: any) => state.signedIn.status;
-export const getSignedInError = (state: any) => state.signedIn.error;
+export const getSignedInState = (state: any) =>
+  state.signedIn.signedInValues.state;
+export const getSignedInUser = (state: any) =>
+  state.signedIn.signedInValues.user;
+export const selectSignedIn = (state: RootState) =>
+  state.signedIn.signedInValues;
 
-export const { login, logout } = signedInReducers.actions;
+export const { setSignedIn, login, logout } = signedInReducers.actions;
 
 export default signedInReducers.reducer;
