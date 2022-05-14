@@ -5,6 +5,6 @@ import loginReducer from "./reducers/signedInReducers";
 export const store = configureStore({
   reducer: {
     cart: cartReducers,
-    login: loginReducer,
+    signedIn: loginReducer,
   },
 });

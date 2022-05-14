@@ -70,6 +70,10 @@ const cartReducers = createSlice({
   },
 });
 
+export const getCartContent = (state: any) => state.cart;
+export const getCartStatus = (state: any) => state.cart.cart;
+export const getCartError = (state: any) => state.cart.cart;
+
 export const { clearCartState, addToCartState, removeFromCartState } =
   cartReducers.actions;
 

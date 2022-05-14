@@ -16,7 +16,8 @@ export const getSignedIn = createAsyncThunk(
 );
 
 const initialState = {
-  loggedIn: true,
+  signedIn: true,
+  user: "ric19mat@gmail.com",
 };
 
 const signedInReducers = createSlice({
@@ -25,12 +26,14 @@ const signedInReducers = createSlice({
   reducers: {
     login: () => {
       return {
-        loggedIn: true,
+        signedIn: true,
+        user: "ric19mat@gmail.com",
       };
     },
     logout: () => {
       return {
-        loggedIn: false,
+        signedIn: false,
+        user: "ric19mat@gmail.com",
       };
     },
     extraReducers(builder: any) {
@@ -52,6 +55,8 @@ const signedInReducers = createSlice({
   },
 });
 
+export const getSignedInState = (state: any) => state.signedIn.signedIn;
+export const getSignedInUser = (state: any) => state.signedIn.user;
 export const getSignedInStatus = (state: any) => state.signedIn.status;
 export const getSignedInError = (state: any) => state.signedIn.error;
 

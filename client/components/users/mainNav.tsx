@@ -17,12 +17,43 @@ import Reset from "./auth/reset";
 import Notifications from "./menuModals/notification";
 import User from "./menuModals/user";
 import Ellipse from "./menuModals/ellipse";
+import {
+  getSignedInState,
+  getSignedInUser,
+  getSignedInStatus,
+  getSignedInError,
+  getSignedIn,
+} from "../../reducers/signedInReducers";
+import {
+  getCartContent,
+  getCartStatus,
+  getCartError,
+  getCart,
+} from "../../reducers/cartReducers";
 import { useSelector } from "react-redux";
 
 const MainNav = () => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
 
   const router = useRouter();
+
+  const signedInState = useSelector(getSignedInState);
+  console.log(signedInState);
+  const signedInUser = useSelector(getSignedInUser);
+  console.log(signedInUser);
+  const signedInStatus = useSelector(getSignedInStatus);
+  console.log(signedInStatus);
+  const signedInError = useSelector(getSignedInError);
+  console.log(signedInError);
+  // const signedIn = useSelector(getSignedIn);
+
+  const cartContent = useSelector(getCartContent);
+  console.log(cartContent);
+  const cartStatus = useSelector(getCartStatus);
+  console.log(cartStatus);
+  const cartError = useSelector(getCartError);
+  console.log(cartError);
+  // const cart = useSelector(getCart);
 
   const cartAmt = useSelector((store: any) => store.cart.amount);
 
