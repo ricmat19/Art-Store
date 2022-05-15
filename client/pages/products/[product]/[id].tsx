@@ -9,8 +9,11 @@ import Head from "next/head";
 import AddToCart from "../../../components/users/products/addToCart";
 import AddToCollection from "../../../components/users/products/addToCollection";
 import { Grid } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { addToCartState } from "../../../reducers/cartReducers";
+import {
+  getCartReducer,
+  addToCartReducer,
+} from "../../../reducers/cartReducers";
+import { useAppDispatch } from "../../../hooks";
 
 const ProductDetails = (props: any) => {
   const [addToCartOpen, setAddToCartOpen] = useState(false);
@@ -26,7 +29,7 @@ const ProductDetails = (props: any) => {
   const [cartQty, setCartQty] = useState(props.cart.length);
   const [uniqueItem, setUniqueItem] = useState();
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   // const router = useRouter();
   // const id = router.query.id;
@@ -56,16 +59,15 @@ const ProductDetails = (props: any) => {
   const addToCart = async (e: { preventDefault: () => void }) => {
     try {
       e.preventDefault();
-      const cartPostResponse = await IndexAPI.post("/cart", {
-        id: props.product.id,
-      });
-      setUniqueItem(cartPostResponse.data.data.uniqueItem);
+      const cartPostResponse = await dispatch(
+        addToCartReducer(props.product.id)
+      );
+      setUniqueItem(cartPostResponse.payload.cart.uniqueItem);
 
-      const cartResponse = await IndexAPI.get(`/cart`);
-      setCartQty(cartResponse.data.data.cart.length);
+      const cartResponse = await dispatch(getCartReducer());
+      setCartQty(cartResponse.payload.cart.length);
 
       handleAddToCartOpen();
-      dispatch(addToCartState(props.product.id));
     } catch (err) {
       console.log(err);
     }

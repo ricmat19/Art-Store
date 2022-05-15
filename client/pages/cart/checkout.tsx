@@ -11,8 +11,8 @@ import { loadStripe } from "@stripe/stripe-js";
 import Head from "next/head";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { useDispatch } from "react-redux";
-import { clearCartState } from "../../reducers/cartReducers";
+import { clearCartReducer } from "../../reducers/cartReducers";
+import { useAppDispatch } from "../../hooks";
 
 const initialValues = {
   email: "",
@@ -59,9 +59,7 @@ const CheckoutC = (props: any) => {
 
   const router = useRouter();
 
-  const dispatch = useDispatch();
-
-  // const {cart, setCart, qty} = useContext(CartContext);
+  const dispatch = useAppDispatch();
 
   let stripePromise = loadStripe("");
   if (process.env.NEXT_PUBLIC_STRIPEPUBLIC !== undefined) {
@@ -75,6 +73,15 @@ const CheckoutC = (props: any) => {
       },
     },
     hidePostalCode: true,
+  };
+
+  const clearCart = async () => {
+    try {
+      await dispatch(clearCartReducer());
+      router.push("/cart");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -172,7 +179,7 @@ const CheckoutC = (props: any) => {
                     </ErrorMessage>
                   </Grid>
                   <Grid sx={{ display: "grid" }}>
-                    <Field as="input" name="state" placeholder="state">
+                    <Field as="select" name="state" placeholder="state">
                       <MenuItem value={"Alabama"}>Alabama</MenuItem>
                       <MenuItem value={"Alaska"}>Alaska</MenuItem>
                       <MenuItem value={"Arizona"}>Arizona</MenuItem>
@@ -294,7 +301,7 @@ const CheckoutC = (props: any) => {
                     <Grid className="credit-card-MenuItem">
                       <button
                         className="justify-right"
-                        onClick={() => dispatch(clearCartState())}
+                        onClick={() => clearCart()}
                       >
                         pay
                       </button>

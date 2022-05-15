@@ -1,17 +1,14 @@
-// import { useState } from "react";
-// import { useContext } from "react";
-// import CartProducts from "../../components/users/cart/cartProducts";
+import { useState } from "react";
+import CartProducts from "../../components/users/cart/cartProducts";
 import MainNav from "../../components/users/mainNav";
 import PagesNav from "../../components/users/pagesNav";
 import FooterC from "../../components/footer";
 import IndexAPI from "../../apis/indexAPI";
 import Head from "next/head";
 import { Grid } from "@mui/material";
-// import { CartContext } from "../../context/CartContext";
 
-const CartC = () => {
-  // const [cart, setCart] = useState(props.cart);
-  // const {cart, setCart } = useContext(CartContext);
+const CartC = (props: any) => {
+  const [, setCart] = useState(props.cart);
 
   return (
     <Grid>
@@ -19,9 +16,7 @@ const CartC = () => {
         <title>artHouse19-Cart</title>
         <meta name="description" content="artHouse19 cart page."></meta>
       </Head>
-      <MainNav
-      // cartQty={cart.length}
-      />
+      <MainNav />
       <PagesNav />
       <Grid className="main-body">
         <Grid>
@@ -35,9 +30,9 @@ const CartC = () => {
               <h3 className="align-right">price</h3>
             </Grid>
             <hr className="no-margin" />
-            {/* <Grid className="full-height">
+            <Grid className="full-height">
               <CartProducts setCart={setCart} />
-            </Grid> */}
+            </Grid>
           </Grid>
         </Grid>
         <FooterC />

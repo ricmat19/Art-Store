@@ -163,7 +163,7 @@
 .checkout-div,
 .shipping-div,
 .payment-div {
-  margin: 20px 150px;
+  margin: 20px 10vw;
 }
 
 .order-summary-container {
@@ -220,12 +220,12 @@
 
 .select-three-column-div {
   display: grid;
-  grid-template-columns: 1fr 100px 100px;
+  grid-template-columns: auto auto auto;
   margin: 5px 0;
   gap: 10px;
 }
 
-@media (max-width: 1417px) {
+@media (max-width: 1392px) {
   .order-summary-container {
     padding: 40px 0 0 0;
   }

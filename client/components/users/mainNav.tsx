@@ -1,4 +1,3 @@
-import IndexAPI from "../../apis/indexAPI";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
@@ -18,40 +17,28 @@ import Reset from "./auth/reset";
 import Notifications from "./menuModals/notification";
 import User from "./menuModals/user";
 import Ellipse from "./menuModals/ellipse";
-import {
-  selectCart,
-  clearCart,
-  addToCart,
-  getCart,
-} from "../../reducers/cartReducers";
-import { useAppSelector, useAppDispatch } from "../../hooks";
+import { getCartReducer } from "../../reducers/cartReducers";
+import { useAppDispatch } from "../../hooks";
 
 const MainNav = () => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
 
   const router = useRouter();
 
-  const cart = useAppSelector(selectCart);
-  console.log(cart);
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const clearCartResponse = dispatch(clearCart());
-        console.log(clearCartResponse);
-        const addToResponse = dispatch(addToCart([]));
-        console.log(addToResponse);
-        const cartResponse = await dispatch(getCart());
-        console.log(cartResponse);
+        const cartResponse = await dispatch(getCartReducer());
+        console.log(cartResponse.payload.cart);
       } catch (err) {
         console.log(err);
       }
     };
 
     fetchData();
-  }, []);
+  }, [dispatch]);
 
   const [signUpOpen, setSignUpOpen] = useState(false);
   const handleSignUpOpen = () => setSignUpOpen(true);

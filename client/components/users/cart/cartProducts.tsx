@@ -5,8 +5,12 @@ import IndexAPI from "../../../apis/indexAPI";
 import PropTypes from "prop-types";
 import { ICart } from "../../../interfaces";
 import { Grid } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { removeFromCartState } from "../../../reducers/cartReducers";
+import {
+  getCartReducer,
+  removeFromCartReducer,
+  setCartQtyReducer,
+} from "../../../reducers/cartReducers";
+import { useAppDispatch } from "../../../hooks";
 
 const CartProducts: FC = (props: any) => {
   const [cart, setCart] = useState<ICart[]>([]);
@@ -17,7 +21,7 @@ const CartProducts: FC = (props: any) => {
 
   const router = useRouter();
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   let sub: number = 0;
   let priceArray: number[] = [];
@@ -63,12 +67,14 @@ const CartProducts: FC = (props: any) => {
 
   const deleteFromCart = async (id: string) => {
     try {
-      await IndexAPI.put("/cart/delete", {
-        id: id,
-      });
+      await dispatch(removeFromCartReducer(id));
+      // await IndexAPI.put("/cart/delete", {
+      //   id: id,
+      // });
 
-      const cartResponse = await IndexAPI.get(`/cart`);
-      props.setCart(cartResponse.data.data.cart);
+      const cartResponse = await dispatch(getCartReducer());
+      // const cartResponse = await IndexAPI.get(`/cart`);
+      props.setCart(cartResponse.payload.cart.length);
 
       if (cart.length === 0) {
         sub = 0;
@@ -84,8 +90,6 @@ const CartProducts: FC = (props: any) => {
         resetPricesArray.push(parseInt(cart[i].price));
       }
       setPrices(resetPricesArray);
-
-      dispatch(removeFromCartState(props.product.id));
     } catch (err) {
       console.log(err);
     }
@@ -127,9 +131,10 @@ const CartProducts: FC = (props: any) => {
         }
       }
 
-      await IndexAPI.put("/cart/quantity", {
-        cartQty: qtyArray,
-      });
+      await dispatch(setCartQtyReducer(qtyArray));
+      // await IndexAPI.put("/cart/quantity", {
+      //   cartQty: qtyArray,
+      // });
 
       sub = 0;
       sub = priceArray.reduce(function (a, b) {
