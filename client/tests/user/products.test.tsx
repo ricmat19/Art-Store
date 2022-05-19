@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import Products from "./pages/products/[product]";
+import Products from "../../pages/products/[product]";
 
 test("test description", () => {
   render(<Products />);

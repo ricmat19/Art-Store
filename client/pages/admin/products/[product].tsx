@@ -93,6 +93,7 @@ const AdminProduct = (props: any) => {
                 <button
                   onClick={() => displayUpdateModal(product.id)}
                   type="submit"
+                  className="update"
                 >
                   Update
                 </button>
