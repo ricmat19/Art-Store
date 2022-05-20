@@ -7,7 +7,7 @@ const AdminProductsNav = (props: any) => {
 
   let productPageLinks;
   if (activeProducts !== undefined) {
-    productPageLinks = activeProducts.map((product: any) => {
+    productPageLinks = activeProducts.map((product: string) => {
       return (
         <Link passHref key={product} href={`/admin/products/${product}`}>
           <h1 className="main-title pointer">{product}</h1>

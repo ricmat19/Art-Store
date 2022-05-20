@@ -5,7 +5,7 @@ const AdminCoursesNav = (props: any) => {
 
   let subjectPageLinks;
   if (props.activeCourses !== undefined) {
-    subjectPageLinks = props.activeCourses.map((subject: any) => {
+    subjectPageLinks = props.activeCourses.map((subject: string) => {
       return (
         <Link passHref key={subject} href={`/admin/courses/${subject}`}>
           <h1 className="main-title pointer">{subject}</h1>

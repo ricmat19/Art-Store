@@ -40,7 +40,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context: {
-  params: { category: any; id: any };
+  params: { category: string; id: string };
 }) {
   const category = context.params.category;
   const id = context.params.id;

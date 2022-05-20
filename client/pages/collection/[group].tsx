@@ -20,8 +20,8 @@ const CollectionGroups = (props: any) => {
 
   const removeFromCollectionGroup = async (
     e: { preventDefault: () => void },
-    group: any,
-    item: any
+    group: string,
+    item: string
   ) => {
     try {
       await IndexAPI.delete(`/collections/delete/${group}/${item}`);

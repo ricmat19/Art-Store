@@ -200,14 +200,14 @@ const AdminCourseCurriculum = (props: any) => {
                         gap: "10px",
                       }}
                     >
-                      {courseSections.map((section: any, index: any) => {
+                      {courseSections.map((section: any, index: number) => {
                         return (
                           <Grid
                             sx={{
                               border: "white 2px solid",
                               padding: "30px",
                             }}
-                            key={index}
+                            key={index.toString()}
                           >
                             <Grid sx={{ paddingBottom: "50px" }}>
                               <h2 className="align-left">
@@ -252,7 +252,7 @@ const AdminCourseCurriculum = (props: any) => {
                               </Grid>
                             </Grid>
                             <hr />
-                            {courseLectures.map((lecture: any, index: any) => {
+                            {courseLectures.map((lecture: any, index: string) => {
                               return lecture.section === section.section ? (
                                 <Grid>
                                   <Grid
@@ -322,7 +322,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context: {
-  params: { subject: any; course: any };
+  params: { course: string };
 }) {
   const course = context.params.course;
   const courseSections = await IndexAPI.get(

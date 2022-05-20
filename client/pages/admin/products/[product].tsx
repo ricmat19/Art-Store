@@ -43,7 +43,7 @@ const AdminProduct = (props: any) => {
     setPageNumber(selected);
   };
 
-  const displayUpdateModal = (id: any) => {
+  const displayUpdateModal = (id: string) => {
     for (let i = 0; i < product.length; i++) {
       if (product[i].id === id) {
         setUpdateProduct(product[i]);
@@ -214,7 +214,7 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps(context: { params: { product: any } }) {
+export async function getStaticProps(context: { params: { product: string } }) {
   const activeProducts: string[] = [];
   const productsResponse = await IndexAPI.get(`/admin/products`);
   for (let i = 0; i < productsResponse.data.data.products.length; i++) {

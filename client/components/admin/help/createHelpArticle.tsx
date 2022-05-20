@@ -152,7 +152,7 @@ const AdminCreateHelpArticle = (props: any) => {
                               <em>None</em>
                             </MenuItem>
 
-                            {sections.map((section: any) => {
+                            {sections.map((section: string) => {
                               return (
                                 <MenuItem key={section} value={section}>
                                   {section}

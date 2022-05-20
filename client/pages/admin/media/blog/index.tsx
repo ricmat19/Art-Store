@@ -41,7 +41,7 @@ const AdminBlog = (props: any) => {
     }
   };
 
-  const displayDeleteModal = (id: any) => {
+  const displayDeleteModal = (id: string) => {
     for (let i = 0; i < blog.length; i++) {
       if (blog[i].id === id) {
         setDeleteBlog(blog[i]);

@@ -93,7 +93,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context: {
-  params: { course: any; id: any };
+  params: { course: string; id: string };
 }) {
   const cartResponse = await IndexAPI.get(`/cart`);
 

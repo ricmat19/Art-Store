@@ -12,7 +12,7 @@ const MediaNav = (props: any) => {
     }
   }
 
-  const mediaPageLinks = mediaTypes.map((media: any) => {
+  const mediaPageLinks = mediaTypes.map((media: string) => {
     return (
       <Link passHref key={media} href={`/media/${media}`}>
         <h1 className="main-title pointer">{media}</h1>

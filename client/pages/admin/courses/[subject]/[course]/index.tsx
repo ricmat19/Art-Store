@@ -229,7 +229,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context: {
-  params: { subject: any; course: any };
+  params: { course: string };
 }) {
   const course = context.params.course;
   const courseResponse = await IndexAPI.get(`/admin/courses/course/${course}`);

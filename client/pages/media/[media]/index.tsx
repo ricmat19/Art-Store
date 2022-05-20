@@ -106,7 +106,7 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps(context: { params: { media: any } }) {
+export async function getStaticProps(context: { params: { media: string } }) {
   const cartResponse = await IndexAPI.get(`/cart`);
 
   const media = context.params.media;
@@ -123,7 +123,7 @@ export async function getStaticProps(context: { params: { media: any } }) {
         Buffer.from(response.data, "binary").toString("base64")
       );
 
-      mediaResponse.data.data.posts[ 
+      mediaResponse.data.data.posts[
         i
       ].imageBuffer = `data:image/png;base64,${imagesResponse}`;
     }

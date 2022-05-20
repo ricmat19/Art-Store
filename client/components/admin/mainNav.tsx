@@ -8,22 +8,22 @@ import AdminEllipse from "./menuModals/ellipse";
 const AdminMainNav: FC = () => {
   const [signedIn] = useState<boolean>(true);
 
-  const [userOpen, setUserOpen] = useState(null);
-  const [ellipseOpen, setEllipseOpen] = useState(null);
+  const [userOpen, setUserOpen] = useState<EventTarget & HTMLElement>();
+  const [ellipseOpen, setEllipseOpen] = useState<EventTarget & HTMLElement>();
   const openUser = Boolean(userOpen);
   const openEllipse = Boolean(ellipseOpen);
 
-  const handleUserClick = (event: any) => {
+  const handleUserClick = (event: React.MouseEvent<HTMLElement>) => {
     setUserOpen(event.currentTarget);
   };
-  const handleEllipseClick = (event: any) => {
+  const handleEllipseClick = (event: React.MouseEvent<HTMLElement>) => {
     setEllipseOpen(event.currentTarget);
   };
   const handleUserClose = () => {
-    setUserOpen(null);
+    setUserOpen(undefined);
   };
   const handleEllipseClose = () => {
-    setEllipseOpen(null);
+    setEllipseOpen(undefined);
   };
 
   if (signedIn) {
@@ -67,7 +67,7 @@ const AdminMainNav: FC = () => {
                   <FontAwesomeIcon
                     icon={faUserCircle}
                     className="account-menu-icon"
-                    onClick={handleUserClick}
+                    onClick={(e) => handleUserClick(e)}
                   />
                 </h1>
               </Grid>
@@ -79,7 +79,7 @@ const AdminMainNav: FC = () => {
                   <FontAwesomeIcon
                     icon={faEllipsisV}
                     className="account-menu-icon"
-                    onClick={handleEllipseClick}
+                    onClick={(e) => handleEllipseClick(e)}
                   />
                 </h1>
               </Grid>

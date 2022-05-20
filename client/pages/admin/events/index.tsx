@@ -41,7 +41,7 @@ const AdminEvents = (props: any) => {
     fetchData();
   }, [dateEvents]);
 
-  const displayDeleteModal = (id: any) => {
+  const displayDeleteModal = (id: string) => {
     for (let i = 0; i < props.events.length; i++) {
       if (props.events[i].id === id) {
         setDeleteEvent(props.events[i]);

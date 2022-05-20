@@ -187,7 +187,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context: {
-  params: { product: any; id: any };
+  params: { product: string; id: string };
 }) {
   const product = context.params.product;
   const id = context.params.id;

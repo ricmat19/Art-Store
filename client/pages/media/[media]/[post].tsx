@@ -58,7 +58,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context: {
-  params: { media: any; post: any };
+  params: { media: string; post: string };
 }) {
   const cartResponse = await IndexAPI.get(`/cart`);
 

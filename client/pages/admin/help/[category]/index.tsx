@@ -169,7 +169,7 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps(context: { params: { category: any } }) {
+export async function getStaticProps(context: { params: { category: string } }) {
   const category = context.params.category;
 
   let categoryContent = {};
@@ -258,7 +258,7 @@ export async function getStaticProps(context: { params: { category: any } }) {
   }
 
   const categoryArticlesResponse = await IndexAPI.get(
-    `/admin/help/${category}` 
+    `/admin/help/${category}`
   );
 
   const cartResponse = await IndexAPI.get(`/cart`);

@@ -143,7 +143,7 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps(context: { params: { category: any } }) {
+export async function getStaticProps(context: { params: { category: string } }) {
   const category = context.params.category;
 
   let categoryContent = {};

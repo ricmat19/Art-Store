@@ -55,7 +55,7 @@ export interface IBlog {
   title: string
   imagekey?: string
   imageBuffer?: string,
-  content: any
+  content: string
   info: string
 }
 

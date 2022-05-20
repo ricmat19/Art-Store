@@ -124,7 +124,7 @@ const AdminCalendar = (props: any) => {
     fetchData();
   }, [props.events, nav]);
 
-  const handleDayClicked = async (day: any) => {
+  const handleDayClicked = async (day: string) => {
     try {
       props.handleDayOpen();
       const selectedDate = `${month} ${day}, ${year}`;

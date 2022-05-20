@@ -140,7 +140,7 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps(context: { params: { id: any } }) {
+export async function getStaticProps(context: { params: { id: string } }) {
   const id = context.params.id;
   const blogPostResponse = await IndexAPI.get(`/admin/blog/${id}`);
 

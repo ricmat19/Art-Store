@@ -33,7 +33,7 @@ const AdminCourses = (props: any) => {
     setPageNumber(selected);
   };
 
-  const displayDeleteModal = (id: any) => {
+  const displayDeleteModal = (id: string) => {
     for (let i = 0; i < courses.length; i++) {
       if (courses[i].id === id) {
         setDeleteCourse(courses[i]);
@@ -188,7 +188,7 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps(context: { params: { subject: any } }) {
+export async function getStaticProps(context: { params: { subject: string } }) {
   const activeSubjects: string[] = [];
   const coursesResponse = await IndexAPI.get(`/admin/courses`);
   for (let i = 0; i < coursesResponse.data.data.courses.length; i++) {

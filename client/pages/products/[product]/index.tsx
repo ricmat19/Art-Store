@@ -128,7 +128,7 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps(context: { params: { product: any } }) {
+export async function getStaticProps(context: { params: { product: string } }) {
   const cartResponse = await IndexAPI.get(`/cart`);
 
   const product = context.params.product;
