@@ -3,9 +3,9 @@ import { Grid } from "@mui/material";
 import { useState } from "react";
 
 interface IProfile {
-  email: any;
-  image: any;
-  bio: any;
+  email: string;
+  image: File;
+  bio: string;
 }
 
 interface IBio {

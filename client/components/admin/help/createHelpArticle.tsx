@@ -32,7 +32,7 @@ interface ICreateHelpArticleForm {
   article: string;
   category: string;
   selectedSection: string;
-  handleClose: any;
+  handleClose: () => void;
 }
 
 const initialValues = {

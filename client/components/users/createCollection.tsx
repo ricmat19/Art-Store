@@ -19,7 +19,7 @@ interface ICreateCollectionForm {
   quantity: string;
   price: string;
   info: string;
-  handleClose: any;
+  handleClose: () => void;
 }
 
 const initialValues = {

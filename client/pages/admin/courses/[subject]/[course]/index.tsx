@@ -19,7 +19,7 @@ interface ICreateCurriculumForm {
   subject: string;
   price: string;
   description: string;
-  selectedCourse: any;
+  selectedCourse: IAdminCourse;
   router: any;
 }
 

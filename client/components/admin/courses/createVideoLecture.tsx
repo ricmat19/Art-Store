@@ -26,7 +26,7 @@ interface ICreateVideoLectureForm {
   lecture: string;
   section: string;
   id: string;
-  handleClose: any;
+  handleClose: () => void;
 }
 
 const initialValues = {

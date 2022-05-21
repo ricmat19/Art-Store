@@ -6,7 +6,6 @@ import IndexAPI from "../../../apis/indexAPI";
 import MainNav from "../../../components/users/mainNav";
 import PagesNav from "../../../components/users/pagesNav";
 import FooterC from "../../../components/footer";
-// import { IProduct } from "../../../interfaces";
 import Head from "next/head";
 import { Grid } from "@mui/material";
 import ProductsNav from "../../../components/users/products/productsNav";

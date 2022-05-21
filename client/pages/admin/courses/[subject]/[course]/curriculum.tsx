@@ -25,7 +25,7 @@ interface ICreateCurriculumForm {
 }
 
 interface ICourseLectures {
-  lecture: any;
+  lecture: string;
   index: string;
 }
 

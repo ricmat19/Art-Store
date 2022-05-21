@@ -35,11 +35,17 @@ const signedInReducers = createSlice({
       };
     },
     extraReducers(builder: any) {
-      builder.addCase(getSignedIn.fulfilled, (state: any, action: any) => {
-        state.status = "succeeded";
-        const signedInStatus = action.payload;
-        return signedInStatus;
-      });
+      builder.addCase(
+        getSignedIn.fulfilled,
+        (
+          state: { status: string; data: any[] },
+          action: PayloadAction<any[], string, { currentPage: number }>
+        ) => {
+          state.status = "succeeded";
+          const signedInStatus = action.payload;
+          return signedInStatus;
+        }
+      );
     },
   },
 });

@@ -67,7 +67,7 @@ const validationSchema = Yup.object({
 
 interface ICheckout {
   cart: any;
-  priceArray: any;
+  priceArray: string[];
   sub: number | (() => number);
 }
 

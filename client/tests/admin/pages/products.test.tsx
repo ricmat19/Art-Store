@@ -5,7 +5,7 @@ import IndexAPI from "../../../apis/indexAPI";
 
 describe("Admin products tests", () => {
   beforeEach(async () => {
-    await waitFor(() => render(<Products />));
+    await waitFor(() => render(<Products products={[]} cartQty={undefined} />));
   });
   test("Check for text 'Stuck Crowd'", () => {
     expect(screen.findByText("Stuck Crowd")).toBeInTheDocument();

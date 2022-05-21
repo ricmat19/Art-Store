@@ -1,5 +1,5 @@
 import IndexAPI from "../apis/indexAPI";
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
 interface CartState {}
@@ -77,26 +77,56 @@ const cartReducers = createSlice({
   reducers: {
     extraReducers(builder: any) {
       builder
-        .addCase(getCartReducer.fulfilled, (state: any, action: any) => {
-          state.status = "fulfilled";
-          state.data = action.payload;
-        })
-        .addCase(addToCartReducer.fulfilled, (state: any, action: any) => {
-          state.status = "fulfilled";
-          state.data = action.payload;
-        })
-        .addCase(removeFromCartReducer.fulfilled, (state: any, action: any) => {
-          state.status = "fulfilled";
-          state.data = action.payload;
-        })
-        .addCase(setCartQtyReducer.fulfilled, (state: any, action: any) => {
-          state.status = "fulfilled";
-          state.data = action.payload;
-        })
-        .addCase(clearCartReducer.fulfilled, (state: any, action: any) => {
-          state.status = "fulfilled";
-          state.data = action.payload;
-        });
+        .addCase(
+          getCartReducer.fulfilled,
+          (
+            state: { status: string; data: any[] },
+            action: PayloadAction<any[], string, { currentPage: number }>
+          ) => {
+            state.status = "fulfilled";
+            state.data = action.payload;
+          }
+        )
+        .addCase(
+          addToCartReducer.fulfilled,
+          (
+            state: { status: string; data: any[] },
+            action: PayloadAction<any[], string, { currentPage: number }>
+          ) => {
+            state.status = "fulfilled";
+            state.data = action.payload;
+          }
+        )
+        .addCase(
+          removeFromCartReducer.fulfilled,
+          (
+            state: { status: string; data: any[] },
+            action: PayloadAction<any[], string, { currentPage: number }>
+          ) => {
+            state.status = "fulfilled";
+            state.data = action.payload;
+          }
+        )
+        .addCase(
+          setCartQtyReducer.fulfilled,
+          (
+            state: { status: string; data: any[] },
+            action: PayloadAction<any[], string, { currentPage: number }>
+          ) => {
+            state.status = "fulfilled";
+            state.data = action.payload;
+          }
+        )
+        .addCase(
+          clearCartReducer.fulfilled,
+          (
+            state: { status: string; data: any[] },
+            action: PayloadAction<any[], string, { currentPage: number }>
+          ) => {
+            state.status = "fulfilled";
+            state.data = action.payload;
+          }
+        );
     },
   },
 });

@@ -14,7 +14,7 @@ interface IUpdateEventForm {
   spots: string;
   info: string;
   id: string;
-  handleClose: any;
+  handleClose: () => void;
 }
 
 const initialValues = {

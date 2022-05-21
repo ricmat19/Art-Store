@@ -17,7 +17,7 @@ const AdminDeleteBlog = (props: IAdminDeleteBlog) => {
     try {
       await IndexAPI.delete(`/admin/blog/${props.deleteBlog[0].id}`);
       props.setBlogs(
-        props.blogs.filter((blog: any) => {
+        props.blogs.filter((blog: { id: string }) => {
           return blog.id !== props.deleteBlog[0].id;
         })
       );
