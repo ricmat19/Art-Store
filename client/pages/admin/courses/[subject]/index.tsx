@@ -14,7 +14,12 @@ import AdminDeleteCourse from "../../../../components/admin/courses/deleteCourse
 import { Button, Grid } from "@mui/material";
 import Link from "next/link";
 
-const AdminCourses = (props: any) => {
+interface IAdminCourses {
+  courses: any;
+  activeSubjects: string[] | undefined;
+}
+
+const AdminCourses = (props: IAdminCourses) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
   const [courses] = useState(props.courses);
   const [deleteCourse, setDeleteCourse] = useState<any>();

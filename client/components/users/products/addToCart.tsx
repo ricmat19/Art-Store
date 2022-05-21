@@ -3,7 +3,19 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 
-const AddToCart = (props: any) => {
+interface IProduct {
+  title: string;
+}
+interface IAddToCart {
+  product: IProduct;
+  uniqueItem: boolean;
+  open: boolean | undefined;
+  handleClose:
+    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
+    | undefined;
+}
+
+const AddToCart = (props: IAddToCart) => {
   const [product] = useState(props.product);
   const [uniqueItem] = useState(props.uniqueItem);
 

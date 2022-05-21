@@ -8,6 +8,17 @@ import { Backdrop, Box, Fade, Modal, Grid, Button } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+interface ICollection {
+  collection_group: string;
+}
+interface IAddToCollection {
+  open: boolean | undefined;
+  handleClose:
+    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
+    | undefined;
+  collections: ICollection[];
+}
+
 interface IProduct {
   id: string;
 }
@@ -20,7 +31,10 @@ interface IAddToCollectionForm {
 const initialValues = {
   collection: "",
 };
-const onSubmit = (values: IAddToCollectionForm, onSubmitProps: any) => {
+const onSubmit = (
+  values: IAddToCollectionForm,
+  onSubmitProps: { resetForm: () => void }
+) => {
   IndexAPI.post("/collections", {
     user: "ric19mat@gmail.com",
     collectionGroup: values.collection,
@@ -32,7 +46,7 @@ const validationSchema = Yup.object({
   collection: Yup.string().required("Email is required"),
 });
 
-const AddToCollection = (props: any) => {
+const AddToCollection = (props: IAddToCollection) => {
   // const [newCollection, setNewCollection] = useState<string>("");
 
   // const createCollection = async (e: { preventDefault: () => void }) => {

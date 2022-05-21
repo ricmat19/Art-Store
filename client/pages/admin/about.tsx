@@ -7,7 +7,11 @@ import FooterC from "../../components/footer";
 import Head from "next/head";
 import { Grid } from "@mui/material";
 
-const About = (props: any) => {
+interface IAbout {
+  aboutContent: string | (() => string);
+}
+
+const About = (props: IAbout) => {
   const [content, setContent] = useState<string>(props.aboutContent);
 
   const updateAbout = async (e: { preventDefault: () => void }) => {

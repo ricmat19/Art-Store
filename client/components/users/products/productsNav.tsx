@@ -2,7 +2,14 @@ import { Grid } from "@mui/material";
 import { useState } from "react";
 import Link from "next/link";
 
-const ProductsNav = (props: any) => {
+interface IProduct {
+  product: string;
+}
+interface IProductsNav {
+  products: IProduct[];
+}
+
+const ProductsNav = (props: IProductsNav) => {
   const [products] = useState(props.products);
 
   const productTypes: any[] = [];

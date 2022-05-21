@@ -2,7 +2,17 @@ import IndexAPI from "../../../apis/indexAPI";
 import { Grid } from "@mui/material";
 import { useState } from "react";
 
-const Bio = (props: any) => {
+interface IProfile {
+  email: any;
+  image: any;
+  bio: any;
+}
+
+interface IBio {
+  profile: IProfile;
+}
+
+const Bio = (props: IBio) => {
   const [email] = useState(props.profile.email);
   const [image, setImage] = useState(props.profile.image);
   const [bio, setBio] = useState(props.profile.bio);
@@ -43,7 +53,9 @@ const Bio = (props: any) => {
       </Grid>
       <Grid sx={{ display: "grid" }}>
         <Grid sx={{ textAlign: "center" }}>
-          <button type="submit" onClick={updateProfile}>Submit</button>
+          <button type="submit" onClick={updateProfile}>
+            Submit
+          </button>
         </Grid>
       </Grid>
     </Grid>

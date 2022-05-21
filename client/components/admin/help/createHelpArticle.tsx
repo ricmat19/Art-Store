@@ -1,9 +1,30 @@
 /* eslint-disable @next/next/no-img-element */
-import { useState, useEffect } from "react";
+import {
+  useState,
+  useEffect,
+  ReactChild,
+  ReactFragment,
+  ReactPortal,
+} from "react";
 import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Modal, Grid, MenuItem } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+
+interface IAdminCreateHelpArticle {
+  category: string;
+  open: boolean | undefined;
+  handleClose:
+    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
+    | undefined;
+  lecture:
+    | boolean
+    | ReactChild
+    | ReactFragment
+    | ReactPortal
+    | null
+    | undefined;
+}
 
 interface ICreateHelpArticleForm {
   title: string;
@@ -19,7 +40,10 @@ const initialValues = {
   description: "",
 };
 
-const onSubmit = (values: ICreateHelpArticleForm, onSubmitProps: any) => {
+const onSubmit = (
+  values: ICreateHelpArticleForm,
+  onSubmitProps: { resetForm: () => void }
+) => {
   IndexAPI.post(`/admin/help/${values.category}`, {
     title: values.title,
     article: values.article,
@@ -34,7 +58,7 @@ const validationSchema = Yup.object({
   description: Yup.string().required("Email is required"),
 });
 
-const AdminCreateHelpArticle = (props: any) => {
+const AdminCreateHelpArticle = (props: IAdminCreateHelpArticle) => {
   const [sections, setSections] = useState<string[]>([]);
 
   useEffect(() => {

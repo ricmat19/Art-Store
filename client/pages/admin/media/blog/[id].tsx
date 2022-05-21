@@ -9,6 +9,16 @@ import { Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+interface ISelectedBlog {
+  title: string;
+  content: string;
+  post_date: string;
+  imageBuffer: string;
+}
+
+interface IAdminBlogPost {
+  selectedBlog: ISelectedBlog[];
+}
 interface ISelectedBlogContent {
   id: string;
 }
@@ -24,7 +34,10 @@ const initialValues = {
   title: "",
   content: "",
 };
-const onSubmit = (values: ICreateBlogForm, onSubmitProps: any) => {
+const onSubmit = (
+  values: ICreateBlogForm,
+  onSubmitProps: { resetForm: () => void }
+) => {
   IndexAPI.put(`/admin/blog/${values.selectedBlog[0].id}`, {
     title: values.title,
     content: values.content,
@@ -37,7 +50,7 @@ const validationSchema = Yup.object({
   content: Yup.string().required("Email is required"),
 });
 
-const AdminBlogPost = (props: any) => {
+const AdminBlogPost = (props: IAdminBlogPost) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
 
   const router = useRouter();

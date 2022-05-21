@@ -2,7 +2,15 @@ import { useState } from "react";
 import { Grid } from "@mui/material";
 import Link from "next/link";
 
-const MediaNav = (props: any) => {
+interface IMedia {
+  type: string;
+}
+
+interface IMediaNav {
+  medias: IMedia[];
+}
+
+const MediaNav = (props: IMediaNav) => {
   const [media] = useState(props.medias);
 
   const mediaTypes: any[] = [];

@@ -7,7 +7,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Grid } from "@mui/material";
 
-const Calendar = (props: any) => {
+interface ICalendar {
+  events: string | any[];
+  handleDayOpen: () => void;
+  setDate: (arg0: string) => void;
+  setDateEvents: (arg0: any[]) => void;
+}
+
+const Calendar = (props: ICalendar) => {
   const [nav, setNav] = useState(0);
   const [days, setDays] = useState<IDay[]>([]);
   const [dateDisplay, setDateDisplay] = useState("");
@@ -172,7 +179,7 @@ const Calendar = (props: any) => {
           <Grid className="day-name">sat</Grid>
         </Grid>
         <Grid className="title day-boxes">
-        {days.map((day, index) => (
+          {days.map((day, index) => (
             <Grid key={index}>
               {day.value === "padding" ? (
                 ""

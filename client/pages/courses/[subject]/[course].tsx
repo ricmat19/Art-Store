@@ -8,7 +8,10 @@ import { Grid } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlayCircle } from "@fortawesome/free-solid-svg-icons";
 
-const CourseC: FC = (props: any) => {
+interface ICourse {
+  cartQty: number | null | undefined;
+}
+const Course = (props: ICourse) => {
   const [fullDuration] = useState<string>("");
   const [lessonDuration] = useState<string>("");
 
@@ -126,4 +129,4 @@ export async function getStaticProps(context: {
   };
 }
 
-export default CourseC;
+export default Course;

@@ -5,7 +5,10 @@ import FooterC from "../../../components/footer";
 import ReactHtmlParser from "react-html-parser";
 import { Grid } from "@mui/material";
 
-const HelpArticle = (props: any) => {
+interface IHelpArticle {
+  helpArticle: { article: string }[];
+}
+const HelpArticle = (props: IHelpArticle) => {
   return (
     <Grid>
       <MainNav />

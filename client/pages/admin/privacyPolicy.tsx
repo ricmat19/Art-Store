@@ -5,7 +5,11 @@ import AdminPagesNav from "../../components/admin/pagesNav";
 import FooterC from "../../components/footer";
 import { Grid } from "@mui/material";
 
-const PrivacyPolicy = (props: any) => {
+interface IPrivacyPolicy {
+  privacyPolicyContent: string | (() => string);
+}
+
+const PrivacyPolicy = (props: IPrivacyPolicy) => {
   const [content, setContent] = useState<string>(props.privacyPolicyContent);
 
   const updatePrivacyPolicy = async (e: { preventDefault: () => void }) => {
@@ -55,7 +59,8 @@ export async function getStaticProps() {
   return {
     props: {
       cartQty: cartResponse.data.data.cart.length,
-      privacyPolicyContent: privacyPolicyResponse.data.data.privacyPolicy[0].content,
+      privacyPolicyContent:
+        privacyPolicyResponse.data.data.privacyPolicy[0].content,
     },
     revalidate: 1,
   };

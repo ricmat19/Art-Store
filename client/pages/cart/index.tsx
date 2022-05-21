@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ICart } from "../../interfaces";
 import CartProducts from "../../components/users/cart/cartProducts";
 import MainNav from "../../components/users/mainNav";
 import PagesNav from "../../components/users/pagesNav";
@@ -7,7 +8,7 @@ import IndexAPI from "../../apis/indexAPI";
 import Head from "next/head";
 import { Grid } from "@mui/material";
 
-const CartC = (props: any) => {
+const Cart = (props: ICart) => {
   const [, setCart] = useState(props.cart);
 
   return (
@@ -66,4 +67,4 @@ export async function getStaticProps() {
   };
 }
 
-export default CartC;
+export default Cart;

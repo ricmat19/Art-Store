@@ -9,7 +9,12 @@ import { Grid } from "@mui/material";
 import ReactPaginate from "react-paginate";
 import Head from "next/head";
 
-const Collection = (props: any) => {
+interface ICollection {
+  collectionGroups: any[];
+  cartQty: number | null | undefined;
+}
+
+const Collection = (props: ICollection) => {
   const [pageNumber, setPageNumber] = useState<number>(0);
 
   const itemsPerPage = 9;

@@ -1,9 +1,25 @@
 /* eslint-disable @next/next/no-img-element */
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Grid, Modal } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+
+interface IAdminUpdateProduct {
+  updateProduct: {
+    title: SetStateAction<string>;
+    product: SetStateAction<string>;
+    price: SetStateAction<string>;
+    info: SetStateAction<string>;
+    imagekey: SetStateAction<string>;
+    imageBuffer: SetStateAction<string>;
+    qty: SetStateAction<string>;
+  };
+  open: boolean | undefined;
+  handleClose:
+    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
+    | undefined;
+}
 
 interface IUpdateProduct {
   id: string;
@@ -17,14 +33,17 @@ interface IUpdateProductForm {
   info: string;
   qty: string;
   fileImage: File;
-  handleClose: any;
+  handleClose: () => void;
   updateProduct: IUpdateProduct;
 }
 
 const initialValues = {
   email: "",
 };
-const onSubmit = (values: IUpdateProductForm, onSubmitProps: any) => {
+const onSubmit = (
+  values: IUpdateProductForm,
+  onSubmitProps: { resetForm: () => void }
+) => {
   if (values.fileImage) {
     let formData = new FormData();
 
@@ -59,7 +78,7 @@ const validationSchema = Yup.object({
     .required("Email is required"),
 });
 
-const AdminUpdateProduct = (props: any) => {
+const AdminUpdateProduct = (props: IAdminUpdateProduct) => {
   const [, setTitle] = useState<string>("");
   const [, setProduct] = useState<string>("");
   const [, setPrice] = useState<string>("");

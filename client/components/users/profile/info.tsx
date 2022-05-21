@@ -2,7 +2,21 @@ import IndexAPI from "../../../apis/indexAPI";
 import { Grid } from "@mui/material";
 import { useState } from "react";
 
-const Info = (props: any) => {
+interface IProfile {
+  email: string;
+  firstname: string;
+  lastname: string;
+  phoneNumber: string;
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
+}
+interface IInfo {
+  profile: IProfile;
+}
+
+const Info = (props: IInfo) => {
   const [email] = useState(props.profile.email);
   const [firstName, setFirstName] = useState(props.profile.firstname);
   const [lastName, setLastName] = useState(props.profile.lastname);
@@ -106,7 +120,9 @@ const Info = (props: any) => {
       </Grid>
       <Grid sx={{ display: "grid" }}>
         <Grid sx={{ textAlign: "center" }}>
-          <button type="submit" onClick={updateProfile}>Submit</button>
+          <button type="submit" onClick={updateProfile}>
+            Submit
+          </button>
         </Grid>
       </Grid>
     </Grid>

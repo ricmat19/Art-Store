@@ -15,6 +15,11 @@ import AdminCreateArticleLecture from "../../../../../components/admin/courses/c
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+interface IAdminCourseCurriculum {
+  courseSections: string[] | (() => string[]);
+  courseLectures: ICourseLectures[] | (() => ICourseLectures[]);
+}
+
 interface ICreateCurriculumForm {
   email: string;
 }
@@ -27,7 +32,10 @@ interface ICourseLectures {
 const initialValues = {
   email: "",
 };
-const onSubmit = (values: ICreateCurriculumForm, onSubmitProps: any) => {
+const onSubmit = (
+  values: ICreateCurriculumForm,
+  onSubmitProps: { resetForm: () => void }
+) => {
   // if (values.create = "section") {
   //         IndexAPI.post(`/admin/courses/section/${values.course}`, {
   //           values.section
@@ -46,7 +54,7 @@ const validationSchema = Yup.object({
     .required("Email is required"),
 });
 
-const AdminCourseCurriculum = (props: any) => {
+const AdminCourseCurriculum = (props: IAdminCourseCurriculum) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
 
   const [contentOpen, setContentOpen] = useState(null);

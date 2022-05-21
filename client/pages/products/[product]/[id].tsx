@@ -15,7 +15,14 @@ import {
 } from "../../../reducers/cartReducers";
 import { useAppDispatch } from "../../../hooks";
 
-const ProductDetails = (props: any) => {
+interface IProductDetails {
+  imageBuffer: string;
+  groups: any;
+  product: any;
+  cart: any;
+}
+
+const ProductDetails = (props: IProductDetails) => {
   const [addToCartOpen, setAddToCartOpen] = useState(false);
   const handleAddToCartOpen = () => setAddToCartOpen(true);
   const handleAddToCartClose = () => setAddToCartOpen(false);

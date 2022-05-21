@@ -7,6 +7,10 @@ import { Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+interface IHelpArticle {
+  helpArticle: { article: any }[];
+}
+
 interface IHelpArticleContent {
   category: string;
   id: string;
@@ -22,7 +26,10 @@ interface ICreateHelpArticleForm {
 const initialValues = {
   email: "",
 };
-const onSubmit = (values: ICreateHelpArticleForm, onSubmitProps: any) => {
+const onSubmit = (
+  values: ICreateHelpArticleForm,
+  onSubmitProps: { resetForm: () => void }
+) => {
   IndexAPI.put(
     `/admin/help/${values.helpArticle[0].category}/${values.helpArticle[0].id}`,
     {
@@ -39,7 +46,7 @@ const validationSchema = Yup.object({
     .required("Email is required"),
 });
 
-const HelpArticle = (props: any) => {
+const HelpArticle = (props: IHelpArticle) => {
   const router = useRouter();
 
   return (

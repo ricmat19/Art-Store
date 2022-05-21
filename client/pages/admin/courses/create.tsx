@@ -26,7 +26,10 @@ const initialValues = {
   price: "",
   description: "",
 };
-const onSubmit = (values: ICreateCourseForm, onSubmitProps: any) => {
+const onSubmit = (
+  values: ICreateCourseForm,
+  onSubmitProps: { resetForm: () => void }
+) => {
   if (values.image) {
     let formData = new FormData();
 

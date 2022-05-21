@@ -10,7 +10,29 @@ import Links from "../components/users/profile/links";
 import PaymentMethods from "../components/users/profile/paymentMethods";
 import Head from "next/head";
 
-const Profile = (props: any) => {
+interface IProfile {
+  email: string;
+  firstname: string;
+  lastname: string;
+  phoneNumber: string;
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
+  image: File;
+  bio: string;
+  website: string;
+  twitter: string;
+  linkedin: string;
+  youtube: string;
+}
+
+interface IProfile {
+  cartQty: number | null | undefined;
+  profile: IProfile[];
+}
+
+const Profile = (props: IProfile) => {
   const [view, setView] = useState("info");
 
   return (

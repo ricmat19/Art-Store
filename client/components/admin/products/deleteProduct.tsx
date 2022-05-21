@@ -1,8 +1,27 @@
 /* eslint-disable @next/next/no-img-element */
 import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Grid, Modal } from "@mui/material";
+import { ReactChild, ReactFragment, ReactPortal } from "react";
 
-const AdminDeleteProduct = (props: any) => {
+interface IAdminDeleteProduct {
+  deleteProduct: {
+    id: string;
+    imageBuffer: string | undefined;
+    title:
+      | boolean
+      | ReactChild
+      | ReactFragment
+      | ReactPortal
+      | null
+      | undefined;
+  };
+  handleClose:
+    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
+    | undefined;
+  open: boolean | undefined;
+}
+
+const AdminDeleteProduct = (props: IAdminDeleteProduct) => {
   const handleDelete = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {

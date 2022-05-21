@@ -1,8 +1,27 @@
 /* eslint-disable @next/next/no-img-element */
 import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Grid, Modal } from "@mui/material";
+import { ReactChild, ReactFragment, ReactPortal } from "react";
 
-const AdminDeleteCourse = (props: any) => {
+interface IAdminDeleteCourse {
+  deleteCourse: {
+    id: string;
+    imageBuffer: string | undefined;
+    title:
+      | boolean
+      | ReactChild
+      | ReactFragment
+      | ReactPortal
+      | null
+      | undefined;
+  };
+  open: boolean | undefined;
+  handleClose:
+    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
+    | undefined;
+}
+
+const AdminDeleteCourse = (props: IAdminDeleteCourse) => {
   const handleDelete = async () => {
     try {
       await IndexAPI.delete(`/admin/courses/${props.deleteCourse.id}`);

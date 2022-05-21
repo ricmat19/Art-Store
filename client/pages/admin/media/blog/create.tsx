@@ -22,7 +22,10 @@ const initialValues = {
   content: "",
 };
 
-const onSubmit = (values: ICreateBlogForm, onSubmitProps: any) => {
+const onSubmit = (
+  values: ICreateBlogForm,
+  onSubmitProps: { resetForm: () => void }
+) => {
   if (values.image) {
     let formData = new FormData();
 

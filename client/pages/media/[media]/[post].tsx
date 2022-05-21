@@ -5,8 +5,19 @@ import FooterC from "../../../components/footer";
 import MainNav from "../../../components/users/mainNav";
 import { Grid } from "@mui/material";
 import ReactHtmlParser from "react-html-parser";
+import { ReactChild, ReactFragment, ReactPortal } from "react";
 
-const BlogPost = (props: any) => {
+interface ISelectedMedia {
+  title: boolean | ReactChild | ReactFragment | ReactPortal | null | undefined;
+  content: string;
+}
+interface IBlogPost {
+  cartQty: number | null | undefined;
+  imageBuffer: string | undefined;
+  selectedMedia: ISelectedMedia;
+}
+
+const BlogPost = (props: IBlogPost) => {
   // const [title] = useState(props.title);
   // const [info] = useState(props.info);
   // const [imageBuffer] = useState(props.imageBuffer);
@@ -16,7 +27,7 @@ const BlogPost = (props: any) => {
       <MainNav cartQty={props.cartQty} />
       <Grid className="main-body">
         <Grid>
-        <Grid xs={12} sx={{ textAlign: "center"}}>
+          <Grid xs={12} sx={{ textAlign: "center" }}>
             <img
               className="banner-image"
               src={props.imageBuffer}
@@ -24,7 +35,7 @@ const BlogPost = (props: any) => {
             />
           </Grid>
           <h1>{props.selectedMedia.title}</h1>
-          <Grid sx={{margin: "50px 20vw", textAlign: "justify"}}>
+          <Grid sx={{ margin: "50px 20vw", textAlign: "justify" }}>
             {ReactHtmlParser(props.selectedMedia.content)}
           </Grid>
         </Grid>

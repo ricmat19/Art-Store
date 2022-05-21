@@ -8,7 +8,15 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Grid, Menu, ListItemIcon, MenuItem } from "@mui/material";
 
-const Ellipse = (props: any) => {
+interface IEllipse {
+  ellipseOpen: Element | ((element: Element) => Element) | null | undefined;
+  openEllipse: boolean;
+  handleEllipseClose:
+    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
+    | undefined;
+}
+
+const Ellipse = (props: IEllipse) => {
   return (
     <Menu
       anchorEl={props.ellipseOpen}

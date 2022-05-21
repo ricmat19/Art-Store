@@ -2,10 +2,20 @@
 import IndexAPI from "../../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Grid, Modal } from "@mui/material";
 
-const AdminDeleteBlog = (props: any) => {
+interface IAdminDeleteBlog {
+  deleteBlog: { id: string }[];
+  setBlogs: (arg0: any) => void;
+  blogs: any[];
+  handleClose:
+    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
+    | undefined;
+  open: boolean | undefined;
+}
+
+const AdminDeleteBlog = (props: IAdminDeleteBlog) => {
   const handleDelete = async () => {
     try {
-      await IndexAPI.delete(`/admin/blog/${props.deleteBlog.id}`);
+      await IndexAPI.delete(`/admin/blog/${props.deleteBlog[0].id}`);
       props.setBlogs(
         props.blogs.filter((blog: any) => {
           return blog.id !== props.deleteBlog[0].id;

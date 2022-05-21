@@ -2,7 +2,11 @@ import { Grid } from "@mui/material";
 import { useState } from "react";
 import Link from "next/link";
 
-const AdminProductsNav = (props: any) => {
+interface IAdminProductsNav {
+  activeProducts: any;
+}
+
+const AdminProductsNav = (props: IAdminProductsNav) => {
   const [activeProducts] = useState(props.activeProducts);
 
   let productPageLinks;

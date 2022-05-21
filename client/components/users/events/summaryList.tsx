@@ -1,7 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import { Grid } from "@mui/material";
 
-const SummaryList = (props: any) => {
+interface ISummaryList {
+  events: any[] | undefined;
+}
+
+const SummaryList = (props: ISummaryList) => {
   return (
     <Grid container>
       <Grid container sx={{ justifyContent: "center", margin: "5px 0" }}>

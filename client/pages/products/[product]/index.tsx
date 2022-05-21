@@ -11,7 +11,11 @@ import Head from "next/head";
 import { Grid } from "@mui/material";
 import ProductsNav from "../../../components/users/products/productsNav";
 
-const Products = (props: any) => {
+interface IProducts {
+  products: any[];
+  cartQty: number | null | undefined;
+}
+const Products = (props: IProducts) => {
   const [pageNumber, setPageNumber] = useState<number>(0);
 
   const itemsPerPage = 9;

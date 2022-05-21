@@ -4,7 +4,15 @@ import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
 import { Grid, Menu } from "@mui/material";
 
-const AdminUser = (props: any) => {
+interface IAdminUser {
+  userOpen: Element | ((element: Element) => Element) | null | undefined;
+  openUser: boolean;
+  handleUserClose:
+    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
+    | undefined;
+}
+
+const AdminUser = (props: IAdminUser) => {
   return (
     <Menu
       anchorEl={props.userOpen}

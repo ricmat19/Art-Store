@@ -23,7 +23,7 @@ const initialValues = {
   email: "",
   password: "",
 };
-const onSubmit = (values: ISignInForm, onSubmitProps: any) => {
+const onSubmit = (values: ISignInForm, onSubmitProps: { resetForm: () => void; }) => {
   IndexAPI.post("/signin", {
     email: values.email,
     password: values.password,

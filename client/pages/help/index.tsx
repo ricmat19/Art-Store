@@ -5,7 +5,10 @@ import PagesNav from "../../components/users/pagesNav";
 import FooterC from "../../components/footer";
 import { Grid } from "@mui/material";
 
-const Help = (props: any) => {
+interface IHelp {
+  cartQty: number | null | undefined;
+}
+const Help = (props: IHelp) => {
   const router = useRouter();
 
   return (

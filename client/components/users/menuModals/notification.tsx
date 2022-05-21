@@ -10,7 +10,19 @@ import {
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
 
-const Notifications = (props: any) => {
+interface INotifications {
+  notificationOpen:
+    | Element
+    | ((element: Element) => Element)
+    | null
+    | undefined;
+  openNotificaition: boolean;
+  handleNotificationClose:
+    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
+    | undefined;
+}
+
+const Notifications = (props: INotifications) => {
   const [notifications, setNotifications] = useState([]);
   const [product, setProduct] = useState("");
 

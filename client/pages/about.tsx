@@ -7,8 +7,11 @@ import Head from "next/head";
 import { Grid } from "@mui/material";
 import ReactHtmlParser from "react-html-parser";
 
-const About = (props: any) => {
-
+interface IAbout {
+  cartQty: number | null | undefined;
+  aboutContent: string;
+}
+const About = (props: IAbout) => {
   return (
     <Grid>
       <Head>

@@ -1,9 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
-import { useEffect } from "react";
+import { ReactChild, ReactFragment, ReactPortal, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Grid } from "@mui/material";
 
-const AddToCart = (props: any) => {
+interface IAddToCart {
+  modalStatus: any;
+  selectedEvent: {
+    title:
+      | boolean
+      | ReactChild
+      | ReactFragment
+      | ReactPortal
+      | null
+      | undefined;
+  };
+}
+const AddToCart = (props: IAddToCart) => {
   //   const [event] = useState(props.event);
   //   const [uniqueEvent] = useState(props.uniqueEvent);
 

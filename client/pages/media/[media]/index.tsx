@@ -11,7 +11,12 @@ import PagesNav from "../../../components/users/pagesNav";
 import ReactPaginate from "react-paginate";
 import { Grid } from "@mui/material";
 
-const Media = (props: any) => {
+interface IMedia {
+  mediaListings: any;
+  cartQty: any;
+  mediaCategories: any;
+}
+const Media = (props: IMedia) => {
   const [pageNumber, setPageNumber] = useState<number>(0);
 
   const itemsPerPage: number = 9;

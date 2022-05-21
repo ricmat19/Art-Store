@@ -5,7 +5,11 @@ import AdminPagesNav from "../../components/admin/pagesNav";
 import FooterC from "../../components/footer";
 import { Grid } from "@mui/material";
 
-const TermsOfService = (props: any) => {
+interface ITermsOfService {
+  termsOfServiceContent: string | (() => string);
+}
+
+const TermsOfService = (props: ITermsOfService) => {
   const [content, setContent] = useState<string>(props.termsOfServiceContent);
 
   const updateTermsOfService = async (e: { preventDefault: () => void }) => {

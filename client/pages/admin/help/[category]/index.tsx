@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ReactChild, ReactFragment, ReactPortal, useState } from "react";
 import { useRouter } from "next/router";
 import IndexAPI from "../../../../apis/indexAPI";
 import AdminMainNav from "../../../../components/admin/mainNav";
@@ -10,7 +10,24 @@ import FooterC from "../../../../components/footer";
 import { Button, Grid } from "@mui/material";
 import Head from "next/head";
 
-const HelpCategory = (props: any) => {
+interface ICategoryContent {
+  categoryTitle:
+    | boolean
+    | ReactChild
+    | ReactFragment
+    | ReactPortal
+    | null
+    | undefined;
+  categorySections: string[];
+}
+
+interface IHelpCategory {
+  category: string;
+  categoryContent: ICategoryContent;
+  categoryArticles: string[];
+}
+
+const HelpCategory = (props: IHelpCategory) => {
   const [addOpen, setAddOpen] = useState(false);
   const handleAddOpen = () => setAddOpen(true);
   const handleAddClose = () => setAddOpen(false);
@@ -169,7 +186,9 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps(context: { params: { category: string } }) {
+export async function getStaticProps(context: {
+  params: { category: string };
+}) {
   const category = context.params.category;
 
   let categoryContent = {};

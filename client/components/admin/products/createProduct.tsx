@@ -5,12 +5,18 @@ import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+interface IAdminAddProduct {
+  open: boolean | undefined;
+  handleClose:
+    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
+    | undefined;
+}
 interface ICreateProductForm {
   title: string;
   quantity: string;
   price: string;
   info: string;
-  type: string
+  type: string;
   image: File;
 }
 
@@ -21,7 +27,10 @@ const initialValues = {
   info: "",
 };
 
-const onSubmit = (values: ICreateProductForm, onSubmitProps: any) => {
+const onSubmit = (
+  values: ICreateProductForm,
+  onSubmitProps: { resetForm: () => void }
+) => {
   if (values.image) {
     let formData = new FormData();
 
@@ -49,7 +58,7 @@ const validationSchema = Yup.object({
   info: Yup.string().required("Info is required"),
 });
 
-const AdminAddProduct = (props: any) => {
+const AdminAddProduct = (props: IAdminAddProduct) => {
   const [image, setImage] = useState<File>();
 
   let displayedImage;

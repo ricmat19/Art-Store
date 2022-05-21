@@ -1,8 +1,11 @@
 import { Grid } from "@mui/material";
 import Link from "next/link";
 
-const AdminCoursesNav = (props: any) => {
+interface IAdminCoursesNav {
+  activeCourses: string[] | undefined;
+}
 
+const AdminCoursesNav = (props: IAdminCoursesNav) => {
   let subjectPageLinks;
   if (props.activeCourses !== undefined) {
     subjectPageLinks = props.activeCourses.map((subject: string) => {

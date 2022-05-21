@@ -5,8 +5,24 @@ import PagesNav from "../../../components/users/pagesNav";
 import FooterC from "../../../components/footer";
 import { Grid } from "@mui/material";
 import Head from "next/head";
+import { ReactChild, ReactFragment, ReactPortal } from "react";
 
-const HelpCategory = (props: any) => {
+interface ICategoryContent {
+  categoryTitle:
+    | boolean
+    | ReactChild
+    | ReactFragment
+    | ReactPortal
+    | null
+    | undefined;
+  categorySections: any[];
+}
+interface IHelpCategory {
+  category: any;
+  categoryContent: ICategoryContent;
+  categoryArticles: any[];
+}
+const HelpCategory = (props: IHelpCategory) => {
   const router = useRouter();
 
   const displayArticle = async (id: string) => {
@@ -143,7 +159,9 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps(context: { params: { category: string } }) {
+export async function getStaticProps(context: {
+  params: { category: string };
+}) {
   const category = context.params.category;
 
   let categoryContent = {};

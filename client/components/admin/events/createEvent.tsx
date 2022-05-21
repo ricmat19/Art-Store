@@ -16,7 +16,10 @@ const initialValues = {
   spots: "",
   info: "",
 };
-const onSubmit = (values: ICreateEventForm, onSubmitProps: any) => {
+const onSubmit = (
+  values: ICreateEventForm,
+  onSubmitProps: { resetForm: () => void }
+) => {
   onSubmitProps.resetForm();
 };
 const validationSchema = Yup.object({

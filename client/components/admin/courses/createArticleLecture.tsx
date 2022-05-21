@@ -3,7 +3,23 @@ import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { ReactChild, ReactFragment, ReactPortal } from "react";
 
+interface ICreateArticleLecture {
+  open: boolean | undefined;
+  handleClose:
+    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
+    | undefined;
+  lecture:
+    | boolean
+    | ReactChild
+    | ReactFragment
+    | ReactPortal
+    | null
+    | undefined;
+  section: string;
+  id: string;
+}
 interface ICreateArticleLectureForm {
   article: string;
   lecture: string;
@@ -15,7 +31,10 @@ const initialValues = {
   article: "",
   lecture: "",
 };
-const onSubmit = (values: ICreateArticleLectureForm, onSubmitProps: any) => {
+const onSubmit = (
+  values: ICreateArticleLectureForm,
+  onSubmitProps: { resetForm: () => void }
+) => {
   IndexAPI.put(
     `/admin/courses/lecture/${values.lecture}/${values.section}/${values.id}`,
     {
@@ -30,7 +49,7 @@ const validationSchema = Yup.object({
   description: Yup.string().required("Description is required"),
 });
 
-const AdminCreateArticleLecture = (props: any) => {
+const AdminCreateArticleLecture = (props: ICreateArticleLecture) => {
   return (
     <Grid>
       <Modal

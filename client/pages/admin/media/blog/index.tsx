@@ -14,7 +14,11 @@ import AdminDeleteBlog from "../../../../components/admin/media/blog/deletePost"
 import { Button, Grid } from "@mui/material";
 import Link from "next/link";
 
-const AdminBlog = (props: any) => {
+interface IAdminBlog {
+  blog: IBlog[] | (() => IBlog[]);
+}
+
+const AdminBlog = (props: IAdminBlog) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
   const [blog] = useState<IBlog[]>(props.blog);
   const [deleteBlog, setDeleteBlog] = useState<any>();

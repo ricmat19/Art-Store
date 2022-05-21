@@ -12,7 +12,11 @@ import {
 } from "../../../reducers/cartReducers";
 import { useAppDispatch } from "../../../hooks";
 
-const CartProducts: FC = (props: any) => {
+interface ICartProducts {
+  setCart: (arg0: any) => void;
+}
+
+const CartProducts = (props: ICartProducts) => {
   const [cart, setCart] = useState<ICart[]>([]);
   const [prices, setPrices] = useState<number[]>([]);
   const [cartQty, setCartQty] = useState<number[]>([]);

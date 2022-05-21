@@ -1,10 +1,19 @@
 /* eslint-disable @next/next/no-img-element */
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
-import { useState } from "react";
+import { ReactChild, ReactFragment, ReactPortal, useState } from "react";
 import Events from "./events";
 import AddToCart from "./addToCart";
 
-const Day = (props: any) => {
+interface IDay {
+  open: boolean | undefined;
+  handleClose:
+    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
+    | undefined;
+  date: boolean | ReactChild | ReactFragment | ReactPortal | null | undefined;
+  dateEvents: any;
+}
+
+const Day = (props: IDay) => {
   const [view, setView] = useState("events");
   const [selectedEvent, setSelectedEvent] = useState();
   return (
@@ -62,9 +71,7 @@ const Day = (props: any) => {
                       dateEvents={props.dateEvents}
                     />
                   ) : (
-                    <AddToCart
-                      selectedEvent={selectedEvent}
-                    />
+                    <AddToCart selectedEvent={selectedEvent} />
                   )}
                 </Grid>
               </Grid>

@@ -9,7 +9,12 @@ import ReactPaginate from "react-paginate";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-const CollectionGroups = (props: any) => {
+interface ICollectionGroups {
+  collection: any[];
+  cartQty: number | null | undefined;
+}
+
+const CollectionGroups = (props: ICollectionGroups) => {
   const [pageNumber, setPageNumber] = useState<number>(0);
 
   const itemsPerPage = 9;
@@ -20,7 +25,7 @@ const CollectionGroups = (props: any) => {
 
   const removeFromCollectionGroup = async (
     e: { preventDefault: () => void },
-    group: string,
+    group: string | string[] | undefined,
     item: string
   ) => {
     try {

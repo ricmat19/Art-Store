@@ -3,7 +3,23 @@ import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { ReactChild, ReactFragment, ReactPortal } from "react";
 
+interface IAdminCreateVideoLecture {
+  open: boolean | undefined;
+  handleClose:
+    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
+    | undefined;
+  lecture:
+    | boolean
+    | ReactChild
+    | ReactFragment
+    | ReactPortal
+    | null
+    | undefined;
+  section: string;
+  id: string;
+}
 interface ICreateVideoLectureForm {
   video: string;
   description: string;
@@ -17,7 +33,10 @@ const initialValues = {
   video: "",
   description: "",
 };
-const onSubmit = (values: ICreateVideoLectureForm, onSubmitProps: any) => {
+const onSubmit = (
+  values: ICreateVideoLectureForm,
+  onSubmitProps: { resetForm: () => void }
+) => {
   if (values.video) {
     let formData = new FormData();
 
@@ -43,7 +62,7 @@ const validationSchema = Yup.object({
   description: Yup.string().required("Description is required"),
 });
 
-const AdminCreateVideoLecture = (props: any) => {
+const AdminCreateVideoLecture = (props: IAdminCreateVideoLecture) => {
   return (
     <Grid>
       <Modal

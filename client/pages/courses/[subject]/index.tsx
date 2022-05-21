@@ -8,7 +8,19 @@ import FooterC from "../../../components/footer";
 import CoursesNav from "../../../components/users/courses/coursesNav";
 import { Grid } from "@mui/material";
 
-const Courses = (props: any) => {
+interface ICourse {
+  id: string;
+  title: string;
+  price: string;
+  imageBuffer: string;
+}
+interface ICourses {
+  courses: ICourse[];
+  cartQty: number | null | undefined;
+  subjects: string[];
+}
+
+const Courses = (props: ICourses) => {
   const [pageNumber, setPageNumber] = useState<number>(0);
 
   const itemsPerPage: number = 9;

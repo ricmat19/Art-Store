@@ -7,7 +7,15 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Grid, Menu, ListItemIcon, MenuItem } from "@mui/material";
 
-const AdminEllipse = (props: any) => {
+interface IAdminEllipse {
+  ellipseOpen: Element | ((element: Element) => Element) | null | undefined;
+  openEllipse: boolean;
+  handleEllipseClose:
+    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
+    | undefined;
+}
+
+const AdminEllipse = (props: IAdminEllipse) => {
   return (
     <Menu
       anchorEl={props.ellipseOpen}

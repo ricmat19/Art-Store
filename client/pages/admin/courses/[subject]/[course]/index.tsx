@@ -10,6 +10,10 @@ import { useRouter } from "next/router";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+interface IAdminCourse {
+  selectedCourse: { imageBuffer: string | undefined }[];
+}
+
 interface ICreateCurriculumForm {
   title: string;
   subject: string;
@@ -25,7 +29,10 @@ const initialValues = {
   price: "",
   description: "",
 };
-const onSubmit = (values: ICreateCurriculumForm, onSubmitProps: any) => {
+const onSubmit = (
+  values: ICreateCurriculumForm,
+  onSubmitProps: { resetForm: () => void }
+) => {
   IndexAPI.put(`/admin/courses/${values.selectedCourse[0].id}`, {
     title: values.title,
     subject: values.subject,
@@ -51,7 +58,7 @@ const validationSchema = Yup.object({
   description: Yup.string().required("Email is required"),
 });
 
-const AdminCourse = (props: any) => {
+const AdminCourse = (props: IAdminCourse) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
 
   const router = useRouter();

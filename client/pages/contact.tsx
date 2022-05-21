@@ -20,7 +20,10 @@ const initialValues = {
   subject: "",
   message: "",
 };
-const onSubmit = (values: IContactForm, onSubmitProps: any) => {
+const onSubmit = (
+  values: IContactForm,
+  onSubmitProps: { resetForm: () => void }
+) => {
   IndexAPI.post("/contact", {
     name: values.name,
     email: values.email,
@@ -38,7 +41,11 @@ const validationSchema = Yup.object({
   message: Yup.string().required("Message is required"),
 });
 
-const Contact = (props: any) => {
+interface IContact {
+  cartQty: number | null | undefined;
+}
+
+const Contact = (props: IContact) => {
   return (
     <Grid>
       <Head>

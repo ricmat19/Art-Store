@@ -2,7 +2,18 @@ import IndexAPI from "../../../apis/indexAPI";
 import { Grid } from "@mui/material";
 import { useState } from "react";
 
-const Links = (props: any) => {
+interface IProfile {
+  email: string;
+  website: string;
+  twitter: string;
+  linkedin: string;
+  youtube: string;
+}
+interface ILinks {
+  profile: IProfile;
+}
+
+const Links = (props: ILinks) => {
   const [email] = useState(props.profile.email);
   const [website, setWebsite] = useState(props.profile.website);
   const [twitter, setTwitter] = useState(props.profile.twitter);

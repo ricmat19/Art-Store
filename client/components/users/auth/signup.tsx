@@ -3,6 +3,13 @@ import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+interface ISignUp {
+  handleSignUpClose:
+    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
+    | undefined;
+  handleSignInOpen: () => void;
+  signUpOpen: boolean | undefined;
+}
 interface ISignUpForm {
   firstName: string;
   lastName: string;
@@ -19,7 +26,10 @@ const initialValues = {
   passwordCopy: "",
 };
 
-const onSubmit = (values: ISignUpForm, onSubmitProps: any) => {
+const onSubmit = (
+  values: ISignUpForm,
+  onSubmitProps: { resetForm: () => void }
+) => {
   IndexAPI.post("/signup", {
     firstName: values.firstName,
     lastName: values.lastName,
@@ -40,7 +50,7 @@ const validationSchema = Yup.object({
   passwordCopy: Yup.string().required("Email is required"),
 });
 
-const SignUp = (props: any) => {
+const SignUp = (props: ISignUp) => {
   const displaySignIn = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {

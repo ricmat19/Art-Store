@@ -25,7 +25,10 @@ const initialValues = {
   passwordCopy: "",
 };
 
-const onSubmit = (values: ISignUpForm, onSubmitProps: any) => {
+const onSubmit = (
+  values: ISignUpForm,
+  onSubmitProps: { resetForm: () => void }
+) => {
   IndexAPI.post("/signup", {
     firstName: values.firstName,
     lastName: values.lastName,

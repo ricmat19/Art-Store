@@ -5,7 +5,13 @@ import IndexAPI from "../../../apis/indexAPI";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTicket } from "@fortawesome/free-solid-svg-icons";
 
-const Events = (props: any) => {
+interface IEvents {
+  setSelectedEvent: (arg0: any) => void;
+  setView: (arg0: string) => void;
+  dateEvents: any[] | undefined;
+}
+
+const Events = (props: IEvents) => {
   const addToCart = async (event: any) => {
     try {
       await IndexAPI.post("/cart", {

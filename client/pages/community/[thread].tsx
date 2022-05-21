@@ -4,8 +4,10 @@ import MainNav from "../../components/users/mainNav";
 import PagesNav from "../../components/users/pagesNav";
 import { Grid } from "@mui/material";
 
-const AdminThreadsC = (props: any) => {
-
+interface IAdminThreads {
+  cartQty: number | null | undefined;
+}
+const AdminThreads = (props: IAdminThreads) => {
   return (
     <Grid>
       <MainNav cartQty={props.cartQty} />
@@ -29,4 +31,4 @@ export async function getStaticProps() {
   };
 }
 
-export default AdminThreadsC;
+export default AdminThreads;

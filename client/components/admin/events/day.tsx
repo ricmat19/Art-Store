@@ -1,5 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-import { useEffect, useState } from "react";
+import {
+  ReactChild,
+  ReactFragment,
+  ReactPortal,
+  useEffect,
+  useState,
+} from "react";
 import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,7 +14,17 @@ import AdminEvents from "./events";
 import AdminCreateEvent from "./createEvent";
 import AdminUpdateEvent from "./updateEvent";
 
-const AdminDay = (props: any) => {
+interface IAdminDay {
+  date: boolean | ReactChild | ReactFragment | ReactPortal | null | undefined;
+  handleClose:
+    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
+    | undefined;
+  open: boolean | undefined;
+  dateEvents: any;
+  displayDeleteModal: boolean;
+}
+
+const AdminDay = (props: IAdminDay) => {
   const [view, setView] = useState("events");
   const [title, setTitle] = useState<string>("");
   const [price, setPrice] = useState<string>("");
@@ -19,7 +35,7 @@ const AdminDay = (props: any) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setView("events")
+        setView("events");
       } catch (err) {
         console.log(err);
       }

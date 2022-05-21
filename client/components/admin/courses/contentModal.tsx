@@ -2,8 +2,19 @@ import { ListItemIcon, MenuItem } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faVideoCamera, faFile } from "@fortawesome/free-solid-svg-icons";
 import { Grid, Menu } from "@mui/material";
+import { MouseEventHandler } from "react";
 
-const Content = (props: any) => {
+interface IContent {
+  contentOpen: Element | ((element: Element) => Element) | null | undefined;
+  openContent: boolean;
+  handleContentClose:
+    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
+    | undefined;
+  handleAddVideoOpen: MouseEventHandler<HTMLLIElement> | undefined;
+  handleAddArticleOpen: MouseEventHandler<HTMLLIElement> | undefined;
+}
+
+const Content = (props: IContent) => {
   return (
     <Menu
       anchorEl={props.contentOpen}

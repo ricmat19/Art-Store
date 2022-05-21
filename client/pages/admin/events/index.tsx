@@ -9,7 +9,11 @@ import AdminDay from "../../../components/admin/events/day";
 import AdminDeleteEvent from "../../../components/admin/events/deleteEvent";
 import { Grid } from "@mui/material";
 
-const AdminEvents = (props: any) => {
+interface IAdminEvents {
+  events: string | any[];
+}
+
+const AdminEvents = (props: IAdminEvents) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
 
   const [events, setEvents] = useState(props.events);

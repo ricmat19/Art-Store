@@ -5,7 +5,12 @@ import FooterC from "../components/footer";
 import { Grid } from "@mui/material";
 import ReactHtmlParser from "react-html-parser";
 
-const TermsOfService = (props: any) => {
+interface ITermsOfService {
+  cartQty: number | null | undefined;
+  termsOfServiceContent: string;
+}
+
+const TermsOfService = (props: ITermsOfService) => {
   return (
     <Grid>
       <MainNav cartQty={props.cartQty} />

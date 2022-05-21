@@ -9,7 +9,11 @@ import Day from "../../components/users/events/day";
 import { Grid } from "@mui/material";
 import SummaryList from "../../components/users/events/summaryList";
 
-const EventsC = (props: any) => {
+interface IEvents {
+  events: any;
+  cartQty: number | null | undefined;
+}
+const Events = (props: IEvents) => {
   const [events] = useState(props.events);
   const [date, setDate] = useState();
   const [dateEvents, setDateEvents] = useState();
@@ -62,4 +66,4 @@ export async function getStaticProps() {
   };
 }
 
-export default EventsC;
+export default Events;

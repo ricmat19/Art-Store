@@ -3,7 +3,14 @@ import { Grid } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
-const AdminEvents = (props: any) => {
+interface IAdminEvents {
+  setSelectedEvent: (arg0: any) => void;
+  setView: (arg0: string) => void;
+  dateEvents: any[] | undefined;
+  displayDeleteModal: (arg0: any) => void;
+}
+
+const AdminEvents = (props: IAdminEvents) => {
   const displayEditModal = (event: any) => {
     props.setSelectedEvent(event);
     props.setView("edit");

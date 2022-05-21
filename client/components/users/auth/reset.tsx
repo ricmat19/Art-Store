@@ -2,10 +2,17 @@ import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+interface IReset {
+  handleResetClose:
+    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
+    | undefined;
+  handleSignInOpen: () => void;
+  resetOpen: boolean | undefined;
+}
 const initialValues = {
   email: "",
 };
-const onSubmit = (onSubmitProps: any) => {
+const onSubmit = (onSubmitProps: { resetForm: () => void }) => {
   onSubmitProps.resetForm();
 };
 const validationSchema = Yup.object({
@@ -14,7 +21,7 @@ const validationSchema = Yup.object({
     .required("Email is required"),
 });
 
-const Reset = (props: any) => {
+const Reset = (props: IReset) => {
   const displaySignIn = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {

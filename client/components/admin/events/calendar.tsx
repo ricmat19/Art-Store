@@ -7,7 +7,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Grid } from "@mui/material";
 
-const AdminCalendar = (props: any) => {
+interface IAdminCalendar {
+  events: string | any[];
+  handleDayOpen: () => void;
+  setDate: (arg0: string) => void;
+  setDateEvents: (arg0: any[]) => void;
+}
+
+const AdminCalendar = (props: IAdminCalendar) => {
   const [nav, setNav] = useState(0);
   const [days, setDays] = useState<IDay[]>([]);
   const [dateDisplay, setDateDisplay] = useState("");
@@ -88,7 +95,8 @@ const AdminCalendar = (props: any) => {
 
           let hasEvent = false;
           for (let j = 0; j < props.events.length; j++) {
-            const calendarMonth = new Date(props.events[j].event_date).getMonth() + 1;
+            const calendarMonth =
+              new Date(props.events[j].event_date).getMonth() + 1;
             if (
               dayMonth === calendarMonth &&
               dayDay.toString() ===

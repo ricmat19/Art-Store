@@ -15,7 +15,12 @@ import AdminUpdateProduct from "../../../components/admin/products/updateProduct
 import AdminDeleteProduct from "../../../components/admin/products/deleteProduct";
 import { Button, Grid } from "@mui/material";
 
-const AdminProduct = (props: any) => {
+interface IAdminProduct {
+  product: IProduct[] | (() => IProduct[]);
+  activeProducts: IProduct[] | (() => IProduct[]);
+}
+
+const AdminProduct = (props: IAdminProduct) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
   const [product] = useState<IProduct[]>(props.product);
   const [activeProducts] = useState<IProduct[]>(props.activeProducts);

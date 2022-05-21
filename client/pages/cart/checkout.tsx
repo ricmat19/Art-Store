@@ -38,7 +38,10 @@ const initialValues = {
   zipcode: "",
   phone: "",
 };
-const onSubmit = (values: ICheckoutForm, onSubmitProps: any) => {
+const onSubmit = (
+  values: ICheckoutForm,
+  onSubmitProps: { resetForm: () => void }
+) => {
   try {
     IndexAPI.put(`/cart/deleteAll`);
 
@@ -62,7 +65,13 @@ const validationSchema = Yup.object({
   phone: Yup.string().required("Phone Number is required"),
 });
 
-const CheckoutC = (props: any) => {
+interface ICheckout {
+  cart: any;
+  priceArray: any;
+  sub: number | (() => number);
+}
+
+const Checkout = (props: ICheckout) => {
   // const stripe: any = useStripe();
   // const elements: any = useElements();
 
@@ -377,4 +386,4 @@ export async function getStaticProps() {
   };
 }
 
-export default CheckoutC;
+export default Checkout;

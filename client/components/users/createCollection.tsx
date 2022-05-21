@@ -5,6 +5,13 @@ import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+interface IAdminAddCollection {
+  open: boolean | undefined;
+  handleClose:
+    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
+    | undefined;
+}
+
 interface ICreateCollectionForm {
   title: string;
   type: string;
@@ -23,7 +30,10 @@ const initialValues = {
   price: "",
   info: "",
 };
-const onSubmit = (values: ICreateCollectionForm, onSubmitProps: any) => {
+const onSubmit = (
+  values: ICreateCollectionForm,
+  onSubmitProps: { resetForm: () => void }
+) => {
   if (values.image) {
     let formData = new FormData();
 
@@ -53,7 +63,7 @@ const validationSchema = Yup.object({
   info: Yup.string().required("Email is required"),
 });
 
-const AdminAddProduct = (props: any) => {
+const AdminAddCollection = (props: IAdminAddCollection) => {
   const [image, setImage] = useState<File>();
 
   let displayedImage;

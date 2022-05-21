@@ -4,6 +4,9 @@ import { Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+interface IAdminUpdateEvent {
+  selectedEvent: { id: string };
+}
 interface IUpdateEventForm {
   title: string;
   date: string;
@@ -21,7 +24,10 @@ const initialValues = {
   spots: "",
   info: "",
 };
-const onSubmit = (values: IUpdateEventForm, onSubmitProps: any) => {
+const onSubmit = (
+  values: IUpdateEventForm,
+  onSubmitProps: { resetForm: () => void }
+) => {
   IndexAPI.put(`/admin/events/${values.id}`, {
     selectedTitle: values.title,
     selectedDate: values.date,
@@ -41,7 +47,7 @@ const validationSchema = Yup.object({
   info: Yup.string().required("Info is required"),
 });
 
-const AdminUpdateEvent = (props: any) => {
+const AdminUpdateEvent = (props: IAdminUpdateEvent) => {
   return (
     <Grid className="create-event">
       <Formik

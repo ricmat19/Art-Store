@@ -5,7 +5,11 @@ import Head from "next/head";
 import IndexAPI from "../apis/indexAPI";
 import { Grid } from "@mui/material";
 
-const PageNotFound = (props: any) => {
+interface IPageNotFound {
+  cartQty: number | null | undefined;
+}
+
+const PageNotFound = (props: IPageNotFound) => {
   return (
     <Grid>
       <Head>

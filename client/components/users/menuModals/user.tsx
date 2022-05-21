@@ -1,9 +1,23 @@
 import { ListItemIcon, MenuItem } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBriefcase, faDollar, faHeart, faSignOutAlt, faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBriefcase,
+  faDollar,
+  faHeart,
+  faSignOutAlt,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 import { Grid, Menu } from "@mui/material";
 
-const User = (props: any) => {
+interface IUser {
+  userOpen: Element | ((element: Element) => Element) | null | undefined;
+  openUser: boolean;
+  handleUserClose:
+    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
+    | undefined;
+}
+
+const User = (props: IUser) => {
   return (
     <Menu
       anchorEl={props.userOpen}
@@ -67,7 +81,7 @@ const User = (props: any) => {
         <a href="/purchaseHistory">
           <MenuItem sx={{ color: "black" }}>
             <ListItemIcon>
-            <FontAwesomeIcon icon={faDollar} />
+              <FontAwesomeIcon icon={faDollar} />
             </ListItemIcon>
             Purchase History
           </MenuItem>

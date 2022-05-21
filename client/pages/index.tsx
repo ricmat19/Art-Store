@@ -4,7 +4,11 @@ import PagesNav from "../components/users/pagesNav";
 import FooterC from "../components/footer";
 import { Grid } from "@mui/material";
 
-const Home = (props: any) => {
+interface IHome {
+  cartQty: number | null | undefined;
+}
+
+const Home = (props: IHome) => {
   return (
     <Grid>
       <MainNav cartQty={props.cartQty} />

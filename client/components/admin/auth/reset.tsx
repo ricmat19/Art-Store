@@ -18,7 +18,7 @@ interface IResetForm {
 const initialValues = {
   email: "",
 };
-const onSubmit = (values: IResetForm, onSubmitProps: any) => {
+const onSubmit = (values: IResetForm, onSubmitProps: { resetForm: () => void; }) => {
   IndexAPI.post("/reset", {
     email: values.email,
   });

@@ -1,8 +1,11 @@
 import { Grid } from "@mui/material";
 import Link from "next/link";
 
-const CoursesNav = (props: any) => {
+interface ICoursesNav {
+  courses: string[];
+}
 
+const CoursesNav = (props: ICoursesNav) => {
   const coursePageLinks = props.courses.map((course: string) => {
     return (
       <Link passHref key={course} href={`/courses/${course}`}>

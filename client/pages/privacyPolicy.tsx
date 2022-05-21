@@ -5,7 +5,12 @@ import FooterC from "../components/footer";
 import { Grid } from "@mui/material";
 import ReactHtmlParser from "react-html-parser";
 
-const PrivacyPolicy = (props: any) => {
+interface IPrivacyPolicy {
+  cartQty: number | null | undefined;
+  privacyPolicyContent: string;
+}
+
+const PrivacyPolicy = (props: IPrivacyPolicy) => {
   return (
     <Grid>
       <MainNav cartQty={props.cartQty} />
