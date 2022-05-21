@@ -7,13 +7,20 @@ import { Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+interface IContactForm {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
+
 const initialValues = {
   name: "",
   email: "",
   subject: "",
   message: "",
 };
-const onSubmit = (values: any, onSubmitProps: any) => {
+const onSubmit = (values: IContactForm, onSubmitProps: any) => {
   IndexAPI.post("/contact", {
     name: values.name,
     email: values.email,

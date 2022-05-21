@@ -5,10 +5,26 @@ import { Backdrop, Box, Fade, Grid, Modal } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+interface IUpdateProduct {
+  id: string;
+}
+
+interface IUpdateProductForm {
+  email: string;
+  title: string;
+  product: string;
+  price: string;
+  info: string;
+  qty: string;
+  fileImage: File;
+  handleClose: any;
+  updateProduct: IUpdateProduct;
+}
+
 const initialValues = {
   email: "",
 };
-const onSubmit = (values: any, onSubmitProps: any) => {
+const onSubmit = (values: IUpdateProductForm, onSubmitProps: any) => {
   if (values.fileImage) {
     let formData = new FormData();
 

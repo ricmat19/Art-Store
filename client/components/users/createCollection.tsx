@@ -5,6 +5,16 @@ import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+interface ICreateCollectionForm {
+  title: string;
+  type: string;
+  image: File;
+  quantity: string;
+  price: string;
+  info: string;
+  handleClose: any;
+}
+
 const initialValues = {
   title: "",
   type: "",
@@ -13,7 +23,7 @@ const initialValues = {
   price: "",
   info: "",
 };
-const onSubmit = (values: any, onSubmitProps: any) => {
+const onSubmit = (values: ICreateCollectionForm, onSubmitProps: any) => {
   if (values.image) {
     let formData = new FormData();
 

@@ -14,6 +14,19 @@ import * as Yup from "yup";
 import { clearCartReducer } from "../../reducers/cartReducers";
 import { useAppDispatch } from "../../hooks";
 
+interface ICheckoutForm {
+  email: string;
+  firstName: string;
+  lastName: string;
+  address: string;
+  suite: string;
+  city: string;
+  state: string;
+  zipcode: string;
+  phone: string;
+  router: any;
+}
+
 const initialValues = {
   email: "",
   firstName: "",
@@ -25,7 +38,7 @@ const initialValues = {
   zipcode: "",
   phone: "",
 };
-const onSubmit = (values: any, onSubmitProps: any) => {
+const onSubmit = (values: ICheckoutForm, onSubmitProps: any) => {
   try {
     IndexAPI.put(`/cart/deleteAll`);
 

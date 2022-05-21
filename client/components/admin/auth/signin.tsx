@@ -14,11 +14,16 @@ interface IModalState {
   password: string;
 }
 
+interface ISignInForm {
+  email: string;
+  password: string;
+}
+
 const initialValues = {
   email: "",
   password: "",
 };
-const onSubmit = (values: any, onSubmitProps: any) => {
+const onSubmit = (values: ISignInForm, onSubmitProps: any) => {
   IndexAPI.post("/signin", {
     email: values.email,
     password: values.password,

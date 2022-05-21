@@ -10,6 +10,15 @@ import { useRouter } from "next/router";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+interface ICreateCourseForm {
+  title: string;
+  image: File | undefined;
+  subject: string;
+  price: string;
+  description: string;
+  router: any;
+}
+
 const initialValues = {
   title: "",
   image: "",
@@ -17,7 +26,7 @@ const initialValues = {
   price: "",
   description: "",
 };
-const onSubmit = (values: any, onSubmitProps: any) => {
+const onSubmit = (values: ICreateCourseForm, onSubmitProps: any) => {
   if (values.image) {
     let formData = new FormData();
 
@@ -211,12 +220,12 @@ const AdminCreateCourse = () => {
                     <Grid className="admin-form-field">
                       <label className="admin-label">Description:</label>
                       <Grid sx={{ display: "grid" }}>
-                      <Field as="textarea" rows={12} name="description" />
-                      <ErrorMessage name="description" component="div">
-                        {(errorMsg) => (
-                          <Grid className="errorMsg">{errorMsg}</Grid>
-                        )}
-                      </ErrorMessage>
+                        <Field as="textarea" rows={12} name="description" />
+                        <ErrorMessage name="description" component="div">
+                          {(errorMsg) => (
+                            <Grid className="errorMsg">{errorMsg}</Grid>
+                          )}
+                        </ErrorMessage>
                       </Grid>
                     </Grid>
                     <Grid className="admin-form-button">

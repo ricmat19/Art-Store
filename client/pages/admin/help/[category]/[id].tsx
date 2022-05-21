@@ -7,10 +7,22 @@ import { Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+interface IHelpArticleContent {
+  category: string;
+  id: string;
+}
+interface ICreateHelpArticleForm {
+  email: String;
+  title: String;
+  content: String;
+  helpArticle: IHelpArticleContent[];
+  router: any;
+}
+
 const initialValues = {
   email: "",
 };
-const onSubmit = (values: any, onSubmitProps: any) => {
+const onSubmit = (values: ICreateHelpArticleForm, onSubmitProps: any) => {
   IndexAPI.put(
     `/admin/help/${values.helpArticle[0].category}/${values.helpArticle[0].id}`,
     {

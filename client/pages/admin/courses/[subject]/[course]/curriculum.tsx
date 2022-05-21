@@ -15,10 +15,19 @@ import AdminCreateArticleLecture from "../../../../../components/admin/courses/c
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+interface ICreateCurriculumForm {
+  email: string;
+}
+
+interface ICourseLectures {
+  lecture: any;
+  index: string;
+}
+
 const initialValues = {
   email: "",
 };
-const onSubmit = (values: any, onSubmitProps: any) => {
+const onSubmit = (values: ICreateCurriculumForm, onSubmitProps: any) => {
   // if (values.create = "section") {
   //         IndexAPI.post(`/admin/courses/section/${values.course}`, {
   //           values.section
@@ -66,7 +75,7 @@ const AdminCourseCurriculum = (props: any) => {
   const [section, setSection] = useState<string>("");
   const [lecture, setLecture] = useState<string>("");
   const [courseSections] = useState<string[]>(props.courseSections);
-  const [courseLectures] = useState<string[]>(props.courseLectures);
+  const [courseLectures] = useState<ICourseLectures[]>(props.courseLectures);
 
   // const { query } = useRouter();
 
@@ -252,44 +261,46 @@ const AdminCourseCurriculum = (props: any) => {
                               </Grid>
                             </Grid>
                             <hr />
-                            {courseLectures.map((lecture: any, index: string) => {
-                              return lecture.section === section.section ? (
-                                <Grid>
-                                  <Grid
-                                    key={index}
-                                    sx={{
-                                      display: "grid",
-                                      gridTemplateColumns: "75px auto auto",
-                                      alignItems: "center",
-                                      padding: "20px 0",
-                                    }}
-                                  >
-                                    <Grid>
-                                      <h3>Lecture:</h3>
+                            {courseLectures.map(
+                              (lecture: any, index: string) => {
+                                return lecture.section === section.section ? (
+                                  <Grid>
+                                    <Grid
+                                      key={index}
+                                      sx={{
+                                        display: "grid",
+                                        gridTemplateColumns: "75px auto auto",
+                                        alignItems: "center",
+                                        padding: "20px 0",
+                                      }}
+                                    >
+                                      <Grid>
+                                        <h3>Lecture:</h3>
+                                      </Grid>
+                                      <Grid>
+                                        <h3>{lecture.lecture}</h3>
+                                      </Grid>
+                                      <Grid sx={{ textAlign: "right" }}>
+                                        <Button
+                                          className="plus-icon"
+                                          onClick={(e) =>
+                                            handleContentClick(e, lecture)
+                                          }
+                                        >
+                                          <FontAwesomeIcon icon={faPlus} />
+                                          <Grid sx={{ paddingLeft: "5px" }}>
+                                            Content
+                                          </Grid>
+                                        </Button>
+                                      </Grid>
                                     </Grid>
-                                    <Grid>
-                                      <h3>{lecture.lecture}</h3>
-                                    </Grid>
-                                    <Grid sx={{ textAlign: "right" }}>
-                                      <Button
-                                        className="plus-icon"
-                                        onClick={(e) =>
-                                          handleContentClick(e, lecture)
-                                        }
-                                      >
-                                        <FontAwesomeIcon icon={faPlus} />
-                                        <Grid sx={{ paddingLeft: "5px" }}>
-                                          Content
-                                        </Grid>
-                                      </Button>
-                                    </Grid>
+                                    <hr />
                                   </Grid>
-                                  <hr />
-                                </Grid>
-                              ) : (
-                                <Grid key={index}></Grid>
-                              );
-                            })}
+                                ) : (
+                                  <Grid key={index}></Grid>
+                                );
+                              }
+                            )}
                           </Grid>
                         );
                       })}
@@ -321,9 +332,7 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps(context: {
-  params: { course: string };
-}) {
+export async function getStaticProps(context: { params: { course: string } }) {
   const course = context.params.course;
   const courseSections = await IndexAPI.get(
     `/admin/courses/sections/${course}`

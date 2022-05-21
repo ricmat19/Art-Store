@@ -3,13 +3,20 @@ import { Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+interface ICreateEventForm {
+  title: string;
+  price: string;
+  spots: string;
+  info: string;
+}
+
 const initialValues = {
   title: "",
   price: "",
   spots: "",
   info: "",
 };
-const onSubmit = (values: any, onSubmitProps: any) => {
+const onSubmit = (values: ICreateEventForm, onSubmitProps: any) => {
   onSubmitProps.resetForm();
 };
 const validationSchema = Yup.object({

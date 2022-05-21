@@ -9,12 +9,20 @@ import { useRouter } from "next/router";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+interface ICreateBlogForm {
+  title: string;
+  image: string;
+  content: string;
+  router: any;
+}
+
 const initialValues = {
   title: "",
   image: "",
   content: "",
 };
-const onSubmit = (values: any, onSubmitProps: any) => {
+
+const onSubmit = (values: ICreateBlogForm, onSubmitProps: any) => {
   if (values.image) {
     let formData = new FormData();
 

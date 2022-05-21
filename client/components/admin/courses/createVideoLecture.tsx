@@ -4,11 +4,20 @@ import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+interface ICreateVideoLectureForm {
+  video: string;
+  description: string;
+  lecture: string;
+  section: string;
+  id: string;
+  handleClose: any;
+}
+
 const initialValues = {
   video: "",
   description: "",
 };
-const onSubmit = (values: any, onSubmitProps: any) => {
+const onSubmit = (values: ICreateVideoLectureForm, onSubmitProps: any) => {
   if (values.video) {
     let formData = new FormData();
 

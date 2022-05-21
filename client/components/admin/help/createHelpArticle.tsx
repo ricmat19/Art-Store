@@ -5,11 +5,21 @@ import { Backdrop, Box, Fade, Modal, Grid, MenuItem } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+interface ICreateHelpArticleForm {
+  title: string;
+  description: string;
+  article: string;
+  category: string;
+  selectedSection: string;
+  handleClose: any;
+}
+
 const initialValues = {
   title: "",
   description: "",
 };
-const onSubmit = (values: any, onSubmitProps: any) => {
+
+const onSubmit = (values: ICreateHelpArticleForm, onSubmitProps: any) => {
   IndexAPI.post(`/admin/help/${values.category}`, {
     title: values.title,
     article: values.article,

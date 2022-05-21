@@ -9,14 +9,23 @@ interface IModalState {
   handleClose: () => void;
 }
 
+interface ISignUpForm {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  passwordCopy: string;
+}
+
 const initialValues = {
   firstName: "",
   lastName: "",
   email: "",
   password: "",
-  resetPassword: "",
+  passwordCopy: "",
 };
-const onSubmit = (values: any, onSubmitProps: any) => {
+
+const onSubmit = (values: ISignUpForm, onSubmitProps: any) => {
   IndexAPI.post("/signup", {
     firstName: values.firstName,
     lastName: values.lastName,
@@ -26,6 +35,7 @@ const onSubmit = (values: any, onSubmitProps: any) => {
   });
   onSubmitProps.resetForm();
 };
+
 const validationSchema = Yup.object({
   firstName: Yup.string()
     .email("Invalid email format")

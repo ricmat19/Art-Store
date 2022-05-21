@@ -11,10 +11,14 @@ interface IModalState {
   password: string;
 }
 
+interface IResetForm {
+  email: string;
+}
+
 const initialValues = {
   email: "",
 };
-const onSubmit = (values: any, onSubmitProps: any) => {
+const onSubmit = (values: IResetForm, onSubmitProps: any) => {
   IndexAPI.post("/reset", {
     email: values.email,
   });

@@ -4,6 +4,16 @@ import { Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+interface IUpdateEventForm {
+  title: string;
+  date: string;
+  price: string;
+  spots: string;
+  info: string;
+  id: string;
+  handleClose: any;
+}
+
 const initialValues = {
   title: "",
   date: "",
@@ -11,13 +21,13 @@ const initialValues = {
   spots: "",
   info: "",
 };
-const onSubmit = (values: any, onSubmitProps: any) => {
+const onSubmit = (values: IUpdateEventForm, onSubmitProps: any) => {
   IndexAPI.put(`/admin/events/${values.id}`, {
-    selectedTitle: values.selectedTitle,
-    selectedDate: values.selectedDate,
-    selectedPrice: values.selectedPrice,
-    selectedInfo: values.selectedInfo,
-    selectedSpots: values.selectedSpots,
+    selectedTitle: values.title,
+    selectedDate: values.date,
+    selectedPrice: values.price,
+    selectedSpots: values.spots,
+    selectedInfo: values.info,
   });
 
   values.handleClose();

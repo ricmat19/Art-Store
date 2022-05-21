@@ -10,13 +10,22 @@ import { useRouter } from "next/router";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+interface ICreateCurriculumForm {
+  title: string;
+  subject: string;
+  price: string;
+  description: string;
+  selectedCourse: any;
+  router: any;
+}
+
 const initialValues = {
   title: "",
   subject: "",
   price: "",
   description: "",
 };
-const onSubmit = (values: any, onSubmitProps: any) => {
+const onSubmit = (values: ICreateCurriculumForm, onSubmitProps: any) => {
   IndexAPI.put(`/admin/courses/${values.selectedCourse[0].id}`, {
     title: values.title,
     subject: values.subject,
@@ -184,12 +193,12 @@ const AdminCourse = (props: any) => {
                     <Grid className="admin-form-field">
                       <label className="admin-label">Description:</label>
                       <Grid sx={{ display: "grid" }}>
-                      <Field as="textarea" rows={12} name="description" />
-                      <ErrorMessage name="description" component="div">
-                        {(errorMsg) => (
-                          <Grid className="errorMsg">{errorMsg}</Grid>
-                        )}
-                      </ErrorMessage>
+                        <Field as="textarea" rows={12} name="description" />
+                        <ErrorMessage name="description" component="div">
+                          {(errorMsg) => (
+                            <Grid className="errorMsg">{errorMsg}</Grid>
+                          )}
+                        </ErrorMessage>
                       </Grid>
                     </Grid>
                     <Grid className="admin-form-button">
@@ -228,9 +237,7 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps(context: {
-  params: { course: string };
-}) {
+export async function getStaticProps(context: { params: { course: string } }) {
   const course = context.params.course;
   const courseResponse = await IndexAPI.get(`/admin/courses/course/${course}`);
 

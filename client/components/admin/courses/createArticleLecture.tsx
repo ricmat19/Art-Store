@@ -4,16 +4,23 @@ import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+interface ICreateArticleLectureForm {
+  article: string;
+  lecture: string;
+  section: string;
+  id: string;
+}
+
 const initialValues = {
   article: "",
-  description: "",
+  lecture: "",
 };
-const onSubmit = (values: any, onSubmitProps: any) => {
+const onSubmit = (values: ICreateArticleLectureForm, onSubmitProps: any) => {
   IndexAPI.put(
     `/admin/courses/lecture/${values.lecture}/${values.section}/${values.id}`,
     {
       article: values.article,
-      description: values.description,
+      description: values.lecture,
     }
   );
   onSubmitProps.resetForm();

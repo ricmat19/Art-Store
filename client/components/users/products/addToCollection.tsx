@@ -8,10 +8,19 @@ import { Backdrop, Box, Fade, Modal, Grid, Button } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+interface IProduct {
+  id: string;
+}
+
+interface IAddToCollectionForm {
+  collection: string;
+  product: IProduct;
+}
+
 const initialValues = {
   collection: "",
 };
-const onSubmit = (values: any, onSubmitProps: any) => {
+const onSubmit = (values: IAddToCollectionForm, onSubmitProps: any) => {
   IndexAPI.post("/collections", {
     user: "ric19mat@gmail.com",
     collectionGroup: values.collection,

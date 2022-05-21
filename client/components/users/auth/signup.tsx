@@ -3,6 +3,14 @@ import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+interface ISignUpForm {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  passwordCopy: string;
+}
+
 const initialValues = {
   firstName: "",
   lastName: "",
@@ -10,7 +18,8 @@ const initialValues = {
   password: "",
   passwordCopy: "",
 };
-const onSubmit = (values: any, onSubmitProps: any) => {
+
+const onSubmit = (values: ISignUpForm, onSubmitProps: any) => {
   IndexAPI.post("/signup", {
     firstName: values.firstName,
     lastName: values.lastName,

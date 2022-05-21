@@ -9,11 +9,22 @@ import { Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+interface ISelectedBlogContent {
+  id: string;
+}
+
+interface ICreateBlogForm {
+  title: string;
+  content: string;
+  selectedBlog: ISelectedBlogContent[];
+  router: any;
+}
+
 const initialValues = {
   title: "",
   content: "",
 };
-const onSubmit = (values: any, onSubmitProps: any) => {
+const onSubmit = (values: ICreateBlogForm, onSubmitProps: any) => {
   IndexAPI.put(`/admin/blog/${values.selectedBlog[0].id}`, {
     title: values.title,
     content: values.content,

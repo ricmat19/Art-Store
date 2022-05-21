@@ -5,13 +5,23 @@ import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+interface ICreateProductForm {
+  title: string;
+  quantity: string;
+  price: string;
+  info: string;
+  type: string
+  image: File;
+}
+
 const initialValues = {
   title: "",
   quantity: "",
   price: "",
   info: "",
 };
-const onSubmit = (values: any, onSubmitProps: any) => {
+
+const onSubmit = (values: ICreateProductForm, onSubmitProps: any) => {
   if (values.image) {
     let formData = new FormData();
 
@@ -128,12 +138,12 @@ const AdminAddProduct = (props: any) => {
                       <label className="admin-label">Title:</label>
                       <Grid sx={{ display: "grid" }}>
                         <Grid sx={{ display: "grid" }}>
-                        <Field as="input" type="text" name="title" />
-                        <ErrorMessage name="title" component="div">
-                          {(errorMsg) => (
-                            <Grid className="errorMsg">{errorMsg}</Grid>
-                          )}
-                        </ErrorMessage>
+                          <Field as="input" type="text" name="title" />
+                          <ErrorMessage name="title" component="div">
+                            {(errorMsg) => (
+                              <Grid className="errorMsg">{errorMsg}</Grid>
+                            )}
+                          </ErrorMessage>
                         </Grid>
                       </Grid>
                     </Grid>
