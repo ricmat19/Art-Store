@@ -21,7 +21,7 @@ import { getCartReducer } from "../../reducers/cartReducers";
 import { useAppDispatch } from "../../hooks";
 
 const MainNav = () => {
-  const [loginStatus, setLoginStatus] = useState<boolean>(true);
+  const [loginStatus, setLoginStatus] = useState<boolean>(false);
 
   const router = useRouter();
 
