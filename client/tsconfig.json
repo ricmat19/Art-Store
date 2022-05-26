@@ -15,6 +15,13 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/admin/courses/[courseType]", "pages/help/[category]", "pages/admin/help/[category]"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "pages/admin/courses/[courseType]",
+    "pages/help/[category]",
+    "pages/admin/help/[category]"
+  ],
   "exclude": ["node_modules"]
 }
