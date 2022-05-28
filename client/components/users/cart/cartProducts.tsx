@@ -12,19 +12,24 @@ import {
 } from "../../../reducers/cartReducers";
 import { useAppDispatch } from "../../../hooks";
 
+//Cart Products props interfact
 interface ICartProducts {
   setCart: (arg0: any) => void;
 }
 
+//Cart Products functional component
 const CartProducts = (props: ICartProducts) => {
+  //Cart Products states
   const [cart, setCart] = useState<ICart[]>([]);
   const [prices, setPrices] = useState<number[]>([]);
   const [cartQty, setCartQty] = useState<number[]>([]);
   const [subtotal, setSubtotal] = useState(0);
   const [hasQty, setHasQty] = useState(false);
 
+  //NextJS router
   const router = useRouter();
 
+  //Redux dispatch
   const dispatch = useAppDispatch();
 
   let sub: number = 0;
@@ -33,8 +38,10 @@ const CartProducts = (props: ICartProducts) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        //Get all items in cart
         const cartResponse = await IndexAPI.get(`/cart`);
 
+        //Add cart item images to get '/cart' json response
         for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
           if (cartResponse.data.data.cart[i].imagekey !== null) {
             let imagesResponse = await IndexAPI.get(
@@ -51,6 +58,7 @@ const CartProducts = (props: ICartProducts) => {
         }
         setCart(cartResponse.data.data.cart);
 
+        //Set the cart subtotal
         if (cart.length === 0) {
           sub = 0;
         } else {
@@ -58,7 +66,6 @@ const CartProducts = (props: ICartProducts) => {
             return a + b;
           }, 0);
         }
-
         if (prices.length === 0) {
           setSubtotal(sub);
         }
@@ -69,17 +76,21 @@ const CartProducts = (props: ICartProducts) => {
     fetchData();
   }, [props]);
 
+  //Delect an item from the cart
   const deleteFromCart = async (id: string) => {
     try {
+      //Redux request to delete an item from the cart
       await dispatch(removeFromCartReducer(id));
       // await IndexAPI.put("/cart/delete", {
       //   id: id,
       // });
 
+      //Request and setthe updated cart after item deleted
       const cartResponse = await dispatch(getCartReducer());
       // const cartResponse = await IndexAPI.get(`/cart`);
       props.setCart(cartResponse.payload.cart.length);
 
+      //Set the cart subtotal
       if (cart.length === 0) {
         sub = 0;
       } else {
@@ -89,6 +100,7 @@ const CartProducts = (props: ICartProducts) => {
       }
       setSubtotal(sub);
 
+      //Resets the array of prices in the cart after an item is deleted
       const resetPricesArray = [];
       for (let i = 0; i < cart.length; i++) {
         resetPricesArray.push(parseInt(cart[i].price));

@@ -3,6 +3,7 @@ import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+//Signup prop interface
 interface ISignUp {
   handleSignUpClose:
     | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
@@ -18,6 +19,7 @@ interface ISignUpForm {
   passwordCopy: string;
 }
 
+//Signup Formik form initial values
 const initialValues = {
   firstName: "",
   lastName: "",
@@ -26,6 +28,7 @@ const initialValues = {
   passwordCopy: "",
 };
 
+//Signup Formik form onSubmit function
 const onSubmit = (
   values: ISignUpForm,
   onSubmitProps: { resetForm: () => void }
@@ -40,6 +43,8 @@ const onSubmit = (
   // setError(signup.data.data.error);
   onSubmitProps.resetForm();
 };
+
+//Signup Formik form validation schema
 const validationSchema = Yup.object({
   firstName: Yup.string().required("Email is required"),
   lastName: Yup.string().required("Email is required"),
@@ -50,7 +55,9 @@ const validationSchema = Yup.object({
   passwordCopy: Yup.string().required("Email is required"),
 });
 
+//Signup functional component
 const SignUp = (props: ISignUp) => {
+  //Close signup modal and display signin modal
   const displaySignIn = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
@@ -61,15 +68,7 @@ const SignUp = (props: ISignUp) => {
     }
   };
 
-  // async (e: { preventDefault: () => void }) => {
-  //   e.preventDefault();
-  //   try {
-  //     console.log("reset");
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
+  //Signup modal
   return (
     <Grid>
       <Modal
@@ -123,11 +122,13 @@ const SignUp = (props: ISignUp) => {
                   validateOnBlur={false}
                   validateOnMount
                 >
+                  {/* Signup Form */}
                   <Form>
                     <Grid className="sign-content">
                       <h1 className="sign-header">Create Account</h1>
                       <Grid className="grid">
                         <Grid className="two-column-div">
+                          {/* Signup first name input */}
                           <Grid sx={{ display: "grid" }}>
                             <Field
                               as="input"
@@ -141,6 +142,7 @@ const SignUp = (props: ISignUp) => {
                               )}
                             </ErrorMessage>
                           </Grid>
+                          {/* Signup last name input */}
                           <Grid sx={{ display: "grid" }}>
                             <Field
                               as="input"
@@ -155,6 +157,7 @@ const SignUp = (props: ISignUp) => {
                             </ErrorMessage>
                           </Grid>
                         </Grid>
+                        {/* Signup email input */}
                         <Grid className="modal-input-div">
                           <Field
                             as="input"
@@ -168,6 +171,7 @@ const SignUp = (props: ISignUp) => {
                             )}
                           </ErrorMessage>
                         </Grid>
+                        {/* Signup password input */}
                         <Grid className="modal-input-div">
                           <Field
                             as="input"
@@ -181,6 +185,7 @@ const SignUp = (props: ISignUp) => {
                             )}
                           </ErrorMessage>
                         </Grid>
+                        {/* Signup re-typed password input */}
                         <Grid className="modal-input-div">
                           <Field
                             as="input"
@@ -198,11 +203,13 @@ const SignUp = (props: ISignUp) => {
                       {/* <Grid sx={{ textAlign: "center" }}>
                         <label>{error}</label>
                       </Grid> */}
+                      {/* Submit signup form (create account) */}
                       <Grid sx={{ textAlign: "center" }}>
                         <button type="submit" className="btn form-button">
                           Create Account
                         </button>
                       </Grid>
+                      {/* Go to signin modal */}
                       <Grid
                         sx={{ textAlign: "center" }}
                         className="sign-footer"

@@ -2,6 +2,7 @@ import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+//Reset prop interface
 interface IReset {
   handleResetClose:
     | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
@@ -9,19 +10,27 @@ interface IReset {
   handleSignInOpen: () => void;
   resetOpen: boolean | undefined;
 }
+
+//Reset Formik form initial values
 const initialValues = {
   email: "",
 };
+
+//Reset Formik form onSubmit function
 const onSubmit = (onSubmitProps: { resetForm: () => void }) => {
   onSubmitProps.resetForm();
 };
+
+//Reset Formik form validation schema
 const validationSchema = Yup.object({
   email: Yup.string()
     .email("Invalid email format")
     .required("Email is required"),
 });
 
+//Reset functional component
 const Reset = (props: IReset) => {
+  //Close reset modal and display signin modal
   const displaySignIn = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
@@ -31,6 +40,8 @@ const Reset = (props: IReset) => {
       console.log(err);
     }
   };
+
+  //Reset modal
   return (
     <Grid>
       <Modal
@@ -89,9 +100,11 @@ const Reset = (props: IReset) => {
                       validateOnBlur={false}
                       validateOnMount
                     >
+                      {/* Reset Form */}
                       <Form>
                         <Grid className="sign-content">
                           <h1 className="sign-header">Reset Password</h1>
+                          {/* Reset email input */}
                           <Grid className="sign-input">
                             <Grid className="forgot-input-div">
                               <Field
@@ -107,9 +120,11 @@ const Reset = (props: IReset) => {
                               </ErrorMessage>
                             </Grid>
                           </Grid>
+                          {/* Submit reset */}
                           <Grid className="align-center">
                             <button type="submit">Send Reset Link</button>
                           </Grid>
+                          {/* Go to signin modal */}
                           <Grid className="sign-footer pointer">
                             <Grid
                               className="align-center modal-link"
