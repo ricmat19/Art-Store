@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import IndexAPI from "../../../apis/indexAPI";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { ICart } from "../../../interfaces";
 import { Grid } from "@mui/material";
 import {
@@ -12,7 +12,7 @@ import {
 } from "../../../reducers/cartReducers";
 import { useAppDispatch } from "../../../hooks";
 
-//Cart Products props interfact
+//Cart Products props interface
 interface ICartProducts {
   setCart: (arg0: any) => void;
 }
@@ -76,7 +76,7 @@ const CartProducts = (props: ICartProducts) => {
     fetchData();
   }, [props]);
 
-  //Delect an item from the cart
+  //Delete an item from the cart
   const deleteFromCart = async (id: string) => {
     try {
       //Redux request to delete an item from the cart
@@ -111,9 +111,11 @@ const CartProducts = (props: ICartProducts) => {
     }
   };
 
+  //Set the quantity of items in the cart and calculate the total price
   const setItemQty = async (item: ICart, e: string) => {
     try {
       setPrices(priceArray);
+      //Calculate the current total price of items in the cart
       for (let i = 0; i < cart.length; i++) {
         if (cart[i].id === item.id) {
           priceArray[i] = parseInt(cart[i].price) * parseInt(e);
@@ -147,11 +149,13 @@ const CartProducts = (props: ICartProducts) => {
         }
       }
 
+      //Redux request the item quantities in cart table
       await dispatch(setCartQtyReducer(qtyArray));
       // await IndexAPI.put("/cart/quantity", {
       //   cartQty: qtyArray,
       // });
 
+      //Set the cart subtotal
       sub = 0;
       sub = priceArray.reduce(function (a, b) {
         return a + b;
@@ -162,20 +166,24 @@ const CartProducts = (props: ICartProducts) => {
     }
   };
 
+  //Cart product component on cart page
   return (
     <Grid className="full-height">
+      {/* Map through all items in the cart */}
       {cart &&
         cart.map((item: ICart) => {
           return (
             <Grid key={item.id}>
               <Grid className="cart-item-details">
                 <Grid className="cart-item-info">
+                  {/* Delete item from cart button */}
                   <span
                     className="pointer"
                     onClick={() => deleteFromCart(item.id)}
                   >
                     <h3>X</h3>
                   </span>
+                  {/* Display item thumbnail */}
                   <span className="cart-item-div">
                     <img
                       className="cart-item-thumbnail"
@@ -183,8 +191,10 @@ const CartProducts = (props: ICartProducts) => {
                       alt="Thumbnail"
                     />
                   </span>
+                  {/* Display item title */}
                   <Grid className="cart-item-title">{item.title}</Grid>
                 </Grid>
+                {/* Enter in the item quantity to be purchased */}
                 <Grid className="cart-item-qty">
                   <input
                     onChange={(event) => setItemQty(item, event.target.value)}
@@ -194,6 +204,7 @@ const CartProducts = (props: ICartProducts) => {
                     placeholder="0"
                   />
                 </Grid>
+                {/* Price of 1 unit of the relevant product */}
                 <Grid className="align-right">
                   <span>${item.price}.00</span>
                 </Grid>
@@ -202,12 +213,15 @@ const CartProducts = (props: ICartProducts) => {
             </Grid>
           );
         })}
+      {/* Subtotal of all cart items multiplied by the quantity specified */}
       <Grid className="align-right subtotal-div">
         <span>subtotal</span>
         <span>${subtotal}.00</span>
       </Grid>
+      {/* Display checkout button only if a quanitity greater that 0 is provided for all products in the cart */}
       {hasQty ? (
         <Grid className="align-right no-margin">
+          {/* Routes to the checkout page */}
           <button>
             <Grid onClick={() => router.push("/cart/checkout")}>Checkout</Grid>
           </button>
@@ -219,9 +233,9 @@ const CartProducts = (props: ICartProducts) => {
   );
 };
 
-CartProducts.propTypes = {
-  cart: PropTypes.array,
-  setCart: PropTypes.func,
-};
+// CartProducts.propTypes = {
+//   cart: PropTypes.array,
+//   setCart: PropTypes.func,
+// };
 
 export default CartProducts;

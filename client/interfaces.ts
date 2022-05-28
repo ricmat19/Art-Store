@@ -93,7 +93,7 @@ export interface IProject {
 }
 
 export interface IDay {
-  value: number | string,
+  value: string,
   date: string,
   today: string,
   hasEvent: boolean
