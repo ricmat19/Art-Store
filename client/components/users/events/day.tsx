@@ -4,6 +4,7 @@ import { ReactChild, ReactFragment, ReactPortal, useState } from "react";
 import Events from "./events";
 import AddToCart from "./addToCart";
 
+//Day props interface
 interface IDay {
   open: boolean | undefined;
   handleClose:
@@ -13,9 +14,13 @@ interface IDay {
   dateEvents: any;
 }
 
+//Day functional component for events
 const Day = (props: IDay) => {
+  //Day states
   const [view, setView] = useState("events");
   const [selectedEvent, setSelectedEvent] = useState();
+
+  //Day madal component for events
   return (
     <Grid>
       <Modal
@@ -63,6 +68,7 @@ const Day = (props: IDay) => {
                 }}
               >
                 <h1>{props.date}</h1>
+                {/* Display day's 'events' or day's add to cart component*/}
                 <Grid>
                   {view === "events" ? (
                     <Events

@@ -10,6 +10,7 @@ import {
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
 
+//Notifications props interface
 interface INotifications {
   notificationOpen:
     | Element
@@ -22,7 +23,9 @@ interface INotifications {
     | undefined;
 }
 
+//Notifications functional component
 const Notifications = (props: INotifications) => {
+  //Notifications component states
   const [notifications, setNotifications] = useState([]);
   const [product, setProduct] = useState("");
 
@@ -30,6 +33,7 @@ const Notifications = (props: INotifications) => {
     const fetchData = async () => {
       try {
         let notificationsResponse;
+        //If no notification product type is specified get all notificaitons, if a product type is specified get all products of that type
         if (product === "") {
           notificationsResponse = await IndexAPI.get(`/notifications`);
         } else {
@@ -46,7 +50,9 @@ const Notifications = (props: INotifications) => {
     fetchData();
   }, [product]);
 
+  //Notifications component
   return (
+    // Display the Notifications menu
     <Menu
       anchorEl={props.notificationOpen}
       open={props.openNotificaition}
@@ -82,6 +88,7 @@ const Notifications = (props: INotifications) => {
       anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
     >
       <Grid className="notification-modal-container">
+        {/* Display the notifications navication menu */}
         <nav>
           <Grid
             container
@@ -93,27 +100,32 @@ const Notifications = (props: INotifications) => {
               paddingBottom: "5px",
             }}
           >
+            {/* Display all notifications */}
             <Grid xs={2} sx={{ cursor: "pointer", fontWeight: "900" }}>
               <Grid onClick={() => setProduct("")}>All</Grid>
             </Grid>
+            {/* Display store notifications */}
             <Grid xs={2} sx={{ cursor: "pointer" }}>
               <FontAwesomeIcon
                 icon={faStoreAlt}
                 onClick={() => setProduct("products")}
               />
             </Grid>
+            {/* Display course notifications */}
             <Grid xs={2} sx={{ cursor: "pointer" }}>
               <FontAwesomeIcon
                 icon={faChalkboardTeacher}
                 onClick={() => setProduct("courses")}
               />
             </Grid>
+            {/* Display media notifications */}
             <Grid xs={2} sx={{ cursor: "pointer" }}>
               <FontAwesomeIcon
                 icon={faTv}
                 onClick={() => setProduct("media")}
               />
             </Grid>
+            {/* Display event notifications */}
             <Grid xs={2} sx={{ cursor: "pointer" }}>
               <FontAwesomeIcon
                 icon={faCalendarCheck}
@@ -124,6 +136,7 @@ const Notifications = (props: INotifications) => {
         </nav>
         <hr />
         <Grid>
+          {/* Map through all notificaitons */}
           {notifications.map((notification: any) => {
             return (
               <Grid
@@ -134,6 +147,7 @@ const Notifications = (props: INotifications) => {
                   padding: "10px",
                 }}
               >
+                {/* Display the icon to the relevant notification type */}
                 <Grid sx={{ display: "grid", gap: "5px" }}>
                   {notification.type === "product" ? (
                     <Grid>

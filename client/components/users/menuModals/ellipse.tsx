@@ -8,6 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Grid, Menu, ListItemIcon, MenuItem } from "@mui/material";
 
+//Ellipse props interface
 interface IEllipse {
   ellipseOpen: Element | ((element: Element) => Element) | null | undefined;
   openEllipse: boolean;
@@ -16,8 +17,11 @@ interface IEllipse {
     | undefined;
 }
 
+//Ellipse functional component
 const Ellipse = (props: IEllipse) => {
+  //Ellipse component
   return (
+    // Display the Ellipse menu
     <Menu
       anchorEl={props.ellipseOpen}
       open={props.openEllipse}
@@ -53,6 +57,7 @@ const Ellipse = (props: IEllipse) => {
       anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
     >
       <Grid>
+        {/* Display the About link */}
         <a href="/about">
           <MenuItem sx={{ color: "black" }}>
             <ListItemIcon>
@@ -69,6 +74,7 @@ const Ellipse = (props: IEllipse) => {
             Contact
           </MenuItem>
         </a>
+        {/* Display the Help link */}
         <a href="/help">
           <MenuItem sx={{ color: "black" }}>
             <ListItemIcon>
@@ -77,6 +83,7 @@ const Ellipse = (props: IEllipse) => {
             Help
           </MenuItem>
         </a>
+        {/* Display the Terms of Service link */}
         <a href="/termsOfService">
           <MenuItem sx={{ color: "black" }}>
             <ListItemIcon>
@@ -85,6 +92,7 @@ const Ellipse = (props: IEllipse) => {
             Terms of Service
           </MenuItem>
         </a>
+        {/* Display the Privacy Policy link */}
         <a href="/privacyPolicy">
           <MenuItem sx={{ color: "black" }}>
             <ListItemIcon>

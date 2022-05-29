@@ -9,6 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Grid, Menu } from "@mui/material";
 
+//User props interface
 interface IUser {
   userOpen: Element | ((element: Element) => Element) | null | undefined;
   openUser: boolean;
@@ -17,8 +18,11 @@ interface IUser {
     | undefined;
 }
 
+//User functional component
 const User = (props: IUser) => {
+  //User component
   return (
+    //Display the User menu
     <Menu
       anchorEl={props.userOpen}
       open={props.openUser}
@@ -54,6 +58,7 @@ const User = (props: IUser) => {
       anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
     >
       <Grid>
+        {/* Display the Profile link */}
         <a href="/profile">
           <MenuItem sx={{ color: "black" }}>
             <ListItemIcon>
@@ -62,6 +67,7 @@ const User = (props: IUser) => {
             Profile
           </MenuItem>
         </a>
+        {/* Display the Purchases link */}
         <a href="/purchases">
           <MenuItem sx={{ color: "black" }}>
             <ListItemIcon>
@@ -70,6 +76,7 @@ const User = (props: IUser) => {
             Purchases
           </MenuItem>
         </a>
+        {/* Display the Wishlist link */}
         <a href="/wishlist">
           <MenuItem sx={{ color: "black" }}>
             <ListItemIcon>
@@ -78,6 +85,7 @@ const User = (props: IUser) => {
             Wishlist
           </MenuItem>
         </a>
+        {/* Display the Purchase History link */}
         <a href="/purchaseHistory">
           <MenuItem sx={{ color: "black" }}>
             <ListItemIcon>
@@ -86,6 +94,7 @@ const User = (props: IUser) => {
             Purchase History
           </MenuItem>
         </a>
+        {/* Display the Logout link */}
         <MenuItem sx={{ color: "black" }}>
           <ListItemIcon>
             <FontAwesomeIcon icon={faSignOutAlt} />

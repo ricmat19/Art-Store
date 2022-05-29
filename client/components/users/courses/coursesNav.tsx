@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 import Link from "next/link";
 
-//Cart Products props interface
+//Course navigation props interface
 interface ICoursesNav {
   courses: string[];
 }
