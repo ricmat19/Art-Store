@@ -3,6 +3,7 @@ import { Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+//Admin create event prop interface
 interface ICreateEventForm {
   title: string;
   price: string;
@@ -10,18 +11,23 @@ interface ICreateEventForm {
   info: string;
 }
 
+//Admin create event Formik form initial values
 const initialValues = {
   title: "",
   price: "",
   spots: "",
   info: "",
 };
+
+//Admin create event Formik form onSubmit function
 const onSubmit = (
   values: ICreateEventForm,
   onSubmitProps: { resetForm: () => void }
 ) => {
   onSubmitProps.resetForm();
 };
+
+//Admin create event Formik form validation schema
 const validationSchema = Yup.object({
   title: Yup.string().required("Title is required"),
   price: Yup.string().required("Price is required"),
@@ -29,7 +35,9 @@ const validationSchema = Yup.object({
   info: Yup.string().required("Info is required"),
 });
 
+//Admin create event functional component
 const AdminCreateEvent = () => {
+  //Admin create event form component
   return (
     <Grid className="create-event">
       <Formik
@@ -40,8 +48,10 @@ const AdminCreateEvent = () => {
         validateOnBlur={false}
         validateOnMount
       >
+        {/* Admin create event Form */}
         <Form>
           <h1>New Event</h1>
+          {/* Admin create event form title input field */}
           <Grid className="admin-form-field">
             <label className="event-form-label">Title</label>
             <Grid sx={{ display: "grid" }}>
@@ -51,6 +61,7 @@ const AdminCreateEvent = () => {
               </ErrorMessage>
             </Grid>
           </Grid>
+          {/* Admin create event form price input field */}
           <Grid className="admin-form-field">
             <label className="event-form-label">Price</label>
             <Grid sx={{ display: "grid" }}>
@@ -60,6 +71,7 @@ const AdminCreateEvent = () => {
               </ErrorMessage>
             </Grid>
           </Grid>
+          {/* Admin create event form spots input field */}
           <Grid className="admin-form-field">
             <label className="event-form-label">Spots</label>
             <Grid sx={{ display: "grid" }}>
@@ -69,6 +81,7 @@ const AdminCreateEvent = () => {
               </ErrorMessage>
             </Grid>
           </Grid>
+          {/* Admin create event form info input field */}
           <Grid className="admin-form-field">
             <label className="event-form-label">Info</label>
             <Grid sx={{ display: "grid" }}>
@@ -78,6 +91,7 @@ const AdminCreateEvent = () => {
               </ErrorMessage>
             </Grid>
           </Grid>
+          {/* Admin submit create event form */}
           <Grid className="align-center">
             <button type="submit">Submit</button>
           </Grid>

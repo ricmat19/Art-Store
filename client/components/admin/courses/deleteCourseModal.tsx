@@ -3,6 +3,7 @@ import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Grid, Modal } from "@mui/material";
 import { ReactChild, ReactFragment, ReactPortal } from "react";
 
+//Admin delete course prop interface
 interface IAdminDeleteCourse {
   deleteCourse: {
     id: string;
@@ -21,6 +22,7 @@ interface IAdminDeleteCourse {
     | undefined;
 }
 
+//Admin function to delete a course
 const AdminDeleteCourse = (props: IAdminDeleteCourse) => {
   const handleDelete = async () => {
     try {
@@ -30,7 +32,9 @@ const AdminDeleteCourse = (props: IAdminDeleteCourse) => {
     }
   };
 
+  //Display the delete course modal if a course is provided
   if (props.deleteCourse) {
+    //Admin delete course modal
     return (
       <Grid>
         <Modal
@@ -75,6 +79,7 @@ const AdminDeleteCourse = (props: IAdminDeleteCourse) => {
                     justifyContent: "center",
                   }}
                 >
+                  {/* Display the course image */}
                   <Grid className="big-image-div">
                     <img
                       className="big-image"
@@ -89,13 +94,16 @@ const AdminDeleteCourse = (props: IAdminDeleteCourse) => {
                     height: "100%",
                   }}
                 >
+                  {/* Admin delete course Form */}
                   <form className="admin-form">
+                    {/* List the course that will be deleted */}
                     <Grid className="align-center">
                       <h1>
                         Are you sure you want to delete &quot;
                         {props.deleteCourse.title}&quot; ?
                       </h1>
                     </Grid>
+                    {/* Course delete button */}
                     <button onClick={handleDelete} type="submit">
                       Delete
                     </button>

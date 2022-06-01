@@ -1,36 +1,43 @@
 import IndexAPI from "../../../apis/indexAPI";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { Modal, Fade, Box, Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+//Admin reset prop interface
 interface IModalState {
   open: boolean;
   handleClose: () => void;
   email: string;
   password: string;
 }
-
 interface IResetForm {
   email: string;
 }
 
+//Admin reset Formik form initial values
 const initialValues = {
   email: "",
 };
-const onSubmit = (values: IResetForm, onSubmitProps: { resetForm: () => void; }) => {
-  IndexAPI.post("/reset", {
+
+//Admin reset Formik form onSubmit function
+const onSubmit = async (values: IResetForm, onSubmitProps: { resetForm: () => void; }) => {
+  await IndexAPI.post("/reset", {
     email: values.email,
   });
   onSubmitProps.resetForm();
 };
+
+//Admin reset Formik form validation schema
 const validationSchema = Yup.object({
   email: Yup.string()
     .email("Invalid email format")
     .required("Email is required"),
 });
 
+//Admin reset functional component
 const AdminResetModal = (props: IModalState) => {
+  //Admin reset modal
   return (
     <Modal
       open={props.open}
@@ -48,11 +55,13 @@ const AdminResetModal = (props: IModalState) => {
             validateOnBlur={false}
             validateOnMount
           >
+            {/* Admin reset Form */}
             <Form>
               <Grid className="sign-content">
                 <h1 className="sign-header">Reset Password</h1>
                 <Grid className="sign-input">
                   <Grid className="forgot-input-div">
+                    {/* Admin reset email input */}
                     <Grid sx={{ display: "grid" }}>
                       <Field
                         as="input"
@@ -68,12 +77,14 @@ const AdminResetModal = (props: IModalState) => {
                     </Grid>
                   </Grid>
                 </Grid>
+                {/* Admin submit reset */}
                 <Grid>
                   <button type="submit">Send Reset Link</button>
                 </Grid>
+                {/* Go to admin signIn modal */}
                 <Grid className="sign-footer">
                   <Grid className="modal-link">
-                    <span>Back to signin in</span>
+                    <span>Back to sign in</span>
                   </Grid>
                 </Grid>
               </Grid>
@@ -85,8 +96,8 @@ const AdminResetModal = (props: IModalState) => {
   );
 };
 
-AdminResetModal.propTypes = {
-  onHide: PropTypes.string,
-};
+// AdminResetModal.propTypes = {
+//   onHide: PropTypes.string,
+// };
 
 export default AdminResetModal;

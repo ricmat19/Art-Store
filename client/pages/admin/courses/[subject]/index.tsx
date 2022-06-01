@@ -10,7 +10,7 @@ import Head from "next/head";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AdminCoursesNav from "../../../../components/admin/courses/coursesNav";
-import AdminDeleteCourse from "../../../../components/admin/courses/deleteCourse";
+import AdminDeleteCourse from "../../../../components/admin/courses/deleteCourseModal";
 import { Button, Grid } from "@mui/material";
 import Link from "next/link";
 

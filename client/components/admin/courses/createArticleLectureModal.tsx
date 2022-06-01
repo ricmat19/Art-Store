@@ -5,6 +5,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { ReactChild, ReactFragment, ReactPortal } from "react";
 
+//Admin create article lecture prop interface
 interface ICreateArticleLecture {
   open: boolean | undefined;
   handleClose:
@@ -27,10 +28,13 @@ interface ICreateArticleLectureForm {
   id: string;
 }
 
+//Admin create article lecture Formik form initial values
 const initialValues = {
   article: "",
   lecture: "",
 };
+
+//Admin create article lecture Formik form onSubmit function
 const onSubmit = (
   values: ICreateArticleLectureForm,
   onSubmitProps: { resetForm: () => void }
@@ -44,12 +48,16 @@ const onSubmit = (
   );
   onSubmitProps.resetForm();
 };
+
+//Admin create article lecture Formik form validation schema
 const validationSchema = Yup.object({
   article: Yup.string().required("Article is required"),
   description: Yup.string().required("Description is required"),
 });
 
+//Admin create article lecture functional component
 const AdminCreateArticleLecture = (props: ICreateArticleLecture) => {
+  //Admin create article lecture modal
   return (
     <Grid>
       <Modal
@@ -107,6 +115,7 @@ const AdminCreateArticleLecture = (props: ICreateArticleLecture) => {
                   validateOnBlur={false}
                   validateOnMount
                 >
+                  {/* Admin create article lecture Form */}
                   <Form
                     className="admin-form"
                     action="/admin/products"
@@ -121,6 +130,7 @@ const AdminCreateArticleLecture = (props: ICreateArticleLecture) => {
                       sx={{ display: "grid", padding: "15px" }}
                     >
                       <label className="admin-label">Description:</label>
+                      {/* Description input field for create article lecture form*/}
                       <Grid sx={{ display: "grid" }}>
                         <Field as="textarea" name="description" rows={2} />
                         <ErrorMessage name="description" component="div">
@@ -130,6 +140,7 @@ const AdminCreateArticleLecture = (props: ICreateArticleLecture) => {
                         </ErrorMessage>
                       </Grid>
                     </Grid>
+                    {/* Article input field for create article lecture form*/}
                     <Grid
                       className="admin-form-field"
                       sx={{ display: "grid", padding: "15px" }}
@@ -144,6 +155,7 @@ const AdminCreateArticleLecture = (props: ICreateArticleLecture) => {
                         </ErrorMessage>
                       </Grid>
                     </Grid>
+                    {/* Admin submit create article lecture form */}
                     <Grid className="admin-form-button">
                       <Grid className="text-center">
                         <Grid>

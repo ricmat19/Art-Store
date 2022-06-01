@@ -56,7 +56,7 @@ const Calendar = (props: ICalendar) => {
         const firstMonthDay = new Date(year, month, 1);
         const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-        //Converts the the first month day into a string formate
+        //Converts the the first month day into a string format
         const dateString = firstMonthDay.toLocaleDateString("en-us", {
           weekday: "long",
           year: "numeric",

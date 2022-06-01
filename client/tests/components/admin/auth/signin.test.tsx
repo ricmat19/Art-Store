@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import AdminSignIn from "../../../../components/admin/auth/signin";
+import AdminSignIn from "../../../../components/admin/auth/signInModal";
 
 describe("testing admin signin component", () => {
   beforeEach(async () => {    await waitFor(() =>

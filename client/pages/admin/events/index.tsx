@@ -5,7 +5,7 @@ import AdminPagesNav from "../../../components/admin/pagesNav";
 import FooterC from "../../../components/footer";
 import Head from "next/head";
 import AdminCalendar from "../../../components/admin/events/calendar";
-import AdminDay from "../../../components/admin/events/day";
+import AdminDay from "../../../components/admin/events/dayModal";
 import AdminDeleteEvent from "../../../components/admin/events/deleteEvent";
 import { Grid } from "@mui/material";
 

@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import AdminReset from "../../../../components/admin/auth/reset";
+import AdminReset from "../../../../components/admin/auth/resetModal";
 
 describe("testing admin reset component", () => {
   beforeEach(async () => {

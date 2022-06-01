@@ -9,9 +9,9 @@ import { Grid, Button } from "@mui/material";
 // import { useRouter } from "next/router";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Content from "../../../../../components/admin/courses/content";
-import AdminCreateVideoLecture from "../../../../../components/admin/courses/createVideoLecture";
-import AdminCreateArticleLecture from "../../../../../components/admin/courses/createArticleLecture";
+import Content from "../../../../../components/admin/courses/contentMenu";
+import AdminCreateVideoLecture from "../../../../../components/admin/courses/createVideoLectureModal";
+import AdminCreateArticleLecture from "../../../../../components/admin/courses/createArticleLectureModal";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 

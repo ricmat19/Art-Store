@@ -5,6 +5,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { ReactChild, ReactFragment, ReactPortal } from "react";
 
+//Admin create video lecture prop interface
 interface IAdminCreateVideoLecture {
   open: boolean | undefined;
   handleClose:
@@ -29,10 +30,13 @@ interface ICreateVideoLectureForm {
   handleClose: () => void;
 }
 
+//Admin create video lecture Formik form initial values
 const initialValues = {
   video: "",
   description: "",
 };
+
+//Admin create video lecture Formik form onSubmit function
 const onSubmit = (
   values: ICreateVideoLectureForm,
   onSubmitProps: { resetForm: () => void }
@@ -57,12 +61,16 @@ const onSubmit = (
   }
   onSubmitProps.resetForm();
 };
+
+//Admin create video lecture Formik form validation schema
 const validationSchema = Yup.object({
   video: Yup.string().required("Video is required"),
   description: Yup.string().required("Description is required"),
 });
 
+//Admin create video lecture functional component
 const AdminCreateVideoLecture = (props: IAdminCreateVideoLecture) => {
+  //Admin create video lecture modal
   return (
     <Grid>
       <Modal
@@ -121,6 +129,7 @@ const AdminCreateVideoLecture = (props: IAdminCreateVideoLecture) => {
                   validateOnBlur={false}
                   validateOnMount
                 >
+                  {/* Admin create video lecture Form */}
                   <Form
                     className="admin-form"
                     action="/admin/products"
@@ -132,6 +141,7 @@ const AdminCreateVideoLecture = (props: IAdminCreateVideoLecture) => {
                         Video Lecture: {props.lecture}
                       </h1>
                     </Grid>
+                    {/* Video input field for create article video form*/}
                     <Grid className="admin-form-field">
                       <label className="admin-label">Video:</label>
                       <Grid sx={{ display: "grid" }}>
@@ -147,6 +157,7 @@ const AdminCreateVideoLecture = (props: IAdminCreateVideoLecture) => {
                         </ErrorMessage>
                       </Grid>
                     </Grid>
+                    {/* Description input field for create article lecture form*/}
                     <Grid className="admin-form-field">
                       <label className="admin-label">Description:</label>
                       <Grid sx={{ display: "grid" }}>
@@ -163,6 +174,7 @@ const AdminCreateVideoLecture = (props: IAdminCreateVideoLecture) => {
                         </ErrorMessage>
                       </Grid>
                     </Grid>
+                    {/* Admin submit create video lecture form */}
                     <Grid className="admin-form-button">
                       <Grid className="text-center">
                         <Grid>

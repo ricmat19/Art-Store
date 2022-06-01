@@ -1,14 +1,14 @@
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import IndexAPI from "../../../apis/indexAPI";
 import { Modal, Fade, Box, Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+//Admin signUp prop interface
 interface IModalState {
   open: boolean;
   handleClose: () => void;
 }
-
 interface ISignUpForm {
   firstName: string;
   lastName: string;
@@ -17,6 +17,7 @@ interface ISignUpForm {
   passwordCopy: string;
 }
 
+//Admin signUp Formik form initial values
 const initialValues = {
   firstName: "",
   lastName: "",
@@ -25,6 +26,7 @@ const initialValues = {
   passwordCopy: "",
 };
 
+//Admin signUp Formik form onSubmit function
 const onSubmit = (
   values: ISignUpForm,
   onSubmitProps: { resetForm: () => void }
@@ -39,6 +41,7 @@ const onSubmit = (
   onSubmitProps.resetForm();
 };
 
+//Admin signUp Formik form validation schema
 const validationSchema = Yup.object({
   firstName: Yup.string()
     .email("Invalid email format")
@@ -49,16 +52,18 @@ const validationSchema = Yup.object({
   resetPassword: Yup.string().required("Email is required"),
 });
 
+//Admin signUp functional component
 const AdminSignUpModal = (props: IModalState) => {
-  async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    try {
-      console.log("reset");
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // async (e: { preventDefault: () => void }) => {
+  //   e.preventDefault();
+  //   try {
+  //     console.log("reset");
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
+  //Admin signUp modal
   return (
     <Modal
       open={props.open}
@@ -76,11 +81,13 @@ const AdminSignUpModal = (props: IModalState) => {
             validateOnBlur={false}
             validateOnMount
           >
+            {/* Admin signUp Form */}
             <Form>
               <Grid className="sign-content">
                 <h1 className="sign-header">Create Account</h1>
                 <Grid className="sign-input">
                   <Grid className="name-input-div">
+                    {/* Admin signUp first name input */}
                     <Grid sx={{ display: "grid" }}>
                       <Field
                         as="input"
@@ -94,6 +101,7 @@ const AdminSignUpModal = (props: IModalState) => {
                         )}
                       </ErrorMessage>
                     </Grid>
+                    {/* Admin signUp lastName input */}
                     <Grid sx={{ display: "grid" }}>
                       <Field
                         as="input"
@@ -108,6 +116,7 @@ const AdminSignUpModal = (props: IModalState) => {
                       </ErrorMessage>
                     </Grid>
                   </Grid>
+                  {/* Admin signUp email input */}
                   <Grid className="modal-input-div">
                     <Grid sx={{ display: "grid" }}>
                       <Field
@@ -123,6 +132,7 @@ const AdminSignUpModal = (props: IModalState) => {
                       </ErrorMessage>
                     </Grid>
                   </Grid>
+                  {/* Admin signUp password input */}
                   <Grid className="modal-input-div">
                     <Grid sx={{ display: "grid" }}>
                       <Field
@@ -138,6 +148,7 @@ const AdminSignUpModal = (props: IModalState) => {
                       </ErrorMessage>
                     </Grid>
                   </Grid>
+                  {/* Admin signUp re-type password input */}
                   <Grid className="modal-input-div">
                     <Grid sx={{ display: "grid" }}>
                       <Field
@@ -154,11 +165,13 @@ const AdminSignUpModal = (props: IModalState) => {
                     </Grid>
                   </Grid>
                 </Grid>
+                {/* Admin submit signUp */}
                 <Grid>
                   <button type="submit" className="btn form-button">
                     Create Account
                   </button>
                 </Grid>
+                {/* Go to admin signIn modal */}
                 <Grid className="sign-footer">
                   <Grid className="modal-link">
                     <span>Already have an account? Sign In</span>
@@ -173,8 +186,8 @@ const AdminSignUpModal = (props: IModalState) => {
   );
 };
 
-AdminSignUpModal.propTypes = {
-  onHide: PropTypes.string,
-};
+// AdminSignUpModal.propTypes = {
+//   onHide: PropTypes.string,
+// };
 
 export default AdminSignUpModal;

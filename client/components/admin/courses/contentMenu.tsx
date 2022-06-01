@@ -4,6 +4,7 @@ import { faVideoCamera, faFile } from "@fortawesome/free-solid-svg-icons";
 import { Grid, Menu } from "@mui/material";
 import { MouseEventHandler } from "react";
 
+//Admin course content menu prop interface
 interface IContent {
   contentOpen: Element | ((element: Element) => Element) | null | undefined;
   openContent: boolean;
@@ -14,7 +15,9 @@ interface IContent {
   handleAddArticleOpen: MouseEventHandler<HTMLLIElement> | undefined;
 }
 
-const Content = (props: IContent) => {
+//Admin course content menu functional component
+const AdminCourseContentMenu = (props: IContent) => {
+  //Admin course content menu component
   return (
     <Menu
       anchorEl={props.contentOpen}
@@ -51,12 +54,14 @@ const Content = (props: IContent) => {
       anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
     >
       <Grid>
+        {/* Video option in course content menu */}
         <MenuItem sx={{ color: "black" }} onClick={props.handleAddVideoOpen}>
           <ListItemIcon>
             <FontAwesomeIcon icon={faVideoCamera} />
           </ListItemIcon>
           Video
         </MenuItem>
+        {/* Article option in course content menu */}
         <MenuItem sx={{ color: "black" }} onClick={props.handleAddArticleOpen}>
           <ListItemIcon>
             <FontAwesomeIcon icon={faFile} />
@@ -68,4 +73,4 @@ const Content = (props: IContent) => {
   );
 };
 
-export default Content;
+export default AdminCourseContentMenu;

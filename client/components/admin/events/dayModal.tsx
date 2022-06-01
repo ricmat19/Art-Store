@@ -14,6 +14,7 @@ import AdminEvents from "./events";
 import AdminCreateEvent from "./createEvent";
 import AdminUpdateEvent from "./updateEvent";
 
+//Admin day modal prop interface
 interface IAdminDay {
   date: boolean | ReactChild | ReactFragment | ReactPortal | null | undefined;
   handleClose:
@@ -24,7 +25,9 @@ interface IAdminDay {
   displayDeleteModal: boolean;
 }
 
+//Admin day modal functional component
 const AdminDay = (props: IAdminDay) => {
+  //Admin day modal states
   const [view, setView] = useState("events");
   const [title, setTitle] = useState<string>("");
   const [price, setPrice] = useState<string>("");
@@ -32,6 +35,7 @@ const AdminDay = (props: IAdminDay) => {
   const [info, setInfo] = useState<string>("");
   const [selectedEvent, setSelectedEvent] = useState();
 
+  //Sets the day modal's view to events
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -44,6 +48,7 @@ const AdminDay = (props: IAdminDay) => {
     fetchData();
   }, [props]);
 
+  //Admin function to create an event
   const createEvent = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
@@ -61,8 +66,8 @@ const AdminDay = (props: IAdminDay) => {
       //   .then((res) => console.log(res))
       //   .catch((err) => console.log(err));
 
+      //Create an event on the specified dae
       const selectedDate = props.date;
-
       await IndexAPI.post("/admin/events", {
         title,
         selectedDate,
@@ -77,6 +82,7 @@ const AdminDay = (props: IAdminDay) => {
     }
   };
 
+  //Admin day modal
   return (
     <Grid>
       <Modal
@@ -125,6 +131,7 @@ const AdminDay = (props: IAdminDay) => {
               >
                 <h1>{props.date}</h1>
                 <nav className="grid admin-day-nav">
+                  {/* Events icon button to set the view to 'events' */}
                   <h1>
                     <FontAwesomeIcon
                       className="day-icon"
@@ -132,6 +139,7 @@ const AdminDay = (props: IAdminDay) => {
                       onClick={() => setView("events")}
                     />
                   </h1>
+                  {/* Events icon button to set the view to 'create' */}
                   <h1>
                     <FontAwesomeIcon
                       className="day-icon"
@@ -140,6 +148,7 @@ const AdminDay = (props: IAdminDay) => {
                     />
                   </h1>
                 </nav>
+                {/* Displays the events, create, or update component in the day modal depending on the veiw state */}
                 <Grid>
                   {view === "events" ? (
                     <AdminEvents
