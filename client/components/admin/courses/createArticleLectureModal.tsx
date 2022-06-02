@@ -56,7 +56,7 @@ const validationSchema = Yup.object({
 });
 
 //Admin create article lecture functional component
-const AdminCreateArticleLecture = (props: ICreateArticleLecture) => {
+const AdminCreateArticleLectureModal = (props: ICreateArticleLecture) => {
   //Admin create article lecture modal
   return (
     <Grid>
@@ -176,4 +176,4 @@ const AdminCreateArticleLecture = (props: ICreateArticleLecture) => {
   );
 };
 
-export default AdminCreateArticleLecture;
+export default AdminCreateArticleLectureModal;

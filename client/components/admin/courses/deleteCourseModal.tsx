@@ -22,8 +22,9 @@ interface IAdminDeleteCourse {
     | undefined;
 }
 
-//Admin function to delete a course
-const AdminDeleteCourse = (props: IAdminDeleteCourse) => {
+//Admin delete course modal functional component
+const AdminDeleteCourseModal = (props: IAdminDeleteCourse) => {
+  //Admin function to delete a course
   const handleDelete = async () => {
     try {
       await IndexAPI.delete(`/admin/courses/${props.deleteCourse.id}`);
@@ -96,7 +97,6 @@ const AdminDeleteCourse = (props: IAdminDeleteCourse) => {
                 >
                   {/* Admin delete course Form */}
                   <form className="admin-form">
-                    {/* List the course that will be deleted */}
                     <Grid className="align-center">
                       <h1>
                         Are you sure you want to delete &quot;
@@ -120,4 +120,4 @@ const AdminDeleteCourse = (props: IAdminDeleteCourse) => {
   }
 };
 
-export default AdminDeleteCourse;
+export default AdminDeleteCourseModal;

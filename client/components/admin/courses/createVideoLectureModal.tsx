@@ -69,7 +69,7 @@ const validationSchema = Yup.object({
 });
 
 //Admin create video lecture functional component
-const AdminCreateVideoLecture = (props: IAdminCreateVideoLecture) => {
+const AdminCreateVideoLectureModal = (props: IAdminCreateVideoLecture) => {
   //Admin create video lecture modal
   return (
     <Grid>
@@ -195,4 +195,4 @@ const AdminCreateVideoLecture = (props: IAdminCreateVideoLecture) => {
   );
 };
 
-export default AdminCreateVideoLecture;
+export default AdminCreateVideoLectureModal;

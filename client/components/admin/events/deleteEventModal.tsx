@@ -2,6 +2,7 @@
 import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Grid, Modal } from "@mui/material";
 
+//Admin delete event modal prop interface
 interface IAdminDeleteEvent {
   deleteEvent: { id: string }[];
   setBlogs: (arg0: any) => void;
@@ -12,7 +13,9 @@ interface IAdminDeleteEvent {
   open: boolean | undefined;
 }
 
-const AdminDeleteEvent = (props: IAdminDeleteEvent) => {
+//Admin delete event modal functional component
+const AdminDeleteEventModal = (props: IAdminDeleteEvent) => {
+  //admin function to delete event
   const handleDelete = async () => {
     try {
       await IndexAPI.delete(`/admin/events/${props.deleteEvent[0].id}`);
@@ -27,7 +30,9 @@ const AdminDeleteEvent = (props: IAdminDeleteEvent) => {
     }
   };
 
+  //Display the delete event modal if a course is provided
   if (props.deleteEvent) {
+    //Admin delete event modal
     return (
       <Grid>
         <Modal
@@ -71,6 +76,7 @@ const AdminDeleteEvent = (props: IAdminDeleteEvent) => {
                     height: "100%",
                   }}
                 >
+                  {/* Admin delete event Form */}
                   <form className="admin-form">
                     <Grid className="align-center">
                       <h1>
@@ -78,6 +84,7 @@ const AdminDeleteEvent = (props: IAdminDeleteEvent) => {
                         {props.deleteEvent.title}&quot; ?
                       </h1>
                     </Grid>
+                    {/* Event delete button */}
                     <button onClick={handleDelete} type="submit">
                       Delete
                     </button>
@@ -94,4 +101,4 @@ const AdminDeleteEvent = (props: IAdminDeleteEvent) => {
   }
 };
 
-export default AdminDeleteEvent;
+export default AdminDeleteEventModal;

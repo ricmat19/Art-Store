@@ -5,6 +5,7 @@ import { Backdrop, Box, Fade, Grid, Modal } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+//Update product props interface
 interface IAdminUpdateProduct {
   updateProduct: {
     title: SetStateAction<string>;
@@ -20,11 +21,9 @@ interface IAdminUpdateProduct {
     | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
     | undefined;
 }
-
 interface IUpdateProduct {
   id: string;
 }
-
 interface IUpdateProductForm {
   email: string;
   title: string;
@@ -37,9 +36,12 @@ interface IUpdateProductForm {
   updateProduct: IUpdateProduct;
 }
 
+//Admin update product Formik form initial values
 const initialValues = {
   email: "",
 };
+
+//Admin update product Formik form onSubmit function
 const onSubmit = (
   values: IUpdateProductForm,
   onSubmitProps: { resetForm: () => void }
@@ -72,13 +74,17 @@ const onSubmit = (
   }
   onSubmitProps.resetForm();
 };
+
+//Admin update product Formik form validation schema
 const validationSchema = Yup.object({
   email: Yup.string()
     .email("Invalid email format")
     .required("Email is required"),
 });
 
-const AdminUpdateProduct = (props: IAdminUpdateProduct) => {
+//Admin update product functional component
+const AdminUpdateProductModal = (props: IAdminUpdateProduct) => {
+  //Admin update product states
   const [, setTitle] = useState<string>("");
   const [, setProduct] = useState<string>("");
   const [, setPrice] = useState<string>("");
@@ -88,6 +94,7 @@ const AdminUpdateProduct = (props: IAdminUpdateProduct) => {
   const [imageBuffer, setImageBuffer] = useState<string>("");
   const [, setQty] = useState<string>("");
 
+  //If a product is provided, set the component's states to that product's properties on render
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -108,7 +115,9 @@ const AdminUpdateProduct = (props: IAdminUpdateProduct) => {
     fetchData();
   }, [props]);
 
+  //Display the update product modal if a product is provided
   if (props.updateProduct) {
+    //Admin update product modal
     return (
       <Grid>
         <Modal
@@ -148,6 +157,7 @@ const AdminUpdateProduct = (props: IAdminUpdateProduct) => {
                 }}
               >
                 <Grid sx={{ padding: "0 30px 0 0", width: "50%" }}>
+                  {/* Display the product image or a new image in a file image is provided*/}
                   <Grid className="image align-center">
                     {fileImage ? (
                       <img
@@ -180,9 +190,11 @@ const AdminUpdateProduct = (props: IAdminUpdateProduct) => {
                     validateOnBlur={false}
                     validateOnMount
                   >
+                    {/* Admin update product form */}
                     <Form className="admin-form">
                       <Grid className="admin-form-field">
                         <label className="admin-label">Title:</label>
+                        {/* Admin update product name input field */}
                         <Grid sx={{ display: "grid" }}>
                           <Field as="input" type="text" name="name" />
                           <ErrorMessage name="name" component="div">
@@ -196,6 +208,7 @@ const AdminUpdateProduct = (props: IAdminUpdateProduct) => {
                         <Grid>
                           <label className="admin-label">Product:</label>
                         </Grid>
+                        {/* Admin update product type drop-down input field */}
                         <Grid>
                           <Field as="select" className="type-selector">
                             <option value={"select product..."}>
@@ -210,6 +223,7 @@ const AdminUpdateProduct = (props: IAdminUpdateProduct) => {
                           </Field>
                         </Grid>
                       </Grid>
+                      {/* Admin update product file image input field */}
                       {/* <Grid className="admin-form-field">
                       <label className="admin-label">Image:</label>
                       <input
@@ -222,6 +236,7 @@ const AdminUpdateProduct = (props: IAdminUpdateProduct) => {
                     </Grid> */}
                       <Grid className="admin-form-field">
                         <label className="admin-label">Quantity:</label>
+                        {/* Admin update product quantity input field */}
                         <Grid sx={{ display: "grid" }}>
                           <Field as="input" type="number" name="quantity" />
                           <ErrorMessage name="quantity" component="div">
@@ -233,6 +248,7 @@ const AdminUpdateProduct = (props: IAdminUpdateProduct) => {
                       </Grid>
                       <Grid className="admin-form-field">
                         <label className="admin-label">Price:</label>
+                        {/* Admin update product price input field */}
                         <Grid sx={{ display: "grid" }}>
                           <Field as="input" type="number" name="price" />
                           <ErrorMessage name="price" component="div">
@@ -244,6 +260,7 @@ const AdminUpdateProduct = (props: IAdminUpdateProduct) => {
                       </Grid>
                       <Grid className="admin-form-field">
                         <label className="admin-label">Info:</label>
+                        {/* Admin update product message textarea field */}
                         <Grid sx={{ display: "grid" }}>
                           <Field as="textarea" name="message" rows={5} />
                           <ErrorMessage name="message" component="div">
@@ -255,6 +272,7 @@ const AdminUpdateProduct = (props: IAdminUpdateProduct) => {
                       </Grid>
                       <Grid className="admin-form-button">
                         <Grid className="text-center">
+                          {/* Admin submit update update form */}
                           <Grid>
                             <button type="submit" className="btn form-button">
                               Submit
@@ -276,4 +294,4 @@ const AdminUpdateProduct = (props: IAdminUpdateProduct) => {
   }
 };
 
-export default AdminUpdateProduct;
+export default AdminUpdateProductModal;

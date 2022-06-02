@@ -5,6 +5,7 @@ import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+//Admin create product props interface
 interface IAdminAddProduct {
   open: boolean | undefined;
   handleClose:
@@ -20,6 +21,7 @@ interface ICreateProductForm {
   image: File;
 }
 
+//Admin create product modal Formik form initial values
 const initialValues = {
   title: "",
   quantity: "",
@@ -27,6 +29,7 @@ const initialValues = {
   info: "",
 };
 
+//Admin create product modal Formik form onSubmit function
 const onSubmit = (
   values: ICreateProductForm,
   onSubmitProps: { resetForm: () => void }
@@ -51,6 +54,8 @@ const onSubmit = (
   }
   onSubmitProps.resetForm();
 };
+
+//Admin create product modal Formik form validation schema
 const validationSchema = Yup.object({
   title: Yup.string().required("Title is required"),
   quantity: Yup.string().required("Quantity is required"),
@@ -58,9 +63,12 @@ const validationSchema = Yup.object({
   info: Yup.string().required("Info is required"),
 });
 
-const AdminAddProduct = (props: IAdminAddProduct) => {
+//Admin create product modal functional component
+const AdminCreateProductModal = (props: IAdminAddProduct) => {
+  //Admin create product modal states
   const [image, setImage] = useState<File>();
 
+  //Display the product image if an image is provided
   let displayedImage;
   if (image !== undefined) {
     displayedImage = (
@@ -72,6 +80,7 @@ const AdminAddProduct = (props: IAdminAddProduct) => {
     );
   }
 
+  //Admin create product modal
   return (
     <Grid>
       <Modal
@@ -134,6 +143,7 @@ const AdminAddProduct = (props: IAdminAddProduct) => {
                   validateOnBlur={false}
                   validateOnMount
                 >
+                  {/* Admin create product form */}
                   <Form
                     className="admin-form"
                     action="/admin/products"
@@ -146,6 +156,7 @@ const AdminAddProduct = (props: IAdminAddProduct) => {
                     <Grid className="admin-form-field">
                       <label className="admin-label">Title:</label>
                       <Grid sx={{ display: "grid" }}>
+                        {/* Admin create product title input field */}
                         <Grid sx={{ display: "grid" }}>
                           <Field as="input" type="text" name="title" />
                           <ErrorMessage name="title" component="div">
@@ -160,6 +171,7 @@ const AdminAddProduct = (props: IAdminAddProduct) => {
                       <Grid>
                         <label className="admin-label">Type:</label>
                       </Grid>
+                      {/* Admin create product type input field */}
                       <Grid>
                         <Field
                           as="select"
@@ -178,6 +190,7 @@ const AdminAddProduct = (props: IAdminAddProduct) => {
                     </Grid>
                     <Grid className="admin-form-field">
                       <label className="admin-label">Image:</label>
+                      {/* Admin create product image input field */}
                       <Grid sx={{ display: "grid" }}>
                         <Field
                           type="file"
@@ -194,6 +207,7 @@ const AdminAddProduct = (props: IAdminAddProduct) => {
                     </Grid>
                     <Grid className="admin-form-field">
                       <label className="admin-label">Quantity:</label>
+                      {/* Admin create product quantity input field */}
                       <Grid sx={{ display: "grid" }}>
                         <Field as="input" type="number" name="quantity" />
                         <ErrorMessage name="quantity" component="div">
@@ -205,6 +219,7 @@ const AdminAddProduct = (props: IAdminAddProduct) => {
                     </Grid>
                     <Grid className="admin-form-field">
                       <label className="admin-label">Price:</label>
+                      {/* Admin create product price input field */}
                       <Grid sx={{ display: "grid" }}>
                         <Field as="input" type="number" name="price" />
                         <ErrorMessage name="price" component="div">
@@ -216,6 +231,7 @@ const AdminAddProduct = (props: IAdminAddProduct) => {
                     </Grid>
                     <Grid className="admin-form-field">
                       <label className="admin-label">Info:</label>
+                      {/* Admin create product info input field */}
                       <Grid sx={{ display: "grid" }}>
                         <Field as="textarea" name="info" rows={5} />
                         <ErrorMessage name="info" component="div">
@@ -225,6 +241,7 @@ const AdminAddProduct = (props: IAdminAddProduct) => {
                         </ErrorMessage>
                       </Grid>
                     </Grid>
+                    {/* Admin submit create product form */}
                     <Grid className="admin-form-button">
                       <Grid className="text-center">
                         <Grid>
@@ -245,4 +262,4 @@ const AdminAddProduct = (props: IAdminAddProduct) => {
   );
 };
 
-export default AdminAddProduct;
+export default AdminCreateProductModal;

@@ -11,6 +11,7 @@ import { Backdrop, Box, Fade, Modal, Grid, MenuItem } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+//Admin create help article prop interface
 interface IAdminCreateHelpArticle {
   category: string;
   open: boolean | undefined;
@@ -25,7 +26,6 @@ interface IAdminCreateHelpArticle {
     | null
     | undefined;
 }
-
 interface ICreateHelpArticleForm {
   title: string;
   description: string;
@@ -35,11 +35,13 @@ interface ICreateHelpArticleForm {
   handleClose: () => void;
 }
 
+//Admin create help article Formik form initial values
 const initialValues = {
   title: "",
   description: "",
 };
 
+//Admin create help article Formik form onSubmit function
 const onSubmit = (
   values: ICreateHelpArticleForm,
   onSubmitProps: { resetForm: () => void }
@@ -53,14 +55,19 @@ const onSubmit = (
   values.handleClose();
   onSubmitProps.resetForm();
 };
+
+//Admin create help article Formik form validation schema
 const validationSchema = Yup.object({
   title: Yup.string().required("Email is required"),
   description: Yup.string().required("Email is required"),
 });
 
-const AdminCreateHelpArticle = (props: IAdminCreateHelpArticle) => {
+//Admin create help article modal functional component
+const AdminCreateHelpArticleModal = (props: IAdminCreateHelpArticle) => {
+  //AdminCreateHelpArticleModal state
   const [sections, setSections] = useState<string[]>([]);
 
+  //Set the component's sections based on the category property provided
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -82,6 +89,7 @@ const AdminCreateHelpArticle = (props: IAdminCreateHelpArticle) => {
     fetchData();
   }, [props]);
 
+  //Admin create help article modal
   return (
     <Grid>
       <Modal
@@ -138,12 +146,14 @@ const AdminCreateHelpArticle = (props: IAdminCreateHelpArticle) => {
                   validateOnBlur={false}
                   validateOnMount
                 >
+                  {/* Admin create help article form */}
                   <Form
                     className="admin-form"
                     action="/admin/products"
                     method="POST"
                     encType="multipart/form-data"
                   >
+                    {/* Display the article lecture */}
                     <Grid className="admin-form-title">
                       <h1 className="align-center">Article: {props.lecture}</h1>
                     </Grid>
@@ -162,6 +172,7 @@ const AdminCreateHelpArticle = (props: IAdminCreateHelpArticle) => {
                         }}
                       >
                         <label>Title: </label>
+                        {/* Admin create help article title input */}
                         <Grid sx={{ display: "grid" }}>
                           <Field as="input" type="text" name="title" />
                           <ErrorMessage name="title" component="div">
@@ -181,6 +192,7 @@ const AdminCreateHelpArticle = (props: IAdminCreateHelpArticle) => {
                           <label>Section:</label>
                         </Grid>
                         <Grid>
+                          {/* Admin create help article section drop-down input field */}
                           <Field type="select" className="type-selector">
                             <MenuItem value="">
                               <em>None</em>
@@ -205,6 +217,7 @@ const AdminCreateHelpArticle = (props: IAdminCreateHelpArticle) => {
                       }}
                     >
                       <label>Article:</label>
+                      {/* Admin create help article description textarea */}
                       <Grid sx={{ display: "grid" }}>
                         <Field as="textarea" name="description" rows={20} />
                         <ErrorMessage name="description" component="div">
@@ -214,6 +227,7 @@ const AdminCreateHelpArticle = (props: IAdminCreateHelpArticle) => {
                         </ErrorMessage>
                       </Grid>
                     </Grid>
+                    {/* Admin submit create help article form */}
                     <Grid className="align-center">
                       <button type="submit">Submit</button>
                     </Grid>
@@ -228,4 +242,4 @@ const AdminCreateHelpArticle = (props: IAdminCreateHelpArticle) => {
   );
 };
 
-export default AdminCreateHelpArticle;
+export default AdminCreateHelpArticleModal;

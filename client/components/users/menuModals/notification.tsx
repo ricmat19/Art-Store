@@ -33,7 +33,7 @@ const Notifications = (props: INotifications) => {
     const fetchData = async () => {
       try {
         let notificationsResponse;
-        //If no notification product type is specified get all notificaitons, if a product type is specified get all products of that type
+        //If no notification product type is specified get all notifications, if a product type is specified get all products of that type
         if (product === "") {
           notificationsResponse = await IndexAPI.get(`/notifications`);
         } else {

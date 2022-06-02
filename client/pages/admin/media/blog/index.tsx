@@ -10,7 +10,7 @@ import { IBlog } from "../../../../interfaces";
 import Head from "next/head";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import AdminDeleteBlog from "../../../../components/admin/media/blog/deletePost";
+import AdminDeleteBlog from "../../../../components/admin/media/blog/deleteBlogPostModal";
 import { Button, Grid } from "@mui/material";
 import Link from "next/link";
 

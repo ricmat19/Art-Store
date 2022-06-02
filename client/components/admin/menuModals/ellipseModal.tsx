@@ -7,6 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Grid, Menu, ListItemIcon, MenuItem } from "@mui/material";
 
+//Admin ellipse props interface
 interface IAdminEllipse {
   ellipseOpen: Element | ((element: Element) => Element) | null | undefined;
   openEllipse: boolean;
@@ -15,8 +16,11 @@ interface IAdminEllipse {
     | undefined;
 }
 
-const AdminEllipse = (props: IAdminEllipse) => {
+//Admin ellipse functional component
+const AdminEllipseModal = (props: IAdminEllipse) => {
+  //Admin ellipse component
   return (
+    // Display the admin ellipse menu
     <Menu
       anchorEl={props.ellipseOpen}
       open={props.openEllipse}
@@ -52,6 +56,7 @@ const AdminEllipse = (props: IAdminEllipse) => {
       anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
     >
       <Grid>
+        {/* Display the admin about link */}
         <a href="/admin/about">
           <MenuItem sx={{ color: "black" }}>
             <ListItemIcon>
@@ -60,6 +65,7 @@ const AdminEllipse = (props: IAdminEllipse) => {
             About
           </MenuItem>
         </a>
+        {/* Display the admin help link */}
         <a href="/admin/help">
           <MenuItem sx={{ color: "black" }}>
             <ListItemIcon>
@@ -68,6 +74,7 @@ const AdminEllipse = (props: IAdminEllipse) => {
             Help
           </MenuItem>
         </a>
+        {/* Display the admin terms of service link */}
         <a href="/admin/termsOfService">
           <MenuItem sx={{ color: "black" }}>
             <ListItemIcon>
@@ -76,6 +83,7 @@ const AdminEllipse = (props: IAdminEllipse) => {
             Terms of Service
           </MenuItem>
         </a>
+        {/* Display the admin privacy policy link */}
         <a href="/admin/privacyPolicy">
           <MenuItem sx={{ color: "black" }}>
             <ListItemIcon>
@@ -89,4 +97,4 @@ const AdminEllipse = (props: IAdminEllipse) => {
   );
 };
 
-export default AdminEllipse;
+export default AdminEllipseModal;

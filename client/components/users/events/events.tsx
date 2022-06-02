@@ -5,7 +5,6 @@ import IndexAPI from "../../../apis/indexAPI";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTicket } from "@fortawesome/free-solid-svg-icons";
 
-
 //Events props interface
 interface IEvents {
   setSelectedEvent: (arg0: any) => void;

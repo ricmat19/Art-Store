@@ -1,9 +1,9 @@
 import { ListItemIcon, MenuItem } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
-
 import { Grid, Menu } from "@mui/material";
 
+//Admin user props interface
 interface IAdminUser {
   userOpen: Element | ((element: Element) => Element) | null | undefined;
   openUser: boolean;
@@ -12,8 +12,11 @@ interface IAdminUser {
     | undefined;
 }
 
-const AdminUser = (props: IAdminUser) => {
+//Admin user functional component
+const AdminUserModal = (props: IAdminUser) => {
+  //Admin user component
   return (
+    //Display the admin user menu
     <Menu
       anchorEl={props.userOpen}
       open={props.openUser}
@@ -49,6 +52,7 @@ const AdminUser = (props: IAdminUser) => {
       anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
     >
       <Grid>
+        {/* Button to logout the admin */}
         <MenuItem sx={{ color: "black" }}>
           <ListItemIcon>
             <FontAwesomeIcon icon={faSignOutAlt} />
@@ -60,4 +64,4 @@ const AdminUser = (props: IAdminUser) => {
   );
 };
 
-export default AdminUser;
+export default AdminUserModal;

@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import AdminDeleteEvent from "../../../../components/admin/events/deleteEvent";
+import AdminDeleteEvent from "../../../../components/admin/events/deleteEventModal";
 
 describe("testing admin delete event component", () => {
   beforeEach(async () => {<AdminDeleteEvent deleteEvent={[]} setBlogs={function (arg0: any): void {

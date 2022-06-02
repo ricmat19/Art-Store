@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import IndexAPI from "../../../../apis/indexAPI";
 import AdminMainNav from "../../../../components/admin/mainNav";
 import AdminPagesNav from "../../../../components/admin/pagesNav";
-import AdminAddHelp from "../../../../components/admin/help/createHelpArticle";
+import AdminAddHelp from "../../../../components/admin/help/createHelpArticleModal";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FooterC from "../../../../components/footer";

@@ -24,7 +24,7 @@ const AdminCoursesNav = (props: IAdminCoursesNav) => {
 
   //Admin course navigation component
   return (
-    // Maps out the list of course subjects as navigation links
+    //Maps out the list of course subjects as navigation links
     <Grid container sx={{ justifyContent: "center", gap: "25px", mt: "10px" }}>
       {subjectPageLinks}
     </Grid>

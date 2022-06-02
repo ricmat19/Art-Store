@@ -15,8 +15,8 @@ import SignUp from "./auth/signup";
 import SignIn from "./auth/signin";
 import Reset from "./auth/reset";
 import Notifications from "./menuModals/notification";
-import User from "./menuModals/user";
-import Ellipse from "./menuModals/ellipse";
+import User from "./menuModals/userModal";
+import Ellipse from "./menuModals/ellipseModal";
 import { getCartReducer } from "../../reducers/cartReducers";
 import { useAppDispatch } from "../../hooks";
 

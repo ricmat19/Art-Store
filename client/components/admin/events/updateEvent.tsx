@@ -4,6 +4,7 @@ import { Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+//Update Event props interface
 interface IAdminUpdateEvent {
   selectedEvent: { id: string };
 }
@@ -17,6 +18,7 @@ interface IUpdateEventForm {
   handleClose: () => void;
 }
 
+//Admin update event Formik form initial values
 const initialValues = {
   title: "",
   date: "",
@@ -24,6 +26,8 @@ const initialValues = {
   spots: "",
   info: "",
 };
+
+//Admin update event Formik form onSubmit function
 const onSubmit = (
   values: IUpdateEventForm,
   onSubmitProps: { resetForm: () => void }
@@ -39,6 +43,8 @@ const onSubmit = (
   values.handleClose();
   onSubmitProps.resetForm();
 };
+
+//Admin update event Formik form validation schema
 const validationSchema = Yup.object({
   title: Yup.string().required("Title is required"),
   date: Yup.string().required("Date is required"),
@@ -47,7 +53,9 @@ const validationSchema = Yup.object({
   info: Yup.string().required("Info is required"),
 });
 
+//Admin update event functional component
 const AdminUpdateEvent = (props: IAdminUpdateEvent) => {
+  //Admin update event modal
   return (
     <Grid className="create-event">
       <Formik
@@ -61,8 +69,10 @@ const AdminUpdateEvent = (props: IAdminUpdateEvent) => {
         validateOnBlur={false}
         validateOnMount
       >
+        {/* Admin update event Form */}
         <Form>
           <h1>Edit Event</h1>
+          {/* Admin update event form title input field */}
           <Grid className="admin-form-field">
             <label className="event-form-label">Title</label>
             <Grid sx={{ display: "grid" }}>
@@ -72,6 +82,7 @@ const AdminUpdateEvent = (props: IAdminUpdateEvent) => {
               </ErrorMessage>
             </Grid>
           </Grid>
+          {/* Admin update event form date input field */}
           <Grid className="admin-form-field">
             <label className="event-form-label">Date</label>
             <Grid sx={{ display: "grid" }}>
@@ -81,6 +92,7 @@ const AdminUpdateEvent = (props: IAdminUpdateEvent) => {
               </ErrorMessage>
             </Grid>
           </Grid>
+          {/* Admin update event form price input field */}
           <Grid className="admin-form-field">
             <label className="event-form-label">Price</label>
             <Grid sx={{ display: "grid" }}>
@@ -90,6 +102,7 @@ const AdminUpdateEvent = (props: IAdminUpdateEvent) => {
               </ErrorMessage>
             </Grid>
           </Grid>
+          {/* Admin update event form spots input field */}
           <Grid className="admin-form-field">
             <label className="event-form-label">Spots</label>
             <Grid sx={{ display: "grid" }}>
@@ -99,6 +112,7 @@ const AdminUpdateEvent = (props: IAdminUpdateEvent) => {
               </ErrorMessage>
             </Grid>
           </Grid>
+          {/* Admin update event form info input field */}
           <Grid className="admin-form-field">
             <label className="event-form-label">Info</label>
             <Grid sx={{ display: "grid" }}>
@@ -108,6 +122,7 @@ const AdminUpdateEvent = (props: IAdminUpdateEvent) => {
               </ErrorMessage>
             </Grid>
           </Grid>
+          {/* Admin submit update event form */}
           <Grid className="align-center">
             <button type="submit">Submit</button>
           </Grid>

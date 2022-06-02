@@ -10,9 +10,9 @@ import Head from "next/head";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AdminProductsNav from "../../../components/admin/products/productNav";
-import AdminAddProduct from "../../../components/admin/products/createProduct";
-import AdminUpdateProduct from "../../../components/admin/products/updateProduct";
-import AdminDeleteProduct from "../../../components/admin/products/deleteProduct";
+import AdminAddProduct from "../../../components/admin/products/createProductModal";
+import AdminUpdateProduct from "../../../components/admin/products/updateProductModal";
+import AdminDeleteProduct from "../../../components/admin/products/deleteProductModal";
 import { Button, Grid } from "@mui/material";
 
 interface IAdminProduct {

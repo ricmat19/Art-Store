@@ -6,7 +6,7 @@ import FooterC from "../../../components/footer";
 import Head from "next/head";
 import AdminCalendar from "../../../components/admin/events/calendar";
 import AdminDay from "../../../components/admin/events/dayModal";
-import AdminDeleteEvent from "../../../components/admin/events/deleteEvent";
+import AdminDeleteEvent from "../../../components/admin/events/deleteEventModal";
 import { Grid } from "@mui/material";
 
 interface IAdminEvents {

@@ -3,6 +3,7 @@ import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Grid, Modal } from "@mui/material";
 import { ReactChild, ReactFragment, ReactPortal } from "react";
 
+//Admin delete product props interface
 interface IAdminDeleteProduct {
   deleteProduct: {
     id: string;
@@ -21,7 +22,9 @@ interface IAdminDeleteProduct {
   open: boolean | undefined;
 }
 
+//Admin delete product modal functional component
 const AdminDeleteProduct = (props: IAdminDeleteProduct) => {
+  //Admin function to delete a product
   const handleDelete = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
@@ -32,7 +35,9 @@ const AdminDeleteProduct = (props: IAdminDeleteProduct) => {
     }
   };
 
+  //Display the delete product modal if a product is provided
   if (props.deleteProduct) {
+    //Admin delete product modal
     return (
       <Grid>
         <Modal
@@ -92,6 +97,7 @@ const AdminDeleteProduct = (props: IAdminDeleteProduct) => {
                     height: "100%",
                   }}
                 >
+                  {/* Admin delete product form */}
                   <form className="admin-form">
                     <Grid className="align-center">
                       <h1>
@@ -99,6 +105,7 @@ const AdminDeleteProduct = (props: IAdminDeleteProduct) => {
                         {props.deleteProduct.title}&quot; ?
                       </h1>
                     </Grid>
+                    {/* Product delete button */}
                     <button onClick={handleDelete} type="submit">
                       Delete
                     </button>

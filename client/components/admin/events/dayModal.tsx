@@ -26,7 +26,7 @@ interface IAdminDay {
 }
 
 //Admin day modal functional component
-const AdminDay = (props: IAdminDay) => {
+const AdminDayModal = (props: IAdminDay) => {
   //Admin day modal states
   const [view, setView] = useState("events");
   const [title, setTitle] = useState<string>("");
@@ -181,4 +181,4 @@ const AdminDay = (props: IAdminDay) => {
   );
 };
 
-export default AdminDay;
+export default AdminDayModal;

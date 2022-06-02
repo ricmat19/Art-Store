@@ -2,6 +2,7 @@
 import IndexAPI from "../../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Grid, Modal } from "@mui/material";
 
+//Admin delete blog post prop interface
 interface IAdminDeleteBlog {
   deleteBlog: { id: string }[];
   setBlogs: (arg0: any) => void;
@@ -12,7 +13,9 @@ interface IAdminDeleteBlog {
   open: boolean | undefined;
 }
 
-const AdminDeleteBlog = (props: IAdminDeleteBlog) => {
+//Admin delete post modal functional component
+const AdminDeleteBlogPostModal = (props: IAdminDeleteBlog) => {
+  //Admin function to delete blog post
   const handleDelete = async () => {
     try {
       await IndexAPI.delete(`/admin/blog/${props.deleteBlog[0].id}`);
@@ -27,7 +30,9 @@ const AdminDeleteBlog = (props: IAdminDeleteBlog) => {
     }
   };
 
+  //Display the delete blog post modal if a blog post is provided
   if (props.deleteBlog) {
+    //Admin delete blog post modal
     return (
       <Grid>
         <Modal
@@ -72,6 +77,7 @@ const AdminDeleteBlog = (props: IAdminDeleteBlog) => {
                     justifyContent: "center",
                   }}
                 >
+                  {/* Display the selected blog post's image*/}
                   <Grid className="big-image-div">
                     <img
                       className="big-image"
@@ -86,6 +92,7 @@ const AdminDeleteBlog = (props: IAdminDeleteBlog) => {
                     height: "100%",
                   }}
                 >
+                  {/* Admin delete blog post form */}
                   <form className="admin-form">
                     <Grid className="align-center">
                       <h1>
@@ -93,6 +100,7 @@ const AdminDeleteBlog = (props: IAdminDeleteBlog) => {
                         {props.deleteBlog.title}&quot; ?
                       </h1>
                     </Grid>
+                    {/* Blog post delete button */}
                     <button onClick={handleDelete} type="submit">
                       Delete
                     </button>
@@ -109,4 +117,4 @@ const AdminDeleteBlog = (props: IAdminDeleteBlog) => {
   }
 };
 
-export default AdminDeleteBlog;
+export default AdminDeleteBlogPostModal;

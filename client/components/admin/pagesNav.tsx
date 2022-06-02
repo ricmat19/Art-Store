@@ -9,15 +9,18 @@ import {
   faTv,
 } from "@fortawesome/free-solid-svg-icons";
 
+//Admin pages navigation function component
 const AdminPagesNav: FC = () => {
-
+  //Next router function
   const router = useRouter();
 
+  //Admin pages navigation menu
   return (
     <header>
       <nav>
-        <input type="checkbox" id="nav-toggle" className="nav-toggle" />
+        {/* <input type="checkbox" id="nav-toggle" className="nav-toggle" /> */}
         <Grid container sx={{ pt: "5px", pb: "5px", justifyContent: "center" }}>
+          {/* Admin store navigation button */}
           <Grid container xs={3} sx={{ justifyContent: "center" }}>
             <Grid sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}>
               <FontAwesomeIcon icon={faStoreAlt} />
@@ -31,6 +34,7 @@ const AdminPagesNav: FC = () => {
               </Grid>
             </Grid>
           </Grid>
+          {/* Admin course navigation button */}
           <Grid container xs={3} sx={{ justifyContent: "center" }}>
             <Grid sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}>
               <FontAwesomeIcon icon={faChalkboardTeacher} />
@@ -44,6 +48,7 @@ const AdminPagesNav: FC = () => {
               </Grid>
             </Grid>
           </Grid>
+          {/* Admin media navigation button */}
           <Grid container xs={3} sx={{ justifyContent: "center" }}>
             <Grid sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}>
               <FontAwesomeIcon icon={faTv} />
@@ -55,6 +60,7 @@ const AdminPagesNav: FC = () => {
               <h1 className="pointer">media</h1>
             </Grid>
           </Grid>
+          {/* Admin calendar navigation button */}
           <Grid container xs={3} sx={{ justifyContent: "center" }}>
             <Grid sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}>
               <FontAwesomeIcon icon={faCalendarCheck} />
@@ -66,6 +72,7 @@ const AdminPagesNav: FC = () => {
               <h1 className="pointer">events</h1>
             </Grid>
           </Grid>
+          {/* Admin community navigation button */}
           {/* <Grid container xs={2} sx={{justifyContent: "center"}}>
             <Grid sx={{textAlign: 'center', alignSelf: "center", m: "5px"}}>
               <FontAwesomeIcon icon={faComments} />
