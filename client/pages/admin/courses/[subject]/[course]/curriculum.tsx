@@ -9,7 +9,7 @@ import { Grid, Button } from "@mui/material";
 // import { useRouter } from "next/router";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Content from "../../../../../components/admin/courses/contentMenu";
+import Content from "../../../../../components/admin/courses/contentModal";
 import AdminCreateVideoLecture from "../../../../../components/admin/courses/createVideoLectureModal";
 import AdminCreateArticleLecture from "../../../../../components/admin/courses/createArticleLectureModal";
 import { Formik, Form, Field, ErrorMessage } from "formik";

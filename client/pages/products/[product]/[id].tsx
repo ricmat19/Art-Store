@@ -6,8 +6,8 @@ import MainNav from "../../../components/users/mainNav";
 import PagesNav from "../../../components/users/pagesNav";
 import FooterC from "../../../components/footer";
 import Head from "next/head";
-import AddToCart from "../../../components/users/products/addToCart";
-import AddToCollection from "../../../components/users/products/addToCollection";
+import AddToCart from "../../../components/users/products/addToCartModal";
+import AddToCollection from "../../../components/users/products/addToCollectionModal";
 import { Grid } from "@mui/material";
 import {
   getCartReducer,

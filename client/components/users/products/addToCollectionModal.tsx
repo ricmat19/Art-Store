@@ -8,6 +8,7 @@ import { Backdrop, Box, Fade, Modal, Grid, Button } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+//Add to collection prop interface
 interface ICollection {
   collection_group: string;
 }
@@ -18,19 +19,20 @@ interface IAddToCollection {
     | undefined;
   collections: ICollection[];
 }
-
 interface IProduct {
   id: string;
 }
-
 interface IAddToCollectionForm {
   collection: string;
   product: IProduct;
 }
 
+//Add to collection Formik form initial values
 const initialValues = {
   collection: "",
 };
+
+//Add to collection Formik form onSubmit function
 const onSubmit = (
   values: IAddToCollectionForm,
   onSubmitProps: { resetForm: () => void }
@@ -42,10 +44,13 @@ const onSubmit = (
   });
   onSubmitProps.resetForm();
 };
+
+//Add to collection Formik form validation schema
 const validationSchema = Yup.object({
   collection: Yup.string().required("Email is required"),
 });
 
+//Add to collection functional component
 const AddToCollection = (props: IAddToCollection) => {
   // const [newCollection, setNewCollection] = useState<string>("");
 
@@ -61,6 +66,7 @@ const AddToCollection = (props: IAddToCollection) => {
   //   }
   // };
 
+  //Add to collection modal
   return (
     <Grid>
       <Modal
@@ -106,6 +112,7 @@ const AddToCollection = (props: IAddToCollection) => {
                 validateOnBlur={false}
                 validateOnMount
               >
+                {/* Add to collection form */}
                 <Form>
                   <Grid sx={{ gap: "10px" }} className="grid">
                     <h1 className="header">Add to Collection</h1>
@@ -116,6 +123,7 @@ const AddToCollection = (props: IAddToCollection) => {
                           gridTemplateColumns: "min-content 1fr",
                         }}
                       >
+                        {/* Create a new collection input field */}
                         <Grid sx={{ display: "grid" }}>
                           <Field
                             as="input"
@@ -128,6 +136,7 @@ const AddToCollection = (props: IAddToCollection) => {
                             )}
                           </ErrorMessage>
                         </Grid>
+                        {/* Button to create a new collection */}
                         <Button
                           // onClick={createCollection}
                           sx={{
@@ -148,6 +157,7 @@ const AddToCollection = (props: IAddToCollection) => {
                           display: "grid",
                         }}
                       >
+                        {/* Drop-down input field to select a collection to add a product to */}
                         <Field
                           as="select"
                           displayEmpty
@@ -170,6 +180,7 @@ const AddToCollection = (props: IAddToCollection) => {
                       </Grid>
                     </Grid>
                     <Grid sx={{ display: "grid", justifyContent: "center" }}>
+                      {/* Button to add a product to a collection */}
                       <button className="added-button">
                         Add to Collection
                       </button>

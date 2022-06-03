@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 
+//Add to cart prop interface
 interface IProduct {
   title: string;
 }
@@ -15,7 +16,9 @@ interface IAddToCart {
     | undefined;
 }
 
+//Add to cart functional component
 const AddToCart = (props: IAddToCart) => {
+  // Add to cart state
   const [product] = useState(props.product);
   const [uniqueItem] = useState(props.uniqueItem);
 
@@ -31,8 +34,10 @@ const AddToCart = (props: IAddToCart) => {
   //   fetchData();
   // }, [props]);
 
+  //Next router function
   const router = useRouter();
 
+  //Add to cart modal
   return (
     <Grid>
       <Modal
@@ -70,7 +75,9 @@ const AddToCart = (props: IAddToCart) => {
                 padding: "30px",
               }}
             >
+              {/* Add to cart Form */}
               <form>
+                {/* Add to cart text stating the item has been added to the cart or was already in the cart */}
                 <Grid>
                   <h3 className="align-center">
                     {product.title} has {!uniqueItem ? "already" : ""} been
@@ -81,12 +88,14 @@ const AddToCart = (props: IAddToCart) => {
                   sx={{ padding: "10px 0" }}
                   className="grid two-column-div"
                 >
+                  {/* Button routing user back to store */}
                   <button
                     className="added-button"
                     onClick={() => router.push("/")}
                   >
                     continue shopping
                   </button>
+                  {/* Button routing user back to cart */}
                   <button
                     className="added-button"
                     onClick={() => router.push("/cart")}

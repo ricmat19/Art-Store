@@ -23,7 +23,7 @@ const MediaNav = (props: IMediaNav) => {
     }
   }
 
-  //Create a link for each media type provided
+  //Creates a link for each media type provided
   const mediaPageLinks = mediaTypes.map((media: string) => {
     return (
       <Link passHref key={media} href={`/media/${media}`}>
@@ -32,7 +32,7 @@ const MediaNav = (props: IMediaNav) => {
     );
   });
 
-  //Media Navigation component
+  //Media navigation component
   return (
     <Grid container sx={{ justifyContent: "center", gap: "25px", mt: "10px" }}>
       {/* Display the list of media links */}

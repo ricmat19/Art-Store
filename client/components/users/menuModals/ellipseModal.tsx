@@ -66,6 +66,7 @@ const Ellipse = (props: IEllipse) => {
             About
           </MenuItem>
         </a>
+        {/* Display the Contact link */}
         <a href="/contact">
           <MenuItem sx={{ color: "black" }}>
             <ListItemIcon>

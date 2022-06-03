@@ -167,6 +167,7 @@ const Notifications = (props: INotifications) => {
                     </Grid>
                   )}
                 </Grid>
+                {/* ? */}
                 <Grid>
                   {notification !== undefined ? notification.title : ""}
                 </Grid>

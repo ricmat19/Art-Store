@@ -11,10 +11,10 @@ import {
   faEllipsisV,
   faHamburger,
 } from "@fortawesome/free-solid-svg-icons";
-import SignUp from "./auth/signup";
-import SignIn from "./auth/signin";
-import Reset from "./auth/reset";
-import Notifications from "./menuModals/notification";
+import SignUp from "./auth/signupModal";
+import SignIn from "./auth/signinModal";
+import Reset from "./auth/resetModal";
+import Notifications from "./menuModals/notificationModal";
 import User from "./menuModals/userModal";
 import Ellipse from "./menuModals/ellipseModal";
 import { getCartReducer } from "../../reducers/cartReducers";

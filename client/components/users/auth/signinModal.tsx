@@ -181,7 +181,7 @@ const SignIn = (props: ISignIn) => {
                               >
                                 <span>forgot password?</span>
                               </Grid>
-                              {/* Go to sigup modal */}
+                              {/* Go to signup modal */}
                               <Grid
                                 className="modal-link align-left pointer"
                                 onClick={displaySignUp}

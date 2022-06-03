@@ -5,7 +5,7 @@ import PagesNav from "../../components/users/pagesNav";
 import FooterC from "../../components/footer";
 import Head from "next/head";
 import Calendar from "../../components/users/events/calendar";
-import Day from "../../components/users/events/day";
+import Day from "../../components/users/events/dayModal";
 import { Grid } from "@mui/material";
 import SummaryList from "../../components/users/events/summaryList";
 
