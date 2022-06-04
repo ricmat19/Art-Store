@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Grid } from "@mui/material";
 import Link from "next/link";
 
-//Media navidcation props interface
+//Media navigation props interface
 interface IMedia {
   type: string;
 }
@@ -12,7 +12,7 @@ interface IMediaNav {
 
 //Media navigation menu functional component
 const MediaNav = (props: IMediaNav) => {
-  // Media navication state
+  // Media navigation state
   const [media] = useState(props.medias);
 
   //Create a array of the different media types provided

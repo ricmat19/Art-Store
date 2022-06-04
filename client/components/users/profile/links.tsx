@@ -2,6 +2,7 @@ import IndexAPI from "../../../apis/indexAPI";
 import { Grid } from "@mui/material";
 import { useState } from "react";
 
+//Profile props interface
 interface IProfile {
   email: string;
   website: string;
@@ -9,17 +10,21 @@ interface IProfile {
   linkedin: string;
   youtube: string;
 }
+//Profile links props interface
 interface ILinks {
   profile: IProfile;
 }
 
+//Profile links functional component
 const Links = (props: ILinks) => {
+  //Profile links states
   const [email] = useState(props.profile.email);
   const [website, setWebsite] = useState(props.profile.website);
   const [twitter, setTwitter] = useState(props.profile.twitter);
   const [linkedIn, setLinkedIn] = useState(props.profile.linkedin);
   const [youtube, setYoutube] = useState(props.profile.youtube);
 
+  //Function to update the user's profile links
   const updateProfile = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
@@ -35,10 +40,12 @@ const Links = (props: ILinks) => {
     }
   };
 
+  //Profile links component
   return (
     <Grid>
       <Grid className="two-column-div">
         <Grid className="profile-form-field">
+          {/* Profile website link input field */}
           <label>Website:</label>
           <input
             type="text"
@@ -47,6 +54,7 @@ const Links = (props: ILinks) => {
           />
         </Grid>
         <Grid className="admin-form-field">
+          {/* Profile twitter link input field */}
           <label className="inner-form-label">Twitter:</label>
           <input
             type="text"
@@ -57,6 +65,7 @@ const Links = (props: ILinks) => {
       </Grid>
       <Grid className="two-column-div">
         <Grid className="profile-form-field">
+          {/* Profile linkedin link input field */}
           <label>LinkedIn:</label>
           <input
             type="text"
@@ -65,6 +74,7 @@ const Links = (props: ILinks) => {
           />
         </Grid>
         <Grid className="admin-form-field">
+          {/* Profile youtube link input field */}
           <label className="inner-form-label">Youtube:</label>
           <input
             type="text"
@@ -75,6 +85,7 @@ const Links = (props: ILinks) => {
       </Grid>
       <Grid sx={{ display: "grid" }}>
         <Grid sx={{ textAlign: "center" }}>
+          {/* Submit button to update profile links*/}
           <button type="submit" onClick={updateProfile}>
             Submit
           </button>

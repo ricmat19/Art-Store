@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { Grid } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -20,18 +20,22 @@ import Ellipse from "./menuModals/ellipseModal";
 import { getCartReducer } from "../../reducers/cartReducers";
 import { useAppDispatch } from "../../hooks";
 
+//Main navigation functional component
 const MainNav = () => {
+  //Main navigation states
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
 
+  //Next router function
   const router = useRouter();
 
+  //Redux request function
   const dispatch = useAppDispatch();
 
+  //Get cart content on render
   useEffect(() => {
     const fetchData = async () => {
       try {
         const cartResponse = await dispatch(getCartReducer());
-        console.log(cartResponse.payload.cart);
       } catch (err) {
         console.log(err);
       }
@@ -40,25 +44,50 @@ const MainNav = () => {
     fetchData();
   }, [dispatch]);
 
+  //Handle signup modal open and close
   const [signUpOpen, setSignUpOpen] = useState(false);
   const handleSignUpOpen = () => setSignUpOpen(true);
   const handleSignUpClose = () => setSignUpOpen(false);
 
+  //Handle signIn modal open and close
   const [signInOpen, setSignInOpen] = useState(false);
   const handleSignInOpen = () => setSignInOpen(true);
   const handleSignInClose = () => setSignInOpen(false);
 
+  //Handle reset modal open and close
   const [resetOpen, setResetOpen] = useState(false);
   const handleResetOpen = () => setResetOpen(true);
   const handleResetClose = () => setResetOpen(false);
 
+  //Handle notification modal open and close
   const [notificationOpen, setNotificationOpen] = useState(null);
-  const [userOpen, setUserOpen] = useState(null);
-  const [ellipseOpen, setEllipseOpen] = useState(null);
+  const openNotification = Boolean(notificationOpen);
+  const handleNotificationClick = (event: any) => {
+    setNotificationOpen(event.currentTarget);
+  };
+  const handleNotificationClose = () => {
+    setNotificationOpen(null);
+  };
 
-  const openNotificaition = Boolean(notificationOpen);
+  //Handle user modal open and close
+  const [userOpen, setUserOpen] = useState(null);
   const openUser = Boolean(userOpen);
+  const handleUserClick = (event: any) => {
+    setUserOpen(event.currentTarget);
+  };
+  const handleUserClose = () => {
+    setUserOpen(null);
+  };
+
+  //Handle ellipse modal open and close
+  const [ellipseOpen, setEllipseOpen] = useState(null);
   const openEllipse = Boolean(ellipseOpen);
+  const handleEllipseClick = (event: any) => {
+    setEllipseOpen(event.currentTarget);
+  };
+  const handleEllipseClose = () => {
+    setEllipseOpen(null);
+  };
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -72,28 +101,8 @@ const MainNav = () => {
   //   fetchData();
   // }, []);
 
-  const handleNotificationClick = (event: any) => {
-    setNotificationOpen(event.currentTarget);
-  };
-  const handleUserClick = (event: any) => {
-    setUserOpen(event.currentTarget);
-  };
-  const handleEllipseClick = (event: any) => {
-    setEllipseOpen(event.currentTarget);
-  };
-
-  const handleNotificationClose = () => {
-    setNotificationOpen(null);
-  };
-  const handleUserClose = () => {
-    setUserOpen(null);
-  };
-  const handleEllipseClose = () => {
-    setEllipseOpen(null);
-  };
-
+  //Main nav hamburger icon menu open/close state and function
   const [iconMenu, setIconMenu] = useState("iconMenu");
-
   const displayMenu = () => {
     if (iconMenu === "iconMenu iconMenu-show") {
       setIconMenu("iconMenu");
@@ -102,20 +111,24 @@ const MainNav = () => {
     }
   };
 
+  //Display main navigation component view depending on login status
   if (loginStatus) {
     return (
       <header>
         <nav>
+          {/* Notification modal */}
           <Notifications
             notificationOpen={notificationOpen}
-            openNotificaition={openNotificaition}
+            openNotificaition={openNotification}
             handleNotificationClose={handleNotificationClose}
           />
+          {/* User modal */}
           <User
             userOpen={userOpen}
             openUser={openUser}
             handleUserClose={handleUserClose}
           />
+          {/* Ellipse modal */}
           <Ellipse
             ellipseOpen={ellipseOpen}
             openEllipse={openEllipse}
@@ -140,6 +153,7 @@ const MainNav = () => {
                 padding: "0 10px",
               }}
             >
+              {/* Route to store print page upon clicking logo */}
               <Grid
                 className="nav-link"
                 onClick={() => router.push("/products/print")}
@@ -152,6 +166,7 @@ const MainNav = () => {
               </Grid>
             </Grid>
             <Grid xs={12} container sx={{ alignContent: "center" }}>
+              {/* Search input box */}
               <input
                 type="text"
                 className="search-field"
@@ -167,6 +182,7 @@ const MainNav = () => {
                 minWidth: "fit-content",
               }}
             >
+              {/* Main nav display hamburger menu button */}
               <Grid
                 xs={12}
                 container
@@ -191,6 +207,7 @@ const MainNav = () => {
                 }}
               >
                 <Grid xs={12} container sx={{ justifyContent: "center" }}>
+                  {/* Main nav notification modal button */}
                   <h1>
                     <FontAwesomeIcon
                       className="pointer"
@@ -200,6 +217,7 @@ const MainNav = () => {
                   </h1>
                 </Grid>
                 <Grid xs={12} container sx={{ justifyContent: "center" }}>
+                  {/* Main nav route to collection button */}
                   <a href="/collection">
                     <h1>
                       <FontAwesomeIcon className="pointer" icon={faHeart} />
@@ -207,6 +225,7 @@ const MainNav = () => {
                   </a>
                 </Grid>
                 <Grid xs={12} container sx={{ justifyContent: "center" }}>
+                  {/* Main nav route to cart button */}
                   <a href="/cart">
                     <h1>
                       {/* {cartAmt} */}
@@ -218,6 +237,7 @@ const MainNav = () => {
                   </a>
                 </Grid>
                 <Grid xs={12} container sx={{ justifyContent: "center" }}>
+                  {/* Main nav display user menu button */}
                   <h1>
                     <FontAwesomeIcon
                       className="pointer"
@@ -227,6 +247,7 @@ const MainNav = () => {
                   </h1>
                 </Grid>
                 <Grid xs={12} container sx={{ justifyContent: "center" }}>
+                  {/* Main nav display ellipses menu button */}
                   <h1>
                     <FontAwesomeIcon
                       className="pointer"
@@ -246,11 +267,13 @@ const MainNav = () => {
     return (
       <header>
         <nav>
+          {/* Signup modal */}
           <SignUp
             signUpOpen={signUpOpen}
             handleSignUpClose={handleSignUpClose}
             handleSignInOpen={handleSignInOpen}
           />
+          {/* Signin modal */}
           <SignIn
             signInOpen={signInOpen}
             handleSignInClose={handleSignInClose}
@@ -258,6 +281,7 @@ const MainNav = () => {
             handleResetOpen={handleResetOpen}
             setLoginStatus={setLoginStatus}
           />
+          {/* Reset modal */}
           <Reset
             resetOpen={resetOpen}
             handleResetClose={handleResetClose}
@@ -265,6 +289,7 @@ const MainNav = () => {
             handleSignInOpen={handleSignInOpen}
           />
           <Grid container>
+            {/* Route to store print page upon clicking logo */}
             <Grid
               xs={2}
               sx={{
@@ -286,6 +311,7 @@ const MainNav = () => {
                 <h1>search</h1>
               </Grid>
               <Grid xs={11} container sx={{ pt: "10px", pb: "10px" }}>
+                {/* Search input box */}
                 <input
                   type="text"
                   placeholder="test"
@@ -299,6 +325,7 @@ const MainNav = () => {
                 container
                 sx={{ justifyContent: "center", alignSelf: "center" }}
               >
+                {/* Main nav route to cart button */}
                 <a href="/cart">
                   <h1 className="grid">
                     <FontAwesomeIcon icon={faShoppingCart} />
@@ -306,11 +333,13 @@ const MainNav = () => {
                 </a>
               </Grid>
               <Grid xs={5} container sx={{ justifyContent: "center" }}>
+                {/* Main nav display signup modal button */}
                 <h2 className="pointer" onClick={() => handleSignUpOpen()}>
                   sign up
                 </h2>
               </Grid>
               <Grid xs={5} container sx={{ justifyContent: "center" }}>
+                {/* Main nav display signin modal button */}
                 <h2 className="pointer" onClick={() => handleSignInOpen()}>
                   sign in
                 </h2>
@@ -324,9 +353,9 @@ const MainNav = () => {
   }
 };
 
-MainNav.propTypes = {
-  cartQty: PropTypes.number,
-  mediasAmount: PropTypes.number,
-};
+// MainNav.propTypes = {
+//   cartQty: PropTypes.number,
+//   mediasAmount: PropTypes.number,
+// };
 
 export default MainNav;
