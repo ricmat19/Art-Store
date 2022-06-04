@@ -8,18 +8,21 @@ import {
   faTv,
 } from "@fortawesome/free-solid-svg-icons";
 
+//Pages navigation function component
 const PagesNav = () => {
+  //Next router function
   const router = useRouter();
 
-  async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    try {
-      console.log("reset");
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // async (e: { preventDefault: () => void }) => {
+  //   e.preventDefault();
+  //   try {
+  //     console.log("reset");
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
+  //Pages navigation menu
   return (
     <header>
       <nav>
@@ -29,6 +32,7 @@ const PagesNav = () => {
             xs={3}
             sx={{ justifyContent: "center", display: "grid" }}
           >
+            {/* Store navigation button */}
             <Grid
               onClick={() => router.push("/products/print")}
               className="pointer"
@@ -48,6 +52,7 @@ const PagesNav = () => {
             xs={3}
             sx={{ justifyContent: "center", display: "grid" }}
           >
+            {/* Course navigation button */}
             <Grid
               onClick={() => router.push("/courses/drawing")}
               className="pointer"
@@ -67,6 +72,7 @@ const PagesNav = () => {
             xs={3}
             sx={{ justifyContent: "center", display: "grid" }}
           >
+            {/* Media navigation button */}
             <Grid
               onClick={() => router.push("/media/blog")}
               className="pointer"
@@ -84,6 +90,7 @@ const PagesNav = () => {
             xs={3}
             sx={{ justifyContent: "center", display: "grid" }}
           >
+            {/* Calendar navigation button */}
             <Grid onClick={() => router.push("/events")} className="pointer">
               <Grid sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}>
                 <FontAwesomeIcon icon={faCalendarCheck} />
@@ -93,6 +100,7 @@ const PagesNav = () => {
               </Grid>
             </Grid>
           </Grid>
+          {/* Community navigation button */}
           {/* <Grid container xs={2} sx={{justifyContent: "center"}}>
             <Grid sx={{textAlign: 'center', alignSelf: "center", m: "5px"}}>
               <FontAwesomeIcon icon={faComments} />

@@ -7,10 +7,13 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Grid } from "@mui/material";
 
+//Footer function component
 const Footer: FC = () => {
+  //Footer component
   return (
     <footer>
       <Grid className="align-center footer-pad">
+        {/* Link to instagram */}
         <a
           href="https://www.instagram.com/arthouse_19/"
           target="_blank"
@@ -21,6 +24,7 @@ const Footer: FC = () => {
             icon={faInstagram}
           />
         </a>
+        {/* Link to twitter */}
         <a
           href="https://twitter.com/House19Art"
           target="_blank"
@@ -31,6 +35,7 @@ const Footer: FC = () => {
             icon={faTwitter}
           />
         </a>
+        {/* Link to youtube */}
         <a
           href="https://www.youtube.com/channel/UCaem2HqM0PPak4fvf-uxlnQ"
           target="_blank"

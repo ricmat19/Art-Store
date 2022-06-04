@@ -10,10 +10,10 @@ import { useRouter } from "next/router";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+//Admin create course prop interface
 interface IAdminCourse {
   selectedCourse: { imageBuffer: string | undefined }[];
 }
-
 interface ICreateCurriculumForm {
   title: string;
   subject: string;
@@ -23,22 +23,28 @@ interface ICreateCurriculumForm {
   router: any;
 }
 
+//Admin course Formik form initial values
 const initialValues = {
   title: "",
   subject: "",
   price: "",
   description: "",
 };
+
+//Admin course Formik form onSubmit function
 const onSubmit = (
   values: ICreateCurriculumForm,
   onSubmitProps: { resetForm: () => void }
 ) => {
+  //Update course
   IndexAPI.put(`/admin/courses/${values.selectedCourse[0].id}`, {
     title: values.title,
     subject: values.subject,
     description: values.description,
     price: values.price,
   });
+
+  //Route to the selected courses curriculum page
   values.router.push(
     {
       pathname: `/admin/courses/[subject]/[course]/curriculum`,
@@ -51,6 +57,8 @@ const onSubmit = (
   );
   onSubmitProps.resetForm();
 };
+
+//Admin course Formik form validation schema
 const validationSchema = Yup.object({
   title: Yup.string().required("Email is required"),
   subject: Yup.string().required("Email is required"),
@@ -58,11 +66,15 @@ const validationSchema = Yup.object({
   description: Yup.string().required("Email is required"),
 });
 
+//Admin course functional component
 const AdminCourse = (props: IAdminCourse) => {
+  // Admin course states
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
 
+  // Next router function
   const router = useRouter();
 
+  // Query login status on render
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -76,6 +88,7 @@ const AdminCourse = (props: IAdminCourse) => {
     fetchData();
   }, []);
 
+  //Create course image element
   let displayedImage = (
     <img
       className="big-image"
@@ -84,13 +97,16 @@ const AdminCourse = (props: IAdminCourse) => {
     />
   );
 
+  // Render component based on login status
   if (loginStatus) {
     return (
       <Grid>
         <Head>
           <title>artHouse19-Admin Create Course</title>
         </Head>
+        {/* Display main navbar */}
         <AdminMainNav />
+        {/* Display pages navbar */}
         <AdminPagesNav />
         <Grid>
           <Grid
@@ -107,6 +123,7 @@ const AdminCourse = (props: IAdminCourse) => {
           >
             <Grid sx={{ padding: "0 30px 0 0", width: "50%" }}>
               <Grid className="image">
+                {/* Display course image */}
                 <Grid className="big-image-div">{displayedImage}</Grid>
               </Grid>
             </Grid>
@@ -126,9 +143,11 @@ const AdminCourse = (props: IAdminCourse) => {
                 validateOnBlur={false}
                 validateOnMount
               >
+                {/* Admin course creation form */}
                 <Form className="admin-form">
                   <Grid>
                     <Grid className="admin-form-field">
+                      {/* Admin course title input field */}
                       <label className="admin-label">Title:</label>
                       <Grid sx={{ display: "grid" }}>
                         <Field
@@ -144,6 +163,7 @@ const AdminCourse = (props: IAdminCourse) => {
                         </ErrorMessage>
                       </Grid>
                     </Grid>
+                    {/* Admin course image file input field */}
                     {/* <Grid className="admin-form-field">
                     <label className="admin-label">Image:</label>
                     <input
@@ -155,6 +175,7 @@ const AdminCourse = (props: IAdminCourse) => {
                     />
                   </Grid> */}
                     <Grid className="admin-form-field">
+                      {/* Admin course subject drop-down selection field */}
                       <Grid>
                         <label className="admin-label">Subject:</label>
                       </Grid>
@@ -180,6 +201,7 @@ const AdminCourse = (props: IAdminCourse) => {
                         </ErrorMessage>
                       </Grid>
                     </Grid>
+                    {/* Admin course price input field */}
                     <Grid className="admin-form-field">
                       <label className="admin-label">Price:</label>
                       <Grid sx={{ display: "grid" }}>
@@ -197,6 +219,7 @@ const AdminCourse = (props: IAdminCourse) => {
                         </ErrorMessage>
                       </Grid>
                     </Grid>
+                    {/* Admin course description textbox input field */}
                     <Grid className="admin-form-field">
                       <label className="admin-label">Description:</label>
                       <Grid sx={{ display: "grid" }}>
@@ -210,6 +233,7 @@ const AdminCourse = (props: IAdminCourse) => {
                     </Grid>
                     <Grid className="admin-form-button">
                       <Grid className="text-center">
+                        {/* Submit update course button */}
                         <Grid>
                           <button type="submit" className="btn form-button">
                             Update Course
@@ -231,6 +255,7 @@ const AdminCourse = (props: IAdminCourse) => {
   }
 };
 
+// Get list of courses to set course route paths
 export async function getStaticPaths() {
   const coursesResponse = await IndexAPI.get(`/admin/courses`);
   return {
@@ -245,9 +270,11 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context: { params: { course: string } }) {
+  //Get list of course sections
   const course = context.params.course;
   const courseResponse = await IndexAPI.get(`/admin/courses/course/${course}`);
 
+  //Create and add course image buffer to course object
   for (let i = 0; i < courseResponse.data.data.course.length; i++) {
     if (courseResponse.data.data.course[i].imagekey !== null) {
       let imagesResponse = await IndexAPI.get(
@@ -265,6 +292,7 @@ export async function getStaticProps(context: { params: { course: string } }) {
     }
   }
 
+  //Provide the selected course as a prop to the course component
   return {
     props: {
       selectedCourse: courseResponse.data.data.course,

@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+//Admin create blog post prop interface
 interface ICreateBlogForm {
   title: string;
   image: string;
@@ -16,16 +17,19 @@ interface ICreateBlogForm {
   router: any;
 }
 
+//Admin create blog post Formik form initial values
 const initialValues = {
   title: "",
   image: "",
   content: "",
 };
 
+//Admin create blog post Formik form onSubmit function
 const onSubmit = (
   values: ICreateBlogForm,
   onSubmitProps: { resetForm: () => void }
 ) => {
+  //Check if an image is provided before creating blog post
   if (values.image) {
     let formData = new FormData();
 
@@ -33,6 +37,7 @@ const onSubmit = (
     formData.append("content", values.content);
     formData.append("images", values.image);
 
+    //Create blog post and then route to admin blog index page
     IndexAPI.post("/admin/blog", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     })
@@ -42,21 +47,27 @@ const onSubmit = (
   values.router.push("/admin/media/blog");
   onSubmitProps.resetForm();
 };
+
+//Admin create blog post Formik form validation schema
 const validationSchema = Yup.object({
   title: Yup.string().required("Title is required"),
   image: Yup.string().required("Image is required"),
   content: Yup.string().required("Content is required"),
 });
 
+//Admin create blog post functional component
 const AdminAddBlogPost = () => {
+  //Admin create blog post states
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
   const [image, setImage] = useState<File>();
 
+  //Next router function
   const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        //Get and set login status on render
         const loginResponse = await IndexAPI.get(`/login`);
         setLoginStatus(loginResponse.data.data.loggedIn);
       } catch (err) {
@@ -67,6 +78,7 @@ const AdminAddBlogPost = () => {
     fetchData();
   }, []);
 
+  //Create blog post image element
   let displayedImage;
   if (image !== undefined) {
     displayedImage = (
@@ -78,13 +90,17 @@ const AdminAddBlogPost = () => {
     );
   }
 
+  // Render component based on login status
   if (loginStatus) {
     return (
       <Grid>
+        {/* Admin main navigation component */}
         <AdminMainNav />
+        {/* Admin pages navigation component */}
         <AdminPagesNav />
         <Grid container className="main-body">
           <Grid>
+            {/* Display blog post image */}
             <Grid xs={12} sx={{ textAlign: "center" }}>
               {displayedImage}
             </Grid>
@@ -99,10 +115,12 @@ const AdminAddBlogPost = () => {
               validateOnBlur={false}
               validateOnMount
             >
+              {/* Admin create blog post form */}
               <Form>
                 <Grid
                   sx={{ display: "grid", gap: "10px", margin: "50px 20vw" }}
                 >
+                  {/* Admin blog post title input field */}
                   <Grid className="admin-form-field">
                     <label>Title:</label>
                     <Field
@@ -117,6 +135,7 @@ const AdminAddBlogPost = () => {
                       )}
                     </ErrorMessage>
                   </Grid>
+                  {/* Admin blog post image file input field */}
                   <Grid className="admin-form-field">
                     <label className="admin-label">Image:</label>
                     <Field
@@ -131,6 +150,7 @@ const AdminAddBlogPost = () => {
                       )}
                     </ErrorMessage>
                   </Grid>
+                  {/* Admin blog post content input field */}
                   <Grid>
                     <label>Content:</label>
                     <Field
@@ -145,6 +165,7 @@ const AdminAddBlogPost = () => {
                       )}
                     </ErrorMessage>
                   </Grid>
+                  {/* Submit button to create blog post */}
                   <Grid sx={{ textAlign: "center" }}>
                     <button type="submit">Submit</button>
                   </Grid>
@@ -152,6 +173,7 @@ const AdminAddBlogPost = () => {
               </Form>
             </Formik>
           </Grid>
+          {/* Footer component */}
           <FooterC />
         </Grid>
       </Grid>

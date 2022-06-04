@@ -15,32 +15,38 @@ import AdminUpdateProduct from "../../../components/admin/products/updateProduct
 import AdminDeleteProduct from "../../../components/admin/products/deleteProductModal";
 import { Button, Grid } from "@mui/material";
 
+//Admin product prop interface
 interface IAdminProduct {
   product: IProduct[] | (() => IProduct[]);
   activeProducts: IProduct[] | (() => IProduct[]);
 }
 
+//Admin product functional component
 const AdminProduct = (props: IAdminProduct) => {
+  // Admin product states
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
   const [product] = useState<IProduct[]>(props.product);
   const [activeProducts] = useState<IProduct[]>(props.activeProducts);
-
   const [pageNumber, setPageNumber] = useState<number>(0);
-
   const [addOpen, setAddOpen] = useState(false);
+  const [updateProduct, setUpdateProduct] = useState<any>();
+  const [updateOpen, setUpdateOpen] = useState(false);
+  const [deleteProduct, setDeleteProduct] = useState<any>();
+  const [deleteOpen, setDeleteOpen] = useState(false);
+
+  //Handles the opening/closing of the create product modal
   const handleAddOpen = () => setAddOpen(true);
   const handleAddClose = () => setAddOpen(false);
 
-  const [updateProduct, setUpdateProduct] = useState<any>();
-  const [updateOpen, setUpdateOpen] = useState(false);
+  //Handles the opening/closing of the update product modal
   const handleUpdateOpen = () => setUpdateOpen(true);
   const handleUpdateClose = () => setUpdateOpen(false);
 
-  const [deleteProduct, setDeleteProduct] = useState<any>();
-  const [deleteOpen, setDeleteOpen] = useState(false);
+  //Handles the opening/closing of the delete product modal
   const handleDeleteOpen = () => setDeleteOpen(true);
   const handleDeleteClose = () => setDeleteOpen(false);
 
+  // Setup pagination and number of items per page
   const itemsPerPage = 9;
   const pagesVisted = pageNumber * itemsPerPage;
   const pageCount = Math.ceil(product.length / itemsPerPage);
@@ -48,6 +54,7 @@ const AdminProduct = (props: IAdminProduct) => {
     setPageNumber(selected);
   };
 
+  // Set the product selected to update and open the product update modal
   const displayUpdateModal = (id: string) => {
     for (let i = 0; i < product.length; i++) {
       if (product[i].id === id) {
@@ -57,6 +64,7 @@ const AdminProduct = (props: IAdminProduct) => {
     handleUpdateOpen();
   };
 
+  // Set the product selected to delete and open the product delete modal
   const displayDeleteModal = (id: any) => {
     for (let i = 0; i < product.length; i++) {
       if (product[i].id === id) {
@@ -66,12 +74,14 @@ const AdminProduct = (props: IAdminProduct) => {
     handleDeleteOpen();
   };
 
+  //Map through the list of products and setup their templates
   const displayProducts = product
     .slice(pagesVisted, pagesVisted + itemsPerPage)
     .map((product: any) => {
       return (
         <Grid key={product.id}>
           <Grid className="pointer">
+            {/* Display the product image */}
             <Grid className="image-container">
               <img
                 className="thumbnail"
@@ -79,6 +89,7 @@ const AdminProduct = (props: IAdminProduct) => {
                 alt="Thumbnail"
               />
             </Grid>
+            {/* Display the product title and price */}
             <Grid className="two-column-thumbnail-footer">
               <h3 className="align-center">{product.title}</h3>
               <h3 className="align-center">${product.price}.00</h3>
@@ -86,6 +97,7 @@ const AdminProduct = (props: IAdminProduct) => {
           </Grid>
           <Grid>
             <Grid className="admin-button-div">
+              {/*  Button to select the product for deletion and display the product delete modal */}
               <Grid>
                 <button
                   onClick={() => displayDeleteModal(product.id)}
@@ -94,6 +106,7 @@ const AdminProduct = (props: IAdminProduct) => {
                   Delete
                 </button>
               </Grid>
+              {/*  Button to select the product for update and display the product update modal */}
               <Grid>
                 <button
                   onClick={() => displayUpdateModal(product.id)}
@@ -109,6 +122,7 @@ const AdminProduct = (props: IAdminProduct) => {
       );
     });
 
+  // Get the current login status and set its state
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -122,29 +136,37 @@ const AdminProduct = (props: IAdminProduct) => {
     fetchData();
   }, []);
 
+  // Render based on the current login status
   if (loginStatus) {
     return (
       <Grid>
         <Head>
           <title>artHouse19-Admin Products</title>
         </Head>
+        {/* Admin create product modal component */}
         <AdminAddProduct open={addOpen} handleClose={handleAddClose} />
+        {/* Admin update product modal component */}
         <AdminUpdateProduct
           updateProduct={updateProduct}
           open={updateOpen}
           handleClose={handleUpdateClose}
         />
+        {/* Admin delete product modal component */}
         <AdminDeleteProduct
           deleteProduct={deleteProduct}
           open={deleteOpen}
           handleClose={handleDeleteClose}
         />
+        {/* Admin main nav component */}
         <AdminMainNav />
+        {/* Admin pages nav component */}
         <AdminPagesNav />
         <Grid className="main-body">
           <Grid>
+            {/* Admin product navigation menu */}
             <AdminProductsNav activeProducts={activeProducts} />
             <Grid className="plus-icon-div">
+              {/* Button to display create product modal */}
               <Button
                 onClick={handleAddOpen}
                 sx={{
@@ -157,8 +179,10 @@ const AdminProduct = (props: IAdminProduct) => {
                 <FontAwesomeIcon className="plus-icon" icon={faPlus} />
               </Button>
             </Grid>
+            {/* Display the list of mapped products */}
             <Grid className="gallery-menu">{displayProducts}</Grid>
           </Grid>
+          {/* Pagination component */}
           <ReactPaginate
             previousLabel={"prev"}
             nextLabel={"next"}
@@ -181,6 +205,7 @@ const AdminProduct = (props: IAdminProduct) => {
   }
 };
 
+// Create a path for the list of product types
 export async function getStaticPaths() {
   return {
     fallback: false,
@@ -220,6 +245,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context: { params: { product: string } }) {
+  //Get a list of all products
   const activeProducts: string[] = [];
   const productsResponse = await IndexAPI.get(`/admin/products`);
   for (let i = 0; i < productsResponse.data.data.products.length; i++) {
@@ -230,9 +256,11 @@ export async function getStaticProps(context: { params: { product: string } }) {
     }
   }
 
+  //Get all products of a specific type
   const product = context.params.product;
   const productResponse = await IndexAPI.get(`/products/${product}`);
 
+  //Create and add product image buffer to all products in the product object
   if (productResponse.data.data.product !== undefined) {
     for (let i = 0; i < productResponse.data.data.product.length; i++) {
       if (productResponse.data.data.product[i].imagekey !== null) {
@@ -252,6 +280,7 @@ export async function getStaticProps(context: { params: { product: string } }) {
     }
   }
 
+  //Provide the selected product type and products as props to the product component
   return {
     props: {
       activeProducts: activeProducts,

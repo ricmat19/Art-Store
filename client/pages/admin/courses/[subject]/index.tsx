@@ -9,28 +9,34 @@ import Footer from "../../../../components/footer";
 import Head from "next/head";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import AdminCoursesNav from "../../../../components/admin/courses/coursesNav";
+import AdminCourseSubjectsNav from "../../../../components/admin/courses/coursesNav";
 import AdminDeleteCourse from "../../../../components/admin/courses/deleteCourseModal";
 import { Button, Grid } from "@mui/material";
 import Link from "next/link";
 
-interface IAdminCourses {
+//Admin course subject props interface
+interface IAdminCourseSubject {
   courses: any;
   activeSubjects: string[] | undefined;
 }
 
-const AdminCourses = (props: IAdminCourses) => {
+//Admin course subject functional component
+const AdminCourseSubject = (props: IAdminCourseSubject) => {
+  //Admin course subject states
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
   const [courses] = useState(props.courses);
   const [deleteCourse, setDeleteCourse] = useState<any>();
   const [pageNumber, setPageNumber] = useState<number>(0);
-
   const [deleteOpen, setDeleteOpen] = useState(false);
+
+  //Functions handling the opening and closing of the course delete modal
   const handleDeleteOpen = () => setDeleteOpen(true);
   const handleDeleteClose = () => setDeleteOpen(false);
 
+  // Next router function
   const router = useRouter();
 
+  // Setup pagination and number of items per page
   const itemsPerPage = 9;
   const pagesVisted = pageNumber * itemsPerPage;
   const pageCount = Math.ceil(courses.length / itemsPerPage);
@@ -38,6 +44,7 @@ const AdminCourses = (props: IAdminCourses) => {
     setPageNumber(selected);
   };
 
+  // Set the course selected for deletion and open the course delete modal
   const displayDeleteModal = (id: string) => {
     for (let i = 0; i < courses.length; i++) {
       if (courses[i].id === id) {
@@ -47,24 +54,27 @@ const AdminCourses = (props: IAdminCourses) => {
     handleDeleteOpen();
   };
 
+  //Route to the selected courses page
   const displayCourse = async (subject: string, id: string) => {
     try {
-      console.log(subject);
       router.push(`/admin/courses/${subject}/${id}`);
     } catch (err) {
       console.log(err);
     }
   };
 
+  //Map through the list of courses and setup their templates
   const displayCourses = courses
     .slice(pagesVisted, pagesVisted + itemsPerPage)
     .map((course: any) => {
       return (
         <Grid key={course.id}>
+          {/* Display course page on click */}
           <Grid
             className="pointer"
             onClick={() => displayCourse(course.subject, course.id)}
           >
+            {/* Display course image */}
             <Grid className="image-container">
               <img
                 className="thumbnail"
@@ -72,6 +82,7 @@ const AdminCourses = (props: IAdminCourses) => {
                 alt="Thumbnail"
               />
             </Grid>
+            {/* Display course title and price */}
             <Grid className="two-column-thumbnail-footer">
               <h3 className="align-center">{course.title}</h3>
               <h3 className="align-center">${course.price}.00</h3>
@@ -80,6 +91,7 @@ const AdminCourses = (props: IAdminCourses) => {
           <Grid>
             <Grid>
               <Grid>
+                {/*  Button to select course for deletion and display deletion modal */}
                 <button
                   onClick={() => displayDeleteModal(course.id)}
                   className="delete"
@@ -93,6 +105,7 @@ const AdminCourses = (props: IAdminCourses) => {
       );
     });
 
+  // Get the current login status and set its state
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -106,37 +119,44 @@ const AdminCourses = (props: IAdminCourses) => {
     fetchData();
   }, []);
 
+  // Render based on the current login status
   if (loginStatus) {
     return (
       <Grid>
         <Head>
           <title>artHouse19-Admin Courses</title>
         </Head>
+        {/* Admin delete course modal component */}
         <AdminDeleteCourse
           deleteProduct={deleteCourse}
           open={deleteOpen}
           handleClose={handleDeleteClose}
         />
+        {/* Admin main nav component */}
         <AdminMainNav />
+        {/* Admin pages nav component */}
         <AdminPagesNav />
         <Grid className="main-body">
           <Grid>
-            <AdminCoursesNav activeCourses={props.activeSubjects} />
+            {/* Admin course subject navigation menu */}
+            <AdminCourseSubjectsNav activeCourses={props.activeSubjects} />
             <Grid className="plus-icon-div">
-              <Link passHref href="/admin/courses/create">
-                <Button
-                  sx={{
-                    fontFamily: "Rajdhani",
-                    fontSize: "20px",
-                    color: "white",
-                    textTransform: "none",
-                  }}
-                >
-                  <FontAwesomeIcon className="plus-icon" icon={faPlus} />
-                </Button>
-              </Link>
+              {/* Route to course create page */}
+              <Button
+                onClick={() => router.push("/admin/courses/create")}
+                sx={{
+                  fontFamily: "Rajdhani",
+                  fontSize: "20px",
+                  color: "white",
+                  textTransform: "none",
+                }}
+              >
+                <FontAwesomeIcon className="plus-icon" icon={faPlus} />
+              </Button>
             </Grid>
+            {/* Display the list of mapped subject courses */}
             <Grid className="gallery-menu">{displayCourses}</Grid>
+            {/* Pagination component */}
             <ReactPaginate
               previousLabel={"prev"}
               nextLabel={"next"}
@@ -151,6 +171,7 @@ const AdminCourses = (props: IAdminCourses) => {
               marginPagesDisplayed={5}
             />
           </Grid>
+          {/* Footer component */}
           <Footer />
         </Grid>
       </Grid>
@@ -160,6 +181,7 @@ const AdminCourses = (props: IAdminCourses) => {
   }
 };
 
+// Create a path for the list of course subjects
 export async function getStaticPaths() {
   return {
     fallback: false,
@@ -194,6 +216,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context: { params: { subject: string } }) {
+  //Get a list of all courses
   const activeSubjects: string[] = [];
   const coursesResponse = await IndexAPI.get(`/admin/courses`);
   for (let i = 0; i < coursesResponse.data.data.courses.length; i++) {
@@ -204,11 +227,13 @@ export async function getStaticProps(context: { params: { subject: string } }) {
     }
   }
 
+  //Get all courses of a specific subject
   const subject = context.params.subject;
   const subjectResponse = await IndexAPI.get(
     `/admin/courses/subject/${subject}`
   );
 
+  //Create and add course image buffer to all courses in the course subject object
   if (subjectResponse.data.data.subject !== undefined) {
     for (let i = 0; i < subjectResponse.data.data.subject.length; i++) {
       if (subjectResponse.data.data.subject[i].imagekey !== null) {
@@ -228,6 +253,7 @@ export async function getStaticProps(context: { params: { subject: string } }) {
     }
   }
 
+  //Provide the selected course subject and subject courses as a props to the course component
   return {
     props: {
       activeSubjects: activeSubjects,
@@ -237,4 +263,4 @@ export async function getStaticProps(context: { params: { subject: string } }) {
   };
 }
 
-export default AdminCourses;
+export default AdminCourseSubject;

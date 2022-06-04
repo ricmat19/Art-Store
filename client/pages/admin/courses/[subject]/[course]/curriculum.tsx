@@ -15,25 +15,27 @@ import AdminCreateArticleLecture from "../../../../../components/admin/courses/c
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+//Course curriculum prop interface
 interface IAdminCourseCurriculum {
   courseSections: string[] | (() => string[]);
-  courseLectures: ICourseLectures[] | (() => ICourseLectures[]);
+  courseLectures: IAdminCourseLectures[] | (() => IAdminCourseLectures[]);
 }
-
-interface ICreateCurriculumForm {
+interface IAdminCreateCurriculumForm {
   email: string;
 }
-
-interface ICourseLectures {
+interface IAdminCourseLectures {
   lecture: string;
   index: string;
 }
 
+//Course curriculum Formik form initial values
 const initialValues = {
   email: "",
 };
+
+//Course curriculum Formik form onSubmit function
 const onSubmit = (
-  values: ICreateCurriculumForm,
+  values: IAdminCreateCurriculumForm,
   onSubmitProps: { resetForm: () => void }
 ) => {
   // if (values.create = "section") {
@@ -48,18 +50,31 @@ const onSubmit = (
   // }
   onSubmitProps.resetForm();
 };
+
+//Course curriculum Formik form validation schema
 const validationSchema = Yup.object({
   email: Yup.string()
     .email("Invalid email format")
     .required("Email is required"),
 });
 
-const AdminCourseCurriculum = (props: IAdminCourseCurriculum) => {
+//Course curriculum functional component
+const CourseCurriculum = (props: IAdminCourseCurriculum) => {
+  //Course curriculum states
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
+  const [contentOpen, setContentOpen] = useState<boolean>();
+  const [id, setId] = useState<string>("");
+  const [section, setSection] = useState<string>("");
+  const [lecture, setLecture] = useState<string>("");
+  const [courseSections] = useState<string[]>(props.courseSections);
+  const [courseLectures] = useState<IAdminCourseLectures[]>(
+    props.courseLectures
+  );
 
-  const [contentOpen, setContentOpen] = useState(null);
+  //?
   const openContent = Boolean(contentOpen);
 
+  //?
   const handleContentClick = (event: any, lecture: any) => {
     setId(lecture.id);
     setSection(lecture.section);
@@ -67,26 +82,24 @@ const AdminCourseCurriculum = (props: IAdminCourseCurriculum) => {
     setContentOpen(event.currentTarget);
   };
 
+  //?
   const handleContentClose = () => {
     setContentOpen(null);
   };
 
+  //Course curriculum open/close add video modal
   const [addVideoOpen, setAddVideoOpen] = useState(false);
   const handleAddVideoOpen = () => setAddVideoOpen(true);
   const handleAddVideoClose = () => setAddVideoOpen(false);
 
+  //Course curriculum open/close add article modal
   const [addArticleOpen, setAddArticleOpen] = useState(false);
   const handleAddArticleOpen = () => setAddArticleOpen(true);
   const handleAddArticleClose = () => setAddArticleOpen(false);
 
-  const [id, setId] = useState<string>("");
-  const [section, setSection] = useState<string>("");
-  const [lecture, setLecture] = useState<string>("");
-  const [courseSections] = useState<string[]>(props.courseSections);
-  const [courseLectures] = useState<ICourseLectures[]>(props.courseLectures);
-
   // const { query } = useRouter();
 
+  //Get login status on render
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -117,9 +130,11 @@ const AdminCourseCurriculum = (props: IAdminCourseCurriculum) => {
   //   }
   // };
 
+  //Display component depending on login status
   if (loginStatus) {
     return (
       <Grid>
+        {/* Content component */}
         <Content
           contentOpen={contentOpen}
           openContent={openContent}
@@ -127,6 +142,7 @@ const AdminCourseCurriculum = (props: IAdminCourseCurriculum) => {
           handleAddVideoOpen={handleAddVideoOpen}
           handleAddArticleOpen={handleAddArticleOpen}
         />
+        {/* Create video lecture component */}
         <AdminCreateVideoLecture
           id={id}
           section={section}
@@ -134,6 +150,7 @@ const AdminCourseCurriculum = (props: IAdminCourseCurriculum) => {
           open={addVideoOpen}
           handleClose={handleAddVideoClose}
         />
+        {/* Create article lecture component */}
         <AdminCreateArticleLecture
           id={id}
           section={section}
@@ -144,7 +161,9 @@ const AdminCourseCurriculum = (props: IAdminCourseCurriculum) => {
         <Head>
           <title>artHouse19-Admin Create Course Curriculum</title>
         </Head>
+        {/* Display main navbar */}
         <AdminMainNav />
+        {/* Display pages navbar */}
         <AdminPagesNav />
         <Grid>
           <Grid
@@ -167,6 +186,7 @@ const AdminCourseCurriculum = (props: IAdminCourseCurriculum) => {
               validateOnBlur={false}
               validateOnMount
             >
+              {/* Course curriculum form */}
               <Form className="admin-form">
                 <Grid sx={{ display: "grid", gap: "30px" }}>
                   <Grid
@@ -191,6 +211,7 @@ const AdminCourseCurriculum = (props: IAdminCourseCurriculum) => {
                       >
                         <h2 className="align-left">Section:</h2>
                         <Grid sx={{ display: "grid" }}>
+                          {/* Input field for course curriculum section*/}
                           <Field as="input" type="text" name="section" />
                           <ErrorMessage name="section" component="div">
                             {(errorMsg) => (
@@ -200,6 +221,7 @@ const AdminCourseCurriculum = (props: IAdminCourseCurriculum) => {
                         </Grid>
                       </Grid>
                       <Grid className="plus-icon align-center">
+                        {/* Create course section submit button  */}
                         <Grid
                         // onClick={createSection}
                         >
@@ -217,6 +239,7 @@ const AdminCourseCurriculum = (props: IAdminCourseCurriculum) => {
                         gap: "10px",
                       }}
                     >
+                      {/* Map out the list of existing course sections */}
                       {courseSections.map((section: any, index: number) => {
                         return (
                           <Grid
@@ -247,6 +270,7 @@ const AdminCourseCurriculum = (props: IAdminCourseCurriculum) => {
                               >
                                 <h2 className="align-left">Lecture:</h2>
                                 <Grid sx={{ display: "grid" }}>
+                                  {/* Section lecture input field */}
                                   <Field
                                     as="input"
                                     type="text"
@@ -261,6 +285,7 @@ const AdminCourseCurriculum = (props: IAdminCourseCurriculum) => {
                                   </ErrorMessage>
                                 </Grid>
                               </Grid>
+                              {/* Create section lecture submit button */}
                               <Grid
                                 className="plus-icon align-center"
                                 // onClick={() => createLecture(section.section)}
@@ -269,6 +294,7 @@ const AdminCourseCurriculum = (props: IAdminCourseCurriculum) => {
                               </Grid>
                             </Grid>
                             <hr />
+                            {/* Map course section's lectures */}
                             {courseLectures.map(
                               (lecture: any, index: string) => {
                                 return lecture.section === section.section ? (
@@ -289,6 +315,7 @@ const AdminCourseCurriculum = (props: IAdminCourseCurriculum) => {
                                         <h3>{lecture.lecture}</h3>
                                       </Grid>
                                       <Grid sx={{ textAlign: "right" }}>
+                                        {/* ? */}
                                         <Button
                                           className="plus-icon"
                                           onClick={(e) =>
@@ -327,6 +354,7 @@ const AdminCourseCurriculum = (props: IAdminCourseCurriculum) => {
   }
 };
 
+// Get list of courses before render to set curriculum paths
 export async function getStaticPaths() {
   const coursesResponse = await IndexAPI.get(`/admin/courses`);
   return {
@@ -341,15 +369,18 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context: { params: { course: string } }) {
+  //Get list of course sections
   const course = context.params.course;
   const courseSections = await IndexAPI.get(
     `/admin/courses/sections/${course}`
   );
 
+  //Get list of course lectures before render
   const courseLectures = await IndexAPI.get(
     `/admin/courses/lectures/${course}`
   );
 
+  //Provider the course section and lectures as props to the curriculum component
   return {
     props: {
       courseSections: courseSections.data.data.sections,
@@ -359,4 +390,4 @@ export async function getStaticProps(context: { params: { course: string } }) {
   };
 }
 
-export default AdminCourseCurriculum;
+export default CourseCurriculum;

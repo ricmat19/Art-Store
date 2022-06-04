@@ -20,12 +20,12 @@ const AdminPagesNav: FC = () => {
       <nav>
         {/* <input type="checkbox" id="nav-toggle" className="nav-toggle" /> */}
         <Grid container sx={{ pt: "5px", pb: "5px", justifyContent: "center" }}>
-          {/* Admin store navigation button */}
           <Grid container xs={3} sx={{ justifyContent: "center" }}>
             <Grid sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}>
               <FontAwesomeIcon icon={faStoreAlt} />
             </Grid>
             <Grid sx={{ textAlign: "center", alignSelf: "center" }}>
+              {/* Admin store navigation button */}
               <Grid
                 className="nav-link"
                 onClick={() => router.push("/admin/products/print")}
@@ -34,12 +34,12 @@ const AdminPagesNav: FC = () => {
               </Grid>
             </Grid>
           </Grid>
-          {/* Admin course navigation button */}
           <Grid container xs={3} sx={{ justifyContent: "center" }}>
             <Grid sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}>
               <FontAwesomeIcon icon={faChalkboardTeacher} />
             </Grid>
             <Grid sx={{ textAlign: "center", alignSelf: "center" }}>
+              {/* Admin course navigation button */}
               <Grid
                 className="nav-link"
                 onClick={() => router.push("/admin/courses/drawing")}
@@ -60,11 +60,11 @@ const AdminPagesNav: FC = () => {
               <h1 className="pointer">media</h1>
             </Grid>
           </Grid>
-          {/* Admin calendar navigation button */}
           <Grid container xs={3} sx={{ justifyContent: "center" }}>
             <Grid sx={{ textAlign: "center", alignSelf: "center", m: "5px" }}>
               <FontAwesomeIcon icon={faCalendarCheck} />
             </Grid>
+            {/* Admin calendar navigation button */}
             <Grid
               className="nav-link"
               onClick={() => router.push("/admin/events")}

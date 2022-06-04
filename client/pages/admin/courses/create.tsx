@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+//Admin create course prop interface
 interface ICreateCourseForm {
   title: string;
   image: File | undefined;
@@ -19,6 +20,7 @@ interface ICreateCourseForm {
   router: any;
 }
 
+//Admin create course Formik form initial values
 const initialValues = {
   title: "",
   image: "",
@@ -26,10 +28,13 @@ const initialValues = {
   price: "",
   description: "",
 };
+
+//Admin create course Formik form onSubmit function
 const onSubmit = (
   values: ICreateCourseForm,
   onSubmitProps: { resetForm: () => void }
 ) => {
+  //Check if an image is provided before creating course
   if (values.image) {
     let formData = new FormData();
 
@@ -39,6 +44,7 @@ const onSubmit = (
     formData.append("description", values.description);
     formData.append("price", values.price);
 
+    //Create course and then route to course curriculum page
     let currentCourse: any;
     IndexAPI.post("/admin/courses", formData, {
       headers: { "Content-Type": "multipart/form-data" },
@@ -58,6 +64,8 @@ const onSubmit = (
   }
   onSubmitProps.resetForm();
 };
+
+//Admin create course Formik form validation schema
 const validationSchema = Yup.object({
   title: Yup.string().required("Title is required"),
   image: Yup.string().required("Image is required"),
@@ -66,16 +74,19 @@ const validationSchema = Yup.object({
   description: Yup.string().required("Description is required"),
 });
 
+//Admin create course functional component
 const AdminCreateCourse = () => {
+  //Admin create course states
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
-
   const [image] = useState<File>();
 
+  //Next router function
   const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        //Get and set login status on render
         const loginResponse = await IndexAPI.get(`/login`);
         setLoginStatus(loginResponse.data.data.loggedIn);
       } catch (err) {
@@ -86,6 +97,7 @@ const AdminCreateCourse = () => {
     fetchData();
   }, []);
 
+  //Create course image element
   let displayedImage;
   if (image !== undefined) {
     displayedImage = (
@@ -97,13 +109,16 @@ const AdminCreateCourse = () => {
     );
   }
 
+  // Render component based on login status
   if (loginStatus) {
     return (
       <Grid>
         <Head>
           <title>artHouse19-Admin Create Course</title>
         </Head>
+        {/* Admin main navigation component */}
         <AdminMainNav />
+        {/* Admin pages navigation component */}
         <AdminPagesNav />
         <Grid>
           <Grid
@@ -120,6 +135,7 @@ const AdminCreateCourse = () => {
           >
             <Grid sx={{ padding: "0 30px 0 0", width: "50%" }}>
               <Grid className="image">
+                {/* Display course image */}
                 <Grid className="big-image-div">{displayedImage}</Grid>
               </Grid>
             </Grid>
@@ -143,9 +159,11 @@ const AdminCreateCourse = () => {
                 validateOnBlur={false}
                 validateOnMount
               >
+                {/* Admin create course form */}
                 <Form className="admin-form">
                   <Grid>
                     <Grid className="admin-form-field">
+                      {/* Admin course title input field */}
                       <label className="admin-label">Title:</label>
                       <Grid sx={{ display: "grid" }}>
                         <Field
@@ -163,6 +181,7 @@ const AdminCreateCourse = () => {
                       </Grid>
                     </Grid>
                     <Grid className="admin-form-field">
+                      {/* Admin course image file input field */}
                       <label className="admin-label">Image:</label>
                       <Grid sx={{ display: "grid" }}>
                         <Field
@@ -178,6 +197,7 @@ const AdminCreateCourse = () => {
                       </Grid>
                     </Grid>
                     <Grid className="admin-form-field">
+                      {/* Admin course subject drop-down selection field */}
                       <Grid>
                         <label className="admin-label">Subject:</label>
                       </Grid>
@@ -204,6 +224,7 @@ const AdminCreateCourse = () => {
                       </ErrorMessage>
                     </Grid>
                     <Grid className="admin-form-field">
+                      {/* Admin course price input field */}
                       <label className="admin-label">Price:</label>
                       <Grid sx={{ display: "grid" }}>
                         <Field
@@ -221,6 +242,7 @@ const AdminCreateCourse = () => {
                       </Grid>
                     </Grid>
                     <Grid className="admin-form-field">
+                      {/* Admin course description textbox input field */}
                       <label className="admin-label">Description:</label>
                       <Grid sx={{ display: "grid" }}>
                         <Field as="textarea" rows={12} name="description" />
@@ -233,6 +255,7 @@ const AdminCreateCourse = () => {
                     </Grid>
                     <Grid className="admin-form-button">
                       <Grid className="text-center">
+                        {/* Submit update course button */}
                         <Grid>
                           <button type="submit" className="btn form-button">
                             Create Course
@@ -246,6 +269,7 @@ const AdminCreateCourse = () => {
             </Grid>
           </Grid>
         </Grid>
+        {/* Footer component */}
         <Footer />
       </Grid>
     );

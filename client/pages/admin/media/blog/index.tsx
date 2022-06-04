@@ -14,20 +14,25 @@ import AdminDeleteBlog from "../../../../components/admin/media/blog/deleteBlogP
 import { Button, Grid } from "@mui/material";
 import Link from "next/link";
 
+//Admin blog prop interface
 interface IAdminBlog {
   blog: IBlog[] | (() => IBlog[]);
 }
 
+//Admin blog functional component
 const AdminBlog = (props: IAdminBlog) => {
+  //Admin blog states
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
   const [blog] = useState<IBlog[]>(props.blog);
   const [deleteBlog, setDeleteBlog] = useState<any>();
   const [pageNumber, setPageNumber] = useState<number>(0);
-
   const [deleteOpen, setDeleteOpen] = useState(false);
+
+  //Handle opening/closing blog post delete modal
   const handleDeleteOpen = () => setDeleteOpen(true);
   const handleDeleteClose = () => setDeleteOpen(false);
 
+  // Setup pagination and number of items per page
   const itemsPerPage: number = 9;
   const pagesVisted: number = pageNumber * itemsPerPage;
   const pageCount = Math.ceil(blog.length / itemsPerPage);
@@ -35,8 +40,10 @@ const AdminBlog = (props: IAdminBlog) => {
     setPageNumber(selected);
   };
 
+  //Next router function
   const router = useRouter();
 
+  // Route to the selected blog post
   const displayBlogPost = async (id: string) => {
     try {
       router.push(`/admin/media/blog/${id}`);
@@ -45,6 +52,7 @@ const AdminBlog = (props: IAdminBlog) => {
     }
   };
 
+  //Set the selected item and display the delete blog post modal
   const displayDeleteModal = (id: string) => {
     for (let i = 0; i < blog.length; i++) {
       if (blog[i].id === id) {
@@ -54,12 +62,15 @@ const AdminBlog = (props: IAdminBlog) => {
     handleDeleteOpen();
   };
 
+  //Map through the list of blog posts and setup their templates
   const displayBlogs = blog
     .slice(pagesVisted, pagesVisted + itemsPerPage)
     .map((post) => {
       return (
         <Grid key={post.id}>
+          {/* Display blog post page on click */}
           <Grid className="pointer" onClick={() => displayBlogPost(post.id)}>
+            {/* Display blog post image */}
             <Grid className="image-container">
               <img
                 className="thumbnail"
@@ -67,6 +78,7 @@ const AdminBlog = (props: IAdminBlog) => {
                 alt="blog-thumbnail"
               />
             </Grid>
+            {/* Display blog post title */}
             <Grid className="one-column-thumbnail-footer">
               <h3 className="align-center">{post.title}</h3>
             </Grid>
@@ -74,6 +86,7 @@ const AdminBlog = (props: IAdminBlog) => {
           <Grid>
             <Grid>
               <Grid>
+                {/* Button to select blog post for deletion and display deletion modal */}
                 <button
                   onClick={() => displayDeleteModal(post.id)}
                   className="delete"
@@ -87,6 +100,7 @@ const AdminBlog = (props: IAdminBlog) => {
       );
     });
 
+  // Get the current login status and set its state
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -100,27 +114,37 @@ const AdminBlog = (props: IAdminBlog) => {
     fetchData();
   }, []);
 
+  // Render based on the current login status
   if (loginStatus) {
     return (
       <Grid>
         <Head>
           <title>artHouse19-Admin Blog</title>
         </Head>
+        {/* Admin delete blog post modal component */}
         <AdminDeleteBlog
           deleteBlog={deleteBlog}
           open={deleteOpen}
           handleClose={handleDeleteClose}
+          setBlogs={function (arg0: any): void {
+            throw new Error("Function not implemented.");
+          }}
+          blogs={[]}
         />
+        {/* Admin main nav component */}
         <AdminMainNav />
+        {/* Admin pages nav component */}
         <AdminPagesNav />
         <Grid className="main-body">
           <Grid>
             <Grid>
+              {/* Route to blog index page */}
               <Link passHref href="/admin/blog">
                 <h1 className="main-title pointer">blog</h1>
               </Link>
             </Grid>
             <Grid className="plus-icon-div">
+              {/* Button to create a new blog post */}
               <Button
                 onClick={() => router.push("/admin/media/blog/create")}
                 sx={{
@@ -133,7 +157,9 @@ const AdminBlog = (props: IAdminBlog) => {
                 <FontAwesomeIcon className="plus-icon" icon={faPlus} />
               </Button>
             </Grid>
+            {/* Display the list of mapped blog posts */}
             <Grid className="gallery-menu">{displayBlogs}</Grid>
+            {/* Pagination component */}
             <ReactPaginate
               previousLabel={"prev"}
               nextLabel={"next"}
@@ -148,6 +174,7 @@ const AdminBlog = (props: IAdminBlog) => {
               marginPagesDisplayed={5}
             />
           </Grid>
+          {/* Footer component */}
           <Footer />
         </Grid>
       </Grid>
@@ -158,8 +185,10 @@ const AdminBlog = (props: IAdminBlog) => {
 };
 
 export async function getStaticProps() {
+  //Get list of blog posts
   const blogResponse = await IndexAPI.get(`/admin/blog`);
 
+  //Create and blog post banner image buffer to blog object
   for (let i = 0; i < blogResponse.data.data.blog.length; i++) {
     if (blogResponse.data.data.blog[i].imagekey !== null) {
       let imagesResponse = await IndexAPI.get(
@@ -176,6 +205,8 @@ export async function getStaticProps() {
       ].imageBuffer = `data:image/png;base64,${imagesResponse}`;
     }
   }
+
+  //Provide the selected blog content as a prop to the course component
   return {
     props: {
       blog: blogResponse.data.data.blog,

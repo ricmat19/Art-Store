@@ -9,20 +9,19 @@ import { Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+//Admin blog post prop interface
 interface ISelectedBlog {
   title: string;
   content: string;
   post_date: string;
   imageBuffer: string;
 }
-
 interface IAdminBlogPost {
   selectedBlog: ISelectedBlog[];
 }
 interface ISelectedBlogContent {
   id: string;
 }
-
 interface ICreateBlogForm {
   title: string;
   content: string;
@@ -30,31 +29,42 @@ interface ICreateBlogForm {
   router: any;
 }
 
+//Admin blog post Formik form initial values
 const initialValues = {
   title: "",
   content: "",
 };
+
+//Admin blog post Formik form onSubmit function
 const onSubmit = (
   values: ICreateBlogForm,
   onSubmitProps: { resetForm: () => void }
 ) => {
+  //Update the selected blog post on submit
   IndexAPI.put(`/admin/blog/${values.selectedBlog[0].id}`, {
     title: values.title,
     content: values.content,
   });
+  //Route to blog index page on submit
   values.router.push("/admin/media/blog");
   onSubmitProps.resetForm();
 };
+
+//Admin blog post Formik form validation schema
 const validationSchema = Yup.object({
   title: Yup.string().required("Email is required"),
   content: Yup.string().required("Email is required"),
 });
 
+//Admin blog post functional component
 const AdminBlogPost = (props: IAdminBlogPost) => {
+  //Admin blog post category states
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
 
+  //Next router function
   const router = useRouter();
 
+  //Get the blog posts creation date
   const postMonth = new Date(props.selectedBlog[0].post_date).getMonth() + 1;
   const postDate = new Date(props.selectedBlog[0].post_date).getDate();
   const postYear = new Date(props.selectedBlog[0].post_date).getFullYear();
@@ -62,6 +72,7 @@ const AdminBlogPost = (props: IAdminBlogPost) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        //Get and set login status on render
         const loginResponse = await IndexAPI.get(`/login`);
         setLoginStatus(loginResponse.data.data.loggedIn);
       } catch (err) {
@@ -72,6 +83,7 @@ const AdminBlogPost = (props: IAdminBlogPost) => {
     fetchData();
   }, []);
 
+  //Display component depending on login status
   if (loginStatus) {
     return (
       <Grid>
@@ -80,6 +92,7 @@ const AdminBlogPost = (props: IAdminBlogPost) => {
         <Grid container className="main-body">
           <Grid>
             <Grid xs={12} sx={{ textAlign: "center" }}>
+              {/* Display blog post banner image */}
               <img
                 className="banner-image"
                 src={props.selectedBlog[0].imageBuffer}
@@ -99,15 +112,18 @@ const AdminBlogPost = (props: IAdminBlogPost) => {
               validateOnBlur={false}
               validateOnMount
             >
+              {/* Admin blog post form */}
               <Form>
                 <Grid
                   sx={{ display: "grid", gap: "10px", margin: "50px 20vw" }}
                 >
+                  {/* Display the blogs posts creation date */}
                   <Grid>
                     <h3>
                       {postMonth} - {postDate} - {postYear}
                     </h3>
                   </Grid>
+                  {/* Blog post title input field */}
                   <Grid>
                     <label>Title:</label>
                     <Grid sx={{ display: "grid" }}>
@@ -119,6 +135,7 @@ const AdminBlogPost = (props: IAdminBlogPost) => {
                       </ErrorMessage>
                     </Grid>
                   </Grid>
+                  {/* Blog post content textbox field */}
                   <Grid>
                     <label>Content:</label>
                     <Grid sx={{ display: "grid" }}>
@@ -135,6 +152,7 @@ const AdminBlogPost = (props: IAdminBlogPost) => {
                       </ErrorMessage>
                     </Grid>
                   </Grid>
+                  {/* Admin blog post update submit button */}
                   <Grid sx={{ textAlign: "center" }}>
                     <button type="submit">Submit</button>
                   </Grid>
@@ -142,6 +160,7 @@ const AdminBlogPost = (props: IAdminBlogPost) => {
               </Form>
             </Formik>
           </Grid>
+          {/* Footer component */}
           <FooterC />
         </Grid>
       </Grid>
@@ -151,6 +170,7 @@ const AdminBlogPost = (props: IAdminBlogPost) => {
   }
 };
 
+// Get all blog posts and create routes for them
 export async function getStaticPaths() {
   const blogResponse = await IndexAPI.get(`/admin/blog`);
 
@@ -165,9 +185,11 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context: { params: { id: string } }) {
+  // Get the content for the selected blog post
   const id = context.params.id;
   const blogPostResponse = await IndexAPI.get(`/admin/blog/${id}`);
 
+  //Create and add blog post banner image buffer to blog post object
   for (let i = 0; i < blogPostResponse.data.data.post.length; i++) {
     if (blogPostResponse.data.data.post[i].imagekey !== null) {
       let imagesResponse = await IndexAPI.get(
@@ -185,6 +207,7 @@ export async function getStaticProps(context: { params: { id: string } }) {
     }
   }
 
+  //Provide the selected blog post's content as a prop to the blog post component
   return {
     props: {
       selectedBlog: blogPostResponse.data.data.post,

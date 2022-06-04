@@ -141,7 +141,7 @@ const AdminCreateVideoLectureModal = (props: IAdminCreateVideoLecture) => {
                         Video Lecture: {props.lecture}
                       </h1>
                     </Grid>
-                    {/* Video input field for create article video form*/}
+                    {/* Video file input field for create article video form*/}
                     <Grid className="admin-form-field">
                       <label className="admin-label">Video:</label>
                       <Grid sx={{ display: "grid" }}>
