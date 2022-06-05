@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import OrderSummaryC from "../../components/users/cart/orderSummary";
+import OrderSummary from "../../components/users/cart/orderSummary";
 import MainNav from "../../components/users/mainNav";
 import PagesNav from "../../components/users/pagesNav";
-import FooterC from "../../components/footer";
+import Footer from "../../components/footer";
 import IndexAPI from "../../apis/indexAPI";
 import { Grid, MenuItem } from "@mui/material";
 import { CardElement, Elements } from "@stripe/react-stripe-js";
@@ -14,6 +14,7 @@ import * as Yup from "yup";
 import { clearCartReducer } from "../../reducers/cartReducers";
 import { useAppDispatch } from "../../hooks";
 
+//Cart checkout prop interface
 interface ICheckoutForm {
   email: string;
   firstName: string;
@@ -26,7 +27,13 @@ interface ICheckoutForm {
   phone: string;
   router: any;
 }
+interface ICheckout {
+  cart: any;
+  priceArray: string[];
+  sub: number | (() => number);
+}
 
+//Cart checkout Formik form initial values
 const initialValues = {
   email: "",
   firstName: "",
@@ -38,19 +45,25 @@ const initialValues = {
   zipcode: "",
   phone: "",
 };
+
+//Cart checkout Formik form onSubmit function
 const onSubmit = (
   values: ICheckoutForm,
   onSubmitProps: { resetForm: () => void }
 ) => {
   try {
+    //Remove all items from the cart after form submission
     IndexAPI.put(`/cart/deleteAll`);
 
+    //Route back to store page
     values.router.push("/");
   } catch (err) {
     console.log(err);
   }
   onSubmitProps.resetForm();
 };
+
+//Cart checkout Formik form validation schema
 const validationSchema = Yup.object({
   email: Yup.string()
     .email("Invalid email format")
@@ -65,29 +78,29 @@ const validationSchema = Yup.object({
   phone: Yup.string().required("Phone Number is required"),
 });
 
-interface ICheckout {
-  cart: any;
-  priceArray: string[];
-  sub: number | (() => number);
-}
-
+//Cart checkout functional component
 const Checkout = (props: ICheckout) => {
-  // const stripe: any = useStripe();
-  // const elements: any = useElements();
-
+  //Cart checkout states
   const [cart] = useState(props.cart);
   const [cartPrices] = useState(props.priceArray);
   const [subtotal] = useState<number>(props.sub);
 
+  //Next router function
   const router = useRouter();
 
+  //Redux function
   const dispatch = useAppDispatch();
 
+  // const stripe: any = useStripe();
+  // const elements: any = useElements();
+
+  //Stripe function
   let stripePromise = loadStripe("");
   if (process.env.NEXT_PUBLIC_STRIPEPUBLIC !== undefined) {
     stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPEPUBLIC);
   }
 
+  //Set style for card element menu items
   const cardElementMenuItems = {
     style: {
       base: {
@@ -97,6 +110,7 @@ const Checkout = (props: ICheckout) => {
     hidePostalCode: true,
   };
 
+  //Function to clear the cart and then route back to cart page
   const clearCart = async () => {
     try {
       await dispatch(clearCartReducer());
@@ -106,15 +120,19 @@ const Checkout = (props: ICheckout) => {
     }
   };
 
+  //Checkout component
   return (
     <Grid>
       <Head>
         <title>artHouse19-Checkout</title>
         <meta name="description" content="artHouse19 checkout page."></meta>
       </Head>
+      {/* Main navigation component */}
       <MainNav cartQty={cart.length} />
+      {/* Pages navigation component */}
       <PagesNav />
       <Grid className="checkout-div">
+        {/* Stripe element component */}
         <Elements stripe={stripePromise}>
           <Formik
             initialValues={{
@@ -127,10 +145,12 @@ const Checkout = (props: ICheckout) => {
             validateOnBlur={false}
             validateOnMount
           >
+            {/* Checkout form */}
             <Form className="checkout-info">
               <h1>checkout information</h1>
               <Grid className="checkout-info-div">
                 <Grid className="checkout-email-div">
+                  {/* Checkout form email input field */}
                   <Field
                     type="email"
                     name="email"
@@ -143,6 +163,7 @@ const Checkout = (props: ICheckout) => {
                 </Grid>
                 <Grid className="two-column-div">
                   <Grid sx={{ display: "grid" }}>
+                    {/* Checkout form first name input field */}
                     <Field
                       as="input"
                       type="text"
@@ -156,6 +177,7 @@ const Checkout = (props: ICheckout) => {
                     </ErrorMessage>
                   </Grid>
                   <Grid sx={{ display: "grid" }}>
+                    {/* Checkout form last name input field */}
                     <Field
                       as="input"
                       type="text"
@@ -170,6 +192,7 @@ const Checkout = (props: ICheckout) => {
                   </Grid>
                 </Grid>
                 <Grid className="checkout-address-div">
+                  {/* Checkout form address input field */}
                   <Field
                     as="input"
                     type="text"
@@ -181,6 +204,7 @@ const Checkout = (props: ICheckout) => {
                   </ErrorMessage>
                 </Grid>
                 <Grid className="checkout-suite-div">
+                  {/* Checkout form suite input field */}
                   <Field as="input" type="text" name="suite" />
                   <ErrorMessage name="suite" component="div">
                     {(errorMsg) => <Grid className="errorMsg">{errorMsg}</Grid>}
@@ -188,6 +212,7 @@ const Checkout = (props: ICheckout) => {
                 </Grid>
                 <Grid className="select-three-column-div">
                   <Grid sx={{ display: "grid" }}>
+                    {/* Checkout form city input field */}
                     <Field
                       as="input"
                       type="text"
@@ -201,6 +226,7 @@ const Checkout = (props: ICheckout) => {
                     </ErrorMessage>
                   </Grid>
                   <Grid sx={{ display: "grid" }}>
+                    {/* Checkout form state drop-down input field */}
                     <Field as="select" name="state" placeholder="state">
                       <MenuItem value={"Alabama"}>Alabama</MenuItem>
                       <MenuItem value={"Alaska"}>Alaska</MenuItem>
@@ -263,13 +289,14 @@ const Checkout = (props: ICheckout) => {
                     </ErrorMessage>
                   </Grid>
                   <Grid sx={{ display: "grid" }}>
+                    {/* Checkout form zip code intut field */}
                     <Field
                       as="input"
                       type="number"
-                      name="zipcode"
+                      name="zip code"
                       placeholder="ZIP code"
                     />
-                    <ErrorMessage name="zipcode" component="div">
+                    <ErrorMessage name="zip code" component="div">
                       {(errorMsg) => (
                         <Grid className="errorMsg">{errorMsg}</Grid>
                       )}
@@ -277,6 +304,7 @@ const Checkout = (props: ICheckout) => {
                   </Grid>
                 </Grid>
                 <Grid className="checkout-phone-div">
+                  {/* Checkout form telephone input field */}
                   <Field
                     as="input"
                     type="tel"
@@ -293,12 +321,14 @@ const Checkout = (props: ICheckout) => {
                 <Grid>
                   <Grid className="grid">
                     <Grid className="grid payment-input">
+                      {/* ? */}
                       <CardElement
                         className="card-element"
                         options={cardElementMenuItems}
                       />
                     </Grid>
                     <Grid className="grid payment-input">
+                      {/* Checkout form payment method input field */}
                       <Field
                         as="input"
                         type="text"
@@ -312,6 +342,7 @@ const Checkout = (props: ICheckout) => {
                       </ErrorMessage>
                     </Grid>
                     <Grid className="two-column-div checkout-disclaimer-container">
+                      {/* Checkout form payment confirmation checkbox input field */}
                       <Field type="checkbox" required />
                       <Grid className="align-justify">
                         By clicking the button below, you are accepting that no
@@ -321,6 +352,7 @@ const Checkout = (props: ICheckout) => {
                       </Grid>
                     </Grid>
                     <Grid className="credit-card-MenuItem">
+                      {/* Checkout submit button, clearing cart */}
                       <button
                         className="justify-right"
                         onClick={() => clearCart()}
@@ -335,21 +367,25 @@ const Checkout = (props: ICheckout) => {
           </Formik>
         </Elements>
         <Grid className="order-summary-container">
-          <OrderSummaryC
+          {/* Order summary component */}
+          <OrderSummary
             cartProducts={cart}
             cartPrices={cartPrices}
             subtotal={subtotal}
           />
         </Grid>
       </Grid>
-      <FooterC />
+      {/* Footer component */}
+      <Footer />
     </Grid>
   );
 };
 
 export async function getStaticProps() {
+  // Get cart content
   const cartResponse = await IndexAPI.get(`/cart`);
 
+  //Calculate the price of each item in the cart multiplied by it's quantity
   let cartPriceArray: number[] = [];
   for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
     let itemSummaryPrice =
@@ -357,6 +393,12 @@ export async function getStaticProps() {
     cartPriceArray.push(itemSummaryPrice);
   }
 
+  //Calculate the cart's subtotal
+  let sub = cartPriceArray.reduce(function (a, b) {
+    return a + b;
+  }, 0);
+
+  //Create and add image buffer to all items in cart object
   for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
     if (cartResponse.data.data.cart[i].imagekey !== null) {
       let imagesResponse = await IndexAPI.get(
@@ -372,10 +414,7 @@ export async function getStaticProps() {
     }
   }
 
-  let sub = cartPriceArray.reduce(function (a, b) {
-    return a + b;
-  }, 0);
-
+  //Provide the cart object and cart prices as props to the checkout component
   return {
     props: {
       cart: cartResponse.data.data.cart,

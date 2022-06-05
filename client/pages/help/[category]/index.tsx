@@ -2,11 +2,12 @@ import { useRouter } from "next/router";
 import IndexAPI from "../../../apis/indexAPI";
 import MainNav from "../../../components/users/mainNav";
 import PagesNav from "../../../components/users/pagesNav";
-import FooterC from "../../../components/footer";
+import Footer from "../../../components/footer";
 import { Grid } from "@mui/material";
 import Head from "next/head";
 import { ReactChild, ReactFragment, ReactPortal } from "react";
 
+//Help category props interface
 interface ICategoryContent {
   categoryTitle:
     | boolean
@@ -22,9 +23,13 @@ interface IHelpCategory {
   categoryContent: ICategoryContent;
   categoryArticles: any[];
 }
+
+// Help category functional component
 const HelpCategory = (props: IHelpCategory) => {
+  // Next router function
   const router = useRouter();
 
+  // Function routing to the selected help article page
   const displayArticle = async (id: string) => {
     try {
       router.push(`/help/${props.category}/${id}`);
@@ -33,6 +38,7 @@ const HelpCategory = (props: IHelpCategory) => {
     }
   };
 
+  //Help category component
   return (
     <Grid>
       <Head>
@@ -41,6 +47,7 @@ const HelpCategory = (props: IHelpCategory) => {
       <MainNav />
       <PagesNav />
       <Grid>
+        {/* Display the help article category title */}
         <Grid>
           <h1>{props.categoryContent.categoryTitle}</h1>
         </Grid>
@@ -53,30 +60,35 @@ const HelpCategory = (props: IHelpCategory) => {
           }}
         >
           <Grid>
+            {/* Route to Getting Started page */}
             <Grid
               className="nav-link"
               onClick={() => router.push("/help/gettingStarted")}
             >
               <p className="pointer">Getting Started</p>
             </Grid>
+            {/* Route to Account Profile page */}
             <Grid
               className="nav-link"
               onClick={() => router.push("/help/accountProfile")}
             >
               <p className="pointer">Account Profile</p>
             </Grid>
+            {/* Route to Troubleshooting page */}
             <Grid
               className="nav-link"
               onClick={() => router.push("/help/troubleshooting")}
             >
               <p className="pointer">Troubleshooting</p>
             </Grid>
+            {/* Route to Course Taking page */}
             <Grid
               className="nav-link"
               onClick={() => router.push("/help/courseTaking")}
             >
               <p className="pointer">Course Taking</p>
             </Grid>
+            {/* Route to Purchases/Refunds page */}
             <Grid
               className="nav-link"
               onClick={() => router.push("/help/purchasesRefunds")}
@@ -84,14 +96,17 @@ const HelpCategory = (props: IHelpCategory) => {
               <p className="pointer">Purchases Refunds</p>
             </Grid>
           </Grid>
+          {/* Map through the list of help categories */}
           <Grid>
             {props.categoryContent.categorySections.map(
               (categorySection: any, sectionIndex: number) => {
                 return (
                   <Grid key={sectionIndex}>
                     <Grid sx={{ fontSize: "20px", fontWeight: "500" }}>
+                      {/* Display the help category's title */}
                       <p>{categorySection.sectionTitle}</p>
                     </Grid>
+                    {/* Map through the list of help articles in the current help category */}
                     <Grid>
                       <ul>
                         {props.categoryArticles.map(
@@ -100,6 +115,7 @@ const HelpCategory = (props: IHelpCategory) => {
                               return (
                                 <li key={index}>
                                   <Grid>
+                                    {/* Display the title of the help article */}
                                     <Grid
                                       className="pointer"
                                       onClick={() => displayArticle(article.id)}
@@ -121,11 +137,13 @@ const HelpCategory = (props: IHelpCategory) => {
           </Grid>
         </Grid>
       </Grid>
-      <FooterC />
+      {/* Footer component */}
+      <Footer />
     </Grid>
   );
 };
 
+// Create paths for the list of help article categories
 export async function getStaticPaths() {
   return {
     paths: [
@@ -164,6 +182,7 @@ export async function getStaticProps(context: {
 }) {
   const category = context.params.category;
 
+  // Set the category title and section based on the selected help category
   let categoryContent = {};
   if (category === "gettingStarted") {
     categoryContent = {
@@ -249,10 +268,13 @@ export async function getStaticProps(context: {
     };
   }
 
+  // Get the list of help article in the selected help category
   const categoryArticlesResponse = await IndexAPI.get(`/help/${category}`);
 
+  // Get cart content
   const cartResponse = await IndexAPI.get(`/cart`);
 
+  // Provide the selected help category, content, articles, and cart quantity as props to the help category component
   return {
     props: {
       category: category,

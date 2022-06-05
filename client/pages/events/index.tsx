@@ -2,41 +2,51 @@ import { useState } from "react";
 import IndexAPI from "../../apis/indexAPI";
 import MainNav from "../../components/users/mainNav";
 import PagesNav from "../../components/users/pagesNav";
-import FooterC from "../../components/footer";
+import Footer from "../../components/footer";
 import Head from "next/head";
 import Calendar from "../../components/users/events/calendar";
 import Day from "../../components/users/events/dayModal";
 import { Grid } from "@mui/material";
 import SummaryList from "../../components/users/events/summaryList";
 
+//Events props interface
 interface IEvents {
   events: any;
   cartQty: number | null | undefined;
 }
+
+//Events functional component
 const Events = (props: IEvents) => {
+  // Events states
   const [events] = useState(props.events);
   const [date, setDate] = useState();
   const [dateEvents, setDateEvents] = useState();
-
   const [dayOpen, setDayOpen] = useState(false);
+
+  //Functions handling the opening/closing of the day component
   const handleDayOpen = () => setDayOpen(true);
   const handleDayClose = () => setDayOpen(false);
 
+  // Events component
   return (
     <Grid>
       <Head>
         <title>artHouse19-Events</title>
       </Head>
+      {/* Day component */}
       <Day
         open={dayOpen}
         handleClose={handleDayClose}
         date={date}
         dateEvents={dateEvents}
       />
+      {/* Main navigation component */}
       <MainNav cartQty={props.cartQty} />
+      {/* Pages navigation component */}
       <PagesNav />
       <Grid sx={{ display: "grid", gridTemplateColumns: "1fr auto" }}>
         <Grid>
+          {/* Display calendar component */}
           <Calendar
             handleDayOpen={handleDayOpen}
             events={events}
@@ -45,18 +55,23 @@ const Events = (props: IEvents) => {
           />
         </Grid>
         <Grid className="summary-list-container">
+          {/* Display summary list component */}
           <SummaryList events={events} />
         </Grid>
       </Grid>
-      <FooterC />
+      {/* Footer component */}
+      <Footer />
     </Grid>
   );
 };
 
 export async function getStaticProps() {
+  // Get all cart items
   const cartResponse = await IndexAPI.get(`/cart`);
+  // Get all events
   const eventsResponse = await IndexAPI.get(`/events`);
 
+  //Provide the cart quantity and list of events as a props to the course component
   return {
     props: {
       cartQty: cartResponse.data.data.cart.length,

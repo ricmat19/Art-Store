@@ -3,14 +3,17 @@ import { ICart } from "../../interfaces";
 import CartProducts from "../../components/users/cart/cartProducts";
 import MainNav from "../../components/users/mainNav";
 import PagesNav from "../../components/users/pagesNav";
-import FooterC from "../../components/footer";
+import Footer from "../../components/footer";
 import IndexAPI from "../../apis/indexAPI";
 import Head from "next/head";
 import { Grid } from "@mui/material";
 
+//Cart functional component
 const Cart = (props: ICart) => {
+  //Cart states
   const [, setCart] = useState(props.cart);
 
+  // Cart component
   return (
     <Grid>
       <Head>
@@ -20,6 +23,7 @@ const Cart = (props: ICart) => {
       <MainNav />
       <PagesNav />
       <Grid className="main-body">
+        {/* Cart title row */}
         <Grid>
           <Grid className="align-center">
             <h1 className="main-title">Shopping Cart</h1>
@@ -32,19 +36,23 @@ const Cart = (props: ICart) => {
             </Grid>
             <hr className="no-margin" />
             <Grid className="full-height">
+              {/* Cart product component */}
               <CartProducts setCart={setCart} />
             </Grid>
           </Grid>
         </Grid>
-        <FooterC />
+        {/* Footer component */}
+        <Footer />
       </Grid>
     </Grid>
   );
 };
 
 export async function getStaticProps() {
+  // Get cart content
   const cartResponse = await IndexAPI.get(`/cart`);
 
+  //Create and add image buffer to all items in cart object
   for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
     if (cartResponse.data.data.cart[i].imagekey !== null) {
       let imagesResponse = await IndexAPI.get(
@@ -59,6 +67,8 @@ export async function getStaticProps() {
       cartResponse.data.data.cart[i].imageBuffer = imagesResponse;
     }
   }
+
+  //Provide the cart object as a prop to the checkout component
   return {
     props: {
       cart: cartResponse.data.data.cart,
