@@ -145,10 +145,10 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context: { params: { subject: string } }) {
+  const subject = context.params.subject;
   // Get all items in the cart
   const cartResponse = await IndexAPI.get(`/cart`);
 
-  const subject = context.params.subject;
   //Get a list of all courses in the selected subject
   const coursesResponse = await IndexAPI.get(`/courses/${subject}`);
 

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import IndexAPI from "../../../apis/indexAPI";
-import FooterC from "../../../components/footer";
+import Footer from "../../../components/footer";
 import MediaNav from "../../../components/users/media/mediaNav";
 import MainNav from "../../../components/users/mainNav";
 import PagesNav from "../../../components/users/pagesNav";
@@ -11,14 +11,22 @@ import PagesNav from "../../../components/users/pagesNav";
 import ReactPaginate from "react-paginate";
 import { Grid } from "@mui/material";
 
+// Media prop interface
 interface IMedia {
   mediaListings: any;
   cartQty: any;
   mediaCategories: any;
 }
+
+//Media functional component
 const Media = (props: IMedia) => {
+  // Media states
   const [pageNumber, setPageNumber] = useState<number>(0);
 
+  //Next router function
+  const router = useRouter();
+
+  // Setup pagination and number of items per page
   const itemsPerPage: number = 9;
   const pagesVisted: number = pageNumber * itemsPerPage;
   const pageCount = Math.ceil(props.mediaListings.length / itemsPerPage);
@@ -26,8 +34,7 @@ const Media = (props: IMedia) => {
     setPageNumber(selected);
   };
 
-  const router = useRouter();
-
+  // Route to the selected blog post's detail page
   const displayPostDetails = async (id: string) => {
     try {
       router.push(`/media/blog/${id}`);
@@ -36,11 +43,13 @@ const Media = (props: IMedia) => {
     }
   };
 
+  //Map through the list of blog posts and setup their templates
   const displayPost = props.mediaListings
     .slice(pagesVisted, pagesVisted + itemsPerPage)
     .map((post: any) => {
       return (
         <Grid key={post.id}>
+          {/* Route to the selected blog post's page on click */}
           <Grid className="pointer" onClick={() => displayPostDetails(post.id)}>
             <Grid className="image-container">
               <img
@@ -49,6 +58,7 @@ const Media = (props: IMedia) => {
                 alt="blog-thumbnail"
               />
             </Grid>
+            {/* Route post's title */}
             <Grid className="one-column-thumbnail-footer">
               <h3 className="align-center">{post.title}</h3>
             </Grid>
@@ -57,18 +67,24 @@ const Media = (props: IMedia) => {
       );
     });
 
+  // Media component
   return (
     <Grid>
       <Head>
         <title>artHouse19-Media</title>
       </Head>
+      {/* Main navigation component */}
       <MainNav cartQty={props.cartQty} />
+      {/* Pages navigation component */}
       <PagesNav />
       <Grid className="main-body">
         <Grid>
+          {/* Display the media navigation menu */}
           <MediaNav medias={props.mediaCategories} />
+          {/* Display all posts of the current media subject */}
           <Grid className="gallery-menu">{displayPost}</Grid>
         </Grid>
+        {/* Pagination component */}
         <ReactPaginate
           previousLabel={"prev"}
           nextLabel={"next"}
@@ -83,11 +99,13 @@ const Media = (props: IMedia) => {
           marginPagesDisplayed={5}
         />
       </Grid>
-      <FooterC />
+      {/* Footer component */}
+      <Footer />
     </Grid>
   );
 };
 
+// Create a path for the list of media types
 export async function getStaticPaths() {
   return {
     fallback: false,
@@ -112,11 +130,15 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context: { params: { media: string } }) {
+  const media = context.params.media;
+
+  // Get all items in the cart
   const cartResponse = await IndexAPI.get(`/cart`);
 
-  const media = context.params.media;
+  //Get a list of all media posts of the selected subject
   const mediaResponse = await IndexAPI.get(`/media/${media}`);
 
+  //Create and add media post image buffer to all media posts in the media subject's object
   for (let i = 0; i < mediaResponse.data.data.posts.length; i++) {
     if (mediaResponse.data.data.posts[i].imagekey !== null) {
       let imagesResponse = await IndexAPI.get(
@@ -133,6 +155,8 @@ export async function getStaticProps(context: { params: { media: string } }) {
       ].imageBuffer = `data:image/png;base64,${imagesResponse}`;
     }
   }
+
+  //Provide the media category, media posts, and cart quantity as props to the media component
   return {
     props: {
       mediaCategories: media,
