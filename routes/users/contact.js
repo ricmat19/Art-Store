@@ -9,11 +9,13 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
+// Get Google API credentials
 const clientId = process.env.GOOGLE_API_CLIENT_ID;
 const clientSecret = process.env.GOOGLE_API_CLIENT_SECRET;
 const redirectURI = process.env.GOOGLE_API_REDIRECT_URI;
 const refreshToken = process.env.GOOGLE_API_REFRESH_TOKEN;
 
+// Create a new Google OAuth object with the provided Google API credentials
 const oAuth2Client = new google.auth.OAuth2(
   clientId,
   clientSecret,
@@ -42,6 +44,7 @@ router.post("/contact", async (req, res) => {
         <li>Message: ${req.body.message}</li>
     </ul>`;
 
+    // Nodemailer transporter
     let transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 587,
@@ -57,6 +60,7 @@ router.post("/contact", async (req, res) => {
       },
     });
 
+    // Nodemailer mail options
     let mailOptions = {
       from: req.body.email,
       to: process.env.EMAIL,

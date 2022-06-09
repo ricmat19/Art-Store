@@ -6,6 +6,7 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
+// Database configuration for development environment
 const devConfig = {
   user: process.env.PGUSER,
   password: process.env.PGPASSWORD,
@@ -14,17 +15,20 @@ const devConfig = {
   database: process.env.PGDATABASE,
 };
 
-const proConfig = {
+// Database configuration for production environment
+const prodConfig = {
   connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false,
   },
 };
 
+// Set the database configuration based on the current environment
 const pool = new Pool(
-  process.env.NODE_ENV === "production" ? proConfig : devConfig
+  process.env.NODE_ENV === "production" ? prodConfig : devConfig
 );
 
+// Export PostgreSQL database query
 module.exports = {
   query: (text, params) => {
     return pool.query(text, params);

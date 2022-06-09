@@ -8,6 +8,7 @@ const fs = require("fs");
 const util = require("util");
 const unlinkFile = util.promisify(fs.unlink);
 
+// Setup image upload destination
 const upload = multer({ dest: "images/" });
 
 //Get all courses
@@ -127,20 +128,26 @@ router.get("/admin/courses/lectures/:id", async (req, res) => {
 //Create a course
 router.post("/admin/courses", upload.single("images"), async (req, res) => {
   try {
+    // Set the image file size
     const filePath = req.file.path;
     await sharp(filePath)
       .resize({ height: 500 })
       .toFile(`imagesOutput/${req.file.filename}`);
 
+    // Create the resized image file
     const resizedFile = {
       key: req.file.filename,
       fileStream: fs.createReadStream(`imagesOutput/${req.file.filename}`),
     };
 
+    //Upload the image to the S3 bucket
     const result = uploadFile(resizedFile);
     res.send({ imagePath: `/imagesOutput/${result.key}` });
+    // Remove the image from the images and imagesOutput files
     unlinkFile(`images\\${req.file.filename}`);
     unlinkFile(`imagesOutput\\${req.file.filename}`);
+
+    // Add course to the database with the created imagekey
     await db.query(
       "INSERT INTO courses (title, subject, imagekey, description, price, create_date, update_date, type) values ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
       [
@@ -210,12 +217,21 @@ router.post("/admin/courses/lecture/:id", async (req, res) => {
 router.put("/admin/courses/:id", upload.single("images"), async (req, res) => {
   try {
     let course;
+
+    // Check if an image file is provided for the course
     if (req.file) {
       const file = req.file;
+
+      // Set the image file size
       const resizedFile = sharp(file).resize({ height: 500 });
+
+      //Upload the image to the S3 bucket
       const result = await uploadFile(resizedFile);
       res.send({ imagePath: `/images/${result.key}` });
+
+      // Remove the image from files
       await unlinkFile(file.path);
+
       course = await db.query(
         "UPDATE courses SET title=$1, subject=$2, imagekey=$3, qty=$4, price=$5, info=$6, update_date=$7 WHERE id=$8",
         [
@@ -278,6 +294,8 @@ router.put("/admin/courses/section/:section/:id", async (req, res) => {
 router.put("/admin/courses/lecture/:lecture/:section/:id", async (req, res) => {
   try {
     let lecture;
+
+    //Run function if a video is provided to add a video to the relevant course lecture
     if (req.body.video) {
       lecture = await db.query(
         "UPDATE courseLectures SET video=$1, description=$2, update_date=$3 WHERE id=$4 AND section=$5 AND lecture=$6",
@@ -292,6 +310,7 @@ router.put("/admin/courses/lecture/:lecture/:section/:id", async (req, res) => {
       );
     }
 
+    //Run function if an article is provided to add an article to the relevant course lecture
     if (req.body.article) {
       lecture = await db.query(
         "UPDATE courseLectures SET article=$1, description=$2, update_date=$3 WHERE id=$4 AND section=$5 AND lecture=$6",

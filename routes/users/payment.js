@@ -7,8 +7,10 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
+// Get Stripe
 const stripe = require("stripe")(process.env.STRIPESECRET);
 
+// Run/Post a payment
 router.post("/payment", async (req, res) => {
   let { amount, id } = req.body;
 

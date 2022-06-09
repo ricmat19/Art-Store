@@ -7,11 +7,13 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
+// Get S3 Credentials
 const region = process.env.S3REGION;
 const bucketName = process.env.S3NAME;
 const accessKeyId = process.env.S3KEY;
 const secretAccessKey = process.env.S3SECRETKEY;
 
+// Create S3 object
 const s3 = new S3({
   region,
   accessKeyId,
@@ -20,6 +22,7 @@ const s3 = new S3({
 });
 
 module.exports = {
+  // Upload the provided image file to S3 bucket
   uploadFile: function uploadFile(file) {
     // const fileStream = fs.createReadStream(file.path);
 
@@ -28,10 +31,10 @@ module.exports = {
       Body: file.fileStream,
       Key: file.key,
     };
-    console.log("Upload Params: ", uploadParams)
 
     return s3.upload(uploadParams).promise();
   },
+  // Get the file stream for the provided imagekey
   getFileStream: function getFileStream(fileKey) {
     const downloadParams = {
       Key: fileKey,

@@ -6,6 +6,7 @@ interface CartState {}
 
 const initialState: CartState = {};
 
+// Get and return cart content
 export const getCartReducer = createAsyncThunk(
   "cart/getCartReducer",
   async () => {
@@ -18,6 +19,7 @@ export const getCartReducer = createAsyncThunk(
   }
 );
 
+// Add an item to the cart
 export const addToCartReducer = createAsyncThunk(
   "cart/addToCartReducer",
   async (id: number) => {
@@ -32,6 +34,7 @@ export const addToCartReducer = createAsyncThunk(
   }
 );
 
+// Remove an item from the cart
 export const removeFromCartReducer = createAsyncThunk(
   "cart/removeFromCartReducer",
   async (id: string) => {
@@ -46,6 +49,7 @@ export const removeFromCartReducer = createAsyncThunk(
   }
 );
 
+// Set/Update the cart quantity
 export const setCartQtyReducer = createAsyncThunk(
   "cart/removeFromCartReducer",
   async (cartQty: number[]) => {
@@ -60,6 +64,7 @@ export const setCartQtyReducer = createAsyncThunk(
   }
 );
 
+// Clear the cart
 export const clearCartReducer = createAsyncThunk(
   "cart/clearCartReducer",
   async () => {
@@ -71,6 +76,7 @@ export const clearCartReducer = createAsyncThunk(
   }
 );
 
+// Cart reducers
 const cartReducers = createSlice({
   name: "cart",
   initialState,
@@ -78,6 +84,7 @@ const cartReducers = createSlice({
     extraReducers(builder: any) {
       builder
         .addCase(
+          // Extra reducer to get cart content
           getCartReducer.fulfilled,
           (
             state: { status: string; data: any[] },
@@ -88,6 +95,7 @@ const cartReducers = createSlice({
           }
         )
         .addCase(
+          // Extra reducer to add an item to the cart
           addToCartReducer.fulfilled,
           (
             state: { status: string; data: any[] },
@@ -98,6 +106,7 @@ const cartReducers = createSlice({
           }
         )
         .addCase(
+          // Extra reducer to remove an item from the cart
           removeFromCartReducer.fulfilled,
           (
             state: { status: string; data: any[] },
@@ -108,6 +117,7 @@ const cartReducers = createSlice({
           }
         )
         .addCase(
+          // Extra reducer to set the cart quantity
           setCartQtyReducer.fulfilled,
           (
             state: { status: string; data: any[] },
@@ -118,6 +128,7 @@ const cartReducers = createSlice({
           }
         )
         .addCase(
+          // Extra reducer to clear the cart
           clearCartReducer.fulfilled,
           (
             state: { status: string; data: any[] },

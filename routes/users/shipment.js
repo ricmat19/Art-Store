@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../../db");
 
+// Create a shipment
 router.post("/shipment", async (req, res) => {
   try {
     const cart = await db.query(

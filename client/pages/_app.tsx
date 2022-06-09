@@ -6,13 +6,17 @@ import { Grid } from "@mui/material";
 import { store } from "../store";
 import { Provider } from "react-redux";
 
+// Root component
 function MyApp({ Component, pageProps }: AppProps) {
   return (
+    // Provider for Redux
     <Provider store={store}>
       <Grid>
+        {/* Disclaimer modal component */}
         <Disclaimer open={false} handleClose={function (): void {
           throw new Error("Function not implemented.");
-        } } email={""} password={""} />
+        }} email={""} password={""} />
+        {/* Component for all pages */}
         <Component {...pageProps} />
       </Grid>
     </Provider>

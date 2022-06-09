@@ -173,7 +173,7 @@ export async function getStaticProps(context: { params: { product: string } }) {
     }
   }
 
-  //Provide the products and cart quantity as props to the products
+  //Provide the products and cart quantity as props to the products component
   return {
     props: {
       products: productResponse.data.data.product,

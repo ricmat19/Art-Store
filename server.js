@@ -36,10 +36,11 @@ app.use(
     credentials: true,
   })
 );
+
+// Create a cookie parser
 app.use(cookieParser());
 
-app.use(express.urlencoded({ extended: true }));
-
+// Create cookie session
 app.use(
   session({
     key: "user",
@@ -48,6 +49,9 @@ app.use(
     saveUninitialized: false,
   })
 );
+
+// ?
+app.use(express.urlencoded({ extended: true }));
 
 //Middleware: Puts the json data in a pages body in a req object, parses the data
 app.use(express.json());
@@ -67,7 +71,7 @@ app.use(adminCommunityRouter);
 app.use(adminCoursesRouter);
 app.use(adminEventsRouter);
 app.use(adminGeneralArticlesRouter);
-app.use(adminHelpRouter)
+app.use(adminHelpRouter);
 app.use(adminProductsRouter);
 app.use(adminUserRouter);
 
@@ -98,6 +102,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
+// Server setup
 app.listen(process.env.PORT, function () {
   console.log("Server Running on port: " + process.env.PORT);
 });

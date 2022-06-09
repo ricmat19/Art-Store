@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
+//Check the admin's login status
 router.get("/login", async (req, res) => {
   try {
     if (req.session.user === process.env.EMAIL) {
@@ -25,13 +26,15 @@ router.get("/login", async (req, res) => {
   }
 });
 
-//Login
+//Admin Login
 router.post("/login", async (req, res) => {
   try {
+    // Check that the email and password provided are correct
     if (
       req.body.email === process.env.EMAIL &&
       req.body.password === process.env.PASSWORD
     ) {
+      // Create a cookie session
       req.session.user = process.env.EMAIL;
       console.log("You are now logged in");
 
@@ -42,6 +45,7 @@ router.post("/login", async (req, res) => {
         },
       });
     } else {
+      // Check that the email and password provided are incorrect
       if (
         req.body.email !== process.env.EMAIL &&
         req.body.password === process.env.PASSWORD
@@ -53,6 +57,7 @@ router.post("/login", async (req, res) => {
             loggedIn: false,
           },
         });
+        // Check that the email is correct but password is incorrect
       } else if (
         req.body.email === process.env.EMAIL &&
         req.body.password !== process.env.PASSWORD
@@ -64,6 +69,7 @@ router.post("/login", async (req, res) => {
             loggedIn: false,
           },
         });
+        // If the email is correct but the password is incorrect
       } else {
         console.log(
           "The provided email " +

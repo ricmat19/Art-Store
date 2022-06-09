@@ -9,6 +9,7 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
+//Create the user's salted and hashed password
 const signup = async (password) => {
   const salt = crypto.randomBytes(8).toString("hex");
   const hashed = await scrypt(password, salt, 64);
@@ -19,14 +20,11 @@ const signup = async (password) => {
   return record;
 };
 
+//Un-hash the stored user password and compare with the provided password to sign in
 const signin = async (storedPW, providedPW) => {
-  // console.log("Provided PW:" + providedPW)
-
   const [hash, salt] = storedPW.split(".");
-  // console.log("Stored Hash:" + hash)
 
   const providedPWHashed = await scrypt(providedPW, salt, 64);
-  // console.log("Provided PW Hashed:" + providedPWHashed.toString('hex'))
 
   return hash === providedPWHashed.toString("hex");
 };

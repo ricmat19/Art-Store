@@ -23,13 +23,17 @@ router.post(
 
       // req.session.email = req.body.email;
 
+      // Encrypt the provided password
       const encryptedPassword = await signup(req.body.password);
+      // Check if the provided user email exists in the database
       const checkUser = await db.query("SELECT * FROM users WHERE email=$1", [
         req.body.email,
       ]);
 
       let user;
+      // Check if the user (email) is already in the database
       if (checkUser.rows.length === 0) {
+        // If the user is not in the database, create them
         user = await db.query(
           "INSERT INTO users (email, password, firstname, lastname) values ($1, $2, $3, $4) RETURNING *",
           [
@@ -48,6 +52,7 @@ router.post(
           },
         });
       } else {
+        // Do not create user if their email is already in the database
         res.status(201).json({
           status: "success",
           data: {
@@ -67,14 +72,18 @@ router.post(
   // [checkEmail, checkPassword],
   async (req, res) => {
     try {
+      // Get the password for the provided user (email) from the database
       const user = await db.query("SELECT password FROM users WHERE email=$1", [
         req.body.email,
       ]);
 
       const storedPassword = user.rows[0].password;
+
+      //Check if the provided password is correct
       const validPassword = await signin(storedPassword, req.body.password);
 
       if (!user) {
+        // If the user (email) is not in the database
         res.status(404).json({
           status: "failure",
           data: {
@@ -83,6 +92,7 @@ router.post(
           },
         });
       } else if (!validPassword) {
+        // If the password provided is invalid
         res.status(404).json({
           status: "failure",
           data: {
@@ -91,6 +101,7 @@ router.post(
           },
         });
       } else {
+        // If the email and password are valid, create a cookie session
         req.session.email = req.body.email;
 
         res.status(201).json({
@@ -144,7 +155,7 @@ router.get("/signout", async (req, res) => {
   }
 });
 
-//User profiles
+//Get user profiles
 router.get("/profiles", async (req, res) => {
   try {
     const users = await db.query("SELECT * from users");
