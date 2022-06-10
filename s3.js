@@ -8,10 +8,10 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 // Get S3 Credentials
-const region = process.env.S3REGION;
-const bucketName = process.env.S3NAME;
-const accessKeyId = process.env.S3KEY;
-const secretAccessKey = process.env.S3SECRETKEY;
+const region = process.env.S3_REGION;
+const bucketName = process.env.S3_NAME;
+const accessKeyId = process.env.S3_KEY;
+const secretAccessKey = process.env.S3_SECRET_KEY;
 
 // Create S3 object
 const s3 = new S3({
@@ -34,7 +34,7 @@ module.exports = {
 
     return s3.upload(uploadParams).promise();
   },
-  // Get the file stream for the provided imagekey
+  // Get the file stream for the provided image key
   getFileStream: function getFileStream(fileKey) {
     const downloadParams = {
       Key: fileKey,

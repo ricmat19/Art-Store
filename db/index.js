@@ -8,11 +8,11 @@ if (process.env.NODE_ENV !== "production") {
 
 // Database configuration for development environment
 const devConfig = {
-  user: process.env.PGUSER,
-  password: process.env.PGPASSWORD,
-  host: process.env.PGHOST,
-  port: process.env.PGPORT,
-  database: process.env.PGDATABASE,
+  user: process.env.PG_USER,
+  password: process.env.PG_PASSWORD,
+  host: process.env.PG_HOST,
+  port: process.env.PG_PORT,
+  database: process.env.PG_DATABASE,
 };
 
 // Database configuration for production environment

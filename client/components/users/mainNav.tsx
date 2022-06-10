@@ -12,7 +12,7 @@ import {
   faHamburger,
 } from "@fortawesome/free-solid-svg-icons";
 import SignUp from "./auth/signupModal";
-import SignIn from "./auth/signinModal";
+import SignIn from "./auth/signInModal";
 import Reset from "./auth/resetModal";
 import Notifications from "./menuModals/notificationModal";
 import User from "./menuModals/userModal";
@@ -49,7 +49,7 @@ const MainNav = () => {
   const handleSignUpOpen = () => setSignUpOpen(true);
   const handleSignUpClose = () => setSignUpOpen(false);
 
-  //Handle signIn modal open and close
+  //Handle sign in modal open and close
   const [signInOpen, setSignInOpen] = useState(false);
   const handleSignInOpen = () => setSignInOpen(true);
   const handleSignInClose = () => setSignInOpen(false);
@@ -119,7 +119,7 @@ const MainNav = () => {
           {/* Notification modal */}
           <Notifications
             notificationOpen={notificationOpen}
-            openNotificaition={openNotification}
+            openNotification={openNotification}
             handleNotificationClose={handleNotificationClose}
           />
           {/* User modal */}
@@ -273,7 +273,7 @@ const MainNav = () => {
             handleSignUpClose={handleSignUpClose}
             handleSignInOpen={handleSignInOpen}
           />
-          {/* Signin modal */}
+          {/* Sign in modal */}
           <SignIn
             signInOpen={signInOpen}
             handleSignInClose={handleSignInClose}
@@ -339,7 +339,7 @@ const MainNav = () => {
                 </h2>
               </Grid>
               <Grid xs={5} container sx={{ justifyContent: "center" }}>
-                {/* Main nav display signin modal button */}
+                {/* Main nav display sign in modal button */}
                 <h2 className="pointer" onClick={() => handleSignInOpen()}>
                   sign in
                 </h2>

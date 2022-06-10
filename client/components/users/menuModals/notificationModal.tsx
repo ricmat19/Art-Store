@@ -17,7 +17,7 @@ interface INotifications {
     | ((element: Element) => Element)
     | null
     | undefined;
-  openNotificaition: boolean;
+  openNotification: boolean;
   handleNotificationClose:
     | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
     | undefined;
@@ -55,7 +55,7 @@ const Notifications = (props: INotifications) => {
     // Display the Notifications menu
     <Menu
       anchorEl={props.notificationOpen}
-      open={props.openNotificaition}
+      open={props.openNotification}
       onClose={props.handleNotificationClose}
       onClick={props.handleNotificationClose}
       PaperProps={{
@@ -88,7 +88,7 @@ const Notifications = (props: INotifications) => {
       anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
     >
       <Grid className="notification-modal-container">
-        {/* Display the notifications navication menu */}
+        {/* Display the notifications navigation menu */}
         <nav>
           <Grid
             container
@@ -136,7 +136,7 @@ const Notifications = (props: INotifications) => {
         </nav>
         <hr />
         <Grid>
-          {/* Map through all notificaitons */}
+          {/* Map through all notifications */}
           {notifications.map((notification: any) => {
             return (
               <Grid

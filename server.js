@@ -31,7 +31,7 @@ const shipmentRouter = require("./routes/users/shipment");
 //allows for different domains to communicate
 app.use(
   cors({
-    origin: [process.env.ORIGIN, process.env.NEXT_PUBLIC_ARTSTORE_API],
+    origin: [process.env.ORIGIN, process.env.NEXT_PUBLIC_ART_STORE_API],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })

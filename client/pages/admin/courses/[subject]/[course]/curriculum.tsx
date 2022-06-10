@@ -70,6 +70,8 @@ const CourseCurriculum = (props: IAdminCourseCurriculum) => {
   const [courseLectures] = useState<IAdminCourseLectures[]>(
     props.courseLectures
   );
+  const [addVideoOpen, setAddVideoOpen] = useState(false);
+  const [addArticleOpen, setAddArticleOpen] = useState(false);
 
   //?
   const openContent = Boolean(contentOpen);
@@ -88,12 +90,10 @@ const CourseCurriculum = (props: IAdminCourseCurriculum) => {
   };
 
   //Course curriculum open/close add video modal
-  const [addVideoOpen, setAddVideoOpen] = useState(false);
   const handleAddVideoOpen = () => setAddVideoOpen(true);
   const handleAddVideoClose = () => setAddVideoOpen(false);
 
   //Course curriculum open/close add article modal
-  const [addArticleOpen, setAddArticleOpen] = useState(false);
   const handleAddArticleOpen = () => setAddArticleOpen(true);
   const handleAddArticleClose = () => setAddArticleOpen(false);
 

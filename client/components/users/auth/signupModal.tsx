@@ -57,7 +57,7 @@ const validationSchema = Yup.object({
 
 //Signup functional component
 const SignUp = (props: ISignUp) => {
-  //Close signup modal and display signin modal
+  //Close signup modal and display sign in modal
   const displaySignIn = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
@@ -147,10 +147,10 @@ const SignUp = (props: ISignUp) => {
                             <Field
                               as="input"
                               type="text"
-                              name="lastname"
+                              name="lastName"
                               placeholder="Last Name"
                             />
-                            <ErrorMessage name="lastname" component="div">
+                            <ErrorMessage name="lastName" component="div">
                               {(errorMsg) => (
                                 <Grid className="errorMsg">{errorMsg}</Grid>
                               )}
@@ -209,7 +209,7 @@ const SignUp = (props: ISignUp) => {
                           Create Account
                         </button>
                       </Grid>
-                      {/* Go to signin modal */}
+                      {/* Go to sign in modal */}
                       <Grid
                         sx={{ textAlign: "center" }}
                         className="sign-footer"

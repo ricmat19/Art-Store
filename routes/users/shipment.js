@@ -13,17 +13,17 @@ router.post("/shipment", async (req, res) => {
     // let newCart = await db.query("UPDATE users SET cart=$1 WHERE email='ric19mat@gmail.com'", [currentCart]);
 
     const newShipment = await db.query(
-      "INSERT INTO shipment (email, firstname, lastname, shipment, address, suite, city, state, zipcode, phone) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *",
+      "INSERT INTO shipment (email, firstName, lastName, shipment, address, suite, city, state, zipCode, phone) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *",
       [
         req.body.email,
-        req.body.firstname,
-        req.body.lastname,
+        req.body.firstName,
+        req.body.lastName,
         currentCart,
         req.body.address,
         req.body.suite,
         req.body.city,
         req.body.state,
-        req.body.zipcode,
+        req.body.zipCode,
         req.body.phone,
       ]
     );

@@ -34,7 +34,7 @@ const AdminBlog = (props: IAdminBlog) => {
 
   // Setup pagination and number of items per page
   const itemsPerPage: number = 9;
-  const pagesVisted: number = pageNumber * itemsPerPage;
+  const pagesVisited: number = pageNumber * itemsPerPage;
   const pageCount = Math.ceil(blog.length / itemsPerPage);
   const changePage = ({ selected }: { selected: number }): void => {
     setPageNumber(selected);
@@ -64,7 +64,7 @@ const AdminBlog = (props: IAdminBlog) => {
 
   //Map through the list of blog posts and setup their templates
   const displayBlogs = blog
-    .slice(pagesVisted, pagesVisted + itemsPerPage)
+    .slice(pagesVisited, pagesVisited + itemsPerPage)
     .map((post) => {
       return (
         <Grid key={post.id}>
@@ -190,9 +190,9 @@ export async function getStaticProps() {
 
   //Create and blog post banner image buffer to blog object
   for (let i = 0; i < blogResponse.data.data.blog.length; i++) {
-    if (blogResponse.data.data.blog[i].imagekey !== null) {
+    if (blogResponse.data.data.blog[i].imageKey !== null) {
       let imagesResponse = await IndexAPI.get(
-        `/images/${blogResponse.data.data.blog[i].imagekey}`,
+        `/images/${blogResponse.data.data.blog[i].imageKey}`,
         {
           responseType: "arraybuffer",
         }

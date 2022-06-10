@@ -6,9 +6,9 @@ export interface IProduct {
   product: string,
   price: string,
   info: string,
-  imagekey?: string,
+  imageKey?: string,
   qty: number,
-  primaryimage: boolean,
+  primaryImage: boolean,
   imageBuffer?: string,
 }
 
@@ -18,10 +18,10 @@ export interface ICart {
   product: string,
   price: string,
   info: string,
-  imagekey: string,
+  imageKey: string,
   imageBuffer: string,
   qty: number,
-  primaryimage: boolean,
+  primaryImage: boolean,
 }
 
 export interface ICheckout {
@@ -31,18 +31,18 @@ export interface ICheckout {
   suite: string,
   city: string,
   state: string,
-  zipcode: string,
+  zipCode: string,
   phone: string,
   email: string,
-  firstname: string,
-  lastname: string,
+  firstName: string,
+  lastName: string,
 }
 
 export interface ICourse {
   id: string,
   title: string,
   subject: string,
-  imagekey?: string,
+  imageKey?: string,
   imageBuffer?: string,
   content?: string,
   info: string,
@@ -52,7 +52,7 @@ export interface ICourse {
 export interface IBlog {
   id: string
   title: string
-  imagekey?: string
+  imageKey?: string
   imageBuffer?: string,
   content: string
   info: string
@@ -87,7 +87,7 @@ export interface IId {
 export interface IProject {
   id: string,
   title: string,
-  imagekey?: string,
+  imageKey?: string,
   imageBuffer?: string,
   info: string,
 }
@@ -103,7 +103,7 @@ export interface IEvent {
   id: string,
   title: string,
   event_date: string,
-  imagekey?: string,
+  imageKey?: string,
   imageBuffer?: string,
   price?: number,
   info: string,
@@ -115,12 +115,8 @@ export interface INotification {
   date: string,
   type: string,
   price?: number,
-  imagekey?: string,
+  imageKey?: string,
   imageBuffer?: string,
-}
-
-export interface IWishlist {
-
 }
 
 export interface IUser {

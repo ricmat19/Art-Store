@@ -43,9 +43,9 @@ const CartProducts = (props: ICartProducts) => {
 
         //Add cart item images to get '/cart' json response
         for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
-          if (cartResponse.data.data.cart[i].imagekey !== null) {
+          if (cartResponse.data.data.cart[i].imageKey !== null) {
             let imagesResponse = await IndexAPI.get(
-              `/images/${cartResponse.data.data.cart[i].imagekey}`,
+              `/images/${cartResponse.data.data.cart[i].imageKey}`,
               {
                 responseType: "arraybuffer",
               }
@@ -85,7 +85,7 @@ const CartProducts = (props: ICartProducts) => {
       //   id: id,
       // });
 
-      //Request and setthe updated cart after item deleted
+      //Request and set the updated cart after item deleted
       const cartResponse = await dispatch(getCartReducer());
       // const cartResponse = await IndexAPI.get(`/cart`);
       props.setCart(cartResponse.payload.cart.length);
@@ -218,7 +218,7 @@ const CartProducts = (props: ICartProducts) => {
         <span>subtotal</span>
         <span>${subtotal}.00</span>
       </Grid>
-      {/* Display checkout button only if a quanitity greater that 0 is provided for all products in the cart */}
+      {/* Display checkout button only if a quantity greater that 0 is provided for all products in the cart */}
       {hasQty ? (
         <Grid className="align-right no-margin">
           {/* Routes to the checkout page */}

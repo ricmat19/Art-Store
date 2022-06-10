@@ -28,7 +28,7 @@ const Media = (props: IMedia) => {
 
   // Setup pagination and number of items per page
   const itemsPerPage: number = 9;
-  const pagesVisted: number = pageNumber * itemsPerPage;
+  const pagesVisited: number = pageNumber * itemsPerPage;
   const pageCount = Math.ceil(props.mediaListings.length / itemsPerPage);
   const changePage = ({ selected }: { selected: number }): void => {
     setPageNumber(selected);
@@ -45,7 +45,7 @@ const Media = (props: IMedia) => {
 
   //Map through the list of blog posts and setup their templates
   const displayPost = props.mediaListings
-    .slice(pagesVisted, pagesVisted + itemsPerPage)
+    .slice(pagesVisited, pagesVisited + itemsPerPage)
     .map((post: any) => {
       return (
         <Grid key={post.id}>
@@ -140,9 +140,9 @@ export async function getStaticProps(context: { params: { media: string } }) {
 
   //Create and add media post image buffer to all media posts in the media subject's object
   for (let i = 0; i < mediaResponse.data.data.posts.length; i++) {
-    if (mediaResponse.data.data.posts[i].imagekey !== null) {
+    if (mediaResponse.data.data.posts[i].imageKey !== null) {
       let imagesResponse = await IndexAPI.get(
-        `/images/${mediaResponse.data.data.posts[i].imagekey}`,
+        `/images/${mediaResponse.data.data.posts[i].imageKey}`,
         {
           responseType: "arraybuffer",
         }

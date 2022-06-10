@@ -28,7 +28,7 @@ const Courses = (props: ICourses) => {
 
   // Setup pagination and number of items per page
   const itemsPerPage: number = 9;
-  const pagesVisted: number = pageNumber * itemsPerPage;
+  const pagesVisited: number = pageNumber * itemsPerPage;
   const pageCount = Math.ceil(props.courses.length / itemsPerPage);
   const changePage = ({ selected }: { selected: number }): void => {
     setPageNumber(selected);
@@ -48,7 +48,7 @@ const Courses = (props: ICourses) => {
   let displayCourses;
   if (props.courses) {
     displayCourses = props.courses
-      .slice(pagesVisted, pagesVisted + itemsPerPage)
+      .slice(pagesVisited, pagesVisited + itemsPerPage)
       .map((course: any) => {
         return (
           //Display course page on click
@@ -154,9 +154,9 @@ export async function getStaticProps(context: { params: { subject: string } }) {
 
   //Create and add course image buffer to all courses in the course subject object
   for (let i = 0; i < coursesResponse.data.data.courses.length; i++) {
-    if (coursesResponse.data.data.courses[i].imagekey !== null) {
+    if (coursesResponse.data.data.courses[i].imageKey !== null) {
       let imagesResponse = await IndexAPI.get(
-        `/images/${coursesResponse.data.data.courses[i].imagekey}`,
+        `/images/${coursesResponse.data.data.courses[i].imageKey}`,
         {
           responseType: "arraybuffer",
         }

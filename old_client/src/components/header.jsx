@@ -6,32 +6,32 @@ import IndexAPI from "../apis/indexAPI";
 // import { CartContext } from "../context/CartContext";
 
 const HeaderC = (props) => {
-  const [signinModal, setSigninModal] = useState("modal-bg");
+  const [signInModal, setSignInModal] = useState("modal-bg");
   const [signupModal, setSignupModal] = useState("modal-bg");
   const [resetModal, setResetModal] = useState("modal-bg");
   const [cartCount, setCartCount] = useState(0);
 
   const history = useHistory();
 
-  const displaySignin = () => {
-    setSigninModal("modal-bg active");
+  const displaySignIn = () => {
+    setSignInModal("modal-bg active");
     setSignupModal("modal-bg");
     setResetModal("modal-bg");
   };
 
   const displaySignup = () => {
     setSignupModal("modal-bg active");
-    setSigninModal("modal-bg");
+    setSignInModal("modal-bg");
     setResetModal("modal-bg");
   };
 
   const displayReset = () => {
     setResetModal("modal-bg active");
     setSignupModal("modal-bg");
-    setSigninModal("modal-bg");
+    setSignInModal("modal-bg");
   };
 
-  const signinRef = useRef();
+  const signInRef = useRef();
   const signupRef = useRef();
   const resetRef = useRef();
 
@@ -41,9 +41,9 @@ const HeaderC = (props) => {
     const fetchData = async () => {
       try {
         document.addEventListener("mousedown", (event) => {
-          if (signinRef.current !== null) {
-            if (!signinRef.current.contains(event.target)) {
-              setSigninModal("modal-bg");
+          if (signInRef.current !== null) {
+            if (!signInRef.current.contains(event.target)) {
+              setSignInModal("modal-bg");
             }
             if (!signupRef.current.contains(event.target)) {
               setSignupModal("modal-bg");
@@ -68,8 +68,8 @@ const HeaderC = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCopy, setPasswordCopy] = useState("");
-  const [firstname, setFirstName] = useState("");
-  const [lastname, setLastName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
 
   const emailInput = useRef(null);
   const passwordInput = useRef(null);
@@ -77,10 +77,10 @@ const HeaderC = (props) => {
   const lastNameInput = useRef(null);
   const passwordCopyInput = useRef(null);
 
-  const handleSignin = async (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
     try {
-      await IndexAPI.post("/signin", {
+      await IndexAPI.post("/signIn", {
         email: email,
         password: password,
       });
@@ -93,8 +93,8 @@ const HeaderC = (props) => {
     e.preventDefault();
     try {
       await IndexAPI.post("/signup", {
-        firstname: firstname,
-        lastname: lastname,
+        firstName: firstName,
+        lastName: lastName,
         email: email,
         password: password,
         passwordCopy: passwordCopy,
@@ -121,10 +121,10 @@ const HeaderC = (props) => {
 
   return (
     <div className="navbar-div">
-      {/* Signin */}
-      <div className={signinModal}>
+      {/* SignIn */}
+      <div className={signInModal}>
         <form>
-          <div ref={signinRef} className="modal-content">
+          <div ref={signInRef} className="modal-content">
             <h1 className="header">welcome</h1>
             <div>
               <div className="modal-input-div">
@@ -153,7 +153,7 @@ const HeaderC = (props) => {
               </div>
             </div>
             <div>
-              <button onClick={handleSignin}>sign in</button>
+              <button onClick={handleSignIn}>sign in</button>
             </div>
             <div className="sign-footer">
               <div className="modal-link" onClick={displayReset}>
@@ -177,8 +177,8 @@ const HeaderC = (props) => {
                 <input
                   type="text"
                   ref={firstNameInput}
-                  value={firstname}
-                  name="firstname"
+                  value={firstName}
+                  name="firstName"
                   placeholder="First Name"
                   onChange={(e) => {
                     setFirstName(e.target.value);
@@ -187,8 +187,8 @@ const HeaderC = (props) => {
                 <input
                   type="text"
                   ref={lastNameInput}
-                  value={lastname}
-                  name="lastname"
+                  value={lastName}
+                  name="lastName"
                   placeholder="Last Name"
                   onChange={(e) => {
                     setLastName(e.target.value);
@@ -238,7 +238,7 @@ const HeaderC = (props) => {
               </button>
             </div>
             <div className="sign-footer">
-              <div className="modal-link" onClick={displaySignin}>
+              <div className="modal-link" onClick={displaySignIn}>
                 <span>Already have an account? Sign In</span>
               </div>
             </div>
@@ -258,8 +258,8 @@ const HeaderC = (props) => {
               <button>Send Reset Link</button>
             </div>
             <div className="sign-footer">
-              <div className="modal-link" onClick={displaySignin}>
-                <span>Back to signin in</span>
+              <div className="modal-link" onClick={displaySignIn}>
+                <span>Back to sign in</span>
               </div>
             </div>
           </div>
@@ -292,7 +292,7 @@ const HeaderC = (props) => {
             <div className="nav-link" onClick={() => history.push("/contact")}>
               <h1>contact</h1>
             </div>
-            {/* <div className="nav-link" href={value.toString()} onClick={displaySignin}>
+            {/* <div className="nav-link" href={value.toString()} onClick={displaySignIn}>
             <h1>sign in</h1>
             </div> */}
           </div>

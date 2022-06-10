@@ -22,7 +22,7 @@ const CollectionGroups = (props: ICollectionGroups) => {
 
   // Setup pagination and number of items per page
   const itemsPerPage = 9;
-  const pagesVisted = pageNumber * itemsPerPage;
+  const pagesVisited = pageNumber * itemsPerPage;
   const pageCount = Math.ceil(props.collection.length / itemsPerPage);
   const changePage = ({ selected }: any) => {
     setPageNumber(selected);
@@ -58,7 +58,7 @@ const CollectionGroups = (props: ICollectionGroups) => {
 
   //Map the list of collection items within the current group into their own template
   const displayCollectionItems = props.collection
-    .slice(pagesVisted, pagesVisted + itemsPerPage)
+    .slice(pagesVisited, pagesVisited + itemsPerPage)
     .map((item: any) => {
       return (
         <Grid key={item.id}>
@@ -180,9 +180,9 @@ export async function getStaticProps(context: { params: { group: any } }) {
 
   //Create image buffer for all collection group items and add them to the collection object
   for (let i = 0; i < userCollectionProducts.length; i++) {
-    if (userCollectionProducts[i].imagekey !== null) {
+    if (userCollectionProducts[i].imageKey !== null) {
       let imagesResponse = await IndexAPI.get(
-        `/images/${userCollectionProducts[i].imagekey}`,
+        `/images/${userCollectionProducts[i].imageKey}`,
         {
           responseType: "arraybuffer",
         }

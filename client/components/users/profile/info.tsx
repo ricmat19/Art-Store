@@ -5,8 +5,8 @@ import { useState } from "react";
 //Profile props interface
 interface IProfile {
   email: string;
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
   phoneNumber: string;
   address: string;
   city: string;
@@ -22,8 +22,8 @@ interface IInfo {
 const Info = (props: IInfo) => {
   //Profile info states
   const [email] = useState(props.profile.email);
-  const [firstName, setFirstName] = useState(props.profile.firstname);
-  const [lastName, setLastName] = useState(props.profile.lastname);
+  const [firstName, setFirstName] = useState(props.profile.firstName);
+  const [lastName, setLastName] = useState(props.profile.lastName);
   const [newEmail, setNewEmail] = useState(props.profile.email);
   const [phoneNumber, setPhoneNumber] = useState(props.profile.phoneNumber);
   const [address, setAddress] = useState(props.profile.address);

@@ -65,12 +65,12 @@ router.get("/cart", async (req, res) => {
     if (cart.rows[0].cart !== null) {
       for (let i = 0; i < cart.rows[0].cart.length; i++) {
         // Get a specific product from the cart
-        const cartproducts = await db.query(
+        const cartProducts = await db.query(
           "SELECT * FROM products WHERE id=$1",
           [cart.rows[0].cart[i]]
         );
         // Add the selected cart to the array
-        usersCart.push(cartproducts.rows[0]);
+        usersCart.push(cartProducts.rows[0]);
       }
     }
 

@@ -2,37 +2,37 @@ import React from "react";
 // import IndexAPI from "../../apis/indexAPI";
 
 const HeaderC = () => {
-  // const [signinModal, setSigninModal] = useState("modal-bg");
+  // const [signInModal, setSignInModal] = useState("modal-bg");
   // const [signupModal, setSignupModal] = useState("modal-bg");
   // const [resetModal, setResetModal] = useState("modal-bg");
 
-  // const displaySignin = () => {
-  //   setSigninModal("modal-bg active");
+  // const displaySignIn = () => {
+  //   setSignInModal("modal-bg active");
   //   setSignupModal("modal-bg");
   //   setResetModal("modal-bg");
   // };
 
   // const displaySignup = () => {
   //   setSignupModal("modal-bg active");
-  //   setSigninModal("modal-bg");
+  //   setSignInModal("modal-bg");
   //   setResetModal("modal-bg");
   // };
 
   // const displayReset = () => {
   //   setResetModal("modal-bg active");
   //   setSignupModal("modal-bg");
-  //   setSigninModal("modal-bg");
+  //   setSignInModal("modal-bg");
   // };
 
-  // const signinRef = useRef();
+  // const signInRef = useRef();
   // const signupRef = useRef();
   // const resetRef = useRef();
 
   // useEffect(() => {
   //   document.addEventListener("mousedown", (event) => {
   //     if (event.target !== null) {
-  //       if (!signinRef.current.contains(event.target)) {
-  //         setSigninModal("modal-bg");
+  //       if (!signInRef.current.contains(event.target)) {
+  //         setSignInModal("modal-bg");
   //       }
   //       if (!signupRef.current.contains(event.target)) {
   //         setSignupModal("modal-bg");
@@ -47,8 +47,8 @@ const HeaderC = () => {
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
   // const [rePassword, setRePassword] = useState("");
-  // const [firstname, setFirstName] = useState("");
-  // const [lastname, setLastName] = useState("");
+  // const [firstName, setFirstName] = useState("");
+  // const [lastName, setLastName] = useState("");
 
   // const emailInput = useRef(null);
   // const passwordInput = useRef(null);
@@ -59,7 +59,7 @@ const HeaderC = () => {
   // async (e) => {
   //   e.preventDefault();
   //   try {
-  //     await IndexAPI.get("/signin", {
+  //     await IndexAPI.get("/signIn", {
   //       email: email,
   //       password: password,
   //     });
@@ -72,8 +72,8 @@ const HeaderC = () => {
   //   e.preventDefault();
   //   try {
   //     await IndexAPI.post("/signup", {
-  //       firstname: firstname,
-  //       lastname: lastname,
+  //       firstName: firstName,
+  //       lastName: lastName,
   //       email: email,
   //       password: password,
   //     });
@@ -99,10 +99,10 @@ const HeaderC = () => {
 
   return (
     <div className="navbar-div">
-      {/* Signin */}
-      {/* <div className={signinModal}>
+      {/* SignIn */}
+      {/* <div className={signInModal}>
         <form>
-          <div ref={signinRef} className="modal-content">
+          <div ref={signInRef} className="modal-content">
             <h1 className="header">welcome</h1>
             <div>
               <div className="modal-input-div">
@@ -137,8 +137,8 @@ const HeaderC = () => {
                 <input
                   type="text"
                   ref={firstNameInput}
-                  value={firstname}
-                  name="firstname"
+                  value={firstName}
+                  name="firstName"
                   placeholder="First Name"
                   onChange={(e) => {
                     setFirstName(e.target.value);
@@ -147,8 +147,8 @@ const HeaderC = () => {
                 <input
                   type="text"
                   ref={lastNameInput}
-                  value={lastname}
-                  name="lastname"
+                  value={lastName}
+                  name="lastName"
                   placeholder="Last Name"
                   onChange={(e) => {
                     setLastName(e.target.value);
@@ -201,7 +201,7 @@ const HeaderC = () => {
               </button>
             </div>
             <div className="sign-footer">
-              <div className="modal-link" onClick={displaySignin}>
+              <div className="modal-link" onClick={displaySignIn}>
                 <span>Already have an account? Sign In</span>
               </div>
             </div>
@@ -221,8 +221,8 @@ const HeaderC = () => {
               <button>Send Reset Link</button>
             </div>
             <div className="sign-footer">
-              <div className="modal-link" onClick={displaySignin}>
-                <span>Back to signin in</span>
+              <div className="modal-link" onClick={displaySignIn}>
+                <span>Back to sign in</span>
               </div>
             </div>
           </div>
@@ -257,7 +257,7 @@ const HeaderC = () => {
             {/* <a href="/admin/about">
             <h1>info</h1>
           </a> */}
-            {/* <a onClick={displaySignin}>
+            {/* <a onClick={displaySignIn}>
             <h1 className="pointer">sign in</h1>
           </a> */}
           </div>

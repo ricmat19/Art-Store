@@ -91,9 +91,9 @@ export async function getStaticProps(context: {
 
   //Create and add blog post image buffer to the selected blog post object
   let imageBuffer = "";
-  if (mediaResponse.data.data.post.imagekey !== null) {
+  if (mediaResponse.data.data.post.imageKey !== null) {
     let imagesResponse = await IndexAPI.get(
-      `/images/${mediaResponse.data.data.post.imagekey}`,
+      `/images/${mediaResponse.data.data.post.imageKey}`,
       {
         responseType: "arraybuffer",
       }

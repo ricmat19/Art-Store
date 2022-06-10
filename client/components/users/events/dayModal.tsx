@@ -20,7 +20,7 @@ const Day = (props: IDay) => {
   const [view, setView] = useState("events");
   const [selectedEvent, setSelectedEvent] = useState();
 
-  //Day madal component for events
+  //Day modal component for events
   return (
     <Grid>
       <Modal

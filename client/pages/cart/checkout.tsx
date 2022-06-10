@@ -23,7 +23,7 @@ interface ICheckoutForm {
   suite: string;
   city: string;
   state: string;
-  zipcode: string;
+  zipCode: string;
   phone: string;
   router: any;
 }
@@ -42,7 +42,7 @@ const initialValues = {
   suite: "",
   city: "",
   state: "",
-  zipcode: "",
+  zipCode: "",
   phone: "",
 };
 
@@ -74,7 +74,7 @@ const validationSchema = Yup.object({
   suite: Yup.string().required("Suite is required"),
   city: Yup.string().required("City is required"),
   state: Yup.string().required("State is required"),
-  zipcode: Yup.string().required("Zipcode is required"),
+  zipCode: Yup.string().required("ZipCode is required"),
   phone: Yup.string().required("Phone Number is required"),
 });
 
@@ -96,8 +96,8 @@ const Checkout = (props: ICheckout) => {
 
   //Stripe function
   let stripePromise = loadStripe("");
-  if (process.env.NEXT_PUBLIC_STRIPEPUBLIC !== undefined) {
-    stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPEPUBLIC);
+  if (process.env.NEXT_PUBLIC_STRIPE_PUBLIC !== undefined) {
+    stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC);
   }
 
   //Set style for card element menu items
@@ -289,7 +289,7 @@ const Checkout = (props: ICheckout) => {
                     </ErrorMessage>
                   </Grid>
                   <Grid sx={{ display: "grid" }}>
-                    {/* Checkout form zip code intut field */}
+                    {/* Checkout form zip code input field */}
                     <Field
                       as="input"
                       type="number"
@@ -400,9 +400,9 @@ export async function getStaticProps() {
 
   //Create and add image buffer to all items in cart object
   for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
-    if (cartResponse.data.data.cart[i].imagekey !== null) {
+    if (cartResponse.data.data.cart[i].imageKey !== null) {
       let imagesResponse = await IndexAPI.get(
-        `/images/${cartResponse.data.data.cart[i].imagekey}`,
+        `/images/${cartResponse.data.data.cart[i].imageKey}`,
         {
           responseType: "arraybuffer",
         }

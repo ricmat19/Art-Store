@@ -18,5 +18,5 @@ describe("testing user signup component", () => {
 
   test("check for validation alert if re-typed password does not match", () => {});
 
-  test("check that signin link sends you to signin modal", () => {});
+  test("check that sign in link sends you to sign in modal", () => {});
 });

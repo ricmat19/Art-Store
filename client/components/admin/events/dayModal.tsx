@@ -148,7 +148,7 @@ const AdminDayModal = (props: IAdminDay) => {
                     />
                   </h1>
                 </nav>
-                {/* Displays the events, create, or update component in the day modal depending on the veiw state */}
+                {/* Displays the events, create, or update component in the day modal depending on the view state */}
                 <Grid>
                   {view === "events" ? (
                     <AdminEvents

@@ -48,7 +48,7 @@ const AdminProduct = (props: IAdminProduct) => {
 
   // Setup pagination and number of items per page
   const itemsPerPage = 9;
-  const pagesVisted = pageNumber * itemsPerPage;
+  const pagesVisited = pageNumber * itemsPerPage;
   const pageCount = Math.ceil(product.length / itemsPerPage);
   const changePage = ({ selected }: any) => {
     setPageNumber(selected);
@@ -76,7 +76,7 @@ const AdminProduct = (props: IAdminProduct) => {
 
   //Map through the list of products and setup their templates
   const displayProducts = product
-    .slice(pagesVisted, pagesVisted + itemsPerPage)
+    .slice(pagesVisited, pagesVisited + itemsPerPage)
     .map((product: any) => {
       return (
         <Grid key={product.id}>
@@ -263,9 +263,9 @@ export async function getStaticProps(context: { params: { product: string } }) {
   //Create and add product image buffer to all products in the product object
   if (productResponse.data.data.product !== undefined) {
     for (let i = 0; i < productResponse.data.data.product.length; i++) {
-      if (productResponse.data.data.product[i].imagekey !== null) {
+      if (productResponse.data.data.product[i].imageKey !== null) {
         let imagesResponse = await IndexAPI.get(
-          `/images/${productResponse.data.data.product[i].imagekey}`,
+          `/images/${productResponse.data.data.product[i].imageKey}`,
           {
             responseType: "arraybuffer",
           }

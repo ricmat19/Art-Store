@@ -21,7 +21,7 @@ const signup = async (password) => {
 };
 
 //Un-hash the stored user password and compare with the provided password to sign in
-const signin = async (storedPW, providedPW) => {
+const signIn = async (storedPW, providedPW) => {
   const [hash, salt] = storedPW.split(".");
 
   const providedPWHashed = await scrypt(providedPW, salt, 64);
@@ -29,4 +29,4 @@ const signin = async (storedPW, providedPW) => {
   return hash === providedPWHashed.toString("hex");
 };
 
-module.exports = { signup, signin };
+module.exports = { signup, signIn };

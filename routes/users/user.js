@@ -8,7 +8,7 @@ const express = require("express");
 // } = require("../../validator");
 const router = express.Router();
 const db = require("../../db");
-const { signup, signin } = require("../../encryptionHandler");
+const { signup, signIn } = require("../../encryptionHandler");
 
 //User Sign Up
 router.post(
@@ -35,7 +35,7 @@ router.post(
       if (checkUser.rows.length === 0) {
         // If the user is not in the database, create them
         user = await db.query(
-          "INSERT INTO users (email, password, firstname, lastname) values ($1, $2, $3, $4) RETURNING *",
+          "INSERT INTO users (email, password, firstName, lastName) values ($1, $2, $3, $4) RETURNING *",
           [
             req.body.email,
             encryptedPassword.password,
@@ -68,7 +68,7 @@ router.post(
 
 //User Sign In
 router.post(
-  "/signin",
+  "/signIn",
   // [checkEmail, checkPassword],
   async (req, res) => {
     try {
@@ -80,7 +80,7 @@ router.post(
       const storedPassword = user.rows[0].password;
 
       //Check if the provided password is correct
-      const validPassword = await signin(storedPassword, req.body.password);
+      const validPassword = await signIn(storedPassword, req.body.password);
 
       if (!user) {
         // If the user (email) is not in the database
@@ -143,7 +143,7 @@ router.get("/signedIn", async (req, res) => {
 });
 
 //User Sign Out
-router.get("/signout", async (req, res) => {
+router.get("/signOut", async (req, res) => {
   try {
     req.session = null;
 
@@ -198,7 +198,7 @@ router.get("/profile", async (req, res) => {
 router.put("/profile/info", async (req, res) => {
   try {
     const info = await db.query(
-      "UPDATE users SET firstname=$1, lastname=$2, email=$3, phone=$4, address=$5, city=$6, state=$7, zip=$8 WHERE email=$9",
+      "UPDATE users SET firstName=$1, lastName=$2, email=$3, phone=$4, address=$5, city=$6, state=$7, zip=$8 WHERE email=$9",
       [
         req.body.firstName,
         req.body.lastName,

@@ -4,7 +4,7 @@ import { useState } from "react";
 import IndexAPI from "../../../apis/indexAPI";
 import MainNav from "../../../components/users/mainNav";
 import PagesNav from "../../../components/users/pagesNav";
-import FooterC from "../../../components/footer";
+import Footer from "../../../components/footer";
 import Head from "next/head";
 import AddToCart from "../../../components/users/products/addToCartModal";
 import AddToCollection from "../../../components/users/products/addToCollectionModal";

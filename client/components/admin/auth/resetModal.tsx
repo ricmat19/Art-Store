@@ -81,7 +81,7 @@ const AdminResetModal = (props: IModalState) => {
                 <Grid>
                   <button type="submit">Send Reset Link</button>
                 </Grid>
-                {/* Go to admin signIn modal */}
+                {/* Go to admin sign in modal */}
                 <Grid className="sign-footer">
                   <Grid className="modal-link">
                     <span>Back to sign in</span>

@@ -8,7 +8,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 // Get Stripe
-const stripe = require("stripe")(process.env.STRIPESECRET);
+const stripe = require("stripe")(process.env.STRIPE_SECRET);
 
 // Run/Post a payment
 router.post("/payment", async (req, res) => {

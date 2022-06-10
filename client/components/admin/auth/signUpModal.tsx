@@ -106,10 +106,10 @@ const AdminSignUpModal = (props: IModalState) => {
                       <Field
                         as="input"
                         type="text"
-                        name="lastname"
+                        name="lastName"
                         placeholder="Last Name"
                       />
-                      <ErrorMessage name="lastname" component="div">
+                      <ErrorMessage name="lastName" component="div">
                         {(errorMsg) => (
                           <Grid className="errorMsg">{errorMsg}</Grid>
                         )}
@@ -171,7 +171,7 @@ const AdminSignUpModal = (props: IModalState) => {
                     Create Account
                   </button>
                 </Grid>
-                {/* Go to admin signIn modal */}
+                {/* Go to admin sign in modal */}
                 <Grid className="sign-footer">
                   <Grid className="modal-link">
                     <span>Already have an account? Sign In</span>

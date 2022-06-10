@@ -4,7 +4,7 @@ import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-//Signin prop interface
+//Sign in prop interface
 interface ISignIn {
   handleSignInClose:
     | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
@@ -18,25 +18,25 @@ interface ISignInForm {
   password: string;
 }
 
-//Signin Formik form initial values
+//Sign in Formik form initial values
 const initialValues = {
   email: "",
   password: "",
 };
 
-//Signin Formik form onSubmit function
+//Sign in Formik form onSubmit function
 const onSubmit = (
   values: ISignInForm,
   onSubmitProps: { resetForm: () => void }
 ) => {
-  IndexAPI.post("/signin", {
+  IndexAPI.post("/signIn", {
     email: values.email,
     password: values.password,
   });
   onSubmitProps.resetForm();
 };
 
-//Signin Formik form validation schema
+//Sign in Formik form validation schema
 const validationSchema = Yup.object({
   email: Yup.string()
     .email("Invalid email format")
@@ -48,7 +48,7 @@ const validationSchema = Yup.object({
 const SignIn = (props: ISignIn) => {
   const [loginMessage] = useState<string>("");
 
-  //Close signin modal and display signup modal
+  //Close sign in modal and display signup modal
   const displaySignUp = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
@@ -59,7 +59,7 @@ const SignIn = (props: ISignIn) => {
     }
   };
 
-  //Close signin modal and display reset modal
+  //Close sign in modal and display reset modal
   const displayReset = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
@@ -70,7 +70,7 @@ const SignIn = (props: ISignIn) => {
     }
   };
 
-  //Sigin modal
+  //Sig in modal
   return (
     <Grid>
       <Modal
@@ -132,12 +132,12 @@ const SignIn = (props: ISignIn) => {
                         validateOnBlur={false}
                         validateOnMount
                       >
-                        {/* Signin Form */}
+                        {/* Sign in Form */}
                         <Form>
                           <Grid className="sign-content">
                             <h1 className="sign-header">welcome</h1>
                             <Grid className="grid">
-                              {/* Signin email input */}
+                              {/* Sign in email input */}
                               <Grid className="modal-input-div">
                                 <Field
                                   as="input"
@@ -151,7 +151,7 @@ const SignIn = (props: ISignIn) => {
                                   )}
                                 </ErrorMessage>
                               </Grid>
-                              {/* Signin password input */}
+                              {/* Sign in password input */}
                               <Grid className="modal-input-div">
                                 <Field
                                   as="input"
@@ -169,7 +169,7 @@ const SignIn = (props: ISignIn) => {
                             <Grid>
                               <label>{loginMessage}</label>
                             </Grid>
-                            {/* Submit sigin */}
+                            {/* Submit sign in */}
                             <Grid sx={{ textAlign: "center" }}>
                               <button type="submit">sign in</button>
                             </Grid>

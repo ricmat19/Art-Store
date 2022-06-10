@@ -19,25 +19,25 @@ interface ISignInForm {
   password: string;
 }
 
-//SignIn Formik form initial values
+//Sign in Formik form initial values
 const initialValues = {
   email: "",
   password: "",
 };
 
-//Admin signIn Formik form onSubmit function
+//Admin sign in Formik form onSubmit function
 const onSubmit = (
   values: ISignInForm,
   onSubmitProps: { resetForm: () => void }
 ) => {
-  IndexAPI.post("/signin", {
+  IndexAPI.post("/signIn", {
     email: values.email,
     password: values.password,
   });
   onSubmitProps.resetForm();
 };
 
-//Admin signIn Formik form validation schema
+//Admin sign in Formik form validation schema
 const validationSchema = Yup.object({
   email: Yup.string()
     .email("Invalid email format")
@@ -45,13 +45,13 @@ const validationSchema = Yup.object({
   password: Yup.string().required("Password is required"),
 });
 
-//Admin signIn functional component
+//Admin sign in functional component
 const AdminSignInModal = (props: IModalState) => {
-  //Admin signIn states
+  //Admin sign in states
   const [displayReset, setDisplayReset] = useState<boolean>(false);
   const [displaySignUp, setDisplaySignUp] = useState<boolean>(false);
 
-  //Admin signIn modal
+  //Admin sign in modal
   return (
     <Grid>
       {/* Admin signUp modal component */}
@@ -67,7 +67,7 @@ const AdminSignInModal = (props: IModalState) => {
         email={props.email}
         password={props.password}
       />
-      {/* Admin signIn modal */}
+      {/* Admin sign in modal */}
       <Modal
         open={props.open}
         onClose={props.handleClose}
@@ -84,13 +84,13 @@ const AdminSignInModal = (props: IModalState) => {
               validateOnBlur={false}
               validateOnMount
             >
-              {/* Admin signIn Form */}
+              {/* Admin sign in Form */}
               <Form>
                 <Grid className="sign-content">
                   <h1 className="sign-header">welcome</h1>
                   <Grid>
                     <Grid className="modal-input-div">
-                      {/* Admin signIn email input */}
+                      {/* Admin sign in email input */}
                       <Grid sx={{ display: "grid" }}>
                         <Field
                           as="input"
@@ -106,7 +106,7 @@ const AdminSignInModal = (props: IModalState) => {
                       </Grid>
                     </Grid>
                     <Grid className="modal-input-div">
-                      {/* Admin signIn password input */}
+                      {/* Admin sign in password input */}
                       <Grid sx={{ display: "grid" }}>
                         <Field
                           as="input"
@@ -122,7 +122,7 @@ const AdminSignInModal = (props: IModalState) => {
                       </Grid>
                     </Grid>
                   </Grid>
-                  {/* Admin submit signIn */}
+                  {/* Admin submit sign in */}
                   <Grid>
                     <button type="submit">sign in</button>
                   </Grid>

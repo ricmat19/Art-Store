@@ -30,7 +30,7 @@ const validationSchema = Yup.object({
 
 //Reset functional component
 const Reset = (props: IReset) => {
-  //Close reset modal and display signin modal
+  //Close reset modal and display sign in modal
   const displaySignIn = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
@@ -124,13 +124,13 @@ const Reset = (props: IReset) => {
                           <Grid className="align-center">
                             <button type="submit">Send Reset Link</button>
                           </Grid>
-                          {/* Go to signin modal */}
+                          {/* Go to sign in modal */}
                           <Grid className="sign-footer pointer">
                             <Grid
                               className="align-center modal-link"
                               onClick={displaySignIn}
                             >
-                              <span>Back to signin</span>
+                              <span>Back to sign in</span>
                             </Grid>
                           </Grid>
                         </Grid>

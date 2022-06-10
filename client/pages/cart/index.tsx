@@ -54,9 +54,9 @@ export async function getStaticProps() {
 
   //Create and add image buffer to all items in cart object
   for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
-    if (cartResponse.data.data.cart[i].imagekey !== null) {
+    if (cartResponse.data.data.cart[i].imageKey !== null) {
       let imagesResponse = await IndexAPI.get(
-        `/images/${cartResponse.data.data.cart[i].imagekey}`,
+        `/images/${cartResponse.data.data.cart[i].imageKey}`,
         {
           responseType: "arraybuffer",
         }

@@ -65,14 +65,14 @@ router.post("/admin/blog", upload.single("images"), async (req, res) => {
     //Upload the image to the S3 bucket
     const result = uploadFile(resizedFile);
     res.send({ imagePath: `/imagesOutput/${result.key}` });
-    
+
     // Remove the image from the images and imagesOutput files
     unlinkFile(`images\\${req.file.filename}`);
     unlinkFile(`imagesOutput\\${req.file.filename}`);
 
-    // Add blog post to the database with the created imagekey
+    // Add blog post to the database with the created image key
     await db.query(
-      "INSERT INTO blog (title, imagekey, create_date, content, update_date, type) values ($1, $2, $3, $4, $5, $6) RETURNING *",
+      "INSERT INTO blog (title, imageKey, create_date, content, update_date, type) values ($1, $2, $3, $4, $5, $6) RETURNING *",
       [
         req.body.title,
         req.file.filename,

@@ -12,7 +12,7 @@ interface IAdminUpdateProduct {
     product: SetStateAction<string>;
     price: SetStateAction<string>;
     info: SetStateAction<string>;
-    imagekey: SetStateAction<string>;
+    imageKey: SetStateAction<string>;
     imageBuffer: SetStateAction<string>;
     qty: SetStateAction<string>;
   };
@@ -90,7 +90,7 @@ const AdminUpdateProductModal = (props: IAdminUpdateProduct) => {
   const [, setPrice] = useState<string>("");
   const [, setInfo] = useState<string>("");
   const [fileImage] = useState<File>();
-  const [, setImagekey] = useState<string>("");
+  const [, setImageKey] = useState<string>("");
   const [imageBuffer, setImageBuffer] = useState<string>("");
   const [, setQty] = useState<string>("");
 
@@ -103,7 +103,7 @@ const AdminUpdateProductModal = (props: IAdminUpdateProduct) => {
           setProduct(props.updateProduct.product);
           setPrice(props.updateProduct.price);
           setInfo(props.updateProduct.info);
-          setImagekey(props.updateProduct.imagekey);
+          setImageKey(props.updateProduct.imageKey);
           setImageBuffer(props.updateProduct.imageBuffer);
           setQty(props.updateProduct.qty);
         }

@@ -38,7 +38,7 @@ const AdminCourseSubject = (props: IAdminCourseSubject) => {
 
   // Setup pagination and number of items per page
   const itemsPerPage = 9;
-  const pagesVisted = pageNumber * itemsPerPage;
+  const pagesVisited = pageNumber * itemsPerPage;
   const pageCount = Math.ceil(courses.length / itemsPerPage);
   const changePage = ({ selected }: any) => {
     setPageNumber(selected);
@@ -65,7 +65,7 @@ const AdminCourseSubject = (props: IAdminCourseSubject) => {
 
   //Map through the list of courses and setup their templates
   const displayCourses = courses
-    .slice(pagesVisted, pagesVisted + itemsPerPage)
+    .slice(pagesVisited, pagesVisited + itemsPerPage)
     .map((course: any) => {
       return (
         <Grid key={course.id}>
@@ -236,9 +236,9 @@ export async function getStaticProps(context: { params: { subject: string } }) {
   //Create and add course image buffer to all courses in the course subject object
   if (subjectResponse.data.data.subject !== undefined) {
     for (let i = 0; i < subjectResponse.data.data.subject.length; i++) {
-      if (subjectResponse.data.data.subject[i].imagekey !== null) {
+      if (subjectResponse.data.data.subject[i].imageKey !== null) {
         let imagesResponse = await IndexAPI.get(
-          `/images/${subjectResponse.data.data.subject[i].imagekey}`,
+          `/images/${subjectResponse.data.data.subject[i].imageKey}`,
           {
             responseType: "arraybuffer",
           }

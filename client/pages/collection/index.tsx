@@ -25,7 +25,7 @@ const Collection = (props: ICollection) => {
 
   // Setup pagination and number of items per page
   const itemsPerPage = 9;
-  const pagesVisted = pageNumber * itemsPerPage;
+  const pagesVisited = pageNumber * itemsPerPage;
   const pageCount = Math.ceil(props.collectionGroups.length / itemsPerPage);
   const changePage = ({ selected }: any) => {
     setPageNumber(selected);
@@ -33,7 +33,7 @@ const Collection = (props: ICollection) => {
 
   //Map through the list of collection groups and setup their templates
   const displayCollectionGroups = props.collectionGroups
-    .slice(pagesVisted, pagesVisted + itemsPerPage)
+    .slice(pagesVisited, pagesVisited + itemsPerPage)
     .map((group: any) => {
       return (
         // Route to the collection group's page on click
