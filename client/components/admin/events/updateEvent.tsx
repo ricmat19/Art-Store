@@ -29,7 +29,7 @@ const initialValues = {
 
 //Admin update event Formik form onSubmit function
 const onSubmit = (
-  values: IUpdateEventForm,
+  values: any,
   onSubmitProps: { resetForm: () => void }
 ) => {
   IndexAPI.put(`/admin/events/${values.id}`, {

@@ -7,7 +7,7 @@ import { ReactChild, ReactFragment, ReactPortal } from "react";
 
 //Admin create article lecture prop interface
 interface ICreateArticleLecture {
-  open: boolean | undefined;
+  open: boolean;
   handleClose:
     | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
     | undefined;
@@ -36,7 +36,7 @@ const initialValues = {
 
 //Admin create article lecture Formik form onSubmit function
 const onSubmit = (
-  values: ICreateArticleLectureForm,
+  values: any,
   onSubmitProps: { resetForm: () => void }
 ) => {
   IndexAPI.put(

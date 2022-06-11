@@ -7,17 +7,12 @@ import { ReactChild, ReactFragment, ReactPortal } from "react";
 
 //Admin create video lecture prop interface
 interface IAdminCreateVideoLecture {
-  open: boolean | undefined;
+  open: boolean;
   handleClose:
     | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
     | undefined;
-  lecture:
-    | boolean
-    | ReactChild
-    | ReactFragment
-    | ReactPortal
-    | null
-    | undefined;
+  lecture: string &
+    (boolean | ReactChild | ReactFragment | ReactPortal | null | undefined);
   section: string;
   id: string;
 }
@@ -34,11 +29,14 @@ interface ICreateVideoLectureForm {
 const initialValues = {
   video: "",
   description: "",
+  lecture: "",
+  section: "",
+  id: "",
 };
 
 //Admin create video lecture Formik form onSubmit function
 const onSubmit = (
-  values: ICreateVideoLectureForm,
+  values: any,
   onSubmitProps: { resetForm: () => void }
 ) => {
   if (values.video) {
@@ -119,9 +117,6 @@ const AdminCreateVideoLectureModal = (props: IAdminCreateVideoLecture) => {
                 <Formik
                   initialValues={{
                     initialValues: initialValues,
-                    lecture: props.lecture,
-                    section: props.section,
-                    id: props.id,
                   }}
                   onSubmit={onSubmit}
                   validationSchema={validationSchema}

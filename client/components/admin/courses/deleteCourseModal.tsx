@@ -16,7 +16,7 @@ interface IAdminDeleteCourse {
       | null
       | undefined;
   };
-  open: boolean | undefined;
+  open: boolean;
   handleClose:
     | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
     | undefined;

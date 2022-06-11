@@ -14,7 +14,7 @@ import * as Yup from "yup";
 //Admin create help article prop interface
 interface IAdminCreateHelpArticle {
   category: string;
-  open: boolean | undefined;
+  open: boolean;
   handleClose:
     | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
     | undefined;
@@ -43,7 +43,7 @@ const initialValues = {
 
 //Admin create help article Formik form onSubmit function
 const onSubmit = (
-  values: ICreateHelpArticleForm,
+  values: any,
   onSubmitProps: { resetForm: () => void }
 ) => {
   IndexAPI.post(`/admin/help/${values.category}`, {

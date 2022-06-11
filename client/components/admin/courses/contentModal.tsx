@@ -8,9 +8,7 @@ import { MouseEventHandler } from "react";
 interface IContent {
   contentOpen: Element | ((element: Element) => Element) | null | undefined;
   openContent: boolean;
-  handleContentClose:
-    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
-    | undefined;
+  handleContentClose: MouseEventHandler<HTMLDivElement> | undefined;
   handleAddVideoOpen: MouseEventHandler<HTMLLIElement> | undefined;
   handleAddArticleOpen: MouseEventHandler<HTMLLIElement> | undefined;
 }

@@ -4,13 +4,11 @@ import { Backdrop, Box, Fade, Grid, Modal } from "@mui/material";
 
 //Admin delete blog post prop interface
 interface IAdminDeleteBlog {
-  deleteBlog: { id: string }[];
+  deleteBlog: { id: string; imageBuffer: string; title: string }[];
   setBlogs: (arg0: any) => void;
   blogs: any[];
-  handleClose:
-    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
-    | undefined;
-  open: boolean | undefined;
+  handleClose: (event: {}, reason: "backdropClick" | "escapeKeyDown") => void;
+  open: boolean;
 }
 
 //Admin delete post modal functional component
@@ -81,7 +79,7 @@ const AdminDeleteBlogPostModal = (props: IAdminDeleteBlog) => {
                   <Grid className="big-image-div">
                     <img
                       className="big-image"
-                      src={props.deleteBlog.imageBuffer}
+                      src={props.deleteBlog[0].imageBuffer}
                       alt="big image"
                     />
                   </Grid>
@@ -97,7 +95,7 @@ const AdminDeleteBlogPostModal = (props: IAdminDeleteBlog) => {
                     <Grid className="align-center">
                       <h1>
                         Are you sure you want to delete &quot;
-                        {props.deleteBlog.title}&quot; ?
+                        {props.deleteBlog[0].title}&quot; ?
                       </h1>
                     </Grid>
                     {/* Blog post delete button */}
