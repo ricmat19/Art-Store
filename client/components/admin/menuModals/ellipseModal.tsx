@@ -6,14 +6,13 @@ import {
   faQuestion,
 } from "@fortawesome/free-solid-svg-icons";
 import { Grid, Menu, ListItemIcon, MenuItem } from "@mui/material";
+import { MouseEventHandler } from "react";
 
 //Admin ellipse props interface
 interface IAdminEllipse {
   ellipseOpen: Element | ((element: Element) => Element) | null | undefined;
   openEllipse: boolean;
-  handleEllipseClose:
-    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
-    | undefined;
+  handleEllipseClose: MouseEventHandler<HTMLDivElement>;
 }
 
 //Admin ellipse functional component

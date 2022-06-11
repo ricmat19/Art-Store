@@ -4,13 +4,14 @@ import { Backdrop, Box, Fade, Grid, Modal } from "@mui/material";
 
 //Admin delete event modal prop interface
 interface IAdminDeleteEvent {
-  deleteEvent: { id: string }[];
+  deleteEvent: {
+    id: string;
+    title: string;
+  }[];
   setBlogs: (arg0: any) => void;
   event: any[];
-  handleClose:
-    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
-    | undefined;
-  open: boolean | undefined;
+  handleClose: () => void;
+  open: boolean;
 }
 
 //Admin delete event modal functional component
@@ -81,7 +82,7 @@ const AdminDeleteEventModal = (props: IAdminDeleteEvent) => {
                     <Grid className="align-center">
                       <h1>
                         Are you sure you want to delete &quot;
-                        {props.deleteEvent.title}&quot; ?
+                        {props.deleteEvent[0].title}&quot; ?
                       </h1>
                     </Grid>
                     {/* Event delete button */}

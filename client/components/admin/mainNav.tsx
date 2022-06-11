@@ -9,13 +9,15 @@ import AdminEllipse from "./menuModals/ellipseModal";
 const AdminMainNav: FC = () => {
   //Admin main navigation states
   const [signedIn] = useState<boolean>(true);
-  const [userOpen, setUserOpen] = useState<EventTarget & HTMLElement>();
-  const [ellipseOpen, setEllipseOpen] = useState<EventTarget & HTMLElement>();
+  const [userOpen, setUserOpen] = useState<EventTarget & SVGSVGElement>();
+  const [ellipseOpen, setEllipseOpen] = useState<EventTarget & SVGSVGElement>();
   const openUser = Boolean(userOpen);
   const openEllipse = Boolean(ellipseOpen);
 
   //Admin function to open user component
-  const handleUserClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleUserClick = (
+    event: React.MouseEvent<SVGSVGElement, MouseEvent>
+  ) => {
     setUserOpen(event.currentTarget);
   };
   //Admin function to close user component
@@ -24,7 +26,9 @@ const AdminMainNav: FC = () => {
   };
 
   //Admin function to open ellipse component
-  const handleEllipseClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleEllipseClick = (
+    event: React.MouseEvent<SVGSVGElement, MouseEvent>
+  ) => {
     setEllipseOpen(event.currentTarget);
   };
   //Admin function to close ellipse component

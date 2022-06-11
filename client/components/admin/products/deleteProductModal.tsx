@@ -16,10 +16,8 @@ interface IAdminDeleteProduct {
       | null
       | undefined;
   };
-  handleClose:
-    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
-    | undefined;
-  open: boolean | undefined;
+  handleClose: () => void;
+  open: boolean;
 }
 
 //Admin delete product modal functional component

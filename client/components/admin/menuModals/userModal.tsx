@@ -2,14 +2,13 @@ import { ListItemIcon, MenuItem } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { Grid, Menu } from "@mui/material";
+import { MouseEventHandler } from "react";
 
 //Admin user props interface
 interface IAdminUser {
   userOpen: Element | ((element: Element) => Element) | null | undefined;
   openUser: boolean;
-  handleUserClose:
-    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
-    | undefined;
+  handleUserClose: MouseEventHandler<HTMLDivElement>;
 }
 
 //Admin user functional component

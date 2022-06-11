@@ -6,12 +6,10 @@ import * as Yup from "yup";
 
 //Sign in prop interface
 interface ISignIn {
-  handleSignInClose:
-    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
-    | undefined;
+  handleSignInClose: () => void;
   handleSignUpOpen: () => void;
   handleResetOpen: () => void;
-  signInOpen: boolean | undefined;
+  signInOpen: boolean;
 }
 interface ISignInForm {
   email: string;
@@ -26,7 +24,7 @@ const initialValues = {
 
 //Sign in Formik form onSubmit function
 const onSubmit = (
-  values: ISignInForm,
+  values: any,
   onSubmitProps: { resetForm: () => void }
 ) => {
   IndexAPI.post("/signIn", {

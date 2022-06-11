@@ -7,6 +7,7 @@ import * as Yup from "yup";
 //Update Event props interface
 interface IAdminUpdateEvent {
   selectedEvent: { id: string };
+  handleClose: (event: {}, reason: "backdropClick" | "escapeKeyDown") => void;
 }
 interface IUpdateEventForm {
   title: string;

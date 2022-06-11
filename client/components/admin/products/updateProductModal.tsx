@@ -16,10 +16,8 @@ interface IAdminUpdateProduct {
     imageBuffer: SetStateAction<string>;
     qty: SetStateAction<string>;
   };
-  open: boolean | undefined;
-  handleClose:
-    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
-    | undefined;
+  open: boolean;
+  handleClose: () => void;
 }
 interface IUpdateProduct {
   id: string;
@@ -42,10 +40,7 @@ const initialValues = {
 };
 
 //Admin update product Formik form onSubmit function
-const onSubmit = (
-  values: IUpdateProductForm,
-  onSubmitProps: { resetForm: () => void }
-) => {
+const onSubmit = (values: any, onSubmitProps: { resetForm: () => void }) => {
   if (values.fileImage) {
     let formData = new FormData();
 

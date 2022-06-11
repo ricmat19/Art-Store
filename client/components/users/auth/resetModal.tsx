@@ -1,14 +1,17 @@
+import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { any } from "prop-types";
 import * as Yup from "yup";
 
 //Reset prop interface
 interface IReset {
-  handleResetClose:
-    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
-    | undefined;
+  handleResetClose: () => void;
   handleSignInOpen: () => void;
-  resetOpen: boolean | undefined;
+  resetOpen: boolean;
+}
+interface IResetForm {
+  email: string;
 }
 
 //Reset Formik form initial values
@@ -17,7 +20,13 @@ const initialValues = {
 };
 
 //Reset Formik form onSubmit function
-const onSubmit = (onSubmitProps: { resetForm: () => void }) => {
+const onSubmit = async (
+  values: IResetForm,
+  onSubmitProps: { resetForm: () => void }
+) => {
+  await IndexAPI.post("/reset", {
+    email: values.email,
+  });
   onSubmitProps.resetForm();
 };
 

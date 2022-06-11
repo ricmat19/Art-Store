@@ -7,7 +7,7 @@ interface IAdminDeleteBlog {
   deleteBlog: { id: string; imageBuffer: string; title: string }[];
   setBlogs: (arg0: any) => void;
   blogs: any[];
-  handleClose: (event: {}, reason: "backdropClick" | "escapeKeyDown") => void;
+  handleClose: () => void;
   open: boolean;
 }
 

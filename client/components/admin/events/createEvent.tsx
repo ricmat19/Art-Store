@@ -5,10 +5,10 @@ import * as Yup from "yup";
 
 //Admin create event prop interface
 interface ICreateEventForm {
-  title: string;
-  price: string;
-  spots: string;
-  info: string;
+  title: any;
+  price: any;
+  spots: any;
+  info: any;
 }
 
 //Admin create event Formik form initial values
@@ -21,7 +21,7 @@ const initialValues = {
 
 //Admin create event Formik form onSubmit function
 const onSubmit = (
-  values: ICreateEventForm,
+  values: any,
   onSubmitProps: { resetForm: () => void }
 ) => {
   onSubmitProps.resetForm();

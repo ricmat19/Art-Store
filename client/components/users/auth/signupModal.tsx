@@ -5,11 +5,9 @@ import * as Yup from "yup";
 
 //Signup prop interface
 interface ISignUp {
-  handleSignUpClose:
-    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
-    | undefined;
+  handleSignUpClose: () => void;
   handleSignInOpen: () => void;
-  signUpOpen: boolean | undefined;
+  signUpOpen: boolean;
 }
 interface ISignUpForm {
   firstName: string;
@@ -29,10 +27,7 @@ const initialValues = {
 };
 
 //Signup Formik form onSubmit function
-const onSubmit = (
-  values: ISignUpForm,
-  onSubmitProps: { resetForm: () => void }
-) => {
+const onSubmit = (values: any, onSubmitProps: { resetForm: () => void }) => {
   IndexAPI.post("/signup", {
     firstName: values.firstName,
     lastName: values.lastName,

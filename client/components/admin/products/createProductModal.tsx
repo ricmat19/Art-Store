@@ -7,10 +7,8 @@ import * as Yup from "yup";
 
 //Admin create product props interface
 interface IAdminAddProduct {
-  open: boolean | undefined;
-  handleClose:
-    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
-    | undefined;
+  open: boolean;
+  handleClose: () => void;
 }
 interface ICreateProductForm {
   title: string;
@@ -31,7 +29,7 @@ const initialValues = {
 
 //Admin create product modal Formik form onSubmit function
 const onSubmit = (
-  values: ICreateProductForm,
+  values: any,
   onSubmitProps: { resetForm: () => void }
 ) => {
   if (values.image) {

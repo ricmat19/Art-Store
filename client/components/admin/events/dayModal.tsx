@@ -17,12 +17,10 @@ import AdminUpdateEvent from "./updateEvent";
 //Admin day modal prop interface
 interface IAdminDay {
   date: boolean | ReactChild | ReactFragment | ReactPortal | null | undefined;
-  handleClose:
-    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
-    | undefined;
-  open: boolean | undefined;
+  handleClose: () => void;
+  open: boolean;
   dateEvents: any;
-  displayDeleteModal: boolean;
+  displayDeleteModal: (arg0: any) => void;
 }
 
 //Admin day modal functional component
