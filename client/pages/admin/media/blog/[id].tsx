@@ -23,10 +23,10 @@ interface ISelectedBlogContent {
   id: string;
 }
 interface ICreateBlogForm {
-  title: string;
-  content: string;
-  selectedBlog: ISelectedBlogContent[];
-  router: any;
+  selectedBlog: { id: any }[];
+  title: any;
+  content: any;
+  router: string[];
 }
 
 //Admin blog post Formik form initial values
@@ -36,10 +36,7 @@ const initialValues = {
 };
 
 //Admin blog post Formik form onSubmit function
-const onSubmit = (
-  values: ICreateBlogForm,
-  onSubmitProps: { resetForm: () => void }
-) => {
+const onSubmit = (values: any, onSubmitProps: { resetForm: () => void }) => {
   //Update the selected blog post on submit
   IndexAPI.put(`/admin/blog/${values.selectedBlog[0].id}`, {
     title: values.title,

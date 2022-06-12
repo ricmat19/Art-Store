@@ -11,19 +11,26 @@ import {
   faEllipsisV,
   faHamburger,
 } from "@fortawesome/free-solid-svg-icons";
-import SignUp from "./auth/signupModal";
-import SignIn from "./auth/signInModal";
-import Reset from "./auth/resetModal";
+import { getCartReducer } from "../../reducers/cartReducers";
+import { useAppDispatch } from "../../hooks";
 import Notifications from "./menuModals/notificationModal";
 import User from "./menuModals/userModal";
 import Ellipse from "./menuModals/ellipseModal";
-import { getCartReducer } from "../../reducers/cartReducers";
-import { useAppDispatch } from "../../hooks";
+import SignUp from "./auth/signupModal";
+import SignIn from "./auth/signinModal";
+import Reset from "./auth/resetModal";
 
 //Main navigation functional component
 const MainNav = () => {
   //Main navigation states
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
+  const [signUpOpen, setSignUpOpen] = useState(false);
+  const [signInOpen, setSignInOpen] = useState(false);
+  const [resetOpen, setResetOpen] = useState(false);
+  const [userOpen, setUserOpen] = useState(null);
+  const [notificationOpen, setNotificationOpen] = useState(null);
+  const [ellipseOpen, setEllipseOpen] = useState(null);
+  const [iconMenu, setIconMenu] = useState("iconMenu");
 
   //Next router function
   const router = useRouter();
@@ -45,22 +52,18 @@ const MainNav = () => {
   }, [dispatch]);
 
   //Handle signup modal open and close
-  const [signUpOpen, setSignUpOpen] = useState(false);
   const handleSignUpOpen = () => setSignUpOpen(true);
   const handleSignUpClose = () => setSignUpOpen(false);
 
   //Handle sign in modal open and close
-  const [signInOpen, setSignInOpen] = useState(false);
   const handleSignInOpen = () => setSignInOpen(true);
   const handleSignInClose = () => setSignInOpen(false);
 
   //Handle reset modal open and close
-  const [resetOpen, setResetOpen] = useState(false);
   const handleResetOpen = () => setResetOpen(true);
   const handleResetClose = () => setResetOpen(false);
 
   //Handle notification modal open and close
-  const [notificationOpen, setNotificationOpen] = useState(null);
   const openNotification = Boolean(notificationOpen);
   const handleNotificationClick = (event: any) => {
     setNotificationOpen(event.currentTarget);
@@ -70,7 +73,6 @@ const MainNav = () => {
   };
 
   //Handle user modal open and close
-  const [userOpen, setUserOpen] = useState(null);
   const openUser = Boolean(userOpen);
   const handleUserClick = (event: any) => {
     setUserOpen(event.currentTarget);
@@ -80,7 +82,6 @@ const MainNav = () => {
   };
 
   //Handle ellipse modal open and close
-  const [ellipseOpen, setEllipseOpen] = useState(null);
   const openEllipse = Boolean(ellipseOpen);
   const handleEllipseClick = (event: any) => {
     setEllipseOpen(event.currentTarget);
@@ -102,7 +103,6 @@ const MainNav = () => {
   // }, []);
 
   //Main nav hamburger icon menu open/close state and function
-  const [iconMenu, setIconMenu] = useState("iconMenu");
   const displayMenu = () => {
     if (iconMenu === "iconMenu iconMenu-show") {
       setIconMenu("iconMenu");
@@ -279,14 +279,14 @@ const MainNav = () => {
             handleSignInClose={handleSignInClose}
             handleSignUpOpen={handleSignUpOpen}
             handleResetOpen={handleResetOpen}
-            setLoginStatus={setLoginStatus}
+            // setLoginStatus={setLoginStatus}
           />
           {/* Reset modal */}
           <Reset
             resetOpen={resetOpen}
             handleResetClose={handleResetClose}
-            handleSignUpOpen={handleSignUpOpen}
             handleSignInOpen={handleSignInOpen}
+            // handleSignUpOpen={handleSignUpOpen}
           />
           <Grid container>
             {/* Route to store print page upon clicking logo */}

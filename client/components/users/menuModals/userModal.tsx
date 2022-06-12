@@ -13,9 +13,7 @@ import { Grid, Menu } from "@mui/material";
 interface IUser {
   userOpen: Element | ((element: Element) => Element) | null | undefined;
   openUser: boolean;
-  handleUserClose:
-    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
-    | undefined;
+  handleUserClose: () => void;
 }
 
 //User functional component

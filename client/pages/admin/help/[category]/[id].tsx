@@ -10,18 +10,19 @@ import * as Yup from "yup";
 
 // Admin create help article prop interface
 interface IHelpArticle {
-  helpArticle: { article: any }[];
+  helpArticle: {
+    title: any; article: any
+}[];
 }
 interface IHelpArticleContent {
   category: string;
   id: string;
 }
 interface ICreateHelpArticleForm {
-  email: String;
-  title: String;
-  content: String;
-  helpArticle: IHelpArticleContent[];
-  router: any;
+  helpArticle: { category: any }[];
+  title: any;
+  content: any;
+  router: string[];
 }
 
 //Admin create help article Formik form initial values
@@ -31,7 +32,7 @@ const initialValues = {
 
 //Admin course Formik form onSubmit function
 const onSubmit = (
-  values: ICreateHelpArticleForm,
+  values: any,
   onSubmitProps: { resetForm: () => void }
 ) => {
   // Admin create/update help article on submit
@@ -139,9 +140,9 @@ const AdminHelpArticle = (props: IHelpArticle) => {
             </Form>
           </Formik>
           {/* ? */}
-          <Grid>{props.helpArticle.title}</Grid>
+          <Grid>{props.helpArticle[0].title}</Grid>
           {/* ? */}
-          <Grid>{props.helpArticle.article}</Grid>
+          <Grid>{props.helpArticle[0].article}</Grid>
         </Grid>
         {/* Footer component */}
         <FooterC />

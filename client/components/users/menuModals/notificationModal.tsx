@@ -18,9 +18,7 @@ interface INotifications {
     | null
     | undefined;
   openNotification: boolean;
-  handleNotificationClose:
-    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
-    | undefined;
+  handleNotificationClose: () => void;
 }
 
 //Notifications functional component

@@ -13,7 +13,7 @@ interface ICollection {
   collection_group: string;
 }
 interface IAddToCollection {
-  open: boolean | undefined;
+  open: boolean;
   handleClose:
     | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
     | undefined;
@@ -34,7 +34,7 @@ const initialValues = {
 
 //Add to collection Formik form onSubmit function
 const onSubmit = (
-  values: IAddToCollectionForm,
+  values: any,
   onSubmitProps: { resetForm: () => void }
 ) => {
   IndexAPI.post("/collections", {

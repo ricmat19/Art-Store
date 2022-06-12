@@ -18,7 +18,7 @@ import * as Yup from "yup";
 //Course curriculum prop interface
 interface IAdminCourseCurriculum {
   courseSections: string[] | (() => string[]);
-  courseLectures: IAdminCourseLectures[] | (() => IAdminCourseLectures[]);
+  courseLectures: any;
 }
 interface IAdminCreateCurriculumForm {
   email: string;
@@ -62,12 +62,14 @@ const validationSchema = Yup.object({
 const CourseCurriculum = (props: IAdminCourseCurriculum) => {
   //Course curriculum states
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
-  const [contentOpen, setContentOpen] = useState<boolean>();
+  const [contentOpen, setContentOpen] = useState<
+    Element | ((element: Element) => Element) | null | undefined
+  >();
   const [id, setId] = useState<string>("");
   const [section, setSection] = useState<string>("");
   const [lecture, setLecture] = useState<string>("");
   const [courseSections] = useState<string[]>(props.courseSections);
-  const [courseLectures] = useState<IAdminCourseLectures[]>(
+  const [courseLectures] = useState<any>(
     props.courseLectures
   );
   const [addVideoOpen, setAddVideoOpen] = useState(false);
@@ -86,7 +88,7 @@ const CourseCurriculum = (props: IAdminCourseCurriculum) => {
 
   //?
   const handleContentClose = () => {
-    setContentOpen(null);
+    setContentOpen(undefined);
   };
 
   //Course curriculum open/close add video modal

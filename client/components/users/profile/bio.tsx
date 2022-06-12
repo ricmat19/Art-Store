@@ -5,7 +5,7 @@ import { useState } from "react";
 //Profile props interface
 interface IProfile {
   email: string;
-  image: File;
+  image: string;
   bio: string;
 }
 //Profile bio props interface

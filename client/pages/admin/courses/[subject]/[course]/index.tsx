@@ -15,11 +15,14 @@ interface IAdminCourse {
   selectedCourse: { imageBuffer: string | undefined }[];
 }
 interface ICreateCurriculumForm {
+  selectedCourse: {
+    subject: string;
+    id: string;
+  }[];
   title: string;
   subject: string;
-  price: string;
   description: string;
-  selectedCourse: IAdminCourse;
+  price: any;
   router: any;
 }
 
@@ -33,7 +36,7 @@ const initialValues = {
 
 //Admin course Formik form onSubmit function
 const onSubmit = (
-  values: ICreateCurriculumForm,
+  values: any,
   onSubmitProps: { resetForm: () => void }
 ) => {
   //Update course

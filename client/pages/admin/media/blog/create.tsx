@@ -11,10 +11,10 @@ import * as Yup from "yup";
 
 //Admin create blog post prop interface
 interface ICreateBlogForm {
-  title: string;
-  image: string;
-  content: string;
-  router: any;
+  image: string | Blob;
+  title: string | Blob;
+  content: string | Blob;
+  router: string[];
 }
 
 //Admin create blog post Formik form initial values
@@ -25,10 +25,7 @@ const initialValues = {
 };
 
 //Admin create blog post Formik form onSubmit function
-const onSubmit = (
-  values: ICreateBlogForm,
-  onSubmitProps: { resetForm: () => void }
-) => {
+const onSubmit = (values: any, onSubmitProps: { resetForm: () => void }) => {
   //Check if an image is provided before creating blog post
   if (values.image) {
     let formData = new FormData();

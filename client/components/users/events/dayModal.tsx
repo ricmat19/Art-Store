@@ -6,7 +6,7 @@ import AddToCart from "./addToCart";
 
 //Day props interface
 interface IDay {
-  open: boolean | undefined;
+  open: boolean;
   handleClose:
     | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
     | undefined;

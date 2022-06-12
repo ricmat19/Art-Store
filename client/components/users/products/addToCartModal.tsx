@@ -10,7 +10,7 @@ interface IProduct {
 interface IAddToCart {
   product: IProduct;
   uniqueItem: boolean;
-  open: boolean | undefined;
+  open: boolean;
   handleClose:
     | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
     | undefined;

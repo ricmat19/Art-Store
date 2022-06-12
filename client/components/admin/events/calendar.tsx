@@ -11,8 +11,8 @@ import { Grid } from "@mui/material";
 interface IAdminCalendar {
   events: string | any[];
   handleDayOpen: () => void;
-  setDate: (arg0: string) => void;
-  setDateEvents: (arg0: any[]) => void;
+  setDate: any;
+  setDateEvents: any;
 }
 
 //Admin calendar functional component

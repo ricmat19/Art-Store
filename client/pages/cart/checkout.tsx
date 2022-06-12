@@ -16,16 +16,7 @@ import { useAppDispatch } from "../../hooks";
 
 //Cart checkout prop interface
 interface ICheckoutForm {
-  email: string;
-  firstName: string;
-  lastName: string;
-  address: string;
-  suite: string;
-  city: string;
-  state: string;
-  zipCode: string;
-  phone: string;
-  router: any;
+  router: string[];
 }
 interface ICheckout {
   cart: any;
@@ -48,7 +39,7 @@ const initialValues = {
 
 //Cart checkout Formik form onSubmit function
 const onSubmit = (
-  values: ICheckoutForm,
+  values: any,
   onSubmitProps: { resetForm: () => void }
 ) => {
   try {

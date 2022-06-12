@@ -12,12 +12,12 @@ import * as Yup from "yup";
 
 //Admin create course prop interface
 interface ICreateCourseForm {
-  title: string;
-  image: File | undefined;
-  subject: string;
-  price: string;
-  description: string;
-  router: any;
+  image: string | Blob;
+  title: string | Blob;
+  subject: string | Blob;
+  description: string | Blob;
+  price: string | Blob;
+  router: { pathname: string }[];
 }
 
 //Admin create course Formik form initial values
@@ -31,7 +31,7 @@ const initialValues = {
 
 //Admin create course Formik form onSubmit function
 const onSubmit = (
-  values: ICreateCourseForm,
+  values: any,
   onSubmitProps: { resetForm: () => void }
 ) => {
   //Check if an image is provided before creating course

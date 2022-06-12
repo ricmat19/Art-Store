@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { ReactChild, ReactFragment, ReactPortal, useEffect } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { Grid } from "@mui/material";
 
@@ -7,13 +7,7 @@ import { Grid } from "@mui/material";
 interface IAddToCart {
   modalStatus: any;
   selectedEvent: {
-    title:
-      | boolean
-      | ReactChild
-      | ReactFragment
-      | ReactPortal
-      | null
-      | undefined;
+    title: string;
   };
 }
 

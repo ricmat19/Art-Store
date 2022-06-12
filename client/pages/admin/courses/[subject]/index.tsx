@@ -128,7 +128,7 @@ const AdminCourseSubject = (props: IAdminCourseSubject) => {
         </Head>
         {/* Admin delete course modal component */}
         <AdminDeleteCourse
-          deleteProduct={deleteCourse}
+          deleteCourse={deleteCourse}
           open={deleteOpen}
           handleClose={handleDeleteClose}
         />

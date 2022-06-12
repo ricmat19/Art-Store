@@ -81,7 +81,9 @@ const AdminEvents = (props: IAdminEvents) => {
           deleteEvent={deleteEvent}
           open={deleteOpen}
           handleClose={handleDeleteClose}
-        />
+          setBlogs={function (arg0: any): void {
+            throw new Error("Function not implemented.");
+          } } event={[]}        />
         {/* Admin main navigation component */}
         <AdminMainNav />
         {/* Admin pages navigation component */}
