@@ -18,7 +18,7 @@ interface IDay {
 const Day = (props: IDay) => {
   //Day states
   const [view, setView] = useState("events");
-  const [selectedEvent, setSelectedEvent] = useState();
+  const [selectedEvent, setSelectedEvent] = useState({ title: "" });
 
   //Day modal component for events
   return (

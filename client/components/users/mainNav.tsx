@@ -17,11 +17,11 @@ import Notifications from "./menuModals/notificationModal";
 import User from "./menuModals/userModal";
 import Ellipse from "./menuModals/ellipseModal";
 import SignUp from "./auth/signupModal";
-import SignIn from "./auth/signinModal";
+import SignIn from "./auth/signInModal";
 import Reset from "./auth/resetModal";
 
 //Main navigation functional component
-const MainNav = () => {
+const MainNav = (props: any) => {
   //Main navigation states
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
   const [signUpOpen, setSignUpOpen] = useState(false);

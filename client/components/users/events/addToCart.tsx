@@ -5,7 +5,6 @@ import { Grid } from "@mui/material";
 
 //Add to cart props interface
 interface IAddToCart {
-  modalStatus: any;
   selectedEvent: {
     title: string;
   };
@@ -20,7 +19,7 @@ const AddToCart = (props: IAddToCart) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log(props.modalStatus);
+        console.log(props);
       } catch (err) {
         console.log(err);
       }

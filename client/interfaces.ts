@@ -13,7 +13,7 @@ export interface IProduct {
 }
 
 export interface ICart {
-  cart(cart: any): [any, any];
+  cart: any;
   id: string;
   title: string;
   product: string;

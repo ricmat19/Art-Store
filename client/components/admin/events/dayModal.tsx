@@ -31,7 +31,7 @@ const AdminDayModal = (props: IAdminDay) => {
   const [price, setPrice] = useState<string>("");
   const [spots, setSpots] = useState<string>("");
   const [info, setInfo] = useState<string>("");
-  const [selectedEvent, setSelectedEvent] = useState();
+  const [selectedEvent, setSelectedEvent] = useState({ id: "" });
 
   //Sets the day modal's view to events
   useEffect(() => {

@@ -11,9 +11,10 @@ interface IAddToCart {
   product: IProduct;
   uniqueItem: boolean;
   open: boolean;
-  handleClose:
-    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
-    | undefined;
+  handleClose: () => void;
+  setUniqueItem: any;
+  setCartQty: any;
+  id: string;
 }
 
 //Add to cart functional component

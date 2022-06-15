@@ -31,7 +31,7 @@ const ProductDetails = (props: IProductDetails) => {
   const [imageBuffer] = useState(props.imageBuffer);
   const [product] = useState(props.product);
   const [cartQty, setCartQty] = useState(props.cart.length);
-  const [uniqueItem, setUniqueItem] = useState();
+  const [uniqueItem, setUniqueItem] = useState(false);
 
   // Redux dispatch
   const dispatch = useAppDispatch();
@@ -115,7 +115,7 @@ const ProductDetails = (props: IProductDetails) => {
         uniqueItem={uniqueItem}
         setUniqueItem={setUniqueItem}
         setCartQty={setCartQty}
-        // id={id}
+        id={product.id}
       />
       {/* Add to collection modal component */}
       <AddToCollection

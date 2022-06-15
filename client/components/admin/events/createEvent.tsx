@@ -5,10 +5,11 @@ import * as Yup from "yup";
 
 //Admin create event prop interface
 interface ICreateEventForm {
-  title: any;
-  price: any;
-  spots: any;
-  info: any;
+  setTitle: string;
+  setPrice: string;
+  setSpots: string;
+  setInfo: string;
+  createEvent: any;
 }
 
 //Admin create event Formik form initial values
@@ -20,10 +21,7 @@ const initialValues = {
 };
 
 //Admin create event Formik form onSubmit function
-const onSubmit = (
-  values: any,
-  onSubmitProps: { resetForm: () => void }
-) => {
+const onSubmit = (values: any, onSubmitProps: { resetForm: () => void }) => {
   onSubmitProps.resetForm();
 };
 
@@ -36,7 +34,7 @@ const validationSchema = Yup.object({
 });
 
 //Admin create event functional component
-const AdminCreateEvent = () => {
+const AdminCreateEvent = (props: any) => {
   //Admin create event form component
   return (
     <Grid className="create-event">

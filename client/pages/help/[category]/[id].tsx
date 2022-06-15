@@ -7,7 +7,10 @@ import { Grid } from "@mui/material";
 
 //Help article prop interface
 interface IHelpArticle {
-  helpArticle: { article: string }[];
+  helpArticle: {
+    title: string;
+    article: string
+}[];
 }
 
 // Help article functional component

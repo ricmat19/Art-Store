@@ -7,6 +7,8 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Backdrop, Box, Fade, Modal, Grid, Button } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { Dispatch } from "@reduxjs/toolkit";
+import { SetStateAction } from "react";
 
 //Add to collection prop interface
 interface ICollection {
@@ -18,13 +20,9 @@ interface IAddToCollection {
     | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
     | undefined;
   collections: ICollection[];
-}
-interface IProduct {
-  id: string;
-}
-interface IAddToCollectionForm {
-  collection: string;
-  product: IProduct;
+  product: string;
+  uniqueItem: boolean;
+  setUniqueItem: any;
 }
 
 //Add to collection Formik form initial values
@@ -33,10 +31,7 @@ const initialValues = {
 };
 
 //Add to collection Formik form onSubmit function
-const onSubmit = (
-  values: any,
-  onSubmitProps: { resetForm: () => void }
-) => {
+const onSubmit = (values: any, onSubmitProps: { resetForm: () => void }) => {
   IndexAPI.post("/collections", {
     user: "ric19mat@gmail.com",
     collectionGroup: values.collection,

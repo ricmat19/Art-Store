@@ -26,10 +26,8 @@ interface IProfile {
   twitter: string;
   linkedin: string;
   youtube: string;
-}
-interface IProfile {
   cartQty: number | null | undefined;
-  profile: IProfile[];
+  profile: any
 }
 
 // Profile functional component
