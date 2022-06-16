@@ -36,11 +36,11 @@ const initialValues = {
 
 //Admin create video lecture Formik form onSubmit function
 const onSubmit = (
-  values: any,
+  values: ICreateVideoLectureForm,
   onSubmitProps: { resetForm: () => void }
 ) => {
   if (values.video) {
-    let formData = new FormData();
+    const formData = new FormData();
 
     formData.append("video", values.video);
     formData.append("description", values.description);

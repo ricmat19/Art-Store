@@ -21,7 +21,7 @@ const AdminDeleteEventModal = (props: IAdminDeleteEvent) => {
     try {
       await IndexAPI.delete(`/admin/events/${props.deleteEvent[0].id}`);
       props.setBlogs(
-        props.event.filter((event: any) => {
+        props.event.filter((event: string) => {
           return event.id !== props.deleteEvent[0].id;
         })
       );

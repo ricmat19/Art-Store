@@ -19,9 +19,9 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "pages/admin/courses/[courseType]",
-    "pages/help/[category]",
-    "pages/admin/help/[category]"
+    // "pages/admin/courses/[courseType]",
+    // "pages/help/[category]",
+    // "pages/admin/help/[category]"
   ],
   "exclude": ["node_modules"]
 }

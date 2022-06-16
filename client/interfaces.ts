@@ -94,10 +94,10 @@ export interface IProject {
 }
 
 export interface IDay {
-  value: any;
+  value: string;
+  hasEvent: boolean;
   date: string;
   today: string;
-  hasEvent: boolean;
 }
 
 export interface IEvent {

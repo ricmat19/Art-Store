@@ -2,13 +2,14 @@
 import { Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { Dispatch } from "@reduxjs/toolkit";
+import { SetStateAction } from "react";
 
-//Admin create event prop interface
-interface ICreateEventForm {
-  setTitle: string;
-  setPrice: string;
-  setSpots: string;
-  setInfo: string;
+interface ICreateEvent {
+  setTitle: Dispatch<SetStateAction<any>>;
+  setPrice: Dispatch<SetStateAction<any>>;
+  setSpots: Dispatch<SetStateAction<any>>;
+  setInfo: Dispatch<SetStateAction<any>>;
   createEvent: any;
 }
 
@@ -21,7 +22,7 @@ const initialValues = {
 };
 
 //Admin create event Formik form onSubmit function
-const onSubmit = (values: any, onSubmitProps: { resetForm: () => void }) => {
+const onSubmit = (values: ICreateEvent, onSubmitProps: { resetForm: () => void }) => {
   onSubmitProps.resetForm();
 };
 
@@ -34,7 +35,7 @@ const validationSchema = Yup.object({
 });
 
 //Admin create event functional component
-const AdminCreateEvent = (props: any) => {
+const AdminCreateEvent = () => {
   //Admin create event form component
   return (
     <Grid className="create-event">

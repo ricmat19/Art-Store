@@ -3,21 +3,12 @@ import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { ReactChild, ReactFragment, ReactPortal } from "react";
 
 //Admin create article lecture prop interface
 interface ICreateArticleLecture {
   open: boolean;
-  handleClose:
-    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
-    | undefined;
-  lecture:
-    | boolean
-    | ReactChild
-    | ReactFragment
-    | ReactPortal
-    | null
-    | undefined;
+  handleClose: () => void;
+  lecture: string;
   section: string;
   id: string;
 }
@@ -32,14 +23,16 @@ interface ICreateArticleLectureForm {
 const initialValues = {
   article: "",
   lecture: "",
+  section: "",
+  id: "",
 };
 
 //Admin create article lecture Formik form onSubmit function
-const onSubmit = (
-  values: any,
+const onSubmit = async (
+  values: ICreateArticleLectureForm,
   onSubmitProps: { resetForm: () => void }
 ) => {
-  IndexAPI.put(
+  await IndexAPI.put(
     `/admin/courses/lecture/${values.lecture}/${values.section}/${values.id}`,
     {
       article: values.article,

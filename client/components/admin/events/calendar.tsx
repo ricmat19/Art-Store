@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
-import { IDay } from "../../../interfaces";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { Grid } from "@mui/material";
+import { IDay } from "../../../interfaces";
 
 //Admin calendar prop interface
 interface IAdminCalendar {
-  events: string | any[];
+  events: string | string[];
   handleDayOpen: () => void;
-  setDate: any;
-  setDateEvents: any;
+  setDate: (arg0: string) => void;
+  setDateEvents: (arg0: []) => void;
 }
 
 //Admin calendar functional component
@@ -25,7 +25,7 @@ const AdminCalendar = (props: IAdminCalendar) => {
   const [year, setYear] = useState("");
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = () => {
       try {
         //Sets the days of the week
         const weekdays = [
@@ -78,15 +78,15 @@ const AdminCalendar = (props: IAdminCalendar) => {
         const daysArray = [];
         for (let i = 1; i <= paddingDays + daysInMonth; i++) {
           //?
-          let dayStringYear = year.toString();
-          let dayMonth = month + 1;
+          const dayStringYear = year.toString();
+          const dayMonth = month + 1;
           let dayStringMonth = dayMonth.toString();
           if (dayStringMonth.toString().length === 1) {
             dayStringMonth = "0" + dayStringMonth.toString();
           }
 
           //?
-          let dayDay = i - paddingDays;
+          const dayDay = i - paddingDays;
           let dayStringDay = dayDay.toString();
           if (dayStringDay.toString().length === 1) {
             dayStringDay = "0" + dayStringDay.toString();
@@ -105,7 +105,7 @@ const AdminCalendar = (props: IAdminCalendar) => {
           }
 
           //?
-          let todayYearString = currentYear.toString();
+          const todayYearString = currentYear.toString();
           const dayString = `${dayStringYear}-${dayStringMonth.toString()}-${dayStringDay.toString()}`;
           const today = `${todayYearString}-${todayMonthString}-${todayDayString}`;
 
@@ -153,7 +153,7 @@ const AdminCalendar = (props: IAdminCalendar) => {
   }, [props.events, nav]);
 
   //Display day's modal on calendar day click
-  const handleDayClicked = async (day: string) => {
+  const handleDayClicked = (day: string) => {
     try {
       //Display day modal
       props.handleDayOpen();
@@ -208,7 +208,7 @@ const AdminCalendar = (props: IAdminCalendar) => {
         </Grid>
         {/* Map through and display month's days based on specified conditions */}
         <Grid className="title day-boxes">
-          {days.map((day, index) => (
+          {days.map((day, index: number) => (
             <Grid key={index}>
               {day.value === "padding" ? (
                 ""

@@ -40,9 +40,12 @@ const initialValues = {
 };
 
 //Admin update product Formik form onSubmit function
-const onSubmit = (values: any, onSubmitProps: { resetForm: () => void }) => {
+const onSubmit = async (
+  values: IUpdateProductForm,
+  onSubmitProps: { resetForm: () => void }
+) => {
   if (values.fileImage) {
-    let formData = new FormData();
+    const formData = new FormData();
 
     formData.append("title", values.title);
     formData.append("product", values.product);
@@ -58,7 +61,7 @@ const onSubmit = (values: any, onSubmitProps: { resetForm: () => void }) => {
       .catch((err) => console.log(err));
     values.handleClose();
   } else {
-    IndexAPI.put(`/admin/products/${values.updateProduct.id}`, {
+    await IndexAPI.put(`/admin/products/${values.updateProduct.id}`, {
       title: values.title,
       product: values.product,
       price: values.price,
@@ -91,7 +94,7 @@ const AdminUpdateProductModal = (props: IAdminUpdateProduct) => {
 
   //If a product is provided, set the component's states to that product's properties on render
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = () => {
       try {
         if (props.updateProduct) {
           setTitle(props.updateProduct.title);

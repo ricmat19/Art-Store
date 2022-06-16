@@ -1,11 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import {
-  useState,
-  useEffect,
-  ReactChild,
-  ReactFragment,
-  ReactPortal,
-} from "react";
+import { useState, useEffect } from "react";
 import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Modal, Grid, MenuItem } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -15,16 +9,8 @@ import * as Yup from "yup";
 interface IAdminCreateHelpArticle {
   category: string;
   open: boolean;
-  handleClose:
-    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
-    | undefined;
-  lecture:
-    | boolean
-    | ReactChild
-    | ReactFragment
-    | ReactPortal
-    | null
-    | undefined;
+  handleClose: () => void;
+  lecture: string;
 }
 interface ICreateHelpArticleForm {
   title: string;
@@ -42,11 +28,11 @@ const initialValues = {
 };
 
 //Admin create help article Formik form onSubmit function
-const onSubmit = (
-  values: any,
+const onSubmit = async (
+  values: ICreateHelpArticleForm,
   onSubmitProps: { resetForm: () => void }
 ) => {
-  IndexAPI.post(`/admin/help/${values.category}`, {
+  await IndexAPI.post(`/admin/help/${values.category}`, {
     title: values.title,
     article: values.article,
     selectedSection: values.selectedSection,
@@ -69,7 +55,7 @@ const AdminCreateHelpArticleModal = (props: IAdminCreateHelpArticle) => {
 
   //Set the component's sections based on the category property provided
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = () => {
       try {
         if (props.category === "gettingStarted") {
           setSections(["gettingStarted", "learnMore"]);

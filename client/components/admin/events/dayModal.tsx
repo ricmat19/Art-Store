@@ -19,7 +19,7 @@ interface IAdminDay {
   date: boolean | ReactChild | ReactFragment | ReactPortal | null | undefined;
   handleClose: () => void;
   open: boolean;
-  dateEvents: any;
+  dateEvents: [];
   displayDeleteModal: (arg0: any) => void;
 }
 
@@ -35,7 +35,7 @@ const AdminDayModal = (props: IAdminDay) => {
 
   //Sets the day modal's view to events
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = () => {
       try {
         setView("events");
       } catch (err) {

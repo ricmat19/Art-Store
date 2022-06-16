@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -17,6 +17,7 @@ interface ICreateProductForm {
   info: string;
   type: string;
   image: File;
+  handleClose: () => void;
 }
 
 //Admin create product modal Formik form initial values
@@ -29,11 +30,11 @@ const initialValues = {
 
 //Admin create product modal Formik form onSubmit function
 const onSubmit = (
-  values: any,
+  values: ICreateProductForm,
   onSubmitProps: { resetForm: () => void }
 ) => {
   if (values.image) {
-    let formData = new FormData();
+    const formData = new FormData();
 
     formData.append("title", values.title);
     formData.append("product", values.type);
@@ -194,7 +195,7 @@ const AdminCreateProductModal = (props: IAdminAddProduct) => {
                           type="file"
                           name="image"
                           className="file-input"
-                          onChange={(e: any) => setImage(e.target.files[0])}
+                          onChange={(e: { target: { files: SetStateAction<File | undefined>[]; }; }) => setImage(e.target.files[0])}
                         />
                         <ErrorMessage name="image" component="div">
                           {(errorMsg) => (

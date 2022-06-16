@@ -1,25 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
 import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Grid, Modal } from "@mui/material";
-import { ReactChild, ReactFragment, ReactPortal } from "react";
 
 //Admin delete course prop interface
 interface IAdminDeleteCourse {
   deleteCourse: {
     id: string;
     imageBuffer: string | undefined;
-    title:
-      | boolean
-      | ReactChild
-      | ReactFragment
-      | ReactPortal
-      | null
-      | undefined;
+    title: string;
   };
   open: boolean;
-  handleClose:
-    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
-    | undefined;
+  handleClose: () => void;
 }
 
 //Admin delete course modal functional component

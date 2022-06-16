@@ -4,10 +4,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 //Admin events prop interface
+interface IDateEvents {
+  id: string;
+  title: string;
+  price: string;
+  spots: string;
+}
 interface IAdminEvents {
   setSelectedEvent: (arg0: any) => void;
   setView: (arg0: string) => void;
-  dateEvents: any[] | undefined;
+  dateEvents: IDateEvents[];
   displayDeleteModal: (arg0: any) => void;
 }
 
@@ -37,7 +43,7 @@ const AdminEvents = (props: IAdminEvents) => {
       <Grid sx={{ width: "100%" }}>
         {/* Map through and display all events from the specified date if there are events that day*/}
         {props.dateEvents !== undefined ? (
-          props.dateEvents.map((event: any, index: number) => (
+          props.dateEvents.map((event: IDateEvents, index: number) => (
             <Grid
               key={index}
               container

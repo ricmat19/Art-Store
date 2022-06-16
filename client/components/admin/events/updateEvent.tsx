@@ -7,7 +7,7 @@ import * as Yup from "yup";
 //Update Event props interface
 interface IAdminUpdateEvent {
   selectedEvent: { id: string };
-  handleClose: (event: {}, reason: "backdropClick" | "escapeKeyDown") => void;
+  handleClose: () => void;
 }
 interface IUpdateEventForm {
   title: string;
@@ -29,11 +29,11 @@ const initialValues = {
 };
 
 //Admin update event Formik form onSubmit function
-const onSubmit = (
-  values: any,
+const onSubmit = async (
+  values: IUpdateEventForm,
   onSubmitProps: { resetForm: () => void }
 ) => {
-  IndexAPI.put(`/admin/events/${values.id}`, {
+  await IndexAPI.put(`/admin/events/${values.id}`, {
     selectedTitle: values.title,
     selectedDate: values.date,
     selectedPrice: values.price,

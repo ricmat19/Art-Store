@@ -27,11 +27,11 @@ const initialValues = {
 };
 
 //Admin signUp Formik form onSubmit function
-const onSubmit = (
+const onSubmit = async (
   values: ISignUpForm,
   onSubmitProps: { resetForm: () => void }
 ) => {
-  IndexAPI.post("/signup", {
+  await IndexAPI.post("/signup", {
     firstName: values.firstName,
     lastName: values.lastName,
     email: values.email,
