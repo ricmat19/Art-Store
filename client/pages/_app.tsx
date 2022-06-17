@@ -13,9 +13,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     <Provider store={store}>
       <Grid>
         {/* Disclaimer modal component */}
-        <Disclaimer open={false} handleClose={function (): void {
-          throw new Error("Function not implemented.");
-        }} email={""} password={""} />
+        {/* <Disclaimer open={false} handleClose={function (): void {
+           throw new Error("Function not implemented.");
+         }} email={""} password={""} /> */}
         {/* Component for all pages */}
         <Component {...pageProps} />
       </Grid>

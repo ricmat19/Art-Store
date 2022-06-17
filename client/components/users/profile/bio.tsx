@@ -1,24 +1,14 @@
 import IndexAPI from "../../../apis/indexAPI";
 import { Grid } from "@mui/material";
 import { useState } from "react";
-
-//Profile props interface
-interface IProfile {
-  email: string;
-  image: string;
-  bio: string;
-}
-//Profile bio props interface
-interface IBio {
-  profile: IProfile;
-}
+import { IProfile } from "../../../interfaces";
 
 //Profile bio functional component
-const Bio = (props: IBio) => {
+const Bio = (props: IProfile) => {
   //Profile bio states
-  const [email] = useState(props.profile.email);
-  const [image, setImage] = useState(props.profile.image);
-  const [bio, setBio] = useState(props.profile.bio);
+  const [email] = useState(props.email);
+  const [image, setImage] = useState(props.image);
+  const [bio, setBio] = useState(props.bio);
 
   //Function to update the user's profile bio
   const updateProfile = async (e: { preventDefault: () => void }) => {
@@ -61,7 +51,7 @@ const Bio = (props: IBio) => {
       <Grid sx={{ display: "grid" }}>
         <Grid sx={{ textAlign: "center" }}>
           {/* Submit button to update profile bio*/}
-          <button type="submit" onClick={updateProfile}>
+          <button type="submit" onClick={() => updateProfile}>
             Submit
           </button>
         </Grid>

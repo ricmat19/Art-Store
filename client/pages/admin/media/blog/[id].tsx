@@ -188,9 +188,9 @@ export async function getStaticProps(context: { params: { id: string } }) {
 
   //Create and add blog post banner image buffer to blog post object
   for (let i = 0; i < blogPostResponse.data.data.post.length; i++) {
-    if (blogPostResponse.data.data.post[i].imageKey !== null) {
+    if (blogPostResponse.data.data.post[i].imagekey !== null) {
       let imagesResponse = await IndexAPI.get(
-        `/images/${blogPostResponse.data.data.post[i].imageKey}`,
+        `/images/${blogPostResponse.data.data.post[i].imagekey}`,
         {
           responseType: "arraybuffer",
         }

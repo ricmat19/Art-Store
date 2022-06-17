@@ -43,9 +43,9 @@ const CartProducts = (props: ICartProducts) => {
 
         //Add cart item images to get '/cart' json response
         for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
-          if (cartResponse.data.data.cart[i].imageKey !== null) {
+          if (cartResponse.data.data.cart[i].imagekey !== null) {
             let imagesResponse = await IndexAPI.get(
-              `/images/${cartResponse.data.data.cart[i].imageKey}`,
+              `/images/${cartResponse.data.data.cart[i].imagekey}`,
               {
                 responseType: "arraybuffer",
               }

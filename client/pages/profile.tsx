@@ -9,26 +9,7 @@ import Bio from "../components/users/profile/bio";
 import Links from "../components/users/profile/links";
 import PaymentMethods from "../components/users/profile/paymentMethods";
 import Head from "next/head";
-
-// Profile prop interface
-interface IProfile {
-  email: string;
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  address: string;
-  city: string;
-  state: string;
-  zip: string;
-  image: File;
-  bio: string;
-  website: string;
-  twitter: string;
-  linkedin: string;
-  youtube: string;
-  cartQty: number | null | undefined;
-  profile: any
-}
+import { IProfile } from "../interfaces";
 
 // Profile functional component
 const Profile = (props: IProfile) => {

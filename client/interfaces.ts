@@ -6,7 +6,7 @@ export interface IProduct {
   product: string;
   price: string;
   info: string;
-  imageKey?: string;
+  imagekey?: string;
   qty: number;
   primaryImage: boolean;
   imageBuffer?: string;
@@ -19,7 +19,7 @@ export interface ICart {
   product: string;
   price: string;
   info: string;
-  imageKey: string;
+  imagekey: string;
   imageBuffer: string;
   qty: number;
   primaryImage: boolean;
@@ -43,7 +43,7 @@ export interface ICourse {
   id: string;
   title: string;
   subject: string;
-  imageKey?: string;
+  imagekey?: string;
   imageBuffer?: string;
   content?: string;
   info: string;
@@ -53,7 +53,7 @@ export interface ICourse {
 export interface IBlog {
   id: string;
   title: string;
-  imageKey?: string;
+  imagekey?: string;
   imageBuffer?: string;
   content: string;
   info: string;
@@ -88,7 +88,7 @@ export interface IId {
 export interface IProject {
   id: string;
   title: string;
-  imageKey?: string;
+  imagekey?: string;
   imageBuffer?: string;
   info: string;
 }
@@ -104,7 +104,7 @@ export interface IEvent {
   id: string;
   title: string;
   event_date: string;
-  imageKey?: string;
+  imagekey?: string;
   imageBuffer?: string;
   price?: number;
   info: string;
@@ -116,7 +116,7 @@ export interface INotification {
   date: string;
   type: string;
   price?: number;
-  imageKey?: string;
+  imagekey?: string;
   imageBuffer?: string;
 }
 
@@ -131,4 +131,23 @@ export interface IUser {
   iv: string;
   interests: [];
   cart: ICart[];
+}
+
+// Profile prop interface
+export interface IProfile {
+  email: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
+  image: File;
+  bio: string;
+  website: string;
+  twitter: string;
+  linkedin: string;
+  youtube: string;
+  cartQty: number | null | undefined;
 }

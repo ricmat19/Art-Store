@@ -27,12 +27,12 @@ const initialValues = {
 };
 
 //Contact Formik form onSubmit function
-const onSubmit = (
+const onSubmit = async (
   values: IContactForm,
   onSubmitProps: { resetForm: () => void }
 ) => {
   // Submit the contact form to be emailed
-  IndexAPI.post("/contact", {
+  await IndexAPI.post("/contact", {
     name: values.name,
     email: values.email,
     subject: values.subject,

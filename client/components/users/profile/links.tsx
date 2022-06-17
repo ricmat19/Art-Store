@@ -1,28 +1,16 @@
 import IndexAPI from "../../../apis/indexAPI";
 import { Grid } from "@mui/material";
 import { useState } from "react";
-
-//Profile props interface
-interface IProfile {
-  email: string;
-  website: string;
-  twitter: string;
-  linkedin: string;
-  youtube: string;
-}
-//Profile links props interface
-interface ILinks {
-  profile: IProfile;
-}
+import { IProfile } from "../../../interfaces";
 
 //Profile links functional component
-const Links = (props: ILinks) => {
+const Links = (props: IProfile) => {
   //Profile links states
-  const [email] = useState(props.profile.email);
-  const [website, setWebsite] = useState(props.profile.website);
-  const [twitter, setTwitter] = useState(props.profile.twitter);
-  const [linkedIn, setLinkedIn] = useState(props.profile.linkedin);
-  const [youtube, setYoutube] = useState(props.profile.youtube);
+  const [email] = useState(props.email);
+  const [website, setWebsite] = useState(props.website);
+  const [twitter, setTwitter] = useState(props.twitter);
+  const [linkedIn, setLinkedIn] = useState(props.linkedin);
+  const [youtube, setYoutube] = useState(props.youtube);
 
   //Function to update the user's profile links
   const updateProfile = async (e: { preventDefault: () => void }) => {
@@ -86,7 +74,7 @@ const Links = (props: ILinks) => {
       <Grid sx={{ display: "grid" }}>
         <Grid sx={{ textAlign: "center" }}>
           {/* Submit button to update profile links*/}
-          <button type="submit" onClick={updateProfile}>
+          <button type="submit" onClick={() => updateProfile}>
             Submit
           </button>
         </Grid>

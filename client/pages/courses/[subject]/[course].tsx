@@ -120,9 +120,9 @@ export async function getStaticProps(context: {
 
   //Create and add course image buffer to the course in the course object
   let imageBuffer = "";
-  if (courseResponse.data.data.course.imageKey !== null) {
+  if (courseResponse.data.data.course.imagekey !== null) {
     let imagesResponse = await IndexAPI.get(
-      `/images/${courseResponse.data.data.course.imageKey}`,
+      `/images/${courseResponse.data.data.course.imagekey}`,
       {
         responseType: "arraybuffer",
       }

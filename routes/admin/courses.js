@@ -233,7 +233,7 @@ router.put("/admin/courses/:id", upload.single("images"), async (req, res) => {
       await unlinkFile(file.path);
 
       course = await db.query(
-        "UPDATE courses SET title=$1, subject=$2, imageKey=$3, qty=$4, price=$5, info=$6, update_date=$7 WHERE id=$8",
+        "UPDATE courses SET title=$1, subject=$2, imagekey=$3, qty=$4, price=$5, info=$6, update_date=$7 WHERE id=$8",
         [
           req.body.title,
           req.body.subject,

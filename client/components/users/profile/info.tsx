@@ -1,35 +1,20 @@
 import IndexAPI from "../../../apis/indexAPI";
 import { Grid } from "@mui/material";
 import { useState } from "react";
-
-//Profile props interface
-interface IProfile {
-  email: string;
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  address: string;
-  city: string;
-  state: string;
-  zip: string;
-}
-//Profile info props interface
-interface IInfo {
-  profile: IProfile;
-}
+import { IProfile } from "../../../interfaces";
 
 //Profile info functional component
-const Info = (props: IInfo) => {
+const Info = (props: IProfile) => {
   //Profile info states
-  const [email] = useState(props.profile.email);
-  const [firstName, setFirstName] = useState(props.profile.firstName);
-  const [lastName, setLastName] = useState(props.profile.lastName);
-  const [newEmail, setNewEmail] = useState(props.profile.email);
-  const [phoneNumber, setPhoneNumber] = useState(props.profile.phoneNumber);
-  const [address, setAddress] = useState(props.profile.address);
-  const [city, setCity] = useState(props.profile.city);
-  const [state, setState] = useState(props.profile.state);
-  const [zip, setZip] = useState(props.profile.zip);
+  const [email] = useState(props.email);
+  const [firstName, setFirstName] = useState(props.firstName);
+  const [lastName, setLastName] = useState(props.lastName);
+  const [newEmail, setNewEmail] = useState(props.email);
+  const [phoneNumber, setPhoneNumber] = useState(props.phoneNumber);
+  const [address, setAddress] = useState(props.address);
+  const [city, setCity] = useState(props.city);
+  const [state, setState] = useState(props.state);
+  const [zip, setZip] = useState(props.zip);
 
   //Function to update the user's profile info
   const updateProfile = async (e: { preventDefault: () => void }) => {
@@ -135,7 +120,7 @@ const Info = (props: IInfo) => {
       <Grid sx={{ display: "grid" }}>
         <Grid sx={{ textAlign: "center" }}>
           {/* Submit button to update profile info */}
-          <button type="submit" onClick={updateProfile}>
+          <button type="submit" onClick={() => updateProfile}>
             Submit
           </button>
         </Grid>

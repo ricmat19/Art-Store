@@ -180,9 +180,9 @@ export async function getStaticProps(context: { params: { group: any } }) {
 
   //Create image buffer for all collection group items and add them to the collection object
   for (let i = 0; i < userCollectionProducts.length; i++) {
-    if (userCollectionProducts[i].imageKey !== null) {
+    if (userCollectionProducts[i].imagekey !== null) {
       let imagesResponse = await IndexAPI.get(
-        `/images/${userCollectionProducts[i].imageKey}`,
+        `/images/${userCollectionProducts[i].imagekey}`,
         {
           responseType: "arraybuffer",
         }

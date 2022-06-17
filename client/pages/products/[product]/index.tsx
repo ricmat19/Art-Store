@@ -35,7 +35,7 @@ const Products = (props: IProducts) => {
   // Route to the selected product's detail page
   const displayItem = async (product: string, id: string) => {
     try {
-      router.push(`/products/${product}/${id}`);
+      await router.push(`/products/${product}/${id}`);
     } catch (err) {
       console.log(err);
     }
@@ -44,7 +44,7 @@ const Products = (props: IProducts) => {
   //Map through the list of products and setup their templates
   const displayItems = props.products
     .slice(pagesVisited, pagesVisited + itemsPerPage)
-    .map((item: any) => {
+    .map((item: {id: string, product: string, imageBuffer: string, title: string, price: string}) => {
       return (
         // Route to the selected product's detail page
         <Grid
@@ -108,7 +108,7 @@ const Products = (props: IProducts) => {
 };
 
 // Create a path for the list of product types
-export async function getStaticPaths() {
+export function getStaticPaths() {
   return {
     fallback: false,
     paths: [
@@ -157,9 +157,9 @@ export async function getStaticProps(context: { params: { product: string } }) {
 
   //Create and add product item image buffer to all products in the product object
   for (let i = 0; i < productResponse.data.data.product.length; i++) {
-    if (productResponse.data.data.product[i].imageKey !== null) {
+    if (productResponse.data.data.product[i].imagekey !== null) {
       let imagesResponse = await IndexAPI.get(
-        `/images/${productResponse.data.data.product[i].imageKey}`,
+        `/images/${productResponse.data.data.product[i].imagekey}`,
         {
           responseType: "arraybuffer",
         }

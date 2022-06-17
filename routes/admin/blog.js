@@ -72,7 +72,7 @@ router.post("/admin/blog", upload.single("images"), async (req, res) => {
 
     // Add blog post to the database with the created image key
     await db.query(
-      "INSERT INTO blog (title, imageKey, create_date, content, update_date, type) values ($1, $2, $3, $4, $5, $6) RETURNING *",
+      "INSERT INTO blog (title, imagekey, create_date, content, update_date, type) values ($1, $2, $3, $4, $5, $6) RETURNING *",
       [
         req.body.title,
         req.file.filename,

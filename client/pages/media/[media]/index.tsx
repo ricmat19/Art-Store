@@ -140,9 +140,9 @@ export async function getStaticProps(context: { params: { media: string } }) {
 
   //Create and add media post image buffer to all media posts in the media subject's object
   for (let i = 0; i < mediaResponse.data.data.posts.length; i++) {
-    if (mediaResponse.data.data.posts[i].imageKey !== null) {
+    if (mediaResponse.data.data.posts[i].imagekey !== null) {
       let imagesResponse = await IndexAPI.get(
-        `/images/${mediaResponse.data.data.posts[i].imageKey}`,
+        `/images/${mediaResponse.data.data.posts[i].imagekey}`,
         {
           responseType: "arraybuffer",
         }

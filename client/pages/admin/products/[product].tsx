@@ -263,9 +263,9 @@ export async function getStaticProps(context: { params: { product: string } }) {
   //Create and add product image buffer to all products in the product object
   if (productResponse.data.data.product !== undefined) {
     for (let i = 0; i < productResponse.data.data.product.length; i++) {
-      if (productResponse.data.data.product[i].imageKey !== null) {
+      if (productResponse.data.data.product[i].imagekey !== null) {
         let imagesResponse = await IndexAPI.get(
-          `/images/${productResponse.data.data.product[i].imageKey}`,
+          `/images/${productResponse.data.data.product[i].imagekey}`,
           {
             responseType: "arraybuffer",
           }
