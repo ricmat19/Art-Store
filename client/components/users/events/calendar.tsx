@@ -9,10 +9,10 @@ import { Grid } from "@mui/material";
 
 //Calendar props interface
 interface ICalendar {
-  events: string | any[];
+  events: string[];
   handleDayOpen: () => void;
-  setDate: any;
-  setDateEvents: any;
+  setDate: () => void;
+  setDateEvents: () => void;
 }
 
 //Calendar functional component
@@ -25,7 +25,7 @@ const Calendar = (props: ICalendar) => {
   const [year, setYear] = useState("");
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = () => {
       try {
         //Sets the days of the week
         const weekdays = [
@@ -78,15 +78,15 @@ const Calendar = (props: ICalendar) => {
         const daysArray = [];
         for (let i = 1; i <= paddingDays + daysInMonth; i++) {
           //?
-          let dayStringYear = year.toString();
-          let dayMonth = month + 1;
+          const dayStringYear = year.toString();
+          const dayMonth = month + 1;
           let dayStringMonth = dayMonth.toString();
           if (dayStringMonth.toString().length === 1) {
             dayStringMonth = "0" + dayStringMonth.toString();
           }
 
           //?
-          let dayDay = i - paddingDays;
+          const dayDay = i - paddingDays;
           let dayStringDay = dayDay.toString();
           if (dayStringDay.toString().length === 1) {
             dayStringDay = "0" + dayStringDay.toString();
@@ -105,7 +105,7 @@ const Calendar = (props: ICalendar) => {
           }
 
           //?
-          let todayYearString = currentYear.toString();
+          const todayYearString = currentYear.toString();
           const dayString = `${dayStringYear}-${dayStringMonth.toString()}-${dayStringDay.toString()}`;
           const today = `${todayYearString}-${todayMonthString}-${todayDayString}`;
 

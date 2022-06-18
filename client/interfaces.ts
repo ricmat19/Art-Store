@@ -6,10 +6,10 @@ export interface IProduct {
   product: string;
   price: string;
   info: string;
-  imagekey?: string;
-  qty: number;
+  imagekey: string;
+  qty: string;
   primaryImage: boolean;
-  imageBuffer?: string;
+  imageBuffer: string;
 }
 
 export interface ISelectedProduct {

@@ -10,8 +10,6 @@ interface ISignIn {
   handleSignUpOpen: () => void;
   handleResetOpen: () => void;
   signInOpen: boolean;
-}
-interface ISignInForm {
   email: string;
   password: string;
 }
@@ -23,11 +21,11 @@ const initialValues = {
 };
 
 //Sign in Formik form onSubmit function
-const onSubmit = (
-  values: any,
+const onSubmit = async (
+  values: ISignIn,
   onSubmitProps: { resetForm: () => void }
 ) => {
-  IndexAPI.post("/signIn", {
+  await IndexAPI.post("/signIn", {
     email: values.email,
     password: values.password,
   });
@@ -47,7 +45,7 @@ const SignIn = (props: ISignIn) => {
   const [loginMessage] = useState<string>("");
 
   //Close sign in modal and display signup modal
-  const displaySignUp = async (e: { preventDefault: () => void }) => {
+  const displaySignUp = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
       props.handleSignInClose();
@@ -58,7 +56,7 @@ const SignIn = (props: ISignIn) => {
   };
 
   //Close sign in modal and display reset modal
-  const displayReset = async (e: { preventDefault: () => void }) => {
+  const displayReset = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
       props.handleSignInClose();

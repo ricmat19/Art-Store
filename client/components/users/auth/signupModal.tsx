@@ -8,8 +8,6 @@ interface ISignUp {
   handleSignUpClose: () => void;
   handleSignInOpen: () => void;
   signUpOpen: boolean;
-}
-interface ISignUpForm {
   firstName: string;
   lastName: string;
   email: string;
@@ -27,8 +25,11 @@ const initialValues = {
 };
 
 //Signup Formik form onSubmit function
-const onSubmit = (values: any, onSubmitProps: { resetForm: () => void }) => {
-  IndexAPI.post("/signup", {
+const onSubmit = async (
+  values: ISignUp,
+  onSubmitProps: { resetForm: () => void }
+) => {
+  await IndexAPI.post("/signup", {
     firstName: values.firstName,
     lastName: values.lastName,
     email: values.email,
@@ -53,7 +54,7 @@ const validationSchema = Yup.object({
 //Signup functional component
 const SignUp = (props: ISignUp) => {
   //Close signup modal and display sign in modal
-  const displaySignIn = async (e: { preventDefault: () => void }) => {
+  const displaySignIn = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
       props.handleSignUpClose();

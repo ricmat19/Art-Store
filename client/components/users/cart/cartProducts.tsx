@@ -32,9 +32,9 @@ const CartProducts = (props: ICartProducts) => {
   //Redux dispatch
   const dispatch = useAppDispatch();
 
-  let sub: number = 0;
-  let priceArray: number[] = [];
-  let qtyArray: number[] = [];
+  let sub = 0;
+  const priceArray: number[] = [];
+  const qtyArray: number[] = [];
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -44,7 +44,7 @@ const CartProducts = (props: ICartProducts) => {
         //Add cart item images to get '/cart' json response
         for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
           if (cartResponse.data.data.cart[i].imagekey !== null) {
-            let imagesResponse = await IndexAPI.get(
+            const imagesResponse = await IndexAPI.get(
               `/images/${cartResponse.data.data.cart[i].imagekey}`,
               {
                 responseType: "arraybuffer",

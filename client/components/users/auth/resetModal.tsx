@@ -40,7 +40,7 @@ const validationSchema = Yup.object({
 //Reset functional component
 const Reset = (props: IReset) => {
   //Close reset modal and display sign in modal
-  const displaySignIn = async (e: { preventDefault: () => void }) => {
+  const displaySignIn = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
       props.handleResetClose();

@@ -7,7 +7,7 @@ import { Grid } from "@mui/material";
 //Order Summary props interface
 interface ICartSummary {
   cartProducts: ICart[];
-  cartPrices: any;
+  cartPrices: string[];
   subtotal: number;
 }
 
@@ -23,7 +23,7 @@ const OrderSummary = (props: ICartSummary) => {
       {/* Map through all items in the cart */}
       {cart &&
         cartPrices &&
-        cart.map((item: any, index: number) => {
+        cart.map((item: ICart, index: number) => {
           return (
             <Grid key={item.id}>
               <Grid className="order-item">

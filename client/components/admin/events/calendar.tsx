@@ -5,14 +5,14 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { Grid } from "@mui/material";
-import { IDay } from "../../../interfaces";
+import { IDay, IEvent } from "../../../interfaces";
 
 //Admin calendar prop interface
 interface IAdminCalendar {
-  events: string | string[];
+  events: IEvent[];
   handleDayOpen: () => void;
   setDate: (arg0: string) => void;
-  setDateEvents: (arg0: []) => void;
+  setDateEvents: (arg0: IEvent[]) => void;
 }
 
 //Admin calendar functional component
@@ -129,7 +129,7 @@ const AdminCalendar = (props: IAdminCalendar) => {
           //Applies the day to the days array if not a padding day
           if (i > paddingDays) {
             daysArray.push({
-              value: i - paddingDays,
+              value: (i - paddingDays).toString(),
               date: dayString,
               today: today,
               hasEvent: hasEvent,
@@ -164,10 +164,11 @@ const AdminCalendar = (props: IAdminCalendar) => {
       //Set the days events
       const daysEvents = [];
       for (let i = 0; i < props.events.length; i++) {
-        if (
-          new Date(props.events[i].event_date).toString() ===
-          new Date(selectedDate).toString()
-        ) {
+        const checkedEventDate = new Date(
+          props.events[i].event_date.toString()
+        );
+        const checkedSelectedDate = new Date(selectedDate.toString());
+        if (checkedEventDate === checkedSelectedDate) {
           daysEvents.push(props.events[i]);
         }
       }
@@ -208,7 +209,7 @@ const AdminCalendar = (props: IAdminCalendar) => {
         </Grid>
         {/* Map through and display month's days based on specified conditions */}
         <Grid className="title day-boxes">
-          {days.map((day, index: number) => (
+          {days.map((day: IDay, index: number) => (
             <Grid key={index}>
               {day.value === "padding" ? (
                 ""

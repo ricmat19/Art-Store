@@ -1,12 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import IndexAPI from "../../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Grid, Modal } from "@mui/material";
+import { IBlog } from "../../../../interfaces";
 
 //Admin delete blog post prop interface
 interface IAdminDeleteBlog {
-  deleteBlog: IBlog | undefined;
-  setBlogs: (arg0: any) => void;
-  blogs: any[];
+  deleteBlog: IBlog;
+  setBlogs: (arg0: IBlog[]) => void;
+  blogs: IBlog[];
   handleClose: () => void;
   open: boolean;
 }
@@ -16,10 +17,10 @@ const AdminDeleteBlogPostModal = (props: IAdminDeleteBlog) => {
   //Admin function to delete blog post
   const handleDelete = async () => {
     try {
-      await IndexAPI.delete(`/admin/blog/${props.deleteBlog[0].id}`);
+      await IndexAPI.delete(`/admin/blog/${props.deleteBlog.id}`);
       props.setBlogs(
         props.blogs.filter((blog: { id: string }) => {
-          return blog.id !== props.deleteBlog[0].id;
+          return blog.id !== props.deleteBlog.id;
         })
       );
       props.handleClose();
@@ -79,7 +80,7 @@ const AdminDeleteBlogPostModal = (props: IAdminDeleteBlog) => {
                   <Grid className="big-image-div">
                     <img
                       className="big-image"
-                      src={props.deleteBlog[0].imageBuffer}
+                      src={props.deleteBlog.imageBuffer}
                       alt="big image"
                     />
                   </Grid>
@@ -95,7 +96,7 @@ const AdminDeleteBlogPostModal = (props: IAdminDeleteBlog) => {
                     <Grid className="align-center">
                       <h1>
                         Are you sure you want to delete &quot;
-                        {props.deleteBlog[0].title}&quot; ?
+                        {props.deleteBlog.title}&quot; ?
                       </h1>
                     </Grid>
                     {/* Blog post delete button */}

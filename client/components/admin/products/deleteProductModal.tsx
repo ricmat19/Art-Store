@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Grid, Modal } from "@mui/material";
-import { ReactChild, ReactFragment, ReactPortal } from "react";
+import { IProduct } from "../../../interfaces";
 
 //Admin delete product props interface
 interface IAdminDeleteProduct {
-  deleteProduct: IProduct | undefined;
+  deleteProduct: IProduct;
   handleClose: () => void;
   open: boolean;
 }

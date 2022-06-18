@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Grid, Modal } from "@mui/material";
+import { IEvent } from "../../../interfaces";
 
 //Admin delete event modal prop interface
 interface IAdminDeleteEvent {
@@ -21,7 +22,7 @@ const AdminDeleteEventModal = (props: IAdminDeleteEvent) => {
     try {
       await IndexAPI.delete(`/admin/events/${props.deleteEvent[0].id}`);
       props.setBlogs(
-        props.event.filter((event: string) => {
+        props.event.filter((event: IEvent) => {
           return event.id !== props.deleteEvent[0].id;
         })
       );

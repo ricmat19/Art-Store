@@ -8,20 +8,10 @@ import { IProduct } from "../../../interfaces";
 
 //Update product props interface
 interface IAdminUpdateProduct {
-  updateProduct: IProduct | undefined;
+  updateProduct: IProduct;
   open: boolean;
-  handleClose: () => void;
-}
-interface IUpdateProductForm {
   email: string;
-  title: string;
-  product: string;
-  price: string;
-  info: string;
-  qty: string;
-  fileImage: File;
   handleClose: () => void;
-  updateProduct: IUpdateProduct;
 }
 
 //Admin update product Formik form initial values
@@ -31,18 +21,18 @@ const initialValues = {
 
 //Admin update product Formik form onSubmit function
 const onSubmit = async (
-  values: IUpdateProductForm,
+  values: IAdminUpdateProduct,
   onSubmitProps: { resetForm: () => void }
 ) => {
-  if (values.fileImage) {
+  if (values.updateProduct.imageBuffer) {
     const formData = new FormData();
 
-    formData.append("title", values.title);
-    formData.append("product", values.product);
-    formData.append("price", values.price);
-    formData.append("info", values.info);
-    formData.append("qty", values.qty);
-    formData.append("image", values.fileImage);
+    formData.append("title", values.updateProduct.title);
+    formData.append("product", values.updateProduct.product);
+    formData.append("price", values.updateProduct.price);
+    formData.append("info", values.updateProduct.info);
+    formData.append("qty", values.updateProduct.qty);
+    formData.append("image", values.updateProduct.imageBuffer);
 
     IndexAPI.put(`/admin/products/${values.updateProduct.id}`, formData, {
       headers: { "Content-Type": "multipart/form-data" },
@@ -52,11 +42,11 @@ const onSubmit = async (
     values.handleClose();
   } else {
     await IndexAPI.put(`/admin/products/${values.updateProduct.id}`, {
-      title: values.title,
-      product: values.product,
-      price: values.price,
-      info: values.info,
-      qty: values.qty,
+      title: values.updateProduct.title,
+      product: values.updateProduct.product,
+      price: values.updateProduct.price,
+      info: values.updateProduct.info,
+      qty: values.updateProduct.qty,
     });
     values.handleClose();
   }
@@ -73,14 +63,14 @@ const validationSchema = Yup.object({
 //Admin update product functional component
 const AdminUpdateProductModal = (props: IAdminUpdateProduct) => {
   //Admin update product states
-  const [, setTitle] = useState<string>("");
-  const [, setProduct] = useState<string>("");
-  const [, setPrice] = useState<string>("");
-  const [, setInfo] = useState<string>("");
-  const [fileImage] = useState<File>();
-  const [, setimagekey] = useState<string>("");
-  const [imageBuffer, setImageBuffer] = useState<string>("");
-  const [, setQty] = useState<string>("");
+  const [, setTitle] = useState("");
+  const [, setProduct] = useState("");
+  const [, setPrice] = useState("");
+  const [, setInfo] = useState("");
+  const [fileImage] = useState();
+  const [, setImageKey] = useState("");
+  const [imageBuffer, setImageBuffer] = useState("");
+  const [, setQty] = useState("");
 
   //If a product is provided, set the component's states to that product's properties on render
   useEffect(() => {
@@ -91,7 +81,7 @@ const AdminUpdateProductModal = (props: IAdminUpdateProduct) => {
           setProduct(props.updateProduct.product);
           setPrice(props.updateProduct.price);
           setInfo(props.updateProduct.info);
-          setimagekey(props.updateProduct.imagekey);
+          setImageKey(props.updateProduct.imagekey);
           setImageBuffer(props.updateProduct.imageBuffer);
           setQty(props.updateProduct.qty);
         }

@@ -17,7 +17,7 @@ const AddToCart = (props: IAddToCart) => {
 
   //useEffect to trigger a re-render on prop change
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = () => {
       try {
         console.log(props);
       } catch (err) {

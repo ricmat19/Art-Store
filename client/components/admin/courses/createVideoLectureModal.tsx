@@ -8,9 +8,7 @@ import { ReactChild, ReactFragment, ReactPortal } from "react";
 //Admin create video lecture prop interface
 interface IAdminCreateVideoLecture {
   open: boolean;
-  handleClose:
-    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
-    | undefined;
+  handleClose: () => void;
   lecture: string &
     (boolean | ReactChild | ReactFragment | ReactPortal | null | undefined);
   section: string;

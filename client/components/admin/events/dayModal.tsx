@@ -27,10 +27,10 @@ interface IAdminDay {
 const AdminDayModal = (props: IAdminDay) => {
   //Admin day modal states
   const [view, setView] = useState("events");
-  const [title, setTitle] = useState<string>("");
-  const [price, setPrice] = useState<string>("");
-  const [spots, setSpots] = useState<string>("");
-  const [info, setInfo] = useState<string>("");
+  const [title, setTitle] = useState("");
+  const [price, setPrice] = useState("");
+  const [spots, setSpots] = useState("");
+  const [info, setInfo] = useState("");
   const [selectedEvent, setSelectedEvent] = useState({ id: "" });
 
   //Sets the day modal's view to events
