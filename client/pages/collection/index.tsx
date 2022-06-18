@@ -9,16 +9,20 @@ import { Grid } from "@mui/material";
 import ReactPaginate from "react-paginate";
 import Head from "next/head";
 
+
 //Collection props interface
+interface ICollectionGroup {
+  collection_group: string;
+}
 interface ICollection {
-  collectionGroups: any[];
+  collectionGroups: ICollectionGroup[];
   cartQty: number | null | undefined;
 }
 
 //Collection functional component
 const Collection = (props: ICollection) => {
   //Collection states
-  const [pageNumber, setPageNumber] = useState<number>(0);
+  const [pageNumber, setPageNumber] = useState(0);
 
   //Next router function
   const router = useRouter();
@@ -27,14 +31,15 @@ const Collection = (props: ICollection) => {
   const itemsPerPage = 9;
   const pagesVisited = pageNumber * itemsPerPage;
   const pageCount = Math.ceil(props.collectionGroups.length / itemsPerPage);
-  const changePage = ({ selected }: any) => {
+  
+  const changePage = ({ selected }: number) => {
     setPageNumber(selected);
   };
 
   //Map through the list of collection groups and setup their templates
   const displayCollectionGroups = props.collectionGroups
     .slice(pagesVisited, pagesVisited + itemsPerPage)
-    .map((group: any) => {
+    .map((group: ICollectionGroup) => {
       return (
         // Route to the collection group's page on click
         <Grid
@@ -53,7 +58,7 @@ const Collection = (props: ICollection) => {
   // Route to the selected collection group's page
   const displayCollectionGroup = async (group: string) => {
     try {
-      router.push(`/collection/${group}`);
+      await router.push(`/collection/${group}`);
     } catch (err) {
       console.log(err);
     }

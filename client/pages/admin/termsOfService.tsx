@@ -26,7 +26,6 @@ const TermsOfService = (props: ITermsOfService) => {
         console.log(err);
       }
     };
-
     fetchData();
   }, []);
 
@@ -42,7 +41,7 @@ const TermsOfService = (props: ITermsOfService) => {
     }
   };
 
-    // Render based on the current login status
+  // Render based on the current login status
   if (loginStatus) {
     return (
       <Grid>

@@ -4,7 +4,7 @@ import Link from "next/link";
 
 //Admin product navigation prop interface
 interface IAdminProductsNav {
-  activeProducts: [];
+  activeProducts: IProduct[];
 }
 
 //Admin product navigation functional component

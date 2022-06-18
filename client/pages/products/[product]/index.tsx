@@ -25,10 +25,13 @@ const Products = (props: IProducts) => {
   const router = useRouter();
 
   // Setup pagination and number of items per page
-  const itemsPerPage = 9;
+  const itemsPerPage = 6;
   const pagesVisited = pageNumber * itemsPerPage;
   const pageCount = Math.ceil(props.products.length / itemsPerPage);
-  const changePage = ({ selected }: any) => {
+
+  // onPageChange ? (selectedItem: { selected: number }): void;
+
+  const changePage = ({ selected }: number) => {
     setPageNumber(selected);
   };
 
@@ -44,30 +47,38 @@ const Products = (props: IProducts) => {
   //Map through the list of products and setup their templates
   const displayItems = props.products
     .slice(pagesVisited, pagesVisited + itemsPerPage)
-    .map((item: {id: string, product: string, imageBuffer: string, title: string, price: string}) => {
-      return (
-        // Route to the selected product's detail page
-        <Grid
-          className="pointer"
-          key={item.id}
-          onClick={() => displayItem(item.product, item.id)}
-        >
-          {/* Display the product's image */}
-          <Grid className="image-container">
-            <img
-              className="thumbnail"
-              src={item.imageBuffer}
-              alt={item.title}
-            />
+    .map(
+      (item: {
+        id: string;
+        product: string;
+        imageBuffer: string;
+        title: string;
+        price: string;
+      }) => {
+        return (
+          // Route to the selected product's detail page
+          <Grid
+            className="pointer"
+            key={item.id}
+            onClick={() => displayItem(item.product, item.id)}
+          >
+            {/* Display the product's image */}
+            <Grid className="image-container">
+              <img
+                className="thumbnail"
+                src={item.imageBuffer}
+                alt={item.title}
+              />
+            </Grid>
+            {/* Display the product's title and price */}
+            <Grid className="two-column-thumbnail-footer">
+              <h3 className="align-center">{item.title}</h3>
+              <h3 className="align-center">${item.price}.00</h3>
+            </Grid>
           </Grid>
-          {/* Display the product's title and price */}
-          <Grid className="two-column-thumbnail-footer">
-            <h3 className="align-center">{item.title}</h3>
-            <h3 className="align-center">${item.price}.00</h3>
-          </Grid>
-        </Grid>
-      );
-    });
+        );
+      }
+    );
 
   // Product's component
   return (

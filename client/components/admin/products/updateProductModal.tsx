@@ -1,26 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Grid, Modal } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { IProduct } from "../../../interfaces";
 
 //Update product props interface
 interface IAdminUpdateProduct {
-  updateProduct: {
-    title: SetStateAction<string>;
-    product: SetStateAction<string>;
-    price: SetStateAction<string>;
-    info: SetStateAction<string>;
-    imagekey: SetStateAction<string>;
-    imageBuffer: SetStateAction<string>;
-    qty: SetStateAction<string>;
-  };
+  updateProduct: IProduct | undefined;
   open: boolean;
   handleClose: () => void;
-}
-interface IUpdateProduct {
-  id: string;
 }
 interface IUpdateProductForm {
   email: string;

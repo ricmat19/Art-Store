@@ -27,7 +27,7 @@ const Courses = (props: ICourses) => {
   const [pageNumber, setPageNumber] = useState<number>(0);
 
   // Setup pagination and number of items per page
-  const itemsPerPage: number = 9;
+  const itemsPerPage = 9;
   const pagesVisited: number = pageNumber * itemsPerPage;
   const pageCount = Math.ceil(props.courses.length / itemsPerPage);
   const changePage = ({ selected }: { selected: number }): void => {
@@ -49,7 +49,7 @@ const Courses = (props: ICourses) => {
   if (props.courses) {
     displayCourses = props.courses
       .slice(pagesVisited, pagesVisited + itemsPerPage)
-      .map((course: any) => {
+      .map((course: ICourse) => {
         return (
           //Display course page on click
           <Grid
@@ -111,7 +111,7 @@ const Courses = (props: ICourses) => {
 };
 
 // Create a path for the list of course subjects
-export async function getStaticPaths() {
+export function getStaticPaths() {
   return {
     fallback: false,
     paths: [

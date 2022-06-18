@@ -38,13 +38,13 @@ const initialValues = {
 };
 
 //Cart checkout Formik form onSubmit function
-const onSubmit = (
-  values: any,
+const onSubmit = async (
+  values: ICheckoutForm,
   onSubmitProps: { resetForm: () => void }
 ) => {
   try {
     //Remove all items from the cart after form submission
-    IndexAPI.put(`/cart/deleteAll`);
+    await IndexAPI.put(`/cart/deleteAll`);
 
     //Route back to store page
     values.router.push("/");
@@ -105,7 +105,7 @@ const Checkout = (props: ICheckout) => {
   const clearCart = async () => {
     try {
       await dispatch(clearCartReducer());
-      router.push("/cart");
+      await router.push("/cart");
     } catch (err) {
       console.log(err);
     }
@@ -128,7 +128,7 @@ const Checkout = (props: ICheckout) => {
           <Formik
             initialValues={{
               initialValues: initialValues,
-              router: router,
+              // router: router,
             }}
             onSubmit={onSubmit}
             validationSchema={validationSchema}
@@ -377,22 +377,22 @@ export async function getStaticProps() {
   const cartResponse = await IndexAPI.get(`/cart`);
 
   //Calculate the price of each item in the cart multiplied by it's quantity
-  let cartPriceArray: number[] = [];
+  const cartPriceArray: number[] = [];
   for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
-    let itemSummaryPrice =
+    const itemSummaryPrice =
       cartResponse.data.data.cart[i].price * cartResponse.data.data.qty[i];
     cartPriceArray.push(itemSummaryPrice);
   }
 
   //Calculate the cart's subtotal
-  let sub = cartPriceArray.reduce(function (a, b) {
+  const sub = cartPriceArray.reduce(function (a, b) {
     return a + b;
   }, 0);
 
   //Create and add image buffer to all items in cart object
   for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
     if (cartResponse.data.data.cart[i].imagekey !== null) {
-      let imagesResponse = await IndexAPI.get(
+      const imagesResponse = await IndexAPI.get(
         `/images/${cartResponse.data.data.cart[i].imagekey}`,
         {
           responseType: "arraybuffer",

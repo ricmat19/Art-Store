@@ -5,17 +5,7 @@ import { ReactChild, ReactFragment, ReactPortal } from "react";
 
 //Admin delete product props interface
 interface IAdminDeleteProduct {
-  deleteProduct: {
-    id: string;
-    imageBuffer: string | undefined;
-    title:
-      | boolean
-      | ReactChild
-      | ReactFragment
-      | ReactPortal
-      | null
-      | undefined;
-  };
+  deleteProduct: IProduct | undefined;
   handleClose: () => void;
   open: boolean;
 }

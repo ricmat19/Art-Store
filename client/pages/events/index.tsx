@@ -11,7 +11,7 @@ import SummaryList from "../../components/users/events/summaryList";
 
 //Events props interface
 interface IEvents {
-  events: any;
+  events: string[];
   cartQty: number | null | undefined;
 }
 

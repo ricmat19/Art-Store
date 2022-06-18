@@ -15,23 +15,19 @@ import AdminUpdateProduct from "../../../components/admin/products/updateProduct
 import AdminDeleteProduct from "../../../components/admin/products/deleteProductModal";
 import { Button, Grid } from "@mui/material";
 
-//Admin product prop interface
-interface IAdminProduct {
-  product: IProduct[] | (() => IProduct[]);
-  activeProducts: IProduct[] | (() => IProduct[]);
+interface IProducts {
+  product: IProduct[];
 }
 
 //Admin product functional component
-const AdminProduct = (props: IAdminProduct) => {
+const AdminProduct = (props: IProducts) => {
   // Admin product states
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
-  const [product] = useState<IProduct[]>(props.product);
-  const [activeProducts] = useState<IProduct[]>(props.activeProducts);
   const [pageNumber, setPageNumber] = useState<number>(0);
   const [addOpen, setAddOpen] = useState(false);
-  const [updateProduct, setUpdateProduct] = useState<any>();
+  const [updateProduct, setUpdateProduct] = useState<IProduct>();
   const [updateOpen, setUpdateOpen] = useState(false);
-  const [deleteProduct, setDeleteProduct] = useState<any>();
+  const [deleteProduct, setDeleteProduct] = useState<IProduct>();
   const [deleteOpen, setDeleteOpen] = useState(false);
 
   //Handles the opening/closing of the create product modal
@@ -49,35 +45,35 @@ const AdminProduct = (props: IAdminProduct) => {
   // Setup pagination and number of items per page
   const itemsPerPage = 9;
   const pagesVisited = pageNumber * itemsPerPage;
-  const pageCount = Math.ceil(product.length / itemsPerPage);
-  const changePage = ({ selected }: any) => {
+  const pageCount = Math.ceil(props.product.length / itemsPerPage);
+  const changePage = ({ selected }: number) => {
     setPageNumber(selected);
   };
 
   // Set the product selected to update and open the product update modal
   const displayUpdateModal = (id: string) => {
-    for (let i = 0; i < product.length; i++) {
-      if (product[i].id === id) {
-        setUpdateProduct(product[i]);
+    for (let i = 0; i < props.product.length; i++) {
+      if (props.product[i].id === id) {
+        setUpdateProduct(props.product[i]);
       }
     }
     handleUpdateOpen();
   };
 
   // Set the product selected to delete and open the product delete modal
-  const displayDeleteModal = (id: any) => {
-    for (let i = 0; i < product.length; i++) {
-      if (product[i].id === id) {
-        setDeleteProduct(product[i]);
+  const displayDeleteModal = (id: string) => {
+    for (let i = 0; i < props.product.length; i++) {
+      if (props.product[i].id === id) {
+        setDeleteProduct(props.product[i]);
       }
     }
     handleDeleteOpen();
   };
 
   //Map through the list of products and setup their templates
-  const displayProducts = product
+  const displayProducts = props.product
     .slice(pagesVisited, pagesVisited + itemsPerPage)
-    .map((product: any) => {
+    .map((product: IProduct) => {
       return (
         <Grid key={product.id}>
           <Grid className="pointer">
@@ -164,7 +160,7 @@ const AdminProduct = (props: IAdminProduct) => {
         <Grid className="main-body">
           <Grid>
             {/* Admin product navigation menu */}
-            <AdminProductsNav activeProducts={activeProducts} />
+            <AdminProductsNav activeProducts={props.product} />
             <Grid className="plus-icon-div">
               {/* Button to display create product modal */}
               <Button
@@ -206,7 +202,7 @@ const AdminProduct = (props: IAdminProduct) => {
 };
 
 // Create a path for the list of product types
-export async function getStaticPaths() {
+export function getStaticPaths() {
   return {
     fallback: false,
     paths: [
@@ -264,7 +260,7 @@ export async function getStaticProps(context: { params: { product: string } }) {
   if (productResponse.data.data.product !== undefined) {
     for (let i = 0; i < productResponse.data.data.product.length; i++) {
       if (productResponse.data.data.product[i].imagekey !== null) {
-        let imagesResponse = await IndexAPI.get(
+        const imagesResponse = await IndexAPI.get(
           `/images/${productResponse.data.data.product[i].imagekey}`,
           {
             responseType: "arraybuffer",

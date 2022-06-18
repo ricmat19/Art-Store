@@ -2,12 +2,8 @@ import { useState } from "react";
 import { Grid } from "@mui/material";
 import Link from "next/link";
 
-//Media navigation props interface
-interface IMedia {
-  type: string;
-}
 interface IMediaNav {
-  medias: IMedia[];
+  medias: string[];
 }
 
 //Media navigation menu functional component

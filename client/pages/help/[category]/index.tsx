@@ -5,23 +5,25 @@ import PagesNav from "../../../components/users/pagesNav";
 import Footer from "../../../components/footer";
 import { Grid } from "@mui/material";
 import Head from "next/head";
-import { ReactChild, ReactFragment, ReactPortal } from "react";
 
 //Help category props interface
+interface ICategorySections {
+  sectionTitle: string;
+  section: string;
+}
 interface ICategoryContent {
-  categoryTitle:
-    | boolean
-    | ReactChild
-    | ReactFragment
-    | ReactPortal
-    | null
-    | undefined;
-  categorySections: any[];
+  categoryTitle: string;
+  categorySections: ICategorySections[];
+}
+interface ICategoryArticles {
+  id: string;
+  title: string;
+  section: string;
 }
 interface IHelpCategory {
-  category: any;
+  category: string;
   categoryContent: ICategoryContent;
-  categoryArticles: any[];
+  categoryArticles: ICategoryArticles[];
 }
 
 // Help category functional component
@@ -32,7 +34,7 @@ const HelpCategory = (props: IHelpCategory) => {
   // Function routing to the selected help article page
   const displayArticle = async (id: string) => {
     try {
-      router.push(`/help/${props.category}/${id}`);
+      await router.push(`/help/${props.category}/${id}`);
     } catch (err) {
       console.log(err);
     }
@@ -99,7 +101,7 @@ const HelpCategory = (props: IHelpCategory) => {
           {/* Map through the list of help categories */}
           <Grid>
             {props.categoryContent.categorySections.map(
-              (categorySection: any, sectionIndex: number) => {
+              (categorySection: ICategorySections, sectionIndex: number) => {
                 return (
                   <Grid key={sectionIndex}>
                     <Grid sx={{ fontSize: "20px", fontWeight: "500" }}>
@@ -110,7 +112,7 @@ const HelpCategory = (props: IHelpCategory) => {
                     <Grid>
                       <ul>
                         {props.categoryArticles.map(
-                          (article: any, index: number) => {
+                          (article: ICategoryArticles, index: number) => {
                             if (article.section === categorySection.section) {
                               return (
                                 <li key={index}>
@@ -144,7 +146,7 @@ const HelpCategory = (props: IHelpCategory) => {
 };
 
 // Create paths for the list of help article categories
-export async function getStaticPaths() {
+export function getStaticPaths() {
   return {
     paths: [
       {

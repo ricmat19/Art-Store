@@ -4,7 +4,7 @@ import { Backdrop, Box, Fade, Grid, Modal } from "@mui/material";
 
 //Admin delete blog post prop interface
 interface IAdminDeleteBlog {
-  deleteBlog: { id: string; imageBuffer: string; title: string }[];
+  deleteBlog: IBlog | undefined;
   setBlogs: (arg0: any) => void;
   blogs: any[];
   handleClose: () => void;

@@ -24,7 +24,7 @@ const AdminBlog = (props: IAdminBlog) => {
   //Admin blog states
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
   const [blog] = useState<IBlog[]>(props.blog);
-  const [deleteBlog, setDeleteBlog] = useState<any>();
+  const [deleteBlog, setDeleteBlog] = useState<IBlog>();
   const [pageNumber, setPageNumber] = useState<number>(0);
   const [deleteOpen, setDeleteOpen] = useState(false);
 
@@ -33,7 +33,7 @@ const AdminBlog = (props: IAdminBlog) => {
   const handleDeleteClose = () => setDeleteOpen(false);
 
   // Setup pagination and number of items per page
-  const itemsPerPage: number = 9;
+  const itemsPerPage = 9;
   const pagesVisited: number = pageNumber * itemsPerPage;
   const pageCount = Math.ceil(blog.length / itemsPerPage);
   const changePage = ({ selected }: { selected: number }): void => {
@@ -46,7 +46,7 @@ const AdminBlog = (props: IAdminBlog) => {
   // Route to the selected blog post
   const displayBlogPost = async (id: string) => {
     try {
-      router.push(`/admin/media/blog/${id}`);
+      await router.push(`/admin/media/blog/${id}`);
     } catch (err) {
       console.log(err);
     }
@@ -191,7 +191,7 @@ export async function getStaticProps() {
   //Create and blog post banner image buffer to blog object
   for (let i = 0; i < blogResponse.data.data.blog.length; i++) {
     if (blogResponse.data.data.blog[i].imagekey !== null) {
-      let imagesResponse = await IndexAPI.get(
+      const imagesResponse = await IndexAPI.get(
         `/images/${blogResponse.data.data.blog[i].imagekey}`,
         {
           responseType: "arraybuffer",

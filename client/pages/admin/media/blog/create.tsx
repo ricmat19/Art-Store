@@ -25,10 +25,13 @@ const initialValues = {
 };
 
 //Admin create blog post Formik form onSubmit function
-const onSubmit = (values: any, onSubmitProps: { resetForm: () => void }) => {
+const onSubmit = (
+  values: ICreateBlogForm,
+  onSubmitProps: { resetForm: () => void }
+) => {
   //Check if an image is provided before creating blog post
   if (values.image) {
-    let formData = new FormData();
+    const formData = new FormData();
 
     formData.append("title", values.title);
     formData.append("content", values.content);
@@ -57,9 +60,6 @@ const AdminAddBlogPost = () => {
   //Admin create blog post states
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
   const [image, setImage] = useState<File>();
-
-  //Next router function
-  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -104,7 +104,7 @@ const AdminAddBlogPost = () => {
             <Formik
               initialValues={{
                 initialValues: initialValues,
-                router: router,
+                // router: router,
               }}
               onSubmit={onSubmit}
               validationSchema={validationSchema}
@@ -137,7 +137,7 @@ const AdminAddBlogPost = () => {
                     <label className="admin-label">Image:</label>
                     <Field
                       type="file"
-                      onChange={(e: any) => setImage(e.target.files[0])}
+                      onChange={(e) => setImage(e.target.files[0])}
                       name="images"
                       className="form-control file-input"
                     />

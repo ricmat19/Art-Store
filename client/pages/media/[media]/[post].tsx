@@ -67,7 +67,7 @@ export async function getStaticPaths() {
       //       media: media.type,
       //     },
       //   }),
-      blogResponse.data.data.posts.map((post: any) => ({
+      blogResponse.data.data.posts.map((post: { id: unknown; }) => ({
         params: {
           media: "blog",
           post: post.id,

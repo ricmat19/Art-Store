@@ -10,8 +10,14 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 
 //Collection group prop interface
+interface ICollection {
+  id: string;
+  title: string;
+  product: string;
+  imageBuffer: string;
+}
 interface ICollectionGroups {
-  collection: any[];
+  collection: ICollection[];
   cartQty: number | null | undefined;
 }
 
@@ -24,7 +30,7 @@ const CollectionGroups = (props: ICollectionGroups) => {
   const itemsPerPage = 9;
   const pagesVisited = pageNumber * itemsPerPage;
   const pageCount = Math.ceil(props.collection.length / itemsPerPage);
-  const changePage = ({ selected }: any) => {
+  const changePage = ({ selected }: number) => {
     setPageNumber(selected);
   };
 
@@ -37,7 +43,7 @@ const CollectionGroups = (props: ICollectionGroups) => {
   //Function to remove an item from the collection
   const removeFromCollectionGroup = async (
     e: { preventDefault: () => void },
-    group: string | string[] | undefined,
+    group: string,
     item: string
   ) => {
     try {
@@ -50,7 +56,7 @@ const CollectionGroups = (props: ICollectionGroups) => {
   //Function routing to the selected item's detail page
   const displayItem = async (product: string, id: string) => {
     try {
-      router.push(`/products/${product}/${id}`);
+      await router.push(`/products/${product}/${id}`);
     } catch (err) {
       console.log(err);
     }
@@ -59,7 +65,7 @@ const CollectionGroups = (props: ICollectionGroups) => {
   //Map the list of collection items within the current group into their own template
   const displayCollectionItems = props.collection
     .slice(pagesVisited, pagesVisited + itemsPerPage)
-    .map((item: any) => {
+    .map((item: ICollection) => {
       return (
         <Grid key={item.id}>
           {/* Routes to the items details page */}
@@ -133,11 +139,13 @@ export async function getStaticPaths() {
   // Map collection groups as parameters
   return {
     fallback: false,
-    paths: collectionGroupsResponse.data.data.groups.map((groups: any) => ({
-      params: {
-        group: groups.collection_group,
-      },
-    })),
+    paths: collectionGroupsResponse.data.data.groups.map(
+      (groups: any) => ({
+        params: {
+          group: groups.collection_group,
+        },
+      })
+    ),
   };
 }
 

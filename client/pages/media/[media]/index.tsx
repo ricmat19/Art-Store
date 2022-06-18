@@ -12,10 +12,15 @@ import ReactPaginate from "react-paginate";
 import { Grid } from "@mui/material";
 
 // Media prop interface
+interface IMediaPosts {
+  id: string;
+  title: string;
+  imageBuffer: string;
+}
 interface IMedia {
-  mediaListings: any;
-  cartQty: any;
-  mediaCategories: any;
+  mediaPosts: IMediaPosts[];
+  cartQty: number;
+  mediaCategories: string[];
 }
 
 //Media functional component
@@ -27,9 +32,9 @@ const Media = (props: IMedia) => {
   const router = useRouter();
 
   // Setup pagination and number of items per page
-  const itemsPerPage: number = 9;
+  const itemsPerPage = 9;
   const pagesVisited: number = pageNumber * itemsPerPage;
-  const pageCount = Math.ceil(props.mediaListings.length / itemsPerPage);
+  const pageCount = Math.ceil(props.mediaPosts.length / itemsPerPage);
   const changePage = ({ selected }: { selected: number }): void => {
     setPageNumber(selected);
   };
@@ -37,20 +42,23 @@ const Media = (props: IMedia) => {
   // Route to the selected blog post's detail page
   const displayPostDetails = async (id: string) => {
     try {
-      router.push(`/media/blog/${id}`);
+      await router.push(`/media/blog/${id}`);
     } catch (err) {
       console.log(err);
     }
   };
 
   //Map through the list of blog posts and setup their templates
-  const displayPost = props.mediaListings
+  const displayPost = props.mediaPosts
     .slice(pagesVisited, pagesVisited + itemsPerPage)
-    .map((post: any) => {
+    .map((post: IMediaPosts) => {
       return (
         <Grid key={post.id}>
           {/* Route to the selected blog post's page on click */}
-          <Grid className="pointer" onClick={() => displayPostDetails(post.id)}>
+          <Grid
+            className="pointer"
+            onClick={() => displayPostDetails(post.id)}
+          >
             <Grid className="image-container">
               <img
                 className="thumbnail"
@@ -106,7 +114,7 @@ const Media = (props: IMedia) => {
 };
 
 // Create a path for the list of media types
-export async function getStaticPaths() {
+export function getStaticPaths() {
   return {
     fallback: false,
     paths: [

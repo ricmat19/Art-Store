@@ -1,8 +1,8 @@
 export interface IProduct {
-  length: number;
-  project: string;
   id: string;
   title: string;
+  length: number;
+  project: string;
   product: string;
   price: string;
   info: string;
@@ -10,6 +10,16 @@ export interface IProduct {
   qty: number;
   primaryImage: boolean;
   imageBuffer?: string;
+}
+
+export interface ISelectedProduct {
+  title: string;
+  product: string;
+  price: string;
+  info: string;
+  imagekey: string;
+  imageBuffer: string;
+  qty: string;
 }
 
 export interface ICart {
