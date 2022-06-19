@@ -52,7 +52,7 @@ const ProductDetails = (props: IProductDetails) => {
   // const {cart} = useContext(CartContext);
 
   // useEffect(() => {
-  //   const fetchData = async () => {
+  //   const fetchData = () => {
   //     try {
   //       document.addEventListener("mousedown", (event) => {
   //         if (addedRef.current !== null) {

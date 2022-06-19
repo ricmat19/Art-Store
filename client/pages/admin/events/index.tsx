@@ -34,14 +34,14 @@ const AdminEvents = (props: IAdminEvents) => {
   const handleDeleteClose = () => setDeleteOpen(false);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = () => {
       try {
         //Query login status on render
-        const loginResponse = await IndexAPI.get(`/login`);
+        const loginResponse = IndexAPI.get(`/login`);
         setLoginStatus(loginResponse.data.data.loggedIn);
 
         //Get a list of all events and set it as the events state
-        const eventsResponse = await IndexAPI.get(`/admin/events`);
+        const eventsResponse = IndexAPI.get(`/admin/events`);
         setEvents(eventsResponse.data.data.events);
       } catch (err) {
         console.log(err);

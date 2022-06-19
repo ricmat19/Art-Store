@@ -7,8 +7,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Backdrop, Box, Fade, Modal, Grid, Button } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { Dispatch } from "@reduxjs/toolkit";
-import { SetStateAction } from "react";
+import { IProduct } from "../../../interfaces";
 
 //Add to collection prop interface
 interface ICollection {
@@ -16,13 +15,12 @@ interface ICollection {
 }
 interface IAddToCollection {
   open: boolean;
-  handleClose:
-    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
-    | undefined;
+  handleClose: () => void;
   collections: ICollection[];
-  product: string;
+  collection: ICollection;
+  product: IProduct;
   uniqueItem: boolean;
-  setUniqueItem: any;
+  setUniqueItem: (arg0: any) => void;
 }
 
 //Add to collection Formik form initial values
@@ -31,8 +29,11 @@ const initialValues = {
 };
 
 //Add to collection Formik form onSubmit function
-const onSubmit = (values: any, onSubmitProps: { resetForm: () => void }) => {
-  IndexAPI.post("/collections", {
+const onSubmit = async (
+  values: IAddToCollection,
+  onSubmitProps: { resetForm: () => void }
+) => {
+  await IndexAPI.post("/collections", {
     user: "ric19mat@gmail.com",
     collectionGroup: values.collection,
     item: values.product.id,
@@ -161,7 +162,7 @@ const AddToCollection = (props: IAddToCollection) => {
                           <option value={"select collection..."}>
                             select collection...
                           </option>
-                          {props.collections.map((collection: any) => {
+                          {props.collections.map((collection: ICollection) => {
                             return (
                               <option
                                 key={collection.collection_group}

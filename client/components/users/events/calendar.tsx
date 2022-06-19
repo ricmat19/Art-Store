@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { IDay } from "../../../interfaces";
+import { IDay, IEvent } from "../../../interfaces";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
@@ -9,10 +9,10 @@ import { Grid } from "@mui/material";
 
 //Calendar props interface
 interface ICalendar {
-  events: string[];
+  events: IEvent[];
   handleDayOpen: () => void;
-  setDate: () => void;
-  setDateEvents: () => void;
+  setDate: (arg0: string) => void;
+  setDateEvents: (arg0: IEvent[]) => void;
 }
 
 //Calendar functional component
@@ -129,7 +129,7 @@ const Calendar = (props: ICalendar) => {
           //Applies the day to the days array if not a padding day
           if (i > paddingDays) {
             daysArray.push({
-              value: i - paddingDays,
+              value: (i - paddingDays).toString(),
               date: dayString,
               today: today,
               hasEvent: hasEvent,
@@ -153,7 +153,7 @@ const Calendar = (props: ICalendar) => {
   }, [props.events, nav]);
 
   //Display day's modal on calendar day click
-  const handleDayClicked = async (day: string) => {
+  const handleDayClicked = (day: string) => {
     try {
       //Display day modal
       props.handleDayOpen();

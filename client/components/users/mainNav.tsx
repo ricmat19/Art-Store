@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 // import PropTypes from "prop-types";
 import { Grid } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,7 +11,6 @@ import {
   faEllipsisV,
   faHamburger,
 } from "@fortawesome/free-solid-svg-icons";
-import { getCartReducer } from "../../reducers/cartReducers";
 import { useAppDispatch } from "../../hooks";
 import Notifications from "./menuModals/notificationModal";
 import User from "./menuModals/userModal";
@@ -21,7 +20,7 @@ import SignIn from "./auth/signInModal";
 import Reset from "./auth/resetModal";
 
 //Main navigation functional component
-const MainNav = (props: any) => {
+const MainNav = () => {
   //Main navigation states
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
   const [signUpOpen, setSignUpOpen] = useState(false);
@@ -40,9 +39,9 @@ const MainNav = (props: any) => {
 
   //Get cart content on render
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = () => {
       try {
-        const cartResponse = await dispatch(getCartReducer());
+        // const cartResponse = await dispatch(getCartReducer());
       } catch (err) {
         console.log(err);
       }
@@ -65,7 +64,7 @@ const MainNav = (props: any) => {
 
   //Handle notification modal open and close
   const openNotification = Boolean(notificationOpen);
-  const handleNotificationClick = (event: any) => {
+  const handleNotificationClick = (event: { currentTarget: SetStateAction<null>; }) => {
     setNotificationOpen(event.currentTarget);
   };
   const handleNotificationClose = () => {
@@ -74,7 +73,7 @@ const MainNav = (props: any) => {
 
   //Handle user modal open and close
   const openUser = Boolean(userOpen);
-  const handleUserClick = (event: any) => {
+  const handleUserClick = (event: { currentTarget: SetStateAction<null>; }) => {
     setUserOpen(event.currentTarget);
   };
   const handleUserClose = () => {
@@ -83,7 +82,7 @@ const MainNav = (props: any) => {
 
   //Handle ellipse modal open and close
   const openEllipse = Boolean(ellipseOpen);
-  const handleEllipseClick = (event: any) => {
+  const handleEllipseClick = (event: { currentTarget: SetStateAction<null>; }) => {
     setEllipseOpen(event.currentTarget);
   };
   const handleEllipseClose = () => {
@@ -272,13 +271,19 @@ const MainNav = (props: any) => {
             signUpOpen={signUpOpen}
             handleSignUpClose={handleSignUpClose}
             handleSignInOpen={handleSignInOpen}
-          />
+            firstName={""}
+            lastName={""}
+            email={""}
+            password={""}
+            passwordCopy={""} />
           {/* Sign in modal */}
           <SignIn
             signInOpen={signInOpen}
             handleSignInClose={handleSignInClose}
             handleSignUpOpen={handleSignUpOpen}
             handleResetOpen={handleResetOpen}
+            email={""}
+            password={""}
             // setLoginStatus={setLoginStatus}
           />
           {/* Reset modal */}

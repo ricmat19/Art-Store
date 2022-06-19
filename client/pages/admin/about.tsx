@@ -20,9 +20,9 @@ const About = (props: IAbout) => {
 
   // Get the current login status and set it as the login state
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = () => {
       try {
-        const loginResponse = await IndexAPI.get(`/login`);
+        const loginResponse = IndexAPI.get(`/login`);
         setLoginStatus(loginResponse.data.data.loggedIn);
       } catch (err) {
         console.log(err);

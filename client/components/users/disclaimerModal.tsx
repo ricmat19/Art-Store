@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { MouseEvent, useState } from "react";
 import { Modal, Fade, Box, Grid } from "@mui/material";
 import { Formik, Form } from "formik";
 
@@ -14,7 +14,9 @@ interface IModalState {
 const initialValues = {};
 
 //Disclaimer modal Formik form onSubmit function
-const onSubmit = async () => {};
+const onSubmit = () => {
+  console.log("");
+};
 
 //Disclaimer modal functional component
 const DisclaimerModal = (props: IModalState) => {
@@ -22,7 +24,7 @@ const DisclaimerModal = (props: IModalState) => {
   const [disclaimerModal, setDisclaimerModal] = useState("modal-bg active");
 
   //Function to close disclaimer
-  const closeDisclaimer = (e: any) => {
+  const closeDisclaimer = (e: MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     setDisclaimerModal("modal-bg");
   };

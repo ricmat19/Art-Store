@@ -6,12 +6,11 @@ import AddToCart from "./addToCart";
 
 //Day props interface
 interface IDay {
-  open: boolean;
-  handleClose:
-    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
-    | undefined;
   date: boolean | ReactChild | ReactFragment | ReactPortal | null | undefined;
-  dateEvents: any;
+  handleClose: () => void;
+  open: boolean;
+  dateEvents: [];
+  displayDeleteModal: (arg0: any) => void;
 }
 
 //Day functional component for events

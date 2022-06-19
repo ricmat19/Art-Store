@@ -9,6 +9,7 @@ import {
   faTv,
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
+import { INotification } from "../../../interfaces";
 
 //Notifications props interface
 interface INotifications {
@@ -135,7 +136,7 @@ const Notifications = (props: INotifications) => {
         <hr />
         <Grid>
           {/* Map through all notifications */}
-          {notifications.map((notification: any) => {
+          {notifications.map((notification: INotification) => {
             return (
               <Grid
                 key={notification.id}

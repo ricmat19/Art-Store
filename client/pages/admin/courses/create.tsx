@@ -84,10 +84,10 @@ const AdminCreateCourse = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = () => {
       try {
         //Get and set login status on render
-        const loginResponse = await IndexAPI.get(`/login`);
+        const loginResponse = IndexAPI.get(`/login`);
         setLoginStatus(loginResponse.data.data.loggedIn);
       } catch (err) {
         console.log(err);

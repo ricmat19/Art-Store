@@ -22,8 +22,8 @@ interface ICreateCurriculumForm {
   title: string;
   subject: string;
   description: string;
-  price: any;
-  router: any;
+  price: string;
+  router: { pathname: string; query: { subject: string; course: string; }; }[]
 }
 
 //Admin course Formik form initial values
@@ -35,12 +35,12 @@ const initialValues = {
 };
 
 //Admin course Formik form onSubmit function
-const onSubmit = (
-  values: any,
+const onSubmit = async (
+  values: ICreateCurriculumForm,
   onSubmitProps: { resetForm: () => void }
 ) => {
   //Update course
-  IndexAPI.put(`/admin/courses/${values.selectedCourse[0].id}`, {
+  await IndexAPI.put(`/admin/courses/${values.selectedCourse[0].id}`, {
     title: values.title,
     subject: values.subject,
     description: values.description,
@@ -79,9 +79,9 @@ const AdminCourse = (props: IAdminCourse) => {
 
   // Query login status on render
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = () => {
       try {
-        const loginResponse = await IndexAPI.get(`/login`);
+        const loginResponse = IndexAPI.get(`/login`);
         setLoginStatus(loginResponse.data.data.loggedIn);
       } catch (err) {
         console.log(err);
@@ -92,7 +92,7 @@ const AdminCourse = (props: IAdminCourse) => {
   }, []);
 
   //Create course image element
-  let displayedImage = (
+  const displayedImage = (
     <img
       className="big-image"
       src={props.selectedCourse[0].imageBuffer}
@@ -139,7 +139,7 @@ const AdminCourse = (props: IAdminCourse) => {
               }}
             >
               <Formik
-                initialValues={{ initialValues: initialValues, router: router }}
+                initialValues={{ initialValues: initialValues, router }}
                 onSubmit={onSubmit}
                 validationSchema={validationSchema}
                 validateOnChange={false}
@@ -263,7 +263,7 @@ export async function getStaticPaths() {
   const coursesResponse = await IndexAPI.get(`/admin/courses`);
   return {
     fallback: false,
-    paths: coursesResponse.data.data.courses.map((course: any) => ({
+    paths: coursesResponse.data.data.courses.map((course: ICourse) => ({
       params: {
         subject: course.subject,
         course: course.id,
@@ -280,7 +280,7 @@ export async function getStaticProps(context: { params: { course: string } }) {
   //Create and add course image buffer to course object
   for (let i = 0; i < courseResponse.data.data.course.length; i++) {
     if (courseResponse.data.data.course[i].imagekey !== null) {
-      let imagesResponse = await IndexAPI.get(
+      const imagesResponse = await IndexAPI.get(
         `/images/${courseResponse.data.data.course[i].imagekey}`,
         {
           responseType: "arraybuffer",

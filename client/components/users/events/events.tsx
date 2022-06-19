@@ -4,6 +4,7 @@ import { Grid } from "@mui/material";
 import IndexAPI from "../../../apis/indexAPI";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTicket } from "@fortawesome/free-solid-svg-icons";
+import { IEvent } from "../../../interfaces";
 
 //Events props interface
 interface IEvents {
@@ -16,7 +17,7 @@ interface IEvents {
 const Events = (props: IEvents) => {
 
   //Add an event to the cart
-  const addToCart = async (event: any) => {
+  const addToCart = async (event: IEvent) => {
     try {
       await IndexAPI.post("/cart", {
         id: event.id,
@@ -49,7 +50,7 @@ const Events = (props: IEvents) => {
       <Grid sx={{ width: "100%" }}>
         {/* Map through and display all events from the specified date if there are events that day*/}
         {props.dateEvents !== undefined ? (
-          props.dateEvents.map((event: any, index: number) => (
+          props.dateEvents.map((event: IEvent, index: number) => (
             <Grid
               key={index}
               container

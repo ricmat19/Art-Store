@@ -36,10 +36,10 @@ const CartProducts = (props: ICartProducts) => {
   const priceArray: number[] = [];
   const qtyArray: number[] = [];
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = () => {
       try {
         //Get all items in cart
-        const cartResponse = await IndexAPI.get(`/cart`);
+        const cartResponse = IndexAPI.get(`/cart`);
 
         //Add cart item images to get '/cart' json response
         for (let i = 0; i < cartResponse.data.data.cart.length; i++) {

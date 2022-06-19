@@ -12,11 +12,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AdminCourseSubjectsNav from "../../../../components/admin/courses/coursesNav";
 import AdminDeleteCourse from "../../../../components/admin/courses/deleteCourseModal";
 import { Button, Grid } from "@mui/material";
-import Link from "next/link";
 
 //Admin course subject props interface
 interface IAdminCourseSubject {
-  courses: any;
+  courses: ICourse[];
   activeSubjects: string[] | undefined;
 }
 
@@ -24,7 +23,6 @@ interface IAdminCourseSubject {
 const AdminCourseSubject = (props: IAdminCourseSubject) => {
   //Admin course subject states
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
-  const [courses] = useState(props.courses);
   const [deleteCourse, setDeleteCourse] = useState<any>();
   const [pageNumber, setPageNumber] = useState<number>(0);
   const [deleteOpen, setDeleteOpen] = useState(false);
@@ -46,7 +44,7 @@ const AdminCourseSubject = (props: IAdminCourseSubject) => {
 
   // Set the course selected for deletion and open the course delete modal
   const displayDeleteModal = (id: string) => {
-    for (let i = 0; i < courses.length; i++) {
+    for (let i = 0; i < props.courses.length; i++) {
       if (courses[i].id === id) {
         setDeleteCourse(courses[i]);
       }
@@ -64,9 +62,9 @@ const AdminCourseSubject = (props: IAdminCourseSubject) => {
   };
 
   //Map through the list of courses and setup their templates
-  const displayCourses = courses
+  const displayCourses = props.courses
     .slice(pagesVisited, pagesVisited + itemsPerPage)
-    .map((course: any) => {
+    .map((course: ICourse) => {
       return (
         <Grid key={course.id}>
           {/* Display course page on click */}
@@ -107,9 +105,9 @@ const AdminCourseSubject = (props: IAdminCourseSubject) => {
 
   // Get the current login status and set its state
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = () => {
       try {
-        const loginResponse = await IndexAPI.get(`/login`);
+        const loginResponse = IndexAPI.get(`/login`);
         setLoginStatus(loginResponse.data.data.loggedIn);
       } catch (err) {
         console.log(err);

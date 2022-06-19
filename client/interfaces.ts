@@ -118,6 +118,7 @@ export interface IEvent {
   imageBuffer?: string;
   price?: number;
   info: string;
+  spots: string;
 }
 
 export interface INotification {
@@ -160,4 +161,9 @@ export interface IProfile {
   linkedin: string;
   youtube: string;
   cartQty: number | null | undefined;
+}
+
+// Profile prop interface
+export interface IMedia {
+  type: string;
 }
