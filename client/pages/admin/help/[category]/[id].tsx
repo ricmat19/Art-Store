@@ -1,6 +1,6 @@
 import IndexAPI from "../../../../apis/indexAPI";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 import AdminMainNav from "../../../../components/admin/mainNav";
 import AdminPagesNav from "../../../../components/admin/pagesNav";
 import FooterC from "../../../../components/footer";
@@ -10,19 +10,18 @@ import * as Yup from "yup";
 
 // Admin create help article prop interface
 interface IHelpArticle {
-  helpArticle: {
-    title: any; article: any
-}[];
-}
-interface IHelpArticleContent {
+  title: string;
+  article: string;
   category: string;
   id: string;
-}
-interface ICreateHelpArticleForm {
-  helpArticle: { category: any }[];
-  title: any;
-  content: any;
-  router: string[];
+  content: string;
+  helpArticle: {
+    id: string;
+    title: string;
+    article: string;
+    category: string;
+  }[];
+  router: NextRouter;
 }
 
 //Admin create help article Formik form initial values
@@ -31,12 +30,12 @@ const initialValues = {
 };
 
 //Admin course Formik form onSubmit function
-const onSubmit = (
-  values: any,
+const onSubmit = async (
+  values: IHelpArticle,
   onSubmitProps: { resetForm: () => void }
 ) => {
   // Admin create/update help article on submit
-  IndexAPI.put(
+  await IndexAPI.put(
     `/admin/help/${values.helpArticle[0].category}/${values.helpArticle[0].id}`,
     {
       title: values.title,
@@ -44,7 +43,7 @@ const onSubmit = (
     }
   );
   //Direct to the help article's category page on submit
-  values.router.push(`/admin/help/${values.helpArticle[0].category}`);
+  await values.router.push(`/admin/help/${values.helpArticle[0].category}`);
   onSubmitProps.resetForm();
 };
 
@@ -160,17 +159,19 @@ export async function getStaticPaths() {
   //Create routes for each help article
   return {
     fallback: false,
-    paths: helpResponse.data.data.helpArticles.map((article: any) => ({
-      params: {
-        category: article.category,
-        id: article.id,
-      },
-    })),
+    paths: helpResponse.data.data.helpArticles.map(
+      (article: { category: string; id: string; }) => ({
+        params: {
+          category: article.category,
+          id: article.id,
+        },
+      })
+    ),
   };
 }
 
 export async function getStaticProps(context: {
-  params: { category: any; id: string };
+  params: { category: string; id: string };
 }) {
   //Get the specified help article
   const category = context.params.category;

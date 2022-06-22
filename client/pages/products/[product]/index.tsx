@@ -31,7 +31,7 @@ const Products = (props: IProducts) => {
 
   // onPageChange ? (selectedItem: { selected: number }): void;
 
-  const changePage = ({ selected }: number) => {
+  const changePage = ({ selected }: { selected: number }) => {
     setPageNumber(selected);
   };
 

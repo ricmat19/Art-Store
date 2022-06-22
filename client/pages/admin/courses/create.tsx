@@ -6,24 +6,25 @@ import AdminPagesNav from "../../../components/admin/pagesNav";
 import Footer from "../../../components/footer";
 import Head from "next/head";
 import { Grid } from "@mui/material";
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { AxiosResponse } from "axios";
 
 //Admin create course prop interface
 interface ICreateCourseForm {
-  image: string | Blob;
-  title: string | Blob;
-  subject: string | Blob;
-  description: string | Blob;
-  price: string | Blob;
-  router: { pathname: string }[];
+  image: File | undefined;
+  title: string;
+  subject: string;
+  description: string;
+  price: string;
+  router: NextRouter;
 }
 
 //Admin create course Formik form initial values
 const initialValues = {
   title: "",
-  image: "",
+  image: undefined,
   subject: "",
   price: "",
   description: "",
@@ -31,12 +32,12 @@ const initialValues = {
 
 //Admin create course Formik form onSubmit function
 const onSubmit = (
-  values: any,
+  values: ICreateCourseForm,
   onSubmitProps: { resetForm: () => void }
 ) => {
   //Check if an image is provided before creating course
   if (values.image) {
-    let formData = new FormData();
+    const formData = new FormData();
 
     formData.append("title", values.title);
     formData.append("subject", values.subject);
@@ -45,15 +46,15 @@ const onSubmit = (
     formData.append("price", values.price);
 
     //Create course and then route to course curriculum page
-    let currentCourse: any;
+    let currentCourse: Promise<AxiosResponse<any, any>>;
     IndexAPI.post("/admin/courses", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then(async () => {
+      .then(() => {
         currentCourse = IndexAPI.get("/admin/courses/last");
       })
       .then(async () => {
-        values.router.push(
+        await values.router.push(
           {
             pathname: `/admin/courses/[subject]/[course]/curriculum`,
           },

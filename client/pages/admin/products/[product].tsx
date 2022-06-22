@@ -46,7 +46,7 @@ const AdminProduct = (props: IProducts) => {
   const itemsPerPage = 9;
   const pagesVisited = pageNumber * itemsPerPage;
   const pageCount = Math.ceil(props.product.length / itemsPerPage);
-  const changePage = ({ selected }: number) => {
+  const changePage = ({ selected }: { selected: number }) => {
     setPageNumber(selected);
   };
 

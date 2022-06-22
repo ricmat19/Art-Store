@@ -1,14 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Grid, Modal } from "@mui/material";
+import { ICourse } from "../../../interfaces";
 
 //Admin delete course prop interface
 interface IAdminDeleteCourse {
-  deleteCourse: {
-    id: string;
-    imageBuffer: string | undefined;
-    title: string;
-  };
+  deleteCourse: ICourse | undefined;
   open: boolean;
   handleClose: () => void;
 }

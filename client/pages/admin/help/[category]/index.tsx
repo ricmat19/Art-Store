@@ -64,7 +64,7 @@ const HelpCategory = (props: IHelpCategory) => {
   // Route to the selected help article
   const displayArticle = async (id: string) => {
     try {
-      router.push(`/admin/help/${props.category}/${id}`);
+      await router.push(`/admin/help/${props.category}/${id}`);
     } catch (err) {
       console.log(err);
     }
@@ -155,7 +155,10 @@ const HelpCategory = (props: IHelpCategory) => {
             {/* Map out list of sections in the current help category */}
             <Grid>
               {props.categoryContent.categorySections.map(
-                (categorySection: any, sectionIndex: number) => {
+                (
+                  categorySection: { section: string; sectionTitle: string },
+                  sectionIndex: number
+                ) => {
                   return (
                     <Grid key={sectionIndex}>
                       <Grid sx={{ fontSize: "20px", fontWeight: "500" }}>
@@ -164,7 +167,10 @@ const HelpCategory = (props: IHelpCategory) => {
                       <Grid>
                         <ul>
                           {props.categoryArticles.map(
-                            (article: any, index: number) => {
+                            (
+                              article: { section: string; title: string },
+                              index: number
+                            ) => {
                               if (article.section === categorySection.section) {
                                 return (
                                   <li key={index}>

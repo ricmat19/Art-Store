@@ -12,10 +12,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AdminCourseSubjectsNav from "../../../../components/admin/courses/coursesNav";
 import AdminDeleteCourse from "../../../../components/admin/courses/deleteCourseModal";
 import { Button, Grid } from "@mui/material";
+import { ICourse } from "../../../../interfaces";
 
 //Admin course subject props interface
 interface IAdminCourseSubject {
   courses: ICourse[];
+  course: ICourse;
   activeSubjects: string[] | undefined;
 }
 
@@ -23,7 +25,7 @@ interface IAdminCourseSubject {
 const AdminCourseSubject = (props: IAdminCourseSubject) => {
   //Admin course subject states
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
-  const [deleteCourse, setDeleteCourse] = useState<any>();
+  const [deleteCourse, setDeleteCourse] = useState<ICourse>();
   const [pageNumber, setPageNumber] = useState<number>(0);
   const [deleteOpen, setDeleteOpen] = useState(false);
 
@@ -37,16 +39,16 @@ const AdminCourseSubject = (props: IAdminCourseSubject) => {
   // Setup pagination and number of items per page
   const itemsPerPage = 9;
   const pagesVisited = pageNumber * itemsPerPage;
-  const pageCount = Math.ceil(courses.length / itemsPerPage);
-  const changePage = ({ selected }: any) => {
+  const pageCount = Math.ceil(props.courses.length / itemsPerPage);
+  const changePage = ({ selected }: { selected: number }) => {
     setPageNumber(selected);
   };
 
   // Set the course selected for deletion and open the course delete modal
   const displayDeleteModal = (id: string) => {
     for (let i = 0; i < props.courses.length; i++) {
-      if (courses[i].id === id) {
-        setDeleteCourse(courses[i]);
+      if (props.courses[i].id === id) {
+        setDeleteCourse(props.courses[i]);
       }
     }
     handleDeleteOpen();
@@ -55,7 +57,7 @@ const AdminCourseSubject = (props: IAdminCourseSubject) => {
   //Route to the selected courses page
   const displayCourse = async (subject: string, id: string) => {
     try {
-      router.push(`/admin/courses/${subject}/${id}`);
+      await router.push(`/admin/courses/${subject}/${id}`);
     } catch (err) {
       console.log(err);
     }
@@ -180,7 +182,7 @@ const AdminCourseSubject = (props: IAdminCourseSubject) => {
 };
 
 // Create a path for the list of course subjects
-export async function getStaticPaths() {
+export function getStaticPaths() {
   return {
     fallback: false,
     paths: [
@@ -235,7 +237,7 @@ export async function getStaticProps(context: { params: { subject: string } }) {
   if (subjectResponse.data.data.subject !== undefined) {
     for (let i = 0; i < subjectResponse.data.data.subject.length; i++) {
       if (subjectResponse.data.data.subject[i].imagekey !== null) {
-        let imagesResponse = await IndexAPI.get(
+        const imagesResponse = await IndexAPI.get(
           `/images/${subjectResponse.data.data.subject[i].imagekey}`,
           {
             responseType: "arraybuffer",

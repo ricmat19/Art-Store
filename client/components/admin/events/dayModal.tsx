@@ -19,7 +19,7 @@ interface IAdminDay {
   date: boolean | ReactChild | ReactFragment | ReactPortal | null | undefined;
   handleClose: () => void;
   open: boolean;
-  dateEvents: [];
+  dateEvents: undefined;
   displayDeleteModal: (arg0: any) => void;
 }
 

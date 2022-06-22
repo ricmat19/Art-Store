@@ -8,10 +8,11 @@ import AdminCalendar from "../../../components/admin/events/calendar";
 import AdminDayModal from "../../../components/admin/events/dayModal";
 import AdminDeleteEventModal from "../../../components/admin/events/deleteEventModal";
 import { Grid } from "@mui/material";
+import { IEvent } from "../../../interfaces";
 
 //Admin events props interface
 interface IAdminEvents {
-  events: string | any[];
+  events: IEvent[];
 }
 
 //Admin events functional component
@@ -21,7 +22,7 @@ const AdminEvents = (props: IAdminEvents) => {
   const [events, setEvents] = useState(props.events);
   const [date, setDate] = useState();
   const [dateEvents, setDateEvents] = useState();
-  const [deleteEvent, setDeleteEvent] = useState<any>();
+  const [deleteEvent, setDeleteEvent] = useState<IEvent>();
   const [dayOpen, setDayOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
 

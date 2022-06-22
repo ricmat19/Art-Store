@@ -30,7 +30,7 @@ const CollectionGroups = (props: ICollectionGroups) => {
   const itemsPerPage = 9;
   const pagesVisited = pageNumber * itemsPerPage;
   const pageCount = Math.ceil(props.collection.length / itemsPerPage);
-  const changePage = ({ selected }: number) => {
+  const changePage = ({ selected }: { selected: number }) => {
     setPageNumber(selected);
   };
 

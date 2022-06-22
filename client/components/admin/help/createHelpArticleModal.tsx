@@ -10,7 +10,7 @@ interface IAdminCreateHelpArticle {
   category: string;
   open: boolean;
   handleClose: () => void;
-  lecture: string;
+  lecture: string | undefined;
 }
 interface ICreateHelpArticleForm {
   title: string;
