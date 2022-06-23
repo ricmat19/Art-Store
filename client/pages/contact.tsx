@@ -15,7 +15,7 @@ interface IContactForm {
   message: string;
 }
 interface IContact {
-  cartQty: number | null | undefined;
+  cartQty: number;
 }
 
 //Contact Formik form initial values

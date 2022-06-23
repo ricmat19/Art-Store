@@ -17,8 +17,9 @@ interface ICollection {
   imageBuffer: string;
 }
 interface ICollectionGroups {
+  collection_group: string;
   collection: ICollection[];
-  cartQty: number | null | undefined;
+  cartQty: number;
 }
 
 //Collection group functional component
@@ -140,7 +141,7 @@ export async function getStaticPaths() {
   return {
     fallback: false,
     paths: collectionGroupsResponse.data.data.groups.map(
-      (groups: any) => ({
+      (groups: ICollectionGroups) => ({
         params: {
           group: groups.collection_group,
         },
@@ -149,7 +150,7 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps(context: { params: { group: any } }) {
+export async function getStaticProps(context: { params: { group: string } }) {
   // Get cart content
   const cartResponse = await IndexAPI.get(`/cart`);
 
@@ -189,7 +190,7 @@ export async function getStaticProps(context: { params: { group: any } }) {
   //Create image buffer for all collection group items and add them to the collection object
   for (let i = 0; i < userCollectionProducts.length; i++) {
     if (userCollectionProducts[i].imagekey !== null) {
-      let imagesResponse = await IndexAPI.get(
+      const imagesResponse = await IndexAPI.get(
         `/images/${userCollectionProducts[i].imagekey}`,
         {
           responseType: "arraybuffer",

@@ -16,7 +16,7 @@ import Link from "next/link";
 
 //Admin blog prop interface
 interface IAdminBlog {
-  blog: IBlog[] | (() => IBlog[]);
+  blog: IBlog[]
 }
 
 //Admin blog functional component

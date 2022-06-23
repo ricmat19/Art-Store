@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import IndexAPI from "../../../../apis/indexAPI";
 import FooterC from "../../../../components/footer";
@@ -10,23 +10,13 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 //Admin blog post prop interface
-interface ISelectedBlog {
+interface IAdminBlogPost {
+  id: string;
   title: string;
   content: string;
-  post_date: string;
+  post_date: Date;
   imageBuffer: string;
-}
-interface IAdminBlogPost {
-  selectedBlog: ISelectedBlog[];
-}
-interface ISelectedBlogContent {
-  id: string;
-}
-interface ICreateBlogForm {
-  selectedBlog: { id: any }[];
-  title: any;
-  content: any;
-  router: string[];
+  router: NextRouter;
 }
 
 //Admin blog post Formik form initial values
@@ -36,14 +26,17 @@ const initialValues = {
 };
 
 //Admin blog post Formik form onSubmit function
-const onSubmit = (values: any, onSubmitProps: { resetForm: () => void }) => {
+const onSubmit = async (
+  values: IAdminBlogPost,
+  onSubmitProps: { resetForm: () => void }
+) => {
   //Update the selected blog post on submit
-  IndexAPI.put(`/admin/blog/${values.selectedBlog[0].id}`, {
+  await IndexAPI.put(`/admin/blog/${values.id}`, {
     title: values.title,
     content: values.content,
   });
   //Route to blog index page on submit
-  values.router.push("/admin/media/blog");
+  await values.router.push("/admin/media/blog");
   onSubmitProps.resetForm();
 };
 
@@ -62,9 +55,9 @@ const AdminBlogPost = (props: IAdminBlogPost) => {
   const router = useRouter();
 
   //Get the blog posts creation date
-  const postMonth = new Date(props.selectedBlog[0].post_date).getMonth() + 1;
-  const postDate = new Date(props.selectedBlog[0].post_date).getDate();
-  const postYear = new Date(props.selectedBlog[0].post_date).getFullYear();
+  const postMonth = new Date(props.post_date).getMonth() + 1;
+  const postDate = new Date(props.post_date).getDate();
+  const postYear = new Date(props.post_date).getFullYear();
 
   useEffect(() => {
     const fetchData = () => {
@@ -92,7 +85,7 @@ const AdminBlogPost = (props: IAdminBlogPost) => {
               {/* Display blog post banner image */}
               <img
                 className="banner-image"
-                src={props.selectedBlog[0].imageBuffer}
+                src={props.imageBuffer}
                 alt="banner-image"
               />
             </Grid>
@@ -100,8 +93,8 @@ const AdminBlogPost = (props: IAdminBlogPost) => {
               initialValues={{
                 initialValues: initialValues,
                 router: router,
-                title: props.selectedBlog[0].title,
-                content: props.selectedBlog[0].content,
+                title: props.title,
+                content: props.content,
               }}
               onSubmit={onSubmit}
               validationSchema={validationSchema}
@@ -173,7 +166,7 @@ export async function getStaticPaths() {
 
   return {
     fallback: false,
-    paths: blogResponse.data.data.blog.map((blog: any) => ({
+    paths: blogResponse.data.data.blog.map((blog: IAdminBlogPost) => ({
       params: {
         id: blog.id,
       },
@@ -189,7 +182,7 @@ export async function getStaticProps(context: { params: { id: string } }) {
   //Create and add blog post banner image buffer to blog post object
   for (let i = 0; i < blogPostResponse.data.data.post.length; i++) {
     if (blogPostResponse.data.data.post[i].imagekey !== null) {
-      let imagesResponse = await IndexAPI.get(
+      const imagesResponse = await IndexAPI.get(
         `/images/${blogPostResponse.data.data.post[i].imagekey}`,
         {
           responseType: "arraybuffer",

@@ -4,7 +4,6 @@ import { IProduct } from "../../../interfaces";
 
 interface IProductsNav {
   products: IProduct[];
-  product: IProduct;
 }
 
 //Product navigation functional component

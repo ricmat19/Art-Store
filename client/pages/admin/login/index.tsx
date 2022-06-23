@@ -31,7 +31,7 @@ const AdminLoginC = () => {
       const loginResponse = await IndexAPI.get(`/login`);
       //Route store print page if admin is logged in
       if (loginResponse.data.data.loggedIn) {
-        router.push("/admin/products/print");
+        await router.push("/admin/products/print");
       }
     } catch (err) {
       console.log(err);

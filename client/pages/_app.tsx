@@ -1,6 +1,5 @@
 import type { AppProps } from "next/app";
 import Disclaimer from "../components/users/disclaimerModal";
-("../components/modals/disclaimer");
 import "../public/css/index.css";
 import { Grid } from "@mui/material";
 import { store } from "../store";

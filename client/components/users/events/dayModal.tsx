@@ -3,14 +3,14 @@ import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { ReactChild, ReactFragment, ReactPortal, useState } from "react";
 import Events from "./events";
 import AddToCart from "./addToCart";
+import { IEvent } from "../../../interfaces";
 
 //Day props interface
 interface IDay {
   date: boolean | ReactChild | ReactFragment | ReactPortal | null | undefined;
   handleClose: () => void;
   open: boolean;
-  dateEvents: [];
-  displayDeleteModal: (arg0: any) => void;
+  dateEvents: IEvent[];
 }
 
 //Day functional component for events

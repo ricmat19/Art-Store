@@ -7,23 +7,21 @@ import { Grid } from "@mui/material";
 import Head from "next/head";
 
 //Help category props interface
-interface ICategorySections {
-  sectionTitle: string;
-  section: string;
-}
-interface ICategoryContent {
-  categoryTitle: string;
-  categorySections: ICategorySections[];
-}
-interface ICategoryArticles {
-  id: string;
-  title: string;
-  section: string;
-}
 interface IHelpCategory {
   category: string;
-  categoryContent: ICategoryContent;
-  categoryArticles: ICategoryArticles[];
+  categoryContent: {
+    categoryTitle: string;
+    categorySections: {
+      sectionTitle: string;
+      section: string;
+    }[];
+  };
+  categoryArticles: {
+    id: string;
+    title: string;
+    section: string;
+  }[];
+  cartQty: number;
 }
 
 // Help category functional component
@@ -46,7 +44,7 @@ const HelpCategory = (props: IHelpCategory) => {
       <Head>
         <title>artHouse19-Help</title>
       </Head>
-      <MainNav />
+      <MainNav cartQty={props.cartQty} />
       <PagesNav />
       <Grid>
         {/* Display the help article category title */}
@@ -101,7 +99,7 @@ const HelpCategory = (props: IHelpCategory) => {
           {/* Map through the list of help categories */}
           <Grid>
             {props.categoryContent.categorySections.map(
-              (categorySection: ICategorySections, sectionIndex: number) => {
+              (categorySection, sectionIndex: number) => {
                 return (
                   <Grid key={sectionIndex}>
                     <Grid sx={{ fontSize: "20px", fontWeight: "500" }}>
@@ -112,7 +110,7 @@ const HelpCategory = (props: IHelpCategory) => {
                     <Grid>
                       <ul>
                         {props.categoryArticles.map(
-                          (article: ICategoryArticles, index: number) => {
+                          (article, index: number) => {
                             if (article.section === categorySection.section) {
                               return (
                                 <li key={index}>

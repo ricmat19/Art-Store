@@ -13,13 +13,12 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { clearCartReducer } from "../../reducers/cartReducers";
 import { useAppDispatch } from "../../hooks";
+import { ICart } from "../../interfaces";
 
 //Cart checkout prop interface
-interface ICheckoutForm {
-  router: string[];
-}
 interface ICheckout {
-  cart: any;
+  router: string[];
+  cart: ICart[];
   priceArray: string[];
   sub: number | (() => number);
 }
@@ -39,7 +38,7 @@ const initialValues = {
 
 //Cart checkout Formik form onSubmit function
 const onSubmit = async (
-  values: ICheckoutForm,
+  values: ICheckout,
   onSubmitProps: { resetForm: () => void }
 ) => {
   try {
@@ -72,7 +71,6 @@ const validationSchema = Yup.object({
 //Cart checkout functional component
 const Checkout = (props: ICheckout) => {
   //Cart checkout states
-  const [cart] = useState(props.cart);
   const [cartPrices] = useState(props.priceArray);
   const [subtotal] = useState<number>(props.sub);
 
@@ -119,7 +117,7 @@ const Checkout = (props: ICheckout) => {
         <meta name="description" content="artHouse19 checkout page."></meta>
       </Head>
       {/* Main navigation component */}
-      <MainNav cartQty={cart.length} />
+      <MainNav cartQty={props.cart.length} />
       {/* Pages navigation component */}
       <PagesNav />
       <Grid className="checkout-div">
@@ -360,7 +358,7 @@ const Checkout = (props: ICheckout) => {
         <Grid className="order-summary-container">
           {/* Order summary component */}
           <OrderSummary
-            cartProducts={cart}
+            cartProducts={props.cart}
             cartPrices={cartPrices}
             subtotal={subtotal}
           />

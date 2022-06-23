@@ -19,8 +19,12 @@ import SignUp from "./auth/signupModal";
 import SignIn from "./auth/signInModal";
 import Reset from "./auth/resetModal";
 
+interface ICartQty{
+  cartQty: number;
+}
+
 //Main navigation functional component
-const MainNav = () => {
+const MainNav = (props: ICartQty) => {
   //Main navigation states
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
   const [signUpOpen, setSignUpOpen] = useState(false);
@@ -227,7 +231,7 @@ const MainNav = () => {
                   {/* Main nav route to cart button */}
                   <a href="/cart">
                     <h1>
-                      {/* {cartAmt} */}
+                      {props.cartQty}
                       <FontAwesomeIcon
                         className="pointer"
                         icon={faShoppingCart}

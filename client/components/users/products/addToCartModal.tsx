@@ -1,12 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import { useState } from "react";
 import { useRouter } from "next/router";
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
+import { IProduct } from "../../../interfaces";
 
 //Add to cart prop interface
-interface IProduct {
-  title: string;
-}
 interface IAddToCart {
   product: IProduct;
   uniqueItem: boolean;
@@ -19,9 +16,6 @@ interface IAddToCart {
 
 //Add to cart functional component
 const AddToCart = (props: IAddToCart) => {
-  // Add to cart state
-  const [product] = useState(props.product);
-  const [uniqueItem] = useState(props.uniqueItem);
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -81,8 +75,8 @@ const AddToCart = (props: IAddToCart) => {
                 {/* Add to cart text stating the item has been added to the cart or was already in the cart */}
                 <Grid>
                   <h3 className="align-center">
-                    {product.title} has {!uniqueItem ? "already" : ""} been
-                    added to your cart.
+                    {props.product.title} has {!props.uniqueItem ? "already" : ""}{" "}
+                    been added to your cart.
                   </h3>
                 </Grid>
                 <Grid

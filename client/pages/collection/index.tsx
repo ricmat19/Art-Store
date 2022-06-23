@@ -16,7 +16,7 @@ interface ICollectionGroup {
 }
 interface ICollection {
   collectionGroups: ICollectionGroup[];
-  cartQty: number | null | undefined;
+  cartQty: number;
 }
 
 //Collection functional component

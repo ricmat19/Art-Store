@@ -9,7 +9,26 @@ import Bio from "../components/users/profile/bio";
 import Links from "../components/users/profile/links";
 import PaymentMethods from "../components/users/profile/paymentMethods";
 import Head from "next/head";
-import { IProfile } from "../interfaces";
+
+// Privacy policy prop interface
+interface IProfile {
+  email: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
+  image: File;
+  bio: string;
+  website: string;
+  twitter: string;
+  linkedin: string;
+  youtube: string;
+  cartQty: number;
+  privacyPolicyContent: string;
+}
 
 // Profile functional component
 const Profile = (props: IProfile) => {
@@ -68,11 +87,11 @@ const Profile = (props: IProfile) => {
             {/* Profile content component conditional rendering */}
             <Grid className="admin-form">
               {view === "info" ? (
-                <Info profile={props.profile[0]} />
+                <Info profile={props} />
               ) : view === "bio" ? (
-                <Bio profile={props.profile[0]} />
+                <Bio profile={props} />
               ) : view === "links" ? (
-                <Links profile={props.profile[0]} />
+                <Links profile={props} />
               ) : (
                 <PaymentMethods />
               )}

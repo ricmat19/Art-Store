@@ -7,7 +7,7 @@ import { Grid } from "@mui/material";
 
 //Help prop interface
 interface IHelp {
-  cartQty: number | null | undefined;
+  cartQty: number;
 }
 
 //Help functional component

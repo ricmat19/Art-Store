@@ -5,7 +5,7 @@ import PagesNav from "../../components/users/pagesNav";
 import { Grid } from "@mui/material";
 
 interface IAdminThread {
-  cartQty: number | null | undefined;
+  cartQty: number;
 }
 const AdminThread = (props: IAdminThread) => {
   return (

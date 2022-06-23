@@ -23,7 +23,6 @@ export interface ISelectedProduct {
 }
 
 export interface ICart {
-  cart: any;
   id: string;
   title: string;
   product: string;
@@ -33,6 +32,7 @@ export interface ICart {
   imageBuffer: string;
   qty: number;
   primaryImage: boolean;
+  cartItems: string[];
 }
 
 export interface ICheckout {
@@ -142,28 +142,4 @@ export interface IUser {
   iv: string;
   interests: [];
   cart: ICart[];
-}
-
-// Profile prop interface
-export interface IProfile {
-  email: string;
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  address: string;
-  city: string;
-  state: string;
-  zip: string;
-  image: File;
-  bio: string;
-  website: string;
-  twitter: string;
-  linkedin: string;
-  youtube: string;
-  cartQty: number | null | undefined;
-}
-
-// Profile prop interface
-export interface IMedia {
-  type: string;
 }

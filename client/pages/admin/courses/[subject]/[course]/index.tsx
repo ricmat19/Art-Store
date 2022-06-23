@@ -6,24 +6,22 @@ import AdminPagesNav from "../../../../../components/admin/pagesNav";
 import Footer from "../../../../../components/footer";
 import Head from "next/head";
 import { Grid, MenuItem } from "@mui/material";
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 //Admin create course prop interface
 interface IAdminCourse {
-  selectedCourse: { imageBuffer: string | undefined }[];
-}
-interface ICreateCurriculumForm {
   selectedCourse: {
-    subject: string;
     id: string;
+    subject: string;
+    imageBuffer: string | undefined;
   }[];
   title: string;
   subject: string;
   description: string;
   price: string;
-  router: { pathname: string; query: { subject: string; course: string; }; }[]
+  router: NextRouter;
 }
 
 //Admin course Formik form initial values
@@ -36,7 +34,7 @@ const initialValues = {
 
 //Admin course Formik form onSubmit function
 const onSubmit = async (
-  values: ICreateCurriculumForm,
+  values: IAdminCourse,
   onSubmitProps: { resetForm: () => void }
 ) => {
   //Update course
@@ -48,7 +46,7 @@ const onSubmit = async (
   });
 
   //Route to the selected courses curriculum page
-  values.router.push(
+  await values.router.push(
     {
       pathname: `/admin/courses/[subject]/[course]/curriculum`,
       query: {

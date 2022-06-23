@@ -5,17 +5,15 @@ import Footer from "../../../components/footer";
 import MainNav from "../../../components/users/mainNav";
 import { Grid } from "@mui/material";
 import ReactHtmlParser from "react-html-parser";
-import { ReactChild, ReactFragment, ReactPortal } from "react";
 
 // Blog post prop interface
-interface ISelectedMedia {
-  title: boolean | ReactChild | ReactFragment | ReactPortal | null | undefined;
-  content: string;
-}
 interface IBlogPost {
-  cartQty: number | null | undefined;
   imageBuffer: string | undefined;
-  selectedMedia: ISelectedMedia;
+  selectedMedia: {
+    title: string;
+    content: string;
+  };
+  cartQty: number;
 }
 
 //Blog post functional component
@@ -67,7 +65,7 @@ export async function getStaticPaths() {
       //       media: media.type,
       //     },
       //   }),
-      blogResponse.data.data.posts.map((post: { id: unknown; }) => ({
+      blogResponse.data.data.posts.map((post: { id: string }) => ({
         params: {
           media: "blog",
           post: post.id,
@@ -92,7 +90,7 @@ export async function getStaticProps(context: {
   //Create and add blog post image buffer to the selected blog post object
   let imageBuffer = "";
   if (mediaResponse.data.data.post.imagekey !== null) {
-    let imagesResponse = await IndexAPI.get(
+    const imagesResponse = await IndexAPI.get(
       `/images/${mediaResponse.data.data.post.imagekey}`,
       {
         responseType: "arraybuffer",

@@ -25,12 +25,12 @@ interface ICategoryContent {
     | ReactPortal
     | null
     | undefined;
-  categorySections: string[];
+  categorySections: { section: string; sectionTitle: string }[];
 }
 interface IHelpCategory {
   category: string;
   categoryContent: ICategoryContent;
-  categoryArticles: string[];
+  categoryArticles: { section: string; title: string }[];
 }
 
 //Admin help category functional component
@@ -207,7 +207,7 @@ const HelpCategory = (props: IHelpCategory) => {
 };
 
 //Create routes for the list help categories
-export async function getStaticPaths() {
+export function getStaticPaths() {
   return {
     paths: [
       {

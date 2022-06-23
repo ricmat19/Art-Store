@@ -11,7 +11,7 @@ import { Grid } from "@mui/material";
 //Cart functional component
 const Cart = (props: ICart) => {
   //Cart states
-  const [, setCart] = useState(props.cart);
+  const [, setCart] = useState(props.cartItems);
 
   // Cart component
   return (
@@ -20,7 +20,7 @@ const Cart = (props: ICart) => {
         <title>artHouse19-Cart</title>
         <meta name="description" content="artHouse19 cart page."></meta>
       </Head>
-      <MainNav />
+      <MainNav cartQty={props.cartItems.length} />
       <PagesNav />
       <Grid className="main-body">
         {/* Cart title row */}
@@ -55,7 +55,7 @@ export async function getStaticProps() {
   //Create and add image buffer to all items in cart object
   for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
     if (cartResponse.data.data.cart[i].imagekey !== null) {
-      let imagesResponse = await IndexAPI.get(
+      const imagesResponse = await IndexAPI.get(
         `/images/${cartResponse.data.data.cart[i].imagekey}`,
         {
           responseType: "arraybuffer",

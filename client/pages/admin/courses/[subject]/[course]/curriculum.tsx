@@ -16,22 +16,17 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { ICourse } from "../../../../../interfaces";
 
-interface IAdminCourseSection {
-  section: string;
-}
-interface IAdminCourseLecture {
-  id: string;
-  section: string;
-  lecture: string;
-  index: string;
-}
 //Course curriculum prop interface
 interface IAdminCourseCurriculum {
-  courseSections: IAdminCourseSection[];
-  courseLectures: IAdminCourseLecture[];
-}
-interface IAdminCreateCurriculumForm {
-  email: string;
+  courseSections: {
+    section: string;
+  }[];
+  courseLectures: {
+    id: string;
+    section: string;
+    lecture: string;
+    index: string;
+  }[];
 }
 
 //Course curriculum Formik form initial values
@@ -41,7 +36,7 @@ const initialValues = {
 
 //Course curriculum Formik form onSubmit function
 const onSubmit = (
-  values: IAdminCreateCurriculumForm,
+  values: IAdminCourseCurriculum,
   onSubmitProps: { resetForm: () => void }
 ) => {
   // if (values.create = "section") {
@@ -84,7 +79,7 @@ const CourseCurriculum = (props: IAdminCourseCurriculum) => {
   const handleContentClick = (
     event: /* eslint-disable @next/next/no-img-element */
     MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
-    lecture: IAdminCourseLecture
+    lecture: { id: string; section: string; lecture: string; index?: string }
   ) => {
     setId(lecture.id);
     setSection(lecture.section);
@@ -249,7 +244,7 @@ const CourseCurriculum = (props: IAdminCourseCurriculum) => {
                     >
                       {/* Map out the list of existing course sections */}
                       {props.courseSections.map(
-                        (section: IAdminCourseSection, index: number) => {
+                        (section, index) => {
                           return (
                             <Grid
                               sx={{
@@ -308,10 +303,7 @@ const CourseCurriculum = (props: IAdminCourseCurriculum) => {
                               <hr />
                               {/* Map course section's lectures */}
                               {props.courseLectures.map(
-                                (
-                                  lecture: IAdminCourseLecture,
-                                  index: string
-                                ) => {
+                                (lecture, index) => {
                                   return lecture.section === section.section ? (
                                     <Grid>
                                       <Grid

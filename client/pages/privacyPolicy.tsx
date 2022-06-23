@@ -7,7 +7,7 @@ import ReactHtmlParser from "react-html-parser";
 
 // Privacy policy prop interface
 interface IPrivacyPolicy {
-  cartQty: number | null | undefined;
+  cartQty: number;
   privacyPolicyContent: string;
 }
 

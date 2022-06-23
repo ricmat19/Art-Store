@@ -7,7 +7,7 @@ import ReactHtmlParser from "react-html-parser";
 
 // Terms of Service prop interface
 interface ITermsOfService {
-  cartQty: number | null | undefined;
+  cartQty: number;
   termsOfServiceContent: string;
 }
 

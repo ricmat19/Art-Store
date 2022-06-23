@@ -14,13 +14,12 @@ import {
   addToCartReducer,
 } from "../../../reducers/cartReducers";
 import { useAppDispatch } from "../../../hooks";
+import { IProduct } from "../../../interfaces";
 
 // Product details prop interface
 interface IProductDetails {
-  imageBuffer: string;
-  groups: any;
-  product: any;
-  cart: any;
+  product: IProduct;
+  cartQty: number;
 }
 
 //Product details functional component
@@ -28,9 +27,9 @@ const ProductDetails = (props: IProductDetails) => {
   // Product details states
   const [addToCartOpen, setAddToCartOpen] = useState(false);
   const [addToCollectionOpen, setAddToCollectionOpen] = useState(false);
-  const [imageBuffer] = useState(props.imageBuffer);
-  const [product] = useState(props.product);
-  const [cartQty, setCartQty] = useState(props.cart.length);
+  const [imageBuffer] = useState(props.product.imageBuffer);
+  const [product] = useState(props.product.product);
+  const [cartQty, setCartQty] = useState(props.cartQty);
   const [uniqueItem, setUniqueItem] = useState(false);
 
   // Redux dispatch
@@ -92,7 +91,7 @@ const ProductDetails = (props: IProductDetails) => {
   };
 
   //Display the collection modal
-  const displayCollectionModal = async (e: { preventDefault: () => void }) => {
+  const displayCollectionModal = (e: { preventDefault: () => void }) => {
     try {
       e.preventDefault();
       handleAddToCollectionOpen();

@@ -7,7 +7,7 @@ import { Grid } from "@mui/material";
 
 //404 Page Not Found prop interface
 interface IPageNotFound {
-  cartQty: number | null | undefined;
+  cartQty: number;
 }
 
 // 404 Page Not Found functional component

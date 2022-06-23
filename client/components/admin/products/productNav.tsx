@@ -1,10 +1,11 @@
 import { Grid } from "@mui/material";
 import { useState } from "react";
 import Link from "next/link";
+import { IProduct } from "../../../interfaces";
 
 //Admin product navigation prop interface
 interface IAdminProductsNav {
-  activeProducts: string[];
+  activeProducts: IProduct[];
 }
 
 //Admin product navigation functional component

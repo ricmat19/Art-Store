@@ -10,7 +10,7 @@ import { faPlayCircle } from "@fortawesome/free-solid-svg-icons";
 
 //Course prop interface
 interface ICourse {
-  cartQty: number | null | undefined;
+  cartQty: number;
 }
 
 //Course functional component
@@ -98,7 +98,7 @@ export async function getStaticPaths() {
   const coursesResponse = await IndexAPI.get(`/courses`);
   return {
     fallback: false,
-    paths: coursesResponse.data.data.courses.map((courses: any) => ({
+    paths: coursesResponse.data.data.courses.map((courses: { subject: any; id: any; }) => ({
       params: {
         course: courses.subject,
         id: courses.id,
@@ -121,7 +121,7 @@ export async function getStaticProps(context: {
   //Create and add course image buffer to the course in the course object
   let imageBuffer = "";
   if (courseResponse.data.data.course.imagekey !== null) {
-    let imagesResponse = await IndexAPI.get(
+    const imagesResponse = await IndexAPI.get(
       `/images/${courseResponse.data.data.course.imagekey}`,
       {
         responseType: "arraybuffer",

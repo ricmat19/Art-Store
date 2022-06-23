@@ -11,7 +11,7 @@ import { Grid } from "@mui/material";
 interface ICalendar {
   events: IEvent[];
   handleDayOpen: () => void;
-  setDate: (arg0: string) => void;
+  setDate: any;
   setDateEvents: (arg0: IEvent[]) => void;
 }
 

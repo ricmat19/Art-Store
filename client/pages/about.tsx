@@ -9,7 +9,7 @@ import ReactHtmlParser from "react-html-parser";
 
 // About prop interface
 interface IAbout {
-  cartQty: number | null | undefined;
+  cartQty: number;
   aboutContent: string;
 }
 

@@ -8,19 +8,19 @@ import Calendar from "../../components/users/events/calendar";
 import Day from "../../components/users/events/dayModal";
 import { Grid } from "@mui/material";
 import SummaryList from "../../components/users/events/summaryList";
+import { IEvent } from "../../interfaces";
 
 //Events props interface
 interface IEvents {
-  events: string[];
-  cartQty: number | null | undefined;
+  events: IEvent[];
+  cartQty: number;
 }
 
 //Events functional component
 const Events = (props: IEvents) => {
   // Events states
-  const [events] = useState(props.events);
-  const [date, setDate] = useState();
-  const [dateEvents, setDateEvents] = useState();
+  const [date, setDate] = useState<Date>();
+  const [dateEvents, setDateEvents] = useState<IEvent[]>([]);
   const [dayOpen, setDayOpen] = useState(false);
 
   //Functions handling the opening/closing of the day component
@@ -49,14 +49,14 @@ const Events = (props: IEvents) => {
           {/* Display calendar component */}
           <Calendar
             handleDayOpen={handleDayOpen}
-            events={events}
+            events={props.events}
             setDate={setDate}
             setDateEvents={setDateEvents}
           />
         </Grid>
         <Grid className="summary-list-container">
           {/* Display summary list component */}
-          <SummaryList events={events} />
+          <SummaryList events={props.events} />
         </Grid>
       </Grid>
       {/* Footer component */}

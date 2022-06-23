@@ -7,10 +7,11 @@ import { Grid } from "@mui/material";
 
 //Help article prop interface
 interface IHelpArticle {
+  cartQty: number;
   helpArticle: {
     title: string;
-    article: string
-}[];
+    article: string;
+  }[];
 }
 
 // Help article functional component
@@ -20,7 +21,7 @@ const HelpArticle = (props: IHelpArticle) => {
   return (
     <Grid>
       {/* Main navigation component */}
-      <MainNav />
+      <MainNav cartQty={props.cartQty} />
       {/* Pages navigation component */}
       <PagesNav />
       <Grid>
@@ -45,7 +46,7 @@ export async function getStaticPaths() {
 
   return {
     fallback: false,
-    paths: helpResponse.data.data.helpArticles.map((article: any) => ({
+    paths: helpResponse.data.data.helpArticles.map((article: { category: any; id: any; }) => ({
       params: {
         category: article.category,
         id: article.id,

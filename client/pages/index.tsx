@@ -6,7 +6,7 @@ import { Grid } from "@mui/material";
 
 // Home prop interface
 interface IHome {
-  cartQty: number | null | undefined;
+  cartQty: number;
 }
 
 //Home functional component

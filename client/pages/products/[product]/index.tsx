@@ -9,11 +9,12 @@ import Footer from "../../../components/footer";
 import Head from "next/head";
 import { Grid } from "@mui/material";
 import ProductsNav from "../../../components/users/products/productsNav";
+import { IProduct } from "../../../interfaces";
 
 // Products prop interface
 interface IProducts {
-  products: any[];
-  cartQty: number | null | undefined;
+  products: IProduct[];
+  cartQty: number
 }
 
 //Products functional component
@@ -169,7 +170,7 @@ export async function getStaticProps(context: { params: { product: string } }) {
   //Create and add product item image buffer to all products in the product object
   for (let i = 0; i < productResponse.data.data.product.length; i++) {
     if (productResponse.data.data.product[i].imagekey !== null) {
-      let imagesResponse = await IndexAPI.get(
+      const imagesResponse = await IndexAPI.get(
         `/images/${productResponse.data.data.product[i].imagekey}`,
         {
           responseType: "arraybuffer",

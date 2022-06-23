@@ -1,22 +1,25 @@
 import { useState } from "react";
 import { Grid } from "@mui/material";
 import Link from "next/link";
-import { IMedia } from "../../../interfaces";
 
-interface IMediaNav {
-  medias: IMedia[];
+interface IMedia {
+  mediaCategories: string[];
+  mediaPosts: {
+    id: string;
+    type: string;
+    title: string;
+    imageBuffer: string;
+  }[];
+  cartQty: number;
 }
 
 //Media navigation menu functional component
-const MediaNav = (props: IMediaNav) => {
-  // Media navigation state
-  const [media] = useState(props.medias);
-
+const MediaNav = (props: IMedia) => {
   //Create a array of the different media types provided
   const mediaTypes: string[] = [];
-  for (let i = 0; i < media.length; i++) {
-    if (!mediaTypes.includes(media[i].type)) {
-      mediaTypes.push(media[i].type);
+  for (let i = 0; i < props.mediaCategories.length; i++) {
+    if (!mediaTypes.includes(props.mediaPosts[i].type)) {
+      mediaTypes.push(props.mediaPosts[i].type);
     }
   }
 

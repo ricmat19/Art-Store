@@ -13,14 +13,15 @@ import { faCalendarDay, faPlus } from "@fortawesome/free-solid-svg-icons";
 import AdminEvents from "./events";
 import AdminCreateEvent from "./createEvent";
 import AdminUpdateEvent from "./updateEvent";
+import { IEvent } from "../../../interfaces";
 
 //Admin day modal prop interface
 interface IAdminDay {
   date: boolean | ReactChild | ReactFragment | ReactPortal | null | undefined;
   handleClose: () => void;
   open: boolean;
-  dateEvents: undefined;
-  displayDeleteModal: (arg0: any) => void;
+  dateEvents: IEvent[];
+  displayDeleteModal: () => void;
 }
 
 //Admin day modal functional component

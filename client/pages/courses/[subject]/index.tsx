@@ -17,7 +17,7 @@ interface ICourse {
 }
 interface ICourses {
   courses: ICourse[];
-  cartQty: number | null | undefined;
+  cartQty: number;
   subjects: string[];
 }
 
@@ -155,7 +155,7 @@ export async function getStaticProps(context: { params: { subject: string } }) {
   //Create and add course image buffer to all courses in the course subject object
   for (let i = 0; i < coursesResponse.data.data.courses.length; i++) {
     if (coursesResponse.data.data.courses[i].imagekey !== null) {
-      let imagesResponse = await IndexAPI.get(
+      const imagesResponse = await IndexAPI.get(
         `/images/${coursesResponse.data.data.courses[i].imagekey}`,
         {
           responseType: "arraybuffer",

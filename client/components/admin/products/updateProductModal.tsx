@@ -8,9 +8,8 @@ import { IProduct } from "../../../interfaces";
 
 //Update product props interface
 interface IAdminUpdateProduct {
-  updateProduct: IProduct;
+  updateProduct: IProduct | undefined;
   open: boolean;
-  email: string;
   handleClose: () => void;
 }
 

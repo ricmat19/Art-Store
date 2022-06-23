@@ -22,7 +22,7 @@ export const getCartReducer = createAsyncThunk(
 // Add an item to the cart
 export const addToCartReducer = createAsyncThunk(
   "cart/addToCartReducer",
-  async (id: number) => {
+  async (id: string) => {
     try {
       const cartPostResponse = await IndexAPI.post("/cart", {
         id,

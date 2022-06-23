@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import IndexAPI from "../../../../apis/indexAPI";
 import FooterC from "../../../../components/footer";
 import AdminMainNav from "../../../../components/admin/mainNav";
@@ -137,7 +137,7 @@ const AdminAddBlogPost = () => {
                     <label className="admin-label">Image:</label>
                     <Field
                       type="file"
-                      onChange={(e) => setImage(e.target.files[0])}
+                      onChange={(e: { target: { files: SetStateAction<File | undefined>[]; }; }) => setImage(e.target.files[0])}
                       name="images"
                       className="form-control file-input"
                     />

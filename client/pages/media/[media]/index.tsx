@@ -12,15 +12,14 @@ import ReactPaginate from "react-paginate";
 import { Grid } from "@mui/material";
 
 // Media prop interface
-interface IMediaPosts {
-  id: string;
-  title: string;
-  imageBuffer: string;
-}
 interface IMedia {
-  mediaPosts: IMediaPosts[];
-  cartQty: number;
   mediaCategories: string[];
+  mediaPosts: {
+    id: string;
+    title: string;
+    imageBuffer: string;
+  }[];
+  cartQty: number;
 }
 
 //Media functional component
@@ -51,14 +50,11 @@ const Media = (props: IMedia) => {
   //Map through the list of blog posts and setup their templates
   const displayPost = props.mediaPosts
     .slice(pagesVisited, pagesVisited + itemsPerPage)
-    .map((post: IMediaPosts) => {
+    .map((post) => {
       return (
         <Grid key={post.id}>
           {/* Route to the selected blog post's page on click */}
-          <Grid
-            className="pointer"
-            onClick={() => displayPostDetails(post.id)}
-          >
+          <Grid className="pointer" onClick={() => displayPostDetails(post.id)}>
             <Grid className="image-container">
               <img
                 className="thumbnail"
@@ -88,7 +84,7 @@ const Media = (props: IMedia) => {
       <Grid className="main-body">
         <Grid>
           {/* Display the media navigation menu */}
-          <MediaNav medias={props.mediaCategories} />
+          <MediaNav media={props} />
           {/* Display all posts of the current media subject */}
           <Grid className="gallery-menu">{displayPost}</Grid>
         </Grid>
@@ -149,7 +145,7 @@ export async function getStaticProps(context: { params: { media: string } }) {
   //Create and add media post image buffer to all media posts in the media subject's object
   for (let i = 0; i < mediaResponse.data.data.posts.length; i++) {
     if (mediaResponse.data.data.posts[i].imagekey !== null) {
-      let imagesResponse = await IndexAPI.get(
+      const imagesResponse = await IndexAPI.get(
         `/images/${mediaResponse.data.data.posts[i].imagekey}`,
         {
           responseType: "arraybuffer",

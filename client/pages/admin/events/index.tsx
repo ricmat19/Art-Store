@@ -20,8 +20,8 @@ const AdminEvents = (props: IAdminEvents) => {
   // Admin events states
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
   const [events, setEvents] = useState(props.events);
-  const [date, setDate] = useState();
-  const [dateEvents, setDateEvents] = useState();
+  const [date, setDate] = useState<Date>(undefined);
+  const [dateEvents, setDateEvents] = useState<IEvent[]>([]);
   const [deleteEvent, setDeleteEvent] = useState<IEvent>();
   const [dayOpen, setDayOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
@@ -82,7 +82,7 @@ const AdminEvents = (props: IAdminEvents) => {
           deleteEvent={deleteEvent}
           open={deleteOpen}
           handleClose={handleDeleteClose}
-          setBlogs={function (arg0: any): void {
+          setBlogs={function (): void {
             throw new Error("Function not implemented.");
           } } event={[]}        />
         {/* Admin main navigation component */}
