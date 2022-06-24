@@ -136,10 +136,18 @@ export interface IUser {
   password: string;
   firstName: string;
   lastName: string;
+  image: File;
+  bio: string;
   city: string;
   state: string;
-  zip: number;
+  zip: string;
   iv: string;
   interests: [];
   cart: ICart[];
+  phoneNumber: string;
+  address: string;
+  website: string;
+  twitter: string;
+  linkedIn: string;
+  youtube: string;
 }

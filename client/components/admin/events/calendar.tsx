@@ -11,8 +11,8 @@ import { IDay, IEvent } from "../../../interfaces";
 interface IAdminCalendar {
   events: IEvent[];
   handleDayOpen: () => void;
-  setDate: () => void;
-  setDateEvents: () => void;
+  setDate: (arg0: string) => void
+  setDateEvents: (arg0: IEvent[]) => void
 }
 
 //Admin calendar functional component

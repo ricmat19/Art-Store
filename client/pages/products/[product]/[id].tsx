@@ -227,7 +227,7 @@ export async function getStaticProps(context: {
   //Create and add the product's image buffer to the selected product's object
   let imageBuffer = "";
   if (productResponse.data.data.item.imagekey !== null) {
-    let imagesResponse = await IndexAPI.get(
+    const imagesResponse = await IndexAPI.get(
       `/images/${productResponse.data.data.item.imagekey}`,
       {
         responseType: "arraybuffer",

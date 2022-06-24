@@ -5,9 +5,9 @@ import { IEvent } from "../../../interfaces";
 
 //Admin delete event modal prop interface
 interface IAdminDeleteEvent {
-  deleteEvent: IEvent | undefined;
-  setBlogs: (arg0: any) => void;
-  event: IEvent[];
+  deleteEvent: IEvent;
+  setBlogs: (arg0: string) => void;
+  event: IEvent;
   handleClose: () => void;
   open: boolean;
 }
@@ -17,10 +17,10 @@ const AdminDeleteEventModal = (props: IAdminDeleteEvent) => {
   //admin function to delete event
   const handleDelete = async () => {
     try {
-      await IndexAPI.delete(`/admin/events/${props.deleteEvent[0].id}`);
+      await IndexAPI.delete(`/admin/events/${props.deleteEvent.id}`);
       props.setBlogs(
         props.event.filter((event: IEvent) => {
-          return event.id !== props.deleteEvent[0].id;
+          return event.id !== props.deleteEvent.id;
         })
       );
       props.handleClose();
@@ -80,7 +80,7 @@ const AdminDeleteEventModal = (props: IAdminDeleteEvent) => {
                     <Grid className="align-center">
                       <h1>
                         Are you sure you want to delete &quot;
-                        {props.deleteEvent[0].title}&quot; ?
+                        {props.deleteEvent.title}&quot; ?
                       </h1>
                     </Grid>
                     {/* Event delete button */}

@@ -17,7 +17,7 @@ import { IEvent } from "../../../interfaces";
 
 //Admin day modal prop interface
 interface IAdminDay {
-  date: boolean | ReactChild | ReactFragment | ReactPortal | null | undefined;
+  date: Date;
   handleClose: () => void;
   open: boolean;
   dateEvents: IEvent[];
@@ -27,11 +27,11 @@ interface IAdminDay {
 //Admin day modal functional component
 const AdminDayModal = (props: IAdminDay) => {
   //Admin day modal states
-  const [view, setView] = useState("events");
-  const [title, setTitle] = useState("");
-  const [price, setPrice] = useState("");
-  const [spots, setSpots] = useState("");
-  const [info, setInfo] = useState("");
+  const [view, setView] = useState<string>("events");
+  const [title, setTitle] = useState<string>("");
+  const [price, setPrice] = useState<string>("");
+  const [spots, setSpots] = useState<string>("");
+  const [info, setInfo] = useState<string>("");
   const [selectedEvent, setSelectedEvent] = useState({ id: "" });
 
   //Sets the day modal's view to events

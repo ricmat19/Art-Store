@@ -8,7 +8,7 @@ import { IProduct } from "../../../interfaces";
 
 //Update product props interface
 interface IAdminUpdateProduct {
-  updateProduct: IProduct | undefined;
+  updateProduct: IProduct;
   open: boolean;
   handleClose: () => void;
 }

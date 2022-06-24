@@ -16,10 +16,10 @@ const AdminProductsNav = (props: IAdminProductsNav) => {
   //Creates a product navigation link for each existing product subject
   let productPageLinks;
   if (activeProducts !== undefined) {
-    productPageLinks = activeProducts.map((product: string) => {
+    productPageLinks = activeProducts.map((product: IProduct) => {
       return (
-        <Link passHref key={product} href={`/admin/products/${product}`}>
-          <h1 className="main-title pointer">{product}</h1>
+        <Link passHref key={product.id} href={`/admin/products/${product.id}`}>
+          <h1 className="main-title pointer">{product.title}</h1>
         </Link>
       );
     });

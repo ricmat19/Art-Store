@@ -5,7 +5,7 @@ import { IProduct } from "../../../interfaces";
 
 //Admin delete product props interface
 interface IAdminDeleteProduct {
-  deleteProduct: IProduct | undefined;
+  deleteProduct: IProduct;
   handleClose: () => void;
   open: boolean;
 }

@@ -1,16 +1,16 @@
 import IndexAPI from "../../../apis/indexAPI";
 import { Grid } from "@mui/material";
 import { useState } from "react";
-import { IProfile } from "../../../interfaces";
+import { IUser } from "../../../interfaces";
 
 //Profile links functional component
-const Links = (props: IProfile) => {
+const Links = (props: IUser) => {
   //Profile links states
-  const [email] = useState(props.email);
-  const [website, setWebsite] = useState(props.website);
-  const [twitter, setTwitter] = useState(props.twitter);
-  const [linkedIn, setLinkedIn] = useState(props.linkedin);
-  const [youtube, setYoutube] = useState(props.youtube);
+  const [email] = useState<string>(props.email);
+  const [website, setWebsite] = useState<string>(props.website);
+  const [twitter, setTwitter] = useState<string>(props.twitter);
+  const [linkedIn, setLinkedIn] = useState<string>(props.linkedIn);
+  const [youtube, setYoutube] = useState<string>(props.youtube);
 
   //Function to update the user's profile links
   const updateProfile = async (e: { preventDefault: () => void }) => {

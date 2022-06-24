@@ -5,7 +5,7 @@ import { ICourse } from "../../../interfaces";
 
 //Admin delete course prop interface
 interface IAdminDeleteCourse {
-  deleteCourse: ICourse | undefined;
+  deleteCourse: ICourse;
   open: boolean;
   handleClose: () => void;
 }

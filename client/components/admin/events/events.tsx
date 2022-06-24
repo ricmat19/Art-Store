@@ -2,25 +2,20 @@
 import { Grid } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { IEvent } from "../../../interfaces";
 
 //Admin events prop interface
-interface IDateEvents {
-  id: string;
-  title: string;
-  price: string;
-  spots: string;
-}
 interface IAdminEvents {
-  setSelectedEvent: (arg0: any) => void;
+  setSelectedEvent: (arg0: IEvent) => void;
   setView: (arg0: string) => void;
-  dateEvents: IDateEvents[];
-  displayDeleteModal: (arg0: any) => void;
+  dateEvents: IEvent[];
+  displayDeleteModal: (arg0: string) => void;
 }
 
 //Admin events functional component
 const AdminEvents = (props: IAdminEvents) => {
   //Function to display the events edit modal
-  const displayEditModal = (event: any) => {
+  const displayEditModal = (event: IEvent) => {
     props.setSelectedEvent(event);
     props.setView("edit");
   };
@@ -43,7 +38,7 @@ const AdminEvents = (props: IAdminEvents) => {
       <Grid sx={{ width: "100%" }}>
         {/* Map through and display all events from the specified date if there are events that day*/}
         {props.dateEvents !== undefined ? (
-          props.dateEvents.map((event: IDateEvents, index: number) => (
+          props.dateEvents.map((event: IEvent, index: number) => (
             <Grid
               key={index}
               container

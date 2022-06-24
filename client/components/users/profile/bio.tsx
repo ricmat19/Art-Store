@@ -1,14 +1,14 @@
 import IndexAPI from "../../../apis/indexAPI";
 import { Grid } from "@mui/material";
 import { useState } from "react";
-import { IProfile } from "../../../interfaces";
+import { IUser } from "../../../interfaces";
 
 //Profile bio functional component
-const Bio = (props: IProfile) => {
+const Bio = (props: IUser) => {
   //Profile bio states
-  const [email] = useState(props.email);
-  const [image, setImage] = useState(props.image);
-  const [bio, setBio] = useState(props.bio);
+  const [email] = useState<string>(props.email);
+  const [image, setImage] = useState<File>(props.image);
+  const [bio, setBio] = useState<string>(props.bio);
 
   //Function to update the user's profile bio
   const updateProfile = async (e: { preventDefault: () => void }) => {
