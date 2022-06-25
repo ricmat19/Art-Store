@@ -1,3 +1,4 @@
+import IndexAPI from "../../apis/indexAPI";
 import { useRouter } from "next/router";
 import { SetStateAction, useEffect, useState } from "react";
 // import PropTypes from "prop-types";
@@ -10,6 +11,7 @@ import {
   faUserCircle,
   faEllipsisV,
   faHamburger,
+  faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import { useAppDispatch } from "../../hooks";
 import Notifications from "./menuModals/notificationModal";
@@ -19,7 +21,7 @@ import SignUp from "./auth/signupModal";
 import SignIn from "./auth/signInModal";
 import Reset from "./auth/resetModal";
 
-interface ICartQty{
+interface ICartQty {
   cartQty: number;
 }
 
@@ -34,6 +36,7 @@ const MainNav = (props: ICartQty) => {
   const [notificationOpen, setNotificationOpen] = useState(null);
   const [ellipseOpen, setEllipseOpen] = useState(null);
   const [iconMenu, setIconMenu] = useState("iconMenu");
+  const [searchData, setSearchData] = useState([]);
 
   //Next router function
   const router = useRouter();
@@ -43,9 +46,20 @@ const MainNav = (props: ICartQty) => {
 
   //Get cart content on render
   useEffect(() => {
-    const fetchData = () => {
+    const fetchData = async () => {
       try {
-        // const cartResponse = await dispatch(getCartReducer());
+        const allCommunity = await IndexAPI.get(`/community`);
+        const allCourses = await IndexAPI.get(`/courses`);
+        const allHelp = await IndexAPI.get(`/help`);
+        const allBlog = await IndexAPI.get(`/media/blog`);
+        // const allChannel = await IndexAPI.get(`/media/channel`);
+        // const allPodcast = await IndexAPI.get(`/media/podcast`);
+        const allProducts = await IndexAPI.get(`/products`);
+        console.log(allCommunity);
+        console.log(allCourses);
+        console.log(allHelp);
+        console.log(allBlog);
+        console.log(allProducts);
       } catch (err) {
         console.log(err);
       }
@@ -68,7 +82,9 @@ const MainNav = (props: ICartQty) => {
 
   //Handle notification modal open and close
   const openNotification = Boolean(notificationOpen);
-  const handleNotificationClick = (event: { currentTarget: SetStateAction<null>; }) => {
+  const handleNotificationClick = (event: {
+    currentTarget: SetStateAction<null>;
+  }) => {
     setNotificationOpen(event.currentTarget);
   };
   const handleNotificationClose = () => {
@@ -77,7 +93,7 @@ const MainNav = (props: ICartQty) => {
 
   //Handle user modal open and close
   const openUser = Boolean(userOpen);
-  const handleUserClick = (event: { currentTarget: SetStateAction<null>; }) => {
+  const handleUserClick = (event: { currentTarget: SetStateAction<null> }) => {
     setUserOpen(event.currentTarget);
   };
   const handleUserClose = () => {
@@ -86,7 +102,9 @@ const MainNav = (props: ICartQty) => {
 
   //Handle ellipse modal open and close
   const openEllipse = Boolean(ellipseOpen);
-  const handleEllipseClick = (event: { currentTarget: SetStateAction<null>; }) => {
+  const handleEllipseClick = (event: {
+    currentTarget: SetStateAction<null>;
+  }) => {
     setEllipseOpen(event.currentTarget);
   };
   const handleEllipseClose = () => {
@@ -168,13 +186,31 @@ const MainNav = (props: ICartQty) => {
                 </span>
               </Grid>
             </Grid>
-            <Grid xs={12} container sx={{ alignContent: "center" }}>
-              {/* Search input box */}
-              <input
-                type="text"
-                className="search-field"
-                placeholder="Search"
-              />
+            <Grid>
+              <Grid
+                xs={12}
+                container
+                sx={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr auto",
+                  alignContent: "center",
+                }}
+              >
+                {/* Search input box */}
+                <input
+                  type="text"
+                  className="search-field"
+                  placeholder="Search"
+                />
+                <button className="search-button">
+                  <FontAwesomeIcon className="magnifier" icon={faSearch} />
+                </button>
+              </Grid>
+              <Grid>
+                {searchData.map((data: string, index: number) => (
+                  <Grid key={index}></Grid>
+                ))}
+              </Grid>
             </Grid>
             <Grid
               container
@@ -279,7 +315,8 @@ const MainNav = (props: ICartQty) => {
             lastName={""}
             email={""}
             password={""}
-            passwordCopy={""} />
+            passwordCopy={""}
+          />
           {/* Sign in modal */}
           <SignIn
             signInOpen={signInOpen}
