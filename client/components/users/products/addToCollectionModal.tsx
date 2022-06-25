@@ -16,8 +16,8 @@ interface ICollection {
 interface IAddToCollection {
   open: boolean;
   handleClose: () => void;
-  collections: ICollection[];
-  collection: ICollection;
+  collections: ICollection[] | undefined;
+  collection: ICollection | undefined;
   product: IProduct;
   uniqueItem: boolean;
   setUniqueItem: (arg0: any) => void;

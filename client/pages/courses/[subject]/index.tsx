@@ -7,11 +7,13 @@ import PagesNav from "../../../components/users/pagesNav";
 import FooterC from "../../../components/footer";
 import CoursesNav from "../../../components/users/courses/coursesNav";
 import { Grid } from "@mui/material";
+import { useRouter } from "next/router";
 
 //Courses props interface
 interface ICourse {
   id: string;
   title: string;
+  subject: string;
   price: string;
   imageBuffer: string;
 }
@@ -34,15 +36,15 @@ const Courses = (props: ICourses) => {
     setPageNumber(selected);
   };
 
-  //   let navigation = useNavigate();
+  const router = useRouter();
 
-  //   const displayCourse = async (subject: string, id: string) => {
-  //     try {
-  //       navigation(`/courses/${subject}/${id}`);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
+  const displayCourse = async (subject: string, id: string) => {
+    try {
+      router.push(`/courses/${subject}/${id}`);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   //Map through the list of courses and setup their templates
   let displayCourses;
@@ -55,7 +57,7 @@ const Courses = (props: ICourses) => {
           <Grid
             className="pointer"
             key={course.id}
-            //   onClick={() => displayCourse(course.subject, course.id)}
+            onClick={() => displayCourse(course.subject, course.id)}
           >
             {/* Display course image */}
             <Grid className="image-container">

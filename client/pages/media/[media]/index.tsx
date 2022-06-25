@@ -13,10 +13,14 @@ import { Grid } from "@mui/material";
 
 // Media prop interface
 interface IMedia {
-  mediaCategories: string[];
+  mediaCategories: string;
   mediaPosts: {
     id: string;
+    type: string;
     title: string;
+    create_date: string;
+    update_date: string;
+    content: string;
     imageBuffer: string;
   }[];
   cartQty: number;
@@ -84,7 +88,7 @@ const Media = (props: IMedia) => {
       <Grid className="main-body">
         <Grid>
           {/* Display the media navigation menu */}
-          <MediaNav media={props} />
+          <MediaNav mediaCategories={props.mediaCategories} />
           {/* Display all posts of the current media subject */}
           <Grid className="gallery-menu">{displayPost}</Grid>
         </Grid>
@@ -164,7 +168,7 @@ export async function getStaticProps(context: { params: { media: string } }) {
   return {
     props: {
       mediaCategories: media,
-      mediaListings: mediaResponse.data.data.posts,
+      mediaPosts: mediaResponse.data.data.posts,
       cartQty: cartResponse.data.data.cart.length,
     },
     revalidate: 1,

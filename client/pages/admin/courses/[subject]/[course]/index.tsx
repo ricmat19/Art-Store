@@ -9,6 +9,7 @@ import { Grid, MenuItem } from "@mui/material";
 import { NextRouter, useRouter } from "next/router";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { ICourse } from "../../../../../interfaces";
 
 //Admin create course prop interface
 interface IAdminCourse {

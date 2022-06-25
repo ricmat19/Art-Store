@@ -1,6 +1,6 @@
 import IndexAPI from "../../apis/indexAPI";
 import { useRouter } from "next/router";
-import { SetStateAction, useEffect, useState } from "react";
+import { ChangeEvent, SetStateAction, useEffect, useState } from "react";
 // import PropTypes from "prop-types";
 import { Grid } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,6 +12,7 @@ import {
   faEllipsisV,
   faHamburger,
   faSearch,
+  faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import { useAppDispatch } from "../../hooks";
 import Notifications from "./menuModals/notificationModal";
@@ -20,9 +21,29 @@ import Ellipse from "./menuModals/ellipseModal";
 import SignUp from "./auth/signupModal";
 import SignIn from "./auth/signInModal";
 import Reset from "./auth/resetModal";
+import { borderTop } from "@mui/system";
+// import { getSearchDataReducer } from "../../reducers/searchReducers";
 
 interface ICartQty {
   cartQty: number;
+}
+
+interface ISearchData {
+  id: string;
+  title: string;
+  subject: string;
+  product: string;
+  price: string;
+  info: string;
+  imagekey: string;
+  description: string;
+  category: string;
+  article: string;
+  section: string;
+  createDate: string;
+  content: string;
+  url: string;
+  type: string;
 }
 
 //Main navigation functional component
@@ -36,7 +57,7 @@ const MainNav = (props: ICartQty) => {
   const [notificationOpen, setNotificationOpen] = useState(null);
   const [ellipseOpen, setEllipseOpen] = useState(null);
   const [iconMenu, setIconMenu] = useState("iconMenu");
-  const [searchData, setSearchData] = useState([]);
+  const [searchData, setSearchData] = useState<ISearchData[]>([]);
 
   //Next router function
   const router = useRouter();
@@ -44,10 +65,16 @@ const MainNav = (props: ICartQty) => {
   //Redux request function
   const dispatch = useAppDispatch();
 
+  const collectionOfAllData: ISearchData[] = [];
   //Get cart content on render
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // let allSearchData: = await dispatch(getSearchDataReducer());
+        // console.log(allSearchData.payload);
+        // setSearchData(allSearchData.payload);
+
+        //Query all data for search
         const allCommunity = await IndexAPI.get(`/community`);
         const allCourses = await IndexAPI.get(`/courses`);
         const allHelp = await IndexAPI.get(`/help`);
@@ -55,18 +82,29 @@ const MainNav = (props: ICartQty) => {
         // const allChannel = await IndexAPI.get(`/media/channel`);
         // const allPodcast = await IndexAPI.get(`/media/podcast`);
         const allProducts = await IndexAPI.get(`/products`);
-        console.log(allCommunity);
-        console.log(allCourses);
-        console.log(allHelp);
-        console.log(allBlog);
-        console.log(allProducts);
+
+        //Add all queried data to an array
+        const collectionOfQueries = [
+          allCommunity.data.data.community,
+          allCourses.data.data.courses,
+          allHelp.data.data.helpArticles,
+          allBlog.data.data.posts,
+          allProducts.data.data.products,
+        ];
+
+        //Create an array with all searchable data and set state
+        for (let i = 0; i < collectionOfQueries.length; i++) {
+          for (let j = 0; j < collectionOfQueries[i].length; j++) {
+            collectionOfAllData.push(collectionOfQueries[i][j]);
+          }
+        }
       } catch (err) {
         console.log(err);
       }
     };
 
     fetchData();
-  }, [dispatch]);
+  }, [dispatch, searchData]);
 
   //Handle signup modal open and close
   const handleSignUpOpen = () => setSignUpOpen(true);
@@ -130,6 +168,90 @@ const MainNav = (props: ICartQty) => {
     } else {
       setIconMenu("iconMenu iconMenu-show");
     }
+  };
+
+  const filterSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    const searchInput = e.target.value;
+    const newFilter = collectionOfAllData.filter((value) => {
+      if (searchInput) {
+        if (
+          value.title &&
+          value.title.toLowerCase().includes(searchInput.toLowerCase())
+        ) {
+          return value.title.toLowerCase().includes(searchInput.toLowerCase());
+        }
+        if (
+          value.type &&
+          value.type.toLowerCase().includes(searchInput.toLowerCase())
+        ) {
+          return value.type.toLowerCase().includes(searchInput.toLowerCase());
+        }
+        if (
+          value.subject &&
+          value.subject.toLowerCase().includes(searchInput.toLowerCase())
+        ) {
+          return value.subject
+            .toLowerCase()
+            .includes(searchInput.toLowerCase());
+        }
+        if (
+          value.product &&
+          value.product.toLowerCase().includes(searchInput.toLowerCase())
+        ) {
+          return value.product
+            .toLowerCase()
+            .includes(searchInput.toLowerCase());
+        }
+        if (
+          value.info &&
+          value.info.toLowerCase().includes(searchInput.toLowerCase())
+        ) {
+          return value.info.toLowerCase().includes(searchInput.toLowerCase());
+        }
+        if (
+          value.description &&
+          value.description.toLowerCase().includes(searchInput.toLowerCase())
+        ) {
+          return value.description
+            .toLowerCase()
+            .includes(searchInput.toLowerCase());
+        }
+        if (
+          value.category &&
+          value.category.toLowerCase().includes(searchInput.toLowerCase())
+        ) {
+          return value.category
+            .toLowerCase()
+            .includes(searchInput.toLowerCase());
+        }
+        if (
+          value.article &&
+          value.article.toLowerCase().includes(searchInput.toLowerCase())
+        ) {
+          return value.article
+            .toLowerCase()
+            .includes(searchInput.toLowerCase());
+        }
+        if (
+          value.section &&
+          value.section.toLowerCase().includes(searchInput.toLowerCase())
+        ) {
+          return value.section
+            .toLowerCase()
+            .includes(searchInput.toLowerCase());
+        }
+        if (
+          value.content &&
+          value.content.toLowerCase().includes(searchInput.toLowerCase())
+        ) {
+          return value.content
+            .toLowerCase()
+            .includes(searchInput.toLowerCase());
+        }
+      }
+    });
+    console.log(newFilter);
+    setSearchData(newFilter);
   };
 
   //Display main navigation component view depending on login status
@@ -201,16 +323,71 @@ const MainNav = (props: ICartQty) => {
                   type="text"
                   className="search-field"
                   placeholder="Search"
+                  onChange={(e) => filterSearch(e)}
                 />
-                <button className="search-button">
+                <Grid className="search-button">
                   <FontAwesomeIcon className="magnifier" icon={faSearch} />
-                </button>
+                </Grid>
               </Grid>
-              <Grid>
-                {searchData.map((data: string, index: number) => (
-                  <Grid key={index}></Grid>
-                ))}
-              </Grid>
+              {searchData.length !== 0 ? (
+                <Grid
+                  sx={{
+                    position: "relative",
+                  }}
+                >
+                  <Grid
+                    sx={{
+                      display: "grid",
+                      gap: "5px",
+                      backgroundColor: "white",
+                      borderTop: "black solid 2px",
+                      maxHeight: "200px",
+                      overflowY: "scroll",
+                      position: "absolute",
+                      width: "100%",
+                    }}
+                    className="search-data-container"
+                  >
+                    {searchData
+                      .slice(0, 10)
+                      .map((data: ISearchData, index: any) => (
+                        <a
+                          href={data.url}
+                          key={index}
+                          className="search-row pointer"
+                        >
+                          <Grid>
+                            {/* {data.imagekey ? (
+                        <Grid>
+                          <img
+                          // src={imageBuffer}
+                          />
+                        </Grid>
+                      ) : ( */}
+                            <Grid>
+                              <FontAwesomeIcon
+                                className="search-icon"
+                                icon={faMagnifyingGlass}
+                              />
+                            </Grid>
+                            {/* )} */}
+                          </Grid>
+                          <Grid
+                            sx={{
+                              display: "grid",
+                              alignContent: "center",
+                              color: "black",
+                            }}
+                          >
+                            {data.title}
+                          </Grid>
+                        </a>
+                      ))}
+                  </Grid>
+                </Grid>
+              ) : (
+                <Grid></Grid>
+              )}
             </Grid>
             <Grid
               container

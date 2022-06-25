@@ -21,6 +21,26 @@
   margin: 0;
   padding: 5px 10px;
   height: 100%;
+  border: solid white 2px;
+}
+
+.search-data-container::-webkit-scrollbar {
+  display: none;
+}
+
+.search-row {
+  padding: 2px 5px;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: auto 1fr;
+}
+
+.search-row:hover {
+  background-color: rgb(239, 239, 239);
+}
+
+.search-icon {
+  color: black;
 }
 
 .nav-link:hover {

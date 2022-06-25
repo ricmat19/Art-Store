@@ -98,23 +98,26 @@ export async function getStaticPaths() {
   const coursesResponse = await IndexAPI.get(`/courses`);
   return {
     fallback: false,
-    paths: coursesResponse.data.data.courses.map((courses: { subject: any; id: any; }) => ({
-      params: {
-        course: courses.subject,
-        id: courses.id,
-      },
-    })),
+    paths: coursesResponse.data.data.courses.map(
+      (courses: { subject: string; id: string }) => ({
+        params: {
+          course: courses.subject,
+          id: courses.id,
+        },
+      })
+    ),
   };
 }
 
 export async function getStaticProps(context: {
   params: { course: string; id: string };
 }) {
+  const course = context.params.course;
+  const id = context.params.id;
+  
   // Get cart content
   const cartResponse = await IndexAPI.get(`/cart`);
 
-  const course = context.params.course;
-  const id = context.params.id;
   // Get the selected course's content
   const courseResponse = await IndexAPI.get(`/courses/${course}/${id}`);
 

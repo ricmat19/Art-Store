@@ -18,7 +18,9 @@ import { IProduct } from "../../../interfaces";
 
 // Product details prop interface
 interface IProductDetails {
+  imageBuffer: string;
   product: IProduct;
+  groups: any[];
   cartQty: number;
 }
 
@@ -27,9 +29,8 @@ const ProductDetails = (props: IProductDetails) => {
   // Product details states
   const [addToCartOpen, setAddToCartOpen] = useState(false);
   const [addToCollectionOpen, setAddToCollectionOpen] = useState(false);
-  const [imageBuffer] = useState(props.product.imageBuffer);
-  const [product] = useState(props.product.product);
-  const [cartQty, setCartQty] = useState(props.cartQty);
+  const [product] = useState(props.product);
+  const [cartQty, setCartQty] = useState<number>(props.cartQty);
   const [uniqueItem, setUniqueItem] = useState(false);
 
   // Redux dispatch
@@ -124,6 +125,7 @@ const ProductDetails = (props: IProductDetails) => {
         collections={props.groups}
         uniqueItem={uniqueItem}
         setUniqueItem={setUniqueItem}
+        collection={undefined}
       />
       {/* <Grid className={addedModal}>
         <form>
@@ -160,9 +162,10 @@ const ProductDetails = (props: IProductDetails) => {
           <Grid className="image-div">
             {/* Display the current product's image */}
             <Grid className="justify-center">
+              {console.log(product)}
               <img
                 className="big-image"
-                src={imageBuffer}
+                src={props.imageBuffer}
                 alt="product image"
               />
             </Grid>
@@ -206,12 +209,14 @@ export async function getStaticPaths() {
   // Return the list of products as product path parameters
   return {
     fallback: false,
-    paths: productsResponse.data.data.products.map((product: any) => ({
-      params: {
-        product: product.product,
-        id: product.id,
-      },
-    })),
+    paths: productsResponse.data.data.products.map(
+      (product: { product: string; id: string }) => ({
+        params: {
+          product: product.product,
+          id: product.id,
+        },
+      })
+    ),
   };
 }
 
@@ -220,6 +225,9 @@ export async function getStaticProps(context: {
 }) {
   const product = context.params.product;
   const id = context.params.id;
+  
+  // Get the cart's content
+  const cartResponse = await IndexAPI.get(`/cart`);
 
   // Get the selected product's content
   const productResponse = await IndexAPI.get(`/products/${product}/${id}`);
@@ -241,9 +249,6 @@ export async function getStaticProps(context: {
 
   // Get the list of collection groups
   const collectionsResponse = await IndexAPI.get(`/collection/groups`);
-
-  // Get the cart's content
-  const cartResponse = await IndexAPI.get(`/cart`);
 
   //Provide the selected product's image buffer, product content, collection groups, and cart content as props to the selected product's component
   return {
