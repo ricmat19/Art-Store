@@ -26,28 +26,27 @@ interface INotifications {
 const Notifications = (props: INotifications) => {
   //Notifications component states
   const [notifications, setNotifications] = useState([]);
-  const [product, setProduct] = useState("");
+  const [type, setType] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         let notificationsResponse;
         //If no notification product type is specified get all notifications, if a product type is specified get all products of that type
-        if (product === "") {
+        if (type === "") {
           notificationsResponse = await IndexAPI.get(`/notifications`);
         } else {
-          notificationsResponse = await IndexAPI.get(
-            `/notifications/${product}`
-          );
+          notificationsResponse = await IndexAPI.get(`/notifications/${type}`);
         }
         setNotifications(notificationsResponse.data.data.notifications);
+        console.log(notificationsResponse.data.data.notifications);
       } catch (err) {
         console.log(err);
       }
     };
 
     fetchData();
-  }, [product]);
+  }, [type]);
 
   //Notifications component
   return (
@@ -56,7 +55,7 @@ const Notifications = (props: INotifications) => {
       anchorEl={props.notificationOpen}
       open={props.openNotification}
       onClose={props.handleNotificationClose}
-      onClick={props.handleNotificationClose}
+      // onClick={props.handleNotificationClose}
       PaperProps={{
         elevation: 0,
         sx: {
@@ -101,34 +100,31 @@ const Notifications = (props: INotifications) => {
           >
             {/* Display all notifications */}
             <Grid xs={2} sx={{ cursor: "pointer", fontWeight: "900" }}>
-              <Grid onClick={() => setProduct("")}>All</Grid>
+              <Grid onClick={() => setType("")}>All</Grid>
             </Grid>
             {/* Display store notifications */}
             <Grid xs={2} sx={{ cursor: "pointer" }}>
               <FontAwesomeIcon
                 icon={faStoreAlt}
-                onClick={() => setProduct("products")}
+                onClick={() => setType("products")}
               />
             </Grid>
             {/* Display course notifications */}
             <Grid xs={2} sx={{ cursor: "pointer" }}>
               <FontAwesomeIcon
                 icon={faChalkboardTeacher}
-                onClick={() => setProduct("courses")}
+                onClick={() => setType("courses")}
               />
             </Grid>
             {/* Display media notifications */}
             <Grid xs={2} sx={{ cursor: "pointer" }}>
-              <FontAwesomeIcon
-                icon={faTv}
-                onClick={() => setProduct("media")}
-              />
+              <FontAwesomeIcon icon={faTv} onClick={() => setType("media")} />
             </Grid>
             {/* Display event notifications */}
             <Grid xs={2} sx={{ cursor: "pointer" }}>
               <FontAwesomeIcon
                 icon={faCalendarCheck}
-                onClick={() => setProduct("events")}
+                onClick={() => setType("events")}
               />
             </Grid>
           </Grid>
@@ -136,41 +132,47 @@ const Notifications = (props: INotifications) => {
         <hr />
         <Grid>
           {/* Map through all notifications */}
-          {notifications.map((notification: INotification) => {
+          {notifications.map((notification: INotification, index: string) => {
             return (
-              <Grid
-                key={notification.id}
-                sx={{
-                  display: "grid",
-                  gridTemplateColumns: "30px 1fr",
-                  padding: "10px",
-                }}
-              >
-                {/* Display the icon to the relevant notification type */}
-                <Grid sx={{ display: "grid", gap: "5px" }}>
-                  {notification.type === "product" ? (
-                    <Grid>
-                      <FontAwesomeIcon icon={faStoreAlt} />
-                    </Grid>
-                  ) : notification.type === "event" ? (
-                    <Grid>
-                      <FontAwesomeIcon icon={faCalendarCheck} />
-                    </Grid>
-                  ) : notification.type === "course" ? (
-                    <Grid>
-                      <FontAwesomeIcon icon={faChalkboardTeacher} />
-                    </Grid>
-                  ) : (
-                    <Grid>
-                      <FontAwesomeIcon icon={faPenToSquare} />
-                    </Grid>
-                  )}
+              <a href="/products/print" key={index}>
+                <Grid
+                  sx={{
+                    display: "grid",
+                    gridTemplateColumns: "40px 1fr",
+                    padding: "10px",
+                    color: "black",
+                    "&:hover": {
+                      backgroundColor: "rgb(239, 239, 239)",
+                      color: "black",
+                    },
+                  }}
+                >
+                  {/* Display the icon to the relevant notification type */}
+                  <Grid sx={{ display: "grid", gap: "5px" }}>
+                    {notification.type === "product" ? (
+                      <Grid sx={{ display: "grid", justifyContent: "center" }}>
+                        <FontAwesomeIcon icon={faStoreAlt} />
+                      </Grid>
+                    ) : notification.type === "event" ? (
+                      <Grid sx={{ display: "grid", justifyContent: "center" }}>
+                        <FontAwesomeIcon icon={faCalendarCheck} />
+                      </Grid>
+                    ) : notification.type === "course" ? (
+                      <Grid sx={{ display: "grid", justifyContent: "center" }}>
+                        <FontAwesomeIcon icon={faChalkboardTeacher} />
+                      </Grid>
+                    ) : (
+                      <Grid sx={{ display: "grid", justifyContent: "center" }}>
+                        <FontAwesomeIcon icon={faPenToSquare} />
+                      </Grid>
+                    )}
+                  </Grid>
+                  {/* ? */}
+                  <Grid sx={{ display: "grid" }}>
+                    {notification !== undefined ? notification.title : ""}
+                  </Grid>
                 </Grid>
-                {/* ? */}
-                <Grid>
-                  {notification !== undefined ? notification.title : ""}
-                </Grid>
-              </Grid>
+              </a>
             );
           })}
         </Grid>

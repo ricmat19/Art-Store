@@ -45,15 +45,74 @@ router.get("/notifications", async (req, res) => {
 });
 
 //Get all of a notification type
-router.get("/notifications/:type", async (req, res) => {
+router.get("/notifications/products", async (req, res) => {
   try {
-    const notifications = await db.query(`SELECT * FROM $1`, [req.params.type]);
+    const products = await db.query(`SELECT * FROM products`);
 
     res.status(200).json({
       status: "success",
-      results: notifications.rows.length,
+      results: products.rows.length,
       data: {
-        notifications: notifications.rows,
+        notifications: products.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//Get all of a notification type
+router.get("/notifications/courses", async (req, res) => {
+  try {
+    const courses = await db.query(`SELECT * FROM courses`);
+    // const courseSections = await db.query(`SELECT * FROM courseSections`);
+    // const courseLectures = await db.query(`SELECT * FROM courseLectures`);
+
+    // const courseNotifications = {
+    //   courses: courses.rows,
+    //   courseSections: courseSections.rows,
+    //   courseLectures: courseLectures.rows,
+    // };
+
+    res.status(200).json({
+      status: "success",
+      results: courses.rows.length,
+      data: {
+        notifications: courses.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//Get all of a notification type
+router.get("/notifications/media", async (req, res) => {
+  try {
+    const blog = await db.query(`SELECT * FROM blog`);
+
+    res.status(200).json({
+      status: "success",
+      results: blog.rows.length,
+      data: {
+        notifications: blog.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//Get all of a notification type
+router.get("/notifications/events", async (req, res) => {
+  try {
+    const events = await db.query(`SELECT * FROM events`);
+
+    res.status(200).json({
+      status: "success",
+      results: events.rows.length,
+      data: {
+        notifications: events.rows,
       },
     });
   } catch (err) {
