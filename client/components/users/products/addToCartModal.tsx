@@ -9,8 +9,8 @@ interface IAddToCart {
   uniqueItem: boolean;
   open: boolean;
   handleClose: () => void;
-  setUniqueItem: () => void;
-  setCartQty: () => void;
+  setUniqueItem: (arg0: boolean) => void;
+  setCartQty: (arg0: number) => void;
   id: string;
 }
 

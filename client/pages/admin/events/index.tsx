@@ -13,6 +13,7 @@ import { IEvent } from "../../../interfaces";
 //Admin events props interface
 interface IAdminEvents {
   events: IEvent[];
+  event: IEvent;
 }
 
 //Admin events functional component
@@ -20,9 +21,9 @@ const AdminEvents = (props: IAdminEvents) => {
   // Admin events states
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
   const [events, setEvents] = useState(props.events);
-  const [date, setDate] = useState<Date>(undefined);
+  const [date, setDate] = useState<Date | undefined>(undefined);
   const [dateEvents, setDateEvents] = useState<IEvent[]>([]);
-  const [deleteEvent, setDeleteEvent] = useState<IEvent>();
+  const [deleteEvent, setDeleteEvent] = useState<IEvent | undefined>(undefined);
   const [dayOpen, setDayOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
 
@@ -35,14 +36,14 @@ const AdminEvents = (props: IAdminEvents) => {
   const handleDeleteClose = () => setDeleteOpen(false);
 
   useEffect(() => {
-    const fetchData = () => {
+    const fetchData = async () => {
       try {
         //Query login status on render
-        const loginResponse = IndexAPI.get(`/login`);
+        const loginResponse = await IndexAPI.get(`/login`);
         setLoginStatus(loginResponse.data.data.loggedIn);
 
         //Get a list of all events and set it as the events state
-        const eventsResponse = IndexAPI.get(`/admin/events`);
+        const eventsResponse = await IndexAPI.get(`/admin/events`);
         setEvents(eventsResponse.data.data.events);
       } catch (err) {
         console.log(err);
@@ -84,7 +85,9 @@ const AdminEvents = (props: IAdminEvents) => {
           handleClose={handleDeleteClose}
           setBlogs={function (): void {
             throw new Error("Function not implemented.");
-          } } event={[]}        />
+          }}
+          events={events}
+        />
         {/* Admin main navigation component */}
         <AdminMainNav />
         {/* Admin pages navigation component */}

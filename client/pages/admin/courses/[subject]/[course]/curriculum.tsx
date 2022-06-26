@@ -104,9 +104,9 @@ const CourseCurriculum = (props: IAdminCourseCurriculum) => {
 
   //Get login status on render
   useEffect(() => {
-    const fetchData = () => {
+    const fetchData = async () => {
       try {
-        const loginResponse = IndexAPI.get(`/login`);
+        const loginResponse = await IndexAPI.get(`/login`);
         setLoginStatus(loginResponse.data.data.loggedIn);
       } catch (err) {
         console.log(err);

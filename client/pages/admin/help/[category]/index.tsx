@@ -30,7 +30,7 @@ interface ICategoryContent {
 interface IHelpCategory {
   category: string;
   categoryContent: ICategoryContent;
-  categoryArticles: { section: string; title: string }[];
+  categoryArticles: { id: string; section: string; title: string }[];
 }
 
 //Admin help category functional component
@@ -43,10 +43,10 @@ const HelpCategory = (props: IHelpCategory) => {
   const router = useRouter();
 
   useEffect(() => {
-    const fetchData = () => {
+    const fetchData = async () => {
       try {
         //Get and set login status on render
-        const loginResponse = IndexAPI.get(`/login`);
+        const loginResponse = await IndexAPI.get(`/login`);
         setLoginStatus(loginResponse.data.data.loggedIn);
       } catch (err) {
         console.log(err);
@@ -168,7 +168,11 @@ const HelpCategory = (props: IHelpCategory) => {
                         <ul>
                           {props.categoryArticles.map(
                             (
-                              article: { section: string; title: string },
+                              article: {
+                                id: string;
+                                section: string;
+                                title: string;
+                              },
                               index: number
                             ) => {
                               if (article.section === categorySection.section) {

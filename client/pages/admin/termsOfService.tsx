@@ -18,9 +18,9 @@ const TermsOfService = (props: ITermsOfService) => {
 
   //Get the current login status and set it as the login state
   useEffect(() => {
-    const fetchData = () => {
+    const fetchData = async () => {
       try {
-        const loginResponse = IndexAPI.get(`/login`);
+        const loginResponse = await IndexAPI.get(`/login`);
         setLoginStatus(loginResponse.data.data.loggedIn);
       } catch (err) {
         console.log(err);

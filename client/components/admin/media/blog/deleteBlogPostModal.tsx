@@ -5,7 +5,7 @@ import { IBlog } from "../../../../interfaces";
 
 //Admin delete blog post prop interface
 interface IAdminDeleteBlog {
-  deleteBlog: IBlog | undefined;
+  deleteBlog: IBlog;
   setBlogPosts: (arg0: IBlog[]) => void;
   blogs: IBlog[];
   handleClose: () => void;
@@ -18,7 +18,7 @@ const AdminDeleteBlogPostModal = (props: IAdminDeleteBlog) => {
   const handleDelete = async () => {
     try {
       await IndexAPI.delete(`/admin/blog/${props.deleteBlog.id}`);
-      props.setBlogs(
+      props.setBlogPosts(
         props.blogs.filter((blog: { id: string }) => {
           return blog.id !== props.deleteBlog.id;
         })

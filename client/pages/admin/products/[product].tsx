@@ -120,9 +120,9 @@ const AdminProduct = (props: IProducts) => {
 
   // Get the current login status and set its state
   useEffect(() => {
-    const fetchData = () => {
+    const fetchData = async () => {
       try {
-        const loginResponse = IndexAPI.get(`/login`);
+        const loginResponse = await IndexAPI.get(`/login`);
         setLoginStatus(loginResponse.data.data.loggedIn);
       } catch (err) {
         console.log(err);
@@ -160,7 +160,7 @@ const AdminProduct = (props: IProducts) => {
         <Grid className="main-body">
           <Grid>
             {/* Admin product navigation menu */}
-            <AdminProductsNav activeProducts={props.product} />
+            <AdminProductsNav />
             <Grid className="plus-icon-div">
               {/* Button to display create product modal */}
               <Button

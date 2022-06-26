@@ -102,9 +102,9 @@ const AdminBlog = (props: IAdminBlog) => {
 
   // Get the current login status and set its state
   useEffect(() => {
-    const fetchData = () => {
+    const fetchData = async () => {
       try {
-        const loginResponse = IndexAPI.get(`/login`);
+        const loginResponse = await IndexAPI.get(`/login`);
         setLoginStatus(loginResponse.data.data.loggedIn);
       } catch (err) {
         console.log(err);
@@ -126,7 +126,7 @@ const AdminBlog = (props: IAdminBlog) => {
           deleteBlog={deleteBlog}
           open={deleteOpen}
           handleClose={handleDeleteClose}
-          setBlogs={setBlogPosts}
+          setBlogPosts={setBlogPosts}
           blogs={[]}
         />
         {/* Admin main nav component */}

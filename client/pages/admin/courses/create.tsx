@@ -46,15 +46,15 @@ const onSubmit = (
     formData.append("price", values.price);
 
     //Create course and then route to course curriculum page
-    let currentCourse: Promise<AxiosResponse<any, any>>;
+    let currentCourse: AxiosResponse<any, any>
     IndexAPI.post("/admin/courses", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then(() => {
-        currentCourse = IndexAPI.get("/admin/courses/last");
-      })
       .then(async () => {
-        await values.router.push(
+        currentCourse = await IndexAPI.get("/admin/courses/last");
+      })
+      .then(() => {
+        values.router.push(
           {
             pathname: `/admin/courses/[subject]/[course]/curriculum`,
           },
@@ -85,10 +85,10 @@ const AdminCreateCourse = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const fetchData = () => {
+    const fetchData = async () => {
       try {
         //Get and set login status on render
-        const loginResponse = IndexAPI.get(`/login`);
+        const loginResponse = await IndexAPI.get(`/login`);
         setLoginStatus(loginResponse.data.data.loggedIn);
       } catch (err) {
         console.log(err);

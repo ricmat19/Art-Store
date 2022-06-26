@@ -17,11 +17,11 @@ import { IEvent } from "../../../interfaces";
 
 //Admin day modal prop interface
 interface IAdminDay {
-  date: Date;
+  date: Date | undefined;
   handleClose: () => void;
   open: boolean;
   dateEvents: IEvent[];
-  displayDeleteModal: () => void;
+  displayDeleteModal: (id: string) => void;
 }
 
 //Admin day modal functional component

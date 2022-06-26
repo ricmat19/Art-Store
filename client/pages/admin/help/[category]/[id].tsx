@@ -63,10 +63,10 @@ const AdminHelpArticle = (props: IHelpArticle) => {
   const router = useRouter();
 
   useEffect(() => {
-    const fetchData = () => {
+    const fetchData = async () => {
       try {
         //Query login status on render
-        const loginResponse = IndexAPI.get(`/login`);
+        const loginResponse = await IndexAPI.get(`/login`);
         setLoginStatus(loginResponse.data.data.loggedIn);
       } catch (err) {
         console.log(err);

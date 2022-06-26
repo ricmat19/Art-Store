@@ -60,10 +60,10 @@ const AdminBlogPost = (props: IAdminBlogPost) => {
   const postYear = new Date(props.post_date).getFullYear();
 
   useEffect(() => {
-    const fetchData = () => {
+    const fetchData = async () => {
       try {
         //Get and set login status on render
-        const loginResponse = IndexAPI.get(`/login`);
+        const loginResponse = await IndexAPI.get(`/login`);
         setLoginStatus(loginResponse.data.data.loggedIn);
       } catch (err) {
         console.log(err);
