@@ -32,7 +32,7 @@ export interface ICart {
   imageBuffer: string;
   qty: number;
   primaryImage: boolean;
-  cartItems: string[];
+  cartItems: ICart[];
 }
 
 export interface ICheckout {

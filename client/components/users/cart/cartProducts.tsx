@@ -14,13 +14,13 @@ import { useAppDispatch } from "../../../hooks";
 
 //Cart Products props interface
 interface ICartProducts {
+  cart: ICart[];
   setCart: (arg0: any) => void;
 }
 
 //Cart Products functional component
 const CartProducts = (props: ICartProducts) => {
   //Cart Products states
-  const [cart, setCart] = useState<ICart[]>([]);
   const [prices, setPrices] = useState<number[]>([]);
   const [cartQty, setCartQty] = useState<number[]>([]);
   const [subtotal, setSubtotal] = useState(0);
@@ -39,27 +39,28 @@ const CartProducts = (props: ICartProducts) => {
     const fetchData = () => {
       try {
         //Get all items in cart
-        const cartResponse = IndexAPI.get(`/cart`);
+        // const cartResponse = await IndexAPI.get(`/cart`);
+        // console.log(cartResponse.data.data.cart);
 
         //Add cart item images to get '/cart' json response
-        for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
-          if (cartResponse.data.data.cart[i].imagekey !== null) {
-            const imagesResponse = await IndexAPI.get(
-              `/images/${cartResponse.data.data.cart[i].imagekey}`,
-              {
-                responseType: "arraybuffer",
-              }
-            ).then((response) =>
-              Buffer.from(response.data, "binary").toString("base64")
-            );
+        // for (let i = 0; i < cart.length; i++) {
+        //   if (cart[i].imagekey !== null) {
+        //     const imagesResponse = IndexAPI.get(
+        //       `/images/${cart[i].imagekey}`,
+        //       {
+        //         responseType: "arraybuffer",
+        //       }
+        //     ).then((response) =>
+        //       Buffer.from(response.data, "binary").toString("base64")
+        //     );
 
-            cartResponse.data.data.cart[i].imageBuffer = imagesResponse;
-          }
-        }
-        setCart(cartResponse.data.data.cart);
+        //     cart[i].imageBuffer = imagesResponse;
+        //   }
+        // }
+        // setCart(cart);
 
         //Set the cart subtotal
-        if (cart.length === 0) {
+        if (props.cart.length === 0) {
           sub = 0;
         } else {
           sub = priceArray.reduce(function (a, b) {
@@ -91,19 +92,19 @@ const CartProducts = (props: ICartProducts) => {
       props.setCart(cartResponse.payload.cart.length);
 
       //Set the cart subtotal
-      if (cart.length === 0) {
+      if (props.cart.length === 0) {
         sub = 0;
       } else {
-        for (let i = 0; i < cart.length; i++) {
-          sub += parseInt(cart[i].price);
+        for (let i = 0; i < props.cart.length; i++) {
+          sub += parseInt(props.cart[i].price);
         }
       }
       setSubtotal(sub);
 
       //Resets the array of prices in the cart after an item is deleted
       const resetPricesArray = [];
-      for (let i = 0; i < cart.length; i++) {
-        resetPricesArray.push(parseInt(cart[i].price));
+      for (let i = 0; i < props.cart.length; i++) {
+        resetPricesArray.push(parseInt(props.cart[i].price));
       }
       setPrices(resetPricesArray);
     } catch (err) {
@@ -116,9 +117,9 @@ const CartProducts = (props: ICartProducts) => {
     try {
       setPrices(priceArray);
       //Calculate the current total price of items in the cart
-      for (let i = 0; i < cart.length; i++) {
-        if (cart[i].id === item.id) {
-          priceArray[i] = parseInt(cart[i].price) * parseInt(e);
+      for (let i = 0; i < props.cart.length; i++) {
+        if (props.cart[i].id === item.id) {
+          priceArray[i] = parseInt(props.cart[i].price) * parseInt(e);
         } else {
           if (prices[i] !== undefined) {
             priceArray[i] = prices[i];
@@ -128,7 +129,7 @@ const CartProducts = (props: ICartProducts) => {
         }
         setPrices(priceArray);
 
-        if (cart[i].id === item.id) {
+        if (props.cart[i].id === item.id) {
           qtyArray[i] = parseInt(e);
         } else {
           if (cartQty[i] !== undefined) {
@@ -170,10 +171,11 @@ const CartProducts = (props: ICartProducts) => {
   return (
     <Grid className="full-height">
       {/* Map through all items in the cart */}
-      {cart &&
-        cart.map((item: ICart) => {
+      {props.cart &&
+        props.cart.map((item: ICart) => {
           return (
             <Grid key={item.id}>
+              {console.log(item.title)}
               <Grid className="cart-item-details">
                 <Grid className="cart-item-info">
                   {/* Delete item from cart button */}

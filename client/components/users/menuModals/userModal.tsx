@@ -75,14 +75,14 @@ const User = (props: IUser) => {
           </MenuItem>
         </a> */}
         {/* Display the Wishlist link */}
-        <a href="/wishlist">
+        {/* <a href="/wishlist">
           <MenuItem sx={{ color: "black" }}>
             <ListItemIcon>
               <FontAwesomeIcon icon={faHeart} />
             </ListItemIcon>
             Wishlist
           </MenuItem>
-        </a>
+        </a> */}
         {/* Display the Purchase History link */}
         <a href="/purchaseHistory">
           <MenuItem sx={{ color: "black" }}>

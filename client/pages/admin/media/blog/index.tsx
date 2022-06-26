@@ -16,14 +16,14 @@ import Link from "next/link";
 
 //Admin blog prop interface
 interface IAdminBlog {
-  blog: IBlog[]
+  blog: IBlog[];
 }
 
 //Admin blog functional component
 const AdminBlog = (props: IAdminBlog) => {
   //Admin blog states
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
-  const [blog] = useState<IBlog[]>(props.blog);
+  const [blogPosts, setBlogPosts] = useState<IBlog[]>(props.blog);
   const [deleteBlog, setDeleteBlog] = useState<IBlog>();
   const [pageNumber, setPageNumber] = useState<number>(0);
   const [deleteOpen, setDeleteOpen] = useState(false);
@@ -35,7 +35,7 @@ const AdminBlog = (props: IAdminBlog) => {
   // Setup pagination and number of items per page
   const itemsPerPage = 9;
   const pagesVisited: number = pageNumber * itemsPerPage;
-  const pageCount = Math.ceil(blog.length / itemsPerPage);
+  const pageCount = Math.ceil(blogPosts.length / itemsPerPage);
   const changePage = ({ selected }: { selected: number }): void => {
     setPageNumber(selected);
   };
@@ -54,16 +54,16 @@ const AdminBlog = (props: IAdminBlog) => {
 
   //Set the selected item and display the delete blog post modal
   const displayDeleteModal = (id: string) => {
-    for (let i = 0; i < blog.length; i++) {
-      if (blog[i].id === id) {
-        setDeleteBlog(blog[i]);
+    for (let i = 0; i < blogPosts.length; i++) {
+      if (blogPosts[i].id === id) {
+        setDeleteBlog(blogPosts[i]);
       }
     }
     handleDeleteOpen();
   };
 
   //Map through the list of blog posts and setup their templates
-  const displayBlogs = blog
+  const displayBlogs = blogPosts
     .slice(pagesVisited, pagesVisited + itemsPerPage)
     .map((post) => {
       return (
@@ -71,7 +71,7 @@ const AdminBlog = (props: IAdminBlog) => {
           {/* Display blog post page on click */}
           <Grid className="pointer" onClick={() => displayBlogPost(post.id)}>
             {/* Display blog post image */}
-            <Grid className="image-container">
+            <Grid className="admin-image-container">
               <img
                 className="thumbnail"
                 src={post.imageBuffer}
@@ -126,9 +126,7 @@ const AdminBlog = (props: IAdminBlog) => {
           deleteBlog={deleteBlog}
           open={deleteOpen}
           handleClose={handleDeleteClose}
-          setBlogs={function (arg0: any): void {
-            throw new Error("Function not implemented.");
-          }}
+          setBlogs={setBlogPosts}
           blogs={[]}
         />
         {/* Admin main nav component */}

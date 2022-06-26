@@ -39,7 +39,6 @@ const Notifications = (props: INotifications) => {
           notificationsResponse = await IndexAPI.get(`/notifications/${type}`);
         }
         setNotifications(notificationsResponse.data.data.notifications);
-        console.log(notificationsResponse.data.data.notifications);
       } catch (err) {
         console.log(err);
       }

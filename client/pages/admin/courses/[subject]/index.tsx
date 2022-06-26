@@ -75,7 +75,7 @@ const AdminCourseSubject = (props: IAdminCourseSubject) => {
             onClick={() => displayCourse(course.subject, course.id)}
           >
             {/* Display course image */}
-            <Grid className="image-container">
+            <Grid className="admin-image-container">
               <img
                 className="thumbnail"
                 src={course.imageBuffer}

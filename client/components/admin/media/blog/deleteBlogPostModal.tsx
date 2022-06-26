@@ -5,8 +5,8 @@ import { IBlog } from "../../../../interfaces";
 
 //Admin delete blog post prop interface
 interface IAdminDeleteBlog {
-  deleteBlog: IBlog;
-  setBlogs: (arg0: IBlog[]) => void;
+  deleteBlog: IBlog | undefined;
+  setBlogPosts: (arg0: IBlog[]) => void;
   blogs: IBlog[];
   handleClose: () => void;
   open: boolean;

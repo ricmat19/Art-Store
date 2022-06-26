@@ -4,22 +4,31 @@ import Link from "next/link";
 import { IProduct } from "../../../interfaces";
 
 //Admin product navigation prop interface
-interface IAdminProductsNav {
-  activeProducts: IProduct[];
-}
+// interface IAdminProductsNav {
+//   activeProducts: IProduct[];
+// }
 
 //Admin product navigation functional component
-const AdminProductsNav = (props: IAdminProductsNav) => {
+const AdminProductsNav = () => {
   //Admin product navigation states
-  const [activeProducts] = useState(props.activeProducts);
+  // const [activeProducts] = useState(props.activeProducts);
+
+  const activeProducts = [
+    "print",
+    "painting",
+    "sculpture",
+    "model",
+    "book",
+    "comic",
+  ];
 
   //Creates a product navigation link for each existing product subject
   let productPageLinks;
   if (activeProducts !== undefined) {
-    productPageLinks = activeProducts.map((product: IProduct) => {
+    productPageLinks = activeProducts.map((product: string) => {
       return (
-        <Link passHref key={product.id} href={`/admin/products/${product.id}`}>
-          <h1 className="main-title pointer">{product.title}</h1>
+        <Link passHref key={product} href={`/admin/products/${product}`}>
+          <h1 className="main-title pointer">{product}</h1>
         </Link>
       );
     });

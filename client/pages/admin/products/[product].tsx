@@ -78,7 +78,7 @@ const AdminProduct = (props: IProducts) => {
         <Grid key={product.id}>
           <Grid className="pointer">
             {/* Display the product image */}
-            <Grid className="image-container">
+            <Grid className="admin-image-container">
               <img
                 className="thumbnail"
                 src={product.imageBuffer}

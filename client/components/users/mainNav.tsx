@@ -377,9 +377,30 @@ const MainNav = (props: ICartQty) => {
                               display: "grid",
                               alignContent: "center",
                               color: "black",
+                              gridTemplateColumns: "1fr 200px",
                             }}
                           >
-                            {data.title}
+                            <Grid sx={{ textTransform: "capitalize" }}>
+                              {data.type
+                                ? `${data.type}`
+                                : data.category
+                                ? "Help"
+                                : ""}
+                              : {data.title}
+                            </Grid>
+                            <Grid
+                              sx={{
+                                display: "grid",
+                                justifyContent: "right",
+                                paddingRight: "5px",
+                              }}
+                            >
+                              {data.product || data.subject ? (
+                                <Grid sx={{ textTransform: "capitalize" }}>
+                                  Type: {data.product} {data.subject}
+                                </Grid>
+                              ) : null}
+                            </Grid>
                           </Grid>
                         </a>
                       ))}
@@ -440,16 +461,36 @@ const MainNav = (props: ICartQty) => {
                     </h1>
                   </a>
                 </Grid>
-                <Grid xs={12} container sx={{ justifyContent: "center" }}>
+                <Grid
+                  xs={12}
+                  container
+                  sx={{ justifyContent: "center", position: "relative" }}
+                >
                   {/* Main nav route to cart button */}
                   <a href="/cart">
-                    <h1>
+                    <Grid
+                      sx={{
+                        color: "black",
+                        fontSize: "12px",
+                        fontWeight: "800",
+                        position: "absolute",
+                        top: "8px",
+                        left: "2px",
+                        width: "100%",
+                        textAlign: "center",
+                        justifyContent: "center",
+                      }}
+                    >
                       {props.cartQty}
-                      <FontAwesomeIcon
-                        className="pointer"
-                        icon={faShoppingCart}
-                      />
-                    </h1>
+                    </Grid>
+                    <Grid>
+                      <h1>
+                        <FontAwesomeIcon
+                          className="pointer"
+                          icon={faShoppingCart}
+                        />
+                      </h1>
+                    </Grid>
                   </a>
                 </Grid>
                 <Grid xs={12} container sx={{ justifyContent: "center" }}>

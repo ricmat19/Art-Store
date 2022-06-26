@@ -162,7 +162,6 @@ const ProductDetails = (props: IProductDetails) => {
           <Grid className="image-div">
             {/* Display the current product's image */}
             <Grid className="justify-center">
-              {console.log(product)}
               <img
                 className="big-image"
                 src={props.imageBuffer}
@@ -225,9 +224,10 @@ export async function getStaticProps(context: {
 }) {
   const product = context.params.product;
   const id = context.params.id;
-  
+
   // Get the cart's content
   const cartResponse = await IndexAPI.get(`/cart`);
+  console.log(cartResponse);
 
   // Get the selected product's content
   const productResponse = await IndexAPI.get(`/products/${product}/${id}`);
@@ -256,7 +256,7 @@ export async function getStaticProps(context: {
       imageBuffer: imageBuffer,
       product: productResponse.data.data.item,
       groups: collectionsResponse.data.data.groups,
-      cart: cartResponse.data.data.cart,
+      cartQty: cartResponse.data.data.cart.length,
     },
     revalidate: 1,
   };

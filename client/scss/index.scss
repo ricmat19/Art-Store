@@ -439,6 +439,18 @@ select,
   margin: 15px 0;
 }
 
+.admin-image-container {
+  text-align: center;
+  height: 350px;
+  width: 350px;
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  border: white solid 2px;
+  background-color: rgb(44, 44, 44);
+  cursor: default;
+}
+
 .image-container {
   text-align: center;
   height: 350px;
@@ -522,6 +534,16 @@ select,
 
 .errorMsg {
   color: red;
+}
+
+.info-div {
+  margin: 20px 0;
+  padding: 20px 50px;
+  text-align: left;
+  justify-content: center;
+  background-color: black;
+  color: white;
+  border: white solid 2px;
 }
 
 @import "about";

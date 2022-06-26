@@ -11,7 +11,7 @@ import { Grid } from "@mui/material";
 //Cart functional component
 const Cart = (props: ICart) => {
   //Cart states
-  const [, setCart] = useState(props.cartItems);
+  const [cart, setCart] = useState<ICart[]>(props.cartItems);
 
   // Cart component
   return (
@@ -20,7 +20,7 @@ const Cart = (props: ICart) => {
         <title>artHouse19-Cart</title>
         <meta name="description" content="artHouse19 cart page."></meta>
       </Head>
-      <MainNav cartQty={props.cartItems.length} />
+      <MainNav cartQty={cart.length} />
       <PagesNav />
       <Grid className="main-body">
         {/* Cart title row */}
@@ -37,7 +37,7 @@ const Cart = (props: ICart) => {
             <hr className="no-margin" />
             <Grid className="full-height">
               {/* Cart product component */}
-              <CartProducts setCart={setCart} />
+              <CartProducts cart={cart} setCart={setCart} />
             </Grid>
           </Grid>
         </Grid>
@@ -71,7 +71,7 @@ export async function getStaticProps() {
   //Provide the cart object as a prop to the checkout component
   return {
     props: {
-      cart: cartResponse.data.data.cart,
+      cartItems: cartResponse.data.data.cart,
     },
     revalidate: 1,
   };
