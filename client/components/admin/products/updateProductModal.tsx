@@ -4,50 +4,62 @@ import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Grid, Modal } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { IProduct } from "../../../interfaces";
-
-//Update product props interface
-interface IAdminUpdateProduct {
-  updateProduct: IProduct;
-  open: boolean;
-  handleClose: () => void;
-}
 
 //Admin update product Formik form initial values
-const initialValues = {
-  email: "",
-};
+// const initialValues = {
+//   id: "",
+//   title: "",
+//   product: "",
+//   price: 0,
+//   info: "",
+//   imagekey: "",
+//   imageBuffer: "",
+//   qty: 0,
+//   open: false,
+//   // handleClose: null,
+// };
 
 //Admin update product Formik form onSubmit function
 const onSubmit = async (
-  values: IAdminUpdateProduct,
+  values: {
+    id: string;
+    title: string;
+    product: string;
+    price: number;
+    info: string;
+    imagekey: string;
+    imageBuffer: string;
+    qty: number;
+    open: boolean;
+    // handleClose: () => void;
+  },
   onSubmitProps: { resetForm: () => void }
 ) => {
-  if (values.updateProduct.imageBuffer) {
+  if (values.imageBuffer) {
     const formData = new FormData();
 
-    formData.append("title", values.updateProduct.title);
-    formData.append("product", values.updateProduct.product);
-    formData.append("price", values.updateProduct.price);
-    formData.append("info", values.updateProduct.info);
-    formData.append("qty", values.updateProduct.qty);
-    formData.append("image", values.updateProduct.imageBuffer);
+    formData.append("title", values.title);
+    formData.append("product", values.product);
+    formData.append("price", values.price.toString());
+    formData.append("info", values.info);
+    formData.append("qty", values.qty.toString());
+    formData.append("image", values.imageBuffer);
 
-    IndexAPI.put(`/admin/products/${values.updateProduct.id}`, formData, {
+    IndexAPI.put(`/admin/products/${values.id}`, formData, {
       headers: { "Content-Type": "multipart/form-data" },
     })
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
-    values.handleClose();
+    // values.handleClose();
   } else {
-    await IndexAPI.put(`/admin/products/${values.updateProduct.id}`, {
-      title: values.updateProduct.title,
-      product: values.updateProduct.product,
-      price: values.updateProduct.price,
-      info: values.updateProduct.info,
-      qty: values.updateProduct.qty,
+    await IndexAPI.put(`/admin/products/${values.id}`, {
+      title: values.title,
+      product: values.product,
+      price: values.price,
+      info: values.info,
+      qty: values.qty,
     });
-    values.handleClose();
+    // values.handleClose();
   }
   onSubmitProps.resetForm();
 };
@@ -60,30 +72,46 @@ const validationSchema = Yup.object({
 });
 
 //Admin update product functional component
-const AdminUpdateProductModal = (props: IAdminUpdateProduct) => {
+const AdminUpdateProductModal = (props: {
+  updateProduct: {
+    id: string;
+    title: string;
+    product: string;
+    price: string;
+    info: string;
+    imagekey: string;
+    imageBuffer: string;
+    qty: string;
+  };
+  open: boolean;
+  handleClose: () => void;
+}) => {
   //Admin update product states
-  const [, setTitle] = useState("");
-  const [, setProduct] = useState("");
-  const [, setPrice] = useState("");
-  const [, setInfo] = useState("");
+  const [id, setId] = useState("");
+  const [title, setTitle] = useState("");
+  const [product, setProduct] = useState("");
+  const [price, setPrice] = useState(0);
+  const [info, setInfo] = useState("");
   const [fileImage] = useState();
-  const [, setImageKey] = useState("");
+  const [imageKey, setImageKey] = useState("");
   const [imageBuffer, setImageBuffer] = useState("");
-  const [, setQty] = useState("");
+  const [qty, setQty] = useState(0);
 
   //If a product is provided, set the component's states to that product's properties on render
   useEffect(() => {
     const fetchData = () => {
       try {
         if (props.updateProduct) {
+          setId(props.updateProduct.id);
           setTitle(props.updateProduct.title);
           setProduct(props.updateProduct.product);
-          setPrice(props.updateProduct.price);
+          setPrice(parseInt(props.updateProduct.price));
           setInfo(props.updateProduct.info);
           setImageKey(props.updateProduct.imagekey);
           setImageBuffer(props.updateProduct.imageBuffer);
-          setQty(props.updateProduct.qty);
+          setQty(parseInt(props.updateProduct.qty));
         }
+        console.log(props);
       } catch (err) {
         console.log(err);
       }
@@ -160,12 +188,23 @@ const AdminUpdateProductModal = (props: IAdminUpdateProduct) => {
                   }}
                 >
                   <Formik
-                    initialValues={initialValues}
+                    initialValues={{
+                      id: id,
+                      title: title,
+                      product: product,
+                      price: price,
+                      info: info,
+                      imagekey: imageKey,
+                      imageBuffer: imageBuffer,
+                      qty: qty,
+                      open: false,
+                    }}
                     onSubmit={onSubmit}
                     validationSchema={validationSchema}
                     validateOnChange={false}
                     validateOnBlur={false}
                     validateOnMount
+                    // enableReinitialize
                   >
                     {/* Admin update product form */}
                     <Form className="admin-form">
@@ -173,8 +212,8 @@ const AdminUpdateProductModal = (props: IAdminUpdateProduct) => {
                         <label className="admin-label">Title:</label>
                         {/* Admin update product name input field */}
                         <Grid sx={{ display: "grid" }}>
-                          <Field as="input" type="text" name="name" />
-                          <ErrorMessage name="name" component="div">
+                          <Field as="input" type="text" name="title" />
+                          <ErrorMessage name="title" component="div">
                             {(errorMsg) => (
                               <Grid className="errorMsg">{errorMsg}</Grid>
                             )}
@@ -187,7 +226,11 @@ const AdminUpdateProductModal = (props: IAdminUpdateProduct) => {
                         </Grid>
                         {/* Admin update product type drop-down input field */}
                         <Grid>
-                          <Field as="select" className="type-selector">
+                          <Field
+                            as="select"
+                            className="type-selector"
+                            name="product"
+                          >
                             <option value={"select product..."}>
                               select product...
                             </option>
@@ -215,8 +258,8 @@ const AdminUpdateProductModal = (props: IAdminUpdateProduct) => {
                         <label className="admin-label">Quantity:</label>
                         {/* Admin update product quantity input field */}
                         <Grid sx={{ display: "grid" }}>
-                          <Field as="input" type="number" name="quantity" />
-                          <ErrorMessage name="quantity" component="div">
+                          <Field as="input" type="number" name="qty" />
+                          <ErrorMessage name="qty" component="div">
                             {(errorMsg) => (
                               <Grid className="errorMsg">{errorMsg}</Grid>
                             )}
@@ -228,7 +271,7 @@ const AdminUpdateProductModal = (props: IAdminUpdateProduct) => {
                         {/* Admin update product price input field */}
                         <Grid sx={{ display: "grid" }}>
                           <Field as="input" type="number" name="price" />
-                          <ErrorMessage name="price" component="div">
+                          <ErrorMessage name="number" component="div">
                             {(errorMsg) => (
                               <Grid className="errorMsg">{errorMsg}</Grid>
                             )}
@@ -239,8 +282,8 @@ const AdminUpdateProductModal = (props: IAdminUpdateProduct) => {
                         <label className="admin-label">Info:</label>
                         {/* Admin update product message textarea field */}
                         <Grid sx={{ display: "grid" }}>
-                          <Field as="textarea" name="message" rows={5} />
-                          <ErrorMessage name="message" component="div">
+                          <Field as="textarea" name="info" rows={5} />
+                          <ErrorMessage name="info" component="div">
                             {(errorMsg) => (
                               <Grid className="errorMsg">{errorMsg}</Grid>
                             )}

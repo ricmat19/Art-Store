@@ -5,6 +5,7 @@ import Footer from "../../../components/footer";
 import MainNav from "../../../components/users/mainNav";
 import { Grid } from "@mui/material";
 import ReactHtmlParser from "react-html-parser";
+import PagesNav from "../../../components/users/pagesNav";
 
 // Blog post prop interface
 interface IBlogPost {
@@ -27,6 +28,7 @@ const BlogPost = (props: IBlogPost) => {
     <Grid>
       {/* Main navigation component */}
       <MainNav cartQty={props.cartQty} />
+      <PagesNav />
       <Grid className="main-body">
         <Grid>
           {/* Blog post banner image */}
