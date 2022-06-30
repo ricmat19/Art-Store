@@ -20,7 +20,6 @@ interface ICreateVideoLectureForm {
   lecture: string;
   section: string;
   id: string;
-  handleClose: () => void;
 }
 
 //Admin create video lecture Formik form initial values
@@ -53,7 +52,6 @@ const onSubmit = (
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
 
-    values.handleClose();
   }
   onSubmitProps.resetForm();
 };
@@ -113,9 +111,7 @@ const AdminCreateVideoLectureModal = (props: IAdminCreateVideoLecture) => {
                 }}
               >
                 <Formik
-                  initialValues={{
-                    initialValues: initialValues,
-                  }}
+                  initialValues={initialValues}
                   onSubmit={onSubmit}
                   validationSchema={validationSchema}
                   validateOnChange={false}

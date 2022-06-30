@@ -1,6 +1,6 @@
 import IndexAPI from "../../../../apis/indexAPI";
 import { useEffect, useState } from "react";
-import { NextRouter, useRouter } from "next/router";
+import router, { NextRouter, useRouter } from "next/router";
 import AdminMainNav from "../../../../components/admin/mainNav";
 import AdminPagesNav from "../../../../components/admin/pagesNav";
 import FooterC from "../../../../components/footer";
@@ -11,9 +11,6 @@ import * as Yup from "yup";
 // Admin create help article prop interface
 interface IHelpArticle {
   title: string;
-  article: string;
-  category: string;
-  id: string;
   content: string;
   helpArticle: {
     id: string;
@@ -21,11 +18,21 @@ interface IHelpArticle {
     article: string;
     category: string;
   }[];
-  router: NextRouter;
+  email: string;
 }
 
 //Admin create help article Formik form initial values
 const initialValues = {
+  title: "",
+  content: "",
+  helpArticle: [
+    {
+      id: "",
+      title: "",
+      article: "",
+      category: "",
+    },
+  ],
   email: "",
 };
 
@@ -43,7 +50,8 @@ const onSubmit = async (
     }
   );
   //Direct to the help article's category page on submit
-  await values.router.push(`/admin/help/${values.helpArticle[0].category}`);
+    await router.push(`/admin/help/${values.helpArticle[0].category}`);
+
   onSubmitProps.resetForm();
 };
 
@@ -87,12 +95,7 @@ const AdminHelpArticle = (props: IHelpArticle) => {
         <AdminPagesNav />
         <Grid>
           <Formik
-            initialValues={{
-              initialValues: initialValues,
-              router: router,
-              title: props.helpArticle[0].title,
-              content: props.helpArticle[0].article,
-            }}
+            initialValues={initialValues}
             onSubmit={onSubmit}
             validationSchema={validationSchema}
             validateOnChange={false}
@@ -160,7 +163,7 @@ export async function getStaticPaths() {
   return {
     fallback: false,
     paths: helpResponse.data.data.helpArticles.map(
-      (article: { category: string; id: string; }) => ({
+      (article: { category: string; id: string }) => ({
         params: {
           category: article.category,
           id: article.id,

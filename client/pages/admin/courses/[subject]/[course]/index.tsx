@@ -6,7 +6,7 @@ import AdminPagesNav from "../../../../../components/admin/pagesNav";
 import Footer from "../../../../../components/footer";
 import Head from "next/head";
 import { Grid, MenuItem } from "@mui/material";
-import { NextRouter, useRouter } from "next/router";
+import router, { NextRouter, useRouter } from "next/router";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { ICourse } from "../../../../../interfaces";
@@ -16,21 +16,27 @@ interface IAdminCourse {
   selectedCourse: {
     id: string;
     subject: string;
-    imageBuffer: string | undefined;
+    imageBuffer: string;
   }[];
   title: string;
   subject: string;
   description: string;
   price: string;
-  router: NextRouter;
 }
 
 //Admin course Formik form initial values
 const initialValues = {
+  selectedCourse: [
+    {
+      id: "",
+      subject: "",
+      imageBuffer: "",
+    },
+  ],
   title: "",
   subject: "",
-  price: "",
   description: "",
+  price: "",
 };
 
 //Admin course Formik form onSubmit function
@@ -47,16 +53,16 @@ const onSubmit = async (
   });
 
   //Route to the selected courses curriculum page
-  await values.router.push(
-    {
-      pathname: `/admin/courses/[subject]/[course]/curriculum`,
-      query: {
-        subject: values.selectedCourse[0].subject,
-        course: values.selectedCourse[0].id,
+    await router.push(
+      {
+        pathname: `/admin/courses/[subject]/[course]/curriculum`,
+        query: {
+          subject: values.selectedCourse[0].subject,
+          course: values.selectedCourse[0].id,
+        },
       },
-    },
-    `/admin/courses/${values.selectedCourse[0].subject}/${values.selectedCourse[0].id}/curriculum`
-  );
+      `/admin/courses/${values.selectedCourse[0].subject}/${values.selectedCourse[0].id}/curriculum`
+    );
   onSubmitProps.resetForm();
 };
 
@@ -138,7 +144,7 @@ const AdminCourse = (props: IAdminCourse) => {
               }}
             >
               <Formik
-                initialValues={{ initialValues: initialValues, router }}
+                initialValues={initialValues}
                 onSubmit={onSubmit}
                 validationSchema={validationSchema}
                 validateOnChange={false}

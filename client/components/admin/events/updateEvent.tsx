@@ -16,7 +16,6 @@ interface IUpdateEventForm {
   spots: string;
   info: string;
   id: string;
-  handleClose: () => void;
 }
 
 //Admin update event Formik form initial values
@@ -26,6 +25,7 @@ const initialValues = {
   price: "",
   spots: "",
   info: "",
+  id: "",
 };
 
 //Admin update event Formik form onSubmit function
@@ -41,7 +41,6 @@ const onSubmit = async (
     selectedInfo: values.info,
   });
 
-  values.handleClose();
   onSubmitProps.resetForm();
 };
 
@@ -60,10 +59,7 @@ const AdminUpdateEvent = (props: IAdminUpdateEvent) => {
   return (
     <Grid className="create-event">
       <Formik
-        initialValues={{
-          initialValues,
-          id: props.selectedEvent.id,
-        }}
+        initialValues={initialValues}
         onSubmit={onSubmit}
         validationSchema={validationSchema}
         validateOnChange={false}

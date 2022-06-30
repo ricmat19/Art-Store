@@ -96,12 +96,7 @@ const AdminCreateArticleLectureModal = (props: ICreateArticleLecture) => {
                 }}
               >
                 <Formik
-                  initialValues={{
-                    initialValues,
-                    lecture: props.lecture,
-                    section: props.section,
-                    id: props.id,
-                  }}
+                  initialValues={initialValues}
                   onSubmit={onSubmit}
                   validationSchema={validationSchema}
                   validateOnChange={false}

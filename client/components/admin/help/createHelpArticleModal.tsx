@@ -18,13 +18,16 @@ interface ICreateHelpArticleForm {
   article: string;
   category: string;
   selectedSection: string;
-  handleClose: () => void;
+  // handleClose: () => void;
 }
 
 //Admin create help article Formik form initial values
 const initialValues = {
   title: "",
   description: "",
+  article: "",
+  category: "",
+  selectedSection: "",
 };
 
 //Admin create help article Formik form onSubmit function
@@ -38,7 +41,6 @@ const onSubmit = async (
     selectedSection: values.selectedSection,
   });
 
-  values.handleClose();
   onSubmitProps.resetForm();
 };
 
@@ -122,10 +124,7 @@ const AdminCreateHelpArticleModal = (props: IAdminCreateHelpArticle) => {
                 }}
               >
                 <Formik
-                  initialValues={{
-                    initialValues: initialValues,
-                    category: props.category,
-                  }}
+                  initialValues={initialValues}
                   onSubmit={onSubmit}
                   validationSchema={validationSchema}
                   validateOnChange={false}

@@ -5,34 +5,35 @@ import { Backdrop, Box, Fade, Grid, Modal } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-//Admin update product Formik form initial values
-// const initialValues = {
-//   id: "",
-//   title: "",
-//   product: "",
-//   price: 0,
-//   info: "",
-//   imagekey: "",
-//   imageBuffer: "",
-//   qty: 0,
-//   open: false,
-//   // handleClose: null,
-// };
+// Admin update product Formik form initial values
+interface IUpdateProductModal {
+  id: string;
+  title: string;
+  product: string;
+  price: number;
+  info: string;
+  imagekey: string;
+  imageBuffer: string;
+  qty: number;
+  open: boolean;
+}
+
+const initialValues = {
+  id: "",
+  title: "",
+  product: "",
+  price: 0,
+  info: "",
+  imagekey: "",
+  imageBuffer: "",
+  qty: 0,
+  open: false,
+};
 
 //Admin update product Formik form onSubmit function
 const onSubmit = async (
-  values: {
-    id: string;
-    title: string;
-    product: string;
-    price: number;
-    info: string;
-    imagekey: string;
-    imageBuffer: string;
-    qty: number;
-    open: boolean;
-    // handleClose: () => void;
-  },
+  values: IUpdateProductModal,
+  // handleClose: () => void;
   onSubmitProps: { resetForm: () => void }
 ) => {
   if (values.imageBuffer) {
@@ -73,16 +74,7 @@ const validationSchema = Yup.object({
 
 //Admin update product functional component
 const AdminUpdateProductModal = (props: {
-  updateProduct: {
-    id: string;
-    title: string;
-    product: string;
-    price: string;
-    info: string;
-    imagekey: string;
-    imageBuffer: string;
-    qty: string;
-  };
+  updateProduct: IUpdateProductModal;
   open: boolean;
   handleClose: () => void;
 }) => {
@@ -105,13 +97,12 @@ const AdminUpdateProductModal = (props: {
           setId(props.updateProduct.id);
           setTitle(props.updateProduct.title);
           setProduct(props.updateProduct.product);
-          setPrice(parseInt(props.updateProduct.price));
+          setPrice(props.updateProduct.price);
           setInfo(props.updateProduct.info);
           setImageKey(props.updateProduct.imagekey);
           setImageBuffer(props.updateProduct.imageBuffer);
-          setQty(parseInt(props.updateProduct.qty));
+          setQty(props.updateProduct.qty);
         }
-        console.log(props);
       } catch (err) {
         console.log(err);
       }
@@ -188,17 +179,7 @@ const AdminUpdateProductModal = (props: {
                   }}
                 >
                   <Formik
-                    initialValues={{
-                      id: id,
-                      title: title,
-                      product: product,
-                      price: price,
-                      info: info,
-                      imagekey: imageKey,
-                      imageBuffer: imageBuffer,
-                      qty: qty,
-                      open: false,
-                    }}
+                    initialValues={initialValues}
                     onSubmit={onSubmit}
                     validationSchema={validationSchema}
                     validateOnChange={false}

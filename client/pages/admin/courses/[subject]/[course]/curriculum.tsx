@@ -28,15 +28,23 @@ interface IAdminCourseCurriculum {
     index: string;
   }[];
 }
+interface IAdminCourseCurriculumFormValues {
+  course: string;
+  section: string;
+  lecture: string;
+}
 
 //Course curriculum Formik form initial values
 const initialValues = {
   email: "",
+  course: "",
+  section: "",
+  lecture: "",
 };
 
 //Course curriculum Formik form onSubmit function
 const onSubmit = (
-  values: IAdminCourseCurriculum,
+  values: IAdminCourseCurriculumFormValues,
   onSubmitProps: { resetForm: () => void }
 ) => {
   // if (values.create = "section") {

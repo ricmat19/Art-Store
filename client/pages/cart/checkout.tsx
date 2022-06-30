@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useRouter } from "next/router";
+import router, { useRouter } from "next/router";
 import OrderSummary from "../../components/users/cart/orderSummary";
 import MainNav from "../../components/users/mainNav";
 import PagesNav from "../../components/users/pagesNav";
@@ -22,6 +22,17 @@ interface ICheckout {
   priceArray: string[];
   sub: number | (() => number);
 }
+interface ICheckoutForm {
+  email: string;
+  firstName: string;
+  lastName: string;
+  address: string;
+  suite: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  phone: string;
+}
 
 //Cart checkout Formik form initial values
 const initialValues = {
@@ -38,7 +49,7 @@ const initialValues = {
 
 //Cart checkout Formik form onSubmit function
 const onSubmit = async (
-  values: ICheckout,
+  values: ICheckoutForm,
   onSubmitProps: { resetForm: () => void }
 ) => {
   try {
@@ -46,7 +57,7 @@ const onSubmit = async (
     await IndexAPI.put(`/cart/deleteAll`);
 
     //Route back to store page
-    values.router.push("/");
+    router.push("/");
   } catch (err) {
     console.log(err);
   }
@@ -124,10 +135,7 @@ const Checkout = (props: ICheckout) => {
         {/* Stripe element component */}
         <Elements stripe={stripePromise}>
           <Formik
-            initialValues={{
-              initialValues: initialValues,
-              // router: router,
-            }}
+            initialValues={initialValues}
             onSubmit={onSubmit}
             validationSchema={validationSchema}
             validateOnChange={false}

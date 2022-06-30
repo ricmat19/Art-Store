@@ -13,6 +13,11 @@ interface ISignIn {
   email: string;
   password: string;
 }
+interface ISignInValues {
+  email: string;
+  password: string;
+}
+
 
 //Sign in Formik form initial values
 const initialValues = {
@@ -22,7 +27,7 @@ const initialValues = {
 
 //Sign in Formik form onSubmit function
 const onSubmit = async (
-  values: ISignIn,
+  values: ISignInValues,
   onSubmitProps: { resetForm: () => void }
 ) => {
   await IndexAPI.post("/signIn", {
@@ -119,9 +124,7 @@ const SignIn = (props: ISignIn) => {
                     </Grid>
                     <Grid>
                       <Formik
-                        initialValues={{
-                          initialValues: initialValues,
-                        }}
+                        initialValues={initialValues}
                         onSubmit={onSubmit}
                         validationSchema={validationSchema}
                         validateOnChange={false}

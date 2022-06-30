@@ -5,16 +5,15 @@ import FooterC from "../../../../components/footer";
 import AdminMainNav from "../../../../components/admin/mainNav";
 import AdminPagesNav from "../../../../components/admin/pagesNav";
 import { Grid } from "@mui/material";
-import { useRouter } from "next/router";
+import router, { NextRouter, useRouter } from "next/router";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 //Admin create blog post prop interface
 interface ICreateBlogForm {
-  image: string | Blob;
-  title: string | Blob;
-  content: string | Blob;
-  router: string[];
+  image: string;
+  title: string;
+  content: string;
 }
 
 //Admin create blog post Formik form initial values
@@ -44,7 +43,7 @@ const onSubmit = (
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   }
-  values.router.push("/admin/media/blog");
+  router.push("/admin/media/blog");
   onSubmitProps.resetForm();
 };
 
@@ -102,10 +101,7 @@ const AdminAddBlogPost = () => {
               {displayedImage}
             </Grid>
             <Formik
-              initialValues={{
-                initialValues: initialValues,
-                // router: router,
-              }}
+              initialValues={initialValues}
               onSubmit={onSubmit}
               validationSchema={validationSchema}
               validateOnChange={false}
@@ -137,7 +133,9 @@ const AdminAddBlogPost = () => {
                     <label className="admin-label">Image:</label>
                     <Field
                       type="file"
-                      onChange={(e: { target: { files: SetStateAction<File | undefined>[]; }; }) => setImage(e.target.files[0])}
+                      onChange={(e: {
+                        target: { files: SetStateAction<File | undefined>[] };
+                      }) => setImage(e.target.files[0])}
                       name="images"
                       className="form-control file-input"
                     />

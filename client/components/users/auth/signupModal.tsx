@@ -8,6 +8,8 @@ interface ISignUp {
   handleSignUpClose: () => void;
   handleSignInOpen: () => void;
   signUpOpen: boolean;
+}
+interface ISignUpValues {
   firstName: string;
   lastName: string;
   email: string;
@@ -26,7 +28,7 @@ const initialValues = {
 
 //Signup Formik form onSubmit function
 const onSubmit = async (
-  values: ISignUp,
+  values: ISignUpValues,
   onSubmitProps: { resetForm: () => void }
 ) => {
   await IndexAPI.post("/signup", {

@@ -5,23 +5,25 @@ import * as Yup from "yup";
 // import { Dispatch } from "@reduxjs/toolkit";
 
 interface ICreateEvent {
-  setTitle: (arg0: string) => void;
-  setPrice: (arg0: string) => void;
-  setSpots: (arg0: string) => void;
-  setInfo: (arg0: string) => void;
-  // createEvent: any;
+  title: string;
+  price: number;
+  spots: number;
+  info: string;
 }
 
 //Admin create event Formik form initial values
 const initialValues = {
   title: "",
-  price: "",
-  spots: "",
+  price: 0,
+  spots: 0,
   info: "",
 };
 
 //Admin create event Formik form onSubmit function
-const onSubmit = (values: ICreateEvent, onSubmitProps: { resetForm: () => void }) => {
+const onSubmit = (
+  values: ICreateEvent,
+  onSubmitProps: { resetForm: () => void }
+) => {
   onSubmitProps.resetForm();
 };
 

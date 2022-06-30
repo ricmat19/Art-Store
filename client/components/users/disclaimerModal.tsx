@@ -24,7 +24,7 @@ const DisclaimerModal = (props: IModalState) => {
   const [disclaimerModal, setDisclaimerModal] = useState("modal-bg active");
 
   //Function to close disclaimer
-  const closeDisclaimer = (e: MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const closeDisclaimer = (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
     e.preventDefault();
     setDisclaimerModal("modal-bg");
   };

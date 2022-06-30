@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { NextRouter, useRouter } from "next/router";
+import router, { NextRouter, useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import IndexAPI from "../../../../apis/indexAPI";
 import FooterC from "../../../../components/footer";
@@ -16,18 +16,24 @@ interface IAdminBlogPost {
   content: string;
   post_date: Date;
   imageBuffer: string;
-  router: NextRouter;
+}
+interface IAdminBlogPostForm {
+  id: string;
+  title: string;
+  content: string;
 }
 
 //Admin blog post Formik form initial values
 const initialValues = {
+  id: "",
   title: "",
   content: "",
+  router: undefined,
 };
 
 //Admin blog post Formik form onSubmit function
 const onSubmit = async (
-  values: IAdminBlogPost,
+  values: IAdminBlogPostForm,
   onSubmitProps: { resetForm: () => void }
 ) => {
   //Update the selected blog post on submit
@@ -36,7 +42,7 @@ const onSubmit = async (
     content: values.content,
   });
   //Route to blog index page on submit
-  await values.router.push("/admin/media/blog");
+    await router.push("/admin/media/blog");
   onSubmitProps.resetForm();
 };
 
@@ -90,12 +96,7 @@ const AdminBlogPost = (props: IAdminBlogPost) => {
               />
             </Grid>
             <Formik
-              initialValues={{
-                initialValues: initialValues,
-                router: router,
-                title: props.title,
-                content: props.content,
-              }}
+              initialValues={initialValues}
               onSubmit={onSubmit}
               validationSchema={validationSchema}
               validateOnChange={false}

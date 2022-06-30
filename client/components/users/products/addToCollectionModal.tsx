@@ -11,12 +11,13 @@ import { IProduct } from "../../../interfaces";
 
 //Add to collection prop interface
 interface ICollection {
+  id: string;
   collection_group: string;
 }
 interface IAddToCollection {
   open: boolean;
   handleClose: () => void;
-  collections: ICollection[] | undefined;
+  collections: ICollection[];
   collection: ICollection | undefined;
   product: IProduct;
   uniqueItem: boolean;
@@ -25,18 +26,19 @@ interface IAddToCollection {
 
 //Add to collection Formik form initial values
 const initialValues = {
-  collection: "",
+  collection_group: "",
+  id: "",
 };
 
 //Add to collection Formik form onSubmit function
 const onSubmit = async (
-  values: IAddToCollection,
+  values: ICollection,
   onSubmitProps: { resetForm: () => void }
 ) => {
   await IndexAPI.post("/collections", {
     user: "ric19mat@gmail.com",
-    collectionGroup: values.collection,
-    item: values.product.id,
+    collectionGroup: values.collection_group,
+    item: values.id,
   });
   onSubmitProps.resetForm();
 };

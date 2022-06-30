@@ -16,8 +16,7 @@ interface ICreateProductForm {
   price: string;
   info: string;
   type: string;
-  image: File;
-  handleClose: () => void;
+  image: File | undefined;
 }
 
 //Admin create product modal Formik form initial values
@@ -26,6 +25,8 @@ const initialValues = {
   quantity: "",
   price: "",
   info: "",
+  type: "",
+  image: undefined,
 };
 
 //Admin create product modal Formik form onSubmit function
@@ -48,8 +49,6 @@ const onSubmit = (
     })
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
-
-    values.handleClose();
   }
   onSubmitProps.resetForm();
 };
@@ -132,10 +131,7 @@ const AdminCreateProductModal = (props: IAdminAddProduct) => {
                 }}
               >
                 <Formik
-                  initialValues={{
-                    initialValues: initialValues,
-                    images: image,
-                  }}
+                  initialValues={initialValues}
                   onSubmit={onSubmit}
                   validationSchema={validationSchema}
                   validateOnChange={false}
@@ -195,7 +191,11 @@ const AdminCreateProductModal = (props: IAdminAddProduct) => {
                           type="file"
                           name="image"
                           className="file-input"
-                          onChange={(e: { target: { files: SetStateAction<File | undefined>[]; }; }) => setImage(e.target.files[0])}
+                          onChange={(e: {
+                            target: {
+                              files: SetStateAction<File | undefined>[];
+                            };
+                          }) => setImage(e.target.files[0])}
                         />
                         <ErrorMessage name="image" component="div">
                           {(errorMsg) => (

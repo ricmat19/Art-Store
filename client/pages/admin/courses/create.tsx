@@ -6,19 +6,18 @@ import AdminPagesNav from "../../../components/admin/pagesNav";
 import Footer from "../../../components/footer";
 import Head from "next/head";
 import { Grid } from "@mui/material";
-import { NextRouter, useRouter } from "next/router";
+import router, { NextRouter, useRouter } from "next/router";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { AxiosResponse } from "axios";
 
 //Admin create course prop interface
 interface ICreateCourseForm {
-  image: File | undefined;
   title: string;
+  image: File | undefined;
   subject: string;
   description: string;
   price: string;
-  router: NextRouter;
 }
 
 //Admin create course Formik form initial values
@@ -26,8 +25,8 @@ const initialValues = {
   title: "",
   image: undefined,
   subject: "",
-  price: "",
   description: "",
+  price: "",
 };
 
 //Admin create course Formik form onSubmit function
@@ -46,7 +45,7 @@ const onSubmit = (
     formData.append("price", values.price);
 
     //Create course and then route to course curriculum page
-    let currentCourse: AxiosResponse<any, any>
+    let currentCourse: AxiosResponse<any, any>;
     IndexAPI.post("/admin/courses", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     })
@@ -54,12 +53,12 @@ const onSubmit = (
         currentCourse = await IndexAPI.get("/admin/courses/last");
       })
       .then(() => {
-        values.router.push(
-          {
-            pathname: `/admin/courses/[subject]/[course]/curriculum`,
-          },
-          `/admin/courses/${values.subject}/${currentCourse.data.data.course[0].id}/curriculum`
-        );
+          router.push(
+            {
+              pathname: `/admin/courses/[subject]/[course]/curriculum`,
+            },
+            `/admin/courses/${values.subject}/${currentCourse.data.data.course[0].id}/curriculum`
+          );
       })
       .catch((err) => console.log(err));
   }
@@ -149,11 +148,7 @@ const AdminCreateCourse = () => {
               }}
             >
               <Formik
-                initialValues={{
-                  initialValues: initialValues,
-                  router: router,
-                  image: image,
-                }}
+                initialValues={initialValues}
                 onSubmit={onSubmit}
                 validationSchema={validationSchema}
                 validateOnChange={false}
