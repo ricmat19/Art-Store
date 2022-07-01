@@ -5,16 +5,23 @@ import * as Yup from "yup";
 
 //Signup prop interface
 interface ISignUp {
-  handleSignUpClose: () => void;
-  handleSignInOpen: () => void;
-  signUpOpen: boolean;
-}
-interface ISignUpValues {
   firstName: string;
   lastName: string;
   email: string;
   password: string;
   passwordCopy: string;
+  signUpOpen: boolean;
+}
+
+interface ISignUpProps {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  passwordCopy: string;
+  signUpOpen: boolean;
+  handleSignUpClose: () => void;
+  handleSignInOpen: () => void;
 }
 
 //Signup Formik form initial values
@@ -24,11 +31,12 @@ const initialValues = {
   email: "",
   password: "",
   passwordCopy: "",
+  signUpOpen: false,
 };
 
 //Signup Formik form onSubmit function
 const onSubmit = async (
-  values: ISignUpValues,
+  values: ISignUp,
   onSubmitProps: { resetForm: () => void }
 ) => {
   await IndexAPI.post("/signup", {
@@ -54,7 +62,7 @@ const validationSchema = Yup.object({
 });
 
 //Signup functional component
-const SignUp = (props: ISignUp) => {
+const SignUp = (props: ISignUpProps) => {
   //Close signup modal and display sign in modal
   const displaySignIn = (e: { preventDefault: () => void }) => {
     e.preventDefault();

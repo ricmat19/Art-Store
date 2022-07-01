@@ -24,7 +24,14 @@ const AdminBlog = (props: IAdminBlog) => {
   //Admin blog states
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
   const [blogPosts, setBlogPosts] = useState<IBlog[]>(props.blog);
-  const [deleteBlog, setDeleteBlog] = useState<IBlog>();
+  const [deleteBlog, setDeleteBlog] = useState<IBlog>({
+    id: "",
+    title: "",
+    imagekey: "",
+    imageBuffer: "",
+    content: "",
+    info: "",
+  });
   const [pageNumber, setPageNumber] = useState<number>(0);
   const [deleteOpen, setDeleteOpen] = useState(false);
 

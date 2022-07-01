@@ -120,10 +120,8 @@ const MainNav = (props: ICartQty) => {
 
   //Handle notification modal open and close
   const openNotification = Boolean(notificationOpen);
-  const handleNotificationClick = (event: {
-    currentTarget: SetStateAction<null>;
-  }) => {
-    setNotificationOpen(event.currentTarget);
+  const handleNotificationClick = (e: any) => {
+    setNotificationOpen(e.currentTarget);
   };
   const handleNotificationClose = () => {
     setNotificationOpen(null);
@@ -131,8 +129,8 @@ const MainNav = (props: ICartQty) => {
 
   //Handle user modal open and close
   const openUser = Boolean(userOpen);
-  const handleUserClick = (event: { currentTarget: SetStateAction<null> }) => {
-    setUserOpen(event.currentTarget);
+  const handleUserClick = (e: any) => {
+    setUserOpen(e.currentTarget);
   };
   const handleUserClose = () => {
     setUserOpen(null);
@@ -140,10 +138,8 @@ const MainNav = (props: ICartQty) => {
 
   //Handle ellipse modal open and close
   const openEllipse = Boolean(ellipseOpen);
-  const handleEllipseClick = (event: {
-    currentTarget: SetStateAction<null>;
-  }) => {
-    setEllipseOpen(event.currentTarget);
+  const handleEllipseClick = (e: any) => {
+    setEllipseOpen(e.currentTarget);
   };
   const handleEllipseClose = () => {
     setEllipseOpen(null);

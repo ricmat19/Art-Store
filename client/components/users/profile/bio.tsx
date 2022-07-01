@@ -3,12 +3,16 @@ import { Grid } from "@mui/material";
 import { useState } from "react";
 import { IUser } from "../../../interfaces";
 
+interface IBio {
+  profile: IUser;
+}
+
 //Profile bio functional component
-const Bio = (props: IUser) => {
+const Bio = (props: IBio) => {
   //Profile bio states
-  const [email] = useState<string>(props.email);
-  const [image, setImage] = useState<File>(props.image);
-  const [bio, setBio] = useState<string>(props.bio);
+  const [email] = useState<string>(props.profile.email);
+  const [image, setImage] = useState<string>(props.profile.image);
+  const [bio, setBio] = useState<string>(props.profile.bio);
 
   //Function to update the user's profile bio
   const updateProfile = async (e: { preventDefault: () => void }) => {

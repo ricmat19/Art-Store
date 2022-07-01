@@ -9,6 +9,11 @@ interface ICreateEvent {
   price: number;
   spots: number;
   info: string;
+  setTitle: any;
+  setPrice: any;
+  setSpots: any;
+  setInfo: any;
+  createEvent: any;
 }
 
 //Admin create event Formik form initial values
@@ -17,6 +22,11 @@ const initialValues = {
   price: 0,
   spots: 0,
   info: "",
+  setTitle: (arg0: string) => undefined,
+  setPrice: (arg0: number) => undefined,
+  setSpots: (arg0: number) => undefined,
+  setInfo: (arg0: string) => undefined,
+  createEvent: (e: { preventDefault: () => void }) => undefined,
 };
 
 //Admin create event Formik form onSubmit function
@@ -36,7 +46,7 @@ const validationSchema = Yup.object({
 });
 
 //Admin create event functional component
-const AdminCreateEvent = () => {
+const AdminCreateEvent = (props: ICreateEvent) => {
   //Admin create event form component
   return (
     <Grid className="create-event">

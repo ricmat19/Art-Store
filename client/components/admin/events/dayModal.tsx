@@ -29,8 +29,8 @@ const AdminDayModal = (props: IAdminDay) => {
   //Admin day modal states
   const [view, setView] = useState<string>("events");
   const [title, setTitle] = useState<string>("");
-  const [price, setPrice] = useState<string>("");
-  const [spots, setSpots] = useState<string>("");
+  const [price, setPrice] = useState<number>(0);
+  const [spots, setSpots] = useState<number>(0);
   const [info, setInfo] = useState<string>("");
   const [selectedEvent, setSelectedEvent] = useState({ id: "" });
 
@@ -158,6 +158,10 @@ const AdminDayModal = (props: IAdminDay) => {
                     />
                   ) : view === "create" ? (
                     <AdminCreateEvent
+                      title={title}
+                      price={price}
+                      spots={spots}
+                      info={info}
                       setTitle={setTitle}
                       setPrice={setPrice}
                       setSpots={setSpots}

@@ -3,14 +3,18 @@ import { Grid } from "@mui/material";
 import { useState } from "react";
 import { IUser } from "../../../interfaces";
 
+interface ILinks {
+  profile: IUser;
+}
+
 //Profile links functional component
-const Links = (props: IUser) => {
+const Links = (props: ILinks) => {
   //Profile links states
-  const [email] = useState<string>(props.email);
-  const [website, setWebsite] = useState<string>(props.website);
-  const [twitter, setTwitter] = useState<string>(props.twitter);
-  const [linkedIn, setLinkedIn] = useState<string>(props.linkedIn);
-  const [youtube, setYoutube] = useState<string>(props.youtube);
+  const [email] = useState<string>(props.profile.email);
+  const [website, setWebsite] = useState<string>(props.profile.website);
+  const [twitter, setTwitter] = useState<string>(props.profile.twitter);
+  const [linkedIn, setLinkedIn] = useState<string>(props.profile.linkedIn);
+  const [youtube, setYoutube] = useState<string>(props.profile.youtube);
 
   //Function to update the user's profile links
   const updateProfile = async (e: { preventDefault: () => void }) => {

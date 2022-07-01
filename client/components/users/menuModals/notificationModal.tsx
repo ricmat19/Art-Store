@@ -25,8 +25,8 @@ interface INotifications {
 //Notifications functional component
 const Notifications = (props: INotifications) => {
   //Notifications component states
-  const [notifications, setNotifications] = useState([]);
-  const [type, setType] = useState("");
+  const [notifications, setNotifications] = useState<INotification[]>([]);
+  const [type, setType] = useState<string>("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -131,7 +131,7 @@ const Notifications = (props: INotifications) => {
         <hr />
         <Grid>
           {/* Map through all notifications */}
-          {notifications.map((notification: INotification, index: string) => {
+          {notifications.map((notification: INotification, index: number) => {
             return (
               <a href="/products/print" key={index}>
                 <Grid

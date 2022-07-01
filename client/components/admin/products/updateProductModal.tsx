@@ -4,35 +4,28 @@ import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Grid, Modal } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { IProduct } from "../../../interfaces";
 
 // Admin update product Formik form initial values
-interface IUpdateProductModal {
-  id: string;
-  title: string;
-  product: string;
-  price: number;
-  info: string;
-  imagekey: string;
-  imageBuffer: string;
-  qty: number;
-  open: boolean;
-}
 
 const initialValues = {
   id: "",
   title: "",
   product: "",
-  price: 0,
+  price: "",
   info: "",
   imagekey: "",
   imageBuffer: "",
-  qty: 0,
+  qty: "",
+  length: 0,
+  project: "",
+  primaryImage: false,
   open: false,
 };
 
 //Admin update product Formik form onSubmit function
 const onSubmit = async (
-  values: IUpdateProductModal,
+  values: IProduct,
   // handleClose: () => void;
   onSubmitProps: { resetForm: () => void }
 ) => {
@@ -74,7 +67,7 @@ const validationSchema = Yup.object({
 
 //Admin update product functional component
 const AdminUpdateProductModal = (props: {
-  updateProduct: IUpdateProductModal;
+  updateProduct: IProduct;
   open: boolean;
   handleClose: () => void;
 }) => {
@@ -82,12 +75,12 @@ const AdminUpdateProductModal = (props: {
   const [id, setId] = useState("");
   const [title, setTitle] = useState("");
   const [product, setProduct] = useState("");
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState("");
   const [info, setInfo] = useState("");
   const [fileImage] = useState();
   const [imageKey, setImageKey] = useState("");
   const [imageBuffer, setImageBuffer] = useState("");
-  const [qty, setQty] = useState(0);
+  const [qty, setQty] = useState("");
 
   //If a product is provided, set the component's states to that product's properties on render
   useEffect(() => {

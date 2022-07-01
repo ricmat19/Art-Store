@@ -19,7 +19,7 @@ interface IEvents {
 //Events functional component
 const Events = (props: IEvents) => {
   // Events states
-  const [date, setDate] = useState<Date>();
+  const [date, setDate] = useState<string>();
   const [dateEvents, setDateEvents] = useState<IEvent[]>([]);
   const [dayOpen, setDayOpen] = useState(false);
 

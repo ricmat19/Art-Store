@@ -6,10 +6,10 @@ import { IBlog } from "../../../../interfaces";
 //Admin delete blog post prop interface
 interface IAdminDeleteBlog {
   deleteBlog: IBlog;
-  setBlogPosts: (arg0: IBlog[]) => void;
   blogs: IBlog[];
-  handleClose: () => void;
   open: boolean;
+  setBlogPosts: (arg0: IBlog[]) => void;
+  handleClose: () => void;
 }
 
 //Admin delete post modal functional component

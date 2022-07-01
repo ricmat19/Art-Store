@@ -39,12 +39,12 @@ const CollectionGroups = (props: ICollectionGroups) => {
   const router = useRouter();
 
   //Next router attribute querying the current pages 'group' in the url
-  const group = router.query.group;
+  const group: string | string[] | undefined = router.query.group;
 
   //Function to remove an item from the collection
   const removeFromCollectionGroup = async (
     e: { preventDefault: () => void },
-    group: string,
+    group: string | string[] | undefined,
     item: string
   ) => {
     try {

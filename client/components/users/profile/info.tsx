@@ -3,18 +3,24 @@ import { Grid } from "@mui/material";
 import { useState } from "react";
 import { IUser } from "../../../interfaces";
 
+interface IInfo {
+  profile: IUser;
+}
+
 //Profile info functional component
-const Info = (props: IUser) => {
+const Info = (props: IInfo) => {
   //Profile info states
-  const [email] = useState<string>(props.email);
-  const [firstName, setFirstName] = useState<string>(props.firstName);
-  const [lastName, setLastName] = useState<string>(props.lastName);
-  const [newEmail, setNewEmail] = useState<string>(props.email);
-  const [phoneNumber, setPhoneNumber] = useState<string>(props.phoneNumber);
-  const [address, setAddress] = useState<string>(props.address);
-  const [city, setCity] = useState<string>(props.city);
-  const [state, setState] = useState<string>(props.state);
-  const [zip, setZip] = useState<string>(props.zip);
+  const [email] = useState<string>(props.profile.email);
+  const [firstName, setFirstName] = useState<string>(props.profile.firstName);
+  const [lastName, setLastName] = useState<string>(props.profile.lastName);
+  const [newEmail, setNewEmail] = useState<string>(props.profile.email);
+  const [phoneNumber, setPhoneNumber] = useState<string>(
+    props.profile.phoneNumber
+  );
+  const [address, setAddress] = useState<string>(props.profile.address);
+  const [city, setCity] = useState<string>(props.profile.city);
+  const [state, setState] = useState<string>(props.profile.state);
+  const [zip, setZip] = useState<string>(props.profile.zip);
 
   //Function to update the user's profile info
   const updateProfile = async (e: { preventDefault: () => void }) => {

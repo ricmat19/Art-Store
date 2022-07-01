@@ -56,7 +56,7 @@ const Collection = (props: ICollection) => {
     });
 
   // Route to the selected collection group's page
-  const displayCollectionGroup = async (group: string) => {
+  const displayCollectionGroup = async (group: ICollectionGroup) => {
     try {
       await router.push(`/collection/${group}`);
     } catch (err) {

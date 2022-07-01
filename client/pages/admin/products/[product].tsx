@@ -25,7 +25,20 @@ const AdminProduct = (props: IProducts) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
   const [pageNumber, setPageNumber] = useState<number>(0);
   const [addOpen, setAddOpen] = useState(false);
-  const [updateProduct, setUpdateProduct] = useState<IProduct>();
+  const [updateProduct, setUpdateProduct] = useState<IProduct>({
+    id: "",
+    title: "",
+    product: "",
+    price: "",
+    info: "",
+    imagekey: "",
+    imageBuffer: "",
+    qty: "",
+    length: 0,
+    project: "",
+    primaryImage: false,
+    open: false,
+  });
   const [updateOpen, setUpdateOpen] = useState(false);
   const [deleteProduct, setDeleteProduct] = useState<IProduct>();
   const [deleteOpen, setDeleteOpen] = useState(false);

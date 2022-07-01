@@ -5,7 +5,7 @@ import { IProduct } from "../../../interfaces";
 
 //Admin delete product props interface
 interface IAdminDeleteProduct {
-  deleteProduct: IProduct;
+  deleteProduct: IProduct | undefined;
   handleClose: () => void;
   open: boolean;
 }
@@ -16,7 +16,9 @@ const AdminDeleteProduct = (props: IAdminDeleteProduct) => {
   const handleDelete = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
-      await IndexAPI.delete(`/admin/products/${props.deleteProduct.id}`);
+      if (props.deleteProduct !== undefined) {
+        await IndexAPI.delete(`/admin/products/${props.deleteProduct.id}`);
+      }
       props.handleClose();
     } catch (err) {
       console.log(err);

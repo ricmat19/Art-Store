@@ -10,6 +10,7 @@ export interface IProduct {
   qty: string;
   primaryImage: boolean;
   imageBuffer: string;
+  open: boolean;
 }
 
 export interface ISelectedProduct {
@@ -111,6 +112,7 @@ export interface IDay {
 }
 
 export interface IEvent {
+  filter(arg0: (event: IEvent) => boolean): string;
   id: string;
   title: string;
   event_date: string;
@@ -136,7 +138,7 @@ export interface IUser {
   password: string;
   firstName: string;
   lastName: string;
-  image: File;
+  image: string;
   bio: string;
   city: string;
   state: string;

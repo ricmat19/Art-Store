@@ -5,7 +5,7 @@ import { ICourse } from "../../../interfaces";
 
 //Admin delete course prop interface
 interface IAdminDeleteCourse {
-  deleteCourse: ICourse;
+  deleteCourse: ICourse | undefined;
   open: boolean;
   handleClose: () => void;
 }
@@ -15,7 +15,9 @@ const AdminDeleteCourseModal = (props: IAdminDeleteCourse) => {
   //Admin function to delete a course
   const handleDelete = async () => {
     try {
-      await IndexAPI.delete(`/admin/courses/${props.deleteCourse.id}`);
+      if (props.deleteCourse !== undefined) {
+        await IndexAPI.delete(`/admin/courses/${props.deleteCourse.id}`);
+      }
     } catch (err) {
       console.log(err);
     }

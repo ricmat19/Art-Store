@@ -5,9 +5,10 @@ import { IEvent } from "../../../interfaces";
 
 //Admin delete event modal prop interface
 interface IAdminDeleteEvent {
-  deleteEvent: IEvent | undefined;
+  deleteEvent: IEvent;
   setBlogs: (arg0: string) => void;
   events: IEvent[];
+  event: IEvent;
   handleClose: () => void;
   open: boolean;
 }
