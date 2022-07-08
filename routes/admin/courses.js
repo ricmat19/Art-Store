@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require("../../db");
 const multer = require("multer");
 const sharp = require("sharp");
-const { uploadFile } = require("../../s3");
+// const { uploadFile } = require("../../s3");
 const fs = require("fs");
 const util = require("util");
 const unlinkFile = util.promisify(fs.unlink);
@@ -135,14 +135,14 @@ router.post("/admin/courses", upload.single("images"), async (req, res) => {
       .toFile(`imagesOutput/${req.file.filename}`);
 
     // Create the resized image file
-    const resizedFile = {
-      key: req.file.filename,
-      fileStream: fs.createReadStream(`imagesOutput/${req.file.filename}`),
-    };
+    // const resizedFile = {
+    //   key: req.file.filename,
+    //   fileStream: fs.createReadStream(`imagesOutput/${req.file.filename}`),
+    // };
 
     //Upload the image to the S3 bucket
-    const result = uploadFile(resizedFile);
-    res.send({ imagePath: `/imagesOutput/${result.key}` });
+    // const result = uploadFile(resizedFile);
+    // res.send({ imagePath: `/imagesOutput/${result.key}` });
     // Remove the image from the images and imagesOutput files
     unlinkFile(`images\\${req.file.filename}`);
     unlinkFile(`imagesOutput\\${req.file.filename}`);
@@ -223,11 +223,11 @@ router.put("/admin/courses/:id", upload.single("images"), async (req, res) => {
       const file = req.file;
 
       // Set the image file size
-      const resizedFile = sharp(file).resize({ height: 500 });
+      // const resizedFile = sharp(file).resize({ height: 500 });
 
       //Upload the image to the S3 bucket
-      const result = await uploadFile(resizedFile);
-      res.send({ imagePath: `/images/${result.key}` });
+      // const result = await uploadFile(resizedFile);
+      // res.send({ imagePath: `/images/${result.key}` });
 
       // Remove the image from files
       await unlinkFile(file.path);
@@ -237,7 +237,7 @@ router.put("/admin/courses/:id", upload.single("images"), async (req, res) => {
         [
           req.body.title,
           req.body.subject,
-          result.key,
+          // result.key,
           req.body.content,
           req.body.info,
           new Date(),

@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require("../../db");
 const multer = require("multer");
 const sharp = require("sharp");
-const { uploadFile } = require("../../s3");
+// const { uploadFile } = require("../../s3");
 const fs = require("fs");
 const util = require("util");
 const unlinkFile = util.promisify(fs.unlink);
@@ -75,14 +75,14 @@ router.post("/admin/products", upload.single("images"), async (req, res) => {
       .toFile(`imagesOutput/${req.file.filename}`);
 
     // Create the resized image file
-    const resizedFile = {
-      key: req.file.filename,
-      fileStream: fs.createReadStream(`imagesOutput/${req.file.filename}`),
-    };
+    // const resizedFile = {
+    //   key: req.file.filename,
+    //   fileStream: fs.createReadStream(`imagesOutput/${req.file.filename}`),
+    // };
 
     //Upload the image to the S3 bucket
-    const result = uploadFile(resizedFile);
-    res.send({ imagePath: `/imagesOutput/${result.key}` });
+    // const result = uploadFile(resizedFile);
+    // res.send({ imagePath: `/imagesOutput/${result.key}` });
 
     // Remove the image from the images and imagesOutput files
     unlinkFile(`images\\${req.file.filename}`);
