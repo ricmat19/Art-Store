@@ -11,15 +11,15 @@ import * as Yup from "yup";
 
 //Admin create blog post prop interface
 interface ICreateBlogForm {
-  image: string;
   title: string;
+  file: File;
   content: string;
 }
 
 //Admin create blog post Formik form initial values
 const initialValues = {
   title: "",
-  image: "",
+  file: undefined,
   content: "",
 };
 
@@ -29,13 +29,11 @@ const onSubmit = (
   onSubmitProps: { resetForm: () => void }
 ) => {
   //Check if an image is provided before creating blog post
-  if (values.image) {
+  if (values.file) {
     const formData = new FormData();
-
     formData.append("title", values.title);
     formData.append("content", values.content);
-    formData.append("images", values.image);
-
+    formData.append("images", values.file);
     //Create blog post and then route to admin blog index page
     IndexAPI.post("/admin/blog", formData, {
       headers: { "Content-Type": "multipart/form-data" },
@@ -43,16 +41,16 @@ const onSubmit = (
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   }
-  router.push("/admin/media/blog");
-  onSubmitProps.resetForm();
+  // router.push("/admin/media/blog");
+  // onSubmitProps.resetForm();
 };
 
 //Admin create blog post Formik form validation schema
-const validationSchema = Yup.object({
-  title: Yup.string().required("Title is required"),
-  image: Yup.string().required("Image is required"),
-  content: Yup.string().required("Content is required"),
-});
+// const validationSchema = Yup.object({
+//   title: Yup.string().required("Title is required"),
+//   image: Yup.string().required("Image is required"),
+//   content: Yup.string().required("Content is required"),
+// });
 
 //Admin create blog post functional component
 const AdminAddBlogPost = () => {
@@ -103,69 +101,78 @@ const AdminAddBlogPost = () => {
             <Formik
               initialValues={initialValues}
               onSubmit={onSubmit}
-              validationSchema={validationSchema}
+              // validationSchema={validationSchema}
               validateOnChange={false}
               validateOnBlur={false}
               validateOnMount
+              setFieldValue
             >
-              {/* Admin create blog post form */}
-              <Form>
-                <Grid
-                  sx={{ display: "grid", gap: "10px", margin: "50px 20vw" }}
-                >
-                  {/* Admin blog post title input field */}
-                  <Grid className="admin-form-field">
-                    <label>Title:</label>
-                    <Field
-                      as="input"
-                      className="full-width"
-                      type="text"
-                      name="title"
-                    />
-                    <ErrorMessage name="title" component="div">
-                      {(errorMsg) => (
-                        <Grid className="errorMsg">{errorMsg}</Grid>
-                      )}
-                    </ErrorMessage>
+              {({ setFieldValue }) => (
+                <Form>
+                  <Grid
+                    sx={{ display: "grid", gap: "10px", margin: "50px 20vw" }}
+                  >
+                    {/* Admin blog post title input field */}
+                    <Grid className="admin-form-field">
+                      <label>Title:</label>
+                      <Field
+                        as="input"
+                        className="full-width"
+                        type="text"
+                        name="title"
+                      />
+                      <ErrorMessage name="title" component="div">
+                        {(errorMsg) => (
+                          <Grid className="errorMsg">{errorMsg}</Grid>
+                        )}
+                      </ErrorMessage>
+                    </Grid>
+                    {/* Admin blog post image file input field */}
+                    <Grid className="admin-form-field">
+                      <label className="admin-label">Image:</label>
+                      <Field
+                        type="file"
+                        onChange={(e: {
+                          target: { files: SetStateAction<File | undefined>[] };
+                        }) => {
+                          setImage(e.target.files[0]);
+                          setFieldValue("file", e.target.files[0]);
+                        }}
+                        // {(e: {
+                        //   target: { files: SetStateAction<File | undefined>[] };
+                        // }) => setImage(e.target.files[0])}
+                        name="image"
+                        className="form-control file-input"
+                      />
+                      {console.log(image)}
+                      <ErrorMessage name="image" component="div">
+                        {(errorMsg) => (
+                          <Grid className="errorMsg">{errorMsg}</Grid>
+                        )}
+                      </ErrorMessage>
+                    </Grid>
+                    {/* Admin blog post content input field */}
+                    <Grid>
+                      <label>Content:</label>
+                      <Field
+                        as="textarea"
+                        className="full-width"
+                        rows={50}
+                        name="content"
+                      />
+                      <ErrorMessage name="content" component="div">
+                        {(errorMsg) => (
+                          <Grid className="errorMsg">{errorMsg}</Grid>
+                        )}
+                      </ErrorMessage>
+                    </Grid>
+                    {/* Submit button to create blog post */}
+                    <Grid sx={{ textAlign: "center" }}>
+                      <button type="submit">Submit</button>
+                    </Grid>
                   </Grid>
-                  {/* Admin blog post image file input field */}
-                  <Grid className="admin-form-field">
-                    <label className="admin-label">Image:</label>
-                    <Field
-                      type="file"
-                      onChange={(e: {
-                        target: { files: SetStateAction<File | undefined>[] };
-                      }) => setImage(e.target.files[0])}
-                      name="images"
-                      className="form-control file-input"
-                    />
-                    <ErrorMessage name="images" component="div">
-                      {(errorMsg) => (
-                        <Grid className="errorMsg">{errorMsg}</Grid>
-                      )}
-                    </ErrorMessage>
-                  </Grid>
-                  {/* Admin blog post content input field */}
-                  <Grid>
-                    <label>Content:</label>
-                    <Field
-                      as="textarea"
-                      className="full-width"
-                      rows={50}
-                      name="content"
-                    />
-                    <ErrorMessage name="content" component="div">
-                      {(errorMsg) => (
-                        <Grid className="errorMsg">{errorMsg}</Grid>
-                      )}
-                    </ErrorMessage>
-                  </Grid>
-                  {/* Submit button to create blog post */}
-                  <Grid sx={{ textAlign: "center" }}>
-                    <button type="submit">Submit</button>
-                  </Grid>
-                </Grid>
-              </Form>
+                </Form>
+              )}
             </Formik>
           </Grid>
           {/* Footer component */}

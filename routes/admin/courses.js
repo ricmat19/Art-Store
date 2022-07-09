@@ -135,10 +135,10 @@ router.post("/admin/courses", upload.single("images"), async (req, res) => {
       .toFile(`imagesOutput/${req.file.filename}`);
 
     // Create the resized image file
-    // const resizedFile = {
-    //   key: req.file.filename,
-    //   fileStream: fs.createReadStream(`imagesOutput/${req.file.filename}`),
-    // };
+    const resizedFile = {
+      key: req.file.filename,
+      fileStream: fs.createReadStream(`imagesOutput/${req.file.filename}`),
+    };
 
     //Upload the image to the S3 bucket
     // const result = uploadFile(resizedFile);
@@ -149,7 +149,7 @@ router.post("/admin/courses", upload.single("images"), async (req, res) => {
 
     // Add course to the database with the created image key
     await db.query(
-      "INSERT INTO courses (title, subject, image key, description, price, create_date, update_date, type) values ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+      "INSERT INTO courses (title, subject, imagekey, description, price, create_date, update_date, type, filestream) values ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
       [
         req.body.title,
         req.body.subject,
@@ -159,6 +159,7 @@ router.post("/admin/courses", upload.single("images"), async (req, res) => {
         new Date(),
         new Date(),
         "course",
+        resizedFile.fileStream,
       ]
     );
   } catch (err) {

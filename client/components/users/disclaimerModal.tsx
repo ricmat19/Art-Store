@@ -24,7 +24,9 @@ const DisclaimerModal = (props: IModalState) => {
   const [disclaimerModal, setDisclaimerModal] = useState("modal-bg active");
 
   //Function to close disclaimer
-  const closeDisclaimer = (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
+  const closeDisclaimer = (
+    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+  ) => {
     e.preventDefault();
     setDisclaimerModal("modal-bg");
   };
@@ -61,10 +63,13 @@ const DisclaimerModal = (props: IModalState) => {
                   <Grid>
                     &quot;
                     <span>artHouse19</span>
-                    &quot; is a full-stack E-commerce application built using
+                    {/* &quot; is a full-stack E-commerce application built using
                     React.js, Node/Express, PostgreSQL, and an AWS S3 Bucket for
                     image storage. This application is strictly for
-                    demonstrative purposes.
+                    demonstrative purposes. */}
+                    &quot; is a full-stack E-commerce application built using
+                    React.js, Node/Express, and PostgreSQL. This application is
+                    strictly for demonstrative purposes.
                     <hr className="disclaimer-hr" />
                     By clicking the button below, you are accepting that no real
                     purchases will be made, no payments will be processed, and

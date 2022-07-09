@@ -7,7 +7,7 @@ import AdminMainNav from "../../../../components/admin/mainNav";
 import AdminPagesNav from "../../../../components/admin/pagesNav";
 import { Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+ import * as Yup from "yup";
 
 //Admin blog post prop interface
 interface IAdminBlogPost {

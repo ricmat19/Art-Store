@@ -75,10 +75,10 @@ router.post("/admin/products", upload.single("images"), async (req, res) => {
       .toFile(`imagesOutput/${req.file.filename}`);
 
     // Create the resized image file
-    // const resizedFile = {
-    //   key: req.file.filename,
-    //   fileStream: fs.createReadStream(`imagesOutput/${req.file.filename}`),
-    // };
+    const resizedFile = {
+      key: req.file.filename,
+      fileStream: fs.createReadStream(`imagesOutput/${req.file.filename}`),
+    };
 
     //Upload the image to the S3 bucket
     // const result = uploadFile(resizedFile);
@@ -90,7 +90,7 @@ router.post("/admin/products", upload.single("images"), async (req, res) => {
 
     // Add products to the database with the created image key
     db.query(
-      "INSERT INTO products (title, product, imagekey, qty, price, info, create_date, update_date, type) values ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
+      "INSERT INTO products (title, product, imagekey, qty, price, info, create_date, update_date, type, filestream) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, 10) RETURNING *",
       [
         req.body.title,
         req.body.product,
@@ -101,6 +101,7 @@ router.post("/admin/products", upload.single("images"), async (req, res) => {
         new Date(),
         new Date(),
         "product",
+        resizedFile.fileStream,
       ]
     );
   } catch (err) {
