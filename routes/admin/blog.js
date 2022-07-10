@@ -2,10 +2,11 @@ const express = require("express");
 const router = express.Router();
 const db = require("../../db");
 const multer = require("multer");
-const sharp = require("sharp");
+// const sharp = require("sharp");
 // const { uploadFile } = require("../../s3");
 const fs = require("fs");
 const util = require("util");
+const { cloudinary } = require("../../utils/cloudinary");
 const unlinkFile = util.promisify(fs.unlink);
 
 // Setup image upload destination
@@ -50,33 +51,38 @@ router.get("/admin/blog/:id", async (req, res) => {
 //Create a blog post
 router.post("/admin/blog", upload.single("images"), async (req, res) => {
   try {
-    // Set the image file size
-    const filePath = req.file.path;
+    // // Set the image file size
+    // const filePath = req.file.path;
     // await sharp(filePath)
     //   .resize({ width: 1400 })
     //   .toFile(`imagesOutput/${req.file.filename}`);
 
-    // Create the resized image file
+    // // Create the resized image file
     // const resizedFile = {
     //   key: req.file.filename,
     //   fileStream: fs.createReadStream(`imagesOutput/${req.file.filename}`),
     // };
 
-    const buffer = await sharp(filePath)
-      .resize({ width: 1400 })
-      .toBuffer(`imagesOutput/${req.file.filename}`);
-
-    //Upload the image to the S3 bucket
+    // //Upload the image to the S3 bucket
     // const result = uploadFile(resizedFile);
     // res.send({ imagePath: `/imagesOutput/${result.key}` });
 
-    // Remove the image from the images and imagesOutput files
+    // // Remove the image from the images and imagesOutput files
     // unlinkFile(`images\\${req.file.filename}`);
     // unlinkFile(`imagesOutput\\${req.file.filename}`);
 
+    // const readStream = fs.createReadStream(`images/${req.file.filename}`);
+    // console.log(readStream);
+    // const uploadResponse = await cloudinary.uploader.upload(file, {
+    //   upload_preset: "art_house_19",
+    // });
+    // console.log(uploadResponse);
+
+    unlinkFile(`images\\${req.file.filename}`);
+
     // Add blog post to the database with the created image key
     await db.query(
-      "INSERT INTO blog (title, imagekey, create_date, content, update_date, type, filestream) values ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
+      "INSERT INTO blog (title, imagekey, create_date, content, update_date, type) values ($1, $2, $3, $4, $5, $6) RETURNING *",
       [
         req.body.title,
         req.file.filename,
@@ -84,7 +90,6 @@ router.post("/admin/blog", upload.single("images"), async (req, res) => {
         req.body.content,
         new Date(),
         "blog",
-        buffer,
       ]
     );
   } catch (err) {

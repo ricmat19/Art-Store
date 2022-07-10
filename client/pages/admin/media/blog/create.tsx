@@ -30,19 +30,28 @@ const onSubmit = (
 ) => {
   //Check if an image is provided before creating blog post
   if (values.file) {
+    let base64;
+    const reader = new FileReader();
+    reader.readAsDataURL(values.file);
+    reader.onload = () => {
+      base64 = reader;
+    };
+    console.log(base64);
+
     const formData = new FormData();
     formData.append("title", values.title);
     formData.append("content", values.content);
     formData.append("images", values.file);
     //Create blog post and then route to admin blog index page
     IndexAPI.post("/admin/blog", formData, {
+      // headers: { "Content-Type": "multipart/form-data" },
       headers: { "Content-Type": "multipart/form-data" },
     })
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   }
   // router.push("/admin/media/blog");
-  // onSubmitProps.resetForm();
+  onSubmitProps.resetForm();
 };
 
 //Admin create blog post Formik form validation schema
@@ -144,7 +153,6 @@ const AdminAddBlogPost = () => {
                         name="image"
                         className="form-control file-input"
                       />
-                      {console.log(image)}
                       <ErrorMessage name="image" component="div">
                         {(errorMsg) => (
                           <Grid className="errorMsg">{errorMsg}</Grid>

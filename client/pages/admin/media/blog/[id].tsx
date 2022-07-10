@@ -7,7 +7,7 @@ import AdminMainNav from "../../../../components/admin/mainNav";
 import AdminPagesNav from "../../../../components/admin/pagesNav";
 import { Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
- import * as Yup from "yup";
+import * as Yup from "yup";
 
 //Admin blog post prop interface
 interface IAdminBlogPost {
@@ -42,7 +42,7 @@ const onSubmit = async (
     content: values.content,
   });
   //Route to blog index page on submit
-    await router.push("/admin/media/blog");
+  await router.push("/admin/media/blog");
   onSubmitProps.resetForm();
 };
 
@@ -183,13 +183,17 @@ export async function getStaticProps(context: { params: { id: string } }) {
   //Create and add blog post banner image buffer to blog post object
   for (let i = 0; i < blogPostResponse.data.data.post.length; i++) {
     if (blogPostResponse.data.data.post[i].imagekey !== null) {
+      // const imagesResponse = await IndexAPI.get(
+      //   `/images/${blogPostResponse.data.data.post[i].imagekey}`,
+      //   {
+      //     responseType: "arraybuffer",
+      //   }
+      // ).then((response) =>
+      //   Buffer.from(response.data, "binary").toString("base64")
+      // );
+
       const imagesResponse = await IndexAPI.get(
-        `/images/${blogPostResponse.data.data.post[i].imagekey}`,
-        {
-          responseType: "arraybuffer",
-        }
-      ).then((response) =>
-        Buffer.from(response.data, "binary").toString("base64")
+        `/images/${blogPostResponse.data.data.post[i].imagekey}`
       );
 
       blogPostResponse.data.data.post[
