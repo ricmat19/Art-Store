@@ -9,9 +9,9 @@ import PagesNav from "../../../components/users/pagesNav";
 
 // Blog post prop interface
 interface IBlogPost {
-  imageBuffer: string | undefined;
   selectedMedia: {
     title: string;
+    imagekey: string | undefined;
     content: string;
   };
   cartQty: number;
@@ -21,7 +21,6 @@ interface IBlogPost {
 const BlogPost = (props: IBlogPost) => {
   // const [title] = useState(props.title);
   // const [info] = useState(props.info);
-  // const [imageBuffer] = useState(props.imageBuffer);
 
   //Blog post component
   return (
@@ -33,9 +32,10 @@ const BlogPost = (props: IBlogPost) => {
         <Grid>
           {/* Blog post banner image */}
           <Grid xs={12} sx={{ textAlign: "center" }}>
+            {console.log(props.selectedMedia.imagekey)}
             <img
               className="banner-image"
-              src={props.imageBuffer}
+              src={props.selectedMedia.imagekey}
               alt="banner-image"
             />
           </Grid>
@@ -89,25 +89,9 @@ export async function getStaticProps(context: {
   //Get the selected blog post
   const mediaResponse = await IndexAPI.get(`/media/${media}/${post}`);
 
-  //Create and add blog post image buffer to the selected blog post object
-  let imageBuffer = "";
-  if (mediaResponse.data.data.post.imagekey !== null) {
-    const imagesResponse = await IndexAPI.get(
-      `/images/${mediaResponse.data.data.post.imagekey}`,
-      {
-        responseType: "arraybuffer",
-      }
-    ).then((response) =>
-      Buffer.from(response.data, "binary").toString("base64")
-    );
-
-    imageBuffer = `data:image/png;base64,${imagesResponse}`;
-  }
-
   //Provide the selected blog post's image buffer, selected blog post's content, cart content, and cart quantity as a props to the blog post component
   return {
     props: {
-      imageBuffer: imageBuffer,
       selectedMedia: mediaResponse.data.data.post,
       cart: cartResponse.data.data.cart,
       cartQty: cartResponse.data.data.cart.length,

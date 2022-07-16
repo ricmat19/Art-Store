@@ -15,7 +15,7 @@ interface ICourse {
   title: string;
   subject: string;
   price: string;
-  imageBuffer: string;
+  imagekey: string;
 }
 interface ICourses {
   courses: ICourse[];
@@ -63,7 +63,7 @@ const Courses = (props: ICourses) => {
             <Grid className="image-container">
               <img
                 className="thumbnail"
-                src={course.imageBuffer}
+                src={course.imagekey}
                 alt="collection-thumbnail"
               />
             </Grid>
@@ -153,24 +153,6 @@ export async function getStaticProps(context: { params: { subject: string } }) {
 
   //Get a list of all courses in the selected subject
   const coursesResponse = await IndexAPI.get(`/courses/${subject}`);
-
-  //Create and add course image buffer to all courses in the course subject object
-  for (let i = 0; i < coursesResponse.data.data.courses.length; i++) {
-    if (coursesResponse.data.data.courses[i].imagekey !== null) {
-      const imagesResponse = await IndexAPI.get(
-        `/images/${coursesResponse.data.data.courses[i].imagekey}`,
-        {
-          responseType: "arraybuffer",
-        }
-      ).then((response) =>
-        Buffer.from(response.data, "binary").toString("base64")
-      );
-
-      coursesResponse.data.data.courses[
-        i
-      ].imageBuffer = `data:image/png;base64,${imagesResponse}`;
-    }
-  }
 
   //Provide the course subjects, courses list and cart quantity as props to the courses component
   return {

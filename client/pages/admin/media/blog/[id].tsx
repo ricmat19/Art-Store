@@ -15,7 +15,7 @@ interface IAdminBlogPost {
   title: string;
   content: string;
   post_date: Date;
-  imageBuffer: string;
+  imagekey: string;
 }
 interface IAdminBlogPostForm {
   id: string;
@@ -91,7 +91,7 @@ const AdminBlogPost = (props: IAdminBlogPost) => {
               {/* Display blog post banner image */}
               <img
                 className="banner-image"
-                src={props.imageBuffer}
+                src={props.imagekey}
                 alt="banner-image"
               />
             </Grid>
@@ -179,28 +179,6 @@ export async function getStaticProps(context: { params: { id: string } }) {
   // Get the content for the selected blog post
   const id = context.params.id;
   const blogPostResponse = await IndexAPI.get(`/admin/blog/${id}`);
-
-  //Create and add blog post banner image buffer to blog post object
-  for (let i = 0; i < blogPostResponse.data.data.post.length; i++) {
-    if (blogPostResponse.data.data.post[i].imagekey !== null) {
-      // const imagesResponse = await IndexAPI.get(
-      //   `/images/${blogPostResponse.data.data.post[i].imagekey}`,
-      //   {
-      //     responseType: "arraybuffer",
-      //   }
-      // ).then((response) =>
-      //   Buffer.from(response.data, "binary").toString("base64")
-      // );
-
-      const imagesResponse = await IndexAPI.get(
-        `/images/${blogPostResponse.data.data.post[i].imagekey}`
-      );
-
-      blogPostResponse.data.data.post[
-        i
-      ].imageBuffer = `data:image/png;base64,${imagesResponse}`;
-    }
-  }
 
   //Provide the selected blog post's content as a prop to the blog post component
   return {

@@ -76,7 +76,7 @@ const AdminDeleteProduct = (props: IAdminDeleteProduct) => {
                   <Grid className="big-image-div">
                     <img
                       className="big-image"
-                      src={props.deleteProduct.imageBuffer}
+                      src={props.deleteProduct.imagekey}
                       alt="big image"
                     />
                   </Grid>

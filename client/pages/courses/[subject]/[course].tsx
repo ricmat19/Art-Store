@@ -114,32 +114,16 @@ export async function getStaticProps(context: {
 }) {
   const course = context.params.course;
   const id = context.params.id;
-  
+
   // Get cart content
   const cartResponse = await IndexAPI.get(`/cart`);
 
   // Get the selected course's content
   const courseResponse = await IndexAPI.get(`/courses/${course}/${id}`);
 
-  //Create and add course image buffer to the course in the course object
-  let imageBuffer = "";
-  if (courseResponse.data.data.course.imagekey !== null) {
-    const imagesResponse = await IndexAPI.get(
-      `/images/${courseResponse.data.data.course.imagekey}`,
-      {
-        responseType: "arraybuffer",
-      }
-    ).then((response) =>
-      Buffer.from(response.data, "binary").toString("base64")
-    );
-
-    imageBuffer = `data:image/png;base64,${imagesResponse}`;
-  }
-
   //Provide the course's and cart's information as props to the course component
   return {
     props: {
-      imageBuffer: imageBuffer,
       selectedProduct: courseResponse.data.data.course,
       cart: cartResponse.data.data.cart,
       cartQty: cartResponse.data.data.cart.length,

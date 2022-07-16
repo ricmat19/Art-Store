@@ -21,7 +21,7 @@ interface IMedia {
     create_date: string;
     update_date: string;
     content: string;
-    imageBuffer: string;
+    imagekey: string;
   }[];
   cartQty: number;
 }
@@ -62,7 +62,7 @@ const Media = (props: IMedia) => {
             <Grid className="image-container">
               <img
                 className="thumbnail"
-                src={post.imageBuffer}
+                src={post.imagekey}
                 alt="blog-thumbnail"
               />
             </Grid>
@@ -145,24 +145,6 @@ export async function getStaticProps(context: { params: { media: string } }) {
 
   //Get a list of all media posts of the selected subject
   const mediaResponse = await IndexAPI.get(`/media/${media}`);
-
-  //Create and add media post image buffer to all media posts in the media subject's object
-  for (let i = 0; i < mediaResponse.data.data.posts.length; i++) {
-    if (mediaResponse.data.data.posts[i].imagekey !== null) {
-      const imagesResponse = await IndexAPI.get(
-        `/images/${mediaResponse.data.data.posts[i].imagekey}`,
-        {
-          responseType: "arraybuffer",
-        }
-      ).then((response) =>
-        Buffer.from(response.data, "binary").toString("base64")
-      );
-
-      mediaResponse.data.data.posts[
-        i
-      ].imageBuffer = `data:image/png;base64,${imagesResponse}`;
-    }
-  }
 
   //Provide the media category, media posts, and cart quantity as props to the media component
   return {

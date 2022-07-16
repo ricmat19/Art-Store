@@ -9,7 +9,6 @@ export interface IProduct {
   imagekey: string;
   qty: string;
   primaryImage: boolean;
-  imageBuffer: string;
   open: boolean;
 }
 
@@ -19,7 +18,6 @@ export interface ISelectedProduct {
   price: string;
   info: string;
   imagekey: string;
-  imageBuffer: string;
   qty: string;
 }
 
@@ -30,7 +28,6 @@ export interface ICart {
   price: string;
   info: string;
   imagekey: string;
-  imageBuffer: string;
   qty: number;
   primaryImage: boolean;
   cartItems: ICart[];
@@ -55,7 +52,6 @@ export interface ICourse {
   title: string;
   subject: string;
   imagekey?: string;
-  imageBuffer?: string;
   content?: string;
   info: string;
   price: number;
@@ -65,7 +61,6 @@ export interface IBlog {
   id: string;
   title: string;
   imagekey?: string;
-  imageBuffer?: string;
   content: string;
   info: string;
 }
@@ -100,7 +95,6 @@ export interface IProject {
   id: string;
   title: string;
   imagekey?: string;
-  imageBuffer?: string;
   info: string;
 }
 
@@ -117,7 +111,6 @@ export interface IEvent {
   title: string;
   event_date: string;
   imagekey?: string;
-  imageBuffer?: string;
   price?: number;
   info: string;
   spots: string;
@@ -130,7 +123,6 @@ export interface INotification {
   type: string;
   price?: number;
   imagekey?: string;
-  imageBuffer?: string;
 }
 
 export interface IUser {

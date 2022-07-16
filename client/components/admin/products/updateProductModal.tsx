@@ -15,7 +15,6 @@ const initialValues = {
   price: "",
   info: "",
   imagekey: "",
-  imageBuffer: "",
   qty: "",
   length: 0,
   project: "",
@@ -29,7 +28,7 @@ const onSubmit = async (
   // handleClose: () => void;
   onSubmitProps: { resetForm: () => void }
 ) => {
-  if (values.imageBuffer) {
+  if (values.imagekey) {
     const formData = new FormData();
 
     formData.append("title", values.title);
@@ -37,7 +36,7 @@ const onSubmit = async (
     formData.append("price", values.price.toString());
     formData.append("info", values.info);
     formData.append("qty", values.qty.toString());
-    formData.append("image", values.imageBuffer);
+    formData.append("image", values.imagekey);
 
     IndexAPI.put(`/admin/products/${values.id}`, formData, {
       headers: { "Content-Type": "multipart/form-data" },
@@ -78,8 +77,7 @@ const AdminUpdateProductModal = (props: {
   const [price, setPrice] = useState("");
   const [info, setInfo] = useState("");
   const [fileImage] = useState();
-  const [imageKey, setImageKey] = useState("");
-  const [imageBuffer, setImageBuffer] = useState("");
+  const [imagekey, setImagekey] = useState("");
   const [qty, setQty] = useState("");
 
   //If a product is provided, set the component's states to that product's properties on render
@@ -93,7 +91,6 @@ const AdminUpdateProductModal = (props: {
           setPrice(props.updateProduct.price);
           setInfo(props.updateProduct.info);
           setImageKey(props.updateProduct.imagekey);
-          setImageBuffer(props.updateProduct.imageBuffer);
           setQty(props.updateProduct.qty);
         }
       } catch (err) {
@@ -155,11 +152,7 @@ const AdminUpdateProductModal = (props: {
                         alt="big image"
                       />
                     ) : (
-                      <img
-                        className="big-image"
-                        src={imageBuffer}
-                        alt="product"
-                      />
+                      <img className="big-image" src={imagekey} alt="product" />
                     )}
                   </Grid>
                 </Grid>

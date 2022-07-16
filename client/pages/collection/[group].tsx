@@ -14,7 +14,7 @@ interface ICollection {
   id: string;
   title: string;
   product: string;
-  imageBuffer: string;
+  imagekey: string;
 }
 interface ICollectionGroups {
   collection_group: string;
@@ -78,7 +78,7 @@ const CollectionGroups = (props: ICollectionGroups) => {
             <Grid className="image-container">
               <img
                 className="thumbnail"
-                src={item.imageBuffer}
+                src={item.imagekey}
                 alt={item.title}
               />
             </Grid>
@@ -184,24 +184,6 @@ export async function getStaticProps(context: { params: { group: string } }) {
       if (productsResponse.data.data.products[i].id === userCollection[j]) {
         userCollectionProducts.push(productsResponse.data.data.products[i]);
       }
-    }
-  }
-
-  //Create image buffer for all collection group items and add them to the collection object
-  for (let i = 0; i < userCollectionProducts.length; i++) {
-    if (userCollectionProducts[i].imagekey !== null) {
-      const imagesResponse = await IndexAPI.get(
-        `/images/${userCollectionProducts[i].imagekey}`,
-        {
-          responseType: "arraybuffer",
-        }
-      ).then((response) =>
-        Buffer.from(response.data, "binary").toString("base64")
-      );
-
-      userCollectionProducts[
-        i
-      ].imageBuffer = `data:image/png;base64,${imagesResponse}`;
     }
   }
 

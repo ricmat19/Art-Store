@@ -8,7 +8,6 @@ describe("testing admin update product component", () => {
     price: "",
     info: "",
     imagekey: "",
-    imageBuffer: "",
     qty: ""
   }} open={undefined} handleClose={undefined}/>});
   test("", () => {});

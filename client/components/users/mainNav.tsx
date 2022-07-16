@@ -356,7 +356,7 @@ const MainNav = (props: ICartQty) => {
                             {/* {data.imagekey ? (
                         <Grid>
                           <img
-                          // src={imageBuffer}
+                          // src={imagekey}
                           />
                         </Grid>
                       ) : ( */}

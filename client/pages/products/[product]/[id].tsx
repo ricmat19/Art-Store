@@ -18,7 +18,7 @@ import { IProduct } from "../../../interfaces";
 
 // Product details prop interface
 interface IProductDetails {
-  imageBuffer: string;
+  imagekey: string;
   product: IProduct;
   groups: any[];
   cartQty: number;
@@ -164,7 +164,7 @@ const ProductDetails = (props: IProductDetails) => {
             <Grid className="justify-center">
               <img
                 className="big-image"
-                src={props.imageBuffer}
+                src={product.imagekey}
                 alt="product image"
               />
             </Grid>
@@ -232,28 +232,12 @@ export async function getStaticProps(context: {
   // Get the selected product's content
   const productResponse = await IndexAPI.get(`/products/${product}/${id}`);
 
-  //Create and add the product's image buffer to the selected product's object
-  let imageBuffer = "";
-  if (productResponse.data.data.item.imagekey !== null) {
-    const imagesResponse = await IndexAPI.get(
-      `/images/${productResponse.data.data.item.imagekey}`,
-      {
-        responseType: "arraybuffer",
-      }
-    ).then((response) =>
-      Buffer.from(response.data, "binary").toString("base64")
-    );
-
-    imageBuffer = `data:image/png;base64,${imagesResponse}`;
-  }
-
   // Get the list of collection groups
   const collectionsResponse = await IndexAPI.get(`/collection/groups`);
 
   //Provide the selected product's image buffer, product content, collection groups, and cart content as props to the selected product's component
   return {
     props: {
-      imageBuffer: imageBuffer,
       product: productResponse.data.data.item,
       groups: collectionsResponse.data.data.groups,
       cartQty: cartResponse.data.data.cart.length,

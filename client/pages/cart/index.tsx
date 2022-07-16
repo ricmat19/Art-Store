@@ -52,22 +52,6 @@ export async function getStaticProps() {
   // Get cart content
   const cartResponse = await IndexAPI.get(`/cart`);
 
-  //Create and add image buffer to all items in cart object
-  for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
-    if (cartResponse.data.data.cart[i].imagekey !== null) {
-      const imagesResponse = await IndexAPI.get(
-        `/images/${cartResponse.data.data.cart[i].imagekey}`,
-        {
-          responseType: "arraybuffer",
-        }
-      ).then((response) =>
-        Buffer.from(response.data, "binary").toString("base64")
-      );
-
-      cartResponse.data.data.cart[i].imageBuffer = imagesResponse;
-    }
-  }
-
   //Provide the cart object as a prop to the checkout component
   return {
     props: {

@@ -78,7 +78,7 @@ const AdminCourseSubject = (props: IAdminCourseSubject) => {
             <Grid className="admin-image-container">
               <img
                 className="thumbnail"
-                src={course.imageBuffer}
+                src={course.imagekey}
                 alt="Thumbnail"
               />
             </Grid>
@@ -232,26 +232,6 @@ export async function getStaticProps(context: { params: { subject: string } }) {
   const subjectResponse = await IndexAPI.get(
     `/admin/courses/subject/${subject}`
   );
-
-  //Create and add course image buffer to all courses in the course subject object
-  if (subjectResponse.data.data.subject !== undefined) {
-    for (let i = 0; i < subjectResponse.data.data.subject.length; i++) {
-      if (subjectResponse.data.data.subject[i].imagekey !== null) {
-        const imagesResponse = await IndexAPI.get(
-          `/images/${subjectResponse.data.data.subject[i].imagekey}`,
-          {
-            responseType: "arraybuffer",
-          }
-        ).then((response) =>
-          Buffer.from(response.data, "binary").toString("base64")
-        );
-
-        subjectResponse.data.data.subject[
-          i
-        ].imageBuffer = `data:image/png;base64,${imagesResponse}`;
-      }
-    }
-  }
 
   //Provide the selected course subject and subject courses as a props to the course component
   return {

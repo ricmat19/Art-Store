@@ -28,7 +28,6 @@ const AdminBlog = (props: IAdminBlog) => {
     id: "",
     title: "",
     imagekey: "",
-    imageBuffer: "",
     content: "",
     info: "",
   });
@@ -81,7 +80,7 @@ const AdminBlog = (props: IAdminBlog) => {
             <Grid className="admin-image-container">
               <img
                 className="thumbnail"
-                src={post.imageBuffer}
+                src={post.imagekey}
                 alt="blog-thumbnail"
               />
             </Grid>
@@ -192,24 +191,6 @@ const AdminBlog = (props: IAdminBlog) => {
 export async function getStaticProps() {
   //Get list of blog posts
   const blogResponse = await IndexAPI.get(`/admin/blog`);
-
-  //Create and blog post banner image buffer to blog object
-  for (let i = 0; i < blogResponse.data.data.blog.length; i++) {
-    if (blogResponse.data.data.blog[i].imagekey !== null) {
-      const imagesResponse = await IndexAPI.get(
-        `/images/${blogResponse.data.data.blog[i].imagekey}`,
-        {
-          responseType: "arraybuffer",
-        }
-      ).then((response) =>
-        Buffer.from(response.data, "binary").toString("base64")
-      );
-
-      blogResponse.data.data.blog[
-        i
-      ].imageBuffer = `data:image/png;base64,${imagesResponse}`;
-    }
-  }
 
   //Provide the selected blog content as a prop to the course component
   return {

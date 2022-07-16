@@ -42,23 +42,6 @@ const CartProducts = (props: ICartProducts) => {
         // const cartResponse = await IndexAPI.get(`/cart`);
         // console.log(cartResponse.data.data.cart);
 
-        //Add cart item images to get '/cart' json response
-        // for (let i = 0; i < cart.length; i++) {
-        //   if (cart[i].imagekey !== null) {
-        //     const imagesResponse = IndexAPI.get(
-        //       `/images/${cart[i].imagekey}`,
-        //       {
-        //         responseType: "arraybuffer",
-        //       }
-        //     ).then((response) =>
-        //       Buffer.from(response.data, "binary").toString("base64")
-        //     );
-
-        //     cart[i].imageBuffer = imagesResponse;
-        //   }
-        // }
-        // setCart(cart);
-
         //Set the cart subtotal
         if (props.cart.length === 0) {
           sub = 0;
@@ -189,7 +172,7 @@ const CartProducts = (props: ICartProducts) => {
                   <span className="cart-item-div">
                     <img
                       className="cart-item-thumbnail"
-                      src={`data:image/png;base64,${item.imageBuffer}`}
+                      src={item.imagekey}
                       alt="Thumbnail"
                     />
                   </span>

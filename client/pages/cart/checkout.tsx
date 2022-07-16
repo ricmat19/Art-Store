@@ -340,7 +340,7 @@ const Checkout = (props: ICheckout) => {
                     </Grid>
                     <Grid className="two-column-div checkout-disclaimer-container">
                       {/* Checkout form payment confirmation checkbox input field */}
-                      <Field type="checkbox" required />
+                      <Field type="checkbox" required/>
                       <Grid className="align-justify">
                         By clicking the button below, you are accepting that no
                         real purchases will be made, no payments will be
@@ -394,22 +394,6 @@ export async function getStaticProps() {
   const sub = cartPriceArray.reduce(function (a, b) {
     return a + b;
   }, 0);
-
-  //Create and add image buffer to all items in cart object
-  for (let i = 0; i < cartResponse.data.data.cart.length; i++) {
-    if (cartResponse.data.data.cart[i].imagekey !== null) {
-      const imagesResponse = await IndexAPI.get(
-        `/images/${cartResponse.data.data.cart[i].imagekey}`,
-        {
-          responseType: "arraybuffer",
-        }
-      ).then((response) =>
-        Buffer.from(response.data, "binary").toString("base64")
-      );
-
-      cartResponse.data.data.cart[i].imageBuffer = imagesResponse;
-    }
-  }
 
   //Provide the cart object and cart prices as props to the checkout component
   return {

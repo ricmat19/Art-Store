@@ -16,7 +16,6 @@ interface IAdminCourse {
   selectedCourse: {
     id: string;
     subject: string;
-    imageBuffer: string;
   }[];
   title: string;
   subject: string;
@@ -30,7 +29,6 @@ const initialValues = {
     {
       id: "",
       subject: "",
-      imageBuffer: "",
     },
   ],
   title: "",
@@ -100,7 +98,7 @@ const AdminCourse = (props: IAdminCourse) => {
   const displayedImage = (
     <img
       className="big-image"
-      src={props.selectedCourse[0].imageBuffer}
+      src={props.selectedCourse[0].imagekey}
       alt="big image"
     />
   );
@@ -281,24 +279,6 @@ export async function getStaticProps(context: { params: { course: string } }) {
   //Get list of course sections
   const course = context.params.course;
   const courseResponse = await IndexAPI.get(`/admin/courses/course/${course}`);
-
-  //Create and add course image buffer to course object
-  for (let i = 0; i < courseResponse.data.data.course.length; i++) {
-    if (courseResponse.data.data.course[i].imagekey !== null) {
-      const imagesResponse = await IndexAPI.get(
-        `/images/${courseResponse.data.data.course[i].imagekey}`,
-        {
-          responseType: "arraybuffer",
-        }
-      ).then((response) =>
-        Buffer.from(response.data, "binary").toString("base64")
-      );
-
-      courseResponse.data.data.course[
-        i
-      ].imageBuffer = `data:image/png;base64,${imagesResponse}`;
-    }
-  }
 
   //Provide the selected course as a prop to the course component
   return {

@@ -52,7 +52,7 @@ const Products = (props: IProducts) => {
       (item: {
         id: string;
         product: string;
-        imageBuffer: string;
+        imagekey: string;
         title: string;
         price: string;
       }) => {
@@ -67,7 +67,7 @@ const Products = (props: IProducts) => {
             <Grid className="image-container">
               <img
                 className="thumbnail"
-                src={item.imageBuffer}
+                src={item.imagekey}
                 alt={item.title}
               />
             </Grid>
@@ -166,24 +166,6 @@ export async function getStaticProps(context: { params: { product: string } }) {
 
   //Get a list of all products of the selected product type
   const productResponse = await IndexAPI.get(`/products/${product}`);
-
-  //Create and add product item image buffer to all products in the product object
-  for (let i = 0; i < productResponse.data.data.product.length; i++) {
-    if (productResponse.data.data.product[i].imagekey !== null) {
-      const imagesResponse = await IndexAPI.get(
-        `/images/${productResponse.data.data.product[i].imagekey}`,
-        {
-          responseType: "arraybuffer",
-        }
-      ).then((response) =>
-        Buffer.from(response.data, "binary").toString("base64")
-      );
-
-      productResponse.data.data.product[
-        i
-      ].imageBuffer = `data:image/png;base64,${imagesResponse}`;
-    }
-  }
 
   //Provide the products and cart quantity as props to the products component
   return {
