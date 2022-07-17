@@ -18,7 +18,7 @@ import { IProduct } from "../../../interfaces";
 
 // Product details prop interface
 interface IProductDetails {
-  imagekey: string;
+  image_url: string;
   product: IProduct;
   groups: any[];
   cartQty: number;
@@ -164,7 +164,7 @@ const ProductDetails = (props: IProductDetails) => {
             <Grid className="justify-center">
               <img
                 className="big-image"
-                src={product.imagekey}
+                src={product.image_url}
                 alt="product image"
               />
             </Grid>

@@ -15,7 +15,7 @@ interface ICourse {
   title: string;
   subject: string;
   price: string;
-  imagekey: string;
+  image_url: string;
 }
 interface ICourses {
   courses: ICourse[];
@@ -63,7 +63,7 @@ const Courses = (props: ICourses) => {
             <Grid className="image-container">
               <img
                 className="thumbnail"
-                src={course.imagekey}
+                src={course.image_url}
                 alt="collection-thumbnail"
               />
             </Grid>

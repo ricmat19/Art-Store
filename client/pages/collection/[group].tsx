@@ -14,7 +14,7 @@ interface ICollection {
   id: string;
   title: string;
   product: string;
-  imagekey: string;
+  image_url: string;
 }
 interface ICollectionGroups {
   collection_group: string;
@@ -78,7 +78,7 @@ const CollectionGroups = (props: ICollectionGroups) => {
             <Grid className="image-container">
               <img
                 className="thumbnail"
-                src={item.imagekey}
+                src={item.image_url}
                 alt={item.title}
               />
             </Grid>

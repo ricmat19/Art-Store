@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 // import { Dispatch } from "@reduxjs/toolkit";
 
 interface ICreateEvent {
@@ -37,13 +37,13 @@ const onSubmit = (
   onSubmitProps.resetForm();
 };
 
-//Admin create event Formik form validation schema
-const validationSchema = Yup.object({
-  title: Yup.string().required("Title is required"),
-  price: Yup.string().required("Price is required"),
-  spots: Yup.string().required("Spots is required"),
-  info: Yup.string().required("Info is required"),
-});
+// //Admin create event Formik form validation schema
+// const validationSchema = Yup.object({
+//   title: Yup.string().required("Title is required"),
+//   price: Yup.string().required("Price is required"),
+//   spots: Yup.string().required("Spots is required"),
+//   info: Yup.string().required("Info is required"),
+// });
 
 //Admin create event functional component
 const AdminCreateEvent = (props: ICreateEvent) => {
@@ -53,7 +53,7 @@ const AdminCreateEvent = (props: ICreateEvent) => {
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
-        validationSchema={validationSchema}
+        // validationSchema={validationSchema}
         validateOnChange={false}
         validateOnBlur={false}
         validateOnMount

@@ -6,7 +6,7 @@ CREATE TABLE products(
     product VARCHAR(50),
     price MONEY,
     info VARCHAR(300),
-    imagekey VARCHAR(300)
+    image_url VARCHAR(300)
 );
 
 CREATE TABLE cart(

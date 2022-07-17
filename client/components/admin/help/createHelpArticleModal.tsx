@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Modal, Grid, MenuItem } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 
 //Admin create help article prop interface
 interface IAdminCreateHelpArticle {
@@ -44,11 +44,11 @@ const onSubmit = async (
   onSubmitProps.resetForm();
 };
 
-//Admin create help article Formik form validation schema
-const validationSchema = Yup.object({
-  title: Yup.string().required("Email is required"),
-  description: Yup.string().required("Email is required"),
-});
+// //Admin create help article Formik form validation schema
+// const validationSchema = Yup.object({
+//   title: Yup.string().required("Email is required"),
+//   description: Yup.string().required("Email is required"),
+// });
 
 //Admin create help article modal functional component
 const AdminCreateHelpArticleModal = (props: IAdminCreateHelpArticle) => {
@@ -126,7 +126,7 @@ const AdminCreateHelpArticleModal = (props: IAdminCreateHelpArticle) => {
                 <Formik
                   initialValues={initialValues}
                   onSubmit={onSubmit}
-                  validationSchema={validationSchema}
+                  // validationSchema={validationSchema}
                   validateOnChange={false}
                   validateOnBlur={false}
                   validateOnMount

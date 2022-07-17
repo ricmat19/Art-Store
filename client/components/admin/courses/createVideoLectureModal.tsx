@@ -2,7 +2,7 @@
 import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 import { ReactChild, ReactFragment, ReactPortal } from "react";
 
 //Admin create video lecture prop interface
@@ -56,11 +56,11 @@ const onSubmit = (
   onSubmitProps.resetForm();
 };
 
-//Admin create video lecture Formik form validation schema
-const validationSchema = Yup.object({
-  video: Yup.string().required("Video is required"),
-  description: Yup.string().required("Description is required"),
-});
+// // Admin create video lecture Formik form validation schema
+// const validationSchema = Yup.object({
+//   video: Yup.string().required("Video is required"),
+//   description: Yup.string().required("Description is required"),
+// });
 
 //Admin create video lecture functional component
 const AdminCreateVideoLectureModal = (props: IAdminCreateVideoLecture) => {
@@ -113,7 +113,7 @@ const AdminCreateVideoLectureModal = (props: IAdminCreateVideoLecture) => {
                 <Formik
                   initialValues={initialValues}
                   onSubmit={onSubmit}
-                  validationSchema={validationSchema}
+                  // validationSchema={validationSchema}
                   validateOnChange={false}
                   validateOnBlur={false}
                   validateOnMount

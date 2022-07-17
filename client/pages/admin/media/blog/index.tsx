@@ -27,7 +27,7 @@ const AdminBlog = (props: IAdminBlog) => {
   const [deleteBlog, setDeleteBlog] = useState<IBlog>({
     id: "",
     title: "",
-    imagekey: "",
+    image_url: "",
     content: "",
     info: "",
   });
@@ -80,7 +80,7 @@ const AdminBlog = (props: IAdminBlog) => {
             <Grid className="admin-image-container">
               <img
                 className="thumbnail"
-                src={post.imagekey}
+                src={post.image_url}
                 alt="blog-thumbnail"
               />
             </Grid>

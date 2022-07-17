@@ -8,7 +8,7 @@ import Head from "next/head";
 import { Grid, MenuItem } from "@mui/material";
 import router, { NextRouter, useRouter } from "next/router";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 import { ICourse } from "../../../../../interfaces";
 
 //Admin create course prop interface
@@ -64,13 +64,13 @@ const onSubmit = async (
   onSubmitProps.resetForm();
 };
 
-//Admin course Formik form validation schema
-const validationSchema = Yup.object({
-  title: Yup.string().required("Email is required"),
-  subject: Yup.string().required("Email is required"),
-  price: Yup.string().required("Email is required"),
-  description: Yup.string().required("Email is required"),
-});
+// //Admin course Formik form validation schema
+// const validationSchema = Yup.object({
+//   title: Yup.string().required("Email is required"),
+//   subject: Yup.string().required("Email is required"),
+//   price: Yup.string().required("Email is required"),
+//   description: Yup.string().required("Email is required"),
+// });
 
 //Admin course functional component
 const AdminCourse = (props: IAdminCourse) => {
@@ -98,7 +98,7 @@ const AdminCourse = (props: IAdminCourse) => {
   const displayedImage = (
     <img
       className="big-image"
-      src={props.selectedCourse[0].imagekey}
+      src={props.selectedCourse[0].image_url}
       alt="big image"
     />
   );
@@ -144,7 +144,7 @@ const AdminCourse = (props: IAdminCourse) => {
               <Formik
                 initialValues={initialValues}
                 onSubmit={onSubmit}
-                validationSchema={validationSchema}
+                // validationSchema={validationSchema}
                 validateOnChange={false}
                 validateOnBlur={false}
                 validateOnMount

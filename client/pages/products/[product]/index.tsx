@@ -52,7 +52,7 @@ const Products = (props: IProducts) => {
       (item: {
         id: string;
         product: string;
-        imagekey: string;
+        image_url: string;
         title: string;
         price: string;
       }) => {
@@ -67,7 +67,7 @@ const Products = (props: IProducts) => {
             <Grid className="image-container">
               <img
                 className="thumbnail"
-                src={item.imagekey}
+                src={item.image_url}
                 alt={item.title}
               />
             </Grid>

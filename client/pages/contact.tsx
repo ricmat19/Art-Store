@@ -5,7 +5,7 @@ import Footer from "../components/footer";
 import Head from "next/head";
 import { Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 
 //Contact prop interface
 interface IContactForm {
@@ -41,15 +41,15 @@ const onSubmit = async (
   onSubmitProps.resetForm();
 };
 
-//Contact Formik form validation schema
-const validationSchema = Yup.object({
-  name: Yup.string().required("Name is required"),
-  email: Yup.string()
-    .email("Invalid email format")
-    .required("Email is required"),
-  subject: Yup.string().required("Subject is required"),
-  message: Yup.string().required("Message is required"),
-});
+// //Contact Formik form validation schema
+// const validationSchema = Yup.object({
+//   name: Yup.string().required("Name is required"),
+//   email: Yup.string()
+//     .email("Invalid email format")
+//     .required("Email is required"),
+//   subject: Yup.string().required("Subject is required"),
+//   message: Yup.string().required("Message is required"),
+// });
 
 //Contact functional component
 const Contact = (props: IContact) => {
@@ -76,7 +76,7 @@ const Contact = (props: IContact) => {
             <Formik
               initialValues={initialValues}
               onSubmit={onSubmit}
-              validationSchema={validationSchema}
+              // validationSchema={validationSchema}
               validateOnChange={false}
               validateOnBlur={false}
               validateOnMount

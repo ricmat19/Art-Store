@@ -31,7 +31,7 @@ const AdminProduct = (props: IProducts) => {
     product: "",
     price: "",
     info: "",
-    imagekey: "",
+    image_url: "",
     qty: "",
     length: 0,
     project: "",
@@ -93,7 +93,7 @@ const AdminProduct = (props: IProducts) => {
             <Grid className="admin-image-container">
               <img
                 className="thumbnail"
-                src={product.imagekey}
+                src={product.image_url}
                 alt="Thumbnail"
               />
             </Grid>

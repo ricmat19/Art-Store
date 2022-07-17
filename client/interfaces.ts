@@ -6,7 +6,7 @@ export interface IProduct {
   product: string;
   price: string;
   info: string;
-  imagekey: string;
+  image_url: string;
   qty: string;
   primaryImage: boolean;
   open: boolean;
@@ -17,7 +17,7 @@ export interface ISelectedProduct {
   product: string;
   price: string;
   info: string;
-  imagekey: string;
+  image_url: string;
   qty: string;
 }
 
@@ -27,7 +27,7 @@ export interface ICart {
   product: string;
   price: string;
   info: string;
-  imagekey: string;
+  image_url: string;
   qty: number;
   primaryImage: boolean;
   cartItems: ICart[];
@@ -51,7 +51,7 @@ export interface ICourse {
   id: string;
   title: string;
   subject: string;
-  imagekey?: string;
+  image_url?: string;
   content?: string;
   info: string;
   price: number;
@@ -60,7 +60,7 @@ export interface ICourse {
 export interface IBlog {
   id: string;
   title: string;
-  imagekey?: string;
+  image_url?: string;
   content: string;
   info: string;
 }
@@ -94,7 +94,7 @@ export interface IId {
 export interface IProject {
   id: string;
   title: string;
-  imagekey?: string;
+  image_url?: string;
   info: string;
 }
 
@@ -110,7 +110,7 @@ export interface IEvent {
   id: string;
   title: string;
   event_date: string;
-  imagekey?: string;
+  image_url?: string;
   price?: number;
   info: string;
   spots: string;
@@ -122,7 +122,7 @@ export interface INotification {
   date: string;
   type: string;
   price?: number;
-  imagekey?: string;
+  image_url?: string;
 }
 
 export interface IUser {

@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import router, { NextRouter, useRouter } from "next/router";
+import router, { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import IndexAPI from "../../../../apis/indexAPI";
 import FooterC from "../../../../components/footer";
@@ -7,20 +7,25 @@ import AdminMainNav from "../../../../components/admin/mainNav";
 import AdminPagesNav from "../../../../components/admin/pagesNav";
 import { Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 
 //Admin blog post prop interface
 interface IAdminBlogPost {
-  id: string;
-  title: string;
-  content: string;
-  post_date: Date;
-  imagekey: string;
+  selectedBlog: [
+    {
+      id: string;
+      title: string;
+      content: string;
+      update_date: Date;
+      image_url: string;
+    }
+  ];
 }
 interface IAdminBlogPostForm {
   id: string;
   title: string;
   content: string;
+  image_url: string;
 }
 
 //Admin blog post Formik form initial values
@@ -46,11 +51,11 @@ const onSubmit = async (
   onSubmitProps.resetForm();
 };
 
-//Admin blog post Formik form validation schema
-const validationSchema = Yup.object({
-  title: Yup.string().required("Email is required"),
-  content: Yup.string().required("Email is required"),
-});
+// //Admin blog post Formik form validation schema
+// const validationSchema = Yup.object({
+//   title: Yup.string().required("Email is required"),
+//   content: Yup.string().required("Email is required"),
+// });
 
 //Admin blog post functional component
 const AdminBlogPost = (props: IAdminBlogPost) => {
@@ -61,9 +66,10 @@ const AdminBlogPost = (props: IAdminBlogPost) => {
   const router = useRouter();
 
   //Get the blog posts creation date
-  const postMonth = new Date(props.post_date).getMonth() + 1;
-  const postDate = new Date(props.post_date).getDate();
-  const postYear = new Date(props.post_date).getFullYear();
+  console.log(props.selectedBlog[0].update_date);
+  const postMonth = new Date(props.selectedBlog[0].update_date).getMonth() + 1;
+  const postDate = new Date(props.selectedBlog[0].update_date).getDate();
+  const postYear = new Date(props.selectedBlog[0].update_date).getFullYear();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -91,14 +97,14 @@ const AdminBlogPost = (props: IAdminBlogPost) => {
               {/* Display blog post banner image */}
               <img
                 className="banner-image"
-                src={props.imagekey}
+                src={props.selectedBlog[0].image_url}
                 alt="banner-image"
               />
             </Grid>
             <Formik
               initialValues={initialValues}
               onSubmit={onSubmit}
-              validationSchema={validationSchema}
+              // validationSchema={validationSchema}
               validateOnChange={false}
               validateOnBlur={false}
               validateOnMount

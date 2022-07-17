@@ -2,7 +2,7 @@ import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { any } from "prop-types";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 
 //Reset prop interface
 interface IReset {
@@ -30,12 +30,12 @@ const onSubmit = async (
   onSubmitProps.resetForm();
 };
 
-//Reset Formik form validation schema
-const validationSchema = Yup.object({
-  email: Yup.string()
-    .email("Invalid email format")
-    .required("Email is required"),
-});
+// //Reset Formik form validation schema
+// const validationSchema = Yup.object({
+//   email: Yup.string()
+//     .email("Invalid email format")
+//     .required("Email is required"),
+// });
 
 //Reset functional component
 const Reset = (props: IReset) => {
@@ -104,7 +104,7 @@ const Reset = (props: IReset) => {
                     <Formik
                       initialValues={initialValues}
                       onSubmit={onSubmit}
-                      validationSchema={validationSchema}
+                      // validationSchema={validationSchema}
                       validateOnChange={false}
                       validateOnBlur={false}
                       validateOnMount

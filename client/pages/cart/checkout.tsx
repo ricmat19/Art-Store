@@ -10,7 +10,7 @@ import { CardElement, Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Head from "next/head";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 import { clearCartReducer } from "../../reducers/cartReducers";
 import { useAppDispatch } from "../../hooks";
 import { ICart } from "../../interfaces";
@@ -64,20 +64,20 @@ const onSubmit = async (
   onSubmitProps.resetForm();
 };
 
-//Cart checkout Formik form validation schema
-const validationSchema = Yup.object({
-  email: Yup.string()
-    .email("Invalid email format")
-    .required("Email is required"),
-  firstName: Yup.string().required("First Name is required"),
-  lastName: Yup.string().required("Last Name is required"),
-  address: Yup.string().required("Address is required"),
-  suite: Yup.string().required("Suite is required"),
-  city: Yup.string().required("City is required"),
-  state: Yup.string().required("State is required"),
-  zipCode: Yup.string().required("ZipCode is required"),
-  phone: Yup.string().required("Phone Number is required"),
-});
+// //Cart checkout Formik form validation schema
+// const validationSchema = Yup.object({
+//   email: Yup.string()
+//     .email("Invalid email format")
+//     .required("Email is required"),
+//   firstName: Yup.string().required("First Name is required"),
+//   lastName: Yup.string().required("Last Name is required"),
+//   address: Yup.string().required("Address is required"),
+//   suite: Yup.string().required("Suite is required"),
+//   city: Yup.string().required("City is required"),
+//   state: Yup.string().required("State is required"),
+//   zipCode: Yup.string().required("ZipCode is required"),
+//   phone: Yup.string().required("Phone Number is required"),
+// });
 
 //Cart checkout functional component
 const Checkout = (props: ICheckout) => {
@@ -137,7 +137,7 @@ const Checkout = (props: ICheckout) => {
           <Formik
             initialValues={initialValues}
             onSubmit={onSubmit}
-            validationSchema={validationSchema}
+            // validationSchema={validationSchema}
             validateOnChange={false}
             validateOnBlur={false}
             validateOnMount

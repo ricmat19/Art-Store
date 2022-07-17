@@ -1,6 +1,6 @@
 import IndexAPI from "../../apis/indexAPI";
 import { useRouter } from "next/router";
-import { ChangeEvent, SetStateAction, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 // import PropTypes from "prop-types";
 import { Grid } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,7 +21,6 @@ import Ellipse from "./menuModals/ellipseModal";
 import SignUp from "./auth/signupModal";
 import SignIn from "./auth/signInModal";
 import Reset from "./auth/resetModal";
-import { borderTop } from "@mui/system";
 // import { getSearchDataReducer } from "../../reducers/searchReducers";
 
 interface ICartQty {
@@ -35,7 +34,7 @@ interface ISearchData {
   product: string;
   price: string;
   info: string;
-  imagekey: string;
+  image_url: string;
   description: string;
   category: string;
   article: string;
@@ -43,7 +42,6 @@ interface ISearchData {
   createDate: string;
   content: string;
   url: string;
-  type: string;
 }
 
 //Main navigation functional component
@@ -98,6 +96,7 @@ const MainNav = (props: ICartQty) => {
             collectionOfAllData.push(collectionOfQueries[i][j]);
           }
         }
+        console.log(collectionOfAllData);
       } catch (err) {
         console.log(err);
       }
@@ -177,10 +176,12 @@ const MainNav = (props: ICartQty) => {
           return value.title.toLowerCase().includes(searchInput.toLowerCase());
         }
         if (
-          value.type &&
-          value.type.toLowerCase().includes(searchInput.toLowerCase())
+          value.product &&
+          value.product.toLowerCase().includes(searchInput.toLowerCase())
         ) {
-          return value.type.toLowerCase().includes(searchInput.toLowerCase());
+          return value.product
+            .toLowerCase()
+            .includes(searchInput.toLowerCase());
         }
         if (
           value.subject &&
@@ -246,7 +247,6 @@ const MainNav = (props: ICartQty) => {
         }
       }
     });
-    console.log(newFilter);
     setSearchData(newFilter);
   };
 
@@ -353,10 +353,10 @@ const MainNav = (props: ICartQty) => {
                           className="search-row pointer"
                         >
                           <Grid>
-                            {/* {data.imagekey ? (
+                            {/* {data.image_url ? (
                         <Grid>
                           <img
-                          // src={imagekey}
+                          // src={image_url}
                           />
                         </Grid>
                       ) : ( */}
@@ -377,8 +377,8 @@ const MainNav = (props: ICartQty) => {
                             }}
                           >
                             <Grid sx={{ textTransform: "capitalize" }}>
-                              {data.type
-                                ? `${data.type}`
+                              {data.product
+                                ? `${data.product}`
                                 : data.category
                                 ? "Help"
                                 : ""}
@@ -391,9 +391,9 @@ const MainNav = (props: ICartQty) => {
                                 paddingRight: "5px",
                               }}
                             >
-                              {data.product || data.subject ? (
+                              {data.subject ? (
                                 <Grid sx={{ textTransform: "capitalize" }}>
-                                  Type: {data.product} {data.subject}
+                                  Subject: {data.subject}
                                 </Grid>
                               ) : null}
                             </Grid>

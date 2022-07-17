@@ -1,7 +1,7 @@
 import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 
 //Signup prop interface
 interface ISignUp {
@@ -50,16 +50,16 @@ const onSubmit = async (
   onSubmitProps.resetForm();
 };
 
-//Signup Formik form validation schema
-const validationSchema = Yup.object({
-  firstName: Yup.string().required("Email is required"),
-  lastName: Yup.string().required("Email is required"),
-  email: Yup.string()
-    .email("Invalid email format")
-    .required("Email is required"),
-  password: Yup.string().required("Email is required"),
-  passwordCopy: Yup.string().required("Email is required"),
-});
+// //Signup Formik form validation schema
+// const validationSchema = Yup.object({
+//   firstName: Yup.string().required("Email is required"),
+//   lastName: Yup.string().required("Email is required"),
+//   email: Yup.string()
+//     .email("Invalid email format")
+//     .required("Email is required"),
+//   password: Yup.string().required("Email is required"),
+//   passwordCopy: Yup.string().required("Email is required"),
+// });
 
 //Signup functional component
 const SignUp = (props: ISignUpProps) => {
@@ -123,7 +123,7 @@ const SignUp = (props: ISignUpProps) => {
                 <Formik
                   initialValues={initialValues}
                   onSubmit={onSubmit}
-                  validationSchema={validationSchema}
+                  // validationSchema={validationSchema}
                   validateOnChange={false}
                   validateOnBlur={false}
                   validateOnMount

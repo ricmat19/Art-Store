@@ -2,7 +2,7 @@ import { useState } from "react";
 import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 
 //Sign in prop interface
 interface ISignIn {
@@ -37,13 +37,13 @@ const onSubmit = async (
   onSubmitProps.resetForm();
 };
 
-//Sign in Formik form validation schema
-const validationSchema = Yup.object({
-  email: Yup.string()
-    .email("Invalid email format")
-    .required("Email is required"),
-  password: Yup.string().required("Password is required"),
-});
+// //Sign in Formik form validation schema
+// const validationSchema = Yup.object({
+//   email: Yup.string()
+//     .email("Invalid email format")
+//     .required("Email is required"),
+//   password: Yup.string().required("Password is required"),
+// });
 
 //Sigin functional component
 const SignIn = (props: ISignIn) => {
@@ -126,7 +126,7 @@ const SignIn = (props: ISignIn) => {
                       <Formik
                         initialValues={initialValues}
                         onSubmit={onSubmit}
-                        validationSchema={validationSchema}
+                        // validationSchema={validationSchema}
                         validateOnChange={false}
                         validateOnBlur={false}
                         validateOnMount

@@ -11,7 +11,7 @@ import PagesNav from "../../../components/users/pagesNav";
 interface IBlogPost {
   selectedMedia: {
     title: string;
-    imagekey: string | undefined;
+    image_url: string | undefined;
     content: string;
   };
   cartQty: number;
@@ -32,10 +32,10 @@ const BlogPost = (props: IBlogPost) => {
         <Grid>
           {/* Blog post banner image */}
           <Grid xs={12} sx={{ textAlign: "center" }}>
-            {console.log(props.selectedMedia.imagekey)}
+            {console.log(props.selectedMedia.image_url)}
             <img
               className="banner-image"
-              src={props.selectedMedia.imagekey}
+              src={props.selectedMedia.image_url}
               alt="banner-image"
             />
           </Grid>

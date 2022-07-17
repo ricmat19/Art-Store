@@ -8,7 +8,7 @@ const express = require("express");
 // } = require("../../validator");
 const router = express.Router();
 const db = require("../../db");
-const { signup, signIn } = require("../../encryptionHandler");
+const { signup, signIn } = require("../../utils/encryptionHandler");
 
 //User Sign Up
 router.post(

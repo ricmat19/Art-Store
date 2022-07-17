@@ -13,7 +13,7 @@ import Content from "../../../../../components/admin/courses/contentModal";
 import AdminCreateVideoLecture from "../../../../../components/admin/courses/createVideoLectureModal";
 import AdminCreateArticleLecture from "../../../../../components/admin/courses/createArticleLectureModal";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 import { ICourse } from "../../../../../interfaces";
 
 //Course curriculum prop interface
@@ -60,12 +60,12 @@ const onSubmit = (
   onSubmitProps.resetForm();
 };
 
-//Course curriculum Formik form validation schema
-const validationSchema = Yup.object({
-  email: Yup.string()
-    .email("Invalid email format")
-    .required("Email is required"),
-});
+// //Course curriculum Formik form validation schema
+// const validationSchema = Yup.object({
+//   email: Yup.string()
+//     .email("Invalid email format")
+//     .required("Email is required"),
+// });
 
 //Course curriculum functional component
 const CourseCurriculum = (props: IAdminCourseCurriculum) => {
@@ -192,7 +192,7 @@ const CourseCurriculum = (props: IAdminCourseCurriculum) => {
             <Formik
               initialValues={initialValues}
               onSubmit={onSubmit}
-              validationSchema={validationSchema}
+              // validationSchema={validationSchema}
               validateOnChange={false}
               validateOnBlur={false}
               validateOnMount

@@ -5,7 +5,7 @@ import AdminResetModalC from "./resetModal";
 import IndexAPI from "../../../apis/indexAPI";
 import { Modal, Fade, Box, Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 
 //Admin SignIn prop interface
 interface IModalState {
@@ -37,13 +37,13 @@ const onSubmit = async (
   onSubmitProps.resetForm();
 };
 
-//Admin sign in Formik form validation schema
-const validationSchema = Yup.object({
-  email: Yup.string()
-    .email("Invalid email format")
-    .required("Email is required"),
-  password: Yup.string().required("Password is required"),
-});
+// //Admin sign in Formik form validation schema
+// const validationSchema = Yup.object({
+//   email: Yup.string()
+//     .email("Invalid email format")
+//     .required("Email is required"),
+//   password: Yup.string().required("Password is required"),
+// });
 
 //Admin sign in functional component
 const AdminSignInModal = (props: IModalState) => {
@@ -79,7 +79,7 @@ const AdminSignInModal = (props: IModalState) => {
             <Formik
               initialValues={initialValues}
               onSubmit={onSubmit}
-              validationSchema={validationSchema}
+              // validationSchema={validationSchema}
               validateOnChange={false}
               validateOnBlur={false}
               validateOnMount

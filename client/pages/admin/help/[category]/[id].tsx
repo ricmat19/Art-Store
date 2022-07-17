@@ -6,7 +6,7 @@ import AdminPagesNav from "../../../../components/admin/pagesNav";
 import FooterC from "../../../../components/footer";
 import { Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 
 // Admin create help article prop interface
 interface IHelpArticle {
@@ -55,12 +55,12 @@ const onSubmit = async (
   onSubmitProps.resetForm();
 };
 
-//Admin help article Formik form validation schema
-const validationSchema = Yup.object({
-  email: Yup.string()
-    .email("Invalid email format")
-    .required("Email is required"),
-});
+// //Admin help article Formik form validation schema
+// const validationSchema = Yup.object({
+//   email: Yup.string()
+//     .email("Invalid email format")
+//     .required("Email is required"),
+// });
 
 //Admin help article functional component
 const AdminHelpArticle = (props: IHelpArticle) => {
@@ -97,7 +97,7 @@ const AdminHelpArticle = (props: IHelpArticle) => {
           <Formik
             initialValues={initialValues}
             onSubmit={onSubmit}
-            validationSchema={validationSchema}
+            // validationSchema={validationSchema}
             validateOnChange={false}
             validateOnBlur={false}
             validateOnMount

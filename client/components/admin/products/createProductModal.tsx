@@ -3,7 +3,7 @@ import { SetStateAction, useState } from "react";
 import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 
 //Admin create product props interface
 interface IAdminAddProduct {
@@ -53,13 +53,13 @@ const onSubmit = (
   onSubmitProps.resetForm();
 };
 
-//Admin create product modal Formik form validation schema
-const validationSchema = Yup.object({
-  title: Yup.string().required("Title is required"),
-  quantity: Yup.string().required("Quantity is required"),
-  price: Yup.string().required("Price is required"),
-  info: Yup.string().required("Info is required"),
-});
+// //Admin create product modal Formik form validation schema
+// const validationSchema = Yup.object({
+//   title: Yup.string().required("Title is required"),
+//   quantity: Yup.string().required("Quantity is required"),
+//   price: Yup.string().required("Price is required"),
+//   info: Yup.string().required("Info is required"),
+// });
 
 //Admin create product modal functional component
 const AdminCreateProductModal = (props: IAdminAddProduct) => {
@@ -133,7 +133,7 @@ const AdminCreateProductModal = (props: IAdminAddProduct) => {
                 <Formik
                   initialValues={initialValues}
                   onSubmit={onSubmit}
-                  validationSchema={validationSchema}
+                  // validationSchema={validationSchema}
                   validateOnChange={false}
                   validateOnBlur={false}
                   validateOnMount

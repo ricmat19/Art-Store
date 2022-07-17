@@ -54,7 +54,7 @@ const onSubmit = (
   onSubmitProps.resetForm();
 };
 
-//Admin create blog post Formik form validation schema
+// //Admin create blog post Formik form validation schema
 // const validationSchema = Yup.object({
 //   title: Yup.string().required("Title is required"),
 //   image: Yup.string().required("Image is required"),

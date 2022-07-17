@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Grid, Modal } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 import { IProduct } from "../../../interfaces";
 
 // Admin update product Formik form initial values
@@ -14,7 +14,7 @@ const initialValues = {
   product: "",
   price: "",
   info: "",
-  imagekey: "",
+  image_url: "",
   qty: "",
   length: 0,
   project: "",
@@ -28,7 +28,7 @@ const onSubmit = async (
   // handleClose: () => void;
   onSubmitProps: { resetForm: () => void }
 ) => {
-  if (values.imagekey) {
+  if (values.image_url) {
     const formData = new FormData();
 
     formData.append("title", values.title);
@@ -36,7 +36,7 @@ const onSubmit = async (
     formData.append("price", values.price.toString());
     formData.append("info", values.info);
     formData.append("qty", values.qty.toString());
-    formData.append("image", values.imagekey);
+    formData.append("image", values.image_url);
 
     IndexAPI.put(`/admin/products/${values.id}`, formData, {
       headers: { "Content-Type": "multipart/form-data" },
@@ -57,12 +57,12 @@ const onSubmit = async (
   onSubmitProps.resetForm();
 };
 
-//Admin update product Formik form validation schema
-const validationSchema = Yup.object({
-  email: Yup.string()
-    .email("Invalid email format")
-    .required("Email is required"),
-});
+// //Admin update product Formik form validation schema
+// const validationSchema = Yup.object({
+//   email: Yup.string()
+//     .email("Invalid email format")
+//     .required("Email is required"),
+// });
 
 //Admin update product functional component
 const AdminUpdateProductModal = (props: {
@@ -77,7 +77,7 @@ const AdminUpdateProductModal = (props: {
   const [price, setPrice] = useState("");
   const [info, setInfo] = useState("");
   const [fileImage] = useState();
-  const [imagekey, setImagekey] = useState("");
+  const [image_url, setImageURL] = useState("");
   const [qty, setQty] = useState("");
 
   //If a product is provided, set the component's states to that product's properties on render
@@ -90,7 +90,7 @@ const AdminUpdateProductModal = (props: {
           setProduct(props.updateProduct.product);
           setPrice(props.updateProduct.price);
           setInfo(props.updateProduct.info);
-          setImageKey(props.updateProduct.imagekey);
+          setImageURL(props.updateProduct.image_url);
           setQty(props.updateProduct.qty);
         }
       } catch (err) {
@@ -152,7 +152,11 @@ const AdminUpdateProductModal = (props: {
                         alt="big image"
                       />
                     ) : (
-                      <img className="big-image" src={imagekey} alt="product" />
+                      <img
+                        className="big-image"
+                        src={image_url}
+                        alt="product"
+                      />
                     )}
                   </Grid>
                 </Grid>
@@ -167,7 +171,7 @@ const AdminUpdateProductModal = (props: {
                   <Formik
                     initialValues={initialValues}
                     onSubmit={onSubmit}
-                    validationSchema={validationSchema}
+                    // validationSchema={validationSchema}
                     validateOnChange={false}
                     validateOnBlur={false}
                     validateOnMount

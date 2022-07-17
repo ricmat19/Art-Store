@@ -32,7 +32,7 @@ const OrderSummary = (props: ICartSummary) => {
                     {/* Display item thumbnail */}
                     <img
                       className="order-item-thumbnail"
-                      src={item.imagekey}
+                      src={item.image_url}
                       alt="Thumbnail"
                     />
                     {/* Display item title */}

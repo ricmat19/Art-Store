@@ -1,14 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
-import { useState, useEffect } from "react";
+import { SetStateAction, useState, useEffect } from "react";
 import IndexAPI from "../../../apis/indexAPI";
 import AdminMainNav from "../../../components/admin/mainNav";
 import AdminPagesNav from "../../../components/admin/pagesNav";
 import Footer from "../../../components/footer";
 import Head from "next/head";
 import { Grid } from "@mui/material";
-import router, { NextRouter, useRouter } from "next/router";
+import router, { useRouter } from "next/router";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 import { AxiosResponse } from "axios";
 
 //Admin create course prop interface
@@ -35,8 +35,11 @@ const onSubmit = (
   onSubmitProps: { resetForm: () => void }
 ) => {
   //Check if an image is provided before creating course
+  console.log(values)
   if (values.image) {
     const formData = new FormData();
+
+    console.log(values.image)
 
     formData.append("title", values.title);
     formData.append("subject", values.subject);
@@ -65,20 +68,20 @@ const onSubmit = (
   onSubmitProps.resetForm();
 };
 
-//Admin create course Formik form validation schema
-const validationSchema = Yup.object({
-  title: Yup.string().required("Title is required"),
-  image: Yup.string().required("Image is required"),
-  subject: Yup.string().required("Subject is required"),
-  price: Yup.string().required("Price is required"),
-  description: Yup.string().required("Description is required"),
-});
+// //Admin create course Formik form validation schema
+// const validationSchema = Yup.object({
+//   title: Yup.string().required("Title is required"),
+//   image: Yup.string().required("Image is required"),
+//   subject: Yup.string().required("Subject is required"),
+//   price: Yup.string().required("Price is required"),
+//   description: Yup.string().required("Description is required"),
+// });
 
 //Admin create course functional component
 const AdminCreateCourse = () => {
   //Admin create course states
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
-  const [image] = useState<File>();
+  const [image, setImage] = useState<File>();
 
   //Next router function
   const router = useRouter();
@@ -150,7 +153,7 @@ const AdminCreateCourse = () => {
               <Formik
                 initialValues={initialValues}
                 onSubmit={onSubmit}
-                validationSchema={validationSchema}
+                // validationSchema={validationSchema}
                 validateOnChange={false}
                 validateOnBlur={false}
                 validateOnMount
@@ -184,6 +187,11 @@ const AdminCreateCourse = () => {
                           type="file"
                           name="image"
                           className="file-input"
+                          onChange={(e: {
+                            target: {
+                              files: SetStateAction<File | undefined>[];
+                            };
+                          }) => setImage(e.target.files[0])}
                         />
                         <ErrorMessage name="image" component="div">
                           {(errorMsg) => (
@@ -224,7 +232,7 @@ const AdminCreateCourse = () => {
                       <label className="admin-label">Price:</label>
                       <Grid sx={{ display: "grid" }}>
                         <Field
-                          as="text"
+                          as="input"
                           type="number"
                           name="price"
                           className="form-control"

@@ -129,6 +129,7 @@ router.get("/admin/courses/lectures/:id", async (req, res) => {
 router.post("/admin/courses", upload.single("images"), async (req, res) => {
   try {
     // Set the image file size
+    console.log(req)
     const filePath = req.file.path;
     await sharp(filePath)
       .resize({ height: 500 })
@@ -149,7 +150,7 @@ router.post("/admin/courses", upload.single("images"), async (req, res) => {
 
     // Add course to the database with the created image key
     await db.query(
-      "INSERT INTO courses (title, subject, imagekey, description, price, create_date, update_date, type, filestream) values ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
+      "INSERT INTO courses (title, subject, image_url, description, price, create_date, update_date, type, item_page_url) values ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
       [
         req.body.title,
         req.body.subject,
@@ -159,7 +160,6 @@ router.post("/admin/courses", upload.single("images"), async (req, res) => {
         new Date(),
         new Date(),
         "course",
-        resizedFile.fileStream,
       ]
     );
   } catch (err) {
@@ -234,7 +234,7 @@ router.put("/admin/courses/:id", upload.single("images"), async (req, res) => {
       await unlinkFile(file.path);
 
       course = await db.query(
-        "UPDATE courses SET title=$1, subject=$2, imagekey=$3, qty=$4, price=$5, info=$6, update_date=$7 WHERE id=$8",
+        "UPDATE courses SET title=$1, subject=$2, image_url=$3, qty=$4, price=$5, info=$6, update_date=$7 WHERE id=$8",
         [
           req.body.title,
           req.body.subject,

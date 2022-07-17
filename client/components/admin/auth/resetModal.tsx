@@ -2,7 +2,7 @@ import IndexAPI from "../../../apis/indexAPI";
 // import PropTypes from "prop-types";
 import { Modal, Fade, Box, Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 
 //Admin reset prop interface
 interface IModalState {
@@ -28,12 +28,12 @@ const onSubmit = async (values: IResetForm, onSubmitProps: { resetForm: () => vo
   onSubmitProps.resetForm();
 };
 
-//Admin reset Formik form validation schema
-const validationSchema = Yup.object({
-  email: Yup.string()
-    .email("Invalid email format")
-    .required("Email is required"),
-});
+// //Admin reset Formik form validation schema
+// const validationSchema = Yup.object({
+//   email: Yup.string()
+//     .email("Invalid email format")
+//     .required("Email is required"),
+// });
 
 //Admin reset functional component
 const AdminResetModal = (props: IModalState) => {
@@ -50,7 +50,7 @@ const AdminResetModal = (props: IModalState) => {
           <Formik
             initialValues={initialValues}
             onSubmit={onSubmit}
-            validationSchema={validationSchema}
+            // validationSchema={validationSchema}
             validateOnChange={false}
             validateOnBlur={false}
             validateOnMount

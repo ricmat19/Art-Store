@@ -2,7 +2,7 @@
 import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Modal, Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 
 //Admin create article lecture prop interface
 interface ICreateArticleLecture {
@@ -42,11 +42,11 @@ const onSubmit = async (
   onSubmitProps.resetForm();
 };
 
-//Admin create article lecture Formik form validation schema
-const validationSchema = Yup.object({
-  article: Yup.string().required("Article is required"),
-  description: Yup.string().required("Description is required"),
-});
+// //Admin create article lecture Formik form validation schema
+// const validationSchema = Yup.object({
+//   article: Yup.string().required("Article is required"),
+//   description: Yup.string().required("Description is required"),
+// });
 
 //Admin create article lecture functional component
 const AdminCreateArticleLectureModal = (props: ICreateArticleLecture) => {
@@ -98,7 +98,7 @@ const AdminCreateArticleLectureModal = (props: ICreateArticleLecture) => {
                 <Formik
                   initialValues={initialValues}
                   onSubmit={onSubmit}
-                  validationSchema={validationSchema}
+                  // validationSchema={validationSchema}
                   validateOnChange={false}
                   validateOnBlur={false}
                   validateOnMount

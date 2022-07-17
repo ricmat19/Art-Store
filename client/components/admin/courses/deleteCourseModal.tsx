@@ -74,7 +74,7 @@ const AdminDeleteCourseModal = (props: IAdminDeleteCourse) => {
                   <Grid className="big-image-div">
                     <img
                       className="big-image"
-                      src={props.deleteCourse.imagekey}
+                      src={props.deleteCourse.image_url}
                       alt="big image"
                     />
                   </Grid>

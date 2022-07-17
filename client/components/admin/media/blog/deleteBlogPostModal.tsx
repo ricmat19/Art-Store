@@ -80,7 +80,7 @@ const AdminDeleteBlogPostModal = (props: IAdminDeleteBlog) => {
                   <Grid className="big-image-div">
                     <img
                       className="big-image"
-                      src={props.deleteBlog.imagekey}
+                      src={props.deleteBlog.image_url}
                       alt="big image"
                     />
                   </Grid>

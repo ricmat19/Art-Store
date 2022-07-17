@@ -2,7 +2,7 @@
 import IndexAPI from "../../../apis/indexAPI";
 import { Modal, Fade, Box, Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 
 //Admin signUp prop interface
 interface IModalState {
@@ -41,16 +41,16 @@ const onSubmit = async (
   onSubmitProps.resetForm();
 };
 
-//Admin signUp Formik form validation schema
-const validationSchema = Yup.object({
-  firstName: Yup.string()
-    .email("Invalid email format")
-    .required("Email is required"),
-  lastName: Yup.string().required("Email is required"),
-  email: Yup.string().required("Email is required"),
-  password: Yup.string().required("Email is required"),
-  resetPassword: Yup.string().required("Email is required"),
-});
+// //Admin signUp Formik form validation schema
+// const validationSchema = Yup.object({
+//   firstName: Yup.string()
+//     .email("Invalid email format")
+//     .required("Email is required"),
+//   lastName: Yup.string().required("Email is required"),
+//   email: Yup.string().required("Email is required"),
+//   password: Yup.string().required("Email is required"),
+//   resetPassword: Yup.string().required("Email is required"),
+// });
 
 //Admin signUp functional component
 const AdminSignUpModal = (props: IModalState) => {
@@ -76,7 +76,7 @@ const AdminSignUpModal = (props: IModalState) => {
           <Formik
             initialValues={initialValues}
             onSubmit={onSubmit}
-            validationSchema={validationSchema}
+            // validationSchema={validationSchema}
             validateOnChange={false}
             validateOnBlur={false}
             validateOnMount

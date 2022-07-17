@@ -79,7 +79,7 @@ const AdminEvents = (props: IAdminEvents) => {
           dateEvents={dateEvents}
           displayDeleteModal={displayDeleteModal}
         />
-        <AdminDeleteEventModal
+        {/* <AdminDeleteEventModal
           deleteEvent={deleteEvent}
           open={deleteOpen}
           handleClose={handleDeleteClose}
@@ -87,7 +87,7 @@ const AdminEvents = (props: IAdminEvents) => {
             throw new Error("Function not implemented.");
           }}
           events={events}
-        />
+        /> */}
         {/* Admin main navigation component */}
         <AdminMainNav />
         {/* Admin pages navigation component */}

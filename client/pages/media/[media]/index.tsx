@@ -21,7 +21,7 @@ interface IMedia {
     create_date: string;
     update_date: string;
     content: string;
-    imagekey: string;
+    image_url: string;
   }[];
   cartQty: number;
 }
@@ -62,7 +62,7 @@ const Media = (props: IMedia) => {
             <Grid className="image-container">
               <img
                 className="thumbnail"
-                src={post.imagekey}
+                src={post.image_url}
                 alt="blog-thumbnail"
               />
             </Grid>

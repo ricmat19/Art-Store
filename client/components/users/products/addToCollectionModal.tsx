@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Backdrop, Box, Fade, Modal, Grid, Button } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 import { IProduct } from "../../../interfaces";
 
 //Add to collection prop interface
@@ -43,10 +43,10 @@ const onSubmit = async (
   onSubmitProps.resetForm();
 };
 
-//Add to collection Formik form validation schema
-const validationSchema = Yup.object({
-  collection: Yup.string().required("Email is required"),
-});
+// //Add to collection Formik form validation schema
+// const validationSchema = Yup.object({
+//   collection: Yup.string().required("Email is required"),
+// });
 
 //Add to collection functional component
 const AddToCollection = (props: IAddToCollection) => {
@@ -105,7 +105,7 @@ const AddToCollection = (props: IAddToCollection) => {
               <Formik
                 initialValues={initialValues}
                 onSubmit={onSubmit}
-                validationSchema={validationSchema}
+                // validationSchema={validationSchema}
                 validateOnChange={false}
                 validateOnBlur={false}
                 validateOnMount

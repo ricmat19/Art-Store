@@ -172,7 +172,7 @@ const CartProducts = (props: ICartProducts) => {
                   <span className="cart-item-div">
                     <img
                       className="cart-item-thumbnail"
-                      src={item.imagekey}
+                      src={item.image_url}
                       alt="Thumbnail"
                     />
                   </span>

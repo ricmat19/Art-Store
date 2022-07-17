@@ -2,7 +2,7 @@
 import IndexAPI from "../../../apis/indexAPI";
 import { Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 
 //Update Event props interface
 interface IAdminUpdateEvent {
@@ -44,14 +44,14 @@ const onSubmit = async (
   onSubmitProps.resetForm();
 };
 
-//Admin update event Formik form validation schema
-const validationSchema = Yup.object({
-  title: Yup.string().required("Title is required"),
-  date: Yup.string().required("Date is required"),
-  price: Yup.string().required("Price is required"),
-  spots: Yup.string().required("Spots is required"),
-  info: Yup.string().required("Info is required"),
-});
+// //Admin update event Formik form validation schema
+// const validationSchema = Yup.object({
+//   title: Yup.string().required("Title is required"),
+//   date: Yup.string().required("Date is required"),
+//   price: Yup.string().required("Price is required"),
+//   spots: Yup.string().required("Spots is required"),
+//   info: Yup.string().required("Info is required"),
+// });
 
 //Admin update event functional component
 const AdminUpdateEvent = (props: IAdminUpdateEvent) => {
@@ -61,7 +61,7 @@ const AdminUpdateEvent = (props: IAdminUpdateEvent) => {
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
-        validationSchema={validationSchema}
+        // validationSchema={validationSchema}
         validateOnChange={false}
         validateOnBlur={false}
         validateOnMount

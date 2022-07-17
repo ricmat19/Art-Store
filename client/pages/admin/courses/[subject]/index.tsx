@@ -78,7 +78,7 @@ const AdminCourseSubject = (props: IAdminCourseSubject) => {
             <Grid className="admin-image-container">
               <img
                 className="thumbnail"
-                src={course.imagekey}
+                src={course.image_url}
                 alt="Thumbnail"
               />
             </Grid>
