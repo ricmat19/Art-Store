@@ -34,6 +34,7 @@ const onSubmit = (
   values: ICreateProductForm,
   onSubmitProps: { resetForm: () => void }
 ) => {
+  console.log(values);
   if (values.image) {
     const formData = new FormData();
 
@@ -137,120 +138,128 @@ const AdminCreateProductModal = (props: IAdminAddProduct) => {
                   validateOnChange={false}
                   validateOnBlur={false}
                   validateOnMount
+                  setFieldValue
                 >
-                  {/* Admin create product form */}
-                  <Form
-                    className="admin-form"
-                    action="/admin/products"
-                    method="POST"
-                    encType="multipart/form-data"
-                  >
-                    <Grid className="admin-form-title">
-                      <h1 className="align-center">Create</h1>
-                    </Grid>
-                    <Grid className="admin-form-field">
-                      <label className="admin-label">Title:</label>
-                      <Grid sx={{ display: "grid" }}>
-                        {/* Admin create product title input field */}
+                  {({ setFieldValue }) => (
+                    <Form
+                      className="admin-form"
+                      action="/admin/products"
+                      method="POST"
+                      encType="multipart/form-data"
+                    >
+                      <Grid className="admin-form-title">
+                        <h1 className="align-center">Create</h1>
+                      </Grid>
+                      <Grid className="admin-form-field">
+                        <label className="admin-label">Title:</label>
                         <Grid sx={{ display: "grid" }}>
-                          <Field as="input" type="text" name="title" />
-                          <ErrorMessage name="title" component="div">
+                          {/* Admin create product title input field */}
+                          <Grid sx={{ display: "grid" }}>
+                            <Field as="input" type="text" name="title" />
+                            <ErrorMessage name="title" component="div">
+                              {(errorMsg) => (
+                                <Grid className="errorMsg">{errorMsg}</Grid>
+                              )}
+                            </ErrorMessage>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                      <Grid className="admin-form-field">
+                        <Grid>
+                          <label className="admin-label">Type:</label>
+                        </Grid>
+                        {/* Admin create product type input field */}
+                        <Grid>
+                          <Field
+                            as="select"
+                            type="select"
+                            className="type-selector"
+                            name="type"
+                          >
+                            <option value={"select type"}>
+                              select type...
+                            </option>
+                            <option value={"print"}>print</option>
+                            <option value={"painting"}>painting</option>
+                            <option value={"sculpture"}>sculpture</option>
+                            <option value={"model"}>model</option>
+                            <option value={"book"}>book</option>
+                            <option value={"comic"}>comic</option>
+                          </Field>
+                        </Grid>
+                      </Grid>
+                      <Grid className="admin-form-field">
+                        <label className="admin-label">Image:</label>
+                        {/* Admin create product image input field */}
+                        <Grid sx={{ display: "grid" }}>
+                          <Field
+                            type="file"
+                            name="image"
+                            className="file-input"
+                            onChange={(e: {
+                              target: {
+                                files: SetStateAction<File | undefined>[];
+                              };
+                            }) => {
+                              setImage(e.target.files[0]);
+                              setFieldValue("image", e.target.files[0]);
+                            }}
+                          />
+                          <ErrorMessage name="image" component="div">
                             {(errorMsg) => (
                               <Grid className="errorMsg">{errorMsg}</Grid>
                             )}
                           </ErrorMessage>
                         </Grid>
                       </Grid>
-                    </Grid>
-                    <Grid className="admin-form-field">
-                      <Grid>
-                        <label className="admin-label">Type:</label>
-                      </Grid>
-                      {/* Admin create product type input field */}
-                      <Grid>
-                        <Field
-                          as="select"
-                          type="select"
-                          className="type-selector"
-                        >
-                          <option value={"select type"}>select type...</option>
-                          <option value={"print"}>print</option>
-                          <option value={"painting"}>painting</option>
-                          <option value={"sculpture"}>sculpture</option>
-                          <option value={"model"}>model</option>
-                          <option value={"book"}>book</option>
-                          <option value={"comic"}>comic</option>
-                        </Field>
-                      </Grid>
-                    </Grid>
-                    <Grid className="admin-form-field">
-                      <label className="admin-label">Image:</label>
-                      {/* Admin create product image input field */}
-                      <Grid sx={{ display: "grid" }}>
-                        <Field
-                          type="file"
-                          name="image"
-                          className="file-input"
-                          onChange={(e: {
-                            target: {
-                              files: SetStateAction<File | undefined>[];
-                            };
-                          }) => setImage(e.target.files[0])}
-                        />
-                        <ErrorMessage name="image" component="div">
-                          {(errorMsg) => (
-                            <Grid className="errorMsg">{errorMsg}</Grid>
-                          )}
-                        </ErrorMessage>
-                      </Grid>
-                    </Grid>
-                    <Grid className="admin-form-field">
-                      <label className="admin-label">Quantity:</label>
-                      {/* Admin create product quantity input field */}
-                      <Grid sx={{ display: "grid" }}>
-                        <Field as="input" type="number" name="quantity" />
-                        <ErrorMessage name="quantity" component="div">
-                          {(errorMsg) => (
-                            <Grid className="errorMsg">{errorMsg}</Grid>
-                          )}
-                        </ErrorMessage>
-                      </Grid>
-                    </Grid>
-                    <Grid className="admin-form-field">
-                      <label className="admin-label">Price:</label>
-                      {/* Admin create product price input field */}
-                      <Grid sx={{ display: "grid" }}>
-                        <Field as="input" type="number" name="price" />
-                        <ErrorMessage name="price" component="div">
-                          {(errorMsg) => (
-                            <Grid className="errorMsg">{errorMsg}</Grid>
-                          )}
-                        </ErrorMessage>
-                      </Grid>
-                    </Grid>
-                    <Grid className="admin-form-field">
-                      <label className="admin-label">Info:</label>
-                      {/* Admin create product info input field */}
-                      <Grid sx={{ display: "grid" }}>
-                        <Field as="textarea" name="info" rows={5} />
-                        <ErrorMessage name="info" component="div">
-                          {(errorMsg) => (
-                            <Grid className="errorMsg">{errorMsg}</Grid>
-                          )}
-                        </ErrorMessage>
-                      </Grid>
-                    </Grid>
-                    {/* Admin submit create product form */}
-                    <Grid className="admin-form-button">
-                      <Grid className="text-center">
-                        <Grid>
-                          <button type="submit" className="btn form-button">
-                            Submit
-                          </button>
+                      <Grid className="admin-form-field">
+                        <label className="admin-label">Quantity:</label>
+                        {/* Admin create product quantity input field */}
+                        <Grid sx={{ display: "grid" }}>
+                          <Field as="input" type="number" name="quantity" />
+                          <ErrorMessage name="quantity" component="div">
+                            {(errorMsg) => (
+                              <Grid className="errorMsg">{errorMsg}</Grid>
+                            )}
+                          </ErrorMessage>
                         </Grid>
                       </Grid>
-                    </Grid>
-                  </Form>
+                      <Grid className="admin-form-field">
+                        <label className="admin-label">Price:</label>
+                        {/* Admin create product price input field */}
+                        <Grid sx={{ display: "grid" }}>
+                          <Field as="input" type="number" name="price" />
+                          <ErrorMessage name="price" component="div">
+                            {(errorMsg) => (
+                              <Grid className="errorMsg">{errorMsg}</Grid>
+                            )}
+                          </ErrorMessage>
+                        </Grid>
+                      </Grid>
+                      <Grid className="admin-form-field">
+                        <label className="admin-label">Info:</label>
+                        {/* Admin create product info input field */}
+                        <Grid sx={{ display: "grid" }}>
+                          <Field as="textarea" name="info" rows={5} />
+                          <ErrorMessage name="info" component="div">
+                            {(errorMsg) => (
+                              <Grid className="errorMsg">{errorMsg}</Grid>
+                            )}
+                          </ErrorMessage>
+                        </Grid>
+                      </Grid>
+                      {/* Admin submit create product form */}
+                      <Grid className="admin-form-button">
+                        <Grid className="text-center">
+                          <Grid>
+                            <button type="submit" className="btn form-button">
+                              Submit
+                            </button>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    </Form>
+                  )}
                 </Formik>
               </Grid>
             </Grid>

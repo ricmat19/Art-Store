@@ -56,7 +56,12 @@ const Events = (props: IEvents) => {
         </Grid>
         <Grid className="summary-list-container">
           {/* Display summary list component */}
-          <SummaryList events={props.events} />
+          <SummaryList
+            handleDayOpen={handleDayOpen}
+            events={props.events}
+            setDate={setDate}
+            setDateEvents={setDateEvents}
+          />
         </Grid>
       </Grid>
       {/* Footer component */}

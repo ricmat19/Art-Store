@@ -68,39 +68,40 @@ router.get("/admin/products/:id", async (req, res) => {
 //Create a product
 router.post("/admin/products", upload.single("images"), async (req, res) => {
   try {
-    // Set the image file size
-    const filePath = req.file.path;
-    await sharp(filePath)
-      .resize({ height: 500 })
-      .toFile(`imagesOutput/${req.file.filename}`);
+    // // Set the image file size
+    // const filePath = req.file.path;
+    // await sharp(filePath)
+    //   .resize({ height: 500 })
+    //   .toFile(`imagesOutput/${req.file.filename}`);
 
-    // Create the resized image file
-    const resizedFile = {
-      key: req.file.filename,
-      fileStream: fs.createReadStream(`imagesOutput/${req.file.filename}`),
-    };
+    // // Create the resized image file
+    // const resizedFile = {
+    //   key: req.file.filename,
+    //   fileStream: fs.createReadStream(`imagesOutput/${req.file.filename}`),
+    // };
 
-    //Upload the image to the S3 bucket
+    // //Upload the image to the S3 bucket
     // const result = uploadFile(resizedFile);
     // res.send({ imagePath: `/imagesOutput/${result.key}` });
 
-    // Remove the image from the images and imagesOutput files
-    unlinkFile(`images\\${req.file.filename}`);
-    unlinkFile(`imagesOutput\\${req.file.filename}`);
+    // // Remove the image from the images and imagesOutput files
+    // unlinkFile(`images\\${req.file.filename}`);
+    // unlinkFile(`imagesOutput\\${req.file.filename}`);
 
+    console.log(req.file)
     // Add products to the database with the created image key
     db.query(
-      "INSERT INTO products (title, product, image_url, qty, price, info, create_date, update_date, item_page_url) values ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
+      "INSERT INTO products (title, product, price, info, image_url, qty, create_date, update_date, item_page_url) values ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
       [
         req.body.title,
         req.body.product,
-        req.file.filename,
-        req.body.quantity,
         req.body.price,
         req.body.info,
+        // image_url
+        req.body.quantity,
         new Date(),
         new Date(),
-        "product",
+        //item_page_url,
       ]
     );
   } catch (err) {
