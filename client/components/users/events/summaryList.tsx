@@ -20,80 +20,30 @@ const SummaryList = (props: ISummaryList) => {
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
 
-  const handleDayClicked = (event: IEvent[]) => {
+  //Display day's modal on calendar day click
+  const handleDayClicked = (event: IEvent) => {
     try {
-      console.log(new Date(event.event_date).toString());
+      const date = new Date(event.event_date);
+      console.log(date);
 
-      //Loops through the list of days in the month plus the padding days
-      const daysArray = [];
-      for (let i = 1; i <= paddingDays + daysInMonth; i++) {
-        //?
-        const dayStringYear = year.toString();
-        const dayMonth = month + 1;
-        let dayStringMonth = dayMonth.toString();
-        if (dayStringMonth.toString().length === 1) {
-          dayStringMonth = "0" + dayStringMonth.toString();
+      //Display day modal
+      props.handleDayOpen();
+      //Set the selected date to display in the modal
+      const selectedDate = `
+      ${date.toLocaleDateString("en-us", { month: "long",})} ${date.getDate()}, ${date.getFullYear()}`;
+      props.setDate(selectedDate);
+
+      //Set the days events
+      const daysEvents = [];
+      for (let i = 0; i < props.events.length; i++) {
+        if (
+          new Date(props.events[i].event_date).toString() ===
+          new Date(selectedDate).toString()
+        ) {
+          daysEvents.push(props.events[i]);
         }
-
-        //?
-        const dayDay = i - paddingDays;
-        let dayStringDay = dayDay.toString();
-        if (dayStringDay.toString().length === 1) {
-          dayStringDay = "0" + dayStringDay.toString();
-        }
-
-        //?
-        let todayDayString = currentDay.toString();
-        if (todayDayString.length === 1) {
-          todayDayString = "0" + todayDayString;
-        }
-
-        //?
-        let todayMonthString = currentMonth.toString();
-        if (todayMonthString.length === 1) {
-          todayMonthString = "0" + todayMonthString;
-        }
-
-        //?
-        const todayYearString = currentYear.toString();
-        const dayString = `${dayStringYear}-${dayStringMonth.toString()}-${dayStringDay.toString()}`;
-        const today = `${todayYearString}-${todayMonthString}-${todayDayString}`;
-
-        //?
-        let hasEvent = false;
-        for (let j = 0; j < props.events.length; j++) {
-          const calendarMonth =
-            new Date(props.events[j].event_date).getMonth() + 1;
-          //?
-          if (
-            dayMonth === calendarMonth &&
-            dayDay.toString() ===
-            new Date(props.events[j].event_date).getDate().toString() &&
-            dayStringYear ===
-            new Date(props.events[j].event_date).getFullYear().toString()
-          ) {
-            hasEvent = true;
-          }
-        }
-
-        //Display day modal
-        props.handleDayOpen();
-        //Set the selected date to display in the modal
-        const selectedDate = `${month} ${day}, ${year}`;
-        props.setDate(selectedDate);
-
-        //Set the days events
-        const daysEvents = [];
-        for (let i = 0; i < props.events.length; i++) {
-          if (
-            new Date(props.events[i].event_date).toString() ===
-            new Date(selectedDate).toString()
-          ) {
-            daysEvents.push(props.events[i]);
-          }
-        }
-        props.setDateEvents(daysEvents);
       }
+      props.setDateEvents(daysEvents);
     } catch (err) {
       console.log(err);
     }

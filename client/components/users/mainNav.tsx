@@ -96,7 +96,7 @@ const MainNav = (props: ICartQty) => {
             collectionOfAllData.push(collectionOfQueries[i][j]);
           }
         }
-        console.log(collectionOfAllData);
+        // console.log(collectionOfAllData);
       } catch (err) {
         console.log(err);
       }
@@ -247,6 +247,7 @@ const MainNav = (props: ICartQty) => {
         }
       }
     });
+    // console.log(newFilter)
     setSearchData(newFilter);
   };
 
@@ -346,7 +347,7 @@ const MainNav = (props: ICartQty) => {
                   >
                     {searchData
                       .slice(0, 10)
-                      .map((data: ISearchData, index: any) => (
+                      .map((data: ISearchData, index: number) => (
                         <a
                           href={data.url}
                           key={index}
@@ -376,6 +377,7 @@ const MainNav = (props: ICartQty) => {
                               gridTemplateColumns: "1fr 200px",
                             }}
                           >
+                            {console.log(data)}
                             <Grid sx={{ textTransform: "capitalize" }}>
                               {data.product
                                 ? `${data.product}`
