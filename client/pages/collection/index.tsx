@@ -5,10 +5,10 @@ import { useRouter } from "next/router";
 import MainNav from "../../components/users/mainNav";
 import PagesNav from "../../components/users/pagesNav";
 import FooterC from "../../components/footer";
+import CreateCollection from "../../components/users/createCollection";
 import { Grid } from "@mui/material";
 import ReactPaginate from "react-paginate";
 import Head from "next/head";
-
 
 //Collection props interface
 interface ICollectionGroup {
@@ -23,6 +23,7 @@ interface ICollection {
 const Collection = (props: ICollection) => {
   //Collection states
   const [pageNumber, setPageNumber] = useState(0);
+  const [createCollectionOpen, setCreateCollectionOpen] = useState(false);
 
   //Next router function
   const router = useRouter();
@@ -34,6 +35,20 @@ const Collection = (props: ICollection) => {
 
   const changePage = ({ selected }: { selected: number }) => {
     setPageNumber(selected);
+  };
+
+  //Handles the opening/closing of the add to collection modal
+  const handleCreateCollectionOpen = () => setCreateCollectionOpen(true);
+  const handleCreateCollectionClose = () => setCreateCollectionOpen(false);
+
+  //Display the collection modal
+  const displayCollectionModal = (e: { preventDefault: () => void }) => {
+    try {
+      e.preventDefault();
+      handleCreateCollectionOpen();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   //Map through the list of collection groups and setup their templates
@@ -70,6 +85,10 @@ const Collection = (props: ICollection) => {
         <title>artHouse19-Collection</title>
         <meta name="description" content="Your collection."></meta>
       </Head>
+      <CreateCollection
+        open={createCollectionOpen}
+        handleClose={handleCreateCollectionClose}
+      />
       {/* Main navigation component */}
       <MainNav cartQty={props.cartQty} />
       {/* Pages navigation component */}
@@ -80,7 +99,9 @@ const Collection = (props: ICollection) => {
         </Grid>
         {/* Button to create a collection */}
         <Grid sx={{ display: "grid", justifyContent: "center" }}>
-          <button>create collection</button>
+          <button onClick={(e) => displayCollectionModal(e)}>
+            create collection
+          </button>
         </Grid>
         {/* Display te list of collection groups */}
         <Grid className="gallery-menu">{displayCollectionGroups}</Grid>

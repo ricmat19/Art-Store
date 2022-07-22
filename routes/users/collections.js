@@ -45,12 +45,14 @@ router.get("/collection/group/:group", async (req, res) => {
 //Add to collections
 router.post("/collections", async (req) => {
   try {
+
+    console.log(req.body)
     if (req.body.item === undefined) {
       req.body.item = 0;
     }
     await db.query(
       "INSERT INTO collections (collection_user, collection_group, item) values ($1, $2, $3) RETURNING *",
-      [req.body.user, req.body.collectionGroup, req.body.item]
+      [req.body.collectionUser, req.body.collectionGroup, req.body.item]
     );
   } catch (err) {
     console.log(err);

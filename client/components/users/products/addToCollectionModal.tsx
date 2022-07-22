@@ -36,7 +36,7 @@ const onSubmit = async (
   onSubmitProps: { resetForm: () => void }
 ) => {
   await IndexAPI.post("/collections", {
-    user: "ric19mat@gmail.com",
+    collectionUser: "ric19mat@gmail.com",
     collectionGroup: values.collection_group,
     item: values.id,
   });
