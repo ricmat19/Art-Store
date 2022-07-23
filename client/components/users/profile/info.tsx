@@ -4,23 +4,26 @@ import { useState } from "react";
 import { IUser } from "../../../interfaces";
 
 interface IInfo {
-  profile: IUser;
+  profile: IUser[];
 }
 
 //Profile info functional component
 const Info = (props: IInfo) => {
+  console.log(props.profile[0].firstname);
   //Profile info states
-  const [email] = useState<string>(props.profile.email);
-  const [firstName, setFirstName] = useState<string>(props.profile.firstName);
-  const [lastName, setLastName] = useState<string>(props.profile.lastName);
-  const [newEmail, setNewEmail] = useState<string>(props.profile.email);
-  const [phoneNumber, setPhoneNumber] = useState<string>(
-    props.profile.phoneNumber
+  const [email] = useState<string>(props.profile[0].email);
+  const [firstName, setFirstName] = useState<string>(
+    props.profile[0].firstname
   );
-  const [address, setAddress] = useState<string>(props.profile.address);
-  const [city, setCity] = useState<string>(props.profile.city);
-  const [state, setState] = useState<string>(props.profile.state);
-  const [zip, setZip] = useState<string>(props.profile.zip);
+  const [lastName, setLastName] = useState<string>(props.profile[0].lastname);
+  const [newEmail, setNewEmail] = useState<string>(props.profile[0].email);
+  const [phoneNumber, setPhoneNumber] = useState<string>(
+    props.profile[0].phone
+  );
+  const [address, setAddress] = useState<string>(props.profile[0].address);
+  const [city, setCity] = useState<string>(props.profile[0].city);
+  const [state, setState] = useState<string>(props.profile[0].state);
+  const [zip, setZip] = useState<string>(props.profile[0].zip);
 
   //Function to update the user's profile info
   const updateProfile = async (e: { preventDefault: () => void }) => {

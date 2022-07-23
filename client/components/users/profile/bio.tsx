@@ -4,15 +4,15 @@ import { useState } from "react";
 import { IUser } from "../../../interfaces";
 
 interface IBio {
-  profile: IUser;
+  profile: IUser[];
 }
 
 //Profile bio functional component
 const Bio = (props: IBio) => {
   //Profile bio states
-  const [email] = useState<string>(props.profile.email);
-  const [image, setImage] = useState<string>(props.profile.image);
-  const [bio, setBio] = useState<string>(props.profile.bio);
+  const [email] = useState<string>(props.profile[0].email);
+  const [image, setImage] = useState<string>(props.profile[0].image);
+  const [bio, setBio] = useState<string>(props.profile[0].bio);
 
   //Function to update the user's profile bio
   const updateProfile = async (e: { preventDefault: () => void }) => {

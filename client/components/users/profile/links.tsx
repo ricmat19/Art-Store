@@ -4,17 +4,17 @@ import { useState } from "react";
 import { IUser } from "../../../interfaces";
 
 interface ILinks {
-  profile: IUser;
+  profile: IUser[];
 }
 
 //Profile links functional component
 const Links = (props: ILinks) => {
   //Profile links states
-  const [email] = useState<string>(props.profile.email);
-  const [website, setWebsite] = useState<string>(props.profile.website);
-  const [twitter, setTwitter] = useState<string>(props.profile.twitter);
-  const [linkedIn, setLinkedIn] = useState<string>(props.profile.linkedIn);
-  const [youtube, setYoutube] = useState<string>(props.profile.youtube);
+  const [email] = useState<string>(props.profile[0].email);
+  const [website, setWebsite] = useState<string>(props.profile[0].website);
+  const [twitter, setTwitter] = useState<string>(props.profile[0].twitter);
+  const [linkedIn, setLinkedIn] = useState<string>(props.profile[0].linkedin);
+  const [youtube, setYoutube] = useState<string>(props.profile[0].youtube);
 
   //Function to update the user's profile links
   const updateProfile = async (e: { preventDefault: () => void }) => {
