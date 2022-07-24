@@ -33,6 +33,18 @@ export interface ICart {
   cartItems: ICart[];
 }
 
+export interface IPurchases {
+  id: string;
+  title: string;
+  product: string;
+  price: string;
+  info: string;
+  image_url: string;
+  qty: number;
+  primaryImage: boolean;
+  cartItems: IPurchases[];
+}
+
 export interface ICheckout {
   id: string;
   shipment: string[];

@@ -377,7 +377,6 @@ const MainNav = (props: ICartQty) => {
                               gridTemplateColumns: "1fr 200px",
                             }}
                           >
-                            {console.log(data)}
                             <Grid sx={{ textTransform: "capitalize" }}>
                               {data.product
                                 ? `${data.product}`

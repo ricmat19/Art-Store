@@ -26,6 +26,7 @@ const mediaRouter = require("./routes/users/media");
 const notificationsRouter = require("./routes/users/notifications");
 const paymentRouter = require("./routes/users/payment");
 const productsRouter = require("./routes/users/products");
+const purchasesRouter = require("./routes/users/purchases");
 const shipmentRouter = require("./routes/users/shipment");
 
 //allows for different domains to communicate
@@ -89,6 +90,7 @@ app.use(mediaRouter);
 app.use(notificationsRouter);
 app.use(paymentRouter);
 app.use(productsRouter);
+app.use(purchasesRouter);
 app.use(shipmentRouter);
 
 //Serve static assets if in production

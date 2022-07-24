@@ -4,6 +4,7 @@ import {
   faBriefcase,
   faDollar,
   faHeart,
+  faMoneyBill,
   faSignOutAlt,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
@@ -57,7 +58,7 @@ const User = (props: IUser) => {
     >
       <Grid>
         {/* Display the Profile link */}
-        <a href="/profile">
+        <a href="/user/profile">
           <MenuItem sx={{ color: "black" }}>
             <ListItemIcon>
               <FontAwesomeIcon icon={faUser} />
@@ -65,15 +66,15 @@ const User = (props: IUser) => {
             Profile
           </MenuItem>
         </a>
-        {/* Display the Purchases link */}
-        {/* <a href="/purchases">
+        {/* Display the Purchase History link */}
+        <a href="/user/purchases">
           <MenuItem sx={{ color: "black" }}>
             <ListItemIcon>
-              <FontAwesomeIcon icon={faBriefcase} />
+              <FontAwesomeIcon icon={faMoneyBill} />
             </ListItemIcon>
-            Purchases
+            PurchaseHistory
           </MenuItem>
-        </a> */}
+        </a>
         {/* Display the Wishlist link */}
         {/* <a href="/wishlist">
           <MenuItem sx={{ color: "black" }}>
@@ -83,15 +84,6 @@ const User = (props: IUser) => {
             Wishlist
           </MenuItem>
         </a> */}
-        {/* Display the Purchase History link */}
-        <a href="/purchaseHistory">
-          <MenuItem sx={{ color: "black" }}>
-            <ListItemIcon>
-              <FontAwesomeIcon icon={faDollar} />
-            </ListItemIcon>
-            Purchase History
-          </MenuItem>
-        </a>
         {/* Display the Logout link */}
         <MenuItem sx={{ color: "black" }}>
           <ListItemIcon>

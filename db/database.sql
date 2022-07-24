@@ -53,3 +53,10 @@ CREATE TABLE collections(
     item BIGINT,
     PRIMARY KEY (collection_user, collection_name, item)
 );
+
+CREATE TABLE purchases(
+    id BIGSERIAL PRIMARY KEY,
+    email VARCHAR(255),
+    purchases VARCHAR[],
+    qty VARCHAR[]
+);

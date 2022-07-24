@@ -1,15 +1,15 @@
-import IndexAPI from "../apis/indexAPI";
+import IndexAPI from "../../apis/indexAPI";
 import { useState } from "react";
-import MainNav from "../components/users/mainNav";
-import PagesNav from "../components/users/pagesNav";
-import Footer from "../components/footer";
+import MainNav from "../../components/users/mainNav";
+import PagesNav from "../../components/users/pagesNav";
+import Footer from "../../components/footer";
 import { Grid, Tabs, Tab } from "@mui/material";
-import Info from "../components/users/profile/info";
-import Bio from "../components/users/profile/bio";
-import Links from "../components/users/profile/links";
-import PaymentMethods from "../components/users/profile/paymentMethods";
+import Info from "../../components/users/profile/info";
+import Bio from "../../components/users/profile/bio";
+import Links from "../../components/users/profile/links";
+import PaymentMethods from "../../components/users/profile/paymentMethods";
 import Head from "next/head";
-import { IUser } from "../interfaces";
+import { IUser } from "../../interfaces";
 
 // Privacy policy prop interface
 interface IProfile {
