@@ -10,22 +10,30 @@ router.post("/purchases", async (req, res) => {
       "SELECT purchases FROM purchases WHERE email='ric19mat@gmail.com'"
     );
 
+    //Existing purchases information
     let currentPurchases = purchases.rows[0].purchases;
+    let currentPurchasesQtys = purchases.rows[0].qty;
+    let currentPurchasesDates = purchases.rows[0].purchase_date;
+
     let newPurchase = req.body.id;
 
     // Run if the current array of purchases has items
     if (currentPurchases !== null) {
       currentPurchases.push(newPurchase);
-
+      currentPurchasesQtys.push();
+      currentPurchasesDates.push(new Date());
       // Run if the current array has no items
     } else {
       currentPurchases = [newPurchase];
+      currentPurchasesQtys = [req.body.qty];
+      currentPurchasesDates = [new Date()];
     }
 
+    console.log(currentPurchases);
     //Add the new purchases to the users purchase history
     let newPurchases = await db.query(
-      "UPDATE cart SET cart=$1 WHERE email='ric19mat@gmail.com'",
-      [currentPurchases]
+      "UPDATE purchases SET purchases=$1, qty=$2, purchase_date=$3 WHERE email='ric19mat@gmail.com'",
+      [currentPurchases, currentPurchasesQtys, currentPurchasesDates]
     );
 
     res.status(201).json({

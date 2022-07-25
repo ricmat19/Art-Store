@@ -227,7 +227,6 @@ export async function getStaticProps(context: {
 
   // Get the cart's content
   const cartResponse = await IndexAPI.get(`/cart`);
-  console.log(cartResponse);
 
   // Get the selected product's content
   const productResponse = await IndexAPI.get(`/products/${product}/${id}`);

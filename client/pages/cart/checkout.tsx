@@ -17,7 +17,6 @@ import { ICart } from "../../interfaces";
 
 //Cart checkout prop interface
 interface ICheckout {
-  router: string[];
   cart: ICart[];
   priceArray: string[];
   sub: number | (() => number);
@@ -48,16 +47,17 @@ const initialValues = {
 };
 
 //Cart checkout Formik form onSubmit function
-const onSubmit = async (
+const onSubmit = (
   values: ICheckoutForm,
   onSubmitProps: { resetForm: () => void }
 ) => {
   try {
     //Remove all items from the cart after form submission
-    await IndexAPI.put(`/cart/deleteAll`);
-
+    // await IndexAPI.put(`/cart/deleteAll`);
+    // await dispatch(clearCartReducer());
     //Route back to store page
-    router.push("/");
+    // await router.push("/");
+    // await router.push("/cart");
   } catch (err) {
     console.log(err);
   }
@@ -111,10 +111,18 @@ const Checkout = (props: ICheckout) => {
   };
 
   //Function to clear the cart and then route back to cart page
-  const clearCart = async () => {
+  const clearCart = async (cart: ICart[]) => {
     try {
-      await dispatch(clearCartReducer());
-      await router.push("/cart");
+      //Add all items in the cart to the user's purchase history
+      for (let i = 0; i < cart.length; i++) {
+        await IndexAPI.post(`/purchases`, {
+          id: cart[i].id,
+          qty: 1,
+        });
+      }
+
+      // await dispatch(clearCartReducer());
+      // await router.push("/cart");
     } catch (err) {
       console.log(err);
     }
@@ -340,7 +348,7 @@ const Checkout = (props: ICheckout) => {
                     </Grid>
                     <Grid className="two-column-div checkout-disclaimer-container">
                       {/* Checkout form payment confirmation checkbox input field */}
-                      <Field type="checkbox" required/>
+                      <Field type="checkbox" required />
                       <Grid className="align-justify">
                         By clicking the button below, you are accepting that no
                         real purchases will be made, no payments will be
@@ -352,7 +360,7 @@ const Checkout = (props: ICheckout) => {
                       {/* Checkout submit button, clearing cart */}
                       <button
                         className="justify-right"
-                        onClick={() => clearCart()}
+                        onClick={(e) => clearCart(props.cart)}
                       >
                         pay
                       </button>
