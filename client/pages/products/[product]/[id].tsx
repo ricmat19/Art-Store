@@ -15,6 +15,7 @@ import {
 } from "../../../reducers/cartReducers";
 import { useAppDispatch } from "../../../hooks";
 import { IProduct } from "../../../interfaces";
+import ReactImageMagnify from "react-image-magnify";
 
 // Product details prop interface
 interface IProductDetails {
@@ -162,10 +163,25 @@ const ProductDetails = (props: IProductDetails) => {
           <Grid className="image-div">
             {/* Display the current product's image */}
             <Grid className="justify-center">
-              <img
-                className="big-image"
-                src={product.image_url}
-                alt="product image"
+              <ReactImageMagnify
+                {...{
+                  smallImage: {
+                    alt: "product-image",
+                    isFluidWidth: true,
+                    src: product.image_url,
+                    sizes:
+                      "(max-width: 450px) 100vw, (max-width: 450px) 100vw, 360px",
+                  },
+                  largeImage: {
+                    src: product.image_url,
+                    width: 1000,
+                    height: 1000,
+                  },
+                  enlargedImageContainerDimensions: {
+                    width: "100%",
+                    height: "100%",
+                  },
+                }}
               />
             </Grid>
           </Grid>
