@@ -35,14 +35,13 @@ export interface ICart {
 
 export interface IPurchases {
   id: string;
+  qty: number;
+  purchase_date: Date;
   title: string;
   product: string;
   price: string;
   info: string;
   image_url: string;
-  qty: number;
-  primaryImage: boolean;
-  cartItems: IPurchases[];
 }
 
 export interface ICheckout {

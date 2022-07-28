@@ -55,33 +55,43 @@ router.get("/purchases", async (req, res) => {
       "SELECT * FROM purchases WHERE email='ric19mat@gmail.com'"
     );
 
-    const usersPurchases = [];
-
-    //Check if cart is not null
-    if (purchases.rows[0].purchases !== null) {
-      for (let i = 0; i < purchases.rows[0].cart.length; i++) {
+    const purchasedProducts = [];
+    //Check if purchases is not null
+    if (purchases.rows[0].purchases.length > 0) {
+      for (let i = 0; i < purchases.rows[0].purchases.length; i++) {
         // Get a specific product from the purchase history
-        const purchasedProducts = await db.query(
+        const productInfo = await db.query(
           "SELECT * FROM products WHERE id=$1",
-          [purchases.rows[0].cart[i]]
+          [purchases.rows[0].purchases[i]]
         );
-        // Add the user's products to the array
-        usersPurchases.push(purchasedProducts.rows[0]);
+        const purchase = {
+          id: purchases.rows[0].purchases[i],
+          qty: purchases.rows[0].qty[i],
+          purchase_date: purchases.rows[0].purchase_date[i],
+          title: productInfo.rows[0].title,
+          product: productInfo.rows[0].product,
+          price: productInfo.rows[0].price,
+          info: productInfo.rows[0].info,
+          image_url: productInfo.rows[0].image_url,
+          // item_page_url: productInfo.rows[0].item_page_url[0],
+        };
+        purchasedProducts.push(purchase);
       }
     }
 
-    // Get the cart quantity
-    const qty = await db.query(
-      "SELECT qty FROM purchases WHERE email='ric19mat@gmail.com'"
-    );
-    const purchasesQty = qty.rows[0].qty;
+    console.log(purchasedProducts);
+
+    // // Get the purchases quantity
+    // const qty = await db.query(
+    //   "SELECT qty FROM purchases WHERE email='ric19mat@gmail.com'"
+    // );
+    // const purchasesQty = qty.rows[0].qty;
 
     res.status(200).json({
       status: "success",
-      results: usersPurchases.length,
+      results: purchasedProducts.length,
       data: {
-        cart: usersPurchases,
-        qty: purchasesQty,
+        purchases: purchasedProducts,
       },
     });
   } catch (err) {

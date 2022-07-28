@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { IPurchases } from "../../interfaces";
 import MainNav from "../../components/users/mainNav";
 import PagesNav from "../../components/users/pagesNav";
@@ -18,7 +19,7 @@ const Purchases = (props: IPurchases) => {
           content="artHouse19 purchase history page."
         ></meta>
       </Head>
-      <MainNav cartQty={cart.length} />
+      <MainNav cartQty={props.cartQty} />
       <PagesNav />
       <Grid className="main-body">
         {/* Purchases title row */}
@@ -27,11 +28,16 @@ const Purchases = (props: IPurchases) => {
             <h1 className="main-title">Purchase History</h1>
           </Grid>
           <Grid className="cart-table">
-            <Grid className="table-headers">
+            <Grid
+              sx={{
+                display: "grid",
+                gridTemplateColumns: "auto auto auto auto auto",
+              }}
+            >
               <h3>item</h3>
-              <h3 className="align-center">date</h3>
-              <h3 className="align-right">price</h3>
-              <h3 className="align-right">payment method</h3>
+              <h3>date</h3>
+              <h3>price</h3>
+              {/* <h3 className="align-right">payment method</h3> */}
               <h3 className="align-right">receipt</h3>
               <h3 className="align-right">invoice</h3>
             </Grid>
@@ -42,11 +48,23 @@ const Purchases = (props: IPurchases) => {
                 props.purchases.map((item: IPurchases) => {
                   return (
                     <Grid key={item.id}>
-                      <Grid className="purchases-item-details">
+                      <Grid
+                        sx={{
+                          display: "grid",
+                          gridTemplateColumns: "auto auto auto auto auto",
+                        }}
+                      >
                         <Grid className="purchases-item-info">
                           {/* Display item title */}
                           <Grid className="purchases-item-title">
-                            {item.title}
+                            <Grid>{item.title}</Grid>
+                            <span className="cart-item-div">
+                              <img
+                                alt="title"
+                                className="cart-item-thumbnail"
+                                src={item.image_url}
+                              />
+                            </span>
                           </Grid>
                         </Grid>
                         {/* Enter in the item quantity to be purchased */}
@@ -57,7 +75,7 @@ const Purchases = (props: IPurchases) => {
                           </Grid>
                         </Grid>
                         {/* Price of 1 unit of the relevant product */}
-                        <Grid className="align-right">
+                        <Grid>
                           <span>${item.price}.00</span>
                         </Grid>
                         <Grid className="align-right">
@@ -72,10 +90,10 @@ const Purchases = (props: IPurchases) => {
                   );
                 })}
               {/* Subtotal of all purchased items multiplied by the quantity purchased */}
-              <Grid className="align-right subtotal-div">
+              {/* <Grid className="align-right subtotal-div">
                 <span>subtotal</span>
                 <span>${subtotal}.00</span>
-              </Grid>
+              </Grid> */}
             </Grid>
           </Grid>
         </Grid>
@@ -87,12 +105,15 @@ const Purchases = (props: IPurchases) => {
 };
 
 export async function getStaticProps() {
+  // Get cart content
+  const cartResponse = await IndexAPI.get(`/cart`);
   // Get purchase history content
   const purchasesResponse = await IndexAPI.get(`/purchases`);
 
   //Provide the purchases object as a prop to the checkout component
   return {
     props: {
+      cartQty: cartResponse.data.data.cart.length,
       purchases: purchasesResponse.data.data.purchases,
     },
     revalidate: 1,

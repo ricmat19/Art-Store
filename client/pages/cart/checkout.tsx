@@ -121,8 +121,8 @@ const Checkout = (props: ICheckout) => {
         });
       }
 
-      // await dispatch(clearCartReducer());
-      // await router.push("/cart");
+      await dispatch(clearCartReducer());
+      await router.push("/cart");
     } catch (err) {
       console.log(err);
     }
