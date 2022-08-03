@@ -6,6 +6,8 @@ import AdminPagesNav from "../../components/admin/pagesNav";
 import Footer from "../../components/footer";
 import Head from "next/head";
 import { Grid } from "@mui/material";
+import { Editor } from "@tinymce/tinymce-react";
+import { useRef } from "react";
 
 //Admin about page props interface
 interface IAbout {
@@ -17,6 +19,8 @@ const About = (props: IAbout) => {
   //Admin about states
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
   const [content, setContent] = useState<string>(props.aboutContent);
+
+  const editorRef = useRef(null);
 
   // Get the current login status and set it as the login state
   useEffect(() => {
@@ -36,9 +40,10 @@ const About = (props: IAbout) => {
   const updateAbout = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
-      await IndexAPI.put(`/admin/about`, {
-        content,
-      });
+      console.log(content);
+      //   await IndexAPI.put(`/admin/about`, {
+      //     content,
+      //   });
     } catch (err) {
       console.log(err);
     }
@@ -67,12 +72,48 @@ const About = (props: IAbout) => {
             <Grid>
               {/* About content input field */}
               <Grid sx={{ margin: "50px 20vw" }}>
-                <textarea
+                <Editor
+                  // onChange={(e) => setContent(e.target.value)}
+                  apiKey={process.env.NEXT_PUBLIC_TINYMCE}
+                  onInit={(e, editor) => (editorRef.current = editor)}
+                  initialValue={content}
+                  init={{
+                    height: 350,
+                    menubar: false,
+                    plugins: [
+                      "advlist",
+                      "autolink",
+                      "lists",
+                      "link",
+                      "image",
+                      "charmap",
+                      "anchor",
+                      "searchreplace",
+                      "visualblocks",
+                      "code",
+                      "fullscreen",
+                      "insertdatetime",
+                      "media",
+                      "table",
+                      "preview",
+                      "help",
+                      "wordcount",
+                    ],
+                    toolbar:
+                      "undo redo | blocks | " +
+                      "bold italic forecolor | alignleft aligncenter " +
+                      "alignright alignjustify | bullist numlist outdent indent | " +
+                      "removeformat | help",
+                    content_style:
+                      "body { font-family:Helvetica,Arial,sans-serif; font-size:12px }",
+                  }}
+                />
+                {/* <textarea
                   className="full-width"
                   onChange={(e) => setContent(e.target.value)}
                   value={content}
                   rows={10}
-                />
+                /> */}
               </Grid>
               {/* About form submit button */}
               <Grid sx={{ textAlign: "center" }}>

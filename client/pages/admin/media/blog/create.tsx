@@ -7,6 +7,8 @@ import AdminPagesNav from "../../../../components/admin/pagesNav";
 import { Grid } from "@mui/material";
 import router, { NextRouter, useRouter } from "next/router";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Editor } from "@tinymce/tinymce-react";
+import { useRef } from "react";
 import * as Yup from "yup";
 
 //Admin create blog post prop interface
@@ -66,6 +68,8 @@ const AdminAddBlogPost = () => {
   //Admin create blog post states
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
   const [image, setImage] = useState<File>();
+
+  const editorRef = useRef(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -162,12 +166,48 @@ const AdminAddBlogPost = () => {
                     {/* Admin blog post content input field */}
                     <Grid>
                       <label>Content:</label>
-                      <Field
+                      <Editor
+                        // onChange={(e) => setContent(e.target.value)}
+                        apiKey={process.env.NEXT_PUBLIC_TINYMCE}
+                        onInit={(e, editor) => (editorRef.current = editor)}
+                        initialValue={initialValues.content}
+                        init={{
+                          height: 350,
+                          menubar: false,
+                          plugins: [
+                            "advlist",
+                            "autolink",
+                            "lists",
+                            "link",
+                            "image",
+                            "charmap",
+                            "anchor",
+                            "searchreplace",
+                            "visualblocks",
+                            "code",
+                            "fullscreen",
+                            "insertdatetime",
+                            "media",
+                            "table",
+                            "preview",
+                            "help",
+                            "wordcount",
+                          ],
+                          toolbar:
+                            "undo redo | blocks | " +
+                            "bold italic forecolor | alignleft aligncenter " +
+                            "alignright alignjustify | bullist numlist outdent indent | " +
+                            "removeformat | help",
+                          content_style:
+                            "body { font-family:Helvetica,Arial,sans-serif; font-size:12px }",
+                        }}
+                      />
+                      {/* <Field
                         as="textarea"
                         className="full-width"
                         rows={50}
                         name="content"
-                      />
+                      /> */}
                       <ErrorMessage name="content" component="div">
                         {(errorMsg) => (
                           <Grid className="errorMsg">{errorMsg}</Grid>

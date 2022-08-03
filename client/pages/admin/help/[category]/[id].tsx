@@ -6,6 +6,8 @@ import AdminPagesNav from "../../../../components/admin/pagesNav";
 import FooterC from "../../../../components/footer";
 import { Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Editor } from "@tinymce/tinymce-react";
+import { useRef } from "react";
 // import * as Yup from "yup";
 
 // Admin create help article prop interface
@@ -50,7 +52,7 @@ const onSubmit = async (
     }
   );
   //Direct to the help article's category page on submit
-    await router.push(`/admin/help/${values.helpArticle[0].category}`);
+  await router.push(`/admin/help/${values.helpArticle[0].category}`);
 
   onSubmitProps.resetForm();
 };
@@ -66,6 +68,8 @@ const onSubmit = async (
 const AdminHelpArticle = (props: IHelpArticle) => {
   // Admin help article states
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
+
+  const editorRef = useRef(null);
 
   // Next router function
   const router = useRouter();
@@ -121,12 +125,48 @@ const AdminHelpArticle = (props: IHelpArticle) => {
                   {/* Admin help article content input textbox */}
                   <label>Content:</label>
                   <Grid sx={{ display: "grid" }}>
-                    <Field
+                    <Editor
+                      // onChange={(e) => setContent(e.target.value)}
+                      apiKey={process.env.NEXT_PUBLIC_TINYMCE}
+                      onInit={(e, editor) => (editorRef.current = editor)}
+                      initialValue={initialValues.content}
+                      init={{
+                        height: 350,
+                        menubar: false,
+                        plugins: [
+                          "advlist",
+                          "autolink",
+                          "lists",
+                          "link",
+                          "image",
+                          "charmap",
+                          "anchor",
+                          "searchreplace",
+                          "visualblocks",
+                          "code",
+                          "fullscreen",
+                          "insertdatetime",
+                          "media",
+                          "table",
+                          "preview",
+                          "help",
+                          "wordcount",
+                        ],
+                        toolbar:
+                          "undo redo | blocks | " +
+                          "bold italic forecolor | alignleft aligncenter " +
+                          "alignright alignjustify | bullist numlist outdent indent | " +
+                          "removeformat | help",
+                        content_style:
+                          "body { font-family:Helvetica,Arial,sans-serif; font-size:12px }",
+                      }}
+                    />
+                    {/* <Field
                       as="textarea"
                       className="full-width"
                       rows={50}
                       name="content"
-                    />
+                    /> */}
                     <ErrorMessage name="content" component="div">
                       {(errorMsg) => (
                         <Grid className="errorMsg">{errorMsg}</Grid>

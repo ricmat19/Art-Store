@@ -7,6 +7,8 @@ import AdminMainNav from "../../../../components/admin/mainNav";
 import AdminPagesNav from "../../../../components/admin/pagesNav";
 import { Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Editor } from "@tinymce/tinymce-react";
+import { useRef } from "react";
 // import * as Yup from "yup";
 
 //Admin blog post prop interface
@@ -62,11 +64,12 @@ const AdminBlogPost = (props: IAdminBlogPost) => {
   //Admin blog post category states
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
 
+  const editorRef = useRef(null);
+
   //Next router function
   const router = useRouter();
 
   //Get the blog posts creation date
-  console.log(props.selectedBlog[0].update_date);
   const postMonth = new Date(props.selectedBlog[0].update_date).getMonth() + 1;
   const postDate = new Date(props.selectedBlog[0].update_date).getDate();
   const postYear = new Date(props.selectedBlog[0].update_date).getFullYear();
@@ -136,12 +139,48 @@ const AdminBlogPost = (props: IAdminBlogPost) => {
                   <Grid>
                     <label>Content:</label>
                     <Grid sx={{ display: "grid" }}>
-                      <Field
+                      <Editor
+                        // onChange={(e) => setContent(e.target.value)}
+                        apiKey={process.env.NEXT_PUBLIC_TINYMCE}
+                        onInit={(e, editor) => (editorRef.current = editor)}
+                        initialValue={initialValues.content}
+                        init={{
+                          height: 350,
+                          menubar: false,
+                          plugins: [
+                            "advlist",
+                            "autolink",
+                            "lists",
+                            "link",
+                            "image",
+                            "charmap",
+                            "anchor",
+                            "searchreplace",
+                            "visualblocks",
+                            "code",
+                            "fullscreen",
+                            "insertdatetime",
+                            "media",
+                            "table",
+                            "preview",
+                            "help",
+                            "wordcount",
+                          ],
+                          toolbar:
+                            "undo redo | blocks | " +
+                            "bold italic forecolor | alignleft aligncenter " +
+                            "alignright alignjustify | bullist numlist outdent indent | " +
+                            "removeformat | help",
+                          content_style:
+                            "body { font-family:Helvetica,Arial,sans-serif; font-size:12px }",
+                        }}
+                      />
+                      {/* <Field
                         as="textarea"
                         className="full-width"
                         rows={50}
                         name="content"
-                      />
+                      /> */}
                       <ErrorMessage name="content" component="div">
                         {(errorMsg) => (
                           <Grid className="errorMsg">{errorMsg}</Grid>

@@ -4,6 +4,8 @@ import AdminMainNav from "../../components/admin/mainNav";
 import AdminPagesNav from "../../components/admin/pagesNav";
 import Footer from "../../components/footer";
 import { Grid } from "@mui/material";
+import { Editor } from "@tinymce/tinymce-react";
+import { useRef } from "react";
 
 //Admin terms of service page props interface
 interface ITermsOfService {
@@ -15,6 +17,8 @@ const TermsOfService = (props: ITermsOfService) => {
   //Admin terms of service states
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
   const [content, setContent] = useState<string>(props.termsOfServiceContent);
+
+  const editorRef = useRef(null);
 
   //Get the current login status and set it as the login state
   useEffect(() => {
@@ -56,12 +60,48 @@ const TermsOfService = (props: ITermsOfService) => {
           <Grid>
             {/* Terms of service content input field */}
             <Grid sx={{ margin: "50px 20vw" }}>
-              <textarea
+              <Editor
+                // onChange={(e) => setContent(e.target.value)}
+                apiKey={process.env.NEXT_PUBLIC_TINYMCE}
+                onInit={(e, editor) => (editorRef.current = editor)}
+                initialValue={content}
+                init={{
+                  height: 350,
+                  menubar: false,
+                  plugins: [
+                    "advlist",
+                    "autolink",
+                    "lists",
+                    "link",
+                    "image",
+                    "charmap",
+                    "anchor",
+                    "searchreplace",
+                    "visualblocks",
+                    "code",
+                    "fullscreen",
+                    "insertdatetime",
+                    "media",
+                    "table",
+                    "preview",
+                    "help",
+                    "wordcount",
+                  ],
+                  toolbar:
+                    "undo redo | blocks | " +
+                    "bold italic forecolor | alignleft aligncenter " +
+                    "alignright alignjustify | bullist numlist outdent indent | " +
+                    "removeformat | help",
+                  content_style:
+                    "body { font-family:Helvetica,Arial,sans-serif; font-size:12px }",
+                }}
+              />
+              {/* <textarea
                 className="full-width"
                 onChange={(e) => setContent(e.target.value)}
                 value={content}
                 rows={50}
-              />
+              /> */}
             </Grid>
             {/* Terms of service form submit button */}
             <Grid sx={{ textAlign: "center" }}>
