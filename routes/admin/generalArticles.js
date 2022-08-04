@@ -63,8 +63,8 @@ router.get("/admin/termsOfService", async (req, res) => {
 router.put("/admin/about", async (req, res) => {
   try {
     const about = await db.query(
-      "UPDATE generalArticles SET content=$1, update_date=$2 WHERE article=$3",
-      [req.body.content, new Date(), "about"]
+      "UPDATE generalArticles SET content=$1, image=$2, update_date=$3 WHERE article=$4",
+      [req.body.content, req.body.image, new Date(), "about"]
     );
 
     res.status(201).json({

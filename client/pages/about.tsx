@@ -11,6 +11,7 @@ import ReactHtmlParser from "react-html-parser";
 interface IAbout {
   cartQty: number;
   aboutContent: string;
+  aboutImage: string;
 }
 
 //About functional component
@@ -40,7 +41,7 @@ const About = (props: IAbout) => {
               <Grid className="justify-center">
                 <img
                   className="big-image"
-                  src="images/smiles.jpg"
+                  src={props.aboutImage}
                   alt="profile"
                 />
               </Grid>
@@ -69,6 +70,7 @@ export async function getStaticProps() {
     props: {
       cartQty: cartResponse.data.data.cart.length,
       aboutContent: aboutResponse.data.data.about[0].content,
+      aboutImage: aboutResponse.data.data.about[0].image
     },
     revalidate: 1,
   };

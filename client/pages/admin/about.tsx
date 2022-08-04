@@ -12,6 +12,7 @@ import { useRef } from "react";
 //Admin about page props interface
 interface IAbout {
   aboutContent: string | (() => string);
+  aboutImage: string;
 }
 
 //Admin about page functional component
@@ -19,6 +20,7 @@ const About = (props: IAbout) => {
   //Admin about states
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
   const [content, setContent] = useState<string>(props.aboutContent);
+  const [image, setImage] = useState<string>(props.aboutImage);
 
   const editorRef = useRef(null);
 
@@ -42,6 +44,7 @@ const About = (props: IAbout) => {
     try {
       await IndexAPI.put(`/admin/about`, {
         content,
+        image,
       });
     } catch (err) {
       console.log(err);
@@ -70,43 +73,53 @@ const About = (props: IAbout) => {
             </Grid>
             <Grid>
               {/* About content input field */}
-              <Grid sx={{ margin: "50px 20vw" }}>
-                <Editor
-                  apiKey={process.env.NEXT_PUBLIC_TINYMCE}
-                  init={{
-                    height: 350,
-                    menubar: false,
-                    plugins: [
-                      "advlist",
-                      "autolink",
-                      "lists",
-                      "link",
-                      "image",
-                      "charmap",
-                      "anchor",
-                      "searchreplace",
-                      "visualblocks",
-                      "code",
-                      "fullscreen",
-                      "insertdatetime",
-                      "media",
-                      "table",
-                      "preview",
-                      "help",
-                      "wordcount",
-                    ],
-                    toolbar:
-                      "undo redo | blocks | code | " +
-                      "alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | " +
-                      "removeformat | bold italic forecolor | help",
-                    content_style:
-                      "body { font-family:Helvetica,Arial,sans-serif; font-size:12px }",
-                  }}
-                  value={content}
-                  onEditorChange={(c: string, editor: any) => {
-                    setContent(c);
-                  }}
-                />
+              <Grid sx={{ display: "grid", margin: "50px 20vw", gap: "10px" }}>
+                <label>Image:</label>
+                <Grid sx={{ display: "grid" }}>
+                  <input
+                    value={image}
+                    onChange={(e) => setImage(e.target.value)}
+                  />
+                </Grid>
+                <label>Content:</label>
+                <Grid sx={{ display: "grid" }}>
+                  <Editor
+                    apiKey={process.env.NEXT_PUBLIC_TINYMCE}
+                    init={{
+                      height: 350,
+                      menubar: false,
+                      plugins: [
+                        "advlist",
+                        "autolink",
+                        "lists",
+                        "link",
+                        "image",
+                        "charmap",
+                        "anchor",
+                        "searchreplace",
+                        "visualblocks",
+                        "code",
+                        "fullscreen",
+                        "insertdatetime",
+                        "media",
+                        "table",
+                        "preview",
+                        "help",
+                        "wordcount",
+                      ],
+                      toolbar:
+                        "undo redo | blocks | code | " +
+                        "alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | " +
+                        "removeformat | bold italic forecolor | help",
+                      content_style:
+                        "body { font-family:Helvetica,Arial,sans-serif; font-size:12px }",
+                    }}
+                    value={content}
+                    onEditorChange={(c: string, editor: any) => {
+                      setContent(c);
+                    }}
+                  />
+                </Grid>
               </Grid>
               {/* About form submit button */}
               <Grid sx={{ textAlign: "center" }}>
@@ -134,6 +147,7 @@ export async function getStaticProps() {
   return {
     props: {
       aboutContent: aboutResponse.data.data.about[0].content,
+      aboutImage: aboutResponse.data.data.about[0].image,
     },
     revalidate: 1,
   };
