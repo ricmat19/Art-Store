@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import IndexAPI from "../../apis/indexAPI";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import AdminMainNav from "../../components/admin/mainNav";
 import AdminPagesNav from "../../components/admin/pagesNav";
 import Footer from "../../components/footer";
@@ -40,10 +40,9 @@ const About = (props: IAbout) => {
   const updateAbout = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
-      console.log(content);
-      //   await IndexAPI.put(`/admin/about`, {
-      //     content,
-      //   });
+      await IndexAPI.put(`/admin/about`, {
+        content,
+      });
     } catch (err) {
       console.log(err);
     }
@@ -73,10 +72,7 @@ const About = (props: IAbout) => {
               {/* About content input field */}
               <Grid sx={{ margin: "50px 20vw" }}>
                 <Editor
-                  // onChange={(e) => setContent(e.target.value)}
                   apiKey={process.env.NEXT_PUBLIC_TINYMCE}
-                  onInit={(e, editor) => (editorRef.current = editor)}
-                  initialValue={content}
                   init={{
                     height: 350,
                     menubar: false,
@@ -100,20 +96,17 @@ const About = (props: IAbout) => {
                       "wordcount",
                     ],
                     toolbar:
-                      "undo redo | blocks | " +
-                      "bold italic forecolor | alignleft aligncenter " +
-                      "alignright alignjustify | bullist numlist outdent indent | " +
-                      "removeformat | help",
+                      "undo redo | blocks | code | " +
+                      "alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | " +
+                      "removeformat | bold italic forecolor | help",
                     content_style:
                       "body { font-family:Helvetica,Arial,sans-serif; font-size:12px }",
                   }}
-                />
-                {/* <textarea
-                  className="full-width"
-                  onChange={(e) => setContent(e.target.value)}
                   value={content}
-                  rows={10}
-                /> */}
+                  onEditorChange={(c: string, editor: any) => {
+                    setContent(c);
+                  }}
+                />
               </Grid>
               {/* About form submit button */}
               <Grid sx={{ textAlign: "center" }}>

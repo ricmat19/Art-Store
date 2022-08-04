@@ -64,10 +64,11 @@ const onSubmit = (
 // });
 
 //Admin create blog post functional component
-const AdminAddBlogPost = () => {
+const AdminAddBlogPost = (props: ICreateBlogForm) => {
   //Admin create blog post states
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
   const [image, setImage] = useState<File>();
+  const [content, setContent] = useState<string>(props.content);
 
   const editorRef = useRef(null);
 
@@ -167,10 +168,7 @@ const AdminAddBlogPost = () => {
                     <Grid>
                       <label>Content:</label>
                       <Editor
-                        // onChange={(e) => setContent(e.target.value)}
                         apiKey={process.env.NEXT_PUBLIC_TINYMCE}
-                        onInit={(e, editor) => (editorRef.current = editor)}
-                        initialValue={initialValues.content}
                         init={{
                           height: 350,
                           menubar: false,
@@ -194,20 +192,17 @@ const AdminAddBlogPost = () => {
                             "wordcount",
                           ],
                           toolbar:
-                            "undo redo | blocks | " +
-                            "bold italic forecolor | alignleft aligncenter " +
-                            "alignright alignjustify | bullist numlist outdent indent | " +
-                            "removeformat | help",
+                            "undo redo | blocks | code | " +
+                            "alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | " +
+                            "removeformat | bold italic forecolor | help",
                           content_style:
                             "body { font-family:Helvetica,Arial,sans-serif; font-size:12px }",
                         }}
+                        value={content}
+                        onEditorChange={(c: string, editor: any) => {
+                          setContent(c);
+                        }}
                       />
-                      {/* <Field
-                        as="textarea"
-                        className="full-width"
-                        rows={50}
-                        name="content"
-                      /> */}
                       <ErrorMessage name="content" component="div">
                         {(errorMsg) => (
                           <Grid className="errorMsg">{errorMsg}</Grid>
