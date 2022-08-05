@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Modal, Grid, MenuItem } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Editor } from "@tinymce/tinymce-react";
+import { useRef } from "react";
 // import * as Yup from "yup";
 
 //Admin create help article prop interface
@@ -10,7 +12,7 @@ interface IAdminCreateHelpArticle {
   category: string;
   open: boolean;
   handleClose: () => void;
-  lecture: string | undefined;
+  content: string;
 }
 interface ICreateHelpArticleForm {
   title: string;
@@ -35,7 +37,7 @@ const onSubmit = async (
   values: ICreateHelpArticleForm,
   onSubmitProps: { resetForm: () => void }
 ) => {
-  await IndexAPI.post(`/admin/help/${values.category}`, {
+  await IndexAPI.post(`/admin/help/${values.selectedSection}`, {
     title: values.title,
     article: values.article,
     selectedSection: values.selectedSection,
@@ -54,6 +56,9 @@ const onSubmit = async (
 const AdminCreateHelpArticleModal = (props: IAdminCreateHelpArticle) => {
   //AdminCreateHelpArticleModal state
   const [sections, setSections] = useState<string[]>([]);
+  const [content, setContent] = useState<string>(props.content);
+
+  const editorRef = useRef(null);
 
   //Set the component's sections based on the category property provided
   useEffect(() => {
@@ -140,7 +145,7 @@ const AdminCreateHelpArticleModal = (props: IAdminCreateHelpArticle) => {
                   >
                     {/* Display the article lecture */}
                     <Grid className="admin-form-title">
-                      <h1 className="align-center">Article: {props.lecture}</h1>
+                      <h1 className="align-center">Article:</h1>
                     </Grid>
                     <Grid
                       sx={{
@@ -178,16 +183,13 @@ const AdminCreateHelpArticleModal = (props: IAdminCreateHelpArticle) => {
                         </Grid>
                         <Grid>
                           {/* Admin create help article section drop-down input field */}
-                          <Field type="select" className="type-selector">
-                            <MenuItem value="">
-                              <em>None</em>
-                            </MenuItem>
-
+                          <Field as="select" name="selectedSection" className="type-selector">
+                            <option value="">None</option>
                             {sections.map((section: string) => {
                               return (
-                                <MenuItem key={section} value={section}>
+                                <option key={section} value={section}>
                                   {section}
-                                </MenuItem>
+                                </option>
                               );
                             })}
                           </Field>
@@ -204,7 +206,43 @@ const AdminCreateHelpArticleModal = (props: IAdminCreateHelpArticle) => {
                       <label>Article:</label>
                       {/* Admin create help article description textarea */}
                       <Grid sx={{ display: "grid" }}>
-                        <Field as="textarea" name="description" rows={20} />
+                        <Editor
+                          apiKey={process.env.NEXT_PUBLIC_TINYMCE}
+                          init={{
+                            height: 350,
+                            menubar: false,
+                            plugins: [
+                              "advlist",
+                              "autolink",
+                              "lists",
+                              "link",
+                              "image",
+                              "charmap",
+                              "anchor",
+                              "searchreplace",
+                              "visualblocks",
+                              "code",
+                              "fullscreen",
+                              "insertdatetime",
+                              "media",
+                              "table",
+                              "preview",
+                              "help",
+                              "wordcount",
+                            ],
+                            toolbar:
+                              "undo redo | blocks | code | " +
+                              "alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | " +
+                              "removeformat | bold italic forecolor | help",
+                            content_style:
+                              "body { font-family:Helvetica,Arial,sans-serif; font-size:12px }",
+                          }}
+                          value={content}
+                          onEditorChange={(c: string, editor: any) => {
+                            setContent(c);
+                          }}
+                        />
+                        {/* <Field as="textarea" name="description" rows={20} /> */}
                         <ErrorMessage name="description" component="div">
                           {(errorMsg) => (
                             <Grid className="errorMsg">{errorMsg}</Grid>
