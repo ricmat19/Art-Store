@@ -118,12 +118,17 @@ const AdminCreateHelpArticleModal = (props: IAdminCreateHelpArticle) => {
                   validateOnBlur={false}
                   validateOnMount
                   onSubmit={async (values: ICreateHelpArticleForm) => {
-                    await IndexAPI.post(`/admin/help/${values.selectedSection}`, {
-                      title: values.title,
-                      category: props.category,
-                      article: content,
-                      selectedSection: values.selectedSection,
-                    });
+                    await IndexAPI.post(
+                      `/admin/help/${values.selectedSection}`,
+                      {
+                        title: values.title,
+                        category: props.category,
+                        article: content,
+                        selectedSection: values.selectedSection,
+                      }
+                    );
+
+                    props.handleClose();
                   }}
                 >
                   {/* Admin create help article form */}
@@ -154,11 +159,7 @@ const AdminCreateHelpArticleModal = (props: IAdminCreateHelpArticle) => {
                         <label>Title: </label>
                         {/* Admin create help article title input */}
                         <Grid sx={{ display: "grid" }}>
-                          <Field
-                            as="input"
-                            type="text"
-                            name="title"
-                          />
+                          <Field as="input" type="text" name="title" />
                           <ErrorMessage name="title" component="div">
                             {(errorMsg) => (
                               <Grid className="errorMsg">{errorMsg}</Grid>
@@ -182,7 +183,7 @@ const AdminCreateHelpArticleModal = (props: IAdminCreateHelpArticle) => {
                             name="selectedSection"
                             className="type-selector"
                           >
-                            <option value="">None</option>
+                            <option value="" disabled hidden>None</option>
                             {sections.map((section: string) => {
                               return (
                                 <option key={section} value={section}>
@@ -250,11 +251,7 @@ const AdminCreateHelpArticleModal = (props: IAdminCreateHelpArticle) => {
                     </Grid>
                     {/* Admin submit create help article form */}
                     <Grid className="align-center">
-                      <button
-                        type="submit"
-                      >
-                        Submit
-                      </button>
+                      <button type="submit">Submit</button>
                     </Grid>
                   </Form>
                 </Formik>

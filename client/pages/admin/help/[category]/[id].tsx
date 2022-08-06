@@ -1,10 +1,11 @@
 import IndexAPI from "../../../../apis/indexAPI";
 import { useEffect, useState } from "react";
-import router, { NextRouter, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import AdminMainNav from "../../../../components/admin/mainNav";
 import AdminPagesNav from "../../../../components/admin/pagesNav";
+import AdminDeleteHelp from "../../../../components/admin/help/deleteHelpArticleModal";
 import FooterC from "../../../../components/footer";
-import { Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Editor } from "@tinymce/tinymce-react";
 import { useRef } from "react";
@@ -38,6 +39,10 @@ const AdminHelpArticle = (props: IHelpArticle) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
   const [title, setTitle] = useState<string>(props.helpArticle[0].title);
   const [content, setContent] = useState<string>(props.content);
+  const [deleteHelpArticle, setDeleteHelpArticle] = useState<IHelpArticle[]>(
+    props.helpArticle[0]
+  );
+  const [deleteOpen, setDeleteOpen] = useState(false);
   const [createMonth, setCreateMonth] = useState<number>(0);
   const [createDay, setCreateDay] = useState<number>(0);
   const [createYear, setCreateYear] = useState<number>(0);
@@ -67,6 +72,7 @@ const AdminHelpArticle = (props: IHelpArticle) => {
         setUpdateYear(articleUpdateDate.getFullYear());
 
         setTitle(props.helpArticle[0].title);
+        console.log(deleteHelpArticle);
       } catch (err) {
         console.log(err);
       }
@@ -76,15 +82,44 @@ const AdminHelpArticle = (props: IHelpArticle) => {
     // Re-render if change to date events state
   }, []);
 
+  //Handles the opening/closing of the delete help modal
+  const handleDeleteOpen = () => setDeleteOpen(true);
+  const handleDeleteClose = () => setDeleteOpen(false);
+
+  // Set the product selected to delete and open the product delete modal
+  const displayDeleteModal = () => {
+    handleDeleteOpen();
+  };
+
   //Display component depending on login status
   if (loginStatus) {
     return (
       <Grid>
+        {/* Admin delete Help modal component */}
+        <AdminDeleteHelp
+          deleteHelpArticle={deleteHelpArticle}
+          open={deleteOpen}
+          handleClose={handleDeleteClose}
+        />
         {/* Admin main navigation component */}
         <AdminMainNav />
         {/* Admin pages navigation component */}
         <AdminPagesNav />
         <Grid>
+          <Grid
+            sx={{
+              display: "grid",
+              gap: "10px",
+              margin: "50px 20vw",
+              textAlign: "right",
+            }}
+          >
+            <Grid>
+              <button onClick={displayDeleteModal} className="delete">
+                Delete
+              </button>
+            </Grid>
+          </Grid>
           <Formik
             initialValues={{
               title: props.helpArticle[0].title,

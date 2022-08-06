@@ -156,3 +156,13 @@ export interface IUser {
   linkedIn: string;
   youtube: string;
 }
+
+// Admin create help article prop interface
+export interface IHelpArticle {
+  id: string;
+  title: string;
+  article: string;
+  category: string;
+  create_date: Date;
+  update_date: Date;
+}
