@@ -1,50 +1,52 @@
 /* eslint-disable @next/next/no-img-element */
-import { useState, useEffect } from "react";
+import { useState, useEffect, SetStateAction } from "react";
 import IndexAPI from "../../../apis/indexAPI";
 import { Backdrop, Box, Fade, Modal, Grid, MenuItem } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Editor } from "@tinymce/tinymce-react";
 import { useRef } from "react";
+import { values } from "lodash";
 // import * as Yup from "yup";
+
+interface ICreateHelpArticleForm {
+  title: string;
+  description: string;
+  content: string;
+  category: string;
+  selectedSection: string;
+}
 
 //Admin create help article prop interface
 interface IAdminCreateHelpArticle {
   category: string;
   open: boolean;
   handleClose: () => void;
-  content: string;
-}
-interface ICreateHelpArticleForm {
-  title: string;
-  description: string;
-  article: string;
-  category: string;
-  selectedSection: string;
-  // handleClose: () => void;
 }
 
 //Admin create help article Formik form initial values
 const initialValues = {
   title: "",
   description: "",
-  article: "",
+  content: "",
   category: "",
   selectedSection: "",
 };
 
 //Admin create help article Formik form onSubmit function
-const onSubmit = async (
-  values: ICreateHelpArticleForm,
-  onSubmitProps: { resetForm: () => void }
-) => {
-  await IndexAPI.post(`/admin/help/${values.selectedSection}`, {
-    title: values.title,
-    article: values.article,
-    selectedSection: values.selectedSection,
-  });
+// const onSubmit = async (
+//   values: ICreateHelpArticleForm,
+//   onSubmitProps: { resetForm: () => void }
+// ) => {
+//   console.log(values.title);
+//   console.log(values.selectedSection);
+//   await IndexAPI.post(`/admin/help/${values.selectedSection}`, {
+//     title: values.title,
+//     article: values.content,
+//     selectedSection: values.selectedSection,
+//   });
 
-  onSubmitProps.resetForm();
-};
+//   onSubmitProps.resetForm();
+// };
 
 // //Admin create help article Formik form validation schema
 // const validationSchema = Yup.object({
@@ -56,7 +58,9 @@ const onSubmit = async (
 const AdminCreateHelpArticleModal = (props: IAdminCreateHelpArticle) => {
   //AdminCreateHelpArticleModal state
   const [sections, setSections] = useState<string[]>([]);
-  const [content, setContent] = useState<string>(props.content);
+  // const [title, setTitle] = useState<string>("");
+  const [content, setContent] = useState<string>("");
+  // const [selectedSection, setSelectedSection] = useState<string>("");
 
   const editorRef = useRef(null);
 
@@ -81,6 +85,23 @@ const AdminCreateHelpArticleModal = (props: IAdminCreateHelpArticle) => {
     };
     fetchData();
   }, [props]);
+
+  //Admin function to create help article
+  // const createHelpArticle = async () => {
+  //   try {
+  //     console.log(title);
+  //     console.log(content);
+  //     console.log(selectedSection);
+  //     // await IndexAPI.post(`/admin/help/${values.selectedSection}`, {
+  //     //   title: title,
+  //     //   article: article,
+  //     //   selectedSection: selectedSection,
+  //     // });
+  //     props.handleClose();
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   //Admin create help article modal
   return (
@@ -130,11 +151,17 @@ const AdminCreateHelpArticleModal = (props: IAdminCreateHelpArticle) => {
               >
                 <Formik
                   initialValues={initialValues}
-                  onSubmit={onSubmit}
                   // validationSchema={validationSchema}
                   validateOnChange={false}
                   validateOnBlur={false}
                   validateOnMount
+                  onSubmit={async (values: ICreateHelpArticleForm) => {
+                    await IndexAPI.post(`/admin/help/${values.selectedSection}`, {
+                      title: values.title,
+                      article: content,
+                      selectedSection: values.selectedSection,
+                    });
+                  }}
                 >
                   {/* Admin create help article form */}
                   <Form
@@ -164,7 +191,14 @@ const AdminCreateHelpArticleModal = (props: IAdminCreateHelpArticle) => {
                         <label>Title: </label>
                         {/* Admin create help article title input */}
                         <Grid sx={{ display: "grid" }}>
-                          <Field as="input" type="text" name="title" />
+                          <Field
+                            as="input"
+                            type="text"
+                            name="title"
+                            onEditorChange={(e: {
+                              target: { value: SetStateAction<string> };
+                            }) => setTitle(e.target.value)}
+                          />
                           <ErrorMessage name="title" component="div">
                             {(errorMsg) => (
                               <Grid className="errorMsg">{errorMsg}</Grid>
@@ -183,7 +217,11 @@ const AdminCreateHelpArticleModal = (props: IAdminCreateHelpArticle) => {
                         </Grid>
                         <Grid>
                           {/* Admin create help article section drop-down input field */}
-                          <Field as="select" name="selectedSection" className="type-selector">
+                          <Field
+                            as="select"
+                            name="selectedSection"
+                            className="type-selector"
+                          >
                             <option value="">None</option>
                             {sections.map((section: string) => {
                               return (
@@ -242,7 +280,7 @@ const AdminCreateHelpArticleModal = (props: IAdminCreateHelpArticle) => {
                             setContent(c);
                           }}
                         />
-                        {/* <Field as="textarea" name="description" rows={20} /> */}
+                        {/* <Field as="textarea" name="article" rows={20} /> */}
                         <ErrorMessage name="description" component="div">
                           {(errorMsg) => (
                             <Grid className="errorMsg">{errorMsg}</Grid>
@@ -252,7 +290,12 @@ const AdminCreateHelpArticleModal = (props: IAdminCreateHelpArticle) => {
                     </Grid>
                     {/* Admin submit create help article form */}
                     <Grid className="align-center">
-                      <button type="submit">Submit</button>
+                      <button
+                        type="submit"
+                        // onClick={() => createHelpArticle(content)}
+                      >
+                        Submit
+                      </button>
                     </Grid>
                   </Form>
                 </Formik>
