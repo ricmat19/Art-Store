@@ -19,6 +19,8 @@ interface IHelpArticle {
     title: string;
     article: string;
     category: string;
+    create_date: Date;
+    update_date: Date;
   }[];
   email: string;
 }
@@ -36,6 +38,12 @@ const AdminHelpArticle = (props: IHelpArticle) => {
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
   const [title, setTitle] = useState<string>(props.helpArticle[0].title);
   const [content, setContent] = useState<string>(props.content);
+  const [createMonth, setCreateMonth] = useState<number>(0);
+  const [createDay, setCreateDay] = useState<number>(0);
+  const [createYear, setCreateYear] = useState<number>(0);
+  const [updateMonth, setUpdateMonth] = useState<number>(0);
+  const [updateDay, setUpdateDay] = useState<number>(0);
+  const [updateYear, setUpdateYear] = useState<number>(0);
 
   const editorRef = useRef(null);
 
@@ -48,6 +56,15 @@ const AdminHelpArticle = (props: IHelpArticle) => {
         //Query login status on render
         const loginResponse = await IndexAPI.get(`/login`);
         setLoginStatus(loginResponse.data.data.loggedIn);
+
+        const articleCreateDate = new Date(props.helpArticle[0].create_date);
+        setCreateMonth(articleCreateDate.getMonth() + 1);
+        setCreateDay(articleCreateDate.getDate());
+        setCreateYear(articleCreateDate.getFullYear());
+        const articleUpdateDate = new Date(props.helpArticle[0].update_date);
+        setUpdateMonth(articleUpdateDate.getMonth() + 1);
+        setUpdateDay(articleUpdateDate.getDate());
+        setUpdateYear(articleUpdateDate.getFullYear());
 
         setTitle(props.helpArticle[0].title);
       } catch (err) {
@@ -78,6 +95,8 @@ const AdminHelpArticle = (props: IHelpArticle) => {
                   title: props.helpArticle[0].title,
                   article: props.helpArticle[0].article,
                   category: props.helpArticle[0].category,
+                  create_date: props.helpArticle[0].create_date,
+                  update_date: props.helpArticle[0].update_date,
                 },
               ],
               email: "",
@@ -109,6 +128,18 @@ const AdminHelpArticle = (props: IHelpArticle) => {
             {/* Admin help article Form */}
             <Form>
               <Grid sx={{ display: "grid", gap: "10px", margin: "50px 20vw" }}>
+                <Grid>
+                  <Grid>
+                    <p>
+                      Published: {createMonth}/{createDay}/{createYear}
+                    </p>
+                  </Grid>
+                  <Grid>
+                    <p>
+                      Last Updated: {updateMonth}/{updateDay}/{updateYear}
+                    </p>
+                  </Grid>
+                </Grid>
                 <Grid>
                   {/* Admin help article title input field */}
                   <label>Title:</label>
