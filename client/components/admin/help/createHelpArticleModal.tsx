@@ -5,14 +5,12 @@ import { Backdrop, Box, Fade, Modal, Grid, MenuItem } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Editor } from "@tinymce/tinymce-react";
 import { useRef } from "react";
-import { values } from "lodash";
 // import * as Yup from "yup";
 
 interface ICreateHelpArticleForm {
   title: string;
   description: string;
   content: string;
-  category: string;
   selectedSection: string;
 }
 
@@ -28,25 +26,8 @@ const initialValues = {
   title: "",
   description: "",
   content: "",
-  category: "",
   selectedSection: "",
 };
-
-//Admin create help article Formik form onSubmit function
-// const onSubmit = async (
-//   values: ICreateHelpArticleForm,
-//   onSubmitProps: { resetForm: () => void }
-// ) => {
-//   console.log(values.title);
-//   console.log(values.selectedSection);
-//   await IndexAPI.post(`/admin/help/${values.selectedSection}`, {
-//     title: values.title,
-//     article: values.content,
-//     selectedSection: values.selectedSection,
-//   });
-
-//   onSubmitProps.resetForm();
-// };
 
 // //Admin create help article Formik form validation schema
 // const validationSchema = Yup.object({
@@ -58,9 +39,7 @@ const initialValues = {
 const AdminCreateHelpArticleModal = (props: IAdminCreateHelpArticle) => {
   //AdminCreateHelpArticleModal state
   const [sections, setSections] = useState<string[]>([]);
-  // const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
-  // const [selectedSection, setSelectedSection] = useState<string>("");
 
   const editorRef = useRef(null);
 
@@ -85,23 +64,6 @@ const AdminCreateHelpArticleModal = (props: IAdminCreateHelpArticle) => {
     };
     fetchData();
   }, [props]);
-
-  //Admin function to create help article
-  // const createHelpArticle = async () => {
-  //   try {
-  //     console.log(title);
-  //     console.log(content);
-  //     console.log(selectedSection);
-  //     // await IndexAPI.post(`/admin/help/${values.selectedSection}`, {
-  //     //   title: title,
-  //     //   article: article,
-  //     //   selectedSection: selectedSection,
-  //     // });
-  //     props.handleClose();
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
 
   //Admin create help article modal
   return (
@@ -158,6 +120,7 @@ const AdminCreateHelpArticleModal = (props: IAdminCreateHelpArticle) => {
                   onSubmit={async (values: ICreateHelpArticleForm) => {
                     await IndexAPI.post(`/admin/help/${values.selectedSection}`, {
                       title: values.title,
+                      category: props.category,
                       article: content,
                       selectedSection: values.selectedSection,
                     });
@@ -195,9 +158,6 @@ const AdminCreateHelpArticleModal = (props: IAdminCreateHelpArticle) => {
                             as="input"
                             type="text"
                             name="title"
-                            onEditorChange={(e: {
-                              target: { value: SetStateAction<string> };
-                            }) => setTitle(e.target.value)}
                           />
                           <ErrorMessage name="title" component="div">
                             {(errorMsg) => (
@@ -292,7 +252,6 @@ const AdminCreateHelpArticleModal = (props: IAdminCreateHelpArticle) => {
                     <Grid className="align-center">
                       <button
                         type="submit"
-                        // onClick={() => createHelpArticle(content)}
                       >
                         Submit
                       </button>

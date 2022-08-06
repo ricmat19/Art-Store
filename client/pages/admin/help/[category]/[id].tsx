@@ -114,7 +114,11 @@ const AdminHelpArticle = (props: IHelpArticle) => {
                   {/* Admin help article title input field */}
                   <label>Title:</label>
                   <Grid sx={{ display: "grid" }}>
-                    <Field as="input" className="full-width" name="title" />
+                    <Field
+                      as="input"
+                      name="title"
+                      value={props.helpArticle[0].title}
+                    />
                     <ErrorMessage name="title" component="div">
                       {(errorMsg) => (
                         <Grid className="errorMsg">{errorMsg}</Grid>
@@ -157,7 +161,7 @@ const AdminHelpArticle = (props: IHelpArticle) => {
                         content_style:
                           "body { font-family:Helvetica,Arial,sans-serif; font-size:12px }",
                       }}
-                      value={content}
+                      initialValue={props.helpArticle[0].article}
                       onEditorChange={(c: string, editor: any) => {
                         setContent(c);
                       }}
@@ -182,10 +186,6 @@ const AdminHelpArticle = (props: IHelpArticle) => {
               </Grid>
             </Form>
           </Formik>
-          {/* ? */}
-          <Grid>{props.helpArticle[0].title}</Grid>
-          {/* ? */}
-          <Grid>{props.helpArticle[0].article}</Grid>
         </Grid>
         {/* Footer component */}
         <FooterC />

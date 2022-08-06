@@ -339,8 +339,6 @@ export async function getStaticProps(context: {
     `/admin/help/${category}`
   );
 
-  console.log(categoryArticlesResponse.data.data.categoryArticles);
-
   //Get the cart's current content
   const cartResponse = await IndexAPI.get(`/cart`);
 

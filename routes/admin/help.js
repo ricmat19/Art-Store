@@ -47,7 +47,7 @@ router.post("/admin/help/:category", async (req, res) => {
     const helpArticle = await db.query(
       "INSERT INTO help (category, title, article, section, create_date, update_date) values ($1, $2, $3, $4, $5, $6) RETURNING *",
       [
-        req.params.category,
+        req.body.category,
         req.body.title,
         req.body.article,
         req.body.selectedSection,
@@ -55,6 +55,13 @@ router.post("/admin/help/:category", async (req, res) => {
         new Date(),
       ]
     );
+
+    //Assign the new help article its url
+    await db.query("UPDATE help SET url=$1 WHERE id=$2", [
+      `help/${helpArticle.rows[0].category}/${helpArticle.rows[0].id}`,
+      helpArticle.rows[0].id,
+    ]);
+
     res.status(201).json({
       status: "success",
       results: helpArticle.rows.length,
