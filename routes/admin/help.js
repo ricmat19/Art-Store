@@ -77,10 +77,24 @@ router.post("/admin/help/:category", async (req, res) => {
 //Update a help article
 router.put("/admin/help/:category/:id", async (req, res) => {
   try {
-    const helpArticle = await db.query(
-      "UPDATE help SET article=$1, update_date=$2 WHERE id=$3",
-      [req.body.content, new Date(), req.params.id]
-    );
+
+    let helpArticle = {};
+    if (req.body.title && req.body.content) {
+      helpArticle = await db.query(
+        "UPDATE help SET title=$1, article=$2, update_date=$3 WHERE id=$4",
+        [req.body.title, req.body.content, new Date(), req.params.id]
+      );
+    } else if (req.body.title) {
+      helpArticle = await db.query(
+        "UPDATE help SET title=$1, update_date=$2 WHERE id=$3",
+        [req.body.title, new Date(), req.params.id]
+      );
+    } else {
+      helpArticle = await db.query(
+        "UPDATE help SET content=$1, update_date=$2 WHERE id=$3",
+        [req.body.content, new Date(), req.params.id]
+      );
+    }
 
     res.status(201).json({
       status: "success",

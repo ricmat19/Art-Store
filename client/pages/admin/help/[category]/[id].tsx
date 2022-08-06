@@ -23,40 +23,6 @@ interface IHelpArticle {
   email: string;
 }
 
-//Admin create help article Formik form initial values
-const initialValues = {
-  title: "",
-  content: "",
-  helpArticle: [
-    {
-      id: "",
-      title: "",
-      article: "",
-      category: "",
-    },
-  ],
-  email: "",
-};
-
-//Admin course Formik form onSubmit function
-const onSubmit = async (
-  values: IHelpArticle,
-  onSubmitProps: { resetForm: () => void }
-) => {
-  // Admin create/update help article on submit
-  await IndexAPI.put(
-    `/admin/help/${values.helpArticle[0].category}/${values.helpArticle[0].id}`,
-    {
-      title: values.title,
-      content: values.content,
-    }
-  );
-  //Direct to the help article's category page on submit
-  await router.push(`/admin/help/${values.helpArticle[0].category}`);
-
-  onSubmitProps.resetForm();
-};
-
 // //Admin help article Formik form validation schema
 // const validationSchema = Yup.object({
 //   email: Yup.string()
@@ -68,6 +34,7 @@ const onSubmit = async (
 const AdminHelpArticle = (props: IHelpArticle) => {
   // Admin help article states
   const [loginStatus, setLoginStatus] = useState<boolean>(true);
+  const [title, setTitle] = useState<string>(props.helpArticle[0].title);
   const [content, setContent] = useState<string>(props.content);
 
   const editorRef = useRef(null);
@@ -81,6 +48,8 @@ const AdminHelpArticle = (props: IHelpArticle) => {
         //Query login status on render
         const loginResponse = await IndexAPI.get(`/login`);
         setLoginStatus(loginResponse.data.data.loggedIn);
+
+        setTitle(props.helpArticle[0].title);
       } catch (err) {
         console.log(err);
       }
@@ -100,8 +69,38 @@ const AdminHelpArticle = (props: IHelpArticle) => {
         <AdminPagesNav />
         <Grid>
           <Formik
-            initialValues={initialValues}
-            onSubmit={onSubmit}
+            initialValues={{
+              title: props.helpArticle[0].title,
+              content: props.helpArticle[0].content,
+              helpArticle: [
+                {
+                  id: props.helpArticle[0].id,
+                  title: props.helpArticle[0].title,
+                  article: props.helpArticle[0].article,
+                  category: props.helpArticle[0].category,
+                },
+              ],
+              email: "",
+            }}
+            onSubmit={async (
+              values: IHelpArticle,
+              onSubmitProps: { resetForm: () => void }
+            ) => {
+              // Admin create/update help article on submit
+              await IndexAPI.put(
+                `/admin/help/${values.helpArticle[0].category}/${values.helpArticle[0].id}`,
+                {
+                  title: values.title,
+                  content: content,
+                }
+              );
+              //Direct to the help article's category page on submit
+              await router.push(
+                `/admin/help/${values.helpArticle[0].category}`
+              );
+
+              onSubmitProps.resetForm();
+            }}
             // validationSchema={validationSchema}
             validateOnChange={false}
             validateOnBlur={false}
@@ -114,11 +113,7 @@ const AdminHelpArticle = (props: IHelpArticle) => {
                   {/* Admin help article title input field */}
                   <label>Title:</label>
                   <Grid sx={{ display: "grid" }}>
-                    <Field
-                      as="input"
-                      name="title"
-                      value={props.helpArticle[0].title}
-                    />
+                    <Field as="input" name="title" />
                     <ErrorMessage name="title" component="div">
                       {(errorMsg) => (
                         <Grid className="errorMsg">{errorMsg}</Grid>
@@ -162,6 +157,7 @@ const AdminHelpArticle = (props: IHelpArticle) => {
                           "body { font-family:Helvetica,Arial,sans-serif; font-size:12px }",
                       }}
                       initialValue={props.helpArticle[0].article}
+                      value={content}
                       onEditorChange={(c: string, editor: any) => {
                         setContent(c);
                       }}
