@@ -20,10 +20,10 @@ const About = (props: IAbout) => {
   return (
     <Grid>
       <Head>
-        <title>artHouse19-About</title>
+        <title>artHouse86-About</title>
         <meta
           name="description"
-          content="About the artHouse19 and its creator."
+          content="About the artHouse86 and its creator."
         ></meta>
       </Head>
       {/* Main navigation component */}

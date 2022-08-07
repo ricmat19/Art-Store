@@ -105,7 +105,7 @@ const ProductDetails = (props: IProductDetails) => {
   return (
     <Grid>
       <Head>
-        {/* <title>artHouse19-{product.title}</title>
+        {/* <title>artHouse86-{product.title}</title>
         <meta name="description" content={product.title}></meta> */}
       </Head>
       {/* Add to cart modal component */}

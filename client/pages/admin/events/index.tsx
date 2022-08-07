@@ -69,7 +69,7 @@ const AdminEvents = (props: IAdminEvents) => {
     return (
       <Grid>
         <Head>
-          <title>artHouse19-Admin Events</title>
+          <title>artHouse86-Admin Events</title>
         </Head>
         {/* Day modal component */}
         <AdminDayModal

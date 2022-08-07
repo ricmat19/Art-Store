@@ -301,7 +301,7 @@ const MainNav = (props: ICartQty) => {
                 <span className="logo">
                   <span className="logo-first">a</span>rt
                   <span className="logo-first">H</span>ouse
-                  <span className="logo-first">19</span>
+                  <span className="logo-first">86</span>
                 </span>
               </Grid>
             </Grid>
@@ -564,7 +564,7 @@ const MainNav = (props: ICartQty) => {
               <span className="logo">
                 <span className="logo-first">a</span>rt
                 <span className="logo-first">H</span>ouse
-                <span className="logo-first">19</span>
+                <span className="logo-first">86</span>
               </span>
             </Grid>
             <Grid xs={8} container sx={{ alignContent: "center" }}>

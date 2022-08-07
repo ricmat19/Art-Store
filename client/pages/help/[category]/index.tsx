@@ -42,7 +42,7 @@ const HelpCategory = (props: IHelpCategory) => {
   return (
     <Grid>
       <Head>
-        <title>artHouse19-Help</title>
+        <title>artHouse86-Help</title>
       </Head>
       <MainNav cartQty={props.cartQty} />
       <PagesNav />

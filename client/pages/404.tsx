@@ -15,7 +15,7 @@ const PageNotFound = (props: IPageNotFound) => {
   return (
     <Grid>
       <Head>
-        <title>artHouse19-404</title>
+        <title>artHouse86-404</title>
       </Head>
       {/* Main navigation component */}
       <MainNav cartQty={props.cartQty} />

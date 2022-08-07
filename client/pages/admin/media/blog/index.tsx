@@ -125,7 +125,7 @@ const AdminBlog = (props: IAdminBlog) => {
     return (
       <Grid>
         <Head>
-          <title>artHouse19-Admin Blog</title>
+          <title>artHouse86-Admin Blog</title>
         </Head>
         {/* Admin delete blog post modal component */}
         <AdminDeleteBlog

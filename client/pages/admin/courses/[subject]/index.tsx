@@ -124,7 +124,7 @@ const AdminCourseSubject = (props: IAdminCourseSubject) => {
     return (
       <Grid>
         <Head>
-          <title>artHouse19-Admin Courses</title>
+          <title>artHouse86-Admin Courses</title>
         </Head>
         {/* Admin delete course modal component */}
         <AdminDeleteCourse

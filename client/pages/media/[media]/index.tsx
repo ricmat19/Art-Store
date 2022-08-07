@@ -79,7 +79,7 @@ const Media = (props: IMedia) => {
   return (
     <Grid>
       <Head>
-        <title>artHouse19-Media</title>
+        <title>artHouse86-Media</title>
       </Head>
       {/* Main navigation component */}
       <MainNav cartQty={props.cartQty} />

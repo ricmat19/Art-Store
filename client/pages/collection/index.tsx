@@ -82,7 +82,7 @@ const Collection = (props: ICollection) => {
   return (
     <Grid>
       <Head>
-        <title>artHouse19-Collection</title>
+        <title>artHouse86-Collection</title>
         <meta name="description" content="Your collection."></meta>
       </Head>
       <CreateCollection

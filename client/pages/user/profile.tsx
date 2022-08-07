@@ -27,7 +27,7 @@ const Profile = (props: IProfile) => {
   return (
     <Grid>
       <Head>
-        <title>artHouse19-Profile</title>
+        <title>artHouse86-Profile</title>
         <meta name="description" content="Your profile."></meta>
       </Head>
       {/* Main navigation component */}

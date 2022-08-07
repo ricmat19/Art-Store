@@ -13,10 +13,10 @@ const Purchases = (props: IPurchases) => {
   return (
     <Grid>
       <Head>
-        <title>artHouse19-Purchase History</title>
+        <title>artHouse86-Purchase History</title>
         <meta
           name="description"
-          content="artHouse19 purchase history page."
+          content="artHouse86 purchase history page."
         ></meta>
       </Head>
       <MainNav cartQty={props.cartQty} />

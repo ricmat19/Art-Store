@@ -149,7 +149,7 @@ const AdminProduct = (props: IProducts) => {
     return (
       <Grid>
         <Head>
-          <title>artHouse19-Admin Products</title>
+          <title>artHouse86-Admin Products</title>
         </Head>
         {/* Admin create product modal component */}
         <AdminAddProduct open={addOpen} handleClose={handleAddClose} />

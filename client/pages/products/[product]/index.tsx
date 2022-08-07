@@ -85,10 +85,10 @@ const Products = (props: IProducts) => {
   return (
     <Grid>
       <Head>
-        <title>artHouse19-Store</title>
+        <title>artHouse86-Store</title>
         <meta
           name="description"
-          content="View a full list of the products available in artHouse19!"
+          content="View a full list of the products available in artHouse86!"
         ></meta>
       </Head>
       {/* Main navigation component */}

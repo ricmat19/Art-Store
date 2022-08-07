@@ -170,7 +170,7 @@ const CourseCurriculum = (props: IAdminCourseCurriculum) => {
           handleClose={handleAddArticleClose}
         />
         <Head>
-          <title>artHouse19-Admin Create Course Curriculum</title>
+          <title>artHouse86-Admin Create Course Curriculum</title>
         </Head>
         {/* Display main navbar */}
         <AdminMainNav />
@@ -251,110 +251,103 @@ const CourseCurriculum = (props: IAdminCourseCurriculum) => {
                       }}
                     >
                       {/* Map out the list of existing course sections */}
-                      {props.courseSections.map(
-                        (section, index) => {
-                          return (
+                      {props.courseSections.map((section, index) => {
+                        return (
+                          <Grid
+                            sx={{
+                              border: "white 2px solid",
+                              padding: "30px",
+                            }}
+                            key={index.toString()}
+                          >
+                            <Grid sx={{ paddingBottom: "50px" }}>
+                              <h2 className="align-left">
+                                Section {index + 1}: {section.section}
+                              </h2>
+                            </Grid>
                             <Grid
                               sx={{
-                                border: "white 2px solid",
-                                padding: "30px",
+                                display: "grid",
+                                gridTemplateColumns: "80% 20%",
+                                paddingBottom: "20px",
                               }}
-                              key={index.toString()}
                             >
-                              <Grid sx={{ paddingBottom: "50px" }}>
-                                <h2 className="align-left">
-                                  Section {index + 1}: {section.section}
-                                </h2>
-                              </Grid>
                               <Grid
                                 sx={{
                                   display: "grid",
-                                  gridTemplateColumns: "80% 20%",
-                                  paddingBottom: "20px",
+                                  gridTemplateColumns: "100px auto",
+                                  marginRight: "10px",
                                 }}
                               >
-                                <Grid
-                                  sx={{
-                                    display: "grid",
-                                    gridTemplateColumns: "100px auto",
-                                    marginRight: "10px",
-                                  }}
-                                >
-                                  <h2 className="align-left">Lecture:</h2>
-                                  <Grid sx={{ display: "grid" }}>
-                                    {/* Section lecture input field */}
-                                    <Field
-                                      as="input"
-                                      type="text"
-                                      name="lecture"
-                                    />
-                                    <ErrorMessage
-                                      name="lecture"
-                                      component="div"
-                                    >
-                                      {(errorMsg) => (
-                                        <Grid className="errorMsg">
-                                          {errorMsg}
-                                        </Grid>
-                                      )}
-                                    </ErrorMessage>
-                                  </Grid>
-                                </Grid>
-                                {/* Create section lecture submit button */}
-                                <Grid
-                                  className="plus-icon align-center"
-                                  // onClick={() => createLecture(section.section)}
-                                >
-                                  Create Lecture
+                                <h2 className="align-left">Lecture:</h2>
+                                <Grid sx={{ display: "grid" }}>
+                                  {/* Section lecture input field */}
+                                  <Field
+                                    as="input"
+                                    type="text"
+                                    name="lecture"
+                                  />
+                                  <ErrorMessage name="lecture" component="div">
+                                    {(errorMsg) => (
+                                      <Grid className="errorMsg">
+                                        {errorMsg}
+                                      </Grid>
+                                    )}
+                                  </ErrorMessage>
                                 </Grid>
                               </Grid>
-                              <hr />
-                              {/* Map course section's lectures */}
-                              {props.courseLectures.map(
-                                (lecture, index) => {
-                                  return lecture.section === section.section ? (
-                                    <Grid>
-                                      <Grid
-                                        key={index}
-                                        sx={{
-                                          display: "grid",
-                                          gridTemplateColumns: "75px auto auto",
-                                          alignItems: "center",
-                                          padding: "20px 0",
-                                        }}
-                                      >
-                                        <Grid>
-                                          <h3>Lecture:</h3>
-                                        </Grid>
-                                        <Grid>
-                                          <h3>{lecture.lecture}</h3>
-                                        </Grid>
-                                        <Grid sx={{ textAlign: "right" }}>
-                                          {/* ? */}
-                                          <Button
-                                            className="plus-icon"
-                                            onClick={(e) =>
-                                              handleContentClick(e, lecture)
-                                            }
-                                          >
-                                            <FontAwesomeIcon icon={faPlus} />
-                                            <Grid sx={{ paddingLeft: "5px" }}>
-                                              Content
-                                            </Grid>
-                                          </Button>
-                                        </Grid>
-                                      </Grid>
-                                      <hr />
-                                    </Grid>
-                                  ) : (
-                                    <Grid key={index}></Grid>
-                                  );
-                                }
-                              )}
+                              {/* Create section lecture submit button */}
+                              <Grid
+                                className="plus-icon align-center"
+                                // onClick={() => createLecture(section.section)}
+                              >
+                                Create Lecture
+                              </Grid>
                             </Grid>
-                          );
-                        }
-                      )}
+                            <hr />
+                            {/* Map course section's lectures */}
+                            {props.courseLectures.map((lecture, index) => {
+                              return lecture.section === section.section ? (
+                                <Grid>
+                                  <Grid
+                                    key={index}
+                                    sx={{
+                                      display: "grid",
+                                      gridTemplateColumns: "75px auto auto",
+                                      alignItems: "center",
+                                      padding: "20px 0",
+                                    }}
+                                  >
+                                    <Grid>
+                                      <h3>Lecture:</h3>
+                                    </Grid>
+                                    <Grid>
+                                      <h3>{lecture.lecture}</h3>
+                                    </Grid>
+                                    <Grid sx={{ textAlign: "right" }}>
+                                      {/* ? */}
+                                      <Button
+                                        className="plus-icon"
+                                        onClick={(e) =>
+                                          handleContentClick(e, lecture)
+                                        }
+                                      >
+                                        <FontAwesomeIcon icon={faPlus} />
+                                        <Grid sx={{ paddingLeft: "5px" }}>
+                                          Content
+                                        </Grid>
+                                      </Button>
+                                    </Grid>
+                                  </Grid>
+                                  <hr />
+                                </Grid>
+                              ) : (
+                                <Grid key={index}></Grid>
+                              );
+                            })}
+                          </Grid>
+                        );
+                      })}
                     </Grid>
                   </Grid>
                 </Grid>

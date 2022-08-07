@@ -17,8 +17,8 @@ const Cart = (props: ICart) => {
   return (
     <Grid>
       <Head>
-        <title>artHouse19-Cart</title>
-        <meta name="description" content="artHouse19 cart page."></meta>
+        <title>artHouse86-Cart</title>
+        <meta name="description" content="artHouse86 cart page."></meta>
       </Head>
       <MainNav cartQty={cart.length} />
       <PagesNav />

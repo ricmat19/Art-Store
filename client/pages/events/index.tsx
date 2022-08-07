@@ -31,7 +31,7 @@ const Events = (props: IEvents) => {
   return (
     <Grid>
       <Head>
-        <title>artHouse19-Events</title>
+        <title>artHouse86-Events</title>
       </Head>
       {/* Day component */}
       <Day

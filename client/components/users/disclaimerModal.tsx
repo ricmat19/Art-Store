@@ -57,12 +57,12 @@ const DisclaimerModal = (props: IModalState) => {
                     <span className="logo">
                       <span className="logo-first">a</span>rt
                       <span className="logo-first">H</span>ouse
-                      <span className="logo-first">19</span>
+                      <span className="logo-first">86</span>
                     </span>
                   </h1>
                   <Grid>
                     &quot;
-                    <span>artHouse19</span>
+                    <span>artHouse86</span>
                     {/* &quot; is a full-stack E-commerce application built using
                     React.js, Node/Express, PostgreSQL, and an AWS S3 Bucket for
                     image storage. This application is strictly for

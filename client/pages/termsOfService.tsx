@@ -24,10 +24,10 @@ const TermsOfService = (props: ITermsOfService) => {
       <Grid sx={{ margin: "30px 100px" }}>
         <Grid>
           <Grid className="page-header">
-            <h1 className="main-title">artHouse19 terms of service</h1>
+            <h1 className="main-title">artHouse86 terms of service</h1>
           </Grid>
           {/* Terms of Service content */}
-          <Grid className="container">
+          <Grid>
             {ReactHtmlParser(props.termsOfServiceContent)}
           </Grid>
         </Grid>

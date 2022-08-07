@@ -42,7 +42,7 @@ const AdminLoginC = () => {
   return (
     <Grid>
       <Head>
-        <title>artHouse19-Login</title>
+        <title>artHouse86-Login</title>
       </Head>
       <Grid className="grid admin-login-main">
         <Grid className="admin-login-div title-div">

@@ -132,8 +132,8 @@ const Checkout = (props: ICheckout) => {
   return (
     <Grid>
       <Head>
-        <title>artHouse19-Checkout</title>
-        <meta name="description" content="artHouse19 checkout page."></meta>
+        <title>artHouse86-Checkout</title>
+        <meta name="description" content="artHouse86 checkout page."></meta>
       </Head>
       {/* Main navigation component */}
       <MainNav cartQty={props.cart.length} />

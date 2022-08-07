@@ -99,7 +99,7 @@ const CollectionGroups = (props: ICollectionGroups) => {
   return (
     <Grid>
       <Head>
-        <title>artHouse19-Collection</title>
+        <title>artHouse86-Collection</title>
         <meta name="description" content="Your collection."></meta>
       </Head>
       {/* Main navigation component */}

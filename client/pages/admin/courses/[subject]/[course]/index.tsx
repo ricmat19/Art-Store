@@ -108,7 +108,7 @@ const AdminCourse = (props: IAdminCourse) => {
     return (
       <Grid>
         <Head>
-          <title>artHouse19-Admin Create Course</title>
+          <title>artHouse86-Admin Create Course</title>
         </Head>
         {/* Display main navbar */}
         <AdminMainNav />

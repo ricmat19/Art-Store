@@ -57,10 +57,10 @@ const Contact = (props: IContact) => {
   return (
     <Grid>
       <Head>
-        <title>artHouse19-Contact</title>
+        <title>artHouse86-Contact</title>
         <meta
           name="description"
-          content="Contact page if you want to reach out to artHouse19"
+          content="Contact page if you want to reach out to artHouse86"
         ></meta>
       </Head>
       {/* Main navigation component */}

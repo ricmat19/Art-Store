@@ -117,7 +117,7 @@ const AdminCreateCourse = () => {
     return (
       <Grid>
         <Head>
-          <title>artHouse19-Admin Create Course</title>
+          <title>artHouse86-Admin Create Course</title>
         </Head>
         {/* Admin main navigation component */}
         <AdminMainNav />

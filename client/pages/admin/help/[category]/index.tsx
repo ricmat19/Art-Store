@@ -75,7 +75,7 @@ const HelpCategory = (props: IHelpCategory) => {
     return (
       <Grid>
         <Head>
-          <title>artHouse19-Admin Help</title>
+          <title>artHouse86-Admin Help</title>
         </Head>
         {/* Admin add help article modal component */}
         <AdminAddHelpModal

@@ -13,7 +13,6 @@ interface IPrivacyPolicy {
 
 // Privacy policy functional component
 const PrivacyPolicy = (props: IPrivacyPolicy) => {
-
   // Privacy policy component
   return (
     <Grid>
@@ -21,12 +20,14 @@ const PrivacyPolicy = (props: IPrivacyPolicy) => {
       <MainNav cartQty={props.cartQty} />
       {/* Pages navigation component */}
       <PagesNav />
-      <Grid>
+      <Grid sx={{ margin: "30px 100px" }}>
         <Grid>
           <h1 className="main-title">privacy policy</h1>
         </Grid>
         {/* Privacy policy content */}
-        <Grid>{ReactHtmlParser(props.privacyPolicyContent)}</Grid>
+        <Grid>
+          {ReactHtmlParser(props.privacyPolicyContent)}
+        </Grid>
       </Grid>
       <Footer />
     </Grid>
